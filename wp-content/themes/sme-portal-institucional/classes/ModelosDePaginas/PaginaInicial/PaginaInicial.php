@@ -26,6 +26,8 @@ class PaginaInicial extends Util
 
 		$this->criaArrayIconesTitulosIcones();
 
+
+
 		// Classe Util
 		$util->montaHtmlLoopPadrao();
 
