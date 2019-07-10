@@ -312,7 +312,7 @@ class PaginaInicial extends Util
 		);
 
 		wp_tag_cloud($args);
-		
+
 		echo '</div>';
 	}
 
