@@ -14,12 +14,16 @@ class PaginaImagemVideo extends Util
 	public function __construct()
 	{
 		$this->page_id = get_the_ID();
+
 		$util = new Util($this->page_id);
+
 		$this->montaHtmlLoopPadrao();
 	}
 
 	public function getImagemOuVideo(){
+
 		$escolha = $this->getCamposPersonalizados('deseja_exibir_imagem_ou_video');
+
 		if ($escolha == 'imagem'){
 			$this->getImagem();
 		}else{
@@ -28,7 +32,9 @@ class PaginaImagemVideo extends Util
 	}
 
 	public function getImagem(){
+
 		$imagem = $this->getCamposPersonalizados('insira_a_imagem_desta_pagina');
+
 			echo '<div class="row mb-4">';
 			echo '<div class="col">';
 			echo '<img src="'.$imagem["url"].'">';
@@ -37,6 +43,7 @@ class PaginaImagemVideo extends Util
 	}
 
 	public function getVideo(){
+
 		$video = $this->getCamposPersonalizados('insira_o_video_desta_pagina');
 		echo '<div class="embed-responsive embed-responsive-16by9 mb-4">';
 		echo apply_filters('the_content', $video);
@@ -45,7 +52,6 @@ class PaginaImagemVideo extends Util
 
 	public function montaHtmlLoopPadrao()
 	{
-
 		echo '<div class="container">';
 		if (have_posts()) : while (have_posts()) : the_post();
 			?>
@@ -67,5 +73,4 @@ class PaginaImagemVideo extends Util
 		wp_reset_query();
 		echo '</div>'; //container
 	}
-
 }
