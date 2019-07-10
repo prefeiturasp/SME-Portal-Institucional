@@ -66,7 +66,6 @@ class PaginaContatoMetabox extends Util
         <?php
 
 		$this->metaBoxAddItensContato($term);
-
         echo '</div>';
         echo '</div>';
     }

@@ -8,7 +8,7 @@ use Classes\ModelosDePaginas\PaginaContato\PaginaContato;
 
 get_header();
 
-$pagina_contato = new PaginaContato();
+$pagina_contato = new PaginaContato(); 
 
 get_footer();
 
