@@ -9,6 +9,7 @@ class PaginaAgendaSecretario extends Util
 {
 	protected $page_id;
 
+
 	public function __construct()
 	{
 		$this->page_id = get_the_ID();

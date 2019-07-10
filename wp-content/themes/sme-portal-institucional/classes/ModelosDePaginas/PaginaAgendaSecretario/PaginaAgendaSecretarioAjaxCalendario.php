@@ -11,6 +11,8 @@ class PaginaAgendaSecretarioAjaxCalendario extends Util
 	public function __construct()
 	{
 		$this->page_id = get_the_ID();
+
+
 	}
 
 

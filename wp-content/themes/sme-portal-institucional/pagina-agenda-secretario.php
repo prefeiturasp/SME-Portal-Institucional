@@ -8,7 +8,7 @@ use Classes\ModelosDePaginas\PaginaAgendaSecretario\PaginaAgendaSecretario;
 
 get_header();
 
-$pagina_agenda_do_secretario = new PaginaAgendaSecretario();
+$pagina_agenda_secretario = new PaginaAgendaSecretario();
 
 get_footer();
 
