@@ -29,7 +29,7 @@ class CptPosts extends Cpt
 		return $columns;
 	}
 
-	function cols_content( $column) {
+	function cols_content($column) {
 		switch ( $column ) {
 			case 'featured_thumb':
 				echo '<a href="' . get_edit_post_link() . '">';
@@ -45,6 +45,9 @@ class CptPosts extends Cpt
 				$posicao_destaque = get_field('posicao_de_destaque_deste_post');
 				echo '<h4>'.$posicao_destaque.'</h4>';
 				break;
+
+
+
 		}
 	}
 
