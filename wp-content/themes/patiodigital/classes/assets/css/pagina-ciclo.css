@@ -1,0 +1,72 @@
+.line-white-top {
+    background: #FFF;
+    height: 25px;
+    left: 185px;
+    position: absolute;
+    top: 0;
+    width: 1px;
+}
+
+.line-white-bot {
+    background: #FFF;
+    height: 25px;
+    left: 80px;
+    position: absolute;
+    width: 1px;
+}
+
+.prototipacao {
+    background: #039BE5;
+}
+
+.prototipacao h3 {
+    font-weight: bold;
+}
+
+.prototipacao .col-lg-2 .border {
+    font-size: 4rem;
+    height: 133px;
+    width: 133px;
+}
+
+.lancamentos {
+    background: #007ECD;
+}
+
+.lancamentos h3 {
+    font-weight: bold;
+}
+
+.lancamentos .col-lg-2 .border {
+    font-size: 4rem;
+    height: 133px;
+    width: 133px;
+}
+
+.desenvolvimento {
+    background: #12739F;
+}
+
+.desenvolvimento h3 {
+    font-weight: bold;
+}
+
+.desenvolvimento .col-lg-2 .border {
+    font-size: 4rem;
+    height: 133px;
+    width: 133px;
+}
+
+.solucoes {
+    background: #109390;
+}
+
+.solucoes h3 {
+    font-weight: bold;
+}
+
+.solucoes .col-lg-2 .border {
+    font-size: 4rem;
+    height: 133px;
+    width: 133px;
+}

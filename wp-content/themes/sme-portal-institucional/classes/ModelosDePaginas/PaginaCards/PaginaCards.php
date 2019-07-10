@@ -1,0 +1,82 @@
+<?php
+
+namespace Classes\ModelosDePaginas\PaginaCards;
+
+use Classes\Lib\Util;
+
+class PaginaCards extends Util
+{
+	protected $page_id;
+	protected $args_cards;
+	protected $query_cards;
+
+	public function __construct()
+	{
+		$this->page_id = get_the_ID();
+
+		$util = new Util($this->page_id);
+		$util->montaHtmlLoopPadrao();
+
+		$this->montaQueryCards();
+		$this->montaHtmlCards();
+	}
+
+	public function montaQueryCards(){
+	    $taxonomia_cards = $this->getCamposPersonalizados('escolha_a_categoria_de_cards_que_deseja_exibir')->slug;
+
+		$this->args_cards = array(
+			'post_type' => 'card',
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'categorias-card',
+					'field'    => 'slug',
+					'terms'    => $taxonomia_cards,
+				),
+			),
+		);
+		$this->query_cards = new \WP_Query( $this->args_cards );
+
+		echo '<pre>';
+		//var_dump($this->query_cards);
+		echo '</pre>';
+
+    }
+
+    public function montaHtmlCards(){
+	    echo '<div class="container">';
+		echo '<div class="row">';
+		echo '<div class="col-lg-12 col-xs-12 d-flex align-content-start flex-wrap">';
+		if ($this->query_cards->have_posts()) : while ($this->query_cards->have_posts()) : $this->query_cards->the_post();
+
+			?>
+            <div class="card mb-3 mr-3 border-0 shadow-sm fonte-catorze mw-20">
+                <div class="card-header bg-primary text-white font-weight-bold">
+                    <a class="text-white stretched-link" href="<?= get_the_permalink() ?>">
+                        <?= get_the_title() ?>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+                        <?= get_the_excerpt() ?>
+                    </div>
+                </div>
+            </div>
+		<?php
+		    endwhile;
+		endif;
+		wp_reset_postdata();
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+
+    }
+
+/*	public function getCamposPersonalizados(){
+	    $this->escolha_a_categoria_de_cards_que_deseja_exibir = get_field('escolha_a_categoria_de_cards_que_deseja_exibir', $this->page_id);
+
+	    echo '<pre>';
+	   var_dump($this->escolha_a_categoria_de_cards_que_deseja_exibir);
+		echo '<pre>';
+    }*/
+
+}

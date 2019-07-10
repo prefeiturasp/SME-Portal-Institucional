@@ -1,0 +1,631 @@
+/*
+Theme Name: SME Portal Institucional
+Description: Novo Portal da Secretaria Municipal de Educação de São Paulo - SME Portal Institucional
+Author: Ollyver Ottoboni
+Author URI: https://ottobonidesign.com.br/
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: sme-portal-institucional
+
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap');
+
+/* =WordPress Core
+-------------------------------------------------------------- */
+.alignnone {
+	margin: 5px 20px 20px 0;
+}
+
+.aligncenter,
+div.aligncenter {
+	display: block;
+	margin: 5px auto 5px auto;
+}
+
+.alignright {
+	float:right;
+	margin: 5px 0 20px 20px;
+}
+
+.alignleft {
+	float: left;
+	margin: 5px 20px 20px 0;
+}
+
+a img.alignright {
+	float: right;
+	margin: 5px 0 20px 20px;
+}
+
+a img.alignnone {
+	margin: 5px 20px 20px 0;
+}
+
+a img.alignleft {
+	float: left;
+	margin: 5px 20px 20px 0;
+}
+
+a img.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wp-caption {
+	background: #fff;
+	border: 1px solid #f0f0f0;
+	max-width: 96%; /* Image does not overflow the content area */
+	padding: 5px 3px 10px;
+	text-align: center;
+}
+
+.wp-caption.alignnone {
+	margin: 5px 20px 20px 0;
+}
+
+.wp-caption.alignleft {
+	margin: 5px 20px 20px 0;
+}
+
+.wp-caption.alignright {
+	margin: 5px 0 20px 20px;
+}
+
+.wp-caption img {
+	border: 0 none;
+	height: auto;
+	margin: 0;
+	max-width: 98.5%;
+	padding: 0;
+	width: auto;
+}
+
+.wp-caption p.wp-caption-text {
+	font-size: 11px;
+	line-height: 17px;
+	margin: 0;
+	padding: 0 4px 5px;
+}
+
+/* Text meant only for screen readers. */
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important; /* Many screen reader and browser combinations announce broken words as they would appear visually. */
+}
+
+.screen-reader-text:focus {
+	background-color: #eee;
+	clip: auto !important;
+	clip-path: none;
+	color: #444;
+	display: block;
+	font-size: 1em;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000;
+	/* Above WP toolbar. */
+}
+
+
+.sticky{}
+.gallery-caption {}
+.bypostauthor{}
+
+/* FIM WordPress Core */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    /* border: solid 1px #ec008c; */
+}
+
+html {
+	font-family: 'Roboto', sans-serif !important;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+	font-weight: 300 !important;
+}
+
+
+body {
+	font-family: 'Roboto', sans-serif !important;
+	overflow-x: hidden;
+	color: #212529;
+	-ms-text-size-adjust:100%;
+	-webkit-text-size-adjust:100%;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	font-style: normal;
+	color: #42474A;
+}
+h1{
+	font-weight: 300;
+	font-size: 32px;
+	line-height: 37px;
+
+}
+
+h2{
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 32px;
+}
+
+h3{
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 24px;
+}
+
+h4{
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 20px;
+}
+
+h5{
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+h6{
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+ul, ol{
+	list-style-position: inside;
+	margin-left: 15px;
+}
+
+.logo-topo {
+	padding: 0 15px 12px 15px !important;
+	margin: 0 auto;
+}
+
+.menu-topo {
+	margin-bottom: 0;
+	background-color: #fff !important;
+	border: none;
+	border-radius: 0;
+	color: #000;
+}
+
+.navbar-default .navbar-nav>li>a {
+	font-size: 15px;
+	color: #fff;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover,
+	.navbar-default .navbar-nav>.active>a:focus {
+	color: #fff;
+	background-color: transparent;
+	text-decoration: underline;
+
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus
+	{
+	color: #fff;
+	background-color: transparent !important;
+}
+
+.navbar-default .navbar-toggle {
+	border: none;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #fff;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus
+	{
+	background-color: transparent;
+}
+
+.navbar .navbar-toggle:hover .icon-bar {
+	background-color: #b3b3b3;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+/* hamburger menu */
+#nav-icon1, #nav-icon2, #nav-icon3, #nav-icon4 {
+	width: 60px;
+	/* height: 45px; */
+	position: relative;
+	margin: 20px 10px;
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	-o-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+	cursor: pointer;
+}
+
+#nav-icon2 span {
+	background: #fff;
+	height: 7px;
+}
+
+/* Estilos para botao subir ancora */
+#toTop {
+    width: 40px;
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 24px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    color: #fff;
+    background: #c80104;
+    -webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    right: 30px;
+    bottom: 100px;
+    display: none;
+    overflow: hidden;
+    text-decoration: none;
+    z-index: 20;
+}
+
+#toTop:hover {
+    background: #43424e;
+    text-decoration: none;
+    color: #fff;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    content: "\f106";
+    cursor: pointer;
+}
+
+/*Configurações para Bootstrap 4*/
+.caret {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	margin-left: 2px;
+	vertical-align: middle;
+	border-top: 4px dashed;
+	border-top: 4px solid \9;
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+}
+
+/*FIM Configurações para Bootstrap 4*/
+
+/*Estilos Front End*/
+
+/* Cores */
+
+.bg-cinza-claro {
+	background: rgba(242, 242, 242, 0.5);
+}
+
+.bg-cinza {
+	background: rgba(242, 242, 242, 0.4);
+}
+
+.bg-cinza-ativo {
+	background: #EAEAEA;
+}
+
+.bg-cinza-escuro {
+	background: #5A5A5A;
+}
+
+.bg-azul-claro {
+	background: rgba(25, 108, 189, 0.4);
+}
+
+.bg-azul-escuro {
+	background: #196CBD;
+}
+
+/* Fontes */
+
+.fonte-dez {
+	font-size: 10px;
+	line-height: 12px;
+}
+
+.fonte-doze {
+	font-size: 12px;
+	line-height: 14px;
+}
+
+.fonte-catorze {
+	font-size: 14px;
+	line-height: 16px;
+}
+
+.fonte-dezesseis {
+	font-size: 16px;
+	line-height: 18px;
+}
+
+.titulos_internas {
+	color: #42474A;
+	font-size: 30px;
+	font-weight: 300;
+	line-height: 35px;
+}
+
+/* Mobile */
+
+@media (max-width: 575.98px) {
+	.mb-xs-4 {
+		margin-bottom: 1.5rem !important;
+	}
+
+	.mb-xs-5 {
+		margin-bottom: 3rem !important;
+	}
+
+	.text-xs-center {
+		text-align: center;
+	}
+
+	.mw-20 {
+		margin-right: 0 !important;
+		max-width: 100% !important;
+	}
+}
+
+/* Areas Menu */
+
+.areas-menu .bg-cinza-ativo .card-body {
+	color: #196CBD;
+	font-weight: bold;
+}
+
+@media (min-width: 992px) {
+	.menu-completo {
+		left: 50%;
+		margin-left: -50vw;
+		position: relative;
+		width: 100vw;
+	}
+}
+
+/* Noticias */
+
+.noticias .card-img-overlay {
+	top: auto;
+}
+
+/* Rodapé */
+
+.area-rodape .form-group .rounded-pill {
+	border-radius: 10px !important;
+}
+
+/* Calendário Agenda */
+
+.calendario-agenda-sec {
+	margin: 0;
+	max-width: 475px;
+	padding: 0;
+}
+
+.ic__container {
+	font-family: 'Roboto', sans-serif;
+	font-size: 100%;
+}
+
+.ic__container {
+	border: 1px solid #C4C4C4;
+	border-radius: 4px;
+	box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+	height: auto;
+}
+
+.ic__container .ic__header {
+	border-bottom: 1px solid #DEE2E6;
+}
+
+.ic__container .ic__header .ic__year .ic__year-select {
+	background: #FFF;
+	border: 0 none;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	color: #196CBD;
+	font-size: 18px;
+	font-weight: bold;
+	height: 45px;
+	padding: 0.5rem;
+	text-align-last: center;
+	width: 100%;
+}
+
+.ic__container .ic__header .ic__month .ic__month-select {
+	background: #196CBD;
+	border: 0 none;
+	color: #FFF;
+	font-size: 18px;
+	font-weight: bold;
+	height: 45px;
+	padding: 0.5rem;
+	text-align-last: center;
+	text-transform: uppercase;
+	width: 100%;
+}
+
+.ic__week-head {
+	font-size: 14px;
+	font-weight: bold;
+	padding: 0.5rem;
+	width: 100%;
+}
+
+.ic__week-head tr td {
+	padding: 0.5rem 0;
+	text-align: center;
+}
+
+.ic__days {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.ic__days tbody tr td {
+	border: 1px solid #C4C4C4;
+	cursor: pointer;
+	height: 60px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	width: 70px;
+}
+
+.ic__days tbody tr td.ic__day-empty {
+	cursor: default;
+}
+
+.ic__days tbody:last-child td {
+	border-bottom: 0;
+}
+
+.ic__days tbody tr td:first-child {
+	border-left: 0;
+}
+
+.ic__days tbody tr td:last-child {
+	border-right: 0;
+}
+
+.ic__days tr:last-child td:first-child {
+	border-bottom-left-radius: 4px;
+}
+
+.ic__days tr:last-child td:last-child {
+	border-bottom-right-radius: 4px;
+}
+
+.ic__days tbody tr td.ic__day-empty {
+	background: #F2F2F2;
+}
+
+.data_agenda {
+	color: #196CBD;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 22px;
+}
+
+.agenda {
+	font-size: 16px;
+}
+
+.agenda .horario {
+	color: #196CBD;
+	font-weight: bold;
+}
+
+.agenda .evento {
+	color: #000;
+}
+
+.agenda .local {
+	color: #5A5A5A;
+}
+
+/* Participação Social */
+
+.mw-20 {
+	max-width: 20%;
+}
+@media ( min-width : 992px) {
+	.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
+		background-color: #fff;
+		border-color: #dee2e6 #dee2e6 #fff;
+	}
+	.menu-menu-superior-container ul li ul li a {
+		border: none !important;
+	}
+
+	.menu-item {
+		margin-bottom: -1px;
+
+	}
+}
+
+@media ( min-width : 769px) {
+	.navbar-nav {
+		margin-top: 15px;
+	}
+}
+
+@media ( max-width : 769px) {
+	.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover,
+	.navbar-default .navbar-nav>.active>a:focus {
+		color: #fff;
+		background-color: #272727;
+		text-decoration: none;
+	}
+
+	.post-categorias{
+		padding-bottom: 10px;
+		margin-bottom:50px;
+	}
+
+	.card{
+		flex-basis:100% !important;
+		margin: 15px 0;
+	}
+
+}
+
+@media (min-width: 768px){
+	.sm-simple a .sub-arrow {
+		right: 0;
+	}
+
+
+}
+
+@media ( min-width : 767px) {
+	.contato-topo {
+		padding-top: 25px !important;
+	}
+	.midias-sociais-topo {
+		padding-top: 20px;
+	}
+
+	.margin-top-paginas{
+		margin-top: 90px;
+	}
+}
+
+
+
