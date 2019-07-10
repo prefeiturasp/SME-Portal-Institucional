@@ -13,12 +13,11 @@ class PaginaCards extends Util
 	public function __construct()
 	{
 		$this->page_id = get_the_ID();
-
 		$util = new Util($this->page_id);
 		$util->montaHtmlLoopPadrao();
-
 		$this->montaQueryCards();
 		$this->montaHtmlCards();
+
 	}
 
 	public function montaQueryCards(){
