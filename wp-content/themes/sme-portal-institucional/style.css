@@ -587,6 +587,42 @@ ul, ol{
 }
 
 @media ( max-width : 769px) {
+	h1{
+		font-style: normal;
+		font-weight: 300;
+		font-size: 18px;
+		line-height: 26px;
+	}
+	h2{
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 24px;
+	}
+	h3{
+		font-style: normal;
+		font-weight: bold;
+		font-size: 14px;
+		line-height: 22px;
+	}
+	h4{
+		font-style: normal;
+		font-weight: bold;
+		font-size: 12px;
+		line-height: 18px;
+	}
+	h5{
+		font-style: normal;
+		font-weight: normal;
+		font-size: 10px;
+		line-height: 20px;
+	}
+	h6{
+		font-style: normal;
+		font-weight: normal;
+		font-size: 8px;
+		line-height: 14px;
+	}
 	.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover,
 	.navbar-default .navbar-nav>.active>a:focus {
 		color: #fff;

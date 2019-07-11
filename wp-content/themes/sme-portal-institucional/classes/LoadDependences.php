@@ -3,7 +3,7 @@
 namespace Classes;
 
 
-use Classes\ModelosDePaginas\PaginaAgendaSecretario\PaginaAgendaSecretario;
+//use Classes\ModelosDePaginas\PaginaAgendaSecretario\PaginaAgendaSecretario;
 use Classes\ModelosDePaginas\PaginaAgendaSecretario\PaginaAgendaSecretarioAjaxCalendario;
 use Classes\ModelosDePaginas\PaginaContato\PaginaContatoMetabox;
 

@@ -322,12 +322,13 @@ function allow_contributor_uploads() {
 	$contributor->add_cap('upload_files');
 }*/
 
-
-
-
 add_image_size( 'admin-list-thumb', 80, 80, false );
 
-
+/*add_action( 'admin_init', 'wps_cpt_support' );
+function wps_cpt_support() {
+	remove_post_type_support( 'page', 'title' );
+	remove_post_type_support( 'page', 'editor' );
+}*/
 
 define('__ROOT__', dirname(dirname(__FILE__)).'/sme-portal-institucional');
 

@@ -24,7 +24,7 @@ class Util
 			?>
 			<div class="row">
 				<div class="col-lg-12 col-xs-12">
-					<h1 class="titulos_internas mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
+					<h1 class="mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
 				</div>
 			</div>
 
@@ -53,7 +53,7 @@ class Util
 			?>
             <div class="row">
                 <div class="col-lg-12 col-xs-12">
-                    <h1 class="titulos_internas mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
+                    <h1 class="mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
                 </div>
             </div>
 

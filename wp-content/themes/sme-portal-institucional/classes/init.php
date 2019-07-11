@@ -24,6 +24,11 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAgendaSecretario/PaginaAg
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAgendaSecretario/PaginaAgendaSecretarioAjaxCalendario.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContatoMetabox.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContato.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunas.php';
+
+require_once __ROOT__.'/classes/ModelosDePaginas/ModelosDePaginaRemoveThemeSupport.php';
+
+//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunasAdminSuporte.php';
 
 
 /* Inicialização CPTs */
