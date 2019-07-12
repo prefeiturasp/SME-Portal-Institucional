@@ -15,12 +15,12 @@ class PaginaContatoMetabox extends Util
 		add_action('save_post', array($this, 'metaBoxSave'));
 
 		// Adicionando metaboxes as Taxonomys
-		add_action( 'caterorias-contato_add_form_fields', array($this, 'metaBoxAddItensContatoTaxonomy'), 10, 2 );
-		//add_action( 'caterorias-contato_edit_form_fields', array($this,'metaBoxAddItensContatoTaxonomy'), 10, 2 );
-		add_action( 'caterorias-contato_edit_form', array($this,'metaBoxAddItensContatoTaxonomy'), 10, 2 );
+		add_action( 'categorias-contato_add_form_fields', array($this, 'metaBoxAddItensContatoTaxonomy'), 10, 2 );
+		//add_action( 'categorias-contato_edit_form_fields', array($this,'metaBoxAddItensContatoTaxonomy'), 10, 2 );
+		add_action( 'categorias-contato_edit_form', array($this,'metaBoxAddItensContatoTaxonomy'), 10, 2 );
 
-		add_action( 'edited_caterorias-contato', array($this,'metaBoxSave'), 10, 2 );
-		add_action( 'create_caterorias-contato', array($this,'metaBoxSave'), 10, 2 );
+		add_action( 'edited_categorias-contato', array($this,'metaBoxSave'), 10, 2 );
+		add_action( 'create_categorias-contato', array($this,'metaBoxSave'), 10, 2 );
 	}
 
 	public function metaBoxAdd(){

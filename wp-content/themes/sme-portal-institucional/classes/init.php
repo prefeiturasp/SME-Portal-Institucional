@@ -39,5 +39,6 @@ $cptCardExtend = new \Classes\Cpt\CptCard();
 
 $cptAgendaSecretario = new \Classes\Cpt\Cpt('agenda', 'agenda', 'Agenda do Secretário', 'Todos os Eventos', 'Eventos', 'Eventos', null, null, null, 'dashicons-calendar-alt');
 $cptAgendaSecretarioExtend = new \Classes\Cpt\CptAgendaSecretario();
-$cptContatoSme = new \Classes\Cpt\Cpt('contato', 'contato', 'Contatos SME', 'Todos os Contatos', 'Contatos', 'Contato', 'caterorias-contato', 'Categorias de Contatos', 'Categoria de Contato','dashicons-email-alt');
+//$cptContatoSme = new \Classes\Cpt\Cpt('contato', 'contato', 'Contatos SME', 'Todos os Contatos', 'Contatos', 'Contato', 'categorias-contato', 'Categorias de Contatos', 'Categoria de Contato','dashicons-email-alt');
+$cptContatoSme = new \Classes\Cpt\Cpt('contato', 'contato', 'Contatos SME', 'Todos os Contatos', 'Contatos', 'Contato', 'categorias-contato', 'Categorias de Contatos', 'Categoria de Contato','dashicons-email-alt');
 $cptContatoSmeExtend = new \Classes\Cpt\CptContato();

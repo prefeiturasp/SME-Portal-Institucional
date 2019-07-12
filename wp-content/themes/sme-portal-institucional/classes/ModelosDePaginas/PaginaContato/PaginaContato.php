@@ -7,7 +7,7 @@ namespace Classes\ModelosDePaginas\PaginaContato;
 class PaginaContato
 {
 
-	const TAXONOMIA = 'caterorias-contato';
+	const TAXONOMIA = 'categorias-contato';
 	protected $args_terms;
 	protected $terms;
 	protected $array_ordenacao;
@@ -124,7 +124,7 @@ class PaginaContato
 			'post_type' => 'contato',
 			'tax_query' => array(
 				array(
-					'taxonomy' => 'caterorias-contato',
+					'taxonomy' => 'categorias-contato',
 					'field' => 'term_id',
 					'terms' => $term_id,
 				)

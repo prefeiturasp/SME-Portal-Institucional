@@ -14,7 +14,7 @@ class PaginaContato
 	public function getTaxonomiasContato(){
 
 		$taxonomia = array(
-			'caterorias-contato',
+			'categorias-contato',
 		);
 
 		$args = array(
@@ -48,7 +48,7 @@ class PaginaContato
 		}
 
 		/*$taxonomia = array(
-			'caterorias-contato',
+			'categorias-contato',
 		);
 
 		$args=array(
@@ -87,7 +87,7 @@ class PaginaContato
 			'post_type' => 'contato',
 			'tax_query' => array(
 				array(
-					'taxonomy' => 'caterorias-contato',
+					'taxonomy' => 'categorias-contato',
 					'field' => 'term_id',
 					'terms' => $term_id,
 				)

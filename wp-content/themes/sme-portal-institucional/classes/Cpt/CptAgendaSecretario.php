@@ -102,7 +102,7 @@ class CptAgendaSecretario extends Cpt
 			'not_found' => __('Nenhum registro encontrado'),
 			'not_found_in_trash' => __('Nenhum registro encontrado na lixeira'),
 			'parent_item_colon' => '',
-			'menu_name' => $this->name.'s'
+			'menu_name' => $this->name
 		);
 
 		$args = array(
