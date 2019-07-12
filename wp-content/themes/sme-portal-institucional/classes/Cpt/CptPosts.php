@@ -7,7 +7,7 @@ class CptPosts extends Cpt
 {
 	public function __construct()
 	{
-		add_filter( 'manage_posts_columns' , array($this, 'exibe_cols' ));
+		add_filter( 'manage_post_posts_columns' , array($this, 'exibe_cols' ));
 		add_action( 'manage_posts_custom_column' , array($this, 'cols_content'), 10, 2 );
 	}
 
