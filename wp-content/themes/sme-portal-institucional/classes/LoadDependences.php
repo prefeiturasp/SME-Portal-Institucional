@@ -53,6 +53,10 @@ class LoadDependences
 		wp_register_style('contatos-sme', STM_THEME_URL . 'classes/assets/css/contatos-sme.css', null, null, 'all');
 		wp_enqueue_style('contatos-sme');
 
+		// Organograma
+		wp_register_style('organograma', STM_THEME_URL . 'classes/assets/css/organograma.css', null, null, 'all');
+		wp_enqueue_style('organograma');
+
 	}
 
 	public function custom_formats_admin(){

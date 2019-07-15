@@ -15,6 +15,7 @@ require_once __ROOT__.'/classes/Cpt/CptPages.php';
 require_once __ROOT__.'/classes/Cpt/CptCard.php';
 require_once __ROOT__.'/classes/Cpt/CptAgendaSecretario.php';
 require_once __ROOT__.'/classes/Cpt/CptContato.php';
+require_once __ROOT__.'/classes/Cpt/CptOrganograma.php';
 
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicial.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaEscolas/PaginaEscolas.php';
@@ -25,6 +26,7 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAgendaSecretario/PaginaAg
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContatoMetabox.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContato.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunas.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganograma.php';
 
 require_once __ROOT__.'/classes/ModelosDePaginas/ModelosDePaginaRemoveThemeSupport.php';
 
@@ -39,6 +41,7 @@ $cptCardExtend = new \Classes\Cpt\CptCard();
 
 $cptAgendaSecretario = new \Classes\Cpt\Cpt('agenda', 'agenda', 'Agenda do Secretário', 'Todos os Eventos', 'Eventos', 'Eventos', null, null, null, 'dashicons-calendar-alt');
 $cptAgendaSecretarioExtend = new \Classes\Cpt\CptAgendaSecretario();
-//$cptContatoSme = new \Classes\Cpt\Cpt('contato', 'contato', 'Contatos SME', 'Todos os Contatos', 'Contatos', 'Contato', 'categorias-contato', 'Categorias de Contatos', 'Categoria de Contato','dashicons-email-alt');
 $cptContatoSme = new \Classes\Cpt\Cpt('contato', 'contato', 'Contatos SME', 'Todos os Contatos', 'Contatos', 'Contato', 'categorias-contato', 'Categorias de Contatos', 'Categoria de Contato','dashicons-email-alt');
 $cptContatoSmeExtend = new \Classes\Cpt\CptContato();
+
+$cptOrganograma = new \Classes\Cpt\Cpt('organograma', 'organograma', 'Organograma', 'Todos os Itens', 'Organogramas', 'Organograma', 'categorias-organograma', 'Categorias de Organograma', 'Categoria de Organograma', 'dashicons-networking' );
