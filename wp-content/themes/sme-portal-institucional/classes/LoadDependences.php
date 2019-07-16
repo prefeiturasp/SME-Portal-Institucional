@@ -57,6 +57,10 @@ class LoadDependences
 		wp_register_style('organograma', STM_THEME_URL . 'classes/assets/css/organograma.css', null, null, 'all');
 		wp_enqueue_style('organograma');
 
+
+		wp_register_script('organograma',  STM_THEME_URL . 'classes/assets/js/organograma.js', array ('jquery'), false, true);
+		wp_enqueue_script('organograma');
+
 	}
 
 	public function custom_formats_admin(){

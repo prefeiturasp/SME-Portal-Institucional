@@ -145,6 +145,7 @@ function custom_formats() {
 	wp_register_style('hover-effects_css', STM_THEME_URL . 'css/hover-effects.css', null, null, 'all');
 	wp_register_style('default_ie', STM_THEME_URL . 'css/ie6.1.1.css', null, null, 'all');
 	wp_register_style('font_awesome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+	wp_register_style('font_awesome2', 'https://use.fontawesome.com/releases/v5.9.0/css/all.css');
 	wp_register_style('style', get_stylesheet_uri(), null, null, 'all');
 
 	//wp_register_script('bootstrap_js', STM_THEME_URL . 'js/bootstrap.js', false, false);
@@ -168,6 +169,7 @@ function custom_formats() {
 	wp_enqueue_style('hover-effects_css');
 	wp_enqueue_style('default_ie');
 	wp_enqueue_style('font_awesome');
+	wp_enqueue_style('font_awesome2');
 	wp_enqueue_style('style');
 
 	wp_enqueue_script('jquery');
@@ -324,11 +326,6 @@ function allow_contributor_uploads() {
 
 add_image_size( 'admin-list-thumb', 80, 80, false );
 
-/*add_action( 'admin_init', 'wps_cpt_support' );
-function wps_cpt_support() {
-	remove_post_type_support( 'page', 'title' );
-	remove_post_type_support( 'page', 'editor' );
-}*/
 
 define('__ROOT__', dirname(dirname(__FILE__)).'/sme-portal-institucional');
 

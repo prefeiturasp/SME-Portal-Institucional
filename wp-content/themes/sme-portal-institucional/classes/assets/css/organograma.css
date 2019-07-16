@@ -11,11 +11,12 @@
 }
 
 .bg-cinza-claro-organo {
-    background: #D1D1D1;
+    background: #D1D1D1 !important;
 }
 
 .bg-cinza-escuro-organo {
-    background: #828282;
+    background: #828282 !important;
+    color: #fff;
 }
 
 .bg-cinza-ativo {
@@ -79,11 +80,14 @@
 
 .card-header h2 a::after {
     content: "\f107";
+    font-family: "Font Awesome 5 Free";
     transform: translateX(5px);
+    display: inline-block;
 }
 
 .card-header h2 a[aria-expanded=true]::after {
     content: "\f106";
+    font-family: "Font Awesome 5 Free";
 }
 
 .borda-itens .card {
