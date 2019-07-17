@@ -90,6 +90,14 @@
     font-family: "Font Awesome 5 Free";
 }
 
+.card-columns{
+    column-count: 4 !important;
+}
+
+.card-colunas{
+    width: 22%;
+}
+
 .borda-itens .card {
     min-height: 6.5em;
     max-width: 13.3em;
@@ -155,6 +163,7 @@
     right: 0;
     transform: rotate(90deg) translateX(-210%);
     width: 22px;
+    z-index: -1;
 }
 
 .borda-itens:nth-child(-n+2).borda-azul-organo::before {

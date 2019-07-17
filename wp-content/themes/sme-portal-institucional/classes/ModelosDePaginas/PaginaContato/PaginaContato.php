@@ -138,11 +138,13 @@ class PaginaContato
         }
     }
 
-	public function exibeCamposCadastrados($term_id, $term_name, $nivel_superior=null){
+	public function exibeCamposCadastrados($term_id, $term_name=null, $nivel_superior=null, $organograma=null){
 
 		$campo_contato = get_post_meta($term_id, 'campo_contato', true);
 
-		echo $this->montaTituloCamposCadastrados($term_name, $nivel_superior);
+		if ($term_name) {
+			echo $this->montaTituloCamposCadastrados($term_name, $nivel_superior);
+		}
 
 		$array_tipo_de_campo=[];
 		$array_valor_do_campo=[];
@@ -167,15 +169,32 @@ class PaginaContato
 			$data[] = array('tipo' => $value, 'valor' => $array_valor_do_campo[$key]);
 		}
 
+		$this->montaHtmlCamposCadastrados($data, $organograma);
+
+
+	}
+
+	public function montaHtmlCamposCadastrados($data, $organograma){
 		if ($data) {
 
+			if ($organograma){
+				$classe_css = 'text-white';
+			}else{
+				$classe_css = '';
+			}
+
 			foreach ($data as $d) {
-				if ($d['tipo'] == 'email'){
-					echo '<p>'.$this->getNomeTipoCampo($d['tipo']).'<a href="mailto: '.esc_attr($d['valor']).'">'.esc_attr($d['valor']).'</a></p>';
+
+				if ($d['tipo'] == 'email') {
+					echo '<p>' . $this->getNomeTipoCampo($d['tipo']) . '<a class="'.$classe_css.'" href="mailto: ' . esc_attr($d['valor']) . '">' . esc_attr($d['valor']) . '</a></p>';
+				}elseif ($d['tipo'] == 'tel'){
+					echo '<p>' . $this->getNomeTipoCampo($d['tipo']) . '<a class="'.$classe_css.'" href="tel: ' . esc_attr($d['valor']) . '">' . esc_attr($d['valor']) . '</a></p>';
 				}else{
 					echo '<p>'.$this->getNomeTipoCampo($d['tipo']).esc_attr($d['valor']).'</p>';
 				}
 			}
+		}else{
+			return;
 		}
 	}
 

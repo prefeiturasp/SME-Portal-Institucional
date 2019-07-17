@@ -27,6 +27,12 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContatoMeta
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContato.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunas.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganograma.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganogramaConselhos.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganogramaSecretario.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganogramaAssessorias.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganogramaCoordenadorias.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganogramaDres.php';
+
 
 require_once __ROOT__.'/classes/ModelosDePaginas/ModelosDePaginaRemoveThemeSupport.php';
 
