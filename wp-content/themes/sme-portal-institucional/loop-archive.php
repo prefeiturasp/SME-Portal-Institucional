@@ -1,7 +1,7 @@
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-    <div class="row container-taxonomias linha-pontilhada-category">
-        <div class="col-12">
+    <section class="row container-taxonomias linha-pontilhada-category">
+        <article class="col-12">
 
             <h3 class="titulo-taxonomias"><i class="fa fa-th-large"></i>
 
@@ -22,9 +22,9 @@
                 <a class="btn btn-success" href="<?php the_permalink(); ?>"><?php echo VEJAMAIS ?></a>
 
             </div>
-        </div>
+        </article>
 
-    </div>
+    </section>
 
 <?php endwhile; else: ?>
 
@@ -40,13 +40,13 @@
 
 <?php //wp_pagenavi(); ?>
 
-<div class="row container-taxonomias padding-bottom-15">
+<section class="row container-taxonomias padding-bottom-15">
 
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
 
         <a class="btn btn-success" href="javascript:history.back();"><?php echo VOLTAR ?></a>
 
-    </div>
+    </article>
 
-</div>
+</section>
 

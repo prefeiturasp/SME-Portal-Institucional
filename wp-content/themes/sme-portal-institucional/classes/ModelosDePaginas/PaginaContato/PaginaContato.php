@@ -35,8 +35,8 @@ class PaginaContato
 	}
 
 	public function abreContainerHtml(){
-		echo '<div class="container">';
-		echo '<div class="row">';
+		echo '<section class="container">';
+		echo '<section class="row">';
 	}
 
 	public function fechareContainerHtml(){
@@ -45,11 +45,11 @@ class PaginaContato
 	}
 
 	public function abreColunas(){
-		echo '<div class="col-6 mb-4">';
+		echo '<article class="col-6 mb-4">';
 	}
 
 	public function fechaColunas(){
-		echo '</div>';
+		echo '</article>';
 	}
 
 	public function getTermosTaxonomiasContato(){

@@ -90,7 +90,7 @@ class PaginaInicial extends Util
 
 	public function montaHtmlMenuIcones()
 	{
-		echo '<div class="tab-content menu-completo bg-cinza-ativo">';
+		echo '<section class="tab-content menu-completo bg-cinza-ativo">';
 
 		foreach ($this->array_icone_titulo_icone_id_menu_icone as $icone) {
 
@@ -106,7 +106,7 @@ class PaginaInicial extends Util
 
 		}
 
-		echo '</div>';
+		echo '</section>';
 
 	}
 
@@ -141,19 +141,23 @@ class PaginaInicial extends Util
 
 	public function montaHtmlLoopNoticiaPrincipal()
 	{
-        echo '<div class="col-lg-6 col-xs-12 mb-xs-4">';
+        echo '<section class="col-lg-6 col-xs-12 mb-xs-4">';
 		if ($this->query_noticias_home_principal->have_posts()) : while ($this->query_noticias_home_principal->have_posts()) : $this->query_noticias_home_principal->the_post();
 			$this->id_noticias_home_principal = get_the_ID();
 			?>
 
-                <div class="card h-100 rounded border-0">
+                <article class="card h-100 rounded border-0">
 					<?php if (has_post_thumbnail()) {
+					    echo '<figure>';
 						the_post_thumbnail('large', array('class' => 'card-img'));
+						echo '</figure>';
 					} else {
+						echo '<figure>';
 						echo '<img src="https://dummyimage.com/535x325/4F4F4F/4F4F4F" class="card-img" alt="">';
+						echo '</figure>';
 					}
 					?>
-                    <div class="card-img-overlay bg-azul-claro h-auto rounded-bottom">
+                    <article class="card-img-overlay bg-azul-claro h-auto rounded-bottom">
                         <h2 class="fonte-catorze font-weight-bold">
                             <a class="text-white" href="<?= get_the_permalink() ?>">
 								<?= get_the_title() ?>
@@ -162,12 +166,12 @@ class PaginaInicial extends Util
                         <p class="card-text text-white fonte-doze">
 							<?= get_the_excerpt() ?>
                         </p>
-                    </div>
-                </div>
+                    </article>
+                </article>
 		<?php
 		endwhile;
 		endif;
-		echo '</div>';
+		echo '</section>';
 		wp_reset_postdata();
 
 	}
@@ -204,11 +208,11 @@ class PaginaInicial extends Util
 	}
 
 	public function abreContainerNoticiasSecundarias(){
-		echo '<div class="col-lg-6 col-xs-12">';
+		echo '<section class="col-lg-6 col-xs-12">';
     }
 
 	public function fechaContainerNoticiasSecundarias(){
-		echo '</div>';
+		echo '</section>';
 	}
 
 	public function montaHtmlLoopNoticiasSecundarias()
@@ -217,8 +221,8 @@ class PaginaInicial extends Util
 		if ($this->query_noticias_home_secundarias->have_posts()) : while ($this->query_noticias_home_secundarias->have_posts()) : $this->query_noticias_home_secundarias->the_post();
 			?>
 
-            <div class="row mb-4 pb-4 border-bottom">
-                <div class="col-lg-12">
+            <article class="row mb-4 pb-4 border-bottom">
+                <article class="col-lg-12">
 					<?php if (has_post_thumbnail()) {
 						the_post_thumbnail('large', array('class' => 'img-fluid rounded float-left mr-4'));
 					}
@@ -231,8 +235,8 @@ class PaginaInicial extends Util
                     <p class="fonte-doze">
 						<?= get_the_excerpt() ?>
                     </p>
-                </div>
-            </div>
+                </article>
+            </article>
 		<?php
 		endwhile;
 		endif;
@@ -246,31 +250,31 @@ class PaginaInicial extends Util
 	public function montaHtmlBotaoMaisNoticias(){
 	    ?>
 
-        <div class="row">
-            <div class="col-lg-12 col-xs-12">
+        <section class="row">
+            <article class="col-lg-12 col-xs-12">
                 <button type="button" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold">Mais
                     notícias
                 </button>
-            </div>
-        </div>
+            </article>
+        </section>
 
         <?php
     }
 
 	public function montaHtmlTwitter(){
 	    ?>
-        <div class="col-lg-6 col-xs-12 mb-xs-4">
+        <section class="col-lg-6 col-xs-12 mb-xs-4">
             <a class="twitter-timeline" data-lang="pt" data-height="395"
                href="https://twitter.com/EducaPrefSP">Tweets by EducaPrefSP</a>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>
+        </section>
         <?php
     }
 
     public function montaHtmlNewsletter(){
 	    ?>
-        <div class="col-lg-6 col-xs-12">
-            <div class="bg-white shadow-sm text-center p-3 mb-3 mb-xs-4">
+        <section class="col-lg-6 col-xs-12">
+            <article class="bg-white shadow-sm text-center p-3 mb-3 mb-xs-4">
                 <h2 class="font-weight-bold mb-2">
                     <i class="fa fa-envelope text-primary"></i>
                     Assine Nossa Newsletter
@@ -279,18 +283,18 @@ class PaginaInicial extends Util
                     Receba nossas novidades e fique por dentro de tudo o que acontece na Secretaria Municipal de Educação.
                 </div>
                 <?= do_shortcode('[contact-form-7 id="18931" title="Newsletter"]'); ?>
-            </div>
+            </article>
 
             <?php $this->montaHtmlNuvemTags(); ?>
 
-        </div>
+        </section>
 
 	    <?php
     }
 
 	public function montaHtmlNuvemTags(){
 
-		echo '<div class="col">';
+		echo '<section class="col">';
 
 		$args = array(
 			'smallest'                  => 8,
@@ -313,39 +317,39 @@ class PaginaInicial extends Util
 
 		wp_tag_cloud($args);
 
-		echo '</div>';
+		echo '</section>';
 	}
 
 	public function abreContainerHtmlIconesMenuIcones()
 	{
 		?>
-        <div class="bg-cinza-claro areas-menu overflow-hidden">
-        <div class="container">
-        <div class="row">
-        <div class="col-lg-12 col-xs-12">
+        <section class="bg-cinza-claro areas-menu overflow-hidden">
+        <article class="container">
+        <article class="row">
+        <article class="col-lg-12 col-xs-12">
 		<?php
 	}
 
 	public function fechaContainerHtmlIconesMenuIcones()
 	{
 		?>
-        </div>
-        </div>
-        </div>
-        </div>
+        </article>
+        </article>
+        </article>
+        </section>
 		<?php
 	}
 
 	public function abreContainerHtmlNoticiasHome()
 	{
 		?>
-        <div class="container mt-5 mb-5 noticias">
-        <div class="row mb-4">
-            <div class="col-lg-12 col-xs-12">
+        <section class="container mt-5 mb-5 noticias">
+        <article class="row mb-4">
+            <article class="col-lg-12 col-xs-12">
                 <h2 class="border-bottom">Notícias</h2>
-            </div>
-        </div>
-        <div class="row">
+            </article>
+        </article>
+        <section class="row">
 		<?php
 	}
 
@@ -353,8 +357,8 @@ class PaginaInicial extends Util
 	{
 		?>
 
-        </div>
-        </div>
+        </section>
+        </section>
 		<?php
 
 	}
@@ -362,18 +366,18 @@ class PaginaInicial extends Util
 	public function abreContainerHtmlTwitterNewsletter()
 	{
 		?>
-        <div class="bg-light pt-5 pb-5 area-social">
-        <div class="container">
-        <div class="row">
+        <section class="bg-light pt-5 pb-5 area-social">
+        <article class="container">
+        <article class="row">
 		<?php
 	}
 
 	public function fechaContainerHtmlTwitterNewsletter()
 	{
 		?>
-        </div>
-        </div>
-        </div>
+        </article>
+        </article>
+        </section>
 
 		<?php
 	}

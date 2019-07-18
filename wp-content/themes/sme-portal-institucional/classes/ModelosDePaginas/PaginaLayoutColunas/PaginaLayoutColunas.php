@@ -32,13 +32,13 @@ class PaginaLayoutColunas extends Util
 	}
 
 	public function abreContainer(){
-		echo '<div class="container">';
-		echo '<div class="row">';
+		echo '<section class="container">';
+		echo '<section class="row">';
 	}
 
 	public function fechaContainer(){
-		echo '</div>';
-		echo '</div>';
+		echo '</section>';
+		echo '</section>';
 	}
 
 
@@ -68,34 +68,34 @@ class PaginaLayoutColunas extends Util
 	}
 
 	public function montaHtmlUmaColuna(){
-		echo '<div class="col-12 col-md-12 col-lg-8 col-xl-8">';
+		echo '<article class="col-12 col-md-12 col-lg-8 col-xl-8">';
 		echo $this->insira_o_conteudo_para_uma_coluna;
-		echo '</div>';
+		echo '</article>';
 
 	}
 	public function montaHtmlDuasColunas(){
-		echo '<div class="col-12 col-md-12 col-lg-5 col-xl-5">';
+		echo '<article class="col-12 col-md-12 col-lg-5 col-xl-5">';
 		echo $this->insira_o_conteudo_da_primeira_coluna_duas_colunas;
-		echo '</div>';
+		echo '</article>';
 
-		echo '<div class="col-12 col-md-12 col-lg-5 col-xl-5">';
+		echo '<article class="col-12 col-md-12 col-lg-5 col-xl-5">';
 		echo $this->insira_o_conteudo_da_segunda_coluna_duas_colunas;
-		echo '</div>';
+		echo '</article>';
 
 	}
 	public function montaHtmlTresColunas(){
 
-		echo '<div class="col-12 col-md-12 col-lg-4 col-xl-4">';
+		echo '<article class="col-12 col-md-12 col-lg-4 col-xl-4">';
 		echo $this->insira_o_conteudo_da_primeira_coluna_tres_colunas;
-		echo '</div>';
+		echo '</article>';
 
-		echo '<div class="col-12 col-md-12 col-lg-4 col-xl-4">';
+		echo '<article class="col-12 col-md-12 col-lg-4 col-xl-4">';
 		echo $this->insira_o_conteudo_da_segunda_coluna_tres_colunas;
-		echo '</div>';
+		echo '</article>';
 
-		echo '<div class="col-12 col-md-12 col-lg-4 col-xl-4">';
+		echo '<article class="col-12 col-md-12 col-lg-4 col-xl-4">';
 		echo $this->insira_o_conteudo_da_terceira_coluna_tres_colunas;
-		echo '</div>';
+		echo '</article>';
 
 	}
 

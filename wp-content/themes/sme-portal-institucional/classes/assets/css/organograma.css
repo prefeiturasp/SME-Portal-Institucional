@@ -80,14 +80,14 @@
 
 .card-header h2 a::after {
     content: "\f107";
-    font-family: "Font Awesome 5 Free";
+    font-family: "FontAwesome";
     transform: translateX(5px);
     display: inline-block;
 }
 
 .card-header h2 a[aria-expanded=true]::after {
     content: "\f106";
-    font-family: "Font Awesome 5 Free";
+    font-family: "FontAwesome";
 }
 
 .card-columns{

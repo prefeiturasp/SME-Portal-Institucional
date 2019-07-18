@@ -1,7 +1,7 @@
 <?php get_header() ?>
-<div class="container fundo-branco">
+<section class="container fundo-branco">
     <?php
 		get_template_part('loop', 'archive');
 	?>
-</div>
+</section>
 <?php get_footer() ?>

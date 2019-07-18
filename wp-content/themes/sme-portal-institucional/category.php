@@ -1,5 +1,5 @@
 <?php get_header() ?>
-<div class="container">
+<section class="container">
 	<?php get_template_part('loop', 'category'); ?>
-    </div>
+    </section>
 <?php get_footer() ?>

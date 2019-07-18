@@ -105,12 +105,12 @@ jQuery(document).ready(function ($) {
             var container_tabela_busca_escola = $('#container_tabela_busca_escola');
 
             container_tabela_busca_escola.append(
-                '<div class="row">'+
+                '<section class="row">'+
                 '<nav class="col">'+
-                '<nav aria-label="Page navigation example">'+
+                '<nav aria-label="Paginação das escolas selecionadas">'+
                 '<ul class="pagination" id="pagination"></ul>'+
                 '</nav>'+
-                '</div>'+
+                '</section>'+
                 '</div>'
 
             );

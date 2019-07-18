@@ -61,19 +61,19 @@
 </head>
 
 <body>
-<div id="main">
-    <div class="bg-light pref-menu fonte-dez">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-xs-12 d-flex justify-content-start">
+<section id="main" role="main">
+    <header class="bg-light pref-menu fonte-dez">
+        <section class="container">
+            <section class="row">
+                <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
                     <ul class="list-inline mt-3">
                         <li class="list-inline-item"><a class="text-secondary" href="">Acesso à informação</a></li>
                         <li class="list-inline-item"><a class="text-secondary" href="">Ouvidoria</a></li>
                         <li class="list-inline-item"><a class="text-secondary" href="">Portal da Transparência</a></li>
                         <li class="list-inline-item"><a class="text-secondary" href="">SP 156</a></li>
                     </ul>
-                </div>
-                <div class="col-lg-6 col-xs-12 d-flex justify-content-end">
+                </article>
+                <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
                     <ul class="list-inline mt-3">
                         <?php
 						$slug = get_queried_object()->post_name;
@@ -95,13 +95,14 @@
                             <a class="text-secondary" href=""><i class="fa fa-youtube"></i></a>
                         </li>
                     </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                </article>
+            </section>
+        </section>
+    </header>
+
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light menu-topo">
-        <div class="container">
+        <section class="container">
 			<?php
 			// Traz o Logotipo cadastrado no Admin
 			$custom_logo_id = get_theme_mod('custom_logo');
@@ -146,5 +147,5 @@
 				));
 				?>
             </div>
-        </div>
+        </section>
     </nav>

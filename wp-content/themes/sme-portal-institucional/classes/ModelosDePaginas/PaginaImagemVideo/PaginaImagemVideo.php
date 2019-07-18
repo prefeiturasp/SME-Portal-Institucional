@@ -35,28 +35,30 @@ class PaginaImagemVideo extends Util
 
 		$imagem = $this->getCamposPersonalizados('insira_a_imagem_desta_pagina');
 
-			echo '<div class="row mb-4">';
-			echo '<div class="col">';
+			echo '<article class="row mb-4">';
+			echo '<article class="col">';
+			echo '<figure>';
 			echo '<img src="'.$imagem["url"].'">';
-			echo '</div>';
-			echo '</div>';
+		    echo '</figure>';
+			echo '</article>';
+			echo '</article>';
 	}
 
 	public function getVideo(){
 
 		$video = $this->getCamposPersonalizados('insira_o_video_desta_pagina');
-		echo '<div class="embed-responsive embed-responsive-16by9 mb-4">';
+		echo '<section class="embed-responsive embed-responsive-16by9 mb-4">';
 		echo apply_filters('the_content', $video);
-		echo '</div>';
+		echo '</section>';
 	}
 
 	public function montaHtmlLoopPadrao()
 	{
-		echo '<div class="container">';
+		echo '<section class="container">';
 		if (have_posts()) : while (have_posts()) : the_post();
 			?>
-			<div class="row">
-				<div class="col-lg-9 col-xs-12">
+			<section class="row">
+				<article class="col-lg-9 col-xs-12">
 					<h1 class="mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
 
 					<?php echo $this->getSubtitulo($this->page_id)?>
@@ -65,12 +67,12 @@ class PaginaImagemVideo extends Util
 						the_post_thumbnail('thumbnail', array('class' => 'ml-5 float-right'));
 					} ?>
 					<?php the_content(); ?>
-				</div>
-			</div>
+				</article>
+			</section>
 		<?php
 		endwhile;
 		endif;
 		wp_reset_query();
-		echo '</div>'; //container
+		echo '</section>'; //container
 	}
 }

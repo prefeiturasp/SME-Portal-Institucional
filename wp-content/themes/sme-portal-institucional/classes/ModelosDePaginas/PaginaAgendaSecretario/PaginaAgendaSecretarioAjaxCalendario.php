@@ -40,14 +40,14 @@ class PaginaAgendaSecretarioAjaxCalendario extends Util
 
 		if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
 			?>
-            <div class="col-lg-12 col-xs-12">
+            <article class="col-lg-12 col-xs-12">
                 <div class="agenda mb-4">
                     <div class="horario d-inline"><?= $this->getCamposPersonalizados('hora_do_evento') ?></div> -
                     <div class="evento d-inline"><?= get_the_title()?></div>
                     <div class="local"><?= $this->getCamposPersonalizados('endereco_do_evento') ?></div>
                 </div>
 
-            </div>
+            </article>
 		<?php
 		endwhile;
 		else:

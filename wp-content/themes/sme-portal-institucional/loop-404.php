@@ -1,6 +1,6 @@
 <br>
-<div class="row container-taxonomias">
-    <div class='col-12'>
+<section class="row container-taxonomias">
+    <article class='col-12'>
         <h2 class="titulo"> <i class="fa fa-exclamation-triangle"></i> <?php echo OOOPS ?></h2>
 
         <p><?php echo PEDIMOSDESCULPAS ?></p>
@@ -27,9 +27,9 @@
             }
             ?>
 
-    </div>
-    <div class="col-12 text-right padding-top-30 padding-bottom-15">
+    </article>
+    <article class="col-12 text-right padding-top-30 padding-bottom-15">
         <a class="btn btn-danger" href="javascript:history.back();"><?php echo VOLTAR ?></a>
-    </div>
-</div>
+    </article>
+</section>
 

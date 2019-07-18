@@ -1,13 +1,13 @@
 <br>
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-    <div class="row container-taxonomias">
-        <div class='col-12'>
+    <section class="row container-taxonomias">
+        <article class='col-12'>
             <h2 class="titulo-taxonomias"><i class="fa fa-th-large"></i>
 				<?php the_title(); ?>
             </h2>
 			<?php the_content(); ?>
-        </div>
-    </div>
+        </article>
+    </section>
 
 	<?php
 	$attachments = get_posts( array(
@@ -19,43 +19,19 @@
 		'exclude'     => get_post_thumbnail_id()
 	) );
 
-
-
-	echo '<pre>';
-	//var_dump($attachments);
-	echo '</pre>';
-
 	if ( $attachments ) {
+
+	    echo '<section id="arquivos-anexos">';
 		echo '<h2>Arquivos Anexos</h2>';
 
 		foreach ( $attachments as $attachment ) {
-
-			$attachment_ollyver = get_post($attachment->ID);
-
-			if ($attachment_ollyver->post_type === 'attachment') {
-
-				echo '<pre>';
-				//var_dump($attachment_ollyver);
-				echo '</pre>';
-			}
-
-			echo '<pre>';
-			echo '<a target="_blank" style="font-size:26px" href="'.$attachment->guid.'"><i class="fa fa-file-text-o fa-3x" aria-hidden="true"></i> '. $attachment->post_title.'</a>';
-			echo '</pre>';
-
-			/*                $class = "post-attachment mime-" . sanitize_title( $attachment->post_mime_type );
-							$thumbimg = wp_get_attachment_link( $attachment->ID, 'thumbnail-size', true );
-							echo '<li class="' . $class . ' data-design-thumbnail">' . $thumbimg . '</li>';*/
+			echo '<p><a target="_blank" style="font-size:26px" href="'.$attachment->guid.'"><i class="fa fa-file-text-o fa-3x" aria-hidden="true"></i> '. $attachment->post_title.'</a></p>';
 		}
+		echo '</section>';
 
 	}
 
-	?>
-
-	<?php comments_template() ?>
-<?php
-
-
+    comments_template();
 
 endwhile;
 else: ?>

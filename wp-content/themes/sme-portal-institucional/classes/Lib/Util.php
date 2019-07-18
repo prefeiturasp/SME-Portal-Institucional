@@ -19,59 +19,63 @@ class Util
 	public function montaHtmlLoopPadrao()
 	{
 
-		echo '<div class="container">';
+		echo '<section class="container">';
 		if (have_posts()) : while (have_posts()) : the_post();
 			?>
-			<div class="row">
-				<div class="col-lg-12 col-xs-12">
+			<article class="row">
+				<article class="col-lg-12 col-xs-12">
 					<h1 class="mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
-				</div>
-			</div>
+				</article>
+			</article>
 
 
-			<div class="row">
-				<div class="col-lg-10 col-xs-12">
+			<article class="row">
+				<article class="col-lg-10 col-xs-12">
 					<?php echo $this->getSubtitulo($this->page_id)?>
 					<?php if (has_post_thumbnail()) {
+					    echo '<figure>';
 						the_post_thumbnail('thumbnail', array('class' => 'ml-5 float-right'));
+						echo '</figure>';
 					} ?>
 					<?php the_content(); ?>
-				</div>
-			</div>
+				</article>
+			</article>
 		<?php
 		endwhile;
 		endif;
 		wp_reset_query();
-		echo '</div>'; //container
+		echo '</section>'; //container
 	}
 
 	public function montaHtmlLoopPadraoSingle()
 	{
 
-		echo '<div class="container">';
+		echo '<section class="container">';
 		if (have_posts()) : while (have_posts()) : the_post();
 			?>
-            <div class="row">
-                <div class="col-lg-12 col-xs-12">
+            <article class="row">
+                <article class="col-lg-12 col-xs-12">
                     <h1 class="mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
-                </div>
-            </div>
+                </article>
+            </article>
 
-            <div class="row">
-                <div class="col-lg-12 col-xs-12 mb-5">
+            <article class="row">
+                <article class="col-lg-12 col-xs-12 mb-5">
 					<?php echo $this->getSubtitulo($this->page_id)?>
 					<?php if (has_post_thumbnail()) {
+						echo '<figure>';
 						the_post_thumbnail('thumbnail', array('class' => 'ml-5 float-right'));
+						echo '</figure>';
 					} ?>
 					<?php the_content(); ?>
-                </div>
-            </div>
+                </article>
+            </article>
 
 		<?php
 		endwhile;
 		endif;
 		wp_reset_query();
-		echo '</div>'; //container
+		echo '</section>'; //container
 	}
 
 	public function getSubtitulo($page_id){

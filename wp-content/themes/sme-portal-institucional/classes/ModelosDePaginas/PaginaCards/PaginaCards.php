@@ -35,47 +35,35 @@ class PaginaCards extends Util
 		);
 		$this->query_cards = new \WP_Query( $this->args_cards );
 
-		echo '<pre>';
-		//var_dump($this->query_cards);
-		echo '</pre>';
-
     }
 
     public function montaHtmlCards(){
-	    echo '<div class="container">';
-		echo '<div class="row">';
-		echo '<div class="col-lg-12 col-xs-12 d-flex align-content-start flex-wrap">';
+	    echo '<section class="container">';
+		echo '<section class="row">';
+		echo '<section class="col-lg-12 col-xs-12 d-flex align-content-start flex-wrap">';
 		if ($this->query_cards->have_posts()) : while ($this->query_cards->have_posts()) : $this->query_cards->the_post();
 
 			?>
-            <div class="card mb-3 mr-3 border-0 shadow-sm fonte-catorze mw-20">
-                <div class="card-header bg-primary text-white font-weight-bold">
+            <article class="card mb-3 mr-3 border-0 shadow-sm fonte-catorze mw-20">
+                <article class="card-header bg-primary text-white font-weight-bold">
                     <a class="text-white stretched-link" href="<?= get_the_permalink() ?>">
                         <?= get_the_title() ?>
                     </a>
-                </div>
-                <div class="card-body">
+                </article>
+                <article class="card-body">
                     <div class="card-text">
                         <?= get_the_excerpt() ?>
                     </div>
-                </div>
-            </div>
+                </article>
+            </article>
 		<?php
 		    endwhile;
 		endif;
 		wp_reset_postdata();
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
+        echo '</section>';
+        echo '</section>';
+        echo '</section>';
 
     }
-
-/*	public function getCamposPersonalizados(){
-	    $this->escolha_a_categoria_de_cards_que_deseja_exibir = get_field('escolha_a_categoria_de_cards_que_deseja_exibir', $this->page_id);
-
-	    echo '<pre>';
-	   var_dump($this->escolha_a_categoria_de_cards_que_deseja_exibir);
-		echo '<pre>';
-    }*/
 
 }
