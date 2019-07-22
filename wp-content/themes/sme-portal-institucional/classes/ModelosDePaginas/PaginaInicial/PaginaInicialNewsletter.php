@@ -12,7 +12,7 @@ class PaginaInicialNewsletter
 
 	public function montaHtmlNewsletter(){
 		?>
-		<section class="col">
+		<section class="col-12">
 			<article class="bg-white shadow-sm text-center p-3 mb-3 mb-xs-4">
 				<h2 class="font-weight-bold mb-2">
 					<i class="fa fa-envelope text-primary"></i>
