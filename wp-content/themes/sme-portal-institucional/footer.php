@@ -7,7 +7,7 @@
             <section class="row">
                 <article class="col-lg-2 col-xs-12 mb-xs-4 d-flex align-items-end">
                     <figure>
-                        <img src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/Logo_SP.png" alt="Prefeitura de SP" class="img-fluid" />
+                        <img width="160px" src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/Logo_SP.png" alt="Prefeitura de SP" class="img-fluid" />
                     </figure>
                 </article>
                 <article class="col-lg-2 col-xs-12 border-left mb-xs-4">
