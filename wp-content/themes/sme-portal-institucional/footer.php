@@ -7,7 +7,7 @@
             <section class="row">
                 <article class="col-lg-2 col-xs-12 mb-xs-4 d-flex align-items-end">
                     <figure>
-                        <img src="http://localhost/furuba-educacao-intranet/wp-content/uploads/2019/06/Logo_SP.png" alt="Prefeitura de SP" class="img-fluid" />
+                        <img src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/Logo_SP.png" alt="Prefeitura de SP" class="img-fluid" />
                     </figure>
                 </article>
                 <article class="col-lg-2 col-xs-12 border-left mb-xs-4">
@@ -43,7 +43,7 @@
                         </li>
                     </ul>
                     <figure>
-                        <img src="http://localhost/furuba-educacao-intranet/wp-content/uploads/2019/06/by-nc-sa.png" alt="Copyright" />
+                        <img src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Copyright" />
                     </figure>
                 </article>
                 <article class="col-lg-4 col-xs-12">

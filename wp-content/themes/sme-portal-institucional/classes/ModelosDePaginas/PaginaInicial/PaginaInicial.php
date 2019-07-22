@@ -32,16 +32,14 @@ class PaginaInicial extends Util
 
 		new PaginaInicialIcones();
 
-        $noticias_home_tags = array('section','article','article', );
-        $noticias_home_css = array('container mt-5 mb-5 noticias','row mb-4','col-lg-12 col-xs-12', );
-        //$this->abreContainer($noticias_home_tags, $noticias_home_css);
-		$this->abreContainerHtmlNoticiasHome();
+		$this->tituloNoticias();
+
+        $noticias_home_tags = array('section','section');
+        $noticias_home_css = array('container mt-5 mb-5 noticias','row');
+        $this->abreContainer($noticias_home_tags, $noticias_home_css);
 
 		new PaginaInicialNoticiasDestaquePrimaria();
 		new PaginaInicialNoticiasDestaqueSecundarias();
-
-		//$this->fechaContainer($noticias_home_tags);
-		$this->fechaContainerHtmlNoticiasHome();
 
 		$twitter_newsletter_nuvem_de_tags_tags = array('section','section','section');
 		$twitter_newsletter_nuvem_de_tags_css = array('bg-light pt-5 pb-5 area-social','container', 'row');
@@ -49,54 +47,31 @@ class PaginaInicial extends Util
 
 		new PaginaInicialTwitter();
 
-        $newsletter_nuvem_de_tags_tags= array('section');
-        $newsletter_nuvem_de_tags_css= array('col-12 col-md-6');
+        $newsletter_nuvem_de_tags_tags= array('section', 'section');
+        $newsletter_nuvem_de_tags_css= array('col-12 col-md-6', 'row');
 		$this->abreContainer($newsletter_nuvem_de_tags_tags, $newsletter_nuvem_de_tags_css);
 		new PaginaInicialNewsletter();
 		new PaginaInicialNuvemDeTags();
 		$this->fechaContainer($newsletter_nuvem_de_tags_tags);
 
 		$this->fechaContainer($twitter_newsletter_nuvem_de_tags_tags);
+		$this->fechaContainer($noticias_home_tags);
 
     }
 
     public function tituloNoticias(){
 	    ?>
         <section class="container mt-5 mb-5 noticias">
-        <article class="row mb-4">
-            <article class="col-lg-12 col-xs-12">
-                <h2 class="border-bottom">Notícias</h2>
+            <article class="row mb-4">
+                <article class="col-lg-12 col-xs-12">
+                    <h2 class="border-bottom">Notícias</h2>
+                </article>
             </article>
-        </article>
         </section>
         <?php
     }
 
-
-	public function abreContainerHtmlNoticiasHome()
-	{
-		?>
-        <section class="container mt-5 mb-5 noticias">
-        <article class="row mb-4">
-            <article class="col-lg-12 col-xs-12">
-                <h2 class="border-bottom">Notícias</h2>
-            </article>
-        </article>
-        <section class="row">
-		<?php
-	}
-
-	public function fechaContainerHtmlNoticiasHome()
-	{
-		?>
-
-        </section>
-        </section>
-		<?php
-
-	}
-
-	public function abreContainer(array $tags, array $css){
+    public function abreContainer(array $tags, array $css){
 
 		foreach ($tags as $index => $tag){
 			$array_tags[] = $tag.'_'.$index;

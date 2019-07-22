@@ -28,6 +28,21 @@ class Editor
 		// add $cap capability to this role object
 		if (current_user_can('editor')) {
 			$this->role_object->add_cap('edit_theme_options');
+
+			$this->role_object->add_cap( 'read' );
+			$this->role_object->add_cap( 'read_card');
+			$this->role_object->add_cap( 'read_private_cards' );
+			$this->role_object->add_cap( 'edit_card' );
+			$this->role_object->add_cap( 'edit_cards' );
+			$this->role_object->add_cap( 'edit_others_cards' );
+			$this->role_object->add_cap( 'edit_published_cards' );
+			$this->role_object->add_cap( 'publish_cards' );
+			$this->role_object->add_cap( 'delete_others_cards' );
+			$this->role_object->add_cap( 'delete_private_cards' );
+			$this->role_object->add_cap( 'delete_published_cards' );
+
+			$this->role_object->add_cap( 'manage_cards' );
+			$this->role_object->add_cap( 'assign_cards' );
 		}
 	}
 

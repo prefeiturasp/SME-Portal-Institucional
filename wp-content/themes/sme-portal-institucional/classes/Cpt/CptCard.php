@@ -54,7 +54,9 @@ class CptCard extends Cpt
 			'show_in_menu' => true,
 			'query_var' => true,
 			'rewrite' => true,
-			'capability_type' => 'post',
+			'capability_type' => array('card','cards'),
+			//'capabilities' => array('card','cards'),
+			'map_meta_cap'        => true,
 			'has_archive' => true,
 			'hierarchical' => false,
 			'menu_position' => 10,
@@ -66,5 +68,23 @@ class CptCard extends Cpt
 
 		register_post_type($this->cptSlug, $args);
 		flush_rewrite_rules();
+
+		register_taxonomy(
+			'categorias-card',
+			$this->cptSlug,
+			array(
+				"hierarchical" => true,
+				"label" => 'Categoria de Cards',
+				"singular_label" => 'Categoria de Card',
+				'map_meta_cap'        => true,
+				// Definido as capacidades para a taxonomia tag. Se torna uma Tag porque o 'hierarchical'  => false,
+				'capabilities' => array(
+					'manage_terms'=>'manage_cards',
+					'edit_terms'=>'edit_cards',
+					'delete_terms'=>'delete_cards',
+					'assign_terms'=>'assign_cards'
+				)
+			)
+		);
 	}
 }
