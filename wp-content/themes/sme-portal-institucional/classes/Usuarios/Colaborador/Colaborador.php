@@ -27,6 +27,7 @@ class Colaborador
 			$caps = array(
 				'upload_files',
 				'edit_files',
+				'edit_posts',
 				'edit_others_posts',
 				'edit_published_posts',
 				'edit_private_posts',
@@ -42,8 +43,6 @@ class Colaborador
 				'delete_pages',
 				'delete_posts',
 				'delete_published_posts',
-				'edit_posts',
-				'edit_published_posts',
 				'publish_posts',
 				'read_card',
 				'edit_cards',
