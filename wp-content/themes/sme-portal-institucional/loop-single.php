@@ -4,6 +4,7 @@
         <article class='col-12'>
             <h2 class="titulo-taxonomias"><i class="fa fa-th-large"></i>
 				<?php the_title(); ?>
+
             </h2>
 			<?php the_content(); ?>
         </article>

@@ -333,6 +333,8 @@ define('STM_SITE_NAME', get_bloginfo('name'));
 define('STM_SITE_DESCRIPTION', get_bloginfo('description'));
 
 
+
+
 if ($_GET && $_GET['lang'] == 'en') {
 	require_once('includes/en.php');
 } else {

@@ -5,6 +5,7 @@ require_once __ROOT__.'/classes/Lib/Util.php';
 
 require_once __ROOT__.'/classes/Usuarios/Editor/Editor.php';
 require_once __ROOT__.'/classes/Usuarios/Colaborador/Colaborador.php';
+require_once __ROOT__.'/classes/Usuarios/EnviarParaRevisao.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';

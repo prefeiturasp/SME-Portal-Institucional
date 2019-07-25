@@ -55,7 +55,16 @@ class CptCard extends Cpt
 			'query_var' => true,
 			'rewrite' => true,
 			'capability_type' => array('card','cards'),
-			//'capabilities' => array('card','cards'),
+			'capabilities' => array(
+				'edit_post' => 'edit_card',
+				'edit_posts' => 'edit_cards',
+				'edit_published_posts ' => 'edit_published_cards',
+				//'publish_posts' => 'publish_cards',
+				'read_post' => 'read_card',
+				'read_private_posts' => 'read_private_cards',
+				'delete_post' => 'delete_card',
+				'delete_published_posts' => 'delete_published_card',
+			),
 			'map_meta_cap'        => true,
 			'has_archive' => true,
 			'hierarchical' => false,
@@ -63,7 +72,7 @@ class CptCard extends Cpt
 			'menu_icon'   => $this->dashborarIcon,
 			'show_in_rest' => true,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'comments'),
+			'supports' => array('title', 'editor', 'excerpt', 'comments'),
 		);
 
 		register_post_type($this->cptSlug, $args);
@@ -82,7 +91,7 @@ class CptCard extends Cpt
 					'manage_terms'=>'manage_cards',
 					'edit_terms'=>'edit_cards',
 					'delete_terms'=>'delete_cards',
-					'assign_terms'=>'assign_cards'
+					'assign_terms'=>'assign_cards',
 				)
 			)
 		);

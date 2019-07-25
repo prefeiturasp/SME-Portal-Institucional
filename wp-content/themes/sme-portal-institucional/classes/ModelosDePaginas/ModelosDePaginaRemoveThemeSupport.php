@@ -16,6 +16,7 @@ class ModelosDePaginaRemoveThemeSupport
 		add_action( 'admin_init', array($this,'removeThemeSupport' ), 10,2);
 		add_filter( 'theme_page_templates', array($this, 'removePageTemplateForContributor'));
 
+
 	}
 
 	public function removePageTemplateForContributor($pages_templates){
@@ -43,5 +44,4 @@ class ModelosDePaginaRemoveThemeSupport
 		}
 	}
 }
-
 new ModelosDePaginaRemoveThemeSupport();
