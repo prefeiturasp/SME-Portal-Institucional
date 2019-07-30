@@ -25,11 +25,13 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNuve
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaEscolas/PaginaEscolas.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaCards/PaginaCards.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaImagemVideo/PaginaImagemVideo.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContatoMetabox.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContato.php';
+//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContatoMetabox.php';
+//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContato.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContato/ArchiveContatoMetabox.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContato/ArchiveContato.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgenda.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaAjaxCalendario.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganograma.php';
@@ -38,6 +40,8 @@ require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrga
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaAssessorias.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaCoordenadorias.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaDres.php';
+
+
 
 
 require_once __ROOT__.'/classes/ModelosDePaginas/ModelosDePaginaRemoveThemeSupport.php';

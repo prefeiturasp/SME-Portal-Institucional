@@ -1,12 +1,10 @@
 <?php
 
+namespace Classes\TemplateHierarchy\ArchiveContato;
 
-namespace Classes\ModelosDePaginas\PaginaContato;
 
-
-class PaginaContato
+class ArchiveContato
 {
-
 	const TAXONOMIA = 'categorias-contato';
 	protected $args_terms;
 	protected $terms;
@@ -40,12 +38,17 @@ class PaginaContato
 	}
 
 	public function fechareContainerHtml(){
-		echo '</div>';
-		echo '</div>';
+		echo '</section>';
+		echo '</section>';
 	}
 
-	public function abreColunas(){
-		echo '<article class="col-6 mb-4">';
+	public function abreColunas($i){
+		if ($i == 1){
+			echo '<article class="col-12">';
+		}else{
+			echo '<article class="col-6 mb-4">';
+		}
+
 	}
 
 	public function fechaColunas(){
@@ -79,6 +82,7 @@ class PaginaContato
 		);
 
 		$this->terms = get_terms(self::TAXONOMIA, $this->args_terms);
+
 	}
 
 	public function obterQtdeDeNiveis(){
@@ -87,13 +91,12 @@ class PaginaContato
 			$array_qtde_niveis[] = $campo_contato_nivel;
 		}
 		$this->setQtdeNiveis( max($array_qtde_niveis));
-
 	}
 
 	public function percorreNiveis(){
 
 		for ($i = 1; $i <= $this->getQtdeNiveis(); $i++) {
-			$this->abreColunas();
+			$this->abreColunas($i);
 			$this->exibeDadosTaxonomiasContato($i);
 			$this->fechaColunas();
 		}
@@ -102,7 +105,7 @@ class PaginaContato
 
 	public function exibeDadosTaxonomiasContato($nivel){
 
-    	$novo_array = array();
+		$novo_array = array();
 
 		foreach ($this->terms as $term){
 			$campo_contato_nivel = get_post_meta($term->term_id, 'campo_contato_nivel', true);
@@ -112,6 +115,7 @@ class PaginaContato
 		foreach ($novo_array as $array){
 
 			if ($array['ordenacao'] == $nivel) {
+
 				$this->exibeCamposCadastrados($array['termo_id'], $array['termo_nome'], true);
 				$this->getContatosTaxonomia($array['termo_id']);
 			}
@@ -131,12 +135,12 @@ class PaginaContato
 			)
 		);
 
-        $posts_array = get_posts( $args );
+		$posts_array = get_posts( $args );
 
-        foreach ($posts_array as $cpt){
+		foreach ($posts_array as $cpt){
 			$this->exibeCamposCadastrados($cpt->ID, $cpt->post_title);
-        }
-    }
+		}
+	}
 
 	public function exibeCamposCadastrados($term_id, $term_name=null, $nivel_superior=null, $organograma=null){
 
@@ -204,7 +208,7 @@ class PaginaContato
 		}else{
 			return '<h4 class="titulo-nivel-nao-superior">' . $term_name . '</h4>';
 		}
-    }
+	}
 
 	public function getNomeTipoCampo($tipo_de_campo){
 		switch ($tipo_de_campo) {

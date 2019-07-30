@@ -2,10 +2,9 @@
 
 namespace Classes\TemplateHierarchy\ArchiveOrganograma;
 
+use Classes\TemplateHierarchy\ArchiveContato\ArchiveContato;
 
-use Classes\ModelosDePaginas\PaginaContato\PaginaContato;
-
-class ArchiveOrganograma extends PaginaContato
+class ArchiveOrganograma extends ArchiveContato
 {
 	const CPT = 'organograma';
 	const TAXONOMIA = 'categorias-organograma';

@@ -4,6 +4,7 @@ namespace Classes;
 
 use Classes\ModelosDePaginas\PaginaContato\PaginaContatoMetabox;
 use Classes\TemplateHierarchy\ArchiveAgenda\ArchiveAgendaAjaxCalendario;
+use Classes\TemplateHierarchy\ArchiveContato\ArchiveContatoMetabox;
 
 class LoadDependences
 {
@@ -45,8 +46,8 @@ class LoadDependences
 		wp_enqueue_script('jquery-ui-sortable');
 		wp_register_script('ajax-contato-sme',  STM_THEME_URL . 'classes/assets/js/ajax-contato-sme.js', array ('jquery'), false, true);
 		wp_enqueue_script('ajax-contato-sme');
-		add_action('wp_ajax_criaCamposContato', array(new PaginaContatoMetabox(), 'criaCamposContato' ));
-		add_action('wp_ajax_nopriv_criaCamposContato', array(new PaginaContatoMetabox(), 'criaCamposContato'));
+		add_action('wp_ajax_criaCamposContato', array(new ArchiveContatoMetabox(), 'criaCamposContato' ));
+		add_action('wp_ajax_nopriv_criaCamposContato', array(new ArchiveContatoMetabox(), 'criaCamposContato'));
 
 		wp_register_style('contatos-sme', STM_THEME_URL . 'classes/assets/css/contatos-sme.css', null, null, 'all');
 		wp_enqueue_style('contatos-sme');
