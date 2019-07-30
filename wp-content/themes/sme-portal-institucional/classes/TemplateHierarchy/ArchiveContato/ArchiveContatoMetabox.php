@@ -60,7 +60,6 @@ class ArchiveContatoMetabox extends Util
 				<option value="1" <?=($campo_contato_nivel == 1)?'selected':''?> >Nível 1</option>
 				<option value="2" <?=($campo_contato_nivel == 2)?'selected':''?> >Nível 2</option>
 				<option value="3" <?=($campo_contato_nivel == 3)?'selected':''?> >Nível 3</option>
-				<option value="4" <?=($campo_contato_nivel == 4)?'selected':''?> >Nível 4</option>
 			</select>
 		</div>
 		<?php

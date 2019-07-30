@@ -1,19 +1,19 @@
 <?php
-namespace Classes\ModelosDePaginas\PaginaEscolas;
 
-class PaginaEscolas
+namespace Classes\BuscaDeEscolas;
+
+
+class BuscaDeEscolas
 {
-
 	public function __construct()
 	{
 		$this->loadDependencesPublic();
-
 	}
 
 	public function buscaEscola(){
 		?>
 
-		<section class="container">
+        <section class="container">
 
 
             <form id="formulario_busca_escola">
@@ -43,7 +43,7 @@ class PaginaEscolas
             <!--Div que exibira os dados das escolas via AJAX-->
             <section id="container_tabela_busca_escola"></section>
 
-		</section>
+        </section>
 
 		<?php
 	}
@@ -73,4 +73,5 @@ class PaginaEscolas
 
 }
 
-new PaginaEscolas();
+new BuscaDeEscolas();
+

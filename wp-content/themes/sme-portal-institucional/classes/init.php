@@ -22,11 +22,8 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoti
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialTwitter.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNewsletter.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNuvemDeTags.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaEscolas/PaginaEscolas.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaCards/PaginaCards.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaImagemVideo/PaginaImagemVideo.php';
-//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContatoMetabox.php';
-//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContato.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';
@@ -40,6 +37,9 @@ require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrga
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaAssessorias.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaCoordenadorias.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaDres.php';
+
+require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
+require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolas.php';
 
 
 
