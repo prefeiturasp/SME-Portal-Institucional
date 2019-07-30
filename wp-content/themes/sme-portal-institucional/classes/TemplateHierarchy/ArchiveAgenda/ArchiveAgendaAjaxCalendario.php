@@ -1,24 +1,20 @@
 <?php
 
-namespace Classes\ModelosDePaginas\PaginaAgendaSecretario;
+namespace Classes\TemplateHierarchy\ArchiveAgenda;
 
 
 use Classes\Lib\Util;
 
-class PaginaAgendaSecretarioAjaxCalendario extends Util
+class ArchiveAgendaAjaxCalendario extends Util
 {
-
 	public function __construct()
 	{
 		$this->page_id = get_the_ID();
-
-
 	}
-
 
 	public function montaHtmlListaEventos(){
 
-        if ($_POST['data_pt_br']) {
+		if ($_POST['data_pt_br']) {
 
 			$data_recebida_ao_clicar = $_POST['data_pt_br'];
 
@@ -40,14 +36,14 @@ class PaginaAgendaSecretarioAjaxCalendario extends Util
 
 		if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
 			?>
-            <article class="col-lg-12 col-xs-12">
-                <div class="agenda mb-4">
-                    <div class="horario d-inline"><?= $this->getCamposPersonalizados('hora_do_evento') ?></div> -
-                    <div class="evento d-inline"><?= get_the_title()?></div>
-                    <div class="local"><?= $this->getCamposPersonalizados('endereco_do_evento') ?></div>
-                </div>
+			<article class="col-lg-12 col-xs-12">
+				<div class="agenda mb-4">
+					<div class="horario d-inline"><?= $this->getCamposPersonalizados('hora_do_evento') ?></div> -
+					<div class="evento d-inline"><?= get_the_title()?></div>
+					<div class="local"><?= $this->getCamposPersonalizados('endereco_do_evento') ?></div>
+				</div>
 
-            </article>
+			</article>
 		<?php
 		endwhile;
 		else:

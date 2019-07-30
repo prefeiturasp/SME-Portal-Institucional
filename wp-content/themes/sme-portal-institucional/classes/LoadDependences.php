@@ -2,10 +2,8 @@
 
 namespace Classes;
 
-
-//use Classes\ModelosDePaginas\PaginaAgendaSecretario\PaginaAgendaSecretario;
-use Classes\ModelosDePaginas\PaginaAgendaSecretario\PaginaAgendaSecretarioAjaxCalendario;
 use Classes\ModelosDePaginas\PaginaContato\PaginaContatoMetabox;
+use Classes\TemplateHierarchy\ArchiveAgenda\ArchiveAgendaAjaxCalendario;
 
 class LoadDependences
 {
@@ -40,8 +38,8 @@ class LoadDependences
 		wp_register_script('ajax-agenda-secretario',  STM_THEME_URL . 'classes/assets/js/ajax-agenda-secretario.js', array ('jquery'), false, true);
 		wp_enqueue_script('ajax-agenda-secretario');
 		wp_localize_script('ajax-agenda-secretario', 'bloginfo', array('ajaxurl' => admin_url('admin-ajax.php')));
-		add_action('wp_ajax_montaHtmlListaEventos', array(new PaginaAgendaSecretarioAjaxCalendario(), 'montaHtmlListaEventos' ));
-		add_action('wp_ajax_nopriv_montaHtmlListaEventos', array(new PaginaAgendaSecretarioAjaxCalendario(), 'montaHtmlListaEventos'));
+		add_action('wp_ajax_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendario(), 'montaHtmlListaEventos' ));
+		add_action('wp_ajax_nopriv_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendario(), 'montaHtmlListaEventos'));
 
 		// Contatos SME
 		wp_enqueue_script('jquery-ui-sortable');

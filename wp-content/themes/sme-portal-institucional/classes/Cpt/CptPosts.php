@@ -7,29 +7,31 @@ class CptPosts extends Cpt
 {
 	public function __construct()
 	{
-		add_filter( 'manage_post_posts_columns' , array($this, 'exibe_cols' ));
+		add_filter('manage_posts_columns', array($this, 'exibe_cols'), 10, 2);
 		add_action( 'manage_posts_custom_column' , array($this, 'cols_content'), 10, 2 );
 	}
 
 	// add featured thumbnail to admin post columns
-	function exibe_cols($cols, $post_type) {
-		$columns = array(
-			'cb' => '<input type="checkbox" />',
-			'title' => 'Title',
-			'author' => 'Author',
-			'categories' => 'Categories',
-			'tags' => 'Tags',
-			'comments' => '<span class="vers"><div title="Comments" class="comment-grey-bubble"></div></span>',
-			'featured_thumb' => 'Thumbnail',
-			'destaque' => 'Destaque',
-			'posicao_destaque' => 'Posição Destaque',
-			'date' => 'Date',
+	public function exibe_cols($cols, $post_type) {
+		if ($post_type === 'post') {
+			$columns = array(
+				'cb' => '<input type="checkbox" />',
+				'title' => 'Title',
+				'author' => 'Author',
+				'categories' => 'Categories',
+				'tags' => 'Tags',
+				'comments' => '<span class="vers"><div title="Comments" class="comment-grey-bubble"></div></span>',
+				'featured_thumb' => 'Thumbnail',
+				'destaque' => 'Destaque',
+				'posicao_destaque' => 'Posição Destaque',
+				'date' => 'Date',
 
-		);
+			);
+		}
 		return $columns;
 	}
 
-	function cols_content($column) {
+	public function cols_content($column) {
 		switch ( $column ) {
 			case 'featured_thumb':
 				echo '<a href="' . get_edit_post_link() . '">';

@@ -7,12 +7,13 @@ class CptPages extends Cpt
 {
 	public function __construct()
 	{
-		add_filter( 'manage_pages_columns' , array($this, 'exibe_cols' ));
-		add_action( 'manage_pages_custom_column' , array($this, 'cols_content'), 10, 2 );
+		//add_filter( 'manage_pages_columns' , array($this, 'exibe_cols' ));
+		add_filter('manage_pages_columns', array($this, 'exibe_cols_pages'), 10, 2);
+		add_action( 'manage_pages_custom_column' , array($this, 'cols_content_pages'), 10, 2 );
 	}
 
 	// add featured thumbnail to admin post columns
-	function exibe_cols($cols, $post_type) {
+	public function exibe_cols_pages($cols) {
 		$columns = array(
 			'cb' => '<input type="checkbox" />',
 			'title' => 'Title',
@@ -24,7 +25,7 @@ class CptPages extends Cpt
 		return $columns;
 	}
 
-	function cols_content( $column) {
+	public function cols_content_pages( $column) {
 		switch ( $column ) {
 			case 'featured_thumb':
 				echo '<a href="' . get_edit_post_link() . '">';
