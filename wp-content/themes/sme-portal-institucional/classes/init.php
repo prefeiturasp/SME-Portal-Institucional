@@ -24,6 +24,7 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNews
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNuvemDeTags.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaCards/PaginaCards.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaImagemVideo/PaginaImagemVideo.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunas.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';
