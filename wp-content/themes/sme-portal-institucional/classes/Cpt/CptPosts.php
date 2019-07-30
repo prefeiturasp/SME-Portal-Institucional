@@ -27,8 +27,12 @@ class CptPosts extends Cpt
 				'date' => 'Date',
 
 			);
+
+			return $columns;
+		}else{
+			return $cols;
 		}
-		return $columns;
+
 	}
 
 	public function cols_content($column) {

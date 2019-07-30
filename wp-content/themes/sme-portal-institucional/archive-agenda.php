@@ -1,5 +1,4 @@
 <?php
-use Classes\ModelosDePaginas\PaginaAgendaSecretario\PaginaAgendaSecretario;
 
 use Classes\TemplateHierarchy\ArchiveAgenda\ArchiveAgenda;
 

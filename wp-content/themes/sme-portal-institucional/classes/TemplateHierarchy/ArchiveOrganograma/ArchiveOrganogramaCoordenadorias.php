@@ -1,11 +1,10 @@
 <?php
 
-namespace Classes\ModelosDePaginas\PaginaOrganograma;
+namespace Classes\TemplateHierarchy\ArchiveOrganograma;
 
 
-class PaginaOrganogramaCoordenadorias extends PaginaOrganograma
+class ArchiveOrganogramaCoordenadorias extends ArchiveOrganograma
 {
-
 	public function __construct()
 	{
 		$this->init();
@@ -57,7 +56,4 @@ class PaginaOrganogramaCoordenadorias extends PaginaOrganograma
 		$classe_h2_coordenadorias = 'card-text font-weight-bold text-center align-self-center';
 		$this->montaHtmlItensTaxonomias($divs_externas_coordenadorias, $divs_internas_coordenadorias, $classe_h2_coordenadorias, $this->montaQueryItensTaxonomias($termo_slug));
 	}
-
-
-
 }

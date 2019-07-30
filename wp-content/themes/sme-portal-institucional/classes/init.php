@@ -7,11 +7,6 @@ require_once __ROOT__.'/classes/Usuarios/Editor/Editor.php';
 require_once __ROOT__.'/classes/Usuarios/Colaborador/Colaborador.php';
 require_once __ROOT__.'/classes/Usuarios/EnviarParaRevisao.php';
 
-require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
-require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';
-require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgenda.php';
-require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaAjaxCalendario.php';
-
 require_once __ROOT__.'/classes/Cpt/Cpt.php';
 require_once __ROOT__.'/classes/Cpt/CptPosts.php';
 require_once __ROOT__.'/classes/Cpt/CptPages.php';
@@ -32,13 +27,17 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaCards/PaginaCards.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaImagemVideo/PaginaImagemVideo.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContatoMetabox.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaContato/PaginaContato.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunas.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganograma.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganogramaConselhos.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganogramaSecretario.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganogramaAssessorias.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganogramaCoordenadorias.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaOrganograma/PaginaOrganogramaDres.php';
+
+require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgenda.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaAjaxCalendario.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganograma.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaConselhos.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaSecretario.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaAssessorias.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaCoordenadorias.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaDres.php';
 
 
 require_once __ROOT__.'/classes/ModelosDePaginas/ModelosDePaginaRemoveThemeSupport.php';

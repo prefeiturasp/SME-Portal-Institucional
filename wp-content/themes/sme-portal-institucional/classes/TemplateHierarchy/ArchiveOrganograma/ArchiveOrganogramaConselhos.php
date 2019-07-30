@@ -1,9 +1,9 @@
 <?php
 
-namespace Classes\ModelosDePaginas\PaginaOrganograma;
+namespace Classes\TemplateHierarchy\ArchiveOrganograma;
 
 
-class PaginaOrganogramaConselhos extends PaginaOrganograma
+class ArchiveOrganogramaConselhos extends ArchiveOrganograma
 {
 
 	public function __construct()

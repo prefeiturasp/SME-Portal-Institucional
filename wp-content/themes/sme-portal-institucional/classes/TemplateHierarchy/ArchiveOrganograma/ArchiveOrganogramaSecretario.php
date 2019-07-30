@@ -1,11 +1,10 @@
 <?php
 
-namespace Classes\ModelosDePaginas\PaginaOrganograma;
+namespace Classes\TemplateHierarchy\ArchiveOrganograma;
 
 
-class PaginaOrganogramaSecretario extends PaginaOrganograma
+class ArchiveOrganogramaSecretario extends ArchiveOrganograma
 {
-
 	public function __construct()
 	{
 		$this->init();
@@ -21,5 +20,4 @@ class PaginaOrganogramaSecretario extends PaginaOrganograma
 		$this->montaHtmlNameTaxonomy($classe_p_secretario);
 		$this->fechaDivs($classes_divs_secretario);
 	}
-
 }

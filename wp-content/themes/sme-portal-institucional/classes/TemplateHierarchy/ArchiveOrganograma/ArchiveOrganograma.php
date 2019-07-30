@@ -1,11 +1,11 @@
 <?php
 
-namespace Classes\ModelosDePaginas\PaginaOrganograma;
+namespace Classes\TemplateHierarchy\ArchiveOrganograma;
 
-use Classes\Lib\Util;
+
 use Classes\ModelosDePaginas\PaginaContato\PaginaContato;
 
-class PaginaOrganograma extends PaginaContato
+class ArchiveOrganograma extends PaginaContato
 {
 	const CPT = 'organograma';
 	const TAXONOMIA = 'categorias-organograma';
@@ -18,40 +18,54 @@ class PaginaOrganograma extends PaginaContato
 	protected static $id_taxonomia_coordenadorias;
 	protected static $id_taxonomia_dres;
 
-
 	public function __construct()
 	{
-		$this->page_id = get_the_ID();
-		$util = new Util($this->page_id);
-		$util->montaHtmlLoopPadrao();
-
 		self::$id_taxonomia_coordenadorias = get_term_by('slug', 'coordenadorias', self::TAXONOMIA)->term_id;
 		self::$id_taxonomia_dres = get_term_by('slug', 'diretorias-regionais-de-educacao-dres', self::TAXONOMIA)->term_id;
 	}
 
 	public function init(){
 
+	    $this->getTituloSubtitulo();
+
 		$divs_geral = array('container mb-5', 'row', 'col-lg-12 mb-5', 'organograma fonte-catorze d-lg-block d-sm-block d-none');
 		$this->abreDivs(null, $divs_geral);
 
-		new PaginaOrganogramaConselhos();
+		new ArchiveOrganogramaConselhos();
 
-		new PaginaOrganogramaSecretario();
+		new ArchiveOrganogramaSecretario();
 
 		$divs_assessoria_coordenadorias_dres = array('w-75 ml-auto position-relative');
 		$this->abreDivs(null, $divs_assessoria_coordenadorias_dres);
 
-		new PaginaOrganogramaAssessorias();
+		new ArchiveOrganogramaAssessorias();
 
-		new PaginaOrganogramaCoordenadorias();
+		new ArchiveOrganogramaCoordenadorias();
 
-		new PaginaOrganogramaDres();
+		new ArchiveOrganogramaDres();
 
 		$this->fechaDivs($divs_assessoria_coordenadorias_dres);
 
 		$this->fechaDivs($divs_geral);
 
 	}
+
+	public function getTituloSubtitulo(){
+	    ?>
+        <section class="container">
+            <article class="row">
+                <article class="col-lg-12 col-xs-12">
+                    <h1 class="mb-5" id="organograma-secretaria-municipal-de-educacao">Organograma — Secretaria Municipal de Educação</h1>
+                </article>
+            </article>
+            <article class="row">
+                <article class="col-lg-10 col-xs-12">
+                    <h2>Decreto nº 58.154, de 22 de março de 2018</h2>														</article>
+            </article>
+        </section>
+        <?php
+
+    }
 
 	public function setTaxonomyName($taxonomy_name){
 		$term = get_term_by('slug', $taxonomy_name, self::TAXONOMIA);
@@ -150,15 +164,15 @@ class PaginaOrganograma extends PaginaContato
 
 	public function montaHtmlContatos($escolha_o_contato_que_deseja_exibir){
 		?>
-        <div id="id_<?=$this->getTaxonomyTermId()?>" class="collapse fade" aria-labelledby="<?= 'heading'.$this->getTaxonomyTermId() ?>">
-            <div class="card-body">
-                <p class="card-text text-white text-center">
+		<div id="id_<?=$this->getTaxonomyTermId()?>" class="collapse fade" aria-labelledby="<?= 'heading'.$this->getTaxonomyTermId() ?>">
+			<div class="card-body">
+				<p class="card-text text-white text-center">
 					<?php
 					$this->exibeCamposCadastrados($escolha_o_contato_que_deseja_exibir, null, null, true);
 					?>
-                </p>
-            </div>
-        </div>
+				</p>
+			</div>
+		</div>
 		<?php
 	}
 }

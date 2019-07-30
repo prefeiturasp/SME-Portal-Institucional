@@ -1,10 +1,10 @@
 <?php
+namespace Classes\TemplateHierarchy\ArchiveOrganograma;
 
-namespace Classes\ModelosDePaginas\PaginaOrganograma;
 
-
-class PaginaOrganogramaAssessorias extends PaginaOrganograma
+class ArchiveOrganogramaAssessorias extends ArchiveOrganograma
 {
+
 	public function __construct()
 	{
 		$this->init();
