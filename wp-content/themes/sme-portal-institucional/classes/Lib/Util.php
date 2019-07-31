@@ -18,9 +18,6 @@ class Util
 
 	public function montaHtmlLoopPadrao()
 	{
-
-
-
 		echo '<section class="container">';
 		if (have_posts()) : while (have_posts()) : the_post();
 			?>
