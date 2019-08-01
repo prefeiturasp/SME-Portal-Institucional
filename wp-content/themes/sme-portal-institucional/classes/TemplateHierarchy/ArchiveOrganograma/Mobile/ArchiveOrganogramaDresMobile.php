@@ -64,6 +64,8 @@ class ArchiveOrganogramaDresMobile extends ArchiveOrganogramaMobile
 			$this->fechaDivs($divs_internas_itens_dres);
 
 			$this->fechaDivs($divs_externas_itens_dres);
+
+			
 		}
 
 	}
