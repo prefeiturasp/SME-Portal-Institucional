@@ -80,18 +80,26 @@ class ArchiveOrganograma extends ArchiveContato
 	}
 
 	public function abreDivs($id= null, array $classes_divs, $aria_labelledby = null){
+
 		foreach ($classes_divs as $classe_div){
-			if ($id){
-				echo '<div class="'.$classe_div.'" id="'.$id.'" >';
-			}else{
-				echo '<div class="'.$classe_div.'">';
+
+		    if ($classes_divs != null) {
+				if ($id) {
+					echo '<div class="' . $classe_div . '" id="' . $id . '" >';
+				} else {
+					echo '<div class="' . $classe_div . '">';
+				}
 			}
 		}
 	}
 
 	public function fechaDivs(array $classes_divs){
-		for ($i = 1; $i <= count($classes_divs); $i++) {
-			echo '</div>';
+
+		if ($classes_divs != null) {
+
+			for ($i = 1; $i <= count($classes_divs); $i++) {
+				echo '</div>';
+			}
 		}
 	}
 
@@ -164,7 +172,7 @@ class ArchiveOrganograma extends ArchiveContato
 	public function montaHtmlContatos($escolha_o_contato_que_deseja_exibir){
 		?>
 		<div id="id_<?=$this->getTaxonomyTermId()?>" class="collapse fade" aria-labelledby="<?= 'heading'.$this->getTaxonomyTermId() ?>">
-			<div class="card-body">
+			<div class="card-body bg-cinza-escuro-organo mb-3 rounded-bottom">
 				<p class="card-text text-white text-center">
 					<?php
 					$this->exibeCamposCadastrados($escolha_o_contato_que_deseja_exibir, null, null, true);
