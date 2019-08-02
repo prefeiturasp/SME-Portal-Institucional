@@ -146,6 +146,7 @@
 					'walker'            => new WP_Bootstrap_Navwalker(),
 				));
 				?>
+				<?php \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
             </div>
         </section>
     </nav>
