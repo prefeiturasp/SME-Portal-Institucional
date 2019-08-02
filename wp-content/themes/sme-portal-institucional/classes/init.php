@@ -16,18 +16,6 @@ require_once __ROOT__.'/classes/Cpt/CptContato.php';
 require_once __ROOT__.'/classes/Cpt/CptOrganograma.php';
 require_once __ROOT__.'/classes/Cpt/CptBotao.php';
 
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicial.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialIcones.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaquePrimaria.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaqueSecundarias.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialTwitter.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNewsletter.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNuvemDeTags.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaCards/PaginaCards.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaImagemVideo/PaginaImagemVideo.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunas.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbas.php';
-
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContato/ArchiveContatoMetabox.php';
@@ -48,16 +36,29 @@ require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/Arch
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/ArchiveOrganogramaCoordenadoriasMobile.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/ArchiveOrganogramaDresMobile.php';
 
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicial.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialIcones.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaquePrimaria.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaqueSecundarias.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialTwitter.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNewsletter.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNuvemDeTags.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaCards/PaginaCards.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaImagemVideo/PaginaImagemVideo.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunas.php';
+//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaTrait.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbas.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaTitulos.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaBotoes.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaConteudos.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaEnderecos.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaAcoesDestaque.php';
+
+
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolas.php';
 
-
-
-
 require_once __ROOT__.'/classes/ModelosDePaginas/ModelosDePaginaRemoveThemeSupport.php';
-
-//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunasAdminSuporte.php';
-
 
 /* Inicialização CPTs */
 $cptPostsExtend = new \Classes\Cpt\CptPosts();

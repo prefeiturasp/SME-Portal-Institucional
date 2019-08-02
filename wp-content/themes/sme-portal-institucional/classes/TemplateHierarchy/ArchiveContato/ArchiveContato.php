@@ -3,7 +3,9 @@
 namespace Classes\TemplateHierarchy\ArchiveContato;
 
 
-class ArchiveContato
+use Classes\Lib\Util;
+
+class ArchiveContato extends Util
 {
 	const TAXONOMIA = 'categorias-contato';
 	protected $args_terms;
@@ -218,13 +220,13 @@ class ArchiveContato
 		}
 		switch ($tipo_de_campo) {
 			case 'tel':
-				return '<span>Telefone: </span>';
+				return '<span><strong>Telefone: </strong></span>';
 			//break;
 		}
 
 		switch ($tipo_de_campo) {
 			case 'email':
-				return '<span>Email: </span>';
+				return '<span><strong>Email: </strong></span>';
 			//break;
 		}
 

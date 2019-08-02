@@ -24,24 +24,14 @@ class PaginaLayoutColunas extends Util
 		$util = new Util($this->page_id);
 		$util->montaHtmlLoopPadrao();
 
-		$this->abreContainer();
+		$layout_colunas_tags = array('section', 'section');
+		$layout_colunas_css = array('container', 'row');
+		$this->abreContainer($layout_colunas_tags, $layout_colunas_css);
 
 		$this->getConteudoColunas();
 
-		$this->fechaContainer();
+		$this->fechaContainer($layout_colunas_tags);
 	}
-
-	public function abreContainer(){
-		echo '<section class="container">';
-		echo '<section class="row">';
-	}
-
-	public function fechaContainer(){
-		echo '</section>';
-		echo '</section>';
-	}
-
-
 
 	public function getConteudoColunas(){
 

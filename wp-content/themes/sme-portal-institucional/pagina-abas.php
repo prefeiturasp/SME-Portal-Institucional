@@ -8,6 +8,7 @@ use Classes\ModelosDePaginas\PaginaAbas\PaginaAbas;
 
 get_header();
 $pagina_abas = new PaginaAbas();
+$pagina_abas->init();
 get_footer();
 
 

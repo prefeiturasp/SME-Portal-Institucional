@@ -71,31 +71,6 @@ class PaginaInicial extends Util
         <?php
     }
 
-    public function abreContainer(array $tags, array $css){
 
-		foreach ($tags as $index => $tag){
-			$array_tags[] = $tag.'_'.$index;
-		}
-
-		foreach ($css as $classe){
-			$array_css[] = $classe;
-		}
-
-		$array_tags_e_css = array_combine($array_tags, $array_css);
-
-		foreach ($array_tags_e_css as $index => $valor){
-			$posicao = strpos($index, "_");
-			$tag = substr($index,0,$posicao);
-
-			echo '<'.$tag.' class="'.$valor.'">';
-		}
-	}
-
-	public function fechaContainer($tags){
-		foreach ($tags as $index => $tag){
-			echo '</'.$tag.'>';
-		}
-
-	}
 
 }
