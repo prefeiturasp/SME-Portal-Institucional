@@ -55,14 +55,16 @@ class LoadDependences
 		// Organograma
 		wp_register_style('organograma', STM_THEME_URL . 'classes/assets/css/organograma.css', null, null, 'all');
 		wp_enqueue_style('organograma');
-
-
 		wp_register_script('organograma',  STM_THEME_URL . 'classes/assets/js/organograma.js', array ('jquery'), false, true);
 		wp_enqueue_script('organograma');
 
 		// Página Abas
 		wp_register_style('pagina-abas', STM_THEME_URL . 'classes/assets/css/pagina-abas.css', null, null, 'all');
 		wp_enqueue_style('pagina-abas');
+
+		// Breadcrumb
+		wp_register_style('breadcrumb', STM_THEME_URL . 'classes/assets/css/breadcrumb.css', null, null, 'all');
+		wp_enqueue_style('breadcrumb');
 	}
 
 	public function custom_formats_admin(){

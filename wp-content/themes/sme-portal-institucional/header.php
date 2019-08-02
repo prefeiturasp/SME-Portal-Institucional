@@ -149,3 +149,4 @@
             </div>
         </section>
     </nav>
+<?php new \Classes\Breadcrumb\Breadcrumb(); ?>

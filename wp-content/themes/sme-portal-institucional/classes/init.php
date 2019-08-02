@@ -54,9 +54,10 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaConteudos.p
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaEnderecos.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaAcoesDestaque.php';
 
-
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolas.php';
+
+require_once __ROOT__.'/classes/Breadcrumb/Breadcrumb.php';
 
 require_once __ROOT__.'/classes/ModelosDePaginas/ModelosDePaginaRemoveThemeSupport.php';
 
