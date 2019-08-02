@@ -16,11 +16,13 @@ class ArchiveContato extends Util
 
 	public function __construct()
 	{
-		$this->abreContainerHtml();
+		$container_html_tags = array('section', 'section');
+		$container_html_css = array('container', 'row');
+		$this->abreContainer($container_html_tags,$container_html_css);
 		$this->getTermosTaxonomiasContato();
 		$this->obterQtdeDeNiveis();
 		$this->percorreNiveis();
-		$this->fechareContainerHtml();
+		$this->fechaContainer($container_html_tags);
 	}
 
 	public function setQtdeNiveis($qtdeNiveis)
@@ -32,16 +34,6 @@ class ArchiveContato extends Util
 	public function getQtdeNiveis()
 	{
 		return $this->qtdeNiveis;
-	}
-
-	public function abreContainerHtml(){
-		echo '<section class="container">';
-		echo '<section class="row">';
-	}
-
-	public function fechareContainerHtml(){
-		echo '</section>';
-		echo '</section>';
 	}
 
 	public function abreColunas($i){

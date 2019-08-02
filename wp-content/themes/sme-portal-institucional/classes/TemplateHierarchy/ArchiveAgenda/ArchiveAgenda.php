@@ -3,15 +3,19 @@
 namespace Classes\TemplateHierarchy\ArchiveAgenda;
 
 
-class ArchiveAgenda
+use Classes\Lib\Util;
+
+class ArchiveAgenda extends Util
 {
 
 	public function __construct()
 	{
-		$this->abreContainerCalendario();
+	    $container_calendario_tags = array('section', 'section');
+	    $container_calendario_css = array('container mb-5', 'row');
+	    $this->abreContainer($container_calendario_tags, $container_calendario_css);
 		$this->montaHtmlCalendario();
 		$this->insereDivRecebeData();
-		$this->fechaContainerCalendario();
+		$this->fechaContainer($container_calendario_tags);
 	}
 
 	public function montaHtmlCalendario(){
@@ -37,22 +41,4 @@ class ArchiveAgenda
 		</section>
 		<?php
 	}
-
-
-	public function abreContainerCalendario(){
-		?>
-		<section class="container mb-5">
-		<section class="row">
-		<?php
-	}
-
-	public function fechaContainerCalendario(){
-		?>
-		</section>
-		</section>
-		<?php
-	}
-
-
-
 }

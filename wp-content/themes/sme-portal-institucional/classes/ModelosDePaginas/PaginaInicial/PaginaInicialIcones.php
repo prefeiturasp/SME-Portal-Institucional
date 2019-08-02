@@ -18,10 +18,10 @@ class PaginaInicialIcones extends PaginaInicial
 		$Icones_menu_icones_tags = array('section','article','article','article');
 		$Icones_menu_icones_css = array('bg-cinza-claro areas-menu overflow-hidden','container','row','col-lg-12 col-xs-12');
 
-		$this->abreContainerHtmlIconesMenuIcones();
+		$this->abreContainer($Icones_menu_icones_tags, $Icones_menu_icones_css);
 		$this->montaHtmlIcones();
 		$this->montaHtmlMenuIcones();
-		$this->fechaContainerHtmlIconesMenuIcones();
+		$this->fechaContainer($Icones_menu_icones_tags);
 	}
 
 	public function criaArrayIconesTitulosIcones()
@@ -76,26 +76,5 @@ class PaginaInicialIcones extends PaginaInicial
 		echo '</section>';
 
 	}
-
-	public function abreContainerHtmlIconesMenuIcones()
-	{
-		?>
-		<section class="bg-cinza-claro areas-menu overflow-hidden">
-		<article class="container">
-		<article class="row">
-		<article class="col-lg-12 col-xs-12">
-		<?php
-	}
-
-	public function fechaContainerHtmlIconesMenuIcones()
-	{
-		?>
-		</article>
-		</article>
-		</article>
-		</section>
-		<?php
-	}
-
 
 }

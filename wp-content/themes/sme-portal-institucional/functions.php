@@ -212,11 +212,38 @@ function paginacao() {
 			'current' => $pagina_atual,
 			'total' => $total_paginas,
 			'base' => str_replace($total_paginas + 1, '%#%', get_pagenum_link($total_paginas + 1)),
-			'prev_next' => false
+			'prev_next'         => True,
+			'prev_text'          	=> __('<i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i>'),
+			'next_text'          	=> __('<i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i>'),
 		)
 	);
 	echo '</nav>';
 }
+
+/*function paginacao($query) {
+
+	echo '<nav id="pagination">';
+	global $wp_query;
+
+	$pagina_atual = (int) $wp_query->get('paged');
+
+	if (!$pagina_atual)
+		$pagina_atual = 1;
+
+	$total_paginas = (int) $query->max_num_pages;
+
+	echo paginate_links(
+		array(
+			//'base' => str_replace($total_paginas + 1, '%#%', get_pagenum_link($total_paginas + 1)),
+			'current' => $pagina_atual,
+			'total' => $total_paginas,
+			'prev_next'         => True,
+			'prev_text'          	=> __('<i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i>'),
+			'next_text'          	=> __('<i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i>'),
+		)
+	);
+	echo '</nav>';
+}*/
 
 function custom_login_logo() {
 //Altera o logo
