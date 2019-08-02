@@ -246,6 +246,9 @@ class Breadcrumb
 
 				// 404 page
 				echo '<li>' . 'Página não encontrada' . '</li>';
+			} elseif ($wp_query->get('custom_page') == 'busca-de-escolas'){
+				echo '<li>' . 'Busca de escolas' . '</li>';
+
 			}
 
 			echo '</ol>';
