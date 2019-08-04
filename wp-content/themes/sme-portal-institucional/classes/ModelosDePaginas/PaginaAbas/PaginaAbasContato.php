@@ -3,7 +3,7 @@
 namespace Classes\ModelosDePaginas\PaginaAbas;
 
 
-class PaginaAbaEnderecos extends PaginaAbaBotoes
+class PaginaAbasContato extends PaginaAbasBotoes
 {
 	public function __construct()
 	{

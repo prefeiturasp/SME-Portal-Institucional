@@ -50,11 +50,11 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaImagemVideo/PaginaImagemV
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunas.php';
 //require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaTrait.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbas.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaTitulos.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaBotoes.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaConteudos.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaEnderecos.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaAcoesDestaque.php';
+require_once __ROOT__ . '/classes/ModelosDePaginas/PaginaAbas/PaginaAbasTitulos.php';
+require_once __ROOT__ . '/classes/ModelosDePaginas/PaginaAbas/PaginaAbasBotoes.php';
+require_once __ROOT__ . '/classes/ModelosDePaginas/PaginaAbas/PaginaAbasConteudos.php';
+require_once __ROOT__ . '/classes/ModelosDePaginas/PaginaAbas/PaginaAbasContato.php';
+require_once __ROOT__ . '/classes/ModelosDePaginas/PaginaAbas/PaginaAbasAcoesDestaque.php';
 
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolas.php';

@@ -3,7 +3,7 @@
 namespace Classes\ModelosDePaginas\PaginaAbas;
 
 
-class PaginaAbaConteudos extends PaginaAbaBotoes
+class PaginaAbasConteudos extends PaginaAbasBotoes
 {
 	public function __construct()
 	{
@@ -34,7 +34,7 @@ class PaginaAbaConteudos extends PaginaAbaBotoes
 											<?= apply_filters('the_content', $aba->post_content)  ?>
 											<p class="card-text">
 												<?php
-												$this->getEnderecoAba($aba->ID);
+												$this->getContatoAba($aba->ID);
 												?>
 											</p>
 										</div>

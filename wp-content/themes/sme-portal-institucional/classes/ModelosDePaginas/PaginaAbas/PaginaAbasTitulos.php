@@ -3,7 +3,7 @@
 namespace Classes\ModelosDePaginas\PaginaAbas;
 
 
-class PaginaAbaTitulos extends PaginaAbas
+class PaginaAbasTitulos extends PaginaAbas
 {
 
 	public function __construct()

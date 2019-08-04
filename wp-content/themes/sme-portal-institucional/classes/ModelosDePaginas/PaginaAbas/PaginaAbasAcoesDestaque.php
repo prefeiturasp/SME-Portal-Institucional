@@ -3,7 +3,7 @@
 namespace Classes\ModelosDePaginas\PaginaAbas;
 
 
-class PaginaAbaAcoesDestaque extends PaginaAbas
+class PaginaAbasAcoesDestaque extends PaginaAbas
 {
 	protected $deseja_exibir_paginas_acoes_em_destaque;
 	protected $escolha_as_paginas_acoes_em_destaque;

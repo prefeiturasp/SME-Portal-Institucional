@@ -27,16 +27,16 @@ class PaginaAbas extends ArchiveContato
 		$container_principal_css= array('container');
 		$this->abreContainer($container_principal_tags, $container_principal_css);
 
-		new PaginaAbaTitulos();
+		new PaginaAbasTitulos();
 
-		new PaginaAbaConteudos();
+		new PaginaAbasConteudos();
 
 		$this->fechaContainer($container_principal_tags);
 
-		new PaginaAbaAcoesDestaque();
+		new PaginaAbasAcoesDestaque();
 	}
 
-	public function getEnderecoAba($id_aba){
+	public function getContatoAba($id_aba){
 		$this->deseja_exibir_endereco = get_field('deseja_exibir_endereco', $id_aba);
 		if ($this->deseja_exibir_endereco === 'sim'){
 			$this->escolha_o_endereco = get_field('escolha_o_endereco',$id_aba);
