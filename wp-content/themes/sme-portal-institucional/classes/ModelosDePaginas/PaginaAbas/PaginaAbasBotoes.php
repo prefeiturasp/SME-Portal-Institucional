@@ -3,7 +3,7 @@
 namespace Classes\ModelosDePaginas\PaginaAbas;
 
 
-class PaginaAbasBotoes extends PaginaAbas
+class PaginaAbasBotoes extends PaginaAbasContato
 {
 	protected $deseja_exibir_botoes_com_links;
 	protected $escolha_a_categoria_de_botoes;

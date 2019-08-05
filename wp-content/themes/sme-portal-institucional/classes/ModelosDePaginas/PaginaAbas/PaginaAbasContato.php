@@ -3,11 +3,13 @@
 namespace Classes\ModelosDePaginas\PaginaAbas;
 
 
-class PaginaAbasContato extends PaginaAbasBotoes
+class PaginaAbasContato extends PaginaAbas
 {
+	private $aba_id;
 	public function __construct()
 	{
 		parent::__construct();
+
 	}
 
 	public function getEnderecoAba($id_aba){

@@ -1,5 +1,3 @@
-<?php
-?>
 <form id="demo-2" action="<?php echo home_url( '/' ); ?>" method="get" class="form-inline " style="padding-top: 12px;">
     <fieldset>
 		<div class="input-group">

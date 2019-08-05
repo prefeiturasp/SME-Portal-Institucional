@@ -34,7 +34,8 @@ class PaginaAbasConteudos extends PaginaAbasBotoes
 											<?= apply_filters('the_content', $aba->post_content)  ?>
 											<p class="card-text">
 												<?php
-												$this->getContatoAba($aba->ID);
+                                                $contato = new PaginaAbasContato();
+                                                $contato->getEnderecoAba($aba->ID);
 												?>
 											</p>
 										</div>

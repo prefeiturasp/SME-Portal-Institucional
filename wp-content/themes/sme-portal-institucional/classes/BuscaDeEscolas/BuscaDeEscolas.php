@@ -15,7 +15,6 @@ class BuscaDeEscolas
 
         <section class="container">
 
-
             <form id="formulario_busca_escola">
                 <section class="form-row">
                     <article class="form-group col-md-4">
@@ -58,9 +57,6 @@ class BuscaDeEscolas
 
 		wp_register_script('ajax-escolas-public.js', STM_THEME_URL . 'classes/assets/js/ajax-escolas-public.js', array('jquery'), 1.0, false);
 		wp_enqueue_script('ajax-escolas-public.js');
-
-		wp_register_script('jquery.simplePagination.js', STM_THEME_URL . 'classes/assets/js/jquery.simplePagination.js', array('jquery'), 1.0, false);
-		wp_enqueue_script('jquery.simplePagination.js');
 
 		wp_register_script('jquery.twbsPagination.js', STM_THEME_URL . 'classes/assets/js/jquery.twbsPagination.js', array('jquery'), 1.0, false);
 		wp_enqueue_script('jquery.twbsPagination.js');
