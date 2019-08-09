@@ -67,7 +67,7 @@
             <section class="row">
                 <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
                     <ul class="list-inline mt-3">
-                        <li class="list-inline-item"><a class="text-secondary" href="">Acesso à informação</a></li>
+                        <li class="list-inline-item"><a class="text-secondary" href="http://transparencia.prefeitura.sp.gov.br/acesso-a-informacao">Acesso à informação</a></li>
                         <li class="list-inline-item"><a class="text-secondary" href="">Ouvidoria</a></li>
                         <li class="list-inline-item"><a class="text-secondary" href="">Portal da Transparência</a></li>
                         <li class="list-inline-item"><a class="text-secondary" href="">SP 156</a></li>
