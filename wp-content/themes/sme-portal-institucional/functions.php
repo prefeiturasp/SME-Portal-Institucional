@@ -83,6 +83,15 @@ function custom_setup() {
 			'before_title' => '<p class="titulo-rodape">',
 			'after_title' => '</p>',
 		));
+
+		register_sidebar(array(
+			'name' => 'Facebook Home',
+			'id' => 'sidebar-7',
+			'before_widget' => '',
+			'after_widget' => '',
+			//'before_title' => '<p class="titulo-rodape">',
+			//'after_title' => '</p>',
+		));
 	}
 
 

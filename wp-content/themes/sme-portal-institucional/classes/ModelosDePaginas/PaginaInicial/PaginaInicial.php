@@ -52,6 +52,7 @@ class PaginaInicial extends Util
 		$this->abreContainer($newsletter_nuvem_de_tags_tags, $newsletter_nuvem_de_tags_css);
 		new PaginaInicialNewsletter();
 		/*new PaginaInicialNuvemDeTags();*/
+        new PaginaInicialFacebook();
 		$this->fechaContainer($newsletter_nuvem_de_tags_tags);
 
 		$this->fechaContainer($twitter_newsletter_nuvem_de_tags_tags);
