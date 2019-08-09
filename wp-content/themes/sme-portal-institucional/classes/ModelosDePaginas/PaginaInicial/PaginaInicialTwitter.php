@@ -15,7 +15,7 @@ class PaginaInicialTwitter extends PaginaInicial
 	public function montaHtmlTwitter(){
 		?>
 		<article class="col-12 col-md-6">
-			<a class="twitter-timeline" data-lang="pt" data-height="395"
+			<a class="twitter-timeline" data-lang="pt" data-height="540"
 			   href="https://twitter.com/EducaPrefSP">Tweets by EducaPrefSP</a>
 			<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 		</article>
