@@ -16,6 +16,10 @@ class ModelosDePaginaRemoveThemeSupport
 		add_action( 'admin_init', array($this,'removeThemeSupport' ), 10,2);
 		add_filter( 'theme_page_templates', array($this, 'removePageTemplateForContributor'));
 
+		/* Escondendo o Botão  Add Gallery do plugin Responsive Lightbox & Gallery */
+		add_action( 'admin_menu', array($this, 'remove_menus' ));
+		add_action( 'admin_head', array($this, 'my_custom_admin_head') );
+
 
 	}
 
@@ -43,5 +47,19 @@ class ModelosDePaginaRemoveThemeSupport
 			remove_post_type_support( 'page', 'thumbnail' );
 		}
 	}
+
+	/* Escondendo o Botão  Add Gallery do plugin Responsive Lightbox & Gallery */
+	public function remove_menus(){
+
+		remove_menu_page( 'edit.php?post_type=rl_gallery' );
+	}
+
+
+	function my_custom_admin_head() {
+		echo '<style>
+		#rl-insert-modal-gallery-button {display: none !important;}
+		</style>';
+	}
+
 }
 new ModelosDePaginaRemoveThemeSupport();

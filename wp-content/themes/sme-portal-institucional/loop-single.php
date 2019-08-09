@@ -32,8 +32,6 @@
 
 	}
 
-    comments_template();
-
 endwhile;
 else: ?>
     <p>

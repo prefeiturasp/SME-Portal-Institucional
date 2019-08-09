@@ -606,6 +606,12 @@ ul, ol{
 .mw-20 {
 	max-width: 20%;
 }
+
+/* Escondendo o Botão  Add Gallery do plugin Responsive Lightbox & Gallery */
+#rl-insert-modal-gallery-button{
+	display: none !important;
+}
+
 @media ( min-width : 992px) {
 	.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
 		background-color: #fff;
