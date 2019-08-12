@@ -56,7 +56,7 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
 					echo '</figure>';
 				} else {
 					echo '<figure>';
-					echo '<img src="https://dummyimage.com/535x325/4F4F4F/4F4F4F" class="card-img" alt="">';
+					echo '<img src="https://dummyimage.com/535x325/4F4F4F/4F4F4F" class="card-img" alt="Imagem de Exemplo">';
 					echo '</figure>';
 				}
 				?>

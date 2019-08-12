@@ -21,6 +21,8 @@ class ModelosDePaginaRemoveThemeSupport
 		add_action( 'admin_head', array($this, 'my_custom_admin_head') );
 
 
+		add_filter('script_loader_tag', array($this, 'add_noscript_tag'));
+
 	}
 
 	public function removePageTemplateForContributor($pages_templates){
@@ -55,11 +57,25 @@ class ModelosDePaginaRemoveThemeSupport
 	}
 
 
-	function my_custom_admin_head() {
+	public function my_custom_admin_head() {
 		echo '<style>
 		#rl-insert-modal-gallery-button {display: none !important;}
 		</style>';
 	}
+
+	public // Adicionando noscript aos scripts
+	function add_noscript_tag($tag)
+	{
+		$noScript = <<<END
+<noscript>
+This functionality is implemented using Javascript. It cannot work without it, etc...
+</noscript>
+END;
+
+		return str_replace('</script>', '</script>'.$noScript, $tag);
+	}
+
+
 
 }
 new ModelosDePaginaRemoveThemeSupport();

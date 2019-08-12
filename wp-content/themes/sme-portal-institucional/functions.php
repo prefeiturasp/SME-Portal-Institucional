@@ -361,6 +361,8 @@ function allow_contributor_uploads() {
 add_image_size( 'admin-list-thumb', 80, 80, false );
 
 
+
+
 define('__ROOT__', dirname(dirname(__FILE__)).'/sme-portal-institucional');
 
 define('STM_URL', get_home_url());

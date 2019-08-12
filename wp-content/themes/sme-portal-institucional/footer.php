@@ -47,24 +47,29 @@
                     </figure>
                 </article>
                 <article class="col-lg-4 col-xs-12">
-                    <div class="form-group mb-2">
-                        <select
-                                class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
-                            <option>Secretarias</option>
-                        </select>
-                    </div>
-                    <div class="form-group mb-2">
-                        <select
-                                class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
-                            <option>Prefeituras Regionais</option>
-                        </select>
-                    </div>
-                    <div class="form-group mb-0">
-                        <select
-                                class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
-                            <option>Órgãos e Autarquias</option>
-                        </select>
-                    </div>
+                    <form>
+                        <fieldset>
+                            <legend>Menu contendo os seguintes itens: Secretarias, Prefeituras Regionais, Órgãos e Autarquias</legend>
+                            <div class="form-group mb-2">
+                                <select
+                                        class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
+                                    <option>Secretarias</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-2">
+                                <select
+                                        class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
+                                    <option>Prefeituras Regionais</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-0">
+                                <select
+                                        class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
+                                    <option>Órgãos e Autarquias</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                    </form>
                 </article>
             </section>
         </section>

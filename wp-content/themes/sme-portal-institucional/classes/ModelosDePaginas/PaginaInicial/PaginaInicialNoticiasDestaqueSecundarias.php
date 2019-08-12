@@ -87,9 +87,14 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 
 		<section class="row">
 			<article class="col-lg-12 col-xs-12">
-				<button type="button" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold">Mais
-					notícias
-				</button>
+                <form>
+                    <fieldset>
+                        <legend>Ir para mais notícias</legend>
+                        <button type="button" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold">Mais
+                            notícias
+                        </button>
+                    </fieldset>
+                </form>
 			</article>
 		</section>
 

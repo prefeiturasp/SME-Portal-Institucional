@@ -612,6 +612,14 @@ ul, ol{
 	display: none !important;
 }
 
+/*Escondendo o <legend> do fieldset para acessibilidade*/
+
+fieldset legend{
+	position: absolute;
+	left: 9999px;
+	opacity: 0;
+}
+
 @media ( min-width : 992px) {
 	.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
 		background-color: #fff;

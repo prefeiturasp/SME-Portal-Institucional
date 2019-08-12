@@ -108,18 +108,7 @@
 			$custom_logo_id = get_theme_mod('custom_logo');
 			$image = wp_get_attachment_image_src($custom_logo_id, 'full');
 			?>
-			<?php
-			if (is_front_page() || is_home() || is_page_template('modelo-com-pagina-filha.php')) { ?>
-                <h1 class="logo-topo">
-                    <a class="brand" href="<?php echo STM_URL ?>"
-                       title="<?php echo STM_SITE_NAME ?> - <?php echo STM_SITE_DESCRIPTION ?>">
-                        <img class="img-fluid" src="<?php echo $image[0] ?>"
-                             alt="<?php echo STM_SITE_NAME ?>  <?php echo STM_SITE_DESCRIPTION ?>"
-                             title="<?php echo STM_SITE_NAME ?>  <?php echo STM_SITE_DESCRIPTION ?>"/>
-                    </a>
-                </h1>
-				<?php
-			}else{ ?>
+
                 <p class="logo-topo">
                     <a class="brand" href="<?php echo STM_URL ?>"
                        title="<?php echo STM_SITE_NAME ?> - <?php echo STM_SITE_DESCRIPTION ?>">
@@ -128,11 +117,15 @@
                              title="<?php echo STM_SITE_NAME ?>  <?php echo STM_SITE_DESCRIPTION ?>"/>
                     </a>
                 </p>
-			<?php } ?>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <form>
+                <fieldset>
+                    <legend>Mostra e Esconde Menu</legend>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </fieldset>
+            </form>
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 				<?php
