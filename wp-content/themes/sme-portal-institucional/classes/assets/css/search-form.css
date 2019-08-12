@@ -1,13 +1,12 @@
 @media ( min-width : 992px) {
    /*Search*/
     .container-search-topo{
-        position: absolute;
-        right: 5%;
+       
     }
     input {
         outline: none;
     }
-    input[type=search] {
+     #search-front-end {
         -webkit-appearance: textfield;
         -webkit-box-sizing: content-box;
         font-family: inherit;
@@ -19,7 +18,7 @@
     }
 
 
-    input[type=search] {
+     #search-front-end {
         /*background: #fff url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;*/
         background: url("../img/search-icon-shadow.png")no-repeat 9px center;
         border: solid 1px #fff;
@@ -34,7 +33,7 @@
         -moz-transition: all .5s;
         transition: all .5s;
     }
-    input[type=search]:focus {
+     #search-front-end:focus {
         width: 130px;
         background-color: red;
         border-color: #66CC75;
@@ -53,17 +52,17 @@
     }
 
     /* Demo 2 */
-    #demo-2 input[type=search] {
+    #demo-2  #search-front-end {
         width: 0;
         color: transparent;
         cursor: pointer;
         background-color: transparent;
         border: none;
     }
-    #demo-2 input[type=search]:hover {
+    #demo-2  #search-front-end:hover {
         background-color: #fff;
     }
-    #demo-2 input[type=search]:focus {
+    #demo-2  #search-front-end:focus {
         width: 130px;
         padding-left: 32px;
         color: #000;
