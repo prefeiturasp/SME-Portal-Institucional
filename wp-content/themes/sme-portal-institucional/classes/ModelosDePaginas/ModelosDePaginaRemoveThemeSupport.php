@@ -36,6 +36,8 @@ class ModelosDePaginaRemoveThemeSupport
 			unset( $pages_templates['pagina-escolas.php'] );
 			unset( $pages_templates['pagina-inicial.php'] );
 			unset( $pages_templates['pagina-organograma.php'] );
+			unset( $pages_templates['pagina-organograma.php'] );
+			unset( $pages_templates['pagina-abas.php'] );
 		}
 		return $pages_templates;
 	}
@@ -63,19 +65,15 @@ class ModelosDePaginaRemoveThemeSupport
 		</style>';
 	}
 
-	public // Adicionando noscript aos scripts
-	function add_noscript_tag($tag)
+	// Adicionando noscript aos scripts
+	public 	function add_noscript_tag($tag)
 	{
 		$noScript = <<<END
 <noscript>
 This functionality is implemented using Javascript. It cannot work without it, etc...
 </noscript>
 END;
-
 		return str_replace('</script>', '</script>'.$noScript, $tag);
 	}
-
-
-
 }
 new ModelosDePaginaRemoveThemeSupport();

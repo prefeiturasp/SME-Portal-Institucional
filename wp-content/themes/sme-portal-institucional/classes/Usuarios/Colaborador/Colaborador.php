@@ -12,6 +12,8 @@ class Colaborador
 		$this->getRole();
 		$this->removeCap();
 		$this->addCap();
+
+		add_action( 'admin_menu', array($this, 'remove_menus' ));
 	}
 
 	public function getRole(){
@@ -24,6 +26,9 @@ class Colaborador
 	public function removeCap(){
 
 		if (current_user_can('contributor')) {
+
+
+
 			$caps = array(
 				'upload_files',
 				'edit_files',
@@ -65,14 +70,15 @@ class Colaborador
 		if (current_user_can('contributor')) {
 			$this->role_object->add_cap('upload_files');
 			$this->role_object->add_cap('edit_files');
+			$this->role_object->add_cap('edit_posts');
 
-			//$this->role_object->add_cap('edit_others_posts');
-			//$this->role_object->add_cap('edit_private_posts');
-			//$this->role_object->add_cap('edit_published_posts');
-			//$this->role_object->add_cap('edit_posts');
-			//$this->role_object->add_cap('publish_posts');
-			//$this->role_object->add_cap('read_private_posts');
-			//$this->role_object->add_cap('delete_posts');
+			$this->role_object->add_cap('edit_others_posts');
+			$this->role_object->add_cap('edit_private_posts');
+			$this->role_object->add_cap('edit_published_posts');
+
+			$this->role_object->add_cap('publish_posts');
+			$this->role_object->add_cap('read_private_posts');
+			$this->role_object->add_cap('delete_posts');
 
 			$this->role_object->add_cap('edit_pages');
 			$this->role_object->add_cap('delete_pages');
@@ -85,14 +91,45 @@ class Colaborador
 			$this->role_object->add_cap( 'read_card');
 			$this->role_object->add_cap( 'edit_cards' );
 			$this->role_object->add_cap( 'delete_cards' );
-
 			$this->role_object->add_cap( 'manage_cards' );
 			$this->role_object->add_cap( 'assign_cards' );
 
 			$this->role_object->add_cap( 'edit_published_cards' );
 			$this->role_object->add_cap( 'delete_published_card' );
 
+			$this->role_object->add_cap( 'read_imagem');
+			$this->role_object->add_cap( 'edit_imagens' );
+			$this->role_object->add_cap( 'delete_imagens' );
+			$this->role_object->add_cap( 'manage_imagens' );
+			$this->role_object->add_cap( 'assign_imagens' );
 
+			$this->role_object->add_cap( 'edit_published_imagens' );
+			$this->role_object->add_cap( 'delete_published_imagens' );
+
+
+		}
+	}
+
+	/* Escondendo o Botão  Add Gallery do plugin Responsive Lightbox & Gallery */
+	public function remove_menus(){
+
+		$usuario = wp_get_current_user();
+
+		if ($usuario->roles[0] === 'contributor') {
+
+			remove_menu_page('edit.php');
+			remove_menu_page('edit.php?post_type=agenda');
+			remove_menu_page('edit.php?post_type=contato');
+			remove_menu_page('edit.php?post_type=organograma');
+			remove_menu_page('edit.php?post_type=aba');
+			remove_menu_page('edit.php?post_type=botao');
+
+			//remove_menu_page('admin.php');
+			remove_menu_page( 'wpcf7' );
+
+
+			remove_menu_page('edit-comments.php');
+			remove_menu_page('tools.php');
 		}
 	}
 

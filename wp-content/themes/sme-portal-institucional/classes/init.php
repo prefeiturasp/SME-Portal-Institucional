@@ -64,6 +64,8 @@ require_once __ROOT__.'/classes/Breadcrumb/Breadcrumb.php';
 
 require_once __ROOT__.'/classes/ModelosDePaginas/ModelosDePaginaRemoveThemeSupport.php';
 
+require_once __ROOT__.'/classes/Cpt/CptMediaImages.php';
+
 /* Inicialização CPTs */
 $cptPostsExtend = new \Classes\Cpt\CptPosts();
 $cptPagessExtend = new \Classes\Cpt\CptPages();
@@ -80,3 +82,5 @@ $cptAbas = new \Classes\Cpt\Cpt('aba', 'aba', 'Cadastro de Abas', 'Todos as Abas
 
 $cptBotao = new \Classes\Cpt\Cpt('botao', 'botao', 'Cadastro de Botões', 'Todos os Botões', 'Botões', 'Cadastro de Botões', 'categorias-botao', 'Categorias de Botões', 'Categoria de Botão', 'dashicons-external' );
 $cptBotaoExtend = new \Classes\Cpt\CptBotao();
+
+$taxonomiaMediaImages = new \Classes\Cpt\CptMediaImages();
