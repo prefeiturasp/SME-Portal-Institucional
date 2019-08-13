@@ -60,6 +60,12 @@ class Editor
 			unset($submenu['themes.php'][15]); // header_image
 			unset($submenu['themes.php'][20]); // background_image
 			remove_submenu_page( 'themes.php', 'customize.php?return=%2Fwp-admin%2Ftools.php&#038;autofocus%5Bcontrol%5D=background_image' ); // hide the background submenu
+
+			remove_menu_page( 'wpcf7' );
+			remove_menu_page('edit-comments.php');
+			remove_menu_page('tools.php');
+
+
 		}
 
 	}
