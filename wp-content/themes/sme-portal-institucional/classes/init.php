@@ -35,6 +35,7 @@ require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/Arch
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/ArchiveOrganogramaAssessoriasMobile.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/ArchiveOrganogramaCoordenadoriasMobile.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/ArchiveOrganogramaDresMobile.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveCurriculoDaCidade/ArchiveCurriculoDaCidade.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/SearchForm.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/LoopSearch.php';
 
@@ -44,18 +45,17 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoti
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaqueSecundarias.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialTwitter.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNewsletter.php';
-//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNuvemDeTags.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialFacebook.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaCards/PaginaCards.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaImagemVideo/PaginaImagemVideo.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunas.php';
-//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbaTrait.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbas.php';
-require_once __ROOT__ . '/classes/ModelosDePaginas/PaginaAbas/PaginaAbasTitulos.php';
-require_once __ROOT__ . '/classes/ModelosDePaginas/PaginaAbas/PaginaAbasContato.php';
-require_once __ROOT__ . '/classes/ModelosDePaginas/PaginaAbas/PaginaAbasBotoes.php';
-require_once __ROOT__ . '/classes/ModelosDePaginas/PaginaAbas/PaginaAbasAcoesDestaque.php';
-require_once __ROOT__ . '/classes/ModelosDePaginas/PaginaAbas/PaginaAbasConteudos.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasTitulos.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasContato.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasBotoes.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasAcoesDestaque.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasConteudos.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaCurriculoDaCidade/PaginaCurriculoDaCidade.php';
 
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolas.php';
@@ -84,3 +84,5 @@ $cptBotao = new \Classes\Cpt\Cpt('botao', 'botao', 'Cadastro de Botões', 'Todos
 $cptBotaoExtend = new \Classes\Cpt\CptBotao();
 
 $taxonomiaMediaImages = new \Classes\Cpt\CptMediaImages();
+
+$cptCurriculoDaCidade = new \Classes\Cpt\Cpt('', 'curriculo-da-cidade', 'Currículo da Cidade', 'Todos os Currículos', 'Currículos da Cidade', 'Currículo da Cidade', 'categorias-curriculo-da-cidade', 'Categorias de Currículos', 'Categoria de Currículo', 'dashicons-format-image');
