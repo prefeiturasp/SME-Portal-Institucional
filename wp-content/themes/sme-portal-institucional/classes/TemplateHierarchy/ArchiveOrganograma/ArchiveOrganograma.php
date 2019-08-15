@@ -45,6 +45,8 @@ class ArchiveOrganograma extends ArchiveContato
 
 		$this->fechaDivs($divs_assessoria_coordenadorias_dres);
 
+		new ArchiveOrganogramaRodape();
+
 		$this->fechaDivs($divs_geral);
 
 	}

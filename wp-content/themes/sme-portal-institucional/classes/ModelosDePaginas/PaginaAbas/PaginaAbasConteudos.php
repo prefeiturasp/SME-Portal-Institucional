@@ -20,7 +20,7 @@ class PaginaAbasConteudos extends PaginaAbasBotoes
                 $css_active = '';
             }
 			?>
-			<div class="tab-pane fade <?= $css_active ?>" id="id_<?= $aba->ID ?>" role="tabpanel" aria-labelledby="tab_<?= $aba->ID?>">
+			<div class="tab-pane <?= $css_active ?>" id="id_<?= $aba->ID ?>" role="tabpanel" aria-labelledby="tab_<?= $aba->ID?>">
 				<div class="row">
 					<div class="col-lg-12 col-sm-12 pl-0 pr-0">
 						<div class="card shadow-sm rounded border-0">
@@ -31,7 +31,9 @@ class PaginaAbasConteudos extends PaginaAbasBotoes
 								<div class="row">
 									<div class="col-lg-7 col-sm-12">
 										<div class="fonte-dezesseis pt-0">
-											<?= apply_filters('the_content', $aba->post_content)  ?>
+											<?=
+                                                apply_filters('the_content', $aba->post_content);
+                                            ?>
 											<p class="card-text">
 												<?php
                                                 $contato = new PaginaAbasContato();

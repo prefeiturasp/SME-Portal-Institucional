@@ -19,10 +19,6 @@ class PaginaInicial extends Util
 
 	public function __construct()
 	{
-
-		if (!extension_loaded('imagick')){
-			echo 'imagick not installed';
-		}
 		$this->page_id = get_the_ID();
 		$this->page_slug = get_queried_object()->post_name;
 		$util = new Util($this->page_id);

@@ -34,6 +34,7 @@ class ArchiveOrganogramaMobile extends ArchiveOrganograma
 
 		$this->fechaDivs($divs_coordenadorias_dres);
 
+		new ArchiveOrganogramaRodape();
 
 		$this->fechaDivs($divs_geral);
 	}

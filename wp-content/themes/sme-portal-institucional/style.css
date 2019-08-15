@@ -141,6 +141,7 @@ html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
 	font-weight: 300 !important;
+	overflow-x: hidden;
 }
 
 
@@ -249,6 +250,12 @@ ul, ol{
 
 .navbar .navbar-toggle:hover .icon-bar {
 	background-color: #b3b3b3;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link{
+	padding-right: .4rem;
+	padding-left: .4rem;
+;
 }
 
 * {

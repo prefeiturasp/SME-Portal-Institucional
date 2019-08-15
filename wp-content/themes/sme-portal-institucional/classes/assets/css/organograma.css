@@ -177,3 +177,12 @@
 .borda-itens:nth-child(-n+2).borda-cinza-claro-organo::before {
     background: #D1D1D1;
 }
+
+.rodape-bt-unidades-escolares{
+    background-color: #8DC1EA !important;
+    border: solid 1px #8DC1EA !important;
+}
+
+.rodape-links{
+    color: #196CBD;
+}

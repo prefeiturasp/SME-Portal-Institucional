@@ -360,47 +360,10 @@ function allow_contributor_uploads() {
 
 add_image_size( 'admin-list-thumb', 80, 80, false );
 
-/**
- * When a PDF is uploaded, generate a thumbnail image and save it in the attachment meta.
- */
-/*add_filter( 'wp_generate_attachment_metadata', 'prefix_generate_pdf_thumbnail_metadata', 10, 2 );
-function prefix_generate_pdf_thumbnail_metadata( $metadata, $attachment_id ) {
-	$attachment = get_post( $attachment_id );
-
-	$meu_attachment = get_post_mime_type( $attachment );
-
-
-
-	if ( 'application/pdf' === get_post_mime_type( $attachment ) ) {
-
-
-
-		// Create a png from the pdf.
-		$file = get_attached_file( $attachment_id );
-		//$pdf = wp_get_image_editor( $file );
-		//$pdf = WP_Image_Editor_Imagick ( $file );
-
-		$pdf = new WP_Image_Editor_Imagick( $file );
-
-		if ( ! is_wp_error( $pdf ) ) { // Most likely cause for error is that ImageMagick is not available.
-
-
-			echo '<pre>';
-			var_dump($pdf->generate_filename('image', null, 'png'));
-			echo '</pre>';
-
-			exit();
-
-			$filename = $pdf->generate_filename( 'image', null, 'png' );
-			$uploaded = $pdf->save( $filename, 'image/png' );
-			if ( !is_wp_error( $uploaded ) ) {
-				$upload_dir = wp_upload_dir();
-				update_post_meta( $attachment_id, 'pdf_thumbnail_url', $upload_dir['url'] . '/' . $uploaded['file'] );
-			}
-		}
-	}
-	return $metadata;
-}*/
+function img_responsive($content){
+	return str_replace('<img ','<img class="img-fluid" ',$content);
+}
+add_filter('the_content','img_responsive');
 
 define('__ROOT__', dirname(dirname(__FILE__)).'/sme-portal-institucional');
 
