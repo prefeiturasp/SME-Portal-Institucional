@@ -1,5 +1,6 @@
-<?php get_header() ?>
-<section class="container">
-        <?php get_template_part('loop', 'single'); ?>
-    </section>
-<?php get_footer() ?>
+<?php
+use Classes\TemplateHierarchy\LoopSingle\LoopSingle;
+get_header();
+$loop_single = new LoopSingle();
+get_footer();
+?>

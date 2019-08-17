@@ -18,6 +18,12 @@ require_once __ROOT__.'/classes/Cpt/CptBotao.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingle.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleCabecalho.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMenuInterno.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleNoticiaPrincipal.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMaisRecentes.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleRelacionadas.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContato/ArchiveContatoMetabox.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContato/ArchiveContato.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgenda.php';
@@ -41,6 +47,7 @@ require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/Arch
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveCurriculoDaCidade/ArchiveCurriculoDaCidade.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/SearchForm.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/LoopSearch.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/Search/SearchSingle.php';
 
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicial.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialIcones.php';

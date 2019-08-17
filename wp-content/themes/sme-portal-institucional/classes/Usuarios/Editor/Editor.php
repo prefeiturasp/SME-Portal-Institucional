@@ -43,6 +43,12 @@ class Editor
 
 			$this->role_object->add_cap( 'manage_cards' );
 			$this->role_object->add_cap( 'assign_cards' );
+
+			$this->role_object->add_cap( 'manage_imagens' );
+			$this->role_object->add_cap( 'edit_imagens' );
+			$this->role_object->add_cap( 'delete_imagens' );
+			$this->role_object->add_cap( 'assign_imagens' );
+
 		}
 	}
 

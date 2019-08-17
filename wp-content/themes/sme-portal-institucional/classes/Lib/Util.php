@@ -46,7 +46,7 @@ class Util
 		echo '</section>'; //container
 	}
 
-	public function montaHtmlLoopPadraoSingle()
+	public function montaHtmlLoopPadraoCard()
 	{
 
 		echo '<section class="container">';

@@ -51,23 +51,32 @@ class LoopSearch
 
 				while ($this->querySearch->have_posts()) : $this->querySearch->the_post(); ?>
 
-                    <div class="row container-category linha-pontilhada-category">
-                        <div class="container-pagina-thumb-esquerda-texto-direita mb-4 ml-3">
-                            <div class="container-img-pagina-thumb-esquerda-texto-direita text-center">
-								<?php if (has_post_thumbnail()) {
-									the_post_thumbnail('medium', array('class' => 'img-fluid sem-borda pagina-thumb-esquerda-texto-direita-img'));
-								} ?>
-                            </div>
-                            <h2 class="titulo-pagina-thumb-esquerda-texto-direita d-none d-md-block">
-								<?php the_title(); ?>
-                            </h2>
-							<?php the_excerpt(); ?>
+                    <div class="row mb-4">
+                        <div class="col-lg-12 pb-4 border-bottom">
+							<?php
+
+					        if (has_post_thumbnail()){
+								echo '<figure class=" m-0">';
+								the_post_thumbnail('medium', array('class' => 'img-fluid rounded float-left mr-4 w-25'));
+								echo '</figure>';
+							}
+							?>
+                            <h4 class="fonte-dezoito font-weight-bold mb-2">
+                                <a class="text-decoration-none text-dark" href="<?php the_permalink() ?>">
+									<?= get_the_title(); ?>
+                                </a>
+                            </h4>
+                            <p class="fonte-dezesseis mb-2">
+								<?php the_excerpt(); ?>
+                            </p>
+
                             <div class="col-12">
-                                <a class="btn btn-primary" href="<?php the_permalink(); ?>"><?php echo VEJAMAIS ?></a> </li>
+                                <a class="btn btn-primary" href="<?php the_permalink(); ?>"><?php echo VEJAMAIS ?></a>
                             </div>
 
                         </div>
                     </div>
+
 				<?php
                     endwhile;
 				else:

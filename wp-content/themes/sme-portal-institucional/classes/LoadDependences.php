@@ -73,6 +73,10 @@ class LoadDependences
 		// Currículo da Cidade
 		wp_register_style('curriculo-da-cidade', STM_THEME_URL . 'classes/assets/css/curriculo-da-cidade.css', null, null, 'all');
 		wp_enqueue_style('curriculo-da-cidade');
+
+		// Loop Single
+		wp_register_style('loop-single', STM_THEME_URL . 'classes/assets/css/loop-single.css', null, null, 'all');
+		wp_enqueue_style('loop-single');
 	}
 
 	public function custom_formats_admin(){
