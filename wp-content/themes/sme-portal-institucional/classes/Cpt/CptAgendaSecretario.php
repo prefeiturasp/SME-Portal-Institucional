@@ -118,6 +118,7 @@ class CptAgendaSecretario extends Cpt
 			'hierarchical' => false,
 			'menu_position' => 10,
 			'menu_icon'   => $this->dashborarIcon,
+			'exclude_from_search' => true,
 			'show_in_rest' => true,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
 			'supports' => array(),

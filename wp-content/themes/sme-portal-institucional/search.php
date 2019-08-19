@@ -1,6 +1,7 @@
 <?php
-use Classes\TemplateHierarchy\Search\LoopSearch;
+use Classes\TemplateHierarchy\Search\GetTipoDePost;
+
 get_header();
-$template_hierarchy = new LoopSearch();
+new GetTipoDePost();
 get_footer()
 ?>

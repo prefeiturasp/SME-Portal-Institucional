@@ -5,7 +5,7 @@ namespace Classes\Cpt;
 
 class Cpt
 {
-	protected $type, $cptSlug, $name, $todosOsItens, $menuName, $singularName, $taxonomy, $taxonomyLabel, $taxonomysingularLabel, $dashborarIcon;
+	protected $type, $cptSlug, $name, $todosOsItens, $menuName, $singularName, $taxonomy, $taxonomyLabel, $taxonomysingularLabel, $dashborarIcon, $excludeFromSearch;
 	protected  static $cptSlugExtend;
 	protected  static $nameExtend;
 	protected  static $todosOsItensExtend;
@@ -15,7 +15,7 @@ class Cpt
 	protected $args;
 
 
-	public function __construct($type, $cptSlug, $name, $todosOsItens, $menuName, $singularName, $taxonomy, $taxonomyLabel, $taxonomysingularLabel, $dashborarIcon)
+	public function __construct($type, $cptSlug, $name, $todosOsItens, $menuName, $singularName, $taxonomy, $taxonomyLabel, $taxonomysingularLabel, $dashborarIcon, $excludeFromSearch=true)
 	{
 		$this->type = $type;
 		$this->cptSlug = $cptSlug;
@@ -27,6 +27,7 @@ class Cpt
 		$this->taxonomyLabel = $taxonomyLabel;
 		$this->taxonomysingularLabel = $taxonomysingularLabel;
 		$this->dashborarIcon = $dashborarIcon;
+		$this->dashborarIcon = $excludeFromSearch ;
 
 		self::$cptSlugExtend = $this->cptSlug;
 		self::$nameExtend = $this->name;
@@ -118,6 +119,7 @@ class Cpt
 			'hierarchical' => false,
 			'menu_position' => 10,
 			'menu_icon'   => $this->dashborarIcon,
+			'exclude_from_search' => true,
 			'show_in_rest' => true,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
 			'supports' => array(),

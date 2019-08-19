@@ -10,7 +10,7 @@ class SearchForm
 		<form action="<?php echo home_url( '/' ); ?>" method="get" class="navbar-form navbar-left" style="padding-top: 12px;">
 			<fieldset>
 				<div class="input-group mb-3">
-					<input type="text" name="s" id="search-front-end" placeholder="<?php _e(BUSCAR,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="form-control" />
+					<input type="text" name="s" placeholder="<?php _e(BUSCAR,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="form-control" />
 					<div class="input-group-append">
 						<button type="submit" class="btn btn-outline-secondary bt-search-topo"><?php _e('<i class="fa fa-search"></i>','wpbootstrap'); ?></button>
 					</div>

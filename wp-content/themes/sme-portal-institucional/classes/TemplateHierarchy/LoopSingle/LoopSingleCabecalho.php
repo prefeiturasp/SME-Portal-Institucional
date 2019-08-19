@@ -2,8 +2,7 @@
 
 namespace Classes\TemplateHierarchy\LoopSingle;
 
-
-use Classes\TemplateHierarchy\Search\SearchSingle;
+use Classes\TemplateHierarchy\Search\SearchFormSingle;
 
 class LoopSingleCabecalho extends LoopSingle
 {
@@ -18,9 +17,12 @@ class LoopSingleCabecalho extends LoopSingle
 		<div class="col-lg-6 col-sm-6 d-flex justify-content-lg-start justify-content-center">
 			<h2 class="titulos_internas mb-lg-5">Notícias</h2>
 		</div>
-		<div class="col-lg-6 col-sm-6 d-flex justify-content-lg-end justify-content-center">
+        <?php
+        SearchFormSingle::searchFormHeader();
+        ?>
+		<!--<div class="col-lg-6 col-sm-6 d-flex justify-content-lg-end justify-content-center">
 			<input type="text" class="form-control w-auto mb-lg-0 mb-4" />
-		</div>
+		</div>-->
 		<?php
 	}
 

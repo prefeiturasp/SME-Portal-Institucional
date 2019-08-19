@@ -15,7 +15,9 @@ class LoopSearch
 		$this->montaTituloBusca();
 		$this->montaQuerySearch();
 		$this->montaHtmlSearch();
+
 	}
+
 
 	public function montaTituloBusca()
 	{
@@ -31,8 +33,9 @@ class LoopSearch
 
 	public function montaQuerySearch()
 	{
+
 		$this->argsSearch = array(
-			'post_type' => array('post', 'page', 'portfolio'),
+			'post_type' => array('post','page'),
 			'post_parent' => 0,
 			'paged' => get_query_var('paged'),
 			's' => $this->search,

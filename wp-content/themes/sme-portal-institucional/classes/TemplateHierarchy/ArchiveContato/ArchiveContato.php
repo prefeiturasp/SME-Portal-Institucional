@@ -17,11 +17,19 @@ class ArchiveContato extends Util
 	public function __construct()
 	{
 		$container_html_tags = array('section', 'section');
-		$container_html_css = array('container', 'row');
+		$container_html_css = array('container', 'row container-contatos');
 		$this->abreContainer($container_html_tags,$container_html_css);
+
+/*		$container_item_tags = array('section');
+		$container_item_css = array('border-bottom');
+		$this->abreContainer($container_item_tags, $container_item_css);*/
+
 		$this->getTermosTaxonomiasContato();
 		$this->obterQtdeDeNiveis();
 		$this->percorreNiveis();
+
+		/*$this->fechaContainer($container_item_tags);*/
+
 		$this->fechaContainer($container_html_tags);
 	}
 
@@ -38,9 +46,9 @@ class ArchiveContato extends Util
 
 	public function abreColunas($i){
 		if ($i == 1){
-			echo '<article class="col-12">';
+			echo '<article class="col-12 container-contatos">';
 		}else{
-			echo '<article class="col-6 mb-4">';
+			echo '<article class="col-12 col-md-6 container-contatos">';
 		}
 
 	}
@@ -198,9 +206,9 @@ class ArchiveContato extends Util
 
 	public function montaTituloCamposCadastrados($term_name, $nivel_superior=null){
 		if ($nivel_superior) {
-			return '<h4 class="titulo-nivel-superior mt-4">' . $term_name . '</h4>';
+			return '<p class="titulo-nivel-superior mt-4">' . $term_name . '</p>';
 		}else{
-			return '<h4 class="titulo-nivel-nao-superior">' . $term_name . '</h4>';
+			return '<p class="titulo-nivel-nao-superior mt-4">' . $term_name . '</p>';
 		}
 	}
 
@@ -212,13 +220,13 @@ class ArchiveContato extends Util
 		}
 		switch ($tipo_de_campo) {
 			case 'tel':
-				return '<span><strong>Telefone: </strong></span>';
+				return '<span class="nome-campo"><strong>Telefone: </strong></span>';
 			//break;
 		}
 
 		switch ($tipo_de_campo) {
 			case 'email':
-				return '<span><strong>Email: </strong></span>';
+				return '<span class="nome-campo"><strong>Email: </strong></span>';
 			//break;
 		}
 

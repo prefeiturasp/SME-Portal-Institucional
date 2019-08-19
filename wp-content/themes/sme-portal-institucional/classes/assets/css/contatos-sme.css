@@ -39,14 +39,21 @@
     padding: 5px;
 }
 
+.container-contatos p{
+    margin-bottom: 0.5rem !important;
+}
+
 .titulo-nivel-superior{
-    margin-left: -15px;
+    /*margin-left: -15px;*/
     font-size: 18px;
     font-weight: bold;
 }
 
 .titulo-nivel-nao-superior{
-    font-size: 15px;
+    /*font-size: 15px;*/
     font-weight: bold;
+}
 
+.nome-campo{
+    font-size: 0.8rem;
 }
