@@ -44,8 +44,8 @@ class LoopSingleRelacionadas extends LoopSingle
 
 	public function montaHtmlRelacionadas(){
 
-		$container_mais_noticias_tags = array('section','section');
-		$container_mais_noticias_css = array('row','col-lg-8 col-sm-12 mt-5');
+		$container_mais_noticias_tags = array('section');
+		$container_mais_noticias_css = array('col-lg-8 col-sm-12 mt-5');
 		$this->abreContainer($container_mais_noticias_tags, $container_mais_noticias_css);
 		echo '<h3 class="fonte-vintequatro mb-4 pb-2 font-weight-bold">RELACIONADAS</h3>';
 
@@ -55,6 +55,7 @@ class LoopSingleRelacionadas extends LoopSingle
 				<div class="col-lg-12">
 					<?php
 					$thumb = get_the_post_thumbnail_url($query->ID);
+					$url = get_the_permalink($query->ID);
 					if ($thumb){
 						echo '<figure class=" m-0">';
 						echo '<img src="'.$thumb.'" class="img-fluid rounded float-left mr-4 w-25" alt="'.$query->post_title.'"/>';
@@ -62,7 +63,7 @@ class LoopSingleRelacionadas extends LoopSingle
 					}
 					?>
 					<h4 class="fonte-dezoito font-weight-bold mb-2">
-						<a class="text-decoration-none text-dark" href="<?= $query->guid ?>">
+                        <a class="text-decoration-none text-dark" href="<?= $url ?>">
 							<?= $query->post_title ?>
 						</a>
 					</h4>

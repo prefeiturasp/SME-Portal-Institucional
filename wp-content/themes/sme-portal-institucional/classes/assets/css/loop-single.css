@@ -43,6 +43,10 @@
     border-bottom: 4px solid #47D3CB;
 }
 
+.categorias-nav ul li:nth-child(8) {
+    border-bottom: 4px solid #109CF1;
+}
+
 .categorias-nav ul li ul li{
     border: none !important;
 }
@@ -100,7 +104,7 @@
 }
 
 /*Plugin Add This - Midias Sociais*/
-.addthis_inline_share_toolbox_d2ly, .addthis_inline_share_toolbox_q0q4{
+.addthis_inline_share_toolbox_d2ly, .addthis_inline_share_toolbox_q0q4, #container-midias-sociais-loop-single{
     display: inline-block !important;
     clear: none !important;
     float: right;

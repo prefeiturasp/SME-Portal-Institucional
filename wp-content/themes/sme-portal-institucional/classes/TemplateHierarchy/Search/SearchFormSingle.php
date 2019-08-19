@@ -18,7 +18,7 @@ class SearchFormSingle
                     <div class="input-group mb-3">
                         <input type="text"  name="s" placeholder="<?php _e(BUSCAR,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="form-control" />
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-outline-secondary bt-search-topo"><?php _e('<i class="fa fa-search"></i>','wpbootstrap'); ?></button>
+                            <button type="submit" class="btn bt-search-topo"><?php _e('<i class="fa fa-search"></i>','wpbootstrap'); ?></button>
                         </div>
                     </div>
                 </fieldset>

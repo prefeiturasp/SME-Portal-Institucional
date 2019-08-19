@@ -620,11 +620,19 @@ ul, ol{
 }
 
 /*Escondendo o <legend> do fieldset para acessibilidade*/
-
 fieldset legend{
 	position: absolute;
 	left: 9999px;
 	opacity: 0;
+}
+
+.container-campo-newsletter label{
+	display: block;
+	text-align: left;
+	font-size: 1rem;
+	font-weight: bold;
+	margin-bottom: -15px;
+
 }
 
 @media ( min-width : 992px) {

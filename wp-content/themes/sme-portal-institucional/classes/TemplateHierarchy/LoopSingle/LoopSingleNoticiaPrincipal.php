@@ -25,6 +25,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
                 echo '<h1 class="titulo-noticia-principal mb-3" id="'.get_post_field( 'post_name', get_post() ).'">'.get_the_title().'</h1>';
 				echo $this->getSubtitulo(get_the_ID());
 				$this->getAutor();
+				$this->getMidiasSociais();
 				the_content();
 				$this->getArquivosAnexos();
 				$this->getCategorias(get_the_ID());
@@ -39,7 +40,20 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 		$autor = get_the_author_meta('display_name', $usuario->ID);
 		echo '<span class="display-autor">Por '.$autor.' - '.get_the_date('d/m/Y g\hi').'</span>';
 
-		echo do_shortcode('[addthis tool="addthis_inline_share_toolbox_d2ly"]');
+
+	}
+
+	public function getMidiasSociais(){
+	    /*Utilizando as classes de personalização do Plugin Add This*/
+		?>
+		<div id="container-midias-sociais-loop-single" class="addthis_toolbox addthis_default_style addthis_32x32_style">
+			<a target="_self" class="addthis_button_whatsapp"></a>
+			<a target="_self" class="addthis_button_facebook"></a>
+			<a target="_self" class="addthis_button_twitter"></a>
+			<a target="_self" class="addthis_button_print"></a>
+			<a target="_self" class="addthis_button_compact"></a>
+		</div>
+		<?php
 	}
 
 	public function getArquivosAnexos(){
