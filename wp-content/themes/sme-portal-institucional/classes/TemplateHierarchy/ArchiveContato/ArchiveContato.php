@@ -206,9 +206,9 @@ class ArchiveContato extends Util
 
 	public function montaTituloCamposCadastrados($term_name, $nivel_superior=null){
 		if ($nivel_superior) {
-			return '<p class="titulo-nivel-superior mt-4">' . $term_name . '</p>';
+			return '<p class="titulo-nivel-superior mt-2 pt-2">' . $term_name . '</p>';
 		}else{
-			return '<p class="titulo-nivel-nao-superior mt-4">' . $term_name . '</p>';
+			return '<p class="titulo-nivel-nao-superior mt-2 pt-2 border-top">' . $term_name . '</p>';
 		}
 	}
 

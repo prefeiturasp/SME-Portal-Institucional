@@ -41,9 +41,9 @@ class PaginaInicial extends Util
 		new PaginaInicialNoticiasDestaquePrimaria();
 		new PaginaInicialNoticiasDestaqueSecundarias();
 
-		$twitter_newsletter_nuvem_de_tags_tags = array('section','section','section');
-		$twitter_newsletter_nuvem_de_tags_css = array('bg-light pt-5 pb-5 area-social','container', 'row');
-		$this->abreContainer($twitter_newsletter_nuvem_de_tags_tags, $twitter_newsletter_nuvem_de_tags_css);
+		$twitter_newsletter_facebook_tags = array('section','section');
+		$twitter_newsletter_facebook_css = array('bg-light pt-5 pb-5 area-social', 'row');
+		$this->abreContainer($twitter_newsletter_facebook_tags, $twitter_newsletter_facebook_css);
 
 		new PaginaInicialTwitter();
 
@@ -55,7 +55,7 @@ class PaginaInicial extends Util
         new PaginaInicialFacebook();
 		$this->fechaContainer($newsletter_nuvem_de_tags_tags);
 
-		$this->fechaContainer($twitter_newsletter_nuvem_de_tags_tags);
+		$this->fechaContainer($twitter_newsletter_facebook_tags);
 		$this->fechaContainer($noticias_home_tags);
 
     }

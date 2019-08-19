@@ -18,9 +18,9 @@ class PaginaInicialNewsletter
 					<i class="fa fa-envelope text-primary"></i>
 					Assine Nossa Newsletter
 				</h2>
-				<div class="w-100 mx-auto p-2 pb-0 mb-2">
+				<p>
 					Receba nossas novidades e fique por dentro de tudo o que acontece na Secretaria Municipal de Educação.
-				</div>
+                </p>
 				<?= do_shortcode('[contact-form-7 id="18931" title="Newsletter"]'); ?>
 			</article>
 

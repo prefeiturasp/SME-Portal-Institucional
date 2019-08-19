@@ -30,10 +30,14 @@ class PaginaAbasAcoesDestaque extends PaginaAbas
 	}
 
 	public function montaArrayIdsPaginas(){
-		foreach ($this->escolha_as_paginas_acoes_em_destaque as $id_page){
-			$array_paginas[] = $id_page->ID;
+
+		if ($this->escolha_as_paginas_acoes_em_destaque) {
+
+			foreach ($this->escolha_as_paginas_acoes_em_destaque as $id_page) {
+				$array_paginas[] = $id_page->ID;
+			}
+			$this->array_id_paginas_acoes_em_destaque = $array_paginas;
 		}
-		$this->array_id_paginas_acoes_em_destaque = $array_paginas;
 	}
 
 	public function getQueryPaginasAcoesDestaque(){

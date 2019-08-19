@@ -629,7 +629,7 @@ fieldset legend{
 
 @media ( min-width : 992px) {
 	.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
-		background-color: #fff;
+		background-color: #E5E5E5;
 		border-color: #dee2e6 #dee2e6 #fff;
 	}
 	.menu-menu-superior-container ul li ul li a {
