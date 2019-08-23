@@ -14,6 +14,7 @@ require_once __ROOT__.'/classes/Cpt/CptCard.php';
 require_once __ROOT__.'/classes/Cpt/CptAgendaSecretario.php';
 require_once __ROOT__.'/classes/Cpt/CptContato.php';
 require_once __ROOT__.'/classes/Cpt/CptOrganograma.php';
+require_once __ROOT__.'/classes/Cpt/CptAba.php';
 require_once __ROOT__.'/classes/Cpt/CptBotao.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
@@ -92,6 +93,7 @@ $cptContatoSmeExtend = new \Classes\Cpt\CptContato();
 $cptOrganograma = new \Classes\Cpt\Cpt('organograma', 'organograma', 'Organograma', 'Todos os Itens', 'Organogramas', 'Organograma', 'categorias-organograma', 'Categorias de Organograma', 'Categoria de Organograma', 'dashicons-networking', true );
 
 $cptAbas = new \Classes\Cpt\Cpt('aba', 'aba', 'Cadastro de Abas', 'Todos as Abas', 'Abas', 'Cadastro de Abas', 'categorias-aba', 'Categorias de Abas', 'Categoria de Aba', 'dashicons-index-card' , true);
+$cptAbasExtend = new \Classes\Cpt\CptAba();
 
 $cptBotao = new \Classes\Cpt\Cpt('botao', 'botao', 'Cadastro de Botões', 'Todos os Botões', 'Botões', 'Cadastro de Botões', 'categorias-botao', 'Categorias de Botões', 'Categoria de Botão', 'dashicons-external' , true);
 $cptBotaoExtend = new \Classes\Cpt\CptBotao();

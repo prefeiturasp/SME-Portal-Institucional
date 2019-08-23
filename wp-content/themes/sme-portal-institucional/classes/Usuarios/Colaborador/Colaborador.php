@@ -93,9 +93,24 @@ class Colaborador
 			$this->role_object->add_cap( 'delete_cards' );
 			$this->role_object->add_cap( 'manage_cards' );
 			$this->role_object->add_cap( 'assign_cards' );
-
 			$this->role_object->add_cap( 'edit_published_cards' );
 			$this->role_object->add_cap( 'delete_published_card' );
+
+			$this->role_object->add_cap( 'read_aba');
+			$this->role_object->add_cap( 'edit_abas' );
+			$this->role_object->add_cap( 'delete_abas' );
+			$this->role_object->add_cap( 'manage_abas' );
+			$this->role_object->add_cap( 'assign_abas' );
+			$this->role_object->add_cap( 'edit_published_abas' );
+			$this->role_object->add_cap( 'delete_published_aba' );
+
+			$this->role_object->add_cap( 'read_botao');
+			$this->role_object->add_cap( 'edit_botoes' );
+			$this->role_object->add_cap( 'delete_botoes' );
+			$this->role_object->add_cap( 'manage_botoes' );
+			$this->role_object->add_cap( 'assign_botoes' );
+			$this->role_object->add_cap( 'edit_published_botoes' );
+			$this->role_object->add_cap( 'delete_published_botao' );
 
 			$this->role_object->add_cap( 'read_imagem');
 			$this->role_object->add_cap( 'edit_imagens' );
@@ -121,8 +136,9 @@ class Colaborador
 			remove_menu_page('edit.php?post_type=agenda');
 			remove_menu_page('edit.php?post_type=contato');
 			remove_menu_page('edit.php?post_type=organograma');
-			remove_menu_page('edit.php?post_type=aba');
-			remove_menu_page('edit.php?post_type=botao');
+			remove_menu_page('edit.php?post_type=curriculo-da-cidade');
+			//remove_menu_page('edit.php?post_type=aba');
+			//remove_menu_page('edit.php?post_type=botao');
 
 			//remove_menu_page('admin.php');
 			remove_menu_page( 'wpcf7' );

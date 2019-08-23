@@ -37,7 +37,7 @@ class ModelosDePaginaRemoveThemeSupport
 			unset( $pages_templates['pagina-inicial.php'] );
 			unset( $pages_templates['pagina-organograma.php'] );
 			unset( $pages_templates['pagina-organograma.php'] );
-			unset( $pages_templates['pagina-abas.php'] );
+			//unset( $pages_templates['pagina-abas.php'] );
 		}
 		return $pages_templates;
 	}
