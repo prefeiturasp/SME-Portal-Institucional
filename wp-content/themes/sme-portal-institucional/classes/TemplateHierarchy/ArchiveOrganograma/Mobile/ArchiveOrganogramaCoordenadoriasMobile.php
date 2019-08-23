@@ -17,7 +17,12 @@ class ArchiveOrganogramaCoordenadoriasMobile extends ArchiveOrganogramaMobile
 
 	public function getDadosCoordenadorias(){
 
-		$termos = get_terms(array('taxonomy' => self::TAXONOMIA, 'post_type' => self::CPT, 'parent' => self::$id_taxonomia_coordenadorias )); // ID Taxonomia Coordenadorias
+		$termos = get_terms(array(
+            'taxonomy' => self::TAXONOMIA,
+            'post_type' => self::CPT,
+            'parent' => self::$id_taxonomia_coordenadorias,
+			'hide_empty' => false,
+        )); // ID Taxonomia Coordenadorias
 
 		foreach ($termos as $termo){
 
