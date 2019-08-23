@@ -14,7 +14,7 @@ class PaginaAbasTitulos extends PaginaAbas
 
 	public function getTituloAbas(){
 		$titulos_abas_tags = array('section', 'article', 'ul');
-		$titulos_abas_css = array('row', 'col-lg-12 col-sm-12 mb-5', 'nav nav-tabs nav-fill border-0 m-0 fonte-doze coordenadorias-tabs');
+		$titulos_abas_css = array('row', 'col-lg-12 col-sm-12 mb-5', 'nav nav-tabs border-0 m-0 fonte-doze coordenadorias-tabs');
 		$this->abreContainer($titulos_abas_tags, $titulos_abas_css);
 
 		foreach ($this->getQueryAbas() as $index => $aba){

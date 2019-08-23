@@ -41,7 +41,7 @@ class PaginaAbas extends ArchiveContato
 		$this->args_abas = array(
 			'posts_per_page' => -1,
 			'post_type' => 'aba',
-			'orderby' => 'title',
+			'orderby' => 'date',
 			'order' => 'ASC',
 			'tax_query' => array(
 				array(

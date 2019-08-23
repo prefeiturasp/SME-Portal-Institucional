@@ -5,6 +5,9 @@
         margin-bottom: 1em;
     }
 }
+.coordenadorias-tabs{
+    text-align: left;
+}
 
 .coordenadorias-tabs .nav-link {
     border-bottom: 2px solid #196CBD !important;
