@@ -110,6 +110,7 @@ class ArchiveOrganograma extends ArchiveContato
 		$this->args_taxonomias = array(
 			'post_type' => self::CPT,
 			'posts_per_page' => -1,
+			'hide_empty' => false,
 			'tax_query' => array(
 				array(
 					'taxonomy' => self::TAXONOMIA,
