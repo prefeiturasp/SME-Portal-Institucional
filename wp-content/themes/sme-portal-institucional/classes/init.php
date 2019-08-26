@@ -70,6 +70,7 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasBotoes.php
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasAcoesDestaque.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasConteudos.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaCurriculoDaCidade/PaginaCurriculoDaCidade.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaBotoes/PaginaBotoes.php';
 
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolas.php';
