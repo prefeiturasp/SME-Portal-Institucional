@@ -13,6 +13,11 @@ class LoopSingleMenuInterno extends LoopSingle
 	public function getMenuInterno(){
 
 		$menu_interno = get_field('escolha_o_menu_que_deseja_exibir_no_detalhe_da_noticia', get_the_ID());
+
+		if (!$menu_interno) {
+			$menu_interno = 'menu mais noticias';
+		};
+
 		$menu_interno_tags = array('section');
 		$menu_interno_css = array('mb-5');
 		$this->abreContainer($menu_interno_tags, $menu_interno_css);
