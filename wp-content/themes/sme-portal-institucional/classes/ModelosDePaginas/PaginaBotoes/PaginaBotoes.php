@@ -15,6 +15,7 @@ class PaginaBotoes extends PaginaAbasBotoes
 	{
 		$this->page_id = get_the_ID();
 		$this->categoria_de_botoes = get_field('escolha_a_categoria_de_botoes_que_deseja_exibir', $this->page_id);
+		$this->init();
 	}
 
 	public function init(){
