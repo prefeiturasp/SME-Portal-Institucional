@@ -30,7 +30,7 @@ class PaginaInicial extends Util
 
 	public function init(){
 
-		new PaginaInicialIcones();
+		new PaginaInicialIconesDetectMobile();
 
 		$this->tituloNoticias();
 

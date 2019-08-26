@@ -54,7 +54,9 @@ require_once __ROOT__ .'/classes/TemplateHierarchy/Search/SearchFormSingle.php';
 require_once __ROOT__ .'/classes/TemplateHierarchy/Search/LoopSearchSingle.php';
 
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicial.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialIconesDetectMobile.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialIcones.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/Mobile/PaginaInicialIconesMobile.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaquePrimaria.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaqueSecundarias.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialTwitter.php';

@@ -1,3 +1,24 @@
+.container-menu-icones-home li{
+    border-right: solid 1px #fff;
+}
+.container-menu-icones-home li a{
+    padding: 15px;
+}
+.container-menu-icones-home li a:hover, .container-menu-icones-home li a:focus{
+    background-color: #196CBD;
+    color: #fff;
+    border-radius: 0 !important;
+}
+
+.container-menu-icones-home-mobile li{
+    display: block;
+    width: 100%;
+    text-align: left;
+
+}
 .icones-home{
     max-width: 116px;
+}
+@media ( max-width : 769px) {
+
 }

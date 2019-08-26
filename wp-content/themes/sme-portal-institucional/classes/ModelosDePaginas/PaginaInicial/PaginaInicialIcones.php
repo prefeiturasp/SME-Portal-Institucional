@@ -7,14 +7,9 @@ class PaginaInicialIcones extends PaginaInicial
 {
 	public function __construct()
 	{
+
 		$this->criaArrayIconesTitulosIcones();
 
-				?>
-		<section class="bg-cinza-claro areas-menu overflow-hidden">
-		<article class="container">
-		<article class="row">
-		<article class="col-lg-12 col-xs-12">
-		<?php
 		$Icones_menu_icones_tags = array('section','article','article','article');
 		$Icones_menu_icones_css = array('bg-cinza-claro areas-menu overflow-hidden','container','row','col-lg-12 col-xs-12');
 
@@ -54,7 +49,7 @@ class PaginaInicialIcones extends PaginaInicial
 
 	public function montaHtmlMenuIcones()
 	{
-		echo '<section class="tab-content menu-completo bg-cinza-ativo">';
+		echo '<section class="tab-content bg-cinza-ativo">';
 
 		foreach ($this->array_icone_titulo_icone_id_menu_icone as $icone) {
 
@@ -64,7 +59,7 @@ class PaginaInicialIcones extends PaginaInicial
 					'theme_location' => 'primary',
 					'depth' => 2,
 					'container' => false,
-					'items_wrap' => '<div class="tab-pane fade container" id="menu_' . $icone['menu_icone'] . '" role="tabpanel" aria-labelledby="tab_' . $icone['menu_icone'] . '"><ul class="nav nav-pills p-2">%3$s</ul></div>'
+					'items_wrap' => '<div class="tab-pane fade container" id="menu_' . $icone['menu_icone'] . '" role="tabpanel" aria-labelledby="tab_' . $icone['menu_icone'] . '"><ul class="nav nav-pills container-menu-icones-home">%3$s</ul></div>'
 				));
 			}
 
