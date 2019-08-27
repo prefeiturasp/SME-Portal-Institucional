@@ -62,7 +62,7 @@ class CptContato extends Cpt
 				'edit_post' => 'edit_contato',
 				'edit_posts' => 'edit_contatos',
 				'edit_published_posts ' => 'edit_published_contatos',
-				'read_post' => 'read_botao',
+				'read_post' => 'read_contato',
 				'read_private_posts' => 'read_private_contatos',
 				'delete_post' => 'delete_contato',
 				'delete_published_posts' => 'delete_published_contatos',

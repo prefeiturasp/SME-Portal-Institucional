@@ -1,32 +1,31 @@
 <?php
 
-namespace Classes\Usuarios\Editor;
+namespace Classes\Usuarios\Administrador;
 
 
-class Editor
+class Administrador
 {
-
-	const ROLE = 'editor';
+	const ROLE = 'administrator';
 	private $role_object;
 
 	public function __construct()
 	{
 		$this->getRole();
 		$this->addCap();
-		add_action('admin_menu', array($this, 'escondeMenu' ));
+		//add_action('admin_menu', array($this, 'escondeMenu' ));
 	}
 
 	public function getRole(){
 		// get the the role object
-		if (current_user_can('editor')) {
-			$this->role_object = get_role('editor');
+		if (current_user_can(self::ROLE)) {
+			$this->role_object = get_role(self::ROLE);
 		}
 	}
 
 	public function addCap(){
 
 		// add $cap capability to this role object
-		if (current_user_can('editor')) {
+		if (current_user_can(self::ROLE)) {
 			$this->role_object->add_cap('edit_theme_options');
 
 			$this->role_object->add_cap( 'read' );
@@ -57,6 +56,10 @@ class Editor
 			$this->role_object->add_cap( 'delete_others_abas' );
 			$this->role_object->add_cap( 'delete_private_abas' );
 			$this->role_object->add_cap( 'delete_published_abas' );
+			$this->role_object->add_cap( 'manage_abas' );
+			$this->role_object->add_cap( 'edit_abas' );
+			$this->role_object->add_cap( 'delete_abas' );
+			$this->role_object->add_cap( 'assign_abas' );
 
 			$this->role_object->add_cap( 'read_contato');
 			$this->role_object->add_cap( 'read_private_contatos' );
@@ -85,12 +88,15 @@ class Editor
 			$this->role_object->add_cap( 'delete_others_botoes' );
 			$this->role_object->add_cap( 'delete_private_botoes' );
 			$this->role_object->add_cap( 'delete_published_botoes' );
+			$this->role_object->add_cap( 'manage_botoes' );
+			$this->role_object->add_cap( 'edit_botoes' );
+			$this->role_object->add_cap( 'delete_botoes' );
+			$this->role_object->add_cap( 'assign_botoes' );
 
 			$this->role_object->add_cap( 'manage_imagens' );
 			$this->role_object->add_cap( 'edit_imagens' );
 			$this->role_object->add_cap( 'delete_imagens' );
 			$this->role_object->add_cap( 'assign_imagens' );
-
 		}
 	}
 
@@ -98,7 +104,7 @@ class Editor
 
 		$usuario = wp_get_current_user();
 
-		if ($usuario->roles[0] === 'editor') {
+		if ($usuario->roles[0] === self::ROLE) {
 
 			remove_submenu_page( 'themes.php', 'themes.php' ); // hide the theme selection submenu
 			remove_submenu_page( 'themes.php', 'widgets.php' ); // hide the widgets submenu
@@ -120,4 +126,4 @@ class Editor
 
 }
 
-new Editor();
+new Administrador();

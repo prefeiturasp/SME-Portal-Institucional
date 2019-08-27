@@ -89,12 +89,17 @@ class Colaborador
 			//$this->role_object->add_cap('edit_private_pages');
 
 			$this->role_object->add_cap( 'read_card');
+			$this->role_object->add_cap( 'read_private_cards');
+			$this->role_object->add_cap( 'edit_card' );
+			$this->role_object->add_cap( 'edit_cards' );
+			$this->role_object->add_cap( 'edit_published_cards' );
+			$this->role_object->add_cap( 'delete_card' );
+			$this->role_object->add_cap( 'delete_published_cards' );
+			$this->role_object->add_cap( 'delete_published_cards' );
 			$this->role_object->add_cap( 'edit_cards' );
 			$this->role_object->add_cap( 'delete_cards' );
-			$this->role_object->add_cap( 'manage_cards' );
 			$this->role_object->add_cap( 'assign_cards' );
-			$this->role_object->add_cap( 'edit_published_cards' );
-			$this->role_object->add_cap( 'delete_published_card' );
+
 
 			$this->role_object->add_cap( 'read_aba');
 			$this->role_object->add_cap( 'edit_abas' );
@@ -103,6 +108,10 @@ class Colaborador
 			$this->role_object->add_cap( 'assign_abas' );
 			$this->role_object->add_cap( 'edit_published_abas' );
 			$this->role_object->add_cap( 'delete_published_aba' );
+			$this->role_object->add_cap( 'manage_cards' );
+			$this->role_object->add_cap( 'edit_cards' );
+			$this->role_object->add_cap( 'delete_cards' );
+			$this->role_object->add_cap( 'assign_cards' );
 
 			$this->role_object->add_cap( 'read_botao');
 			$this->role_object->add_cap( 'edit_botoes' );

@@ -58,7 +58,7 @@ class CptBotao extends Cpt
 				'read_post' => 'read_botao',
 				'read_private_posts' => 'read_private_botoes',
 				'delete_post' => 'delete_botao',
-				'delete_published_posts' => 'delete_published_botao',
+				'delete_published_posts' => 'delete_published_botoes',
 			),
 			'map_meta_cap'        => true,
 			'has_archive' => true,

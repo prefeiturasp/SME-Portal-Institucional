@@ -34,7 +34,7 @@ class CptCard extends Cpt
 			'name' => _x($this->name, 'post type general name'),
 			'singular_name' => _x($this->name, 'post type singular name'),
 			'all_items' => _x( $this->todosOsItens, 'Admin Menu todos os itens'),
-			'add_new' => _x('Adicionar novo '.$this->name, 'Novo item'),
+			'add_new' => _x('Adicionar card ', 'Novo item'),
 			'add_new_item' => __('Novo Item'),
 			'edit_item' => __('Editar Item'),
 			'new_item' => __('Novo Item'),
@@ -59,13 +59,11 @@ class CptCard extends Cpt
 				'edit_post' => 'edit_card',
 				'edit_posts' => 'edit_cards',
 				'edit_published_posts ' => 'edit_published_cards',
-				//'publish_posts' => 'publish_cards',
 				'read_post' => 'read_card',
 				'read_private_posts' => 'read_private_cards',
 				'delete_post' => 'delete_card',
-				'delete_published_posts' => 'delete_published_card',
+				'delete_published_posts' => 'delete_published_cards',
 			),
-			'map_meta_cap'        => true,
 			'has_archive' => true,
 			'hierarchical' => false,
 			'menu_position' => 10,
@@ -73,10 +71,11 @@ class CptCard extends Cpt
 			'exclude_from_search' => true,
 			'show_in_rest' => true,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'supports' => array('title', 'editor', 'excerpt', 'comments'),
+			'supports' => array(),
 		);
 
 		register_post_type($this->cptSlug, $args);
+
 		flush_rewrite_rules();
 
 		register_taxonomy(
@@ -84,7 +83,7 @@ class CptCard extends Cpt
 			$this->cptSlug,
 			array(
 				"hierarchical" => true,
-				"label" => 'Categoria de Cards',
+				"label" => 'Categorias de Cards',
 				"singular_label" => 'Categoria de Card',
 				'map_meta_cap'        => true,
 				// Definido as capacidades para a taxonomia tag. Se torna uma Tag porque o 'hierarchical'  => false,
