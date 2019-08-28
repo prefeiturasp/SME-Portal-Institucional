@@ -276,18 +276,19 @@ function my_login_logo_url_title() {
 	return STM_SITE_NAME;
 }
 
+// Adicionando alt e title nas images
 add_filter( 'wp_get_attachment_image_attributes','getAltTitleImagesThePostThumbnail', 10, 2 );
 function getAltTitleImagesThePostThumbnail( $attr=null, $attachment = null ) {
 
-	$img_title = trim( strip_tags( $attachment->post_title ) );
+	//$img_title = trim( strip_tags( $attachment->post_title ) );
 	$img_alt = trim( strip_tags( $attachment->post_excerpt ) );
 
-	if (!$img_alt){
+/*	if (!$img_alt){
 		$img_alt = $img_title;
-	}
+	}*/
 
 	$attr['alt'] = $img_alt;
-	$attr['title'] = $img_title;
+	//$attr['title'] = $img_title;
 
 
 	return $attr;
@@ -365,6 +366,15 @@ function img_responsive($content){
 	return str_replace('<img ','<img class="img-fluid" ',$content);
 }
 add_filter('the_content','img_responsive');
+
+// Removendo o atributo title dos menus
+function my_menu_notitle( $menu ){
+	return $menu = preg_replace('/ title=\"(.*?)\"/', '', $menu );
+
+}
+add_filter( 'wp_nav_menu', 'my_menu_notitle' );
+add_filter( 'wp_page_menu', 'my_menu_notitle' );
+add_filter( 'wp_list_categories', 'my_menu_notitle' );
 
 
 define('__ROOT__', dirname(dirname(__FILE__)).'/sme-portal-institucional');

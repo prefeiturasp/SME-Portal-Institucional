@@ -51,7 +51,7 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
 
             <article class="card h-100 rounded border-0">
 				<?php if (has_post_thumbnail()) {
-					echo '<figure>';
+					echo '<figure class="mb-0">';
 					the_post_thumbnail('large', array('class' => 'card-img'));
 					echo '</figure>';
 				} else {
@@ -66,9 +66,11 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
 							<?= get_the_title() ?>
                         </a>
                     </h2>
-                    <p class="card-text text-white fonte-doze">
-						<?= get_the_excerpt() ?>
-                    </p>
+                    <?php if (get_the_excerpt()){ ?>
+                        <section class="card-text text-white fonte-doze">
+                            <?= get_the_excerpt() ?>
+                        </section>
+                    <?php } ?>
                 </article>
             </article>
 		<?php

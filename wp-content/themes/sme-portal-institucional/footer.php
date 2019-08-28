@@ -7,7 +7,7 @@
             <section class="row">
                 <article class="col-lg-2 col-xs-12 mb-xs-4 d-flex align-items-end">
                     <figure>
-                        <img width="160px" src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/Logo_SP.png" alt="Prefeitura de SP" class="img-fluid" />
+                        <img width="160" src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/Logo_SP.png" alt="Prefeitura de SP" class="img-fluid" />
                     </figure>
                 </article>
                 <article class="col-lg-2 col-xs-12 border-left mb-xs-4">
@@ -30,16 +30,16 @@
                     </ul>
                     <ul class="list-inline mb-3">
                         <li class="list-inline-item">
-                            <a class="text-white" href=""><i class="fa fa-facebook-square"></i></a>
+                            <a class="text-white" href=""><span class="esconde-item-acessibilidade">Ir para Facebook da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-facebook-square"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="text-white" href=""><i class="fa fa-instagram"></i></a>
+                            <a class="text-white" href=""><span class="esconde-item-acessibilidade">Ir para Instagram da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-instagram"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="text-white" href=""><i class="fa fa-twitter-square"></i></a>
+                            <a class="text-white" href=""><span class="esconde-item-acessibilidade">Ir para Twitter da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-twitter-square"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="text-white" href=""><i class="fa fa-youtube"></i></a>
+                            <a class="text-white" href=""><span class="esconde-item-acessibilidade">Ir para YouTube da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-youtube"></i></a>
                         </li>
                     </ul>
                     <figure>
@@ -51,21 +51,21 @@
                         <fieldset>
                             <legend>Menu contendo os seguintes itens: Secretarias, Prefeituras Regionais, Órgãos e Autarquias</legend>
                             <div class="form-group mb-2">
-                                <select
-                                        class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
-                                    <option>Secretarias</option>
+                                <label class="esconde-item-acessibilidade" for="secretarias">Secretarias</label>
+                                <select name="secretarias" id="secretarias" class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
+                                    <option> Secretarias </option>
                                 </select>
                             </div>
                             <div class="form-group mb-2">
-                                <select
-                                        class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
-                                    <option>Prefeituras Regionais</option>
+                                <label class="esconde-item-acessibilidade" for="prefeituras-regionais">Prefeituras Regionais</label>
+                                <select name="prefeituras-regionais" id="prefeituras-regionais" class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
+                                    <option> Prefeituras Regionais </option>
                                 </select>
                             </div>
                             <div class="form-group mb-0">
-                                <select
-                                        class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
-                                    <option>Órgãos e Autarquias</option>
+                                <label class="esconde-item-acessibilidade" for="orgaos-autarquias">Órgãos e Autarquias</label>
+                                <select name="orgaos-autarquias" id="orgaos-autarquias" class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
+                                    <option>  Órgãos e Autarquias </option>
                                 </select>
                             </div>
                         </fieldset>
@@ -86,13 +86,12 @@
 </footer>
 
 <!-- /.container-fluid -->
+<?php wp_footer() ?>
 <script src="//api.handtalk.me/plugin/latest/handtalk.min.js"></script>
 <script>
     var ht = new HT({
         token: "aa1f4871439ba18dabef482aae5fd934"
     });
 </script>
-
-<?php wp_footer() ?>
 </body>
 </html>

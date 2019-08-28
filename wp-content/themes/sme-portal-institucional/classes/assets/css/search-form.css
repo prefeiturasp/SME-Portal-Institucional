@@ -18,7 +18,7 @@
     }
 
 
-     #search-front-end {
+     #search-front-end, #search-front-end-2 {
         /*background: #fff url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;*/
         background: url("../img/search-icon-shadow.png")no-repeat 9px center;
         border: solid 1px #fff;
@@ -33,11 +33,8 @@
         -moz-transition: all .5s;
         transition: all .5s;
     }
-     #search-front-end:focus {
+     #search-front-end:focus, #search-front-end-2:focus {
         width: 130px;
-        background-color: red;
-        border-color: #66CC75;
-
         -webkit-box-shadow: 0 0 5px rgba(112,112,112,.9);
         -moz-box-shadow: 0 0 5px rgba(112,112,112,.9);
         box-shadow: 0 0 5px rgba(112,112,112,.9);

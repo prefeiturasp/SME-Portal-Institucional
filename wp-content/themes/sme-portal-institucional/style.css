@@ -255,7 +255,7 @@ ul, ol{
 .navbar-expand-lg .navbar-nav .nav-link{
 	padding-right: .4rem;
 	padding-left: .4rem;
-;
+	color: #000000;
 }
 
 * {
@@ -620,10 +620,13 @@ ul, ol{
 }
 
 /*Escondendo o <legend> do fieldset para acessibilidade*/
-fieldset legend{
-	position: absolute;
-	left: 9999px;
-	opacity: 0;
+fieldset legend, .esconde-item-acessibilidade{
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+	clip: rect(1px, 1px, 1px, 1px);
 }
 
 .container-campo-newsletter label{

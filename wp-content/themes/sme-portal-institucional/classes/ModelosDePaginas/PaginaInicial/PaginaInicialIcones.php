@@ -13,10 +13,10 @@ class PaginaInicialIcones extends PaginaInicial
 		$Icones_menu_icones_tags = array('section','article','article','article');
 		$Icones_menu_icones_css = array('bg-cinza-claro areas-menu overflow-hidden','container','row','col-lg-12 col-xs-12');
 
-		$this->abreContainer($Icones_menu_icones_tags, $Icones_menu_icones_css);
+		//$this->abreContainer($Icones_menu_icones_tags, $Icones_menu_icones_css);
 		$this->montaHtmlIcones();
 		$this->montaHtmlMenuIcones();
-		$this->fechaContainer($Icones_menu_icones_tags);
+		//$this->fechaContainer($Icones_menu_icones_tags);
 	}
 
 	public function criaArrayIconesTitulosIcones()
@@ -34,7 +34,7 @@ class PaginaInicialIcones extends PaginaInicial
 
 				<li class="card rounded-0 border-0 bg-cinza pt-5 pb-3">
 					<a id="tab_<?= $icone['menu_icone'] ?>" data-toggle="tab" href="#menu_<?= $icone['menu_icone'] ?>"
-					   role="tab" aria-controls="aria_controls_<?= $icone['menu_icone'] ?>" aria-selected="false"
+					   role="tab" aria-selected="false"
 					   class="d-flex justify-content-center align-items-center">
 						<img src="<?= $icone['url_icone'] ?>" class="icones-home" alt="Ícone <?= $icone['titulo_icone'] ?>">
 					</a>
@@ -49,7 +49,7 @@ class PaginaInicialIcones extends PaginaInicial
 
 	public function montaHtmlMenuIcones()
 	{
-		echo '<section class="tab-content bg-cinza-ativo">';
+		echo '<article class="tab-content bg-cinza-ativo">';
 
 		foreach ($this->array_icone_titulo_icone_id_menu_icone as $icone) {
 
@@ -65,7 +65,7 @@ class PaginaInicialIcones extends PaginaInicial
 
 		}
 
-		echo '</section>';
+		echo '</article>';
 
 	}
 

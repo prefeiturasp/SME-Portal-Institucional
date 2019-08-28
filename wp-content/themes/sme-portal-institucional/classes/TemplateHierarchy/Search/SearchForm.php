@@ -7,10 +7,12 @@ class SearchForm
 {
 	public static function searchFormLoopSearch(){
 		?>
-		<form action="<?php echo home_url( '/' ); ?>" method="get" class="navbar-form navbar-left" style="padding-top: 12px;">
+		<form action="<?php echo home_url( '/' ); ?>" method="get" class="navbar-form navbar-left pt-2">
 			<fieldset>
+                <legend>Campo de Busca de informações</legend>
 				<div class="input-group mb-3">
-					<input type="text" name="s" placeholder="<?php _e(BUSCAR,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="form-control" />
+                    <label class="esconde-item-acessibilidade" for="search-front-end">Campo de Busca de informações</label>
+                    <input type="text" name="s" placeholder="<?php _e(BUSCAR,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="form-control" />
 					<div class="input-group-append">
 						<button type="submit" class="btn btn-outline-secondary bt-search-topo"><?php _e('<i class="fa fa-search"></i>','wpbootstrap'); ?></button>
 					</div>
@@ -23,11 +25,12 @@ class SearchForm
 	public static function searchFormHeader(){
 		?>
 		<div class="d-none d-lg-block container-search-topo">
-			<form id="demo-2" action="<?php echo home_url( '/' ); ?>" method="get" class="form-inline " style="padding-top: 12px;">
+			<form id="demo-2" action="<?php echo home_url( '/' ); ?>" method="get" class="form-inline pt-2">
 				<fieldset>
                     <legend>Campo de Busca de informações</legend>
 					<div class="input-group">
-						<input type="search" name="s" id="search-front-end" placeholder="<?php _e(BUSCAR,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="input-search-topo" />
+                        <label class="esconde-item-acessibilidade" for="search-front-end-2">Campo de Busca de informações</label>
+						<input type="search" name="s" id="search-front-end-2" placeholder="<?php _e(BUSCAR,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="input-search-topo" />
 					</div>
 				</fieldset>
 			</form>
@@ -37,7 +40,8 @@ class SearchForm
 				<fieldset>
                     <legend>Campo de Busca de informações</legend>
 					<div class="input-group mb-3">
-						<input type="text" name="s" id="search-front-end" placeholder="<?php _e(BUSCAR,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="form-control" />
+                        <label class="esconde-item-acessibilidade" for="search-front-end">Campo de Busca de informações</label>
+                        <input type="text" name="s" id="search-front-end" placeholder="<?php _e(BUSCAR,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="form-control" />
 						<div class="input-group-append">
 							<button type="submit" class="btn btn-outline-secondary bt-search-topo"><?php _e('<i class="fa fa-search"></i>','wpbootstrap'); ?></button>
 						</div>

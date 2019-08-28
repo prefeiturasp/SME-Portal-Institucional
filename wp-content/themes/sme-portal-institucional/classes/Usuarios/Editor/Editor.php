@@ -54,9 +54,14 @@ class Editor
 			$this->role_object->add_cap( 'edit_others_abas' );
 			$this->role_object->add_cap( 'edit_published_abas' );
 			$this->role_object->add_cap( 'publish_abas' );
+			$this->role_object->add_cap( 'delete_aba' );
 			$this->role_object->add_cap( 'delete_others_abas' );
 			$this->role_object->add_cap( 'delete_private_abas' );
 			$this->role_object->add_cap( 'delete_published_abas' );
+			$this->role_object->add_cap( 'manage_abas' );
+			$this->role_object->add_cap( 'edit_abas' );
+			$this->role_object->add_cap( 'delete_abas' );
+			$this->role_object->add_cap( 'assign_abas' );
 
 			$this->role_object->add_cap( 'read_contato');
 			$this->role_object->add_cap( 'read_private_contatos' );
@@ -85,6 +90,12 @@ class Editor
 			$this->role_object->add_cap( 'delete_others_botoes' );
 			$this->role_object->add_cap( 'delete_private_botoes' );
 			$this->role_object->add_cap( 'delete_published_botoes' );
+			$this->role_object->add_cap( 'manage_botoes' );
+			$this->role_object->add_cap( 'edit_botoes' );
+			$this->role_object->add_cap( 'delete_botoes' );
+			$this->role_object->add_cap( 'assign_botoes' );
+
+
 
 			$this->role_object->add_cap( 'manage_imagens' );
 			$this->role_object->add_cap( 'edit_imagens' );

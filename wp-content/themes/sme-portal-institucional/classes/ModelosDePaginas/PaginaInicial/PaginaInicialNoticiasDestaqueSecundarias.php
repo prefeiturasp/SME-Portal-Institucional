@@ -56,23 +56,23 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 		if ($this->query_noticias_home_secundarias->have_posts()) : while ($this->query_noticias_home_secundarias->have_posts()) : $this->query_noticias_home_secundarias->the_post();
 			?>
 
-			<article class="row mb-4 pb-4 border-bottom">
+			<article class="row mb-3 pb-4 border-bottom">
 
 					<?php if (has_post_thumbnail()) {
-					    echo '<div class="col-12 col-md-6 mb-2">';
+					    echo '<div class="col-12 col-md-5 mb-1">';
 						the_post_thumbnail('large', array('class' => 'img-fluid rounded float-left mr-4'));
 						echo '</div>';
 					}
 					?>
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-7">
                         <h2 class="fonte-catorze font-weight-bold">
                             <a class="text-dark" href="<?= get_the_permalink() ?>">
                                 <?= get_the_title() ?>
                             </a>
                         </h2>
-                        <p class="fonte-doze">
+                        <section class="fonte-doze">
                             <?= get_the_excerpt() ?>
-                        </p>
+                        </section>
                     </div>
 
 			</article>

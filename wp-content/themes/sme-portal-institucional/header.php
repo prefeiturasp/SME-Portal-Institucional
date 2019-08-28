@@ -1,6 +1,5 @@
-<?php //       ?>
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 	<?php
 	$tituloPagina = get_field("insira_o_title_desejado");
@@ -57,7 +56,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="Ollyver Ottoboni">
-	<?php wp_head() ?>
+
+	<?php
+
+        wp_head()
+
+    ?>
+
 </head>
 
 <body>
@@ -65,37 +70,40 @@
     <header class="bg-light pref-menu fonte-dez">
         <section class="container">
             <section class="row">
+
                 <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
                     <ul class="list-inline mt-3">
-                        <li class="list-inline-item"><a class="text-secondary" href="http://transparencia.prefeitura.sp.gov.br/acesso-a-informacao">Acesso à informação</a></li>
+						<?php
+						$slug = get_queried_object()->post_name;
+						?>
+                        <li class="list-inline-item"><a href="#<?= $slug ?>" class="text-secondary">Ir ao Conteúdo</a></li>
+                        <li class="list-inline-item"><a class="text-secondary" href="">A+</a></li>
+                        <li class="list-inline-item"><a class="text-secondary" href="">A-</a></li>
+                        <li class="list-inline-item"><a class="text-secondary" href="">BR</a></li>
+                        <li class="list-inline-item">
+                            <a class="text-secondary" href="#"><span class="esconde-item-acessibilidade">Ir para Facebook da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-facebook-square"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-secondary" href="#"><span class="esconde-item-acessibilidade">Ir para Instagram da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-instagram"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-secondary" href="#"><span class="esconde-item-acessibilidade">Ir para Twitter da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-twitter-square"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-secondary" href="#"><span class="esconde-item-acessibilidade">Ir para YouTube da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-youtube"></i></a>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
+                    <ul class="list-inline mt-3">
+                        <li class="list-inline-item"><a class="text-secondary" href="http://transparencia.prefeitura.sp.gov.br/acesso-a-informacao">Acesso à informação e-sic</a></li>
                         <li class="list-inline-item"><a class="text-secondary" href="">Ouvidoria</a></li>
                         <li class="list-inline-item"><a class="text-secondary" href="">Portal da Transparência</a></li>
                         <li class="list-inline-item"><a class="text-secondary" href="">SP 156</a></li>
                     </ul>
                 </article>
-                <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
-                    <ul class="list-inline mt-3">
-                        <?php
-						$slug = get_queried_object()->post_name;
-                        ?>
-                        <li class="list-inline-item"><a href="#<?=$slug ?>" class="text-secondary">Ir ao Conteúdo</a></li>
-                        <li class="list-inline-item"><a class="text-secondary" href="">A+</a></li>
-                        <li class="list-inline-item"><a class="text-secondary" href="">A-</a></li>
-                        <li class="list-inline-item"><a class="text-secondary" href="">BR</a></li>
-                        <li class="list-inline-item">
-                            <a class="text-secondary" href=""><i class="fa fa-facebook-square"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-secondary" href=""><i class="fa fa-instagram"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-secondary" href=""><i class="fa fa-twitter-square"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-secondary" href=""><i class="fa fa-youtube"></i></a>
-                        </li>
-                    </ul>
-                </article>
+
             </section>
         </section>
     </header>
@@ -108,15 +116,11 @@
 			$custom_logo_id = get_theme_mod('custom_logo');
 			$image = wp_get_attachment_image_src($custom_logo_id, 'full');
 			?>
-
-                <p class="logo-topo">
-                    <a class="brand" href="<?php echo STM_URL ?>"
-                       title="<?php echo STM_SITE_NAME ?> - <?php echo STM_SITE_DESCRIPTION ?>">
-                        <img class="img-fluid" src="<?php echo $image[0] ?>"
-                             alt="<?php echo STM_SITE_NAME ?>  <?php echo STM_SITE_DESCRIPTION ?>"
-                             title="<?php echo STM_SITE_NAME ?>  <?php echo STM_SITE_DESCRIPTION ?>"/>
-                    </a>
-                </p>
+            <p class="logo-topo">
+                <a class="brand" href="<?php echo STM_URL ?>" title="<?php echo STM_SITE_NAME ?> - <?php echo STM_SITE_DESCRIPTION ?>">
+                    <img class="img-fluid" src="<?php echo $image[0] ?>" alt="<?php echo STM_SITE_NAME ?>  <?php echo STM_SITE_DESCRIPTION ?>"/>
+                </a>
+            </p>
             <form>
                 <fieldset>
                     <legend>Mostra e Esconde Menu</legend>

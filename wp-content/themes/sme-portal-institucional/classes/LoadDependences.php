@@ -31,12 +31,12 @@ class LoadDependences
 		wp_enqueue_style('pagina-inicial');
 
 		// Agenda do Secretário
-		wp_register_script('moment_with_locales',  STM_THEME_URL . 'classes/assets/js/ion.calendar-2.0.2/js/moment-with-locales.js', array ('jquery'), false, true);
-		wp_register_script('ion_calendar',  STM_THEME_URL . 'classes/assets/js/ion.calendar-2.0.2/js/ion.calendar.js', array ('jquery'), false, true);
+		wp_register_script('moment_with_locales',  STM_THEME_URL . 'classes/assets/js/ion.calendar-2.0.2/js/moment-with-locales.js', array ('jquery'), false, false);
+		wp_register_script('ion_calendar',  STM_THEME_URL . 'classes/assets/js/ion.calendar-2.0.2/js/ion.calendar.js', array ('jquery'), false, false);
 		wp_enqueue_script('moment_with_locales');
 		wp_enqueue_script('ion_calendar');
 
-		wp_register_script('ajax-agenda-secretario',  STM_THEME_URL . 'classes/assets/js/ajax-agenda-secretario.js', array ('jquery'), false, true);
+		wp_register_script('ajax-agenda-secretario',  STM_THEME_URL . 'classes/assets/js/ajax-agenda-secretario.js', array ('jquery'), false, false);
 		wp_enqueue_script('ajax-agenda-secretario');
 		wp_localize_script('ajax-agenda-secretario', 'bloginfo', array('ajaxurl' => admin_url('admin-ajax.php')));
 		add_action('wp_ajax_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendario(), 'montaHtmlListaEventos' ));
@@ -44,7 +44,7 @@ class LoadDependences
 
 		// Contatos SME
 		wp_enqueue_script('jquery-ui-sortable');
-		wp_register_script('ajax-contato-sme',  STM_THEME_URL . 'classes/assets/js/ajax-contato-sme.js', array ('jquery'), false, true);
+		wp_register_script('ajax-contato-sme',  STM_THEME_URL . 'classes/assets/js/ajax-contato-sme.js', array ('jquery'), false, false);
 		wp_enqueue_script('ajax-contato-sme');
 		add_action('wp_ajax_criaCamposContato', array(new ArchiveContatoMetabox(), 'criaCamposContato' ));
 		add_action('wp_ajax_nopriv_criaCamposContato', array(new ArchiveContatoMetabox(), 'criaCamposContato'));
@@ -55,7 +55,7 @@ class LoadDependences
 		// Organograma
 		wp_register_style('organograma', STM_THEME_URL . 'classes/assets/css/organograma.css', null, null, 'all');
 		wp_enqueue_style('organograma');
-		wp_register_script('organograma',  STM_THEME_URL . 'classes/assets/js/organograma.js', array ('jquery'), false, true);
+		wp_register_script('organograma',  STM_THEME_URL . 'classes/assets/js/organograma.js', array ('jquery'), false, false);
 		wp_enqueue_script('organograma');
 
 		// Página Abas

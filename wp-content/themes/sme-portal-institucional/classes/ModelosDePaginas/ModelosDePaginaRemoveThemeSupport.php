@@ -70,7 +70,7 @@ class ModelosDePaginaRemoveThemeSupport
 	{
 		$noScript = <<<END
 <noscript>
-This functionality is implemented using Javascript. It cannot work without it, etc...
+Essa funcionalidade é implementada usando Javascript. Não pode funcionar sem ele
 </noscript>
 END;
 		return str_replace('</script>', '</script>'.$noScript, $tag);
