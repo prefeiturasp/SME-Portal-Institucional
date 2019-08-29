@@ -8,6 +8,7 @@ use Classes\ModelosDePaginas\PaginaBotoes\PaginaBotoes;
 
 get_header();
 $pagina_botoes = new PaginaBotoes();
+$pagina_botoes->init();
 get_footer();
 
 
