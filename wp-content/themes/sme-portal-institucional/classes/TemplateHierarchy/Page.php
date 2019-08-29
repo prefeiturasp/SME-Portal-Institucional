@@ -13,7 +13,7 @@ class Page extends Util
 	{
 		$this->page_id = get_the_ID();
 		$util = new Util($this->page_id);
-		$this->montaHtmlLoopPadrao();
+		$util->montaHtmlLoopPadrao();
 	}
 
 }

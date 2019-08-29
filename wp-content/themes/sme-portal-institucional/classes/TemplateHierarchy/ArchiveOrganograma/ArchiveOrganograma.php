@@ -56,7 +56,7 @@ class ArchiveOrganograma extends ArchiveContato
         <section class="container">
             <article class="row">
                 <article class="col-lg-12 col-xs-12">
-                    <h1 class="mb-5" id="organograma-secretaria-municipal-de-educacao">Organograma — Secretaria Municipal de Educação</h1>
+                    <h1 class="mb-5" id="organograma">Organograma — Secretaria Municipal de Educação</h1>
                 </article>
             </article>
             <article class="row">

@@ -20,17 +20,16 @@ class ArchiveContato extends Util
 		$container_html_css = array('container', 'row container-contatos');
 		$this->abreContainer($container_html_tags,$container_html_css);
 
-/*		$container_item_tags = array('section');
-		$container_item_css = array('border-bottom');
-		$this->abreContainer($container_item_tags, $container_item_css);*/
-
+		$this->exibeCabecalho();
 		$this->getTermosTaxonomiasContato();
 		$this->obterQtdeDeNiveis();
 		$this->percorreNiveis();
 
-		/*$this->fechaContainer($container_item_tags);*/
-
 		$this->fechaContainer($container_html_tags);
+	}
+
+	public function exibeCabecalho(){
+		echo '<h1 class="mb-5" id="contato">Contatos SME</h1>';
 	}
 
 	public function setQtdeNiveis($qtdeNiveis)

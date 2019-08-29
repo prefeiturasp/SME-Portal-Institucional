@@ -13,7 +13,6 @@ class Util
 	public function __construct($page_id){
 		$this->page_id = $page_id;
 		$this->page_slug = get_queried_object()->post_name;
-
 	}
 
 	public function montaHtmlLoopPadrao()

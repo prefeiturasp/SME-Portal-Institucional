@@ -1,3 +1,6 @@
+<?php
+use Classes\Header\Header;
+?>
 <!doctype html>
 <html lang="pt-br">
 <head>
@@ -74,9 +77,9 @@
                 <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
                     <ul class="list-inline mt-3">
 						<?php
-						$slug = get_queried_object()->post_name;
+						$slug_titulo = new Header();
 						?>
-                        <li class="list-inline-item"><a href="#<?= $slug ?>" class="text-secondary">Ir ao Conteúdo</a></li>
+                        <li class="list-inline-item"><a href="#<?= $slug_titulo->getSlugTitulo() ?>" class="text-secondary">Ir ao Conteúdo</a></li>
                         <li class="list-inline-item">A+</li>
                         <li class="list-inline-item">A-</li>
                         <li class="list-inline-item">BR</li>

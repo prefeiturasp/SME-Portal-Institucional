@@ -362,10 +362,17 @@ function allow_contributor_uploads() {
 add_image_size( 'admin-list-thumb', 80, 80, false );
 
 // Adicionando a classe css img-fluid em todas as imagens dentro do the_content
-function img_responsive($content){
+/*function img_responsive($content){
 	return str_replace('<img ','<img class="img-fluid" ',$content);
 }
-add_filter('the_content','img_responsive');
+add_filter('the_content','img_responsive');*/
+
+function add_image_class_post_content ($class){
+	$class .= ' img-fluid';
+	return $class;
+}
+add_filter('get_image_tag_class','add_image_class_post_content');
+
 
 // Removendo o atributo title dos menus
 function my_menu_notitle( $menu ){

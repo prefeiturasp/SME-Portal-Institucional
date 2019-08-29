@@ -3,7 +3,7 @@ use Classes\BuscaDeEscolas\BuscaDeEscolas;
 
 get_header();
 
-$modelo_de_pagina = new BuscaDeEscolas();
-$modelo_de_pagina->buscaEscola();
+$url_personalizada = new BuscaDeEscolas();
+$url_personalizada->buscaEscola();
 
 get_footer();

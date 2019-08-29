@@ -14,9 +14,7 @@ class PaginaImagemVideo extends Util
 	public function __construct()
 	{
 		$this->page_id = get_the_ID();
-
-		$util = new Util($this->page_id);
-
+		$this->page_slug = get_queried_object()->post_name;
 		$this->montaHtmlLoopPadrao();
 	}
 

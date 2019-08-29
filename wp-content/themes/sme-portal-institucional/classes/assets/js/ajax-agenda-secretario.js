@@ -26,8 +26,6 @@ jQuery(document).ready(function ($) {
 
         var conteudo_a_ser_exibido = $('#mostra_data');
 
-        //console.log('Ollyver ' + data_recebida);
-
         jQuery.ajax({
             url: bloginfo.ajaxurl,
             type: 'post',

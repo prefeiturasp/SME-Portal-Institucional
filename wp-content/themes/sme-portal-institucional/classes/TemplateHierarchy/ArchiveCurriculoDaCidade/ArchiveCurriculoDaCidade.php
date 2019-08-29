@@ -22,10 +22,21 @@ class ArchiveCurriculoDaCidade extends Util
 		$container_html_tags = array('section');
 		$container_html_css = array('container');
 		$this->abreContainer($container_html_tags,$container_html_css);
+		$this->exibeCabecalho();
 		$this->getTermosTaxonomiasCurriculo();
 		$this->exibeNomeTaxonomiaCurriculo();
 		$this->fechaContainer($container_html_tags);
 	}
+
+	public function exibeCabecalho(){
+	    ?>
+        <article class="row">
+            <article class="col-lg-12 col-xs-12">
+                <h1 class="mb-5" id="curriculo-da-cidade">Currículo da Cidade</h1>
+            </article>
+        </article>
+        <?php
+    }
 
 	public function getTermosTaxonomiasCurriculo(){
 

@@ -14,7 +14,7 @@ class BuscaDeEscolas
 		?>
 
         <section class="container">
-
+            <h1 class="mb-5" id="busca-de-escolas">Encontre a Escola Desejada</h1>
             <form id="formulario_busca_escola">
                 <fieldset>
                     <legend>Busca de Escolas</legend>
