@@ -11,7 +11,7 @@ class SearchFormSingle
 	public static function searchFormHeader(){
 	    ?>
         <div class="col-lg-6 col-sm-6 d-flex justify-content-lg-end justify-content-center">
-            <form action="<?php echo home_url( '/' ); ?>" method="get" class="navbar-form navbar-left" style="padding-top: 12px;">
+            <form action="<?php echo home_url( '/' ); ?>" method="get" class="navbar-form navbar-left">
                 <input type="hidden" name="tipo" value="post">
                 <fieldset>
                     <legend>Campo de Busca de informações</legend>

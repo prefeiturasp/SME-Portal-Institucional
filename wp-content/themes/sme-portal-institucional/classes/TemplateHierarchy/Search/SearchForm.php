@@ -36,7 +36,7 @@ class SearchForm
 			</form>
 		</div>
 		<div class="d-block d-sm-none d-none d-sm-block d-md-none d-none d-md-block d-lg-none">
-			<form action="<?php echo home_url( '/' ); ?>" method="get" class="navbar-form navbar-left" style="padding-top: 12px;">
+			<form action="<?php echo home_url( '/' ); ?>" method="get" class="navbar-form navbar-left">
 				<fieldset>
                     <legend>Campo de Busca de informações</legend>
 					<div class="input-group mb-3">
