@@ -32,14 +32,12 @@ class PaginaAbasConteudos extends PaginaAbasBotoes
 									<div class="col-lg-7 col-sm-12">
 										<div class="fonte-dezesseis pt-0">
 											<?=
-                                                apply_filters('the_content', $aba->post_content);
+                                            apply_filters('the_content', $aba->post_content);
+
+                                            $contato = new PaginaAbasContato();
+                                            $contato->getEnderecoAba($aba->ID);
                                             ?>
-											<p class="card-text">
-												<?php
-                                                $contato = new PaginaAbasContato();
-                                                $contato->getEnderecoAba($aba->ID);
-												?>
-											</p>
+
 										</div>
 									</div>
 									<div class="col-lg-5 col-sm-12 fonte-doze text-center">
