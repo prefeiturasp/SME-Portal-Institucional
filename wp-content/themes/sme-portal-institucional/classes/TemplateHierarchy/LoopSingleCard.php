@@ -8,7 +8,9 @@ class LoopSingleCard extends Util
 {
 	public function __construct()
 	{
-		$this->montaHtmlLoopPadraoCard();
+		$util = new Util($this->page_id);
+		$util->montaHtmlLoopPadraoCard();
+
 	}
 
 }
