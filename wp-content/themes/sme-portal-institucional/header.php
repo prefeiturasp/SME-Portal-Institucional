@@ -77,30 +77,30 @@
 						$slug = get_queried_object()->post_name;
 						?>
                         <li class="list-inline-item"><a href="#<?= $slug ?>" class="text-secondary">Ir ao Conteúdo</a></li>
-                        <li class="list-inline-item"><a class="text-secondary" href="">A+</a></li>
-                        <li class="list-inline-item"><a class="text-secondary" href="">A-</a></li>
-                        <li class="list-inline-item"><a class="text-secondary" href="">BR</a></li>
+                        <li class="list-inline-item">A+</li>
+                        <li class="list-inline-item">A-</li>
+                        <li class="list-inline-item">BR</li>
                         <li class="list-inline-item">
-                            <a class="text-secondary" href="#"><span class="esconde-item-acessibilidade">Ir para Facebook da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-facebook-square"></i></a>
+                            <a class="text-secondary" href="https://www.facebook.com/EducaPrefSP/"><span class="esconde-item-acessibilidade">Ir para Facebook da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-facebook-square"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="text-secondary" href="#"><span class="esconde-item-acessibilidade">Ir para Instagram da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-instagram"></i></a>
+                            <a class="text-secondary" href="https://www.instagram.com/?hl=pt-br"><span class="esconde-item-acessibilidade">Ir para Instagram da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-instagram"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="text-secondary" href="#"><span class="esconde-item-acessibilidade">Ir para Twitter da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-twitter-square"></i></a>
+                            <a class="text-secondary" href="https://twitter.com/EducaPrefSP?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3AEducaPrefSP&ref_url=https%3A%2F%2Fhom-portal.sme.prefeitura.sp.gov.br%2F"><span class="esconde-item-acessibilidade">Ir para Twitter da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-twitter-square"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="text-secondary" href="#"><span class="esconde-item-acessibilidade">Ir para YouTube da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-youtube"></i></a>
+                            <a class="text-secondary" href="https://www.youtube.com/"><span class="esconde-item-acessibilidade">Ir para YouTube da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-youtube"></i></a>
                         </li>
                     </ul>
                 </article>
 
                 <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
                     <ul class="list-inline mt-3">
-                        <li class="list-inline-item"><a class="text-secondary" href="http://transparencia.prefeitura.sp.gov.br/acesso-a-informacao">Acesso à informação e-sic</a></li>
-                        <li class="list-inline-item"><a class="text-secondary" href="">Ouvidoria</a></li>
-                        <li class="list-inline-item"><a class="text-secondary" href="">Portal da Transparência</a></li>
-                        <li class="list-inline-item"><a class="text-secondary" href="">SP 156</a></li>
+                        <li class="list-inline-item"><a class="text-secondary" href="http://transparencia.prefeitura.sp.gov.br/acesso-a-informacao">Acesso à informação e-sic <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span> </a></li>
+                        <li class="list-inline-item"><a class="text-secondary" href="https://www.prefeitura.sp.gov.br/cidade/secretarias/ouvidoria/fale_com_a_ouvidoria/index.php?p=464">Ouvidoria <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
+                        <li class="list-inline-item"><a class="text-secondary" href="http://transparencia.prefeitura.sp.gov.br/Paginas/home.aspx">Portal da Transparência <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
+                        <li class="list-inline-item"><a class="text-secondary" href="https://sp156.prefeitura.sp.gov.br/portal/servicos">SP 156 <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
                     </ul>
                 </article>
 
@@ -117,7 +117,7 @@
 			$image = wp_get_attachment_image_src($custom_logo_id, 'full');
 			?>
             <p class="logo-topo">
-                <a class="brand" href="<?php echo STM_URL ?>" title="<?php echo STM_SITE_NAME ?> - <?php echo STM_SITE_DESCRIPTION ?>">
+                <a class="brand" href="<?php echo STM_URL ?>">
                     <img class="img-fluid" src="<?php echo $image[0] ?>" alt="<?php echo STM_SITE_NAME ?>  <?php echo STM_SITE_DESCRIPTION ?>"/>
                 </a>
             </p>

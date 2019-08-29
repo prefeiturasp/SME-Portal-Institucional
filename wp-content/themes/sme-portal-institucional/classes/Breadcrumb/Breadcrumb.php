@@ -45,7 +45,7 @@ class Breadcrumb
 			echo '<ol id="' . $this->breadcrums_id . '" class="' . $this->breadcrums_class . '">';
 
 			// Home page
-			echo '<li class="item-home breadcrumb-item"><a class="bread-link bread-home" href="' . get_home_url() . '" title="' . $this->home_title . '">' . $this->home_title . '</a></li>';
+			echo '<li class="item-home breadcrumb-item"><a class="bread-link bread-home" href="' . get_home_url() . '">' . $this->home_title . '</a></li>';
 			echo '<li class="separator separator-home"> ' . $this->separator . ' </li>';
 
 			if ( is_archive() && !is_tax() && !is_category() && !is_tag() ) {
@@ -63,7 +63,7 @@ class Breadcrumb
 					$post_type_object = get_post_type_object($post_type);
 					$post_type_archive = get_post_type_archive_link($post_type);
 
-					echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '">' . $post_type_object->labels->name . '</a></li>';
+					echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $post_type_object->labels->name . '</a></li>';
 					echo '<li class="separator"> ' . $this->separator . ' </li>';
 
 				}
@@ -82,7 +82,7 @@ class Breadcrumb
 					$post_type_object = get_post_type_object($post_type);
 					$post_type_archive = get_post_type_archive_link($post_type);
 
-					echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '">' . $post_type_object->labels->name . '</a></li>';
+					echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $post_type_object->labels->name . '</a></li>';
 					echo '<li class="separator"> ' . $this->separator . ' </li>';
 
 				}
@@ -123,18 +123,18 @@ class Breadcrumb
 				// Check if the post is in a category
 				if(!empty($last_category)) {
 					echo $cat_display;
-					echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
+					echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" >' . get_the_title() . '</strong></li>';
 
 					// Else if post is in a custom taxonomy
 				} else if(!empty($cat_id)) {
 
-					echo '<li class="item-cat item-cat-' . $cat_id . ' item-cat-' . $cat_nicename . '"><a class="bread-cat bread-cat-' . $cat_id . ' bread-cat-' . $cat_nicename . '" href="' . $cat_link . '" title="' . $cat_name . '">' . $cat_name . '</a></li>';
+					echo '<li class="item-cat item-cat-' . $cat_id . ' item-cat-' . $cat_nicename . '"><a class="bread-cat bread-cat-' . $cat_id . ' bread-cat-' . $cat_nicename . '" href="' . $cat_link . '" >' . $cat_name . '</a></li>';
 					echo '<li class="separator"> ' . $this->separator . ' </li>';
-					echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
+					echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" >' . get_the_title() . '</strong></li>';
 
 				} else {
 
-					echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
+					echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" >' . get_the_title() . '</strong></li>';
 
 				}
 
@@ -157,7 +157,7 @@ class Breadcrumb
 					// Parent page loop
 					if ( !isset( $parents ) ) $parents = null;
 					foreach ( $anc as $ancestor ) {
-						$parents .= '<li class="item-parent item-parent-' . $ancestor . '"><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '" title="' . get_the_title($ancestor) . '">' . get_the_title($ancestor) . '</a></li>';
+						$parents .= '<li class="item-parent item-parent-' . $ancestor . '"><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '" >' . get_the_title($ancestor) . '</a></li>';
 						$parents .= '<li class="separator separator-' . $ancestor . '"> ' . $this->separator . ' </li>';
 					}
 
@@ -165,7 +165,7 @@ class Breadcrumb
 					echo $parents;
 
 					// Current page
-					echo '<li class="item-current item-' . $post->ID . '"><strong title="' . get_the_title() . '"> ' . get_the_title() . '</strong></li>';
+					echo '<li class="item-current item-' . $post->ID . '"><strong> ' . get_the_title() . '</strong></li>';
 
 				} else {
 
@@ -195,11 +195,11 @@ class Breadcrumb
 				// Day archive
 
 				// Year link
-				echo '<li class="item-year item-year-' . get_the_time('Y') . '"><a class="bread-year bread-year-' . get_the_time('Y') . '" href="' . get_year_link( get_the_time('Y') ) . '" title="' . get_the_time('Y') . '">' . get_the_time('Y') . ' Archives</a></li>';
+				echo '<li class="item-year item-year-' . get_the_time('Y') . '"><a class="bread-year bread-year-' . get_the_time('Y') . '" href="' . get_year_link( get_the_time('Y') ) . '" >' . get_the_time('Y') . ' Archives</a></li>';
 				echo '<li class="separator separator-' . get_the_time('Y') . '"> ' . $this->separator . ' </li>';
 
 				// Month link
-				echo '<li class="item-month item-month-' . get_the_time('m') . '"><a class="bread-month bread-month-' . get_the_time('m') . '" href="' . get_month_link( get_the_time('Y'), get_the_time('m') ) . '" title="' . get_the_time('M') . '">' . get_the_time('M') . ' Archives</a></li>';
+				echo '<li class="item-month item-month-' . get_the_time('m') . '"><a class="bread-month bread-month-' . get_the_time('m') . '" href="' . get_month_link( get_the_time('Y'), get_the_time('m') ) . '" >' . get_the_time('M') . ' Archives</a></li>';
 				echo '<li class="separator separator-' . get_the_time('m') . '"> ' . $this->separator . ' </li>';
 
 				// Day display
@@ -210,16 +210,16 @@ class Breadcrumb
 				// Month Archive
 
 				// Year link
-				echo '<li class="item-year item-year-' . get_the_time('Y') . '"><a class="bread-year bread-year-' . get_the_time('Y') . '" href="' . get_year_link( get_the_time('Y') ) . '" title="' . get_the_time('Y') . '">' . get_the_time('Y') . ' Archives</a></li>';
+				echo '<li class="item-year item-year-' . get_the_time('Y') . '"><a class="bread-year bread-year-' . get_the_time('Y') . '" href="' . get_year_link( get_the_time('Y') ) . '" >' . get_the_time('Y') . ' Archives</a></li>';
 				echo '<li class="separator separator-' . get_the_time('Y') . '"> ' . $this->separator . ' </li>';
 
 				// Month display
-				echo '<li class="item-month item-month-' . get_the_time('m') . '"><strong class="bread-month bread-month-' . get_the_time('m') . '" title="' . get_the_time('M') . '">' . get_the_time('M') . ' Archives</strong></li>';
+				echo '<li class="item-month item-month-' . get_the_time('m') . '"><strong class="bread-month bread-month-' . get_the_time('m') . '" >' . get_the_time('M') . ' Archives</strong></li>';
 
 			} else if ( is_year() ) {
 
 				// Display year archive
-				echo '<li class="item-current item-current-' . get_the_time('Y') . '"><strong class="bread-current bread-current-' . get_the_time('Y') . '" title="' . get_the_time('Y') . '">' . get_the_time('Y') . ' Archives</strong></li>';
+				echo '<li class="item-current item-current-' . get_the_time('Y') . '"><strong class="bread-current bread-current-' . get_the_time('Y') . '" >' . get_the_time('Y') . ' Archives</strong></li>';
 
 			} else if ( is_author() ) {
 
@@ -230,17 +230,17 @@ class Breadcrumb
 				$userdata = get_userdata( $author );
 
 				// Display author name
-				echo '<li class="item-current item-current-' . $userdata->user_nicename . '"><strong class="bread-current bread-current-' . $userdata->user_nicename . '" title="' . $userdata->display_name . '">' . 'Author: ' . $userdata->display_name . '</strong></li>';
+				echo '<li class="item-current item-current-' . $userdata->user_nicename . '"><strong class="bread-current bread-current-' . $userdata->user_nicename . '" >' . 'Author: ' . $userdata->display_name . '</strong></li>';
 
 			} else if ( get_query_var('paged') ) {
 
 				// Paginated archives
-				echo '<li class="item-current item-current-' . get_query_var('paged') . '"><strong class="bread-current bread-current-' . get_query_var('paged') . '" title="Página:  ' . get_query_var('paged') . '">'.__('Página:') . ' ' . get_query_var('paged') . '</strong></li>';
+				echo '<li class="item-current item-current-' . get_query_var('paged') . '"><strong class="bread-current bread-current-' . get_query_var('paged') . '" >'.__('Página:') . ' ' . get_query_var('paged') . '</strong></li>';
 
 			} else if ( is_search() ) {
 
 				// Search results page
-				echo '<li class="item-current item-current-' . get_search_query() . '"><strong class="bread-current bread-current-' . get_search_query() . '" title="Resultados para: ' . get_search_query() . '">Resultados para: ' . get_search_query() . '</strong></li>';
+				echo '<li class="item-current item-current-' . get_search_query() . '"><strong class="bread-current bread-current-' . get_search_query() . '" >Resultados para: ' . get_search_query() . '</strong></li>';
 
 			} elseif ( is_404() ) {
 
