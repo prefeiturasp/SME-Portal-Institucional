@@ -19,9 +19,6 @@ class Header
 			$this->slug_titulo = $this->queried_object->query_var;
 		}elseif ($wp_query->get('custom_page') == 'busca-de-escolas'){
 			$this->slug_titulo = 'busca-de-escolas';
-		}elseif (is_tax()){
-
-			$this->slug_titulo = 'busca-de-escolas';
 		}else{
 			$this->slug_titulo = $this->queried_object->post_name;
 		}

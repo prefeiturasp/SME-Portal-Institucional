@@ -22,9 +22,9 @@ class PaginaImagemVideo extends Util
 
 		$escolha = $this->getCamposPersonalizados('deseja_exibir_imagem_ou_video');
 
-		if ($escolha == 'imagem'){
+		if ($escolha == 'imagem' && trim($escolha) != ''){
 			$this->getImagem();
-		}else{
+		}elseif($escolha == 'video' && trim($escolha) != ''){
 			$this->getVideo();
 		}
 	}
@@ -33,13 +33,13 @@ class PaginaImagemVideo extends Util
 
 		$imagem = $this->getCamposPersonalizados('insira_a_imagem_desta_pagina');
 
-			echo '<article class="row mb-4">';
-			echo '<article class="col">';
-			echo '<figure>';
-			echo '<img src="'.$imagem["url"].'">';
-		    echo '</figure>';
-			echo '</article>';
-			echo '</article>';
+        echo '<article class="row mb-4">';
+        echo '<article class="col">';
+        echo '<figure>';
+        echo '<img src="'.$imagem["url"].'" alt="'.$imagem["alt"].'">';
+        echo '</figure>';
+        echo '</article>';
+        echo '</article>';
 	}
 
 	public function getVideo(){
@@ -61,9 +61,6 @@ class PaginaImagemVideo extends Util
 
 					<?php echo $this->getSubtitulo($this->page_id)?>
 					<?= $this->getImagemOuVideo(); ?>
-					<?php if (has_post_thumbnail()) {
-						the_post_thumbnail('thumbnail', array('class' => 'ml-5 float-right'));
-					} ?>
 					<?php the_content(); ?>
 				</article>
 			</section>
