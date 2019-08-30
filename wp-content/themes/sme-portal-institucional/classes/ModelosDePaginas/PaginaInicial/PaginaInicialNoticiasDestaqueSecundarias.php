@@ -11,19 +11,19 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 		$noticias_secundarias_tags = array('section');
 		$noticias_secundarias_css = array('col-lg-6 col-xs-12');
 		$this->abreContainer($noticias_secundarias_tags, $noticias_secundarias_css);
-		$this->montaQueryNoticiasHomeSecundarias();
-		$this->montaHtmlLoopNoticiasSecundarias();
+		$this->montaQueryNoticiasHomeSecundarias(2);
+		$this->montaHtmlLoopNoticias();
+		$this->montaQueryNoticiasHomeSecundarias(3);
+		$this->montaHtmlLoopNoticias();
 		$this->montaHtmlBotaoMaisNoticias();
 		$this->fechaContainer($noticias_secundarias_tags);
 	}
 
-	public function montaQueryNoticiasHomeSecundarias()
+	public function montaQueryNoticiasHomeSecundarias($posicao_destaque)
 	{
 		$this->args_noticas_home_secundarias = array(
 			'post_type' => 'post',
-
 			'meta_query' => array(
-				//'relation' => '', // Optional argument.
 				array(
 					'relation' => 'AND',
 					array(
@@ -33,16 +33,15 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 					),
 					array(
 						'key'	  	=> 'posicao_de_destaque_deste_post',
-						'value'	  	=> array(2,3),
+						'value'	  	=> $posicao_destaque,
 						'compare' 	=> 'IN',
 					),
 				)
 			),
-			'orderby' => 'meta_value_num',
-			'meta_key'  => 'posicao_de_destaque_deste_post',
-			'order' => 'ASC',
+			'orderby' => 'date',
+			'order' => 'DESC',
 			'cat' => $this->getCamposPersonalizados('escolha_a_categoria_de_noticias_a_exibir')->term_id,
-			'posts_per_page' => 2,
+			'posts_per_page' => 1,
 			'post__not_in' => array($this->id_noticias_home_principal),
 		);
 		$this->query_noticias_home_secundarias = new \WP_Query($this->args_noticas_home_secundarias);
@@ -50,7 +49,7 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 
 
 
-	public function montaHtmlLoopNoticiasSecundarias()
+	public function montaHtmlLoopNoticias()
 	{
 
 		if ($this->query_noticias_home_secundarias->have_posts()) : while ($this->query_noticias_home_secundarias->have_posts()) : $this->query_noticias_home_secundarias->the_post();
@@ -59,12 +58,12 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 			<article class="row mb-3 pb-4 border-bottom">
 
 					<?php if (has_post_thumbnail()) {
-					    echo '<div class="col-12 col-md-5 mb-1">';
+					    echo '<div class="col-12 col-md-6 mb-1">';
 						the_post_thumbnail('large', array('class' => 'img-fluid rounded float-left mr-4'));
 						echo '</div>';
 					}
 					?>
-                    <div class="col-12 col-md-7">
+                    <div class="col-12 col-md-6">
                         <h2 class="fonte-catorze font-weight-bold">
                             <a class="text-dark" href="<?= get_the_permalink() ?>">
                                 <?= get_the_title() ?>
