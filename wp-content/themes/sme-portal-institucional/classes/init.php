@@ -19,6 +19,7 @@ require_once __ROOT__.'/classes/Cpt/CptContato.php';
 require_once __ROOT__.'/classes/Cpt/CptOrganograma.php';
 require_once __ROOT__.'/classes/Cpt/CptAba.php';
 require_once __ROOT__.'/classes/Cpt/CptBotao.php';
+require_once __ROOT__.'/classes/Cpt/CptCurriculoDaCidade.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';
@@ -106,3 +107,4 @@ $cptBotaoExtend = new \Classes\Cpt\CptBotao();
 $taxonomiaMediaImages = new \Classes\Cpt\CptMediaImages();
 
 $cptCurriculoDaCidade = new \Classes\Cpt\Cpt('curriculo-da-cidade', 'curriculo-da-cidade', 'Currículo da Cidade', 'Todos os Currículos', 'Currículos da Cidade', 'Currículo da Cidade', 'categorias-curriculo-da-cidade', 'Categorias de Currículos', 'Categoria de Currículo', 'dashicons-format-image', true);
+$cptCurriculoDaCidadeExtende = new \Classes\Cpt\CptCurriculoDaCidade();

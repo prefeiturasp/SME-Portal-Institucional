@@ -71,12 +71,15 @@ class ArchiveCurriculoDaCidade extends Util
 
 		foreach ($this->terms as $term){
 
-			echo '<div class="col-12 mb-4">';
-			echo '<div class="row shadow-sm">';
-			echo '<h2 class="col-12 pt-3 pb-1 pr-0 pl-4"> '.$term->name.'</h2>';
-			$this->getCurriculosTaxonomia($term->term_id);
-			echo '</div>';
-			echo '</div>';
+		    if ($term) {
+
+				echo '<div class="col-12 mb-4">';
+				echo '<div class="row shadow-sm">';
+				echo '<h2 class="col-12 pt-3 pb-1 pr-0 pl-4"> ' . $term->name . '</h2>';
+				$this->getCurriculosTaxonomia($term->term_id);
+				echo '</div>';
+				echo '</div>';
+			}
 
 		}
 	}
@@ -100,16 +103,28 @@ class ArchiveCurriculoDaCidade extends Util
 	public function exibeCurriculosTaxonomia(){
 		foreach ($this->itens_curriculo as $post){
 		    $ano_publicacao =  get_field('insira_o_ano_da_publicacao', $post->ID);
+		    $imagem_pdf = get_field('selecione_a_imagem_do_pdf', $post->ID);
+			$imagem_pdf_url = wp_get_attachment_image_src($imagem_pdf["ID"], 'thumbnail');
 			?>
                 <div class="col-6 col-md-2">
 
                     <div class="card border-0 curriculo-da-cidade-item">
-                        <?php echo apply_filters('the_content', $post->post_content); ?>
+                        <?php
+                            if ($imagem_pdf){
+                                echo '<a href="'.$imagem_pdf["url"].'">';
+                                echo '<img src="'.$imagem_pdf_url[0].'" alt="'.$imagem_pdf["alt"].'"/>';
+                                echo '</a>';
+                            }
+                          ?>
                         <div class="card-body p-0 mt-3">
-                            <h4 class="card-title text-left"><?php echo '<p> '.$post->post_title.'</p>'; ?></h4>
+                            <?php echo '<p class="card-title text-left"><strong> '.$post->post_title.'</strong></p>'?>
                         </div>
                         <div class="card-footer bg-transparent text-left pl-0">
-                            <h6><?= $ano_publicacao ?></h6>
+                            <?php
+                            if ($ano_publicacao){
+                                echo '<p>'.$ano_publicacao.'</p>';
+                            }
+                            ?>
                         </div>
                     </div>
 
