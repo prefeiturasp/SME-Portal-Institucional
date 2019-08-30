@@ -53,13 +53,17 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 	{
 
 		if ($this->query_noticias_home_secundarias->have_posts()) : while ($this->query_noticias_home_secundarias->have_posts()) : $this->query_noticias_home_secundarias->the_post();
+			$post_thumbnail_id = get_post_thumbnail_id( get_the_ID() );
+			$image_alt = get_post_meta( $post_thumbnail_id, '_wp_attachment_image_alt', true);
+			$image_url = get_the_post_thumbnail_url();
 			?>
 
 			<article class="row mb-3 pb-4 border-bottom">
 
 					<?php if (has_post_thumbnail()) {
 					    echo '<div class="col-12 col-md-6 mb-1">';
-						the_post_thumbnail('large', array('class' => 'img-fluid rounded float-left mr-4'));
+						//the_post_thumbnail('large', array('class' => 'img-fluid rounded float-left mr-4', 'alt'=> $image_alt));
+						echo '<img class="img-fluid rounded float-left mr-4" src="'.$image_url.'" alt="'.$image_alt.'"/>';
 						echo '</div>';
 					}
 					?>
