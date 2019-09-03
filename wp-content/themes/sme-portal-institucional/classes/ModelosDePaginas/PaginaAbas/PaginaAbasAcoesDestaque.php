@@ -66,7 +66,7 @@ class PaginaAbasAcoesDestaque extends PaginaAbas
 					echo the_post_thumbnail('thumbnail', array('class' => 'img-fluid rounded float-left mr-4'));
 					echo '</figure>';
 				}
-				echo '<h2 class="fonte-dezoito font-weight-bold mb-4"><a class="text-decoration-none text-dark" href="'.get_the_permalink().'">'.get_the_title().'</a></h2>';
+				echo '<h3 class="fonte-dezoito font-weight-bold mb-4"><a class="text-decoration-none text-dark" href="'.get_the_permalink().'">'.get_the_title().'</a></h3>';
 				if (get_the_excerpt()) {
 					echo '<p class="fonte-dezesseis mb-4">' . get_the_excerpt() . '</p>';
 				}

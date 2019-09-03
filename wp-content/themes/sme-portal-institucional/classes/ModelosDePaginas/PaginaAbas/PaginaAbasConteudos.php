@@ -25,7 +25,7 @@ class PaginaAbasConteudos extends PaginaAbasBotoes
 					<div class="col-lg-12 col-sm-12 pl-0 pr-0">
 						<div class="card shadow-sm rounded border-0">
 							<div class="card-header border-0 bg-white">
-								<h3 class="border-bottom fonte-vintequatro pb-2 font-weight-bold"><?= $aba->post_title;?></h3>
+								<h2 class="border-bottom fonte-vintequatro pb-2 font-weight-bold"><?= $aba->post_title;?></h2>
 							</div>
 							<div class="card-body">
 								<div class="row">
