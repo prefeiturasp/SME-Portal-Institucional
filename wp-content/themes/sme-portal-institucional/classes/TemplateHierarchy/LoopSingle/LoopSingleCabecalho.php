@@ -15,7 +15,7 @@ class LoopSingleCabecalho extends LoopSingle
 	public function cabecalhoDetalheNoticia(){
 		?>
 		<div class="col-lg-6 col-sm-6 d-flex justify-content-lg-start justify-content-center">
-			<h2 class="titulos_internas mb-lg-5">Notícias</h2>
+			<p class="titulos_internas mb-lg-5">Notícias</p>
 		</div>
         <?php
         SearchFormSingle::searchFormHeader();

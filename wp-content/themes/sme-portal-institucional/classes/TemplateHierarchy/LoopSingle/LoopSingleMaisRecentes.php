@@ -42,7 +42,7 @@ class LoopSingleMaisRecentes
 		echo '<p class="titulo-cabecalho-mais-recentes">Mais Recentes</p>';
 		foreach( $this->query_mais_recentes as $recent ){
 			echo '<article>';
-			echo '<h5 class="titulo-categoria">'.$this->getCategory($recent["ID"]).'</h5>';
+			echo '<p class="titulo-categoria">'.$this->getCategory($recent["ID"]).'</p>';
 			echo '<h3 class="titulo-noticias-mais-recentes"><a href="' . get_permalink($recent["ID"]) . '">' .   $recent["post_title"].'</a> </h3> ';
 			echo '</article>';
 		}

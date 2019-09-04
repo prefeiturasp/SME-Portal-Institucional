@@ -367,6 +367,15 @@ add_image_size( 'admin-list-thumb', 80, 80, false );
 }
 add_filter('the_content','img_responsive');*/
 
+// Retirando a tag <p> antes e depois de um iframe dentro do the_content
+function remove_some_ptags( $content ) {
+	$content = preg_replace('/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $content);
+	$content = preg_replace('/<p>\s*(<script.*>*.<\/script>)\s*<\/p>/iU', '\1', $content);
+	$content = preg_replace('/<p>\s*(<iframe.*>*.<\/iframe>)\s*<\/p>/iU', '\1', $content);
+	return $content;
+}
+add_filter( 'the_content', 'remove_some_ptags' );
+
 function add_image_class_post_content ($class){
 	$class .= ' img-fluid';
 	return $class;

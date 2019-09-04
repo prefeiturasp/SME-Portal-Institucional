@@ -25,7 +25,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
                 echo '<h1 class="titulo-noticia-principal mb-3" id="'.get_post_field( 'post_name', get_post() ).'">'.get_the_title().'</h1>';
 				echo $this->getSubtitulo(get_the_ID());
 				$this->getAutor();
-				$this->getMidiasSociais();
+				//$this->getMidiasSociais();
 				the_content();
 				$this->getArquivosAnexos();
 				$this->getCategorias(get_the_ID());
@@ -71,7 +71,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 			echo '<h2>Arquivos Anexos</h2>';
 			foreach ( $attachments as $attachment ) {
 			    echo '<article>';
-				echo '<p><a target="_blank" style="font-size:26px" href="'.$attachment->guid.'"><i class="fa fa-file-text-o fa-3x" aria-hidden="true"></i> '. $attachment->post_title.'</a></p>';
+				echo '<p><a target="_blank" style="font-size:26px" href="'.$attachment->guid.'"><i class="fa fa-file-text-o fa-3x" aria-hidden="true"></i> Ir para '. $attachment->post_title.'</a></p>';
 				echo '<article>';
 			}
 			echo '</section>';
@@ -83,7 +83,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 
 		foreach ($categorias as $categoria){
 			$category_link = get_category_link( $categoria->term_id );
-		    echo '<a href="javascript:;"><span class="badge badge-pill badge-light border p-2 m-2 font-weight-normal">'.$categoria->name.'</span></a>';
+		    echo '<a href="'.$category_link.'"><span class="badge badge-pill badge-light border p-2 m-2 font-weight-normal">ir para '.$categoria->name.'</span></a>';
         }
 	}
 

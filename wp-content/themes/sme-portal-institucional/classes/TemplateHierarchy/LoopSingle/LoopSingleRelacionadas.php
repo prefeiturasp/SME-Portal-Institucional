@@ -67,9 +67,11 @@ class LoopSingleRelacionadas extends LoopSingle
 							<?= $query->post_title ?>
 						</a>
 					</h4>
-					<p class="fonte-dezesseis mb-2">
-						<?= $query->post_excerpt ?>
-					</p>
+                    <?php if ($query->post_excerpt){ ?>
+                        <p class="fonte-dezesseis mb-2">
+                            <?= $query->post_excerpt ?>
+                        </p>
+					<?php } ?>
 					<?= $this->getComplementosRelacionadas($query->ID); ?>
 				</div>
 			</div>
