@@ -22,6 +22,25 @@ $s(function() {
     $s('#toTop').click(function() { $s('body,html').animate({scrollTop:0},800); });
 });
 
+function removeBackgroundColor(id_link_atual){
+    $s('.container-a-icones-home').each(function (e) {
+        var id_li_atual = this.id;
+        if (id_li_atual != id_link_atual ){
+            $s(this).css('background-color', 'white')
+        }
+    })
+}
+
+$s(document).ready(function(){
+    $s( ".a-icones-home" ).each(function( index ) {
+        $s(this).click(function (e) {
+            var id_link_atual = e.currentTarget.id;
+            var elemento_pai = $s(this).parent();
+            elemento_pai.css('background-color', '#EAEAEA');
+            removeBackgroundColor(id_link_atual);
+        });
+    });
+});
 
 
 /*Ativação do Tool Tip Bootstrap*/
