@@ -14,10 +14,10 @@ class SearchFormSingle
             <form action="<?php echo home_url( '/' ); ?>" method="get" class="navbar-form navbar-left">
                 <input type="hidden" name="tipo" value="post">
                 <fieldset>
-                    <legend>Campo de Busca de informações</legend>
+                    <legend>Campo de Busca de Notícias</legend>
                     <div class="input-group mb-3">
                         <label class="esconde-item-acessibilidade" for="search-loop">Campo de Busca de informações</label>
-                        <input type="text" id="search-loop"  name="s" placeholder="<?php _e(BUSCAR,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="form-control" />
+                        <input type="text" id="search-loop"  name="s" placeholder="<?php _e(BUSCARNOTICIAS,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="form-control" />
                         <div class="input-group-append">
                             <button type="submit" class="btn bt-search-topo"><?php _e('<i class="fa fa-search"></i>','wpbootstrap'); ?></button>
                         </div>

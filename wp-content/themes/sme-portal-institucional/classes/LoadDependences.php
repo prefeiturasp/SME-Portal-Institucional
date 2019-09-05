@@ -66,10 +66,6 @@ class LoadDependences
 		wp_register_style('breadcrumb', STM_THEME_URL . 'classes/assets/css/breadcrumb.css', null, null, 'all');
 		wp_enqueue_style('breadcrumb');
 
-		// Breadcrumb
-		wp_register_style('search-form', STM_THEME_URL . 'classes/assets/css/search-form.css', null, null, 'all');
-		wp_enqueue_style('search-form');
-
 		// Currículo da Cidade
 		wp_register_style('curriculo-da-cidade', STM_THEME_URL . 'classes/assets/css/curriculo-da-cidade.css', null, null, 'all');
 		wp_enqueue_style('curriculo-da-cidade');

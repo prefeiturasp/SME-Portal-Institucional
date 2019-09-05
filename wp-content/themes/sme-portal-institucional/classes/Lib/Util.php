@@ -120,6 +120,23 @@ class Util
 
 	}
 
+	public function montaHtmlBotaoMaisNoticias(){
+		?>
+
+        <section class="row">
+            <article class="col-lg-12 col-xs-12">
+                <form>
+                    <fieldset>
+                        <legend>Ir para mais notícias</legend>
+                        <a href="<?= STM_URL.'/mais-noticias' ?>" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold">Mais notícias</a>
+                    </fieldset>
+                </form>
+            </article>
+        </section>
+
+		<?php
+	}
+
 
 	public static function randString($size){
 		//Essa função gera um valor de String aleatório do tamanho recebendo por parametros

@@ -35,14 +35,14 @@ class PaginaInicial extends Util
 		$this->tituloNoticias();
 
         $noticias_home_tags = array('section','section');
-        $noticias_home_css = array('container mt-5 mb-5 noticias','row');
+        $noticias_home_css = array('container mt-5 noticias','row');
         $this->abreContainer($noticias_home_tags, $noticias_home_css);
 
 		new PaginaInicialNoticiasDestaquePrimaria();
 		new PaginaInicialNoticiasDestaqueSecundarias();
 
 		$twitter_newsletter_facebook_tags = array('section','section');
-		$twitter_newsletter_facebook_css = array('bg-light pt-5 pb-5 area-social', 'row');
+		$twitter_newsletter_facebook_css = array('bg-light pt-5 area-social', 'row');
 		$this->abreContainer($twitter_newsletter_facebook_tags, $twitter_newsletter_facebook_css);
 
 		new PaginaInicialTwitter();

@@ -2,7 +2,9 @@
 
 // Constantes Portugues
 
-define('BUSCAR', 'Find');
+define('BUSCAR', 'Search');
+
+define('BUSCARNOTICIAS', 'Search in news');
 
 define('PROXIMO', 'Next');
 

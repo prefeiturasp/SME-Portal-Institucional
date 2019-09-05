@@ -4,6 +4,8 @@
 
 define('BUSCAR', 'Buscar');
 
+define('BUSCARNOTICIAS', 'Buscar em notícias');
+
 define('PROXIMO', 'Próximo');
 
 define('ANTERIOR', 'Anterior');

@@ -60,55 +60,68 @@ use Classes\Header\Header;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="Ollyver Ottoboni">
 
-	<?php
-
-        wp_head()
-
-    ?>
+	<?php wp_head() ?>
 
 </head>
 
 <body>
 <section id="main" role="main">
     <header class="bg-light pref-menu fonte-dez">
-        <section class="container">
-            <section class="row">
 
-                <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
-                    <ul class="list-inline mt-3">
-						<?php
-						$slug_titulo = new Header();
-						?>
-                        <li class="list-inline-item"><a href="#<?= $slug_titulo->getSlugTitulo() ?>" class="text-secondary">Ir ao Conteúdo</a></li>
-                        <li class="list-inline-item">A+</li>
-                        <li class="list-inline-item">A-</li>
-                        <li class="list-inline-item">BR</li>
-                        <li class="list-inline-item">
-                            <a class="text-secondary" href="https://www.facebook.com/EducaPrefSP/"><span class="esconde-item-acessibilidade">Ir para Facebook da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-facebook-square"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-secondary" href="https://www.instagram.com/?hl=pt-br"><span class="esconde-item-acessibilidade">Ir para Instagram da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-instagram"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-secondary" href="https://twitter.com/EducaPrefSP?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3AEducaPrefSP&ref_url=https%3A%2F%2Fhom-portal.sme.prefeitura.sp.gov.br%2F"><span class="esconde-item-acessibilidade">Ir para Twitter da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-twitter-square"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-secondary" href="https://www.youtube.com/"><span class="esconde-item-acessibilidade">Ir para YouTube da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-youtube"></i></a>
-                        </li>
-                    </ul>
-                </article>
+            <section class="row cabecalho-cinza-escuro">
+                <section class="container">
+                    <section class="row">
+                        <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
+                            <ul class="list-inline mt-3 mb-0">
+                                <?php
+                                $slug_titulo = new Header();
+                                ?>
+                                <li class="list-inline-item"><a accesskey="1" href="#<?= $slug_titulo->getSlugTitulo() ?>" class="text-white">Ir ao Conteúdo <span class="span-accesskey">1</a></li>
+                                <li class="list-inline-item"><a href="#irmenu" accesskey="2" class="text-white">Ir para menu principal <span class="span-accesskey">2</span></a></li>
+                                <li class="list-inline-item"><a href="#search-front-end" accesskey="3" class="text-white">Ir para busca <span class="span-accesskey">3</span></a></li>
+                                <li class="list-inline-item"><a href="#irrodape" accesskey="4" class="text-white">Ir para rodapé <span class="span-accesskey">4</span></a></li>
+                            </ul>
+                        </article>
 
-                <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
-                    <ul class="list-inline mt-3">
-                        <li class="list-inline-item"><a class="text-secondary" href="http://transparencia.prefeitura.sp.gov.br/acesso-a-informacao">Acesso à informação e-sic <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span> </a></li>
-                        <li class="list-inline-item"><a class="text-secondary" href="https://www.prefeitura.sp.gov.br/cidade/secretarias/ouvidoria/fale_com_a_ouvidoria/index.php?p=464">Ouvidoria <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
-                        <li class="list-inline-item"><a class="text-secondary" href="http://transparencia.prefeitura.sp.gov.br/Paginas/home.aspx">Portal da Transparência <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
-                        <li class="list-inline-item"><a class="text-secondary" href="https://sp156.prefeitura.sp.gov.br/portal/servicos">SP 156 <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
-                    </ul>
-                </article>
+                        <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
+                            <ul class="list-inline mt-3">
+                                <li class="list-inline-item"><a href="<?= STM_URL ?>/acessibilidade/" accesskey="5" class="text-white">Acessibilidade <span class="span-accesskey">5</span> </a></li>
+                            </ul>
+                            <?php dynamic_sidebar('Rodape Esquerda') ?>
+                        </article>
+
+                    </section>
+                </section>
 
             </section>
-        </section>
+
+            <section class="row cabecalho-cinza-claro">
+
+                <section class="container">
+                    <section class="row">
+                        <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
+                            <ul class="list-inline mt-2 mb-0">
+                                <li class="list-inline-item"><a class="text-white" href="http://transparencia.prefeitura.sp.gov.br/acesso-a-informacao">Acesso à informação e-sic <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span> </a></li>
+                                <li class="list-inline-item"><a class="text-white" href="https://www.prefeitura.sp.gov.br/cidade/secretarias/ouvidoria/fale_com_a_ouvidoria/index.php?p=464">Ouvidoria <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
+                                <li class="list-inline-item"><a class="text-white" href="http://transparencia.prefeitura.sp.gov.br/Paginas/home.aspx">Portal da Transparência <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
+                                <li class="list-inline-item"><a class="text-white" href="https://sp156.prefeitura.sp.gov.br/portal/servicos">SP 156 <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
+                            </ul>
+                        </article>
+                        <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
+                            <ul class="list-inline mt-2 mb-2 midias-sociais">
+                                <li class="list-inline-item"><a class="text-white" href="https://www.facebook.com/EducaPrefSP/"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-facebook-topo.png" alt="Ir para Facebook da Secerataria Muncipal de Educação de São Paulo"></a></li>
+                                <li class="list-inline-item"><a class="text-white" href="https://www.instagram.com/?hl=pt-br"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-instagram-topo.png" alt="Ir para Instagram da Secerataria Muncipal de Educação de São Paulo"></a></li>
+                                <li class="list-inline-item"><a class="text-white" href="https://twitter.com/EducaPrefSP?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3AEducaPrefSP&ref_url=https%3A%2F%2Fhom-portal.sme.prefeitura.sp.gov.br%2F"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-twitter-topo.png" alt="Ir para Twitter da Secerataria Muncipal de Educação de São Paulo"></a>                        </li>
+                                <li class="list-inline-item"><a class="text-white" href="https://www.youtube.com/"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-youtube-topo.png" alt="Ir para YouTube da Secerataria Muncipal de Educação de São Paulo"></a></li>
+                            </ul>
+                        </article>
+                    </section>
+                </section>
+            </section>
+
+
+		<?php \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
+
     </header>
 
 
@@ -135,7 +148,8 @@ use Classes\Header\Header;
             </form>
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-				<?php
+                <a href="#" id="irmenu" class="esconde-item-acessibilidade">Início do menu</a>
+                <?php
 				wp_nav_menu(array(
 					'menu' => 'primary',
 					'theme_location' => 'primary',
@@ -146,7 +160,7 @@ use Classes\Header\Header;
 					'walker'            => new WP_Bootstrap_Navwalker(),
 				));
 				?>
-				<?php \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
+
             </div>
         </section>
     </nav>

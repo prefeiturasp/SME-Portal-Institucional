@@ -25,7 +25,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
                 echo '<h1 class="titulo-noticia-principal mb-3" id="'.get_post_field( 'post_name', get_post() ).'">'.get_the_title().'</h1>';
 				echo $this->getSubtitulo(get_the_ID());
 				$this->getAutor();
-				//$this->getMidiasSociais();
+				$this->getMidiasSociais();
 				the_content();
 				$this->getArquivosAnexos();
 				$this->getCategorias(get_the_ID());
@@ -45,14 +45,19 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 
 	public function getMidiasSociais(){
 	    /*Utilizando as classes de personalização do Plugin Add This*/
+        if (STM_URL === 'http://localhost/furuba-educacao-intranet'){
+			echo do_shortcode('[addthis tool="addthis_inline_share_toolbox_d2ly"]');
+        }else {
+			echo do_shortcode('[addthis tool="addthis_inline_share_toolbox_q0q4"]');
+		}
 		?>
-		<div id="container-midias-sociais-loop-single" class="addthis_toolbox addthis_default_style addthis_32x32_style">
+		<!--<div id="container-midias-sociais-loop-single" class="addthis_toolbox addthis_default_style addthis_32x32_style">
 			<a target="_self" class="addthis_button_whatsapp"></a>
 			<a target="_self" class="addthis_button_facebook"></a>
 			<a target="_self" class="addthis_button_twitter"></a>
 			<a target="_self" class="addthis_button_print"></a>
 			<a target="_self" class="addthis_button_compact"></a>
-		</div>
+		</div>-->
 		<?php
 	}
 

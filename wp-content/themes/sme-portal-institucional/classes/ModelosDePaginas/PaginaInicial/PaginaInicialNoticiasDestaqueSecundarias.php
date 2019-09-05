@@ -89,23 +89,4 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 
 	}
 
-	public function montaHtmlBotaoMaisNoticias(){
-		?>
-
-		<section class="row">
-			<article class="col-lg-12 col-xs-12">
-                <form>
-                    <fieldset>
-                        <legend>Ir para mais notícias</legend>
-                        <button type="button" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold">Mais
-                            notícias
-                        </button>
-                    </fieldset>
-                </form>
-			</article>
-		</section>
-
-		<?php
-	}
-
 }

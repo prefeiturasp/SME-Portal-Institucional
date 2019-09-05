@@ -2,7 +2,7 @@
 <!--main-->
 <footer>
 
-    <section class="bg-cinza-escuro p-5 text-white area-rodape fonte-doze">
+    <section id="irrodape" class="bg-cinza-escuro p-5 text-white area-rodape fonte-doze">
         <section class="container">
             <section class="row">
                 <article class="col-lg-2 col-xs-12 mb-xs-4 d-flex align-items-end">
@@ -29,18 +29,10 @@
                         <li class="text-uppercase font-weight-bold">Canais Oficiais</li>
                     </ul>
                     <ul class="list-inline mb-3">
-                        <li class="list-inline-item">
-                            <a class="text-white" href="https://www.facebook.com/EducaPrefSP/"><span class="esconde-item-acessibilidade">Ir para Facebook da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-facebook-square"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-white" href="https://www.instagram.com/?hl=pt-br"><span class="esconde-item-acessibilidade">Ir para Instagram da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-instagram"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-white" href="https://twitter.com/EducaPrefSP?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3AEducaPrefSP&ref_url=https%3A%2F%2Fhom-portal.sme.prefeitura.sp.gov.br%2F"><span class="esconde-item-acessibilidade">Ir para Twitter da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-twitter-square"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-white" href="https://www.youtube.com/"><span class="esconde-item-acessibilidade">Ir para YouTube da Secerataria Muncipal de Educação de São Paulo</span><i class="fa fa-youtube"></i></a>
-                        </li>
+                        <li class="list-inline-item"><a class="text-white" href="https://www.facebook.com/EducaPrefSP/"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-facebook-topo.png" alt="Ir para Facebook da Secerataria Muncipal de Educação de São Paulo"></a></li>
+                        <li class="list-inline-item"><a class="text-white" href="https://www.instagram.com/?hl=pt-br"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-instagram-topo.png" alt="Ir para Instagram da Secerataria Muncipal de Educação de São Paulo"></a></li>
+                        <li class="list-inline-item"><a class="text-white" href="https://twitter.com/EducaPrefSP?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3AEducaPrefSP&ref_url=https%3A%2F%2Fhom-portal.sme.prefeitura.sp.gov.br%2F"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-twitter-topo.png" alt="Ir para Twitter da Secerataria Muncipal de Educação de São Paulo"></a>                        </li>
+                        <li class="list-inline-item"><a class="text-white" href="https://www.youtube.com/"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-youtube-topo.png" alt="Ir para YouTube da Secerataria Muncipal de Educação de São Paulo"></a></li>
                     </ul>
                     <figure>
                         <img src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Copyright" />
