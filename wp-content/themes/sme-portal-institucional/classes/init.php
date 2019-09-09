@@ -80,6 +80,7 @@ require_once __ROOT__.'./classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisN
 require_once __ROOT__.'./classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasMenu.php';
 require_once __ROOT__ . './classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasTitulo.php';
 require_once __ROOT__ . './classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasDestaques.php';
+require_once __ROOT__ . './classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasProgramasProjetos.php';
 
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolas.php';

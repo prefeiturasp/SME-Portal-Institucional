@@ -23,7 +23,7 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 	}
 
 	public function init(){
-		echo '<section class="col-lg-8 col-sm-12 border-bottom">';
+		echo '<section class="col-lg-8 col-sm-12">';
 
 		$this->getDestaquePrincial();
 
@@ -34,40 +34,51 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 		$this->getDestaquesSecundarios($this->quinto_destaque->ID);
 		echo '</section>';
 
-		echo '</article>';
+		echo '</section>';
 	}
 
-	public function getDestaquePrincial(){
-		?>
-		<section class="card bg-dark text-white mb-3 border-0">
-			<figure class="m-0 p-0">
-				<img src="<?= get_the_post_thumbnail_url($this->destaque_principal->ID) ?>" class="img-fluid card-img" alt="">
-			</figure>
-			<article class="card-img-overlay h-100 d-flex flex-column justify-content-end">
-				<h2 class="card-title mais-noticias-destaque-principal"><a href="<?= get_the_permalink($this->destaque_principal->ID) ?>"><?= get_the_title($this->destaque_principal->ID) ?></a></h2>
-				<p class="card-text"><?= get_the_excerpt($this->destaque_principal->ID) ?></p>
-			</article>
+	public function getAltThumbnail($post_id){
+		$thumbnail_id = get_post_thumbnail_id( $post_id );
+		$alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
 
-		</section>
-		<?php
+		return $alt;
+    }
+
+	public function getDestaquePrincial(){
+
+		if ($this->destaque_principal) {
+			?>
+            <section class="card bg-dark text-white mb-3 border-0">
+                <figure class="m-0 p-0">
+                    <img src="<?= get_the_post_thumbnail_url($this->destaque_principal->ID) ?>" class="img-fluid card-img" alt='<?= $this->getAltThumbnail($this->destaque_principal->ID) ?>'>
+                </figure>
+                <article class="card-img-overlay h-100 d-flex flex-column justify-content-end">
+                    <h2 class="card-title mais-noticias-destaque-principal">
+                        <a href="<?= get_the_permalink($this->destaque_principal->ID) ?>"><?= get_the_title($this->destaque_principal->ID) ?></a>
+                    </h2>
+                    <p class="card-text"><?= get_the_excerpt($this->destaque_principal->ID) ?></p>
+                </article>
+
+            </section>
+			<?php
+		}
 
 	}
 
 	public function getDestaquesSecundarios($post_id){
-		?>
-
-		<section class="col-6">
-			<article class="card border-0">
-				<img src="<?= get_the_post_thumbnail_url($post_id) ?>" class="img-fluid card-img-top" alt="">
-				<div class="card-body">
-					<a href="<?= get_the_permalink($this->destaque_principal->ID) ?>"><h2 class="card-title"><?= get_the_title($post_id) ?></h2></a>
-				</div>
-			</article>
-
-		</section>
-
-		<?php
-
+		if ($post_id) {
+			?>
+            <section class="col-6">
+                <article class="card border-0">
+                    <img src="<?= get_the_post_thumbnail_url($post_id) ?>" class="img-fluid card-img-top" alt='<?= $this->getAltThumbnail($post_id) ?>'>
+                    <div class="card-body pl-0 pr-0">
+                        <a href="<?= get_the_permalink($this->destaque_principal->ID) ?>">
+                            <h2 class="card-title mais-noticias-titulo-destaque-secundarios"><?= get_the_title($post_id) ?></h2>
+                        </a>
+                    </div>
+                </article>
+            </section>
+			<?php
+		}
 	}
-
 }

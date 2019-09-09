@@ -13,9 +13,9 @@ class PaginaMaisNoticiasTitulo extends PaginaMaisNoticias
 
 	public function cabecalho(){
 		?>
-		<div class="col-12">
+		<article class="col-12">
 			<h1 id="mais-noticias" class="titulos_internas mb-lg-5">Mais Notícias</h1>
-		</div>
+		</article>
 		<?php
 
 

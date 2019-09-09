@@ -22,9 +22,9 @@ class PaginaMaisNoticias extends Util
 
 		new PaginaMaisNoticiasDestaques();
 
-
-
 		$this->fechaContainer($container_geral_tags);
+
+		new PaginaMaisNoticiasProgramasProjetos();
 	}
 
 }
