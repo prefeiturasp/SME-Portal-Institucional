@@ -73,6 +73,10 @@ class LoadDependences
 		// Loop Single
 		wp_register_style('loop-single', STM_THEME_URL . 'classes/assets/css/loop-single.css', null, null, 'all');
 		wp_enqueue_style('loop-single');
+
+		// Página Mais Notícias
+		wp_register_style('pagina-mais-noticias', STM_THEME_URL . 'classes/assets/css/pagina-mais-noticias.css', null, null, 'all');
+		wp_enqueue_style('pagina-mais-noticias');
 	}
 
 	public function custom_formats_admin(){

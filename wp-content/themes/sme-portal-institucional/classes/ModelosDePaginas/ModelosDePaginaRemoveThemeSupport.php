@@ -49,6 +49,8 @@ class ModelosDePaginaRemoveThemeSupport
 			remove_post_type_support( 'page', 'thumbnail' );
 		}elseif ($this->page_template_slug === 'pagina-imagem-video.php'){
 			remove_post_type_support( 'page', 'thumbnail' );
+		}elseif ($this->page_template_slug === 'pagina-mais-noticias.php'){
+			remove_post_type_support( 'page', 'editor' );
 		}
 	}
 

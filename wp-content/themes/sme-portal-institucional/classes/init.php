@@ -76,12 +76,15 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasBotoes.php
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasAcoesDestaque.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasConteudos.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaBotoes/PaginaBotoes.php';
+require_once __ROOT__.'./classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticias.php';
+require_once __ROOT__.'./classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasMenu.php';
+require_once __ROOT__ . './classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasTitulo.php';
+require_once __ROOT__ . './classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasDestaques.php';
 
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolas.php';
-
-require_once __ROOT__.'/classes/MaisNoticias/MaisNoticiasRewriteUrl.php';
-require_once __ROOT__.'/classes/MaisNoticias/MaisNoticias.php';
+//require_once __ROOT__.'/classes/MaisNoticias/MaisNoticiasRewriteUrl.php';
+//require_once __ROOT__.'/classes/MaisNoticias/MaisNoticias.php';
 
 require_once __ROOT__.'/classes/Breadcrumb/Breadcrumb.php';
 

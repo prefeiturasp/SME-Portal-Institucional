@@ -249,8 +249,6 @@ class Breadcrumb
 
 			} elseif ($wp_query->get('custom_page') == 'busca-de-escolas'){
 				echo '<li>' . 'Busca de escolas' . '</li>';
-			}elseif ($wp_query->get('custom_page') == 'mais-noticias'){
-				echo '<li>' . 'Mais Notícias' . '</li>';
 			}
 
 			echo '</ol>';
