@@ -576,8 +576,8 @@ ul, ol{
 }
 
 /*Estilos Paginação*/
-#pagination, .pagination{
-	/*display: block;*/
+/*#pagination, .pagination{
+	!*display: block;*!
 	text-align: center;
 	padding: 32px 0;
 	font-weight: bold;
@@ -610,7 +610,7 @@ ul, ol{
 
 #pagination .prev i, #pagination .next i, .pagination .prev i, .pagination .next i{
 	vertical-align: middle !important;
-}
+}*/
 
 /* Participação Social */
 

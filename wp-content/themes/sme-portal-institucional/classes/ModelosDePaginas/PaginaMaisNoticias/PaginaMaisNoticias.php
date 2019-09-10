@@ -19,12 +19,23 @@ class PaginaMaisNoticias extends Util
 
 		new PaginaMaisNoticiasMenu();
 		new PaginaMaisNoticiasTitulo();
-
 		new PaginaMaisNoticiasDestaques();
+		new PaginaMaisNoticiasMaisLidas();
 
 		$this->fechaContainer($container_geral_tags);
 
 		new PaginaMaisNoticiasProgramasProjetos();
+
+		$container_outras_noticias_e_newsletter_tags = array('section', 'section');
+		$container_outras_noticias_e_newsletter_css = array('container', 'row');
+		$this->abreContainer($container_outras_noticias_e_newsletter_tags, $container_outras_noticias_e_newsletter_css);
+
+		new PaginaMaisNoticiasOutrasNoticias();
+		new PaginaMaisNoticiasNewsletter();
+
+		$this->fechaContainer($container_outras_noticias_e_newsletter_tags);
+
+
 	}
 
 }

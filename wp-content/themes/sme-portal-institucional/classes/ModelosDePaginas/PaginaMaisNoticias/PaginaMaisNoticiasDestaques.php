@@ -23,6 +23,13 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 	}
 
 	public function init(){
+
+        PaginaMaisNoticiasArrayIdNoticias::setArrayIdNoticias($this->destaque_principal->ID);
+        PaginaMaisNoticiasArrayIdNoticias::setArrayIdNoticias($this->segundo_destaque->ID);
+        PaginaMaisNoticiasArrayIdNoticias::setArrayIdNoticias($this->terceiro_destaque->ID);
+        PaginaMaisNoticiasArrayIdNoticias::setArrayIdNoticias($this->quarto_destaque->ID);
+        PaginaMaisNoticiasArrayIdNoticias::setArrayIdNoticias($this->quinto_destaque->ID);
+
 		echo '<section class="col-lg-8 col-sm-12">';
 
 		$this->getDestaquePrincial();
@@ -56,7 +63,10 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
                     <h2 class="card-title mais-noticias-destaque-principal">
                         <a href="<?= get_the_permalink($this->destaque_principal->ID) ?>"><?= get_the_title($this->destaque_principal->ID) ?></a>
                     </h2>
-                    <p class="card-text"><?= get_the_excerpt($this->destaque_principal->ID) ?></p>
+                    <?php
+                    if (get_the_excerpt($this->destaque_principal->ID)) { ?>
+                        <p class="card-text"><?= get_the_excerpt($this->destaque_principal->ID) ?></p>
+                    <?php } ?>
                 </article>
 
             </section>
@@ -72,7 +82,7 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
                 <article class="card border-0">
                     <img src="<?= get_the_post_thumbnail_url($post_id) ?>" class="img-fluid card-img-top" alt='<?= $this->getAltThumbnail($post_id) ?>'>
                     <div class="card-body pl-0 pr-0">
-                        <a href="<?= get_the_permalink($this->destaque_principal->ID) ?>">
+                        <a href="<?= get_the_permalink($post_id) ?>">
                             <h2 class="card-title mais-noticias-titulo-destaque-secundarios"><?= get_the_title($post_id) ?></h2>
                         </a>
                     </div>

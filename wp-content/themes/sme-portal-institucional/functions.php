@@ -442,6 +442,29 @@ function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 
 define('__ROOT__', dirname(dirname(__FILE__)).'/sme-portal-institucional');
 
+// POSTS MAIS VISTOS  (NO FUNCTIONS)
+function shapeSpace_popular_posts($post_id) {
+	$count_key = 'popular_posts';
+	$count = get_post_meta($post_id, $count_key, true);
+	if ($count == '') {
+		$count = 0;
+		delete_post_meta($post_id, $count_key);
+		add_post_meta($post_id, $count_key, '0');
+	} else {
+		$count++;
+		update_post_meta($post_id, $count_key, $count);
+	}
+}
+function shapeSpace_track_posts($post_id) {
+	if (!is_single()) return;
+	if (empty($post_id)) {
+		global $post;
+		$post_id = $post->ID;
+	}
+	shapeSpace_popular_posts($post_id);
+}
+add_action('wp_head', 'shapeSpace_track_posts');
+
 define('STM_URL', get_home_url());
 define('STM_THEME_URL', get_bloginfo('template_url') . '/');
 define('STM_SITE_NAME', get_bloginfo('name'));

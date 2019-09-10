@@ -8,13 +8,15 @@ class PaginaMaisNoticiasTitulo extends PaginaMaisNoticias
 
 	public function __construct()
 	{
+		$this->page_id = get_the_ID();
+		$this->page_slug = get_queried_object()->post_name;
 		$this->cabecalho();
 	}
 
 	public function cabecalho(){
 		?>
 		<article class="col-12">
-			<h1 id="mais-noticias" class="titulos_internas mb-lg-5">Mais Notícias</h1>
+            <h1 class="mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
 		</article>
 		<?php
 
