@@ -445,6 +445,10 @@ ul, ol{
 	border-radius: 10px !important;
 }
 
+.area-rodape a{
+	color: #fff;
+}
+
 /* Calendário Agenda */
 
 .calendario-agenda-sec {
