@@ -17,6 +17,9 @@ class PaginaMaisNoticiasTitulo extends PaginaMaisNoticias
 		?>
 		<article class="col-12">
             <h1 class="mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
+            <?php
+            echo $this->getSubtitulo($this->page_id);
+            ?>
 		</article>
 		<?php
 

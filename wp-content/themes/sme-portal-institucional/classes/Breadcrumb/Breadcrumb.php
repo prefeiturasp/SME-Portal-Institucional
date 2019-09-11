@@ -249,6 +249,8 @@ class Breadcrumb
 
 			} elseif ($wp_query->get('custom_page') == 'busca-de-escolas'){
 				echo '<li>' . 'Busca de escolas' . '</li>';
+			}elseif ($wp_query->get('custom_page') == 'mapa-dres'){
+				echo '<li>' . 'Mapa das Dres' . '</li>';
 			}
 
 			echo '</ol>';

@@ -144,7 +144,6 @@ class ArchiveContato extends Util
 	}
 
 	public function exibeCamposCadastrados($term_id, $term_name=null, $nivel_superior=null, $organograma=null){
-
 		$campo_contato = get_post_meta($term_id, 'campo_contato', true);
 
 		if ($term_name) {

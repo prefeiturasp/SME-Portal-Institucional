@@ -90,6 +90,11 @@ require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisN
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolas.php';
 
+require_once __ROOT__.'/classes/MapaDres/MapaDresRewriteUrl.php';
+require_once __ROOT__.'/classes/MapaDres/MapaDres.php';
+require_once __ROOT__.'/classes/MapaDres/MapaDresMapa.php';
+require_once __ROOT__.'/classes/MapaDres/MapaDresBotoes.php';
+
 require_once __ROOT__.'/classes/Breadcrumb/Breadcrumb.php';
 
 require_once __ROOT__.'/classes/ModelosDePaginas/ModelosDePaginaRemoveThemeSupport.php';

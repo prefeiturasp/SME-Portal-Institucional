@@ -77,6 +77,12 @@ class LoadDependences
 		// Página Mais Notícias
 		wp_register_style('pagina-mais-noticias', STM_THEME_URL . 'classes/assets/css/pagina-mais-noticias.css', null, null, 'all');
 		wp_enqueue_style('pagina-mais-noticias');
+
+		// Mapa Dres
+		wp_register_script('mapa-dres',  STM_THEME_URL . 'classes/assets/js/mapa-dres.js', array ('jquery'), false, false);
+		wp_enqueue_script('mapa-dres');
+		wp_register_style('mapa-dres', STM_THEME_URL . 'classes/assets/css/mapa-dres.css', null, null, 'all');
+		wp_enqueue_style('mapa-dres');
 	}
 
 	public function custom_formats_admin(){
