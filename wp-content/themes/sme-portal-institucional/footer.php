@@ -49,7 +49,7 @@
                     <ul class="list-inline mb-3">
                         <li>
                             <a href="http://www.docidadesp.imprensaoficial.com.br/">
-                                <img alt="Logo diário oficial" src="<?= STM_URL ?>/wp-content/uploads/2019/09/image-logo-diario-oficial.png">
+                                <img alt="Logo diário oficial" src="<?= STM_URL ?>/wp-content/uploads/2019/09/logotipo-diario-oficial.png">
                             </a>
                         </li>
                     </ul>
