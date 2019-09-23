@@ -29,8 +29,10 @@ require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMenuInter
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleNoticiaPrincipal.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMaisRecentes.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleRelacionadas.php';
+
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContato/ArchiveContatoMetabox.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContato/ArchiveContato.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaGetDatasEventos.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgenda.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaAjaxCalendario.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaDetectMobile.php';
@@ -48,7 +50,6 @@ require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/Arch
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/ArchiveOrganogramaCoordenadoriasMobile.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/ArchiveOrganogramaDresMobile.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/ArchiveOrganogramaRodape.php';
-
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveCurriculoDaCidade/ArchiveCurriculoDaCidade.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/GetTipoDePost.php';

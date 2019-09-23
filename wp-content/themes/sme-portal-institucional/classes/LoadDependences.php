@@ -31,6 +31,8 @@ class LoadDependences
 		wp_enqueue_style('pagina-inicial');
 
 		// Agenda do Secretário
+		wp_register_style('agenda-secretario', STM_THEME_URL . 'classes/assets/css/agenda-secretario.css', null, null, 'all');
+		wp_enqueue_style('agenda-secretario');
 		wp_register_script('moment_with_locales',  STM_THEME_URL . 'classes/assets/js/ion.calendar-2.0.2/js/moment-with-locales.js', array ('jquery'), false, false);
 		wp_register_script('ion_calendar',  STM_THEME_URL . 'classes/assets/js/ion.calendar-2.0.2/js/ion.calendar.js', array ('jquery'), false, false);
 		wp_enqueue_script('moment_with_locales');

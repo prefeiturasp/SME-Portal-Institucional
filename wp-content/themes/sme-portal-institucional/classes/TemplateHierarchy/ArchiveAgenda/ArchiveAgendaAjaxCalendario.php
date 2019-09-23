@@ -7,7 +7,8 @@ use Classes\Lib\Util;
 
 class ArchiveAgendaAjaxCalendario extends Util
 {
-	public function __construct()
+
+    public function __construct()
 	{
 		$this->page_id = get_the_ID();
 	}
