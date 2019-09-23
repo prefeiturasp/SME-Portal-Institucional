@@ -127,6 +127,7 @@ class ArchiveContato extends Util
 
 		$args = array(
 			'post_type' => 'contato',
+			'posts_per_page'   => -1,
 			'tax_query' => array(
 				array(
 					'taxonomy' => 'categorias-contato',

@@ -10,7 +10,9 @@ class MapaDresBotoes extends MapaDres
 
 	public function __construct()
 	{
-		$this->getBotoesDres();
+	    $this->getDadosFilhasDres();
+
+		//$this->getBotoesDres();
 	}
 
 	public function getIdTaxonomiaDres(){
@@ -24,6 +26,7 @@ class MapaDresBotoes extends MapaDres
 
 		foreach ( $term_children as $child ) {
 			$term = get_term_by( 'id', $child, self::TAXONOMIA );
+
 			?>
 	    	<div id="container-div-dre-<?= $term->slug ?>" class="card-deck justify-content-center">
 				<div class="card border-0 btn-block mb-2">
@@ -35,7 +38,6 @@ class MapaDresBotoes extends MapaDres
 					</div>
 					<div id="div-dre-<?= $term->slug ?>" class="fade collapse dre-atual ">
 						<div class="card-body card-body-mapa-dres mb-3 rounded-bottom">
-
 							<?php $this->exibeCamposCadastrados($term->term_id); ?>
 	
 						</div>
@@ -46,4 +48,50 @@ class MapaDresBotoes extends MapaDres
 		<?php
 		}
 	}
+
+	public function getDadosFilhasDres(){
+
+		$args = array(
+			'post_type' => 'contato',
+			'posts_per_page'   => -1,
+			'tax_query' => array(
+				array(
+					'taxonomy' => self::TAXONOMIA,
+					'field'    => 'slug',
+					'terms'    => 'diretorias-regionais-de-educacao-dres',
+				),
+			),
+		);
+		$query = get_posts($args);
+
+		echo '<pre>';
+		//var_dump($query);
+		echo '</pre>';
+
+		foreach ($query as $term){
+		    ?>
+            <div id="container-div-dre-<?= $term->post_name ?>" class="card-deck justify-content-center">
+                <div class="card border-0 btn-block mb-2">
+
+                    <div class="card-header container-titulo-botoes ">
+                        <h2 class="mt-2 mb-2 text-center fonte-catorze">
+                            <a id="dre-<?= $term->post_name ?>" class="a-click-botao font-weight-bold text-decoration-none collapsed" data-toggle="collapse" data-target="#div-dre-<?= $term->post_name ?>" aria-expanded="false" aria-controls="div-dre-<?= $term->post_name ?>" href=""><?= $term->post_title ?></a>
+                        </h2>
+                    </div>
+                    <div id="div-dre-<?= $term->post_name ?>" class="fade collapse dre-atual ">
+                        <div class="card-body card-body-mapa-dres mb-3 rounded-bottom">
+							<?php $this->exibeCamposCadastrados($term->ID); ?>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <?php
+
+        }
+
+
+
+    }
 }

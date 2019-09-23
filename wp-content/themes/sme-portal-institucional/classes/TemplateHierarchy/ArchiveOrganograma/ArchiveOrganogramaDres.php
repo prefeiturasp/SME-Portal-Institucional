@@ -45,7 +45,13 @@ class ArchiveOrganogramaDres extends ArchiveOrganograma
 
 	public function getTaxonomiasFilhas(){
 
-		$termos = get_terms(array('taxonomy' => self::TAXONOMIA, 'post_type' => self::CPT, 'parent' => self::$id_taxonomia_dres )); // ID Taxonomia DRE's
+		$termos = get_terms(array(
+			'taxonomy' => self::TAXONOMIA,
+			'post_type' => self::CPT,
+			'parent' => self::$id_taxonomia_dres,
+			'hide_empty' => false
+		)
+		); // ID Taxonomia DRE's
 
 		foreach ($termos as $termo){
 			$this->setTaxonomyName($termo->slug);
