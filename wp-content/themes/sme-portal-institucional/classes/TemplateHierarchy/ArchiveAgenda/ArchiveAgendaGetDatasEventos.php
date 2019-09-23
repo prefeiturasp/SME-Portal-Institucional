@@ -33,8 +33,20 @@ class ArchiveAgendaGetDatasEventos
 		//echo '<input class="array_datas_agenda" type="hidden" name="array_datas_agenda[]" value="30/09/2019">';
 		//echo '<input class="array_datas_agenda" type="hidden" name="array_datas_agenda[]" value="22/09/2019">';
 
-		$this->getTodosIdCtpAgenda();
-		$this->getDatasCptAgenda();
+		$this->init();
+
+
+	}
+
+	public function init(){
+
+		$current_url = $_SERVER['REQUEST_URI'];
+		$partes = explode("/", $current_url);
+
+		if ($partes[1] === 'agenda' || $partes[2] === 'agenda') {
+			$this->getTodosIdCtpAgenda();
+			$this->getDatasCptAgenda();
+		}
 	}
 
 	public function getTodosIdCtpAgenda(){
