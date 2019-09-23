@@ -5,10 +5,8 @@ jQuery(document).ready(function ($) {
     $('.data_agenda').html(data_formatada);
     var data_para_funcao = moment(date).format('YYYYMMDD');
 
-    var datas_agendas = [];
-    $('.array_datas_agenda').each(function (e) {
-        datas_agendas.push(this.value);
-    });
+    var datas_agendas;
+    datas_agendas = JSON.parse($('#array_datas_agenda').val());
 
     redebe_data(data_para_funcao);
 

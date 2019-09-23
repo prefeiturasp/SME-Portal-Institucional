@@ -10,32 +10,10 @@ class ArchiveAgendaGetDatasEventos
 	private $query_ids;
 	private $array_ids;
 	private $array_datas;
-	private $array_nomes;
 
 	public function __construct()
 	{
-/*		header('Content-Type: application/json');
-		// An associative array
-		$this->array_nomes = json_encode(array('Maria', "João"));
-
-		$marks = json_encode(array("Peter"=>65, "Harry"=>80, "John"=>78, "Clark"=>90));
-
-		echo '<pre>';
-		echo $marks;
-		echo '<br/>';
-		echo $this->array_nomes;
-		echo '</pre>';*/
-
-		//echo '<input type="hidden" name="array_nomes", id="array_nomes", value="'.$marks.'">';
-		//echo '<input type="hidden" name="array_nomes", id="array_nomes", value='.$this->array_nomes.'>';
-		//echo '<input type="hidden" name="array_nomes", id="array_nomes" value='.$marks.'>';
-
-		//echo '<input class="array_datas_agenda" type="hidden" name="array_datas_agenda[]" value="30/09/2019">';
-		//echo '<input class="array_datas_agenda" type="hidden" name="array_datas_agenda[]" value="22/09/2019">';
-
 		$this->init();
-
-
 	}
 
 	public function init(){
@@ -77,8 +55,11 @@ class ArchiveAgendaGetDatasEventos
 
 		foreach ($this->array_ids as $id){
 			$this->array_datas[] = get_field('data_do_evento', $id);
-			echo '<input class="array_datas_agenda" type="hidden" name="array_datas_agenda[]" value="'.get_field('data_do_evento', $id).'">';
 		}
+
+		$this->array_datas = json_encode($this->array_datas);
+
+		echo '<input type="hidden" name="array_datas_agenda", id="array_datas_agenda", value='.$this->array_datas.'>';
 	}
 }
 
