@@ -32,7 +32,7 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
 		$container_mais_noticias_tags = array( 'section');
 		$container_mais_noticias_css = array('col-lg-8 col-sm-12 mt-5');
 		$this->abreContainer($container_mais_noticias_tags, $container_mais_noticias_css);
-		echo '<p class="fonte-vintequatro mb-4 pb-2 font-weight-bold">OUTRAS NOTÍCIAS</p>';
+		echo '<p class="fonte-vintequatro mb-4 pb-2 font-weight-bold"><a class="text-dark" href="#" id="outrasNoticias">OUTRAS NOTÍCIAS</a></p>';
 
 		foreach ($this->query_outras_noticias as $query){
 		    PaginaMaisNoticiasArrayIdNoticias::setArrayIdNoticias($query->ID)
@@ -87,18 +87,19 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
 				'total'        => $page_number_max,
 				'type'         => 'array',
 				'show_all'     => false,
-				'end_size'     => 3,
-				'mid_size'     => 1,
+				'end_size'     => 0,
+				'mid_size'     => 2,
 				'prev_next'    => true,
 				'prev_text'    => __( '«' ),
 				'next_text'    => __( '»' ),
 				'add_args'     => false,
-				'add_fragment' => ''
+				'add_fragment' => '#outrasNoticias'
 			]
 		);
 		if ( is_array( $pages ) ) {
 
 			$pagination = '<div class="pagination"><ul class="pagination">';
+
 			foreach ($pages as $page) {
 				$pagination .= '<li class="page-item' . (strpos($page, 'current') !== false ? ' active' : '') . '"> ' . str_replace('page-numbers', 'page-link', $page) . '</li>';
 			}
