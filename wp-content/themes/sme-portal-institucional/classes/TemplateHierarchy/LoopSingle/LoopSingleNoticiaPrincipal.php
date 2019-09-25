@@ -16,7 +16,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 				echo '<article class="col-lg-8 col-sm-12 border-bottom">';
 				echo '<h1 class="titulo-noticia-principal mb-3" id="'.get_post_field( 'post_name', get_post() ).'">'.get_the_title().'</h1>';
 				echo $this->getSubtitulo(get_the_ID());
-				$this->getAutor();
+				$this->getDataPublicacaoAlteracao();
 				$this->getMidiasSociais();
 				the_content();
 				$this->getArquivosAnexos();
@@ -26,11 +26,10 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 		endif;
 		wp_reset_query();
 	}
-	public function getAutor(){
-		$usuario = wp_get_current_user();
-		$autor = get_the_author_meta('display_name', $usuario->ID);
-		echo '<span class="display-autor">Por '.$autor.' - '.get_the_date('d/m/Y g\hi').'</span>';
+	public function getDataPublicacaoAlteracao(){
+		echo '<span class="display-autor">Publicado em: '.get_the_date('d/m/Y g\hi').' | Atualizado em: '.get_the_modified_date('d/m/Y').'</span>';
 	}
+
 	public function getMidiasSociais(){
 		/*Utilizando as classes de personalização do Plugin Add This*/
 		if (STM_URL === 'http://localhost/furuba-educacao-intranet'){
@@ -38,15 +37,6 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 		}else {
 			echo do_shortcode('[addthis tool="addthis_inline_share_toolbox_q0q4"]');
 		}
-		?>
-        <!--<div id="container-midias-sociais-loop-single" class="addthis_toolbox addthis_default_style addthis_32x32_style">
-			<a target="_self" class="addthis_button_whatsapp"></a>
-			<a target="_self" class="addthis_button_facebook"></a>
-			<a target="_self" class="addthis_button_twitter"></a>
-			<a target="_self" class="addthis_button_print"></a>
-			<a target="_self" class="addthis_button_compact"></a>
-		</div>-->
-		<?php
 	}
 	public function getArquivosAnexos(){
 		$unsupported_mimes  = array( 'image/jpeg', 'image/gif', 'image/png', 'image/bmp', 'image/tiff', 'image/x-icon' );
