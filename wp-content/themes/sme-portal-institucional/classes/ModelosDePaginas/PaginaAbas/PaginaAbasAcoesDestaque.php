@@ -22,8 +22,10 @@ class PaginaAbasAcoesDestaque extends PaginaAbas
 	public function init(){
 		if ($this->deseja_exibir_paginas_acoes_em_destaque === 'sim') {
 			$this->montaArrayIdsPaginas();
-			$this->getQueryPaginasAcoesDestaque();
-			$this->montaHtmlPaginasAcoesDestaque();
+			if ($this->array_id_paginas_acoes_em_destaque) {
+				$this->getQueryPaginasAcoesDestaque();
+				$this->montaHtmlPaginasAcoesDestaque();
+			}
 		}else{
 			return;
 		}
@@ -54,7 +56,9 @@ class PaginaAbasAcoesDestaque extends PaginaAbas
 		$container_paginas_tags = array('section', 'section', 'section');
 		$container_paginas_css = array('container mb-5', 'row mt-5', 'col-lg-12 col-sm-12');
 		$this->abreContainer($container_paginas_tags, $container_paginas_css );
-		echo '<h3 class="border-bottom fonte-vintequatro pb-2 font-weight-bold mb-4">AÇÕES EM DESTAQUE</h3>';
+		if ($this->query_paginas_acoes_em_destaque->have_posts()) {
+			echo '<h3 class="border-bottom fonte-vintequatro pb-2 font-weight-bold mb-4">AÇÕES EM DESTAQUE</h3>';
+		}
 
 		if ($this->query_paginas_acoes_em_destaque->have_posts()):
 			while ($this->query_paginas_acoes_em_destaque->have_posts()): $this->query_paginas_acoes_em_destaque->the_post();
@@ -75,16 +79,18 @@ class PaginaAbasAcoesDestaque extends PaginaAbas
 			endwhile;
 		endif;
 
-		$container_bt_tags = array('section', 'article');
-		$container_bt_css = array('row', 'col-lg-9 col-sm-12');
-		$this->abreContainer($container_bt_tags, $container_bt_css);
-		echo '<a role="button" href="javascript:;"
+		if ($this->query_paginas_acoes_em_destaque->have_posts()) {
+			$container_bt_tags = array('section', 'article');
+			$container_bt_css = array('row', 'col-lg-9 col-sm-12');
+			$this->abreContainer($container_bt_tags, $container_bt_css);
+			echo '<a role="button" href="javascript:;"
 				   class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">
-					Mais projetos
+					Mais ações
 				</a>';
 
-		$this->fechaContainer($container_bt_tags);
+			$this->fechaContainer($container_bt_tags);
 
-		$this->fechaContainer($container_paginas_tags);
+			$this->fechaContainer($container_paginas_tags);
+		}
 	}
 }
