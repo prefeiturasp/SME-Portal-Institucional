@@ -58,12 +58,12 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 			$image_url = get_the_post_thumbnail_url();
 			?>
 
-			<article class="row mb-3 pb-4 border-bottom">
+			<article class="row mb-4 pb-4 border-bottom">
 
 					<?php if (has_post_thumbnail()) {
-					    echo '<div class="col-12 col-md-6 mb-1">';
+					    echo '<div class="col-12 col-md-5 mb-1">';
 						//the_post_thumbnail('large', array('class' => 'img-fluid rounded float-left mr-4', 'alt'=> $image_alt));
-						echo '<img class="img-fluid rounded float-left mr-4" src="'.$image_url.'" alt="'.$image_alt.'"/>';
+						echo '<img class="img-fluid rounded float-left mr-4 img-noticias-destaques-secundarias" src="'.$image_url.'" alt="'.$image_alt.'"/>';
 						echo '</div>';
 					}
 					?>
@@ -73,9 +73,14 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
                                 <?= get_the_title() ?>
                             </a>
                         </h4>
-                        <section class="fonte-doze">
-                            <?= get_the_excerpt() ?>
-                        </section>
+
+                        <?php
+                        if ($this->getSubtitulo(get_the_ID(), 'p') ){
+                            echo '<section class="fonte-doze">';
+							echo $this->getSubtitulo(get_the_ID(), 'p');
+							echo '</section>';
+						}
+                        ?>
                     </div>
 
 			</article>

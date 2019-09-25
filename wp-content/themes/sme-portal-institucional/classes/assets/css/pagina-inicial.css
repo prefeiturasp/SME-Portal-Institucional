@@ -19,6 +19,18 @@
 .icones-home{
     max-width: 116px;
 }
-@media ( max-width : 769px) {
 
+.container-btn-mais-noticias{
+    position: absolute !important;
+    bottom: 0;
+}
+
+.img-noticias-destaques-secundarias{
+    height: 148px !important;
+}
+
+@media ( max-width : 769px) {
+    .container-img-noticias-destaques-primaria{
+        bottom: 30px !important;
+    }
 }

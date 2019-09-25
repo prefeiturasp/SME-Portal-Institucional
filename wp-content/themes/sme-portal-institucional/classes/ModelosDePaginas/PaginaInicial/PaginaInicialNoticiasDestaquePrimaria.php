@@ -60,17 +60,21 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
 					echo '</figure>';
 				}
 				?>
-                <article class="card-img-overlay bg-azul-claro h-auto rounded-bottom">
+                <article class="card-img-overlay bg-azul-claro h-auto rounded-bottom container-img-noticias-destaques-primaria">
                     <h3 class="fonte-catorze font-weight-bold">
                         <a class="text-white" href="<?= get_the_permalink() ?>">
 							<?= get_the_title() ?>
                         </a>
                     </h3>
-                    <?php if (get_the_excerpt()){ ?>
-                        <section class="card-text text-white fonte-doze">
-                            <?= get_the_excerpt() ?>
-                        </section>
-                    <?php } ?>
+
+
+					<?php
+					if ($this->getSubtitulo(get_the_ID(), 'p') ){
+						echo '<section class="card-text text-white fonte-doze">';
+						echo $this->getSubtitulo(get_the_ID(), 'p');
+						echo '</section>';
+					}
+					?>
                 </article>
             </article>
 		<?php

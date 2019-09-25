@@ -76,12 +76,12 @@ class Util
 		echo '</section>'; //container
 	}
 
-	public function getSubtitulo($page_id){
+	public function getSubtitulo($page_id, $tag_html = 'h2'){
 		$this->deseja_exibir_subtitulo = get_field('deseja_exibir_subtitulo', $page_id);
 		$this->insira_o_subtitulo = get_field('insira_o_subtitulo', $page_id);
 
 		if ($this->deseja_exibir_subtitulo == 'sim' && trim($this->insira_o_subtitulo != '')){
-			return '<h2>'.$this->insira_o_subtitulo.'</h2>';
+			return '<'.$tag_html.'>'.$this->insira_o_subtitulo.'</'.$tag_html.'>';
 		}
 
 	}
@@ -124,7 +124,7 @@ class Util
 		?>
 
         <section class="row">
-            <article class="col-lg-12 col-xs-12">
+            <article class="col-lg-12 col-xs-12 container-btn-mais-noticias">
                 <form>
                     <fieldset>
                         <legend>Ir para mais notícias</legend>
