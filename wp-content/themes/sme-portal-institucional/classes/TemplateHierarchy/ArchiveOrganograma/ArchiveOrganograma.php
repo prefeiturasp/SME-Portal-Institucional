@@ -105,6 +105,26 @@ class ArchiveOrganograma extends ArchiveContato
 		}
 	}
 
+	public function verificaSeExistemItensTaxonomias($term){
+
+		$this->args_taxonomias = array(
+			'post_type' => self::CPT,
+			'posts_per_page' => -1,
+			'hide_empty' => false,
+			'tax_query' => array(
+				array(
+					'taxonomy' => self::TAXONOMIA,
+					'field' => 'slug',
+					'terms' => $term,
+				),
+			),
+		);
+
+		$this->query_taxonomias = get_posts($this->args_taxonomias);
+		$total = count(get_posts($this->args_taxonomias));
+        return $total;
+    }
+
 	public function montaQueryItensTaxonomias($term)
 	{
 		$this->args_taxonomias = array(
@@ -120,6 +140,7 @@ class ArchiveOrganograma extends ArchiveContato
 			),
 		);
 		$this->query_taxonomias = get_posts($this->args_taxonomias);
+
 		return $this->query_taxonomias;
 	}
 
@@ -150,26 +171,32 @@ class ArchiveOrganograma extends ArchiveContato
 
 	public function montaHtmlItensTaxonomias(array $divs_externas, array $divs_internas, $classe_p, $query)
 	{
-		$this->abreDivs(null,$divs_externas);
 
 		$cont = 0;
-		foreach ($query as $index => $term) {
 
-			if ($cont >= 4){
-				$this->fechaDivs($divs_externas);
-				$divs_externas = array('card-deck mt-4 borda-itens borda-cinza-claro-organo');
-				$this->abreDivs(null, $divs_externas);
-				$cont=0;
+
+			$this->abreDivs(null,$divs_externas);
+
+
+			foreach ($query as $index => $term) {
+
+				if ($cont >= 4) {
+					$this->fechaDivs($divs_externas);
+					$divs_externas = array('card-deck mt-4 borda-itens borda-cinza-claro-organo');
+					$this->abreDivs(null, $divs_externas);
+					$cont = 0;
+				}
+
+				$this->abreDivs(null, $divs_internas);
+				echo '<p class="' . $classe_p . '">' . $term->post_title . '</p>';
+				$this->fechaDivs($divs_internas);
+
+				$cont++;
 			}
+			$this->fechaDivs($divs_externas);
 
-			$this->abreDivs(null,$divs_internas);
-			echo '<p class="'.$classe_p.'">' . $term->post_title . '</p>';
-			$this->fechaDivs($divs_internas);
 
-			$cont++;
-		}
 
-		$this->fechaDivs($divs_externas);
 	}
 
 	public function montaHtmlContatos($escolha_o_contato_que_deseja_exibir){

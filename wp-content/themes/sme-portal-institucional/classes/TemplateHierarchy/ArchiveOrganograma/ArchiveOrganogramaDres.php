@@ -88,8 +88,13 @@ class ArchiveOrganogramaDres extends ArchiveOrganograma
 
 	public function montaHtmlNameTaxonomyDreMae($classe_h2)
 	{
+		echo '<div id="borda-em-l"></div>';
+
 		echo '<h2 class="'.$classe_h2.'">';
 		echo '<a class="text-white font-weight-bold text-decoration-none collapsed" data-toggle="collapse" data-target="#dres" aria-expanded="false" aria-controls="dres" href="">';
+
+
+
 		echo $this->getTaxonomyName();
 		echo '</a>';
 		echo '</h2>';

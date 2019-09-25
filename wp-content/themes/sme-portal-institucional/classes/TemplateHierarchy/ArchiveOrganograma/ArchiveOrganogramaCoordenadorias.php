@@ -56,7 +56,19 @@ class ArchiveOrganogramaCoordenadorias extends ArchiveOrganograma
 	}
 
 	public function getItensCoordenadorias($termo_slug){
-		$divs_externas_coordenadorias = array('card-deck justify-content-center mt-5 borda-itens borda-cinza-claro-organo');
+
+		if ($this->verificaSeExistemItensTaxonomias($termo_slug) > 0 && $this->verificaSeExistemItensTaxonomias($termo_slug) < 2) {
+			$divs_externas_coordenadorias = array('card-deck margin-right-negativa-16 centraliza-itens mt-5 borda-itens borda-cinza-claro-organo');
+
+		}elseif ($this->verificaSeExistemItensTaxonomias($termo_slug) > 2 && $this->verificaSeExistemItensTaxonomias($termo_slug) < 4){
+			$divs_externas_coordenadorias = array('card-deck margin-right-negativa-13 centraliza-itens mt-5 borda-itens borda-cinza-claro-organo');
+
+		}elseif($this->verificaSeExistemItensTaxonomias($termo_slug) == 0){
+			$divs_externas_coordenadorias = array('card-deck centraliza-itens pb-5 borda-cinza-claro-organo');
+		}else{
+			$divs_externas_coordenadorias = array('card-deck centraliza-itens mt-5 borda-itens borda-cinza-claro-organo');
+
+		}
 		$divs_internas_coordenadorias = array('card shadow-sm border-0 bg-cinza-claro-organo borda-conexao', 'card-body d-flex justify-content-center');
 		$classe_h2_coordenadorias = 'card-text font-weight-bold text-center align-self-center';
 		$this->montaHtmlItensTaxonomias($divs_externas_coordenadorias, $divs_internas_coordenadorias, $classe_h2_coordenadorias, $this->montaQueryItensTaxonomias($termo_slug));

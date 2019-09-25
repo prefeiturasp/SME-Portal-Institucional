@@ -43,8 +43,7 @@
     background: #196CBD;
 }
 
-.lista-coordenadorias .coordenadoria::before,
-.lista-dres .dres::before {
+.lista-coordenadorias .coordenadoria::before {
     border-top: 2px solid #D1D1D1;
     border-left: 2px solid #D1D1D1;
     content: '';
@@ -57,12 +56,8 @@
     width: 85px;
 }
 
-.lista-dres .dres::before {
-    border-left: 0 none;
-}
 
-.lista-coordenadorias .coordenadoria::after,
-.lista-dres .dres::after {
+.lista-coordenadorias .coordenadoria::after {
     border-left: 2px solid #D1D1D1;
     content: '';
     height: 100%;
@@ -78,9 +73,6 @@
     border: 0 none;
 }
 
-.lista-dres .dres::after {
-    top: -100%;
-}
 
 .card-header h2 a::after {
     content: "\f107";
@@ -176,6 +168,34 @@
 
 .borda-itens:nth-child(-n+2).borda-cinza-claro-organo::before {
     background: #D1D1D1;
+}
+
+
+#borda-em-l{
+    border-left: 2px solid #D1D1D1;
+    border-bottom: 2px solid #D1D1D1;
+    display: inline-block;
+    position: absolute;
+    left: -85px;
+    width: 100px;
+    height: 100px;
+    top: -68px;
+    z-index: -1;
+}
+
+.centraliza-itens{
+    justify-content: center !important;
+}
+
+@media (min-width: 576px) {
+
+    .margin-right-negativa-13{
+        margin-right: -13px !important;
+    }
+
+    .margin-right-negativa-16{
+        margin-right: -16px !important;
+    }
 }
 
 .rodape-bt-unidades-escolares{
