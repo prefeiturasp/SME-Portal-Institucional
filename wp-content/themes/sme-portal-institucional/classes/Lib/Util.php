@@ -47,13 +47,14 @@ class Util
 
 	public function montaHtmlLoopPadraoCard()
 	{
-
 		echo '<section class="container">';
+
 		if (have_posts()) : while (have_posts()) : the_post();
 			?>
             <article class="row">
                 <article class="col-lg-12 col-xs-12">
                     <h1 class="mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
+                    <p>Atualizado em: <?php the_modified_date('d/m/Y'); ?></p>
                 </article>
             </article>
 
