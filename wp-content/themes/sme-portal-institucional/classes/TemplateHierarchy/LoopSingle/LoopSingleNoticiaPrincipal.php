@@ -49,8 +49,13 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 		<?php
 	}
 	public function getArquivosAnexos(){
+		$unsupported_mimes  = array( 'image/jpeg', 'image/gif', 'image/png', 'image/bmp', 'image/tiff', 'image/x-icon' );
+		$all_mimes          = get_allowed_mime_types();
+		$accepted_mimes     = array_diff( $all_mimes, $unsupported_mimes );
+
 		$attachments = get_posts( array(
 			'post_type' => 'attachment',
+			'post_mime_type'    => $accepted_mimes,
 			'posts_per_page' => -1,
 			'post_parent' => get_the_ID(),
 			'orderby'	=> 'ID',
