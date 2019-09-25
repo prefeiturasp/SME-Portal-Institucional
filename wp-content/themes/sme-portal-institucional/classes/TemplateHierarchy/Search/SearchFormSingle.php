@@ -19,7 +19,8 @@ class SearchFormSingle
                         <label class="esconde-item-acessibilidade" for="search-loop">Campo de Busca de informações</label>
                         <input type="text" id="search-loop"  name="s" placeholder="<?php _e(BUSCARNOTICIAS,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="form-control" />
                         <div class="input-group-append">
-                            <button type="submit" class="btn bt-search-topo"><?php _e('<i class="fa fa-search"></i>','wpbootstrap'); ?></button>
+                            <label for="enviar-busca-noticias" class="esconde-item-acessibilidade">Enviar a Busca de Notícias</label>
+                            <button id="enviar-busca-noticias" name="enviar-busca-noticias" type="submit" class="btn bt-search-topo"><?php _e('<i class="fa fa-search"></i>','wpbootstrap'); ?></button>
                         </div>
                     </div>
                 </fieldset>

@@ -61,11 +61,11 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
 				}
 				?>
                 <article class="card-img-overlay bg-azul-claro h-auto rounded-bottom">
-                    <h2 class="fonte-catorze font-weight-bold">
+                    <h3 class="fonte-catorze font-weight-bold">
                         <a class="text-white" href="<?= get_the_permalink() ?>">
 							<?= get_the_title() ?>
                         </a>
-                    </h2>
+                    </h3>
                     <?php if (get_the_excerpt()){ ?>
                         <section class="card-text text-white fonte-doze">
                             <?= get_the_excerpt() ?>

@@ -42,6 +42,13 @@ $s(document).ready(function(){
     });
 });
 
+// Removendo cabecalho twitter
+$s("iframe#twitter-widget-0").waitUntilExists(function(e){
+    var iframeBody = $s("iframe#twitter-widget-0").contents().find('body');
+    var timeline =  iframeBody.find('.timeline-Widget');
+    timeline.find('.timeline-Header').remove();
+});
+
 
 /*Ativação do Tool Tip Bootstrap*/
 $s(document).ready(function() {

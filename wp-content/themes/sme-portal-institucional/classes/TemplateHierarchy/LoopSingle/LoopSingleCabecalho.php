@@ -19,11 +19,5 @@ class LoopSingleCabecalho extends LoopSingle
 		</div>
         <?php
         SearchFormSingle::searchFormHeader();
-        ?>
-		<!--<div class="col-lg-6 col-sm-6 d-flex justify-content-lg-end justify-content-center">
-			<input type="text" class="form-control w-auto mb-lg-0 mb-4" />
-		</div>-->
-		<?php
 	}
-
 }

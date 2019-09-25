@@ -147,8 +147,7 @@ use Classes\Header\Header;
                 </fieldset>
             </form>
 
-            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                <a href="#" id="irmenu" class="esconde-item-acessibilidade">Início do menu</a>
+            <div class="collapse navbar-collapse justify-content-end" id="irmenu">
                 <?php
 				wp_nav_menu(array(
 					'menu' => 'primary',

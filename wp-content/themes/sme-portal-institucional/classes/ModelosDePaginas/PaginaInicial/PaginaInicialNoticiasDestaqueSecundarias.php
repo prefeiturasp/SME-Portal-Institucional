@@ -68,11 +68,11 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 					}
 					?>
                     <div class="col-12 col-md-6">
-                        <h2 class="fonte-catorze font-weight-bold">
+                        <h4 class="fonte-catorze font-weight-bold">
                             <a class="text-dark" href="<?= get_the_permalink() ?>">
                                 <?= get_the_title() ?>
                             </a>
-                        </h2>
+                        </h4>
                         <section class="fonte-doze">
                             <?= get_the_excerpt() ?>
                         </section>
