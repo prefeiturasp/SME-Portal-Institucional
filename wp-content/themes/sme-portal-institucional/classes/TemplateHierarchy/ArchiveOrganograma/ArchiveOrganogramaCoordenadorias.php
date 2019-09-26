@@ -57,10 +57,10 @@ class ArchiveOrganogramaCoordenadorias extends ArchiveOrganograma
 
 	public function getItensCoordenadorias($termo_slug){
 
-		if ($this->verificaSeExistemItensTaxonomias($termo_slug) > 0 && $this->verificaSeExistemItensTaxonomias($termo_slug) < 2) {
+		if ($this->verificaSeExistemItensTaxonomias($termo_slug) == 1) {
 			$divs_externas_coordenadorias = array('card-deck margin-right-negativa-16 centraliza-itens mt-5 borda-itens borda-cinza-claro-organo');
 
-		}elseif ($this->verificaSeExistemItensTaxonomias($termo_slug) > 2 && $this->verificaSeExistemItensTaxonomias($termo_slug) < 4){
+		}elseif ($this->verificaSeExistemItensTaxonomias($termo_slug) == 3){
 			$divs_externas_coordenadorias = array('card-deck margin-right-negativa-13 centraliza-itens mt-5 borda-itens borda-cinza-claro-organo');
 
 		}elseif($this->verificaSeExistemItensTaxonomias($termo_slug) == 0){
