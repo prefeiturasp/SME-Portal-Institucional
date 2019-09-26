@@ -467,6 +467,94 @@ function shapeSpace_track_posts($post_id) {
 }
 add_action('wp_head', 'shapeSpace_track_posts');
 
+
+function override_pending_post_status() {
+	register_post_status( 'pending', array(
+		'label'       => _x( 'Pending', 'post' ),
+		'protected'   => true,
+		'_builtin'    => true, /* internal use only. */
+		'label_count' => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>' ),
+		'public'      => true,
+	) );
+}
+
+add_action( 'init', 'override_pending_post_status' );
+
+add_action( 'wp', 'override_404' );
+function override_404($query) {
+
+	if(is_404()):
+/*		$args = array(
+			'post_parent' => 20366, // id
+			'post_type' => 'revision',
+			'post_status' => 'inherit'
+		);
+		$query2 = get_children($args);
+		echo '<h1>Ollyver | '.count($query2).'</h1>';*/
+
+		$ultimas_revisoes = wp_get_post_revisions(20366);
+
+		echo '<pre>';
+
+		//var_dump($ultimas_revisoes);
+
+		echo '</pre>';
+
+		$uri = trim($_SERVER['REQUEST_URI'], '/');
+		$segments = explode('/', $uri);
+		$slug_index = count($segments);
+
+		$page_slug = $segments[$slug_index - 1];
+		$page = get_page_by_path($page_slug, OBJECT, 'page');
+
+		$revision_args = array('post_parent' => 20366, 'post_type' => 'revision', 'post_status' => 'inherit', 'numberposts' => 1);
+		//$revision_args = array('post_parent' => $page->ID, 'post_type' => 'revision', 'post_status' => 'inherit', 'numberposts' => -1);
+
+
+		$revision = array_shift(get_children($revision_args));
+
+		echo '<pre>';
+		echo '<div style="width: 45%">';
+		//var_dump($revision);
+		echo '</div>';
+		echo '</pre>';
+
+		echo '<pre>';
+		echo '<div style="width: 45%">';
+		//var_dump($query);
+		echo '</div>';
+		echo '</pre>';
+
+		if($revision):
+			$query->query_vars['name'] = $revision->post_name;
+			$query->query_vars['page'] = 20371;
+			$query->query_string = "name={$revision->post_name}";
+			$query->request = $revision->post_name;
+			$query->matched_rule = "({$revision->post_name})(/[0-9]+)?/?$";
+			$query->matched_query = "name={$revision->post_name}&page=";
+			$query->did_permalink = 1;
+		endif;
+
+/*		if($revision):
+			$query->query_vars['pagename'] = $revision->page_name;
+			$query->query_string = "pagename={$revision->page_name}";
+			$query->request = $revision->page_name;
+			$query->matched_rule = "({$revision->page_name})(/[0-9]+)?/?$";
+			$query->matched_query = "pagename={$revision->page_name}&page=";
+			$query->did_permalink = 1;
+		endif;*/
+
+	endif;
+
+	echo '<pre>';
+	echo '<div style="width: 45%">';
+	//var_dump($query);
+	echo '</div>';
+	echo '</pre>';
+
+	return $query;
+}
+
 define('STM_URL', get_home_url());
 define('STM_THEME_URL', get_bloginfo('template_url') . '/');
 define('STM_SITE_NAME', get_bloginfo('name'));
