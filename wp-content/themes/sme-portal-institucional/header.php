@@ -124,7 +124,6 @@ use Classes\Header\Header;
 
     </header>
 
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light menu-topo">
         <section class="container">
 			<?php
@@ -140,8 +139,8 @@ use Classes\Header\Header;
             <form>
                 <fieldset>
                     <legend>Mostra e Esconde Menu</legend>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#irmenu"
+                            aria-controls="irmenu" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </fieldset>

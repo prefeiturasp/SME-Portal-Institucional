@@ -513,17 +513,6 @@ function override_404($query) {
 
 		$revision = array_shift(get_children($revision_args));
 
-		echo '<pre>';
-		echo '<div style="width: 45%">';
-		//var_dump($revision);
-		echo '</div>';
-		echo '</pre>';
-
-		echo '<pre>';
-		echo '<div style="width: 45%">';
-		//var_dump($query);
-		echo '</div>';
-		echo '</pre>';
 
 		if($revision):
 			$query->query_vars['name'] = $revision->post_name;
@@ -545,12 +534,6 @@ function override_404($query) {
 		endif;*/
 
 	endif;
-
-	echo '<pre>';
-	echo '<div style="width: 45%">';
-	//var_dump($query);
-	echo '</div>';
-	echo '</pre>';
 
 	return $query;
 }

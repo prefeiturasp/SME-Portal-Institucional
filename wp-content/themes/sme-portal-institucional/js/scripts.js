@@ -49,6 +49,19 @@ $s("iframe#twitter-widget-0").waitUntilExists(function(e){
     timeline.find('.timeline-Header').remove();
 });
 
+// Fechando Janela Galeria ao clicar na Tab swipebox-overlay
+$s(document).ready(function(){
+    $s(".gallery-item").on('click ', function(e) {
+        $s( "body" ).keydown(function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode == 9) {
+                var bt_close =  $s('#swipebox-close');
+                bt_close.trigger('click');
+            }
+        });
+    });
+
+});
 
 /*Ativação do Tool Tip Bootstrap*/
 $s(document).ready(function() {

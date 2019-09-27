@@ -36,7 +36,7 @@ class PaginaImagemVideo extends Util
         echo '<article class="row mb-4">';
         echo '<article class="col">';
         echo '<figure>';
-        echo '<img src="'.$imagem["url"].'" alt="'.$imagem["alt"].'">';
+        echo '<img class="img-fluid" src="'.$imagem["url"].'" alt="'.$imagem["alt"].'">';
         echo '</figure>';
         echo '</article>';
         echo '</article>';
