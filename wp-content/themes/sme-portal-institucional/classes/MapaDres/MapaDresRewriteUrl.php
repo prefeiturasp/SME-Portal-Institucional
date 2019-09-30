@@ -64,7 +64,7 @@ class MapaDresRewriteUrl
 		if ($wp_query->get('custom_page') == 'mapa-dres') {
 
 			// Definimos o título da página
-			add_filter('wp_title', function ($a){return "Busca de Escolas";});
+			add_filter('wp_title', function ($a){return "Mapa das DRE's";});
 
 			if (file_exists(TEMPLATEPATH . '/mapa-dres.php')) {
 				include(TEMPLATEPATH . '/mapa-dres.php');
