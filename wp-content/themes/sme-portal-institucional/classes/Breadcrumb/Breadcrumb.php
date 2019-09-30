@@ -55,6 +55,7 @@ class Breadcrumb
 			} else if ( is_archive() && is_tax() && !is_category() && !is_tag() ) {
 
 				// If post is a custom post type
+
 				$post_type = get_post_type();
 
 				// If it is a custom post type display name and link
