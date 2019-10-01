@@ -30,24 +30,29 @@ class ArchiveAgendaGetDatasEventos
 	public function getTodosIdCtpAgenda(){
 
 		$this->args_ids = array(
-			'post_type' => self::CPTAGENDA,
+			'post_type' => 'agenda',
 			'post_status' => 'publish',
 			'posts_per_page' => -1,
+
 			'meta_key' => 'data_do_evento',
 			'orderby' => 'meta_value',
 			'order' => 'ASC',
-			'meta_query' => array(
+
+			/*'meta_query' => array(
 				array(
 					'key' => 'data_do_evento',
 					'value' => date("d/m/Y"), // date format error
 					'compare' => '<='
 				)
-			)
+			)*/
 
 		);
 		$this->query_ids = get_posts($this->args_ids);
-		foreach ($this->query_ids as $item){
-			$this->array_ids[] = $item->ID;
+
+		if ($this->query_ids){
+			foreach ($this->query_ids as $item){
+				$this->array_ids[] = $item->ID;
+			}
 		}
 	}
 

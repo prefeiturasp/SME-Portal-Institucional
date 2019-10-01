@@ -18,40 +18,6 @@ class Util
 	public function montaHtmlLoopPadrao()
 	{
 
-/*		if(get_post_status() == 'pending') {
-
-		    global $wpdb;
-			$query = 'SELECT ID FROM `homolog_posts` WHERE `post_parent` = '.$this->page_id.' AND `post_type` = "revision" AND `post_title` <> "Auto Draft" AND TRIM(`post_content`) <> "" AND `post_name` NOT LIKE "%autosave%" ORDER BY `post_modified` DESC LIMIT 1';
-
-			//echo '<h1>Ollyver '.get_post_status().'</h1>';
-			//echo '<h1>Ollyver '.$query.'</h1>';
-
-			$revision_id = $wpdb->get_var($query);
-
-			//echo '<h1>Ollyver Revision ID '.$revision_id.'</h1>';
-
-			$revision = wp_get_post_revision($revision_id);
-
-			echo '<pre>';
-			//var_dump($revision);
-			echo '</pre>';
-
-			$title = $revision->post_title;
-			$content = $revision->post_content;
-			$content = apply_filters('the_content', $content);
-			$content = str_replace(']]>', ']]>', $content);
-
-			echo '<h1>'.$title.'</h1>';
-			echo $content;
-
-			wp_reset_postdata();
-		} else {
-			the_content();
-		}*/
-
-
-
-
 		echo '<section class="container">';
 		if (have_posts()) : while (have_posts()) : the_post();
 			?>
