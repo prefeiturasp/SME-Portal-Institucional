@@ -58,7 +58,6 @@ class PaginaImagemVideo extends Util
 			<section class="row">
 				<article class="col-lg-9 col-xs-12">
 					<h1 class="mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
-
 					<?php echo $this->getSubtitulo($this->page_id)?>
 					<?= $this->getImagemOuVideo(); ?>
 					<?php the_content(); ?>
