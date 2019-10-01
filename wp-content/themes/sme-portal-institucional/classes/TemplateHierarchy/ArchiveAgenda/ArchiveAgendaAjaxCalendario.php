@@ -41,7 +41,7 @@ class ArchiveAgendaAjaxCalendario extends Util
 				<div class="agenda mb-4">
 					<div class="horario d-inline"><?= $this->getCamposPersonalizados('hora_do_evento') ?></div> -
 					<div class="evento d-inline"><?= get_the_title()?></div>
-					<div class="local"><?= $this->getCamposPersonalizados('endereco_do_evento') ?></div>
+					<div class="local">Local: <?= $this->getCamposPersonalizados('endereco_do_evento') ?></div>
 				</div>
 
 			</article>
