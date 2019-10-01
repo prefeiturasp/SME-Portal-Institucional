@@ -19,7 +19,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 				$this->getDataPublicacaoAlteracao();
 				$this->getMidiasSociais();
 				the_content();
-				$this->getArquivosAnexos();
+				//$this->getArquivosAnexos();
 				$this->getCategorias(get_the_ID());
 				echo '</article>';
 			endwhile;
