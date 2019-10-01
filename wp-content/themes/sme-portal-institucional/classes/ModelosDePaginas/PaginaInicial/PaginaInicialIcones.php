@@ -51,6 +51,47 @@ class PaginaInicialIcones extends PaginaInicial
 
 	public function montaHtmlMenuIcones()
 	{
+		echo '<section class="tab-content bg-cinza-ativo">';
+
+		foreach ($this->array_icone_titulo_icone_id_menu_icone as $icone) {
+
+		   // echo '<div class="tab-pane fade container" id="menu_' . $icone['menu_icone'] . '" role="tabpanel" aria-labelledby="tab_' . $icone['menu_icone'] . '">';
+
+		    ?>
+
+           <section class="tab-pane fade container" id="menu_<?= $icone['menu_icone'] ?>" role="tabpanel" aria-labelledby="tab_<?= $icone['menu_icone'] ?>">
+
+                <nav class="navbar navbar-expand-lg nav-icones-menu">
+
+
+                    <article class="collapse navbar-collapse">
+						<?php
+						wp_nav_menu(array(
+							'menu' => $icone['menu_icone'],
+							//'theme_location' => 'primary',
+							'depth' => 2,
+							//'container_id' => 'bs-example-navbar-collapse-1',
+							'menu_class' => 'navbar-nav mr-auto nav nav-tabs ul-icones-home',
+							'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
+							'walker'            => new \WP_Bootstrap_Navwalker(),
+						));
+						?>
+
+                    </article>
+
+                </nav>
+            </section>
+
+            <?php
+
+		}
+
+		echo '</section>';
+
+	}
+
+/*	public function montaHtmlMenuIcones()
+	{
 		echo '<article class="tab-content bg-cinza-ativo">';
 
 		foreach ($this->array_icone_titulo_icone_id_menu_icone as $icone) {
@@ -69,6 +110,6 @@ class PaginaInicialIcones extends PaginaInicial
 
 		echo '</article>';
 
-	}
+	}*/
 
 }

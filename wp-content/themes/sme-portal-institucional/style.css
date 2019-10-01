@@ -499,8 +499,17 @@ fieldset legend, .esconde-item-acessibilidade{
 }
 
 @media (min-width: 992px) {
+/*	.navbar-expand-lg .navbar-nav .dropdown-menu {
+		position: absolute;
+		border: solid 1px #000 !important;
+	}*/
+
 	.navbar-expand-lg .navbar-nav .dropdown-menu {
 		position: absolute;
+
+	}
+
+	#menu-menu-superior li ul{
 		border: solid 1px #000 !important;
 	}
 }

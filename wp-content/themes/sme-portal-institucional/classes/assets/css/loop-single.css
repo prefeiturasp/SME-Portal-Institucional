@@ -11,7 +11,7 @@
     transform-origin: 29px -50px;
     opacity: 1;
     visibility: visible;
-    top:42px !important;
+    top:42px;
 }
 
 .categorias-nav ul li:nth-child(1) {
