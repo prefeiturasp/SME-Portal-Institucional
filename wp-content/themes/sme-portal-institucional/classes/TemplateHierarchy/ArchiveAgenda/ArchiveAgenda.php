@@ -23,10 +23,6 @@ class ArchiveAgenda extends Util
 		<section class="col-lg-6 col-xs-12">
 			<h1 class="mb-5" id="agenda">Agenda do Secretário de Educação</h1>
 			<section class="calendario-agenda-sec d-block mb-5 border-bottom pb-5 "></section>
-			<article class="fonte-doze mb-5">
-				Mais informações:
-				Assessoria de Imprensa do Secretário emaildosecretario@sme.prefeitura.sp.gov.br 1234-5678
-			</article>
 		</section>
 
 
