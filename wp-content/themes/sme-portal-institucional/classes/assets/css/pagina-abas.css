@@ -22,6 +22,12 @@
     }
 }
 
+@media (max-width: 768px) {
+    .coordenadorias-tabs .nav-item {
+        width: 100% !important;
+    }
+}
+
 .coordenadorias-tabs .nav-link.active {
     border-bottom: 8px solid #196CBD !important;
     border-color: #196CBD !important;
