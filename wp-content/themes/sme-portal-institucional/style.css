@@ -475,8 +475,9 @@ fieldset legend, .esconde-item-acessibilidade{
 	color: #000 !important;
 }
 
-.select-rodape option:disabled{
-	color: #000 !important;
+[disabled] option {
+	background: #fff;
+	color: #000;
 }
 
 @media ( min-width : 992px) {

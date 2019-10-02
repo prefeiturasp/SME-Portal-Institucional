@@ -242,11 +242,11 @@
                 </article>
 
                 <article class="col-lg-2 col-xs-12 mb-xs-4 d-flex align-items-center">
-                    <figure>
+                    <!--<figure>
                         <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR">
                             <img src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Copyright"/>
                         </a>
-                    </figure>
+                    </figure>-->
                 </article>
 
             </section>
