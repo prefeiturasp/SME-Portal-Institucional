@@ -26,7 +26,7 @@ class BuscaDeEscolas
                         <article class="form-group col-md-4">
                             <label for="busca_tipo_de_escola">Tipo de Escola</label>
                             <select class="form-control" id="busca_tipo_de_escola" name="busca_tipo_de_escola">
-                                <option value="">Selecione uam opção</option>
+                                <option value="">Selecione uma opção</option>
                             </select>
                         </article>
                         <article class="form-group col-md-4">

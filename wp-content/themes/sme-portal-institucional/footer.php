@@ -62,7 +62,7 @@
                             </legend>
                             <div class="form-group mb-2">
                                 <label class="esconde-item-acessibilidade" for="secretarias">Secretarias</label>
-                                <select onchange="document.location.href=this.value" name="secretarias" id="secretarias" class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
+                                <select onchange="document.location.href=this.value" name="secretarias" id="secretarias" class="select-rodape form-control fonte-doze rounded-pill bg-transparent border border-white text-white">
                                     <option disabled="disabled" selected="selected" value="Secretarias">Secretarias
                                     </option>
                                     <option value="http://www.prefeitura.sp.gov.br/cidade/secretarias/assistencia_social">
@@ -144,7 +144,7 @@
                             </div>
                             <div class="form-group mb-2">
                                 <label class="esconde-item-acessibilidade" for="prefeituras-regionais">PrefeiturasRegionais</label>
-                                    <select onchange="document.location.href=this.value" name="prefeituras-regionais" id="prefeituras-regionais" class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
+                                    <select onchange="document.location.href=this.value" name="prefeituras-regionais" id="prefeituras-regionais" class="select-rodape form-control fonte-doze rounded-pill bg-transparent border border-white text-white">
                                     <option disabled="disabled" selected="selected" value="Subprefeituras">Prefeituras Regionais</option>
                                     <option value="http://aricanduva.prefeitura.sp.gov.br">Aricanduva/V.Formosa</option>
                                     <option value="http://butanta.prefeitura.sp.gov.br">Butantã</option>
@@ -183,7 +183,7 @@
                             </div>
                             <div class="form-group mb-0">
                                 <label class="esconde-item-acessibilidade" for="orgaos-autarquias">Órgãos e Autarquias</label>
-                                <select onchange="document.location.href=this.value" name="orgaos-autarquias" id="orgaos-autarquias" class="form-control fonte-doze rounded-pill text-secondary bg-transparent border border-secondary text-white">
+                                <select onchange="document.location.href=this.value" name="orgaos-autarquias" id="orgaos-autarquias" class="select-rodape form-control fonte-doze rounded-pill bg-transparent border border-white text-white">
                                     <option disabled="disabled" selected="selected" value="Orgaos">Outros órgãos</option>
                                     <option value="http://www.prefeitura.sp.gov.br/ahm">Autarquia Hospitalar do Município de São Paulo - AHMSP</option>
                                     <option value="http://www.cgesp.org/">Centro de Gerenciamento de Emergências - CGE</option>

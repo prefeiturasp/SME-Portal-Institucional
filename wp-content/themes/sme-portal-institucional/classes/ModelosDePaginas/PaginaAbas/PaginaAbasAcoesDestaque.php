@@ -80,7 +80,7 @@ class PaginaAbasAcoesDestaque extends PaginaAbas
 		endif;
 
 		if ($this->query_paginas_acoes_em_destaque->have_posts()) {
-			$container_bt_tags = array('section', 'article');
+			/*$container_bt_tags = array('section', 'article');
 			$container_bt_css = array('row', 'col-lg-9 col-sm-12');
 			$this->abreContainer($container_bt_tags, $container_bt_css);
 			echo '<a role="button" href="javascript:;"
@@ -88,7 +88,7 @@ class PaginaAbasAcoesDestaque extends PaginaAbas
 					Mais ações
 				</a>';
 
-			$this->fechaContainer($container_bt_tags);
+			$this->fechaContainer($container_bt_tags);*/
 
 			$this->fechaContainer($container_paginas_tags);
 		}

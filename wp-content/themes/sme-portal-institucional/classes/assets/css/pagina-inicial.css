@@ -45,9 +45,8 @@
 }
 
 .ul-icones-home li a{
-
     padding: 15px;
-    color: #007bff !important;
+    color: #000 !important;
 }
 
 .ul-icones-home li a:hover, .ul-icones-home li a:focus {
@@ -80,4 +79,8 @@
     .container-img-noticias-destaques-primaria{
         bottom: 30px !important;
     }
+}
+
+.titulo-icones{
+    color: #000;
 }

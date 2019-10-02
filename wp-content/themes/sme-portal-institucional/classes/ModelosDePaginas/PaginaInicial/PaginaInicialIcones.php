@@ -33,14 +33,14 @@ class PaginaInicialIcones extends PaginaInicial
             <ul class="card-group nav" role="tablist">
 				<?php foreach ($this->array_icone_titulo_icone_id_menu_icone as $icone) { ?>
 
-                    <li id="tab_<?= $icone['menu_icone'] ?>" class="container-a-icones-home card rounded-0 border-0 bg-cinza pt-5 pb-3">
+                    <li id="tab_<?= $icone['menu_icone'] ?>" class="container-a-icones-home card rounded-0 border-0 pt-5 pb-3">
                         <a id="tab_<?= $icone['menu_icone'] ?>" data-toggle="tab" href="#menu_<?= $icone['menu_icone'] ?>"
                            role="tab" aria-selected="false"
                            class="a-icones-home d-flex justify-content-center align-items-center">
                             <img src="<?= $icone['url_icone'] ?>" class="icones-home" alt="Ícone <?= $icone['titulo_icone'] ?>">
                         </a>
                         <div class="card-body text-center">
-                            <p class="card-text"><?= $icone['titulo_icone'] ?></p>
+                            <p class="card-text titulo-icones"><?= $icone['titulo_icone'] ?></p>
                         </div>
                     </li>
 				<?php } ?>

@@ -1,8 +1,13 @@
 jQuery(document).ready(function ($) {
 
-    busca_escola();
-    busca_tipo_escola();
-    busca_dre();
+    var href = $(location).attr('href');
+    var pathname = $(location).attr('pathname');
+
+    if (pathname === '/furuba-educacao-intranet/busca-de-escolas/' || pathname === '/busca-de-escolas/') {
+        busca_escola();
+        busca_tipo_escola();
+        busca_dre();
+    }
 
 
     function exibir_escolas_filtradas_total(link, paginaAtual){

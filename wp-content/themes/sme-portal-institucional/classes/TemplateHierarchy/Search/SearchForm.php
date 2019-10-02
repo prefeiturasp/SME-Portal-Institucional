@@ -15,7 +15,7 @@ class SearchForm
                     <input type="text" name="s" placeholder="<?php _e(BUSCAR,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="form-control" />
 					<div class="input-group-append">
                         <label for="enviar-outra-busca" class="esconde-item-acessibilidade">Enviar Outra Busca</label>
-						<button id="enviar-outra-busca" name="enviar-outra-busca" type="submit" class="btn btn-outline-secondary bt-search-topo"><?php _e('<i class="fa fa-search"></i>','wpbootstrap'); ?></button>
+						<input id="enviar-outra-busca" name="enviar-outra-busca" type="submit" class="btn btn-outline-secondary bt-search-topo" value="<?php _e('Buscar novamente','wpbootstrap'); ?>"/>
 					</div>
 				</div>
 			</fieldset>
@@ -36,7 +36,7 @@ class SearchForm
                             <input type="text" name="s" id="search-front-end" placeholder="<?php _e(BUSCAR,"wpbootstrap"); ?>" value="<?php the_search_query(); ?>" class="form-control" />
                             <div class="input-group-append">
                                 <label for="enviar-busca-home" class="esconde-item-acessibilidade">Enviar a Busca</label>
-                                <button id="enviar-busca-home" name="enviar-busca-home" type="submit" class="btn btn-outline-secondary bt-search-topo"><?php _e('<i class="fa fa-search"></i>','wpbootstrap'); ?></button>
+                                <input id="enviar-busca-home" name="enviar-busca-home" type="submit" class="btn btn-outline-secondary bt-search-topo" value="<?php _e('Buscar','wpbootstrap'); ?>" />
                             </div>
                         </div>
                     </fieldset>

@@ -42,11 +42,19 @@ $s(document).ready(function(){
     });
 });
 
+// Removendo rodape Hand-Talk{
+$s("._2l9ogse-9T4ParAkBl58xA").waitUntilExists(function(e){
+    var link_rodape = $s('._2l9ogse-9T4ParAkBl58xA').contents().find('.ht-ac-copy');
+    link_rodape.remove();
+});
+
 // Removendo cabecalho twitter
 $s("iframe#twitter-widget-0").waitUntilExists(function(e){
     var iframeBody = $s("iframe#twitter-widget-0").contents().find('body');
     var timeline =  iframeBody.find('.timeline-Widget');
     timeline.find('.timeline-Header').remove();
+    timeline.find('.twitter-timeline').remove();
+
 });
 
 // Fechando Janela Galeria ao clicar na Tab swipebox-overlay

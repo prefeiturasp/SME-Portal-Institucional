@@ -307,7 +307,7 @@ ul, ol{
 }
 
 .bg-azul-claro {
-	background: rgba(25, 108, 189, 0.4);
+	background: rgba(0, 0, 0, 0.7);
 }
 
 .bg-azul-escuro {
@@ -417,7 +417,7 @@ ul, ol{
 }
 
 .cabecalho-cinza-claro{
-	background-color: #9D9D9C;
+	background-color: #555;
 }
 
 .span-accesskey{
@@ -469,6 +469,14 @@ fieldset legend, .esconde-item-acessibilidade{
 }
 .offscreen:hover, .aticon-font:hover,  .aticon-adjust:hover{
 	text-decoration: underline;
+}
+
+.select-rodape option{
+	color: #000 !important;
+}
+
+.select-rodape option:disabled{
+	color: #000 !important;
 }
 
 @media ( min-width : 992px) {
