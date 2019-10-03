@@ -22,7 +22,10 @@ class ArchiveAgenda extends Util
 		?>
 		<section class="col-lg-6 col-xs-12">
 			<h1 class="mb-5" id="agenda">Agenda do Secretário de Educação</h1>
-			<section class="calendario-agenda-sec d-block mb-5 border-bottom pb-5 "></section>
+            <!--<div class="container-loading-agenda-secretario">
+                <img src="<?/*= STM_URL*/?>/wp-content/uploads/2019/10/loading.gif" alt="Carregando Agenda do Secretário">
+            </div>-->
+			<section class="calendario-agenda-sec d-block mb-5 border-bottom pb-5"></section>
 		</section>
 
 

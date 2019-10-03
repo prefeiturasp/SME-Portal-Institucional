@@ -482,8 +482,8 @@ fieldset legend, .esconde-item-acessibilidade{
 
 @media ( min-width : 992px) {
 	.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
-		background-color: #196CBD;
-		color: #fff;
+		background-color: #196CBD !important;
+		color: #fff !important;
 		border-color: #dee2e6 #dee2e6 #fff;
 	}
 	.menu-menu-superior-container ul li ul li a {

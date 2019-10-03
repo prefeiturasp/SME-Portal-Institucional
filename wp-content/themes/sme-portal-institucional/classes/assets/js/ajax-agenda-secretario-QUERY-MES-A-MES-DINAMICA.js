@@ -5,12 +5,6 @@ jQuery(document).ready(function ($) {
     $('.data_agenda').html(data_formatada);
     var data_para_funcao = moment(date).format('YYYYMMDD');
 
-    var array_datas = $('#array_datas_agenda').html();
-
-    if (array_datas) {
-        var datas_agendas =  JSON.parse(array_datas);
-    }
-
     redebe_data(data_para_funcao);
 
     $('.calendario-agenda-sec').ionCalendar({
@@ -18,6 +12,9 @@ jQuery(document).ready(function ($) {
         years: "1",
 
         onReady: function(){
+            debugger;
+            //$('.container-loading-agenda-secretario').css('display', 'block');
+            //$('.calendario-agenda-sec').attr('style', 'display:none !important');
             getAnoMesCalendario()
         },
 
@@ -30,15 +27,57 @@ jQuery(document).ready(function ($) {
     });
 
     function getAnoMesCalendario() {
+
+        debugger;
+
         var selectedAno= $('.ic__year-select').children("option:selected").val();
 
         var selectedMes= $('.ic__month-select').children("option:selected").val();
-        var selectedMes= parseInt(selectedMes)+1;
+        selectedMes= parseInt(selectedMes)+1;
         if (selectedMes <= 9){
-            var selectedMes= '0'+selectedMes;
+            selectedMes= '0'+selectedMes;
         }else {
-            var selectedMes= selectedMes.toString();
+            selectedMes= selectedMes.toString();
         }
+
+        var ano_mes = selectedAno+selectedMes;
+
+        montaQueryMesAtual(ano_mes, selectedMes, selectedAno);
+
+    }
+
+    function montaQueryMesAtual(ano_mes, selectedMes, selectedAno) {
+
+        debugger;
+
+        jQuery.ajax({
+            url: bloginfo.ajaxurl,
+            type: 'post',
+            data: {
+                action: 'recebeDadosAjax',
+                ano_mes: ano_mes,
+            },
+            success: function (data) {
+                var $data = $(data);
+                var datas_retornadas_pela_query = $data[2].value;
+                //var datas_retornadas_pela_query = input_com_valor.value;
+
+                marcadorCalendario(datas_retornadas_pela_query, selectedMes, selectedAno)
+
+            }
+        });
+
+    }
+
+    function marcadorCalendario(array_datas, selectedMes, selectedAno) {
+
+
+
+        //console.log('Ollyver ', array_datas);
+
+        //var calendario_montado = $('.ic__day');
+
+        //console.log('Ollyver ', calendario_montado);
 
         $('.ic__day').each(function (e) {
 
@@ -49,10 +88,24 @@ jQuery(document).ready(function ($) {
                 dia_corrente = dia_corrente.toString();
             }
             var data_completa = dia_corrente+'/'+selectedMes+'/'+selectedAno;
+
+            var datas_agendas = JSON.parse(array_datas);
+
+            //debugger;
+
+            debugger;
+
             if(jQuery.inArray( data_completa, datas_agendas) >= 0 ){
+                //debugger;
                 this.innerHTML = '<span class="destaque-evento-agenda">'+this.textContent+'</span>';
             }
+
+            debugger;
+            //$('.container-loading-agenda-secretario').css('display', 'none');
+            //$('.calendario-agenda-sec').attr('style', 'display:block !important');
+
         });
+
     }
 
     function redebe_data(data_recebida) {
@@ -63,7 +116,6 @@ jQuery(document).ready(function ($) {
             url: bloginfo.ajaxurl,
             type: 'post',
             data: {
-                // você sempre deve passar o parâmetro 'action' com o nome da função que você criou no seu functions.php ou outro que você esteja incluindo nele
                 action: 'montaHtmlListaEventos',
                 data_pt_br: data_recebida,
             },

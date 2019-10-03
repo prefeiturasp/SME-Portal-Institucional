@@ -4,6 +4,7 @@ namespace Classes;
 
 use Classes\ModelosDePaginas\PaginaContato\PaginaContatoMetabox;
 use Classes\TemplateHierarchy\ArchiveAgenda\ArchiveAgendaAjaxCalendario;
+use Classes\TemplateHierarchy\ArchiveAgenda\ArchiveAgendaGetDatasEventos;
 use Classes\TemplateHierarchy\ArchiveContato\ArchiveContatoMetabox;
 
 class LoadDependences
@@ -43,6 +44,10 @@ class LoadDependences
 		wp_localize_script('ajax-agenda-secretario', 'bloginfo', array('ajaxurl' => admin_url('admin-ajax.php')));
 		add_action('wp_ajax_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendario(), 'montaHtmlListaEventos' ));
 		add_action('wp_ajax_nopriv_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendario(), 'montaHtmlListaEventos'));
+
+		add_action('wp_ajax_recebeDadosAjax', array(new ArchiveAgendaGetDatasEventos(), 'recebeDadosAjax' ));
+		add_action('wp_ajax_nopriv_recebeDadosAjax', array(new ArchiveAgendaGetDatasEventos(), 'recebeDadosAjax'));
+
 
 		// Contatos SME
 		wp_enqueue_script('jquery-ui-sortable');
