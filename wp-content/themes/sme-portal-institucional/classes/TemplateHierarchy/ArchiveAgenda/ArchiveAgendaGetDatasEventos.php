@@ -48,7 +48,8 @@ class ArchiveAgendaGetDatasEventos
 		}
 		$this->array_datas = json_encode($this->array_datas);
 
-		echo '<div name="array_datas_agenda" id="array_datas_agenda">'.$this->array_datas.'</div>';
+		//echo '<div name="array_datas_agenda" id="array_datas_agenda">'.$this->array_datas.'</div>';
+		echo '<input type="hidden" name="array_datas_agenda" id="array_datas_agenda" value='.$this->array_datas.'>';
 	}
 }
 new ArchiveAgendaGetDatasEventos;

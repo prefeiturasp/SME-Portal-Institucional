@@ -1,14 +1,19 @@
 jQuery(document).ready(function ($) {
 
+
+
     var date = moment().locale('pt-br'); //Get the current date
     var data_formatada = date.format('dddd[,] D [de] MMMM [de] YYYY'); //2014-07-10
     $('.data_agenda').html(data_formatada);
     var data_para_funcao = moment(date).format('YYYYMMDD');
 
-    var array_datas = $('#array_datas_agenda').html();
+    var div_com_array_datas = $('#array_datas_agenda');
 
-    if (array_datas) {
-        var datas_agendas =  JSON.parse(array_datas);
+    var array_datas_agenda = div_com_array_datas.val();
+
+    if (array_datas_agenda) {
+        var datas_agendas = JSON.parse(array_datas_agenda);
+        div_com_array_datas.remove();
     }
 
     redebe_data(data_para_funcao);
@@ -49,8 +54,18 @@ jQuery(document).ready(function ($) {
                 dia_corrente = dia_corrente.toString();
             }
             var data_completa = dia_corrente+'/'+selectedMes+'/'+selectedAno;
+            //console.log('Ollyver Dia Corrente', dia_corrente);
+
+            var classe_css = '';
+            if (dia_corrente <= '09'){
+                classe_css = 'destaque-evento-agenda-menor-que-10';
+
+            }else{
+                classe_css = 'destaque-evento-agenda';
+            }
+
             if(jQuery.inArray( data_completa, datas_agendas) >= 0 ){
-                this.innerHTML = '<span class="destaque-evento-agenda">'+this.textContent+'</span>';
+                this.innerHTML = '<span class="'+ classe_css +'">'+this.textContent+'</span>';
             }
         });
     }

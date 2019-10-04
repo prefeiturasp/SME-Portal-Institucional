@@ -30,7 +30,7 @@ class PaginaInicialIcones extends PaginaInicial
 	{
 		?>
         <div class="container">
-            <ul class="card-group nav" role="tablist">
+            <ul class="card-group nav m-0" role="tablist">
 				<?php foreach ($this->array_icone_titulo_icone_id_menu_icone as $icone) { ?>
 
                     <li id="tab_<?= $icone['menu_icone'] ?>" class="container-a-icones-home card rounded-0 border-0 pt-5 pb-3">

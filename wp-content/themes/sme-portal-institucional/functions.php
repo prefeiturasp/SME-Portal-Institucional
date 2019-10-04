@@ -467,7 +467,34 @@ function shapeSpace_track_posts($post_id) {
 }
 add_action('wp_head', 'shapeSpace_track_posts');
 
+function redireciona_paginas_pendentes(){
+	if( is_404() ){
+		global $wpdb;
+		$querystr = "
+			 SELECT $wpdb->posts.post_title 
+			FROM $wpdb->posts
+			WHERE $wpdb->posts.post_status = 'pending' 
+			AND $wpdb->posts.post_type = 'page'
+			ORDER BY $wpdb->posts.post_date DESC
+ ";
+		$pageposts = $wpdb->get_results($querystr, OBJECT);
+		$slug_nome_das_paginas = [];
+		foreach ($pageposts as $page){
+			$slug_nome_das_paginas[] = sanitize_title($page->post_title);
+		}
+		$uri = trim($_SERVER['REQUEST_URI'], '/');
+		$segments = explode('/', $uri);
+		$slug_index = count($segments);
 
+		$page_slug = $segments[$slug_index - 1];
+
+		if (in_array($page_slug, $slug_nome_das_paginas)){
+			wp_redirect(STM_URL.'/conteudo-em-atualizacao/');
+		}
+
+	}
+}
+add_action('template_redirect', 'redireciona_paginas_pendentes');
 
 define('STM_URL', get_home_url());
 define('STM_THEME_URL', get_bloginfo('template_url') . '/');
