@@ -116,9 +116,9 @@
                                 'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
                                 'walker'            => new WP_Bootstrap_Navwalker(),
                             ));
+                            ?>
 
-                            \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader()
-                        ?>
+                            <?php \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
                     </div>
                 </div>
             </nav>

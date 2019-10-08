@@ -364,10 +364,25 @@ function allow_contributor_uploads() {
 add_image_size( 'admin-list-thumb', 80, 80, false );
 
 // Adicionando a classe css img-fluid em todas as imagens dentro do the_content
-/*function img_responsive($content){
+function img_responsive($content){
 	return str_replace('<img ','<img class="img-fluid" ',$content);
 }
-add_filter('the_content','img_responsive');*/
+add_filter('the_content','img_responsive');
+
+/*function add_image_responsive_class($content) {
+	global $post;
+	$pattern ="/<img(.*?)class=\"(.*?)\"(.*?)>/i";
+	$replacement = '<img$1class="$2 img-fluid"$3>';
+	$content = preg_replace($pattern, $replacement, $content);
+	return $content;
+}
+add_filter('the_content', 'add_image_responsive_class');*/
+
+/*function add_image_class_post_content ($class){
+	$class .= ' img-fluid';
+	return $class;
+}
+add_filter('get_image_tag_class','add_image_class_post_content');*/
 
 // Retirando a tag <p> antes e depois de um iframe dentro do the_content
 function remove_some_ptags( $content ) {
@@ -378,11 +393,7 @@ function remove_some_ptags( $content ) {
 }
 add_filter( 'the_content', 'remove_some_ptags' );
 
-function add_image_class_post_content ($class){
-	$class .= ' img-fluid';
-	return $class;
-}
-add_filter('get_image_tag_class','add_image_class_post_content');
+
 
 
 // Removendo o atributo title dos menus
@@ -442,8 +453,6 @@ function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 	return $urls;
 }
 
-define('__ROOT__', dirname(dirname(__FILE__)).'/sme-portal-institucional');
-
 // POSTS MAIS VISTOS  (NO FUNCTIONS)
 function shapeSpace_popular_posts($post_id) {
 	$count_key = 'popular_posts';
@@ -500,6 +509,7 @@ define('STM_URL', get_home_url());
 define('STM_THEME_URL', get_bloginfo('template_url') . '/');
 define('STM_SITE_NAME', get_bloginfo('name'));
 define('STM_SITE_DESCRIPTION', get_bloginfo('description'));
+define('__ROOT__', dirname(dirname(__FILE__)).'/sme-portal-institucional');
 
 if ($_GET && $_GET['lang'] == 'en') {
 	require_once('includes/en.php');

@@ -5,8 +5,11 @@
  */
 
 use Classes\ModelosDePaginas\PaginaImagemVideo\PaginaImagemVideo;
+
 get_header();
+
 $pagina_cards = new PaginaImagemVideo();
+
 get_footer();
 
 

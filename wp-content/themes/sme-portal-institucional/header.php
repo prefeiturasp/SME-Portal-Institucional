@@ -60,7 +60,6 @@ use Classes\Header\Header;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="Ollyver Ottoboni">
 
-
 	<?php wp_head() ?>
 
 </head>
