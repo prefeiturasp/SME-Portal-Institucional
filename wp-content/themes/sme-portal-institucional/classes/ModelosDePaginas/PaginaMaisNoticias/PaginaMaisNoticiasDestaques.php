@@ -61,11 +61,11 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
                 </figure>
                 <article class="card-img-overlay h-100 d-flex flex-column justify-content-end">
                     <h2 class="card-title mais-noticias-destaque-principal">
-                        <a href="<?= get_the_permalink($this->destaque_principal->ID) ?>"><?= get_the_title($this->destaque_principal->ID) ?></a>
+                        <a class="text-white" href="<?= get_the_permalink($this->destaque_principal->ID) ?>"><?= get_the_title($this->destaque_principal->ID) ?></a>
                     </h2>
                     <?php
                     if (get_the_excerpt($this->destaque_principal->ID)) { ?>
-                        <p class="card-text"><?= get_the_excerpt($this->destaque_principal->ID) ?></p>
+                        <p class="card-text texto-mais-noticias-destaques"><?= get_the_excerpt($this->destaque_principal->ID) ?></p>
                     <?php } ?>
                 </article>
 

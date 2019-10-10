@@ -68,11 +68,11 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 					}
 					?>
                     <div class="col-12 col-md-6">
-                        <h4 class="fonte-catorze font-weight-bold">
+                        <h3 class="fonte-catorze font-weight-bold">
                             <a class="text-dark" href="<?= get_the_permalink() ?>">
                                 <?= get_the_title() ?>
                             </a>
-                        </h4>
+                        </h3>
 
                         <?php
                         if ($this->getSubtitulo(get_the_ID(), 'p') ){

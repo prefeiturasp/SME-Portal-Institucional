@@ -8,7 +8,7 @@
                 <article class="col-lg-2 col-xs-12 mb-xs-4 d-flex align-items-end">
                     <figure>
                         <img width="160"
-                             src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/Logo_SP.png"
+                             src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/Logo_SP.png"
                              alt="Prefeitura de SP" class="img-fluid"/>
                     </figure>
                 </article>
@@ -19,12 +19,16 @@
                     <ul class="list-unstyled mb-0 mt-0">
                         <li>Prefeito Bruno Covas</li>
                         <li>
-                            <a href="https://www.prefeitura.sp.gov.br/cidade/secretarias/comunicacao/organizacao/index.php?p=192554">Equipe
-                                de Governo</a></li>
+                            <a class="text-white" href="https://www.prefeitura.sp.gov.br/cidade/secretarias/comunicacao/organizacao/index.php?p=192554">Equipe
+                                de Governo</a>
+                        </li>
                         <li>
-                            <a href="https://www.prefeitura.sp.gov.br/cidade/secretarias/comunicacao/organizacao/index.php?p=192554">Agenda
-                                do Prefeito</a></li>
-                        <li><a href="https://hom-portal.sme.prefeitura.sp.gov.br/agenda/">Agenda do Secretário</a></li>
+                            <a class="text-white" href="https://www.prefeitura.sp.gov.br/cidade/secretarias/comunicacao/organizacao/index.php?p=192554">Agenda
+                                do Prefeito</a>
+                        </li>
+                        <li>
+                            <a class="text-white" href="https://educacao.sme.prefeitura.sp.gov.br/agenda/">Agenda do Secretário</a>
+                        </li>
                     </ul>
                     <ul class="list-unstyled mb-1 mt-2">
                         <li class="text-uppercase font-weight-bold">Canais Oficiais <br>da Prefeitura</li>
@@ -32,17 +36,17 @@
                     <ul class="list-inline mb-3">
                         <li class="list-inline-item">
                             <a class="text-white" href="https://www.facebook.com/EducaPrefSP/">
-                                <img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-facebook-topo.png" alt="Ir para Facebook da Secerataria Muncipal de Educação de São Paulo">
+                                <img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-facebook-topo.png" alt="Ir para Facebook da Secretaria Muncipal de Educação de São Paulo">
                             </a>
                         </li>
                         <li class="list-inline-item">
                             <a class="text-white" href="https://twitter.com/EducaPrefSP?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3AEducaPrefSP&ref_url=https%3A%2F%2Fhom-portal.sme.prefeitura.sp.gov.br%2F">
-                                <img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-twitter-topo.png" alt="Ir para Twitter da Secerataria Muncipal de Educação de São Paulo">
+                                <img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-twitter-topo.png" alt="Ir para Twitter da Secretaria Muncipal de Educação de São Paulo">
                             </a>
                         </li>
                         <li class="list-inline-item">
                             <a class="text-white" href="https://www.youtube.com/">
-                                <img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-youtube-topo.png" alt="Ir para YouTube da Secerataria Muncipal de Educação de São Paulo">
+                                <img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-youtube-topo.png" alt="Ir para YouTube da Secretaria Muncipal de Educação de São Paulo">
                             </a>
                         </li>
                     </ul>
@@ -234,7 +238,7 @@
                 <article class="col-lg-3 col-xs-12 mb-xs-4">
                     <figure>
                         <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR">
-                            <img src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Copyright"/>
+                            <img src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Copyright"/>
                         </a>
                         <p class="mt-2">Esta obra está licenciada com uma Licença Creative Commons
                             Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional </p>
@@ -244,7 +248,7 @@
                 <article class="col-lg-2 col-xs-12 mb-xs-4 d-flex align-items-center">
                     <!--<figure>
                         <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR">
-                            <img src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Copyright"/>
+                            <img src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Copyright"/>
                         </a>
                     </figure>-->
                 </article>

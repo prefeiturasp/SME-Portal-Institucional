@@ -109,10 +109,10 @@ use Classes\Header\Header;
                         </article>
                         <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
                             <ul class="list-inline mt-2 mb-2 midias-sociais">
-                                <li class="list-inline-item"><a class="text-white" href="https://www.facebook.com/EducaPrefSP/"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-facebook-topo.png" alt="Ir para Facebook da Secerataria Muncipal de Educação de São Paulo"></a></li>
-                                <li class="list-inline-item"><a class="text-white" href="https://www.instagram.com/?hl=pt-br"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-instagram-topo.png" alt="Ir para Instagram da Secerataria Muncipal de Educação de São Paulo"></a></li>
-                                <li class="list-inline-item"><a class="text-white" href="https://twitter.com/EducaPrefSP?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3AEducaPrefSP&ref_url=https%3A%2F%2Fhom-portal.sme.prefeitura.sp.gov.br%2F"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-twitter-topo.png" alt="Ir para Twitter da Secerataria Muncipal de Educação de São Paulo"></a>                        </li>
-                                <li class="list-inline-item"><a class="text-white" href="https://www.youtube.com/"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-youtube-topo.png" alt="Ir para YouTube da Secerataria Muncipal de Educação de São Paulo"></a></li>
+                                <li class="list-inline-item"><a class="text-white" href="https://www.facebook.com/EducaPrefSP/"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-facebook-topo.png" alt="Ir para Facebook da Secretaria Muncipal de Educação de São Paulo"></a></li>
+                                <li class="list-inline-item"><a class="text-white" href="https://www.instagram.com/?hl=pt-br"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-instagram-topo.png" alt="Ir para Instagram da Secretaria Muncipal de Educação de São Paulo"></a></li>
+                                <li class="list-inline-item"><a class="text-white" href="https://twitter.com/EducaPrefSP?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3AEducaPrefSP&ref_url=https%3A%2F%2Fhom-portal.sme.prefeitura.sp.gov.br%2F"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-twitter-topo.png" alt="Ir para Twitter da Secretaria Muncipal de Educação de São Paulo"></a>                        </li>
+                                <li class="list-inline-item"><a class="text-white" href="https://www.youtube.com/"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-youtube-topo.png" alt="Ir para YouTube da Secretaria Muncipal de Educação de São Paulo"></a></li>
                             </ul>
                         </article>
                     </section>
@@ -133,7 +133,7 @@ use Classes\Header\Header;
 			?>
             <p class="logo-topo">
                 <a class="brand" href="<?php echo STM_URL ?>">
-                    <img class="img-fluid" src="<?php echo $image[0] ?>" alt="<?php echo STM_SITE_NAME ?>  <?php echo STM_SITE_DESCRIPTION ?>"/>
+                    <img class="img-fluid" src="<?php echo $image[0] ?>" alt="Logotipo da Secretaria Municipal de Educação - Ir para a página principal"/>
                 </a>
             </p>
             <form>

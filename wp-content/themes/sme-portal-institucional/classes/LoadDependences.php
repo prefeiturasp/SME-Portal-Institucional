@@ -90,6 +90,11 @@ class LoadDependences
 		wp_enqueue_script('mapa-dres');
 		wp_register_style('mapa-dres', STM_THEME_URL . 'classes/assets/css/mapa-dres.css', null, null, 'all');
 		wp_enqueue_style('mapa-dres');
+
+		// Página Cards
+		wp_register_style('pagina-cards', STM_THEME_URL . 'classes/assets/css/pagina-cards.css', null, null, 'all');
+		wp_enqueue_style('pagina-cards');
+
 	}
 
 	public function custom_formats_admin(){

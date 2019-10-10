@@ -23,13 +23,13 @@ class Util
 			?>
 			<article class="row">
 				<article class="col-lg-12 col-xs-12">
-					<h1 class="mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
+					<h1 class="mb-4" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
 				</article>
 			</article>
 
 
 			<article class="row">
-				<article class="col-lg-10 col-xs-12">
+				<article class="col-lg-9 col-xs-12">
 					<?php echo $this->getSubtitulo($this->page_id)?>
 					<?php if (has_post_thumbnail()) {
 					    echo '<figure>';
@@ -54,7 +54,7 @@ class Util
 			?>
             <article class="row">
                 <article class="col-lg-12 col-xs-12">
-                    <h1 class="mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
+                    <h1 class="mb-4" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
                     <p>Atualizado em: <?php the_modified_date('d/m/Y'); ?></p>
                 </article>
             </article>
@@ -78,7 +78,7 @@ class Util
 		$this->insira_o_subtitulo = get_field('insira_o_subtitulo', $page_id);
 
 		if ($this->deseja_exibir_subtitulo == 'sim' && trim($this->insira_o_subtitulo != '')){
-			return '<'.$tag_html.'>'.$this->insira_o_subtitulo.'</'.$tag_html.'>';
+			return '<'.$tag_html.' class="mb-3">'.$this->insira_o_subtitulo.'</'.$tag_html.'>';
 		}
 
 	}
@@ -125,7 +125,7 @@ class Util
                 <form>
                     <fieldset>
                         <legend>Ir para mais notícias</legend>
-                        <a href="<?= STM_URL.'/mais-noticias' ?>" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold">Mais notícias</a>
+                        <a href="<?= STM_URL.'/mais-noticias' ?>" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Mais notícias</a>
                     </fieldset>
                 </form>
             </article>

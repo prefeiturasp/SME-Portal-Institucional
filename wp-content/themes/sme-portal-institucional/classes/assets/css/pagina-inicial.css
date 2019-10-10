@@ -69,7 +69,32 @@
     margin-bottom: 2px;
 }
 
+@media ( min-width : 769px) {
+    .ul-container-icones-menu li {
+        padding-bottom: 100px !important;
+        height: 230px;
+    }
 
+    .ul-container-icones-menu li a {
+        display: inline !important;
+        position: absolute;
+        height: 100%;
+        width: 99.5%;
+        top: 0;
+        margin: 0 auto;
+        text-align: center;
+        padding: 0 !important;
+    }
+
+    .ul-container-icones-menu li a img {
+        display: inline-block;
+        padding-top: 48px !important;
+    }
+
+    .container-titulo-icones {
+        margin-top: 115px;
+    }
+}
 
 .menu-icones-home li{
     border-right: solid 1px #fff;

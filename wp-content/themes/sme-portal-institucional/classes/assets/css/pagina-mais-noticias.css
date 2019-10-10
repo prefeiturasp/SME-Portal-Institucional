@@ -10,3 +10,15 @@
     color: #196CBD;
     font-weight: bold;
 }
+
+@media (max-width: 769px) {
+    .mais-noticias-destaque-principal, .mais-noticias-destaque-principal a, .mais-noticias-destaque-principal a:hover, .mais-noticias-titulo-destaque-secundarios, .mais-noticias-titulo-destaque-secundarios a, .mais-noticias-titulo-destaque-secundarios a:hover{
+        font-size: 16px !important;
+        line-height: normal;
+    }
+
+    .texto-mais-noticias-destaques{
+        line-height: normal;
+    }
+
+}
