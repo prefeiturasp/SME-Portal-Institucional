@@ -35,7 +35,7 @@ class LoopSingleRelacionadas extends LoopSingle
                 'category__in' => $category_ids,
                 'posts_per_page' => 5,
                 'caller_get_posts'=>1,
-				'orderby'        => 'rand',
+				//'orderby'        => 'rand',
                 'exclude'=> $this->id_post_atual,
                 'post_in'  => get_the_tag_list($this->id_post_atual)
 		);

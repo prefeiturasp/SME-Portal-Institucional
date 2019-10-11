@@ -24,10 +24,6 @@ class EnviarParaRevisao
 		$usuario = new \WP_User($user->ID);
 
 		$post_type = get_post_type($this->page_id);
-
-/*		echo '<pre>';
-		var_dump($post_type);
-		echo '</pre>';*/
 	}
 
 	public function setPostStatus($post_status)

@@ -53,7 +53,7 @@
                     <ul class="list-inline mb-3">
                         <li>
                             <a href="http://www.docidadesp.imprensaoficial.com.br/">
-                                <img alt="Logo diário oficial" src="<?= STM_URL ?>/wp-content/uploads/2019/09/logotipo-diario-oficial.png">
+                                <img alt="Logotipo do Diário Oficial. Ir para um link externo da página inicial do Diário Oficial da Cidade de São Paulo" src="<?= STM_URL ?>/wp-content/uploads/2019/09/logotipo-diario-oficial.png">
                             </a>
                         </li>
                     </ul>
@@ -238,7 +238,7 @@
                 <article class="col-lg-3 col-xs-12 mb-xs-4">
                     <figure>
                         <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR">
-                            <img src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Copyright"/>
+                            <img src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Logotipo Creative Commons. Ir para um link externo da Página Inicial da Creative Commons que é uma organização mundial sem fins lucrativos que permite o compartilhamento e a reutilização da criatividade e do conhecimento por meio do fornecimento de ferramentas gratuitas."/>
                         </a>
                         <p class="mt-2">Esta obra está licenciada com uma Licença Creative Commons
                             Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional </p>

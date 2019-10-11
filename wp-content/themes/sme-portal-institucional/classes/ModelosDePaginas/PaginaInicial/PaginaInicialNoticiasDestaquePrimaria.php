@@ -47,12 +47,16 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
 		echo '<section class="col-lg-6 col-xs-12 mb-xs-4">';
 		if ($this->query_noticias_home_principal->have_posts()) : while ($this->query_noticias_home_principal->have_posts()) : $this->query_noticias_home_principal->the_post();
 			$this->id_noticias_home_principal = get_the_ID();
+
+			$post_thumbnail_id = get_post_thumbnail_id( $this->id_noticias_home_principal );
+			$image_alt = get_post_meta( $post_thumbnail_id, '_wp_attachment_image_alt', true);
+			$image_url = get_the_post_thumbnail_url();
 			?>
 
             <article class="card h-100 rounded border-0">
 				<?php if (has_post_thumbnail()) {
 					echo '<figure class="mb-0">';
-					the_post_thumbnail('large', array('class' => 'card-img'));
+					echo '<img width="740" height="430" class="card-img" src="'.$image_url.'" alt="'.$image_alt.'"/>';
 					echo '</figure>';
 				} else {
 					echo '<figure>';

@@ -521,5 +521,3 @@ if ($_GET && $_GET['lang'] == 'en') {
 require_once 'classes/init.php';
 
 require_once('classes/wp_bootstrap_navwalker.php');
-
-;
