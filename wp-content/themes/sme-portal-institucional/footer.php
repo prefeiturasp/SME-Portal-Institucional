@@ -45,7 +45,7 @@
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="text-white" href="https://www.youtube.com/">
+                            <a class="text-white" href="https://www.youtube.com/c/EducaPrefSP">
                                 <img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-youtube-topo.png" alt="Ir para YouTube da Secretaria Muncipal de Educação de São Paulo">
                             </a>
                         </li>

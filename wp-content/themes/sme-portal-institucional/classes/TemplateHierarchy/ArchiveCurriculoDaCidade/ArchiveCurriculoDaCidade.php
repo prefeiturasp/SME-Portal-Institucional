@@ -88,6 +88,7 @@ class ArchiveCurriculoDaCidade extends Util
 
 		$this->args_curriculos = array(
 			'post_type' => 'curriculo-da-cidade',
+			'numberposts' => -1,
 			'tax_query' => array(
 				array(
 					'taxonomy' => self::TAXONOMIA,

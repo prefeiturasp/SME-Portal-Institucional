@@ -31,11 +31,6 @@ class Util
 			<article class="row">
 				<article class="col-lg-9 col-xs-12">
 					<?php echo $this->getSubtitulo($this->page_id)?>
-					<?php if (has_post_thumbnail()) {
-					    echo '<figure>';
-						the_post_thumbnail('thumbnail', array('class' => 'ml-5 float-right'));
-						echo '</figure>';
-					} ?>
 					<?php the_content(); ?>
 				</article>
 			</article>
