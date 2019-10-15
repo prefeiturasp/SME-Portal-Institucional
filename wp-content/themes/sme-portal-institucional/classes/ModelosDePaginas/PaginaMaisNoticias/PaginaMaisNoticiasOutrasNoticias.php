@@ -35,6 +35,7 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
 		echo '<p class="fonte-vintequatro mb-4 pb-2 font-weight-bold"><a class="text-dark" href="#" id="outrasNoticias">OUTRAS NOTÍCIAS</a></p>';
 
 		foreach ($this->query_outras_noticias as $query){
+
 		    PaginaMaisNoticiasArrayIdNoticias::setArrayIdNoticias($query->ID)
 			?>
 			<section class="row mb-5">
@@ -53,11 +54,9 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
 							<?= $query->post_title ?>
 						</a>
 					</h4>
-					<?php if ($query->post_excerpt){ ?>
-						<p class="fonte-dezesseis mb-2">
-							<?= $query->post_excerpt ?>
-						</p>
-					<?php } ?>
+                    <?php
+                    echo $this->getSubtitulo($query->ID, 'p')
+                    ?>
 
 				</article>
 			</section>
