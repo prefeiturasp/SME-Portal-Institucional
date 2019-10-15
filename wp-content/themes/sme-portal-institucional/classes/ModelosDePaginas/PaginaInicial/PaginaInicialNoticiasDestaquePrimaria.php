@@ -56,7 +56,7 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
             <article class="card h-100 rounded border-0">
 				<?php if (has_post_thumbnail()) {
 					echo '<figure class="mb-0">';
-					echo '<img width="740" height="430" class="card-img" src="'.$image_url.'" alt="'.$image_alt.'"/>';
+					echo '<img width="740" height="350" class="card-img" src="'.$image_url.'" alt="'.$image_alt.'"/>';
 					echo '</figure>';
 				} else {
 					echo '<figure>';
