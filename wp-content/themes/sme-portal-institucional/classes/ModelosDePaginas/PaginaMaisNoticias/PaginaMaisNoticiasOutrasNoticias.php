@@ -55,7 +55,7 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
 						</a>
 					</h4>
                     <?php
-                    echo $this->getSubtitulo($query->ID, 'p')
+                    echo $this->getSubtitulo($query->ID, 'p', 'fonte-dezesseis mb-2') //fonte-dezesseis mb-2
                     ?>
 
 				</article>
