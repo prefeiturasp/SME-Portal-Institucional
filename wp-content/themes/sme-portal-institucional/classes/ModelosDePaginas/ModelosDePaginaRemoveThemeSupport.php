@@ -45,7 +45,7 @@ class ModelosDePaginaRemoveThemeSupport
 	public function removeThemeSupport()
 	{
 		if ($this->page_template_slug === 'pagina-layout-colunas.php'){
-			remove_post_type_support( 'page', 'editor' );
+			//remove_post_type_support( 'page', 'editor' );
 			//remove_post_type_support( 'page', 'thumbnail' );
 		}elseif ($this->page_template_slug === 'pagina-imagem-video.php'){
 			//remove_post_type_support( 'page', 'thumbnail' );
