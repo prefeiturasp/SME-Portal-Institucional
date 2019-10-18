@@ -56,9 +56,11 @@ class LoopSingleRelacionadas extends LoopSingle
 					<?php
 					$thumb = get_the_post_thumbnail_url($query->ID);
 					$url = get_the_permalink($query->ID);
+					$post_thumbnail_id = get_post_thumbnail_id( $query->ID );
+					$image_alt = get_post_meta( $post_thumbnail_id, '_wp_attachment_image_alt', true);
 					if ($thumb){
 						echo '<figure class=" m-0">';
-						echo '<img src="'.$thumb.'" class="img-fluid rounded float-left mr-4 w-25" alt="'.$query->post_title.'"/>';
+						echo '<img src="'.$thumb.'" class="img-fluid rounded float-left mr-4 w-25" alt="'.$image_alt.'"/>';
 						echo '</figure>';
 					}
 					?>
