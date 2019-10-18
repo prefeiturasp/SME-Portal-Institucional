@@ -104,8 +104,30 @@
     .container-img-noticias-destaques-primaria{
         bottom: 30px !important;
     }
+
+    .fb-page{
+        margin-bottom: 15px;
+    }
 }
 
 .titulo-icones{
     color: #000;
+}
+
+@media ( min-width : 769px) {
+    .container-facebook {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+
+    }
+
+    .fb-page{
+        margin-left: 5px;
+    }
+}
+
+.container-twitter{
+    height: 200px !important;
+    overflow: hidden;
 }

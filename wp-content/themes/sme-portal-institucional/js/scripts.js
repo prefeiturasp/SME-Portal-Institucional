@@ -71,6 +71,13 @@ $s(document).ready(function(){
 
 });
 
+/*
+$s(document).ready(function(){
+    $s("._2p3a").removeAttr( 'style' );
+    $s("._2p3a").css({"min-width": "180px", " width:": "540px"});
+
+});*/
+
 /*Ativação do Tool Tip Bootstrap*/
 $s(document).ready(function() {
     $s(function () {

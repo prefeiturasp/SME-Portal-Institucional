@@ -13,11 +13,13 @@ class PaginaInicialFacebook
 
 	public function montaHtmlFacebook(){
 		?>
-		<article class="col-12">
-            <div class="embed-responsive embed-responsive-21by9">
-                <iframe class="embed-responsive-item" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FEducaPrefSP%2F&width=500&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1629372850659932" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
-            </div>
+		<section class="col-12 col-md-6">
+		<article class="col-12 container-facebook">
+            <div id="fb-root"></div>
+            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v4.0&appId=1629372850659932&autoLogAppEvents=1"></script>
+            <div class="fb-page" data-href="https://www.facebook.com/EducaPrefSP/" data-tabs="timeline" data-width="500" data-height="580" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/chacarasparatemporadasp/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/EducaPrefSP/">Secretaria Municipal de Educação de São Paulo</a></blockquote></div>
 		</article>
+		</section>
 		<?php
 	}
 
