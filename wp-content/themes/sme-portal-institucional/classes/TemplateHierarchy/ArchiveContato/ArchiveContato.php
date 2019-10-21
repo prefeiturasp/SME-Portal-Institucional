@@ -126,6 +126,9 @@ class ArchiveContato extends Util
 	public function getContatosTaxonomia($term_id){
 
 		$args = array(
+			//'orderby' => array('title date'),
+			'orderby' => array( 'title' => 'ASC', 'date' => 'ASC' ),
+			'order' => 'ASC',
 			'post_type' => 'contato',
 			'posts_per_page'   => -1,
 			'tax_query' => array(
