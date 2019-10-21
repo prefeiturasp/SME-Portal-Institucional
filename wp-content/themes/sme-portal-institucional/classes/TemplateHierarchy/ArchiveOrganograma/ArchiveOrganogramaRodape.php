@@ -12,7 +12,7 @@ class ArchiveOrganogramaRodape
 
 	public function montaHtmlRodape(){
 		?>
-		<a class="btn btn-primary btn-lg btn-block rodape-bt-unidades-escolares mt-5" href="https://hom-escolaaberta.sme.prefeitura.sp.gov.br">Unidades Escolares</a>
+		<a class="btn btn-primary btn-lg btn-block rodape-bt-unidades-escolares mt-5" href="<?= STM_URL ?>/escolaaberta">Unidades Escolares</a>
 
 		<p class="mt-5 mb-4 text-center"><strong><a class="rodape-links" href="<?= STM_URL ?>/wp-content/uploads/2019/10/organograma.pdf">Download do organograma em PDF</a></strong></p>
 
