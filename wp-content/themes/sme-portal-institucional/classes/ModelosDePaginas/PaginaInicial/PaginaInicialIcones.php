@@ -21,9 +21,9 @@ class PaginaInicialIcones extends PaginaInicial
 
 	public function criaArrayIconesTitulosIcones()
 	{
-		array_push($this->array_icone_titulo_icone_id_menu_icone, array("url_icone" => $this->getCamposPersonalizados('escolha_o_primeiro_icone')['url'], "titulo_icone" => $this->getCamposPersonalizados('escolha_o_titulo_do_primeiro_icone'), "menu_icone" => $this->getCamposPersonalizados('escolha_o_menu_do_primeiro_icone')));
-		array_push($this->array_icone_titulo_icone_id_menu_icone, array("url_icone" => $this->getCamposPersonalizados('escolha_o_segundo_icone')['url'], "titulo_icone" => $this->getCamposPersonalizados('escolha_o_titulo_do_segundo_icone'), "menu_icone" => $this->getCamposPersonalizados('escolha_o_menu_do_segundo_icone')));
-		array_push($this->array_icone_titulo_icone_id_menu_icone, array("url_icone" => $this->getCamposPersonalizados('escolha_o_terceiro_icone')['url'], "titulo_icone" => $this->getCamposPersonalizados('escolha_o_titulo_do_terceiro_icone'), "menu_icone" => $this->getCamposPersonalizados('escolha_o_menu_do_terceiro_icone')));
+		array_push($this->array_icone_titulo_icone_id_menu_icone, array("id_icone" => $this->getCamposPersonalizados('escolha_o_primeiro_icone')['ID'], "url_icone" => $this->getCamposPersonalizados('escolha_o_primeiro_icone')['url'], "titulo_icone" => $this->getCamposPersonalizados('escolha_o_titulo_do_primeiro_icone'), "menu_icone" => $this->getCamposPersonalizados('escolha_o_menu_do_primeiro_icone')));
+		array_push($this->array_icone_titulo_icone_id_menu_icone, array("id_icone" => $this->getCamposPersonalizados('escolha_o_segundo_icone')['ID'], "url_icone" => $this->getCamposPersonalizados('escolha_o_segundo_icone')['url'], "titulo_icone" => $this->getCamposPersonalizados('escolha_o_titulo_do_segundo_icone'), "menu_icone" => $this->getCamposPersonalizados('escolha_o_menu_do_segundo_icone')));
+		array_push($this->array_icone_titulo_icone_id_menu_icone, array("id_icone" => $this->getCamposPersonalizados('escolha_o_terceiro_icone')['ID'], "url_icone" => $this->getCamposPersonalizados('escolha_o_terceiro_icone')['url'], "titulo_icone" => $this->getCamposPersonalizados('escolha_o_titulo_do_terceiro_icone'), "menu_icone" => $this->getCamposPersonalizados('escolha_o_menu_do_terceiro_icone')));
 	}
 
 	public function montaHtmlIcones()
@@ -31,10 +31,12 @@ class PaginaInicialIcones extends PaginaInicial
 		?>
         <div class="container">
             <ul class="card-group nav m-0 ul-container-icones-menu" role="tablist">
-				<?php foreach ($this->array_icone_titulo_icone_id_menu_icone as $icone) { ?>
+				<?php foreach ($this->array_icone_titulo_icone_id_menu_icone as $icone) {
+					$image_alt = get_post_meta( $icone['id_icone'], '_wp_attachment_image_alt', true);
+				    ?>
                     <li id="tab_<?= $icone['menu_icone'] ?>" class="container-a-icones-home card rounded-0 border-0 pt-5 pb-3">
                         <a id="tab_<?= $icone['menu_icone'] ?>" data-toggle="tab" href="#menu_<?= $icone['menu_icone'] ?>" role="tab" aria-selected="false" class="a-icones-home d-flex justify-content-center align-items-center">
-                            <img src="<?= $icone['url_icone'] ?>" class="icones-home" alt="Ícone <?= $icone['titulo_icone'] ?>">
+                            <img src="<?= $icone['url_icone'] ?>" class="icones-home" alt="<?= $image_alt ?> ?>">
                         </a>
                         <div class="row"></div>
                         <div class="card-body text-center container-titulo-icones">
