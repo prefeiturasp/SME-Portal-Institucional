@@ -82,7 +82,7 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
 			]
 		);
 		if ( is_array( $pages ) ) {
-			$pagination = '<div class="pagination"><ul class="pagination">';
+			$pagination = '<div class="pagination justify-content-center" style="text-align: center"><ul class="pagination ">';
 			foreach ($pages as $page) {
 				$pagination .= '<li class="page-item' . (strpos($page, 'current') !== false ? ' active' : '') . '"> ' . str_replace('page-numbers', 'page-link', $page) . '</li>';
 			}

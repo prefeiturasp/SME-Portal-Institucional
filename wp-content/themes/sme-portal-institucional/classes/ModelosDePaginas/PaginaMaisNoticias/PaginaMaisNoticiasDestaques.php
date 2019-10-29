@@ -55,7 +55,7 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 
 		if ($this->destaque_principal) {
 			?>
-            <section class="card bg-dark text-white mb-3 border-0">
+            <section class="card bg-dark text-white mb-3">
                 <figure class="m-0 p-0">
                     <img src="<?= get_the_post_thumbnail_url($this->destaque_principal->ID) ?>" class="img-fluid card-img" alt='<?= $this->getAltThumbnail($this->destaque_principal->ID) ?>'>
                 </figure>
@@ -70,6 +70,7 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
                 </article>
 
             </section>
+            <div class="w-100 pb-1 mb-3 border-bottom"></div>
 			<?php
 		}
 
