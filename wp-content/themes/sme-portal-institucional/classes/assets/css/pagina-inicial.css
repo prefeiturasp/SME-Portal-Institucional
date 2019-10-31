@@ -69,6 +69,14 @@
     margin-bottom: 2px;
 }
 
+.divisao-noticias-secundarias{
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+.divisao-noticias-secundarias:last-child{
+    border-bottom: none !important;
+}
+
 @media ( min-width : 769px) {
     .ul-container-icones-menu li {
         padding-bottom: 100px !important;

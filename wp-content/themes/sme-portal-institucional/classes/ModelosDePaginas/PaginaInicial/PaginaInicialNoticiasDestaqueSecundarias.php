@@ -6,6 +6,8 @@ namespace Classes\ModelosDePaginas\PaginaInicial;
 class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 {
 
+    private $cont;
+
 	public function __construct()
 	{
 		$noticias_secundarias_tags = array('section');
@@ -17,6 +19,8 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 		$this->montaHtmlLoopNoticias();
 		$this->montaHtmlBotaoMaisNoticias();
 		$this->fechaContainer($noticias_secundarias_tags);
+
+		$this->cont = 0;
 	}
 
 	public function montaQueryNoticiasHomeSecundarias($posicao_destaque)
@@ -52,13 +56,20 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 	public function montaHtmlLoopNoticias()
 	{
 
+
+
 		if ($this->query_noticias_home_secundarias->have_posts()) : while ($this->query_noticias_home_secundarias->have_posts()) : $this->query_noticias_home_secundarias->the_post();
 			$post_thumbnail_id = get_post_thumbnail_id( get_the_ID() );
 			$image_alt = get_post_meta( $post_thumbnail_id, '_wp_attachment_image_alt', true);
 			$image_url = get_the_post_thumbnail_url();
+			if (!$this->cont){
+			    $css_divisao = 'border-bottom';
+            }else{
+				$css_divisao = '';
+            }
 			?>
 
-			<article class="row mb-4 pb-4 border-bottom">
+			<article class="row mb-4 pb-4 <?= $css_divisao?>">
 
 					<?php if (has_post_thumbnail()) {
 					    echo '<div class="col-12 col-md-5 mb-1">';
@@ -85,6 +96,7 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 
 			</article>
 		<?php
+			$this->cont = $this->cont + 1;
 		endwhile;
 		endif;
 		wp_reset_postdata();
