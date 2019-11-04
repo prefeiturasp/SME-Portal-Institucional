@@ -5,6 +5,8 @@ namespace Classes\ModelosDePaginas\PaginaAbas;
 
 use Classes\Lib\Util;
 use Classes\TemplateHierarchy\ArchiveContato\ArchiveContato;
+use Classes\TemplateHierarchy\ArchiveContato\ExibirContatosTodasPaginas;
+
 
 class PaginaAbas extends ArchiveContato
 {
@@ -34,6 +36,9 @@ class PaginaAbas extends ArchiveContato
 		$this->fechaContainer($container_principal_tags);
 
 		new PaginaAbasAcoesDestaque();
+
+		$contato_todas_paginas = new ExibirContatosTodasPaginas($this->page_id);
+		$contato_todas_paginas->init();
 	}
 
 	public function getQueryAbas()

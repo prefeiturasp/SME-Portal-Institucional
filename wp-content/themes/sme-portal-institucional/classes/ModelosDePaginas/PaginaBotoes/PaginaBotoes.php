@@ -3,6 +3,7 @@
 namespace Classes\ModelosDePaginas\PaginaBotoes;
 
 use Classes\ModelosDePaginas\PaginaAbas\PaginaAbasBotoes;
+use Classes\TemplateHierarchy\ArchiveContato\ExibirContatosTodasPaginas;
 
 class PaginaBotoes extends PaginaAbasBotoes
 {
@@ -33,6 +34,9 @@ class PaginaBotoes extends PaginaAbasBotoes
 		$this->fechaContainer($container_botoes_tags);
 
 		$this->fechaContainer($container_conteudo_principal_botoes_tags);
+
+		$contato_todas_paginas = new ExibirContatosTodasPaginas($this->page_id);
+		$contato_todas_paginas->init();
 
 	}
 

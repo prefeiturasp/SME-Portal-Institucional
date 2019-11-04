@@ -12,10 +12,15 @@ class ArchiveContato extends Util
 	protected $terms;
 	protected $array_ordenacao;
 	protected $qtdeNiveis;
+	protected $tag_html_titulo;
+	protected $css_html_titulo;
 
 
-	public function __construct()
+	public function __construct($tag_html_titulo = 'h1', $css_html_titulo='mb-5')
 	{
+		$this->tag_html_titulo = $tag_html_titulo;
+		$this->css_html_titulo = $css_html_titulo;
+
 		$container_html_tags = array('section', 'section');
 		$container_html_css = array('container', 'row container-contatos');
 		$this->abreContainer($container_html_tags,$container_html_css);
@@ -29,7 +34,7 @@ class ArchiveContato extends Util
 	}
 
 	public function exibeCabecalho(){
-		echo '<h1 class="mb-5" id="contato">Contatos SME</h1>';
+		echo '<'.$this->tag_html_titulo.' class="'.$this->css_html_titulo.'" id="contato">Contatos SME</'.$this->tag_html_titulo.'>';
 	}
 
 	public function setQtdeNiveis($qtdeNiveis)
@@ -148,6 +153,7 @@ class ArchiveContato extends Util
 	}
 
 	public function exibeCamposCadastrados($term_id, $term_name=null, $nivel_superior=null, $organograma=null){
+
 		$campo_contato = get_post_meta($term_id, 'campo_contato', true);
 
 		if ($term_name) {

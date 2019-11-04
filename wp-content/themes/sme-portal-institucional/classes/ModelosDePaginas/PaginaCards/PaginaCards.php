@@ -3,6 +3,7 @@
 namespace Classes\ModelosDePaginas\PaginaCards;
 
 use Classes\Lib\Util;
+use Classes\TemplateHierarchy\ArchiveContato\ExibirContatosTodasPaginas;
 
 class PaginaCards extends Util
 {
@@ -17,6 +18,10 @@ class PaginaCards extends Util
 		$util->montaHtmlLoopPadrao();
 		$this->montaQueryCards();
 		$this->montaHtmlCards();
+
+		$contato_todas_paginas = new ExibirContatosTodasPaginas($this->page_id);
+		$contato_todas_paginas->init();
+
 
 	}
 

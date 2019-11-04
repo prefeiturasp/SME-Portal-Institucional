@@ -4,6 +4,7 @@ namespace Classes\ModelosDePaginas\PaginaLayoutColunas;
 
 
 use Classes\Lib\Util;
+use Classes\TemplateHierarchy\ArchiveContato\ExibirContatosTodasPaginas;
 
 class PaginaLayoutColunas extends Util
 {
@@ -31,6 +32,9 @@ class PaginaLayoutColunas extends Util
 		$this->getConteudoColunas();
 
 		$this->fechaContainer($layout_colunas_tags);
+
+		$contato_todas_paginas = new ExibirContatosTodasPaginas($this->page_id);
+		$contato_todas_paginas->init();
 	}
 
 	public function getConteudoColunas(){

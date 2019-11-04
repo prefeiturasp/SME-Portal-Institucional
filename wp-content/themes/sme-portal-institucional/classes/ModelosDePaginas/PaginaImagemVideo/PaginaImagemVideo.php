@@ -4,6 +4,7 @@ namespace Classes\ModelosDePaginas\PaginaImagemVideo;
 
 
 use Classes\Lib\Util;
+use Classes\TemplateHierarchy\ArchiveContato\ExibirContatosTodasPaginas;
 
 class PaginaImagemVideo extends Util
 {
@@ -16,6 +17,8 @@ class PaginaImagemVideo extends Util
 		$this->page_id = get_the_ID();
 		$this->page_slug = get_queried_object()->post_name;
 		$this->montaHtmlLoopPadrao();
+		$contato_todas_paginas = new ExibirContatosTodasPaginas($this->page_id);
+		$contato_todas_paginas->init();
 	}
 
 	public function getImagemOuVideo(){
