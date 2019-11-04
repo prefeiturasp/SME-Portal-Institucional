@@ -14,4 +14,8 @@ RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) $2 [L]
 RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ $2 [L]
 RewriteRule . index.php [L]
 
+redirect 301 /default.aspx https://hom-portal.sme.prefeitura.sp.gov.br/
+redirect 301 /Main https://hom-portal.sme.prefeitura.sp.gov.br/
+
+
 # END WordPress
