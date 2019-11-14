@@ -53,7 +53,7 @@ class PaginaCards extends Util
 			?>
             <article class="card mb-3 mr-3 border-0 shadow-sm fonte-catorze mw-20">
                 <article class="card-header text-white font-weight-bold bg-color-titulo-cards">
-                    <h2>
+                    <h2 class="fonte-catorze">
                         <a class="text-white stretched-link" href="<?= get_the_permalink() ?>">
 							<?= get_the_title() ?>
                         </a>

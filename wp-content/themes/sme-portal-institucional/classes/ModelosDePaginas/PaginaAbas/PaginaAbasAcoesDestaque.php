@@ -57,17 +57,26 @@ class PaginaAbasAcoesDestaque extends PaginaAbas
 		$container_paginas_css = array('container mb-5', 'row mt-5', 'col-lg-12 col-sm-12');
 		$this->abreContainer($container_paginas_tags, $container_paginas_css );
 		if ($this->query_paginas_acoes_em_destaque->have_posts()) {
-			echo '<h3 class="border-bottom fonte-vintequatro pb-2 font-weight-bold mb-4">AÇÕES EM DESTAQUE</h3>';
+			echo '<h2 class="border-bottom fonte-vintequatro pb-2 font-weight-bold mb-4">AÇÕES EM DESTAQUE</h2>';
 		}
 
 		if ($this->query_paginas_acoes_em_destaque->have_posts()):
 			while ($this->query_paginas_acoes_em_destaque->have_posts()): $this->query_paginas_acoes_em_destaque->the_post();
+
+				$thumb = get_the_post_thumbnail_url($this->query_paginas_acoes_em_destaque->ID);
+				$url = get_the_permalink($this->query_paginas_acoes_em_destaque->ID);
+				$post_thumbnail_id = get_post_thumbnail_id( $this->query_paginas_acoes_em_destaque->ID );
+				$image_alt = get_post_meta( $post_thumbnail_id, '_wp_attachment_image_alt', true);
+
 				$container_interno_paginas_tags = array('section', 'article');
 				$container_interno_paginas_css = array('row mb-5', 'col-lg-9 col-sm-12');
 				$this->abreContainer($container_interno_paginas_tags, $container_interno_paginas_css);
 				if (has_post_thumbnail()){
 					echo '<figure>';
-					echo the_post_thumbnail('thumbnail', array('class' => 'img-fluid rounded float-left mr-4'));
+					//echo the_post_thumbnail('thumbnail', array('class' => 'img-fluid rounded float-left mr-4'));
+					echo '<img src="'.$thumb.'" class="img-fluid rounded float-left mr-4 w-25" alt="'.$image_alt.'"/>';
+
+
 					echo '</figure>';
 				}
 				echo '<h3 class="fonte-dezoito font-weight-bold mb-4"><a class="text-decoration-none text-dark" href="'.get_the_permalink().'">'.get_the_title().'</a></h3>';
