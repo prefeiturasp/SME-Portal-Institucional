@@ -156,7 +156,7 @@ use Classes\Header\Header;
                 </fieldset>
             </form>
 
-            <div class="collapse navbar-collapse justify-content-end" id="irmenu">
+            <nav class="collapse navbar-collapse justify-content-end" id="irmenu" aria-label="Menu Principal">
                 <?php
 				wp_nav_menu(array(
 					'menu' => 'primary',
@@ -169,7 +169,7 @@ use Classes\Header\Header;
 				));
 				?>
 
-            </div>
+            </nav>
         </section>
     </nav>
 <?php new \Classes\Breadcrumb\Breadcrumb(); ?>
