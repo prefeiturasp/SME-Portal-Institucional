@@ -513,7 +513,7 @@ add_action('template_redirect', 'redireciona_paginas_pendentes');
  *
  * @ref https://www.w3.org/WAI/tutorials/menus/flyout/
  */
-function wcag_nav_menu_link_attributes( $atts, $item, $args ) {
+/*function wcag_nav_menu_link_attributes( $atts, $item, $args ) {
 
 	// Add [aria-haspopup] and [aria-expanded] to menu items that have children
 	$item_has_children = in_array( 'menu-item-has-children', $item->classes );
@@ -525,6 +525,8 @@ function wcag_nav_menu_link_attributes( $atts, $item, $args ) {
 	return $atts;
 }
 add_filter( 'nav_menu_link_attributes', 'wcag_nav_menu_link_attributes', 10, 4 );
+*/
+
 
 define('STM_URL', get_home_url());
 define('STM_THEME_URL', get_bloginfo('template_url') . '/');

@@ -41,7 +41,7 @@ class Breadcrumb
 
 			// Build the breadcrums
 			echo '<div class="row">';
-			echo '<nav aria-label="breadcrumb">';
+			echo '<nav>';
 			echo '<ol id="' . $this->breadcrums_id . '" class="' . $this->breadcrums_class . '">';
 
 			// Home page
