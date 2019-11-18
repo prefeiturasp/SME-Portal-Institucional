@@ -108,6 +108,13 @@ $s("span.at4-visually-hidden").waitUntilExists(function (e) {
     //$s(this).text(texto_alterado);
 });
 
+$s("span.at-icon-wrapper > svg > title").waitUntilExists(function (e) {
+    var texto = $s(this).text();
+    if (texto === "Print") {
+        $s(this).text("Imprimir")
+    }
+});
+
 /*Ativação do Tool Tip Bootstrap*/
 $s(document).ready(function () {
     $s(function () {
