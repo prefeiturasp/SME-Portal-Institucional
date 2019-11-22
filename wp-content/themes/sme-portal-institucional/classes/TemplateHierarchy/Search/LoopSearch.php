@@ -35,7 +35,7 @@ class LoopSearch
 	public function montaQuerySearch()
 	{
 		$this->argsSearch = array(
-			'post_type' => array('post', 'page'),
+			'post_type' => array('post', 'page', 'card'),
 			'post_parent' => 0,
 			'paged' => get_query_var('paged'),
 			's' => $this->search,
