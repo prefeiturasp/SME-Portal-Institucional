@@ -503,9 +503,51 @@ function redireciona_paginas_pendentes(){
 
 	}
 }
-add_action('template_redirect', 'redireciona_paginas_pendentes');
+/*add_action('template_redirect', 'redireciona_paginas_pendentes');
 
-//Add Open Graph Meta Info from the actual article data, or customize as necessary
+function doctype_opengraph($output) {
+	return $output . '
+    xmlns:og="http://opengraphprotocol.org/schema/"
+    xmlns:fb="http://www.facebook.com/2008/fbml"';
+}
+add_filter('language_attributes', 'doctype_opengraph');
+
+function fb_opengraph() {
+	global $post;
+
+	if(is_single()) {
+		if(has_post_thumbnail($post->ID)) {
+			$img_src = wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID ), 'full');
+		} else {
+			$img_src=STM_URL."/wp-content/uploads/2019/07/EDUCAÇÃO-1.png";
+			//$img_src = get_stylesheet_directory_uri() . '/img/opengraph_image.jpg';
+		}
+		if($excerpt = $post->post_excerpt) {
+			$excerpt = strip_tags($post->post_excerpt);
+			$excerpt = str_replace("", "'", $excerpt);
+		} else {
+			$excerpt = get_bloginfo('description');
+		}
+		*/?><!--
+
+		<meta property="og:title" content="<?php /*the_title(); */?>"/>
+		<meta property="og:description" content="<?php /*echo $excerpt; */?>"/>
+		<meta property="og:type" content="article"/>
+		<meta property="og:url" content="<?php /*the_permalink(); */?>"/>
+		<meta property="og:site_name" content="<?php /*echo get_bloginfo(); */?>"/>
+		<meta property="og:image" content="<?php /*echo $img_src[0]; */?>"/>
+		<meta property="fb:app_id" content="2538622436409878"/>
+
+		--><?php
+/*	} else {
+		return;
+	}
+}
+add_action('wp_head', 'fb_opengraph', 5);
+*/
+
+
+/*//Add Open Graph Meta Info from the actual article data, or customize as necessary
 function facebook_open_graph() {
 	global $post;
 	if ( !is_singular()) //if it is not a post or a page
@@ -522,6 +564,7 @@ function facebook_open_graph() {
 
 	//You'll need to find you Facebook profile Id and add it as the admin
 	//echo '<meta property="fb:admins" content="XXXXXXXXX-fb-admin-id"/>';
+	echo '<meta property="fb:app_id" content="2538622436409878"/>';
 	echo '<meta property="og:title" content="' . get_the_title() . '"/>';
 	echo '<meta property="og:description" content="' . $excerpt . '"/>';
 	echo '<meta property="og:type" content="article"/>';
@@ -541,14 +584,14 @@ function facebook_open_graph() {
 		echo '<meta property="og:image" content="' . $default_image . '"/>';
 	}
 	else{
-		$thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'medium' );
+		$thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 		echo '<meta property="og:image" content="' . esc_attr( $thumbnail_src[0] ) . '"/>';
 	}
 
 	echo "
 	";
 }
-add_action( 'wp_head', 'facebook_open_graph', 5 );
+add_action( 'wp_head', 'facebook_open_graph', 5 );*/
 
 /**
  * WCAG 2.0 Attributes for Dropdown Menus
