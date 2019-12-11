@@ -39,7 +39,7 @@ class LoopSingleMaisRecentes
 
 	public function montaHtmlMaisRecentes(){
 		echo '<section class="col-lg-4 col-sm-12 card align-self-start container-titulos-mais-recente">';
-		echo '<p class="titulo-cabecalho-mais-recentes">Mais Recentes</p>';
+		echo '<h2 class="titulo-cabecalho-mais-recentes">Notícias Mais Recentes</h2>';
 		foreach( $this->query_mais_recentes as $recent ){
 			echo '<article>';
 			echo '<p class="titulo-categoria">'.$this->getCategory($recent["ID"]).'</p>';

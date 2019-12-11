@@ -21,6 +21,8 @@ class Header
 			$this->slug_titulo = 'busca-de-escolas';
 		}elseif ($wp_query->get('custom_page') == 'mapa-dres'){
 			$this->slug_titulo = 'mapa-dres';
+		}elseif (is_single()){
+			$this->slug_titulo = 'Noticias';
 		}else{
 			$this->slug_titulo = $this->queried_object->post_name;
 		}

@@ -9,14 +9,8 @@ class PaginaInicialIcones extends PaginaInicial
 	{
 
 		$this->criaArrayIconesTitulosIcones();
-
-		$Icones_menu_icones_tags = array('section','article','article','article');
-		$Icones_menu_icones_css = array('bg-cinza-claro areas-menu overflow-hidden','container','row','col-lg-12 col-xs-12');
-
-		//$this->abreContainer($Icones_menu_icones_tags, $Icones_menu_icones_css);
 		$this->montaHtmlIcones();
 		$this->montaHtmlMenuIcones();
-		//$this->fechaContainer($Icones_menu_icones_tags);
 	}
 
 	public function criaArrayIconesTitulosIcones()
@@ -36,7 +30,7 @@ class PaginaInicialIcones extends PaginaInicial
 				    ?>
                     <li id="tab_<?= $icone['menu_icone'] ?>" class="container-a-icones-home card rounded-0 border-0 pt-5 pb-3">
                         <a id="tab_<?= $icone['menu_icone'] ?>" data-toggle="tab" href="#menu_<?= $icone['menu_icone'] ?>" role="tab" aria-selected="false" class="a-icones-home d-flex justify-content-center align-items-center">
-                            <img src="<?= $icone['url_icone'] ?>" class="icones-home" alt="<?= $image_alt ?> ?>">
+                            <img src="<?= $icone['url_icone'] ?>" class="icones-home" alt="<?= $image_alt ?>">
                         </a>
                         <div class="row"></div>
                         <div class="card-body text-center container-titulo-icones">

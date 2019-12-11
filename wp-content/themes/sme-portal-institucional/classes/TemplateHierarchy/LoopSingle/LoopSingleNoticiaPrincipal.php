@@ -14,8 +14,8 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 		if (have_posts()):
 			while (have_posts()): the_post();
 				echo '<article class="col-lg-8 col-sm-12 border-bottom">';
-				echo '<h1 class="titulo-noticia-principal mb-3" id="'.get_post_field( 'post_name', get_post() ).'">'.get_the_title().'</h1>';
-				echo $this->getSubtitulo(get_the_ID());
+				echo '<h2 class="titulo-noticia-principal mb-3" id="'.get_post_field( 'post_name', get_post() ).'">'.get_the_title().'</h2>';
+				echo $this->getSubtitulo(get_the_ID(), 'h3');
 				$this->getDataPublicacaoAlteracao();
 				$this->getMidiasSociais();
 				the_content();

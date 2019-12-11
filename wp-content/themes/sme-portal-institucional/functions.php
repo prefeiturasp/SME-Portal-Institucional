@@ -501,7 +501,7 @@ function redireciona_paginas_pendentes(){
 			wp_redirect(STM_URL.'/conteudo-em-atualizacao/');
 		}
 
-		
+
 
 	}
 }

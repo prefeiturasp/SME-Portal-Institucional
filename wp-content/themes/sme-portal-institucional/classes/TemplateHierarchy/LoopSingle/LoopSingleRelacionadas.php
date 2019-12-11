@@ -47,7 +47,7 @@ class LoopSingleRelacionadas extends LoopSingle
 		$container_mais_noticias_tags = array('section');
 		$container_mais_noticias_css = array('col-lg-8 col-sm-12 mt-5');
 		$this->abreContainer($container_mais_noticias_tags, $container_mais_noticias_css);
-		echo '<h3 class="fonte-vintequatro mb-4 pb-2 font-weight-bold">RELACIONADAS</h3>';
+		echo '<h2 class="fonte-vintequatro mb-4 pb-2 font-weight-bold">RELACIONADAS</h2>';
 
 		foreach ($this->query_relacionadas as $query){
 			?>
