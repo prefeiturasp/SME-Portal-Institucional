@@ -497,6 +497,9 @@ fieldset legend, .esconde-item-acessibilidade{
 	color: #000;
 }
 
+/*Selo de acessibilidade digital*/
+.sa{position:relative;display:inline-block}.sa .st{visibility:hidden;width:220px;background-color:#e2e2e2;color:#000;text-align:left;padding:5px;border-radius:6px;position:absolute;z-index:1;opacity:0;transition:opacity 1s}.sa .st div{font-weight:700;text-align:center;margin-bottom:5px}.sa .st span{display:block;text-align:center;margin-top:5px}.sa:hover .st{visibility:visible;opacity:1}.sad .st,.sae .st{top:0}.sab .st,.sat .st{margin-left:-110px;left:50%}.sat .st{bottom:110%}.sab .st{top:90%}.sad .st{left:105%}.sae .st{right:105%}
+
 @media ( min-width : 992px) {
 	.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
 		background-color: #196CBD !important;
