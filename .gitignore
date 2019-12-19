@@ -5,7 +5,6 @@ _material/
 wp-content/uploads
 wp-content/plugins
 wp-content/upgrade
-# *.htaccess
 /.htaccess
 *.idea
 
