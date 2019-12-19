@@ -5,7 +5,8 @@ _material/
 wp-content/uploads
 wp-content/plugins
 wp-content/upgrade
-*.htaccess
+# *.htaccess
+/.htaccess
 *.idea
 
 # Created by https://www.gitignore.io/api/phpstorm
