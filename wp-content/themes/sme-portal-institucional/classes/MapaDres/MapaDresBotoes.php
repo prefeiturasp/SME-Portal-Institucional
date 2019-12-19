@@ -54,6 +54,9 @@ class MapaDresBotoes extends MapaDres
 		$args = array(
 			'post_type' => 'contato',
 			'posts_per_page'   => -1,
+			'orderby'   => 'title',
+			'order'   => 'ASC',
+
 			'tax_query' => array(
 				array(
 					'taxonomy' => self::TAXONOMIA,

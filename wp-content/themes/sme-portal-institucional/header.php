@@ -86,10 +86,10 @@ use Classes\Header\Header;
                                 <?php
                                 $slug_titulo = new Header();
                                 ?>
-                                <li class="list-inline-item"><a accesskey="1" href="#<?= $slug_titulo->getSlugTitulo() ?>" class="text-white">Ir ao Conteúdo <span class="span-accesskey">1</a></li>
-                                <li class="list-inline-item"><a href="#irmenu" accesskey="2" class="text-white">Ir para menu principal <span class="span-accesskey">2</span></a></li>
-                                <li class="list-inline-item"><a href="#search-front-end" accesskey="3" class="text-white">Ir para busca <span class="span-accesskey">3</span></a></li>
-                                <li class="list-inline-item"><a href="#irrodape" accesskey="4" class="text-white">Ir para rodapé <span class="span-accesskey">4</span></a></li>
+                                <li class="list-inline-item"><a accesskey="1" id="1" href="#<?= $slug_titulo->getSlugTitulo() ?>" class="text-white">Ir ao Conteúdo <span class="span-accesskey">1</a></li>
+                                <li class="list-inline-item"><a accesskey="2" id="2" href="#irmenu"  class="text-white">Ir para menu principal <span class="span-accesskey">2</span></a></li>
+                                <li class="list-inline-item"><a accesskey="3" id="3" href="#search-front-end"  class="text-white">Ir para busca <span class="span-accesskey">3</span></a></li>
+                                <li class="list-inline-item"><a accesskey="4" id="4" href="#irrodape"  class="text-white">Ir para rodapé <span class="span-accesskey">4</span></a></li>
                             </ul>
                         </article>
 
@@ -149,8 +149,7 @@ use Classes\Header\Header;
             <form>
                 <fieldset>
                     <legend>Mostra e Esconde Menu</legend>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#irmenu"
-                            aria-controls="irmenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#irmenu" aria-controls="irmenu" aria-expanded="false">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </fieldset>

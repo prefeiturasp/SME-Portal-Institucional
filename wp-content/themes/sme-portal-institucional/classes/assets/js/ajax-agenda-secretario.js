@@ -9,7 +9,11 @@ jQuery(document).ready(function ($) {
 
     var div_com_array_datas = $('#array_datas_agenda');
 
-    var array_datas_agenda = div_com_array_datas.val();
+    // Para input
+    //var array_datas_agenda = div_com_array_datas.val();
+
+    //Para Div
+    var array_datas_agenda = div_com_array_datas.text();
 
     if (array_datas_agenda) {
         var datas_agendas = JSON.parse(array_datas_agenda);
