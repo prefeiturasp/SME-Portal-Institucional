@@ -1,5 +1,6 @@
 <?php
 /* Inicialização das Classes */
+
 require_once __ROOT__.'/classes/LoadDependences.php';
 require_once __ROOT__.'/classes/Lib/Util.php';
 
