@@ -591,3 +591,6 @@ if ($_GET && $_GET['lang'] == 'en') {
 require_once 'classes/init.php';
 
 require_once('classes/wp_bootstrap_navwalker.php');
+
+// Carrega contador de visualizações de noticias
+require 'includes/cont_visualizacao.php';
