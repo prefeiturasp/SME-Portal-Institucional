@@ -27,7 +27,8 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 		wp_reset_query();
 	}
 	public function getDataPublicacaoAlteracao(){
-		echo '<span class="display-autor">Publicado em: '.get_the_date('d/m/Y g\hi').' | Atualizado em: '.get_the_modified_date('d/m/Y').'</span>';
+		//padrão de horario G\hi
+		echo '<span class="display-autor">Publicado em: '.get_the_date('d/m/Y G\hi').' | Atualizado em: '.get_the_modified_date('d/m/Y').'</span>';
 	}
 
 	public function getMidiasSociais(){
