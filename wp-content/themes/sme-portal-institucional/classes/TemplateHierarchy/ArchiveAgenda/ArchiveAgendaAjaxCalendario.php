@@ -39,11 +39,31 @@ class ArchiveAgendaAjaxCalendario extends Util
 			?>
 			<article class="col-lg-12 col-xs-12">
 				<div class="agenda mb-4">
-					<div class="horario d-inline"><?= $this->getCamposPersonalizados('hora_do_evento') ?></div> -
+					<div class="order_hri"><?php
+				//converte campo hora por extenso para ordenar
+				 $hri = $this->getCamposPersonalizados('hora_do_evento');
+				 echo $hri=date('His',$hri);?></div>
+					<div class="horario d-inline"><?= $this->getCamposPersonalizados('hora_do_evento') ?> - <?= $this->getCamposPersonalizados('fim_do_evento') ?></div> |
 					<div class="evento d-inline"><?= get_the_title()?></div>
-					<div class="local">Local: <?= $this->getCamposPersonalizados('endereco_do_evento') ?></div>
+					<div class="local"><?php 					
+						if ($this->getCamposPersonalizados('pauta_assunto') !== null && $this->getCamposPersonalizados('pauta_assunto') !== ''){
+					?>
+						<div class="local"><strong>Pauta/Assunto:</strong> <?= $this->getCamposPersonalizados('pauta_assunto') ?></div>
+					<?php } ?></div>
+					<div class="local"><?php 					
+						if ($this->getCamposPersonalizados('endereco_do_evento') !== null && $this->getCamposPersonalizados('endereco_do_evento') !== ''){
+					?>
+						<div class="local"><strong>Local:</strong> <?= $this->getCamposPersonalizados('endereco_do_evento') ?></div>
+					<?php } ?></div>
+					<div class="local">
+						
+						<?php 					
+						if ($this->getCamposPersonalizados('participantes_do_evento') !== null && $this->getCamposPersonalizados('participantes_do_evento') !== ''){
+					?>
+						<div class="local"><strong>Participantes:</strong><?= $this->getCamposPersonalizados('participantes_do_evento') ?></div>
+					<?php } ?></div>
 				</div>
-
+				
 			</article>
 		<?php
 		endwhile;
@@ -55,3 +75,20 @@ class ArchiveAgendaAjaxCalendario extends Util
 	}
 
 }
+?><?php
+echo'<script>
+//limpa div a cada click
+jQuery(".agenda-ordenada").html("");
+//ordena por hora
+jQuery(".agenda").sort(function(a, b) {
+  
+  if (a.textContent < b.textContent) {
+    return -1;
+  } else {
+    return 1;
+  }
+}).appendTo(".agenda-ordenada");
+//oculta campo hora
+jQuery(".order_hri").hide();
+</script>';
+?>
