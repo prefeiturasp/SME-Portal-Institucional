@@ -61,11 +61,28 @@ class ArchiveAgendaAjaxCalendario extends Util
 						if ($this->getCamposPersonalizados('participantes_do_evento') !== null && $this->getCamposPersonalizados('participantes_do_evento') !== ''){
 					?>
 						<div class="local"><strong>Participantes:</strong><?= $this->getCamposPersonalizados('participantes_do_evento') ?></div>
-					<?php } ?></div>
+					<?php } 
+						echo'<script>
+						//limpa div a cada click
+						jQuery(".agenda-ordenada").html("");
+						//ordena por hora
+						jQuery(".agenda").sort(function(a, b) {
+
+						  if (a.textContent < b.textContent) {
+							return -1;
+						  } else {
+							return 1;
+						  }
+						}).appendTo(".agenda-ordenada");
+						//oculta campo hora
+						jQuery(".order_hri").hide();
+						</script>';
+						?></div>
 				</div>
 				
 			</article>
 		<?php
+
 		endwhile;
 		else:
 			echo '<p><strong>Não existem eventos cadastrados nesta data</strong></p>';
@@ -75,20 +92,5 @@ class ArchiveAgendaAjaxCalendario extends Util
 	}
 
 }
-?><?php
-echo'<script>
-//limpa div a cada click
-jQuery(".agenda-ordenada").html("");
-//ordena por hora
-jQuery(".agenda").sort(function(a, b) {
-  
-  if (a.textContent < b.textContent) {
-    return -1;
-  } else {
-    return 1;
-  }
-}).appendTo(".agenda-ordenada");
-//oculta campo hora
-jQuery(".order_hri").hide();
-</script>';
+
 ?>
