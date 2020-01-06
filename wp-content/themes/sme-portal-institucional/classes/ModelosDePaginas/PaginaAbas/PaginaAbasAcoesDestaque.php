@@ -83,7 +83,7 @@ class PaginaAbasAcoesDestaque extends PaginaAbas
 				if (get_the_excerpt()) {
 					echo '<p class="fonte-dezesseis mb-4">' . get_the_excerpt() . '</p>';
 				}
-				echo '<a class="font-weight-bold" href="'.get_the_permalink().'">Ir para '.get_the_title().'</a>';
+				//echo '<a class="font-weight-bold" href="'.get_the_permalink().'">Ir para '.get_the_title().'</a>';
 				$this->fechaContainer($container_interno_paginas_tags);
 			endwhile;
 		endif;
