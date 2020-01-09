@@ -16,6 +16,7 @@ class CptAba extends Cpt
 		add_action('init', array($this, 'register'));
 	}
 
+
 	/**
 	 * Alterando as configurações que vem por padrão na classe CPT (Adicionando suporte a thumbnail)
 	 */
@@ -64,7 +65,7 @@ class CptAba extends Cpt
 			'exclude_from_search' => true,
 			'show_in_rest' => true,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'supports' => array('title', 'editor', 'excerpt', 'comments'),
+			'supports' => array('title', 'editor', 'excerpt',  'author'),
 		);
 
 		register_post_type($this->cptSlug, $args);
