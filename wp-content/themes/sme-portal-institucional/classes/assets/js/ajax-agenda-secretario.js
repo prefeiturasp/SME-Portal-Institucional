@@ -27,13 +27,41 @@ jQuery(document).ready(function ($) {
         years: "1",
 
         onReady: function(){
-            getAnoMesCalendario()
+            getAnoMesCalendario()	
         },
 
         onClick: function (date) {
+			
+			//console.log("Onclick", date)
             moment.locale('pt-br');
             $('.data_agenda').html(moment(date).format('dddd[,] D [de] MMMM [de] YYYY'));
             let data_pt_br = moment(date).format('YYYYMMDD');
+			var data = new Date();
+			var data_atual = moment(data).format('YYYYMMDD');
+			
+			$(".ic__day_state_current").waitUntilExists(function (e) {
+				//alert('carregou');
+				if(data_pt_br === data_atual){
+					//alert('data igual a data atual');
+					$(".ic__day_state_current").addClass("selecao_dia_agenda");
+					$(".ic__day_state_selected").addClass("selecao_dia_agenda");
+				   }else{
+					//alert('data diferente da data atual');
+					$(".ic__day_state_current").removeClass("selecao_dia_agenda");
+					$(".ic__day_state_selected").removeClass("selecao_dia_agenda");
+				   }
+			});
+			/*var data = new Date();
+			var data_atual = moment(data).format('YYYYMMDD');
+			if(data_pt_br == data_atual){
+			    alert('data igual a data atual');
+			   }else{
+			   	alert('data diferente da data atual');
+				$(".ic__day").addClass("testeclass");  
+			   }*/
+			$(".agenda-ordenada").html("");
+			
+			
             redebe_data(data_pt_br);
         }
     });
@@ -75,7 +103,7 @@ jQuery(document).ready(function ($) {
     }
 
     function redebe_data(data_recebida) {
-
+ 	//console.log('estou aqui', data_recebida)
         var conteudo_a_ser_exibido = $('#mostra_data');
 
         jQuery.ajax({
@@ -90,6 +118,19 @@ jQuery(document).ready(function ($) {
             success: function (data) {
                 var $data = $(data);
                 conteudo_a_ser_exibido.html($data);
+				var atual = new Date();
+				var data_atual = moment(atual).format('YYYYMMDD');
+				//alert(data_atual);
+				
+				if(data_recebida != data_atual){
+					//alert('PRONTO: data diferente da data atual');
+					jQuery(".ic__day_state_current").removeClass("selecao_dia_agenda");
+					jQuery(".ic__day_state_selected").addClass("selecao_dia_agenda");
+				   }else{
+					//alert('PRONTO: data igual a data atual'); 
+					jQuery(".ic__day_state_current").addClass("selecao_dia_agenda");
+					jQuery(".ic__day_state_selected").removeClass("selecao_dia_agenda");
+				   }
             },
         });
     }
