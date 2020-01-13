@@ -17,7 +17,7 @@
 
 }
 .icones-home{
-    max-width: 116px;
+    max-width: 116px !important;
 }
 
 .container-btn-mais-noticias{
