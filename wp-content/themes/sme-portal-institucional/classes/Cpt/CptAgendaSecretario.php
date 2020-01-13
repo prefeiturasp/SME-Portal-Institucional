@@ -19,7 +19,7 @@ class CptAgendaSecretario extends Cpt
 		add_filter('manage_edit-' . $this->cptSlug . '_sortable_columns', array($this, 'cols_sort'));
 		add_filter('request', array($this, 'orderby'));
 	}
-	
+
 	//Exibindo as colunas no Dashboard
 	public function exibe_cols($cols, $post_type)
 	{
@@ -131,5 +131,4 @@ class CptAgendaSecretario extends Cpt
 
 		flush_rewrite_rules();
 	}
-					
 }
