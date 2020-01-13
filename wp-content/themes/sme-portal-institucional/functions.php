@@ -364,10 +364,10 @@ function allow_contributor_uploads() {
 add_image_size( 'admin-list-thumb', 80, 80, false );
 
 // Adicionando a classe css img-fluid em todas as imagens dentro do the_content
-function img_responsive($content){
+/*function img_responsive($content){
 	return str_replace('<img ','<img class="img-fluid" ',$content);
 }
-add_filter('the_content','img_responsive');
+add_filter('the_content','img_responsive');*/
 
 /*function add_image_responsive_class($content) {
 	global $post;
@@ -378,11 +378,11 @@ add_filter('the_content','img_responsive');
 }
 add_filter('the_content', 'add_image_responsive_class');*/
 
-/*function add_image_class_post_content ($class){
+function add_image_class_post_content ($class){
 	$class .= ' img-fluid';
 	return $class;
 }
-add_filter('get_image_tag_class','add_image_class_post_content');*/
+add_filter('get_image_tag_class','add_image_class_post_content');
 
 // Retirando a tag <p> antes e depois de um iframe dentro do the_content
 function remove_some_ptags( $content ) {
