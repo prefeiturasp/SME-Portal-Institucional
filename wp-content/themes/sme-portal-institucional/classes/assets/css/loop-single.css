@@ -59,7 +59,10 @@
     font-size: 24px;
     font-weight: bold;
 }
-
+.container-titulos-mais-recente {
+    margin-right: -12px !important;
+    max-width: 365px !important;
+}
 .container-titulos-mais-recente article:last-child h3.titulo-noticias-mais-recentes{
     border: none !important;
 }

@@ -30,6 +30,7 @@ class LoadDependences
 		// Página Inicial
 		wp_register_style('pagina-inicial', STM_THEME_URL . 'classes/assets/css/pagina-inicial.css', null, null, 'all');
 		wp_enqueue_style('pagina-inicial');
+		
 
 		// Agenda do Secretário
 		wp_register_style('agenda-secretario', STM_THEME_URL . 'classes/assets/css/agenda-secretario.css', null, null, 'all');
