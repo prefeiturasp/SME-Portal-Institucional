@@ -122,5 +122,12 @@ $s(document).ready(function () {
     });
 });
 
+$s(document).ready(function () {
+    $s(function () {
+        $s('img').addClass('img-fluid');
+    });
+});
+
+
 /* Ativacao Wow*/
 new WOW().init();

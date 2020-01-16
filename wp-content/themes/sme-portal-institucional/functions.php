@@ -364,10 +364,10 @@ function allow_contributor_uploads() {
 add_image_size( 'admin-list-thumb', 80, 80, false );
 
 // Adicionando a classe css img-fluid em todas as imagens dentro do the_content
-function img_responsive($content){
-	return str_replace('<img ','<img class="img-fluid" ',$content);
+/*function img_responsive($content){
+	return str_replace('<img ','<img class="img-fluid" ', $content);
 }
-add_filter('the_content','img_responsive');
+add_filter('the_content','img_responsive');*/
 
 /*function add_image_responsive_class($content) {
 	global $post;
@@ -591,3 +591,6 @@ if ($_GET && $_GET['lang'] == 'en') {
 require_once 'classes/init.php';
 
 require_once('classes/wp_bootstrap_navwalker.php');
+
+// Carrega contador de visualizações de noticias
+require 'includes/cont_visualizacao.php';

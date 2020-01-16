@@ -252,11 +252,11 @@
                 </article>
 
                 <article class="col-lg-2 col-xs-12 mb-xs-4 d-flex align-items-center">
-                    <!--<figure>
-                        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR">
-                            <img src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Copyright"/>
-                        </a>
-                    </figure>-->
+                    <a class="sa sat" href="http://selodigital.imprensaoficial.com.br/validacao/SMPED/011e4eebb735e428dd" target="_blank">
+                        <img src="<?= STM_THEME_URL ?>/img/sa2.svg" height="70" alt="Este sitio possui um selo de acessibilidade digital.">
+                        <div class="st"><div>Selo de Acessibilidade Digital</div>Nº: 20630686115146508509<br>Validade: 18/12/2020<br><span>Clique para mais informações</span>
+                        </div>
+                    </a>
                 </article>
 
             </section>

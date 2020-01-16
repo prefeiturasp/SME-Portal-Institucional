@@ -4,6 +4,8 @@ _BKP_SQL/
 _material/
 wp-content/uploads
 wp-content/plugins
+wp-content/upgrade
+/.htaccess
 *.idea
 
 # Created by https://www.gitignore.io/api/phpstorm

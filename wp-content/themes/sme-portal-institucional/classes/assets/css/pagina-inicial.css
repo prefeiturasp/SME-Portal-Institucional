@@ -17,7 +17,7 @@
 
 }
 .icones-home{
-    max-width: 116px;
+    max-width: 116px !important;
 }
 
 .container-btn-mais-noticias{
@@ -45,7 +45,7 @@
 }
 
 .ul-icones-home li a{
-    padding: 15px;
+    padding: 15px !important;
     color: #000 !important;
 }
 
@@ -138,4 +138,17 @@
 .container-twitter{
     height: 200px !important;
     overflow: hidden;
+}
+/*noticias Destaque Primaria e Secundária*/
+.desc-img-home{
+	height: auto !important;
+}
+.desc2-img-home{
+	height: auto !important;
+}
+.bg-home-desc{
+	background: linear-gradient(to top, black, rgba(0,0,0,0.7));
+}
+.b-home{
+	padding-bottom: 0.9rem!important;
 }

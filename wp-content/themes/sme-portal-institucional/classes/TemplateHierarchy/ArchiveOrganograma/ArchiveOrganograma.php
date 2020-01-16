@@ -9,6 +9,7 @@ class ArchiveOrganograma extends ArchiveContato
 	const CPT = 'organograma';
 	const TAXONOMIA = 'categorias-organograma';
 	const SLUG_TAXONOMIA_SECRETARIO = 'secretarioa-secretarioa-adjuntoa';
+	const SLUG_TAXONOMIA_ADJUNTO = 'secretarioa-adjuntoa';
 	const SLUG_TAXONOMIA_DRES = 'diretorias-regionais-de-educacao-dres';
 	protected $page_id;
 	protected $args_taxonomias;
@@ -77,6 +78,15 @@ class ArchiveOrganograma extends ArchiveContato
 
 	public function getTaxonomyName(){
 		return $this->taxonomy_name->name;
+	}
+	
+	public function setTaxonomyAdj($taxonomy_adj){
+		$term = get_term_by('slug', $taxonomy_adj, self::TAXONOMIA);
+		$this->taxonomy_adj = $term;
+	}
+
+	public function getTaxonomyAdj(){
+		return $this->taxonomy_adj->name;
 	}
 
 	public function getTaxonomyTermId(){
@@ -158,7 +168,8 @@ class ArchiveOrganograma extends ArchiveContato
 
 	public function montaHtmlNameTaxonomy($classe_p)
 	{
-		echo '<p class="'.$classe_p.'">'.$this->getTaxonomyName().'</p>';
+		//Adiciona secretário e Adjunto
+		echo '<p class="'.$classe_p.'">'.$this->getTaxonomyName().'<br>'.$this->getTaxonomyAdj().'</p>';
 
 	}
 

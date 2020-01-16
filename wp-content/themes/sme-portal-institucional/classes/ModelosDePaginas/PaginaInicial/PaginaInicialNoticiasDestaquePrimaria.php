@@ -56,7 +56,7 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
             <article class="card h-100 rounded border-0">
 				<?php if (has_post_thumbnail()) {
 					echo '<figure class="mb-0">';
-					echo '<img width="740" height="350" class="card-img" src="'.$image_url.'" alt="'.$image_alt.'"/>';
+					echo '<img width="740" height="350" class="card-img desc-img-home" src="'.$image_url.'" alt="'.$image_alt.'"/>';
 					echo '</figure>';
 				} else {
 					echo '<figure>';
@@ -64,7 +64,7 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
 					echo '</figure>';
 				}
 				?>
-                <article class="card-img-overlay bg-azul-claro h-auto rounded-bottom container-img-noticias-destaques-primaria">
+                <article class="card-img-overlay bg-home-desc h-auto rounded-bottom container-img-noticias-destaques-primaria">
                     <h3 class="fonte-catorze font-weight-bold">
                         <a class="text-white" href="<?= get_the_permalink() ?>">
 							<?= get_the_title() ?>

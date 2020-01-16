@@ -69,28 +69,37 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
             }
 			?>
 
-			<article class="row mb-4 pb-4 <?= $css_divisao?>">
+			<article class="row mb-4 b-home <?= $css_divisao?>">
 
 					<?php if (has_post_thumbnail()) {
 					    echo '<div class="col-12 col-md-5 mb-1">';
 						//the_post_thumbnail('large', array('class' => 'img-fluid rounded float-left mr-4', 'alt'=> $image_alt));
-						echo '<img class="img-fluid rounded float-left mr-4 img-noticias-destaques-secundarias" src="'.$image_url.'" alt="'.$image_alt.'"/>';
+						echo '<img class="img-fluid rounded float-left mr-4 img-noticias-destaques-secundarias desc2-img-home" src="'.$image_url.'" alt="'.$image_alt.'"/>';
 						echo '</div>';
 					}
 					?>
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-7">
                         <h3 class="fonte-catorze font-weight-bold">
                             <a class="text-dark" href="<?= get_the_permalink() ?>">
                                 <?= get_the_title() ?>
                             </a>
                         </h3>
-
+							<?php
+							
+							?>
                         <?php
-                        if ($this->getSubtitulo(get_the_ID(), 'p') ){
+						 if ($this->getSubtitulo(get_the_ID(), 'span') ){
+                            echo '<section class="fonte-doze">';
+							$content = $this->getSubtitulo(get_the_ID(), 'span');
+							$resumo = substr($content, 0, 200).'...';
+							echo $resumo;
+							echo '</section>';
+						}	
+                        /*if ($this->getSubtitulo(get_the_ID(), 'p') ){
                             echo '<section class="fonte-doze">';
 							echo $this->getSubtitulo(get_the_ID(), 'p');
 							echo '</section>';
-						}
+						}*/
                         ?>
                     </div>
 
