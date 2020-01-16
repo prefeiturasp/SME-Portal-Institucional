@@ -1,9 +1,10 @@
 <?php
 
-namespace Classes\MapaDres;
+
+namespace Classes\ModelosDePaginas\PaginaMapaDres;
 
 
-class MapaDresMapa
+class PaginaMapaDresMapa
 {
 
 	public function __construct()
