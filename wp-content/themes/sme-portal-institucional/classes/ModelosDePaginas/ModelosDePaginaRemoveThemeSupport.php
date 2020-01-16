@@ -51,6 +51,8 @@ class ModelosDePaginaRemoveThemeSupport
 			//remove_post_type_support( 'page', 'thumbnail' );
 		}elseif ($this->page_template_slug === 'pagina-mais-noticias.php'){
 			remove_post_type_support( 'page', 'editor' );
+		}elseif ($this->page_template_slug === 'pagina-mapa-dres.php'){
+			remove_post_type_support( 'page', 'editor' );
 		}
 	}
 

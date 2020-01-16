@@ -91,13 +91,13 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNo
 require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasOutrasNoticias.php';
 require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasNewsletter.php';
 
+require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMapaDres/PaginaMapaDres.php';
+require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMapaDres/PaginaMapaDresMapa.php';
+require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMapaDres/PaginaMapaDresBotoes.php';
+require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMapaDres/PaginaMapaDresBlocosDeTextosAdicionais.php';
+
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolas.php';
-
-require_once __ROOT__.'/classes/MapaDres/MapaDresRewriteUrl.php';
-require_once __ROOT__.'/classes/MapaDres/MapaDres.php';
-require_once __ROOT__.'/classes/MapaDres/MapaDresMapa.php';
-require_once __ROOT__.'/classes/MapaDres/MapaDresBotoes.php';
 
 require_once __ROOT__.'/classes/Breadcrumb/Breadcrumb.php';
 
