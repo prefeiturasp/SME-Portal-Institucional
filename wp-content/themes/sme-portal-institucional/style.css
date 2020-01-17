@@ -625,3 +625,37 @@ fieldset legend, .esconde-item-acessibilidade{
 .nav-link {
     padding: .5rem 1.05rem;
 }
+/*/////////////////////////////////////////////////////////////////////////////
+///////////////////////////icones persona home/////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////*/
+.container-fluid-botoes-persona{
+	background-color: #F6F6F6;
+	display: block;
+	padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+.container-botoes-persona{
+	background-color: #fff;
+	display: block;
+	padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+.container-a-icones-home{
+	background-color: #F6F6F6;
+}
+.container-a-icones-home:nth-child(1){
+	border-left: solid 2px #fff !important;
+}
+.container-a-icones-home:nth-child(2){
+	border-right: solid 2px #fff !important;
+	border-left: solid 2px #fff !important;
+}
+.container-a-icones-home:nth-child(3){
+	border-right: solid 1.5px #fff !important;
+}
+.icones-home-svg:active,
+.icones-home-svg:focus {
+  filter:  brightness(75%);
+}
+/*/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////*/
