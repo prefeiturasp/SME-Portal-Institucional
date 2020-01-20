@@ -22,6 +22,7 @@ require_once __ROOT__.'/classes/Cpt/CptOrganograma.php';
 require_once __ROOT__.'/classes/Cpt/CptAba.php';
 require_once __ROOT__.'/classes/Cpt/CptBotao.php';
 require_once __ROOT__.'/classes/Cpt/CptCurriculoDaCidade.php';
+require_once __ROOT__.'/classes/Cpt/cptProgramaProjeto.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';
@@ -54,6 +55,7 @@ require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/Arch
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/ArchiveOrganogramaDresMobile.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/Mobile/ArchiveOrganogramaRodape.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveCurriculoDaCidade/ArchiveCurriculoDaCidade.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveProgramaProjeto/ArchiveProgramaProjeto.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/GetTipoDePost.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/SearchForm.php';
@@ -91,13 +93,13 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNo
 require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasOutrasNoticias.php';
 require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasNewsletter.php';
 
+require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMapaDres/PaginaMapaDres.php';
+require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMapaDres/PaginaMapaDresMapa.php';
+require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMapaDres/PaginaMapaDresBotoes.php';
+require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMapaDres/PaginaMapaDresBlocosDeTextosAdicionais.php';
+
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolas.php';
-
-require_once __ROOT__.'/classes/MapaDres/MapaDresRewriteUrl.php';
-require_once __ROOT__.'/classes/MapaDres/MapaDres.php';
-require_once __ROOT__.'/classes/MapaDres/MapaDresMapa.php';
-require_once __ROOT__.'/classes/MapaDres/MapaDresBotoes.php';
 
 require_once __ROOT__.'/classes/Breadcrumb/Breadcrumb.php';
 
@@ -127,3 +129,6 @@ $taxonomiaMediaImages = new \Classes\Cpt\CptMediaImages();
 
 $cptCurriculoDaCidade = new \Classes\Cpt\Cpt('curriculo-da-cidade', 'curriculo-da-cidade', 'Currículo da Cidade', 'Todos os Currículos', 'Currículos da Cidade', 'Currículo da Cidade', 'categorias-curriculo-da-cidade', 'Categorias de Currículos', 'Categoria de Currículo', 'dashicons-format-image', true);
 $cptCurriculoDaCidadeExtende = new \Classes\Cpt\CptCurriculoDaCidade();
+
+$cptProgramasEProjetos = new \Classes\Cpt\Cpt('programa-projeto', 'programa-projeto', 'Programas e Projetos', 'Todos os Programas e Projetos', 'Programas e Projetos', 'Programas e Projetos', 'categorias-programa-projeto', 'Categorias de Programas e Projetos', 'Categoria de Programas e Projetos', 'dashicons-format-image', true);
+$cptProgramasEProjetosExtende = new \Classes\Cpt\CptProgramasEProjetos();

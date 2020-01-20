@@ -23,12 +23,14 @@ $s(function () {
         $s('body,html').animate({scrollTop: 0}, 800);
     });
 });
-
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////icones persona home/////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 function removeBackgroundColor(id_link_atual) {
     $s('.container-a-icones-home').each(function (e) {
         var id_li_atual = this.id;
         if (id_li_atual != id_link_atual) {
-            $s(this).css('background-color', 'white')
+            $s(this).css('background-color', '#F6F6F6')
         }
     })
 }
@@ -38,11 +40,15 @@ $s(document).ready(function () {
         $s(this).click(function (e) {
             var id_link_atual = e.currentTarget.id;
             var elemento_pai = $s(this).parent();
-            elemento_pai.css('background-color', '#EAEAEA');
+            elemento_pai.css('background-color', '#ECECEC');
             removeBackgroundColor(id_link_atual);
+			//add hover no avg
+			$s(this).on('icones-home').addClass('icones-home-svg');	 		
         });
     });
 });
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 // Removendo rodape Hand-Talk{
 $s("._2l9ogse-9T4ParAkBl58xA").waitUntilExists(function (e) {
