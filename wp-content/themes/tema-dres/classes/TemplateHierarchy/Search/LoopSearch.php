@@ -89,9 +89,9 @@ class LoopSearch
 			$this->montaHtmlSearchPersonalizado("Currículo da Cidade", 'curriculo-da-cidade');
 		}
 
-		$texto_buscado_agenda = array('Agenda', 'agenda', 'Agenda do Secretário', 'agenda do secretário', 'Agenda do Secretario', 'agenda do secretario');
+		$texto_buscado_agenda = array('Agenda', 'agenda', 'Agenda da DRE', 'agenda da DRE', 'Agenda da DRE', 'agenda da DRE');
 		if (in_array($campo_de_busca, $texto_buscado_agenda)) {
-			$this->montaHtmlSearchPersonalizado("Agenda do Secretário de Educação", 'agenda');
+			$this->montaHtmlSearchPersonalizado("Agenda da DRE de Educação", 'agenda');
 		}
 
 		$texto_buscado_busca_de_escolas = array('Escolas', 'escola', 'Busca de Escolas', 'busca de escolas', 'busca de escola', 'encontrar uma escola');
@@ -111,12 +111,12 @@ class LoopSearch
             <div class="row mb-4">
                 <div class="col-lg-12 pb-4 border-bottom">
                     <h4 class="fonte-dezoito font-weight-bold mb-2">
-                        <a class="text-decoration-none text-dark" href="<?= STM_URL . '/' . $url . '/'  ?>">
+                        <a class="text-decoration-none text-dark" href="<?= STM_URL . '/' . $url ?>">
 							<?= $titulo ?>
                         </a>
                     </h4>
                     <div class="col-12">
-                        <a class="btn btn-primary" href="<?= STM_URL . '/' . $url . '/' ?>"><?php echo VEJAMAIS ?></a>
+                        <a class="btn btn-primary" href="<?= STM_URL . '/' . $url ?>"><?php echo VEJAMAIS ?></a>
                     </div>
                 </div>
             </div>
