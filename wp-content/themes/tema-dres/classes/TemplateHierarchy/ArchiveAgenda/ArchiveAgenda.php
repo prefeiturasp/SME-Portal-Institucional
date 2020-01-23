@@ -39,13 +39,13 @@ class ArchiveAgenda extends Util
 			<section id="mostra_data"></section>
 			<!-- Monta a lista ordenada por horário -->
 			<section class="agenda-ordenada"></section>
-			<ul class="pagination" id="pagin">
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-			</ul>
-			<div id="pagination-container"></div>
+            <!-- Monta a paginação -->
+            <ul class="pagination" id="pagin">
+                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>-->
+            </ul>
 		</section>
 		<?php
 	}

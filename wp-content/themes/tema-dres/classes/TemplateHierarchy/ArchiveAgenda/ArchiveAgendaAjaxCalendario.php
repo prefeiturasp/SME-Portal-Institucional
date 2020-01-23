@@ -113,23 +113,7 @@ class ArchiveAgendaAjaxCalendario extends Util
 			</article>
 		
 		
-		<?php 
-		/*$total_pages = $query->max_num_pages;
-		if($total_pages > 1){
-			$current_page = max(1, get_query_var('paged'));
-        echo paginate_links(array(
-            'base' => str_replace( 999999999, '%#%', get_pagenum_link( 999999999 ) ),
-            'format' => '?paged=%#%',
-            'current' => $current_page,
-            'total' => $total_pages,
-            'prev_text'    => __('«'),
-            'next_text'    => __('»'),
-			'show_all' => false,
-			'add_args'     => false,
-            'mid_size' => 3,
-            'end_size' => 1
-        ));
-		}*/
+		<?php
 		
 		endwhile;
 		else:

@@ -57,6 +57,7 @@ datas_agendas
         if (primeiro_clique){
             $( ".ic__day_state_current" ).each(function( index ) {
                 $( this ).removeClass("ic__day_state_current");
+                $(".pagination").html("");
             });
         }
 
@@ -119,32 +120,36 @@ datas_agendas
 				//verifica se já tem evento listado
 				if ( $("#eventos-agenda").length ){
 					//conta a quantidade de eventos listados
-					jQuery('.agenda-ordenada').each(function(){
-						jQuery(this).data('childs', jQuery(this).children('.agenda').size())
+					$('.agenda-ordenada').each(function(){
+                        $(this).data('childs', $(this).children('.agenda').size());
 					})
-					//verifica se tem conteudo
-					if((jQuery('.agenda-ordenada:eq(0)').data('childs'))>0){
-						//alert('Qt conteudo: '+ jQuery('.agenda-ordenada:eq(0)').data('childs'));
-						pageSize = 2;
+                    //verifica se tem conteudo
+					if(($('.agenda-ordenada:eq(0)').data('childs'))>1){
 
-						showPage = function(page) {
-							$(".agenda").hide();
-							$(".agenda").each(function(n) {
-								if (n >= pageSize * (page - 1) && n < pageSize * page)
-									$(this).show();
-							});        
-						}
+                        pageSize = 2;
 
-						showPage(1);
+                        var pageCount = $('.agenda-ordenada:eq(0)').data('childs');
+                        var pagTotal = Math.ceil(pageCount / pageSize ) ;
+                        for(var i = 0 ; i<pagTotal;i++){
+                           $("#pagin").append('<li class="page-item"><a class="page-link" href="#">'+(i+1)+'</a></li> ');
+                        }
+                        $("#pagin li").first().addClass("active")
+                        showPage = function(page) {
+                            $(".agenda").hide();
+                            $(".agenda").each(function(n) {
+                                if (n >= pageSize * (page - 1) && n < pageSize * page)
+                                    $(this).show();
+                            });
+                        }
+                        showPage(1);
 
-						$("#pagin li a").click(function() {
-							$("#pagin li a").removeClass("current");
-							$(this).addClass("current");
-							showPage(parseInt($(this).text())) 
-						});
-					   }else{
-						   alert('não tem conteudo');
-					 }
+                        $("#pagin li").click(function() {
+                            $("#pagin li").removeClass("active");
+                            $(this).addClass("active");
+                            showPage(parseInt($(this).text()))
+                        });
+
+					}
 				}
 				//////////////////////////////////
 				//////////////////////////////////	
