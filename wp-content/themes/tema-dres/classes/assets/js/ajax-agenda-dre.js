@@ -53,7 +53,7 @@ datas_agendas
     });
 
     function getAnoMesCalendario() {
-
+		
         if (primeiro_clique){
             $( ".ic__day_state_current" ).each(function( index ) {
                 $( this ).removeClass("ic__day_state_current");
@@ -92,7 +92,6 @@ datas_agendas
             if(jQuery.inArray( data_completa, datas_agendas) >= 0 ){
                 this.innerHTML = '<span class="'+ classe_css +'">'+this.textContent+'</span>';
             }
-			console.log('teste'+ datas_agendas);
         });
     }
 
@@ -113,8 +112,45 @@ datas_agendas
                 conteudo_a_ser_exibido.html($data);
 				var atual = new Date();
 				var data_atual = moment(atual).format('YYYYMMDD');
+				//////////////////////////////////
+				//////////////////////////////////
+				//////////////////////////////////
+				//////////////////////////////////
+				//verifica se já tem evento listado
+				if ( $("#eventos-agenda").length ){
+					//conta a quantidade de eventos listados
+					jQuery('.agenda-ordenada').each(function(){
+						jQuery(this).data('childs', jQuery(this).children('.agenda').size())
+					})
+					//verifica se tem conteudo
+					if((jQuery('.agenda-ordenada:eq(0)').data('childs'))>0){
+						//alert('Qt conteudo: '+ jQuery('.agenda-ordenada:eq(0)').data('childs'));
+						pageSize = 2;
+
+						showPage = function(page) {
+							$(".agenda").hide();
+							$(".agenda").each(function(n) {
+								if (n >= pageSize * (page - 1) && n < pageSize * page)
+									$(this).show();
+							});        
+						}
+
+						showPage(1);
+
+						$("#pagin li a").click(function() {
+							$("#pagin li a").removeClass("current");
+							$(this).addClass("current");
+							showPage(parseInt($(this).text())) 
+						});
+					   }else{
+						   alert('não tem conteudo');
+					 }
+				}
+				//////////////////////////////////
+				//////////////////////////////////	
+				//////////////////////////////////	
+				//////////////////////////////////	
             },
         });
-		
     }
 });

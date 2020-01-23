@@ -8,6 +8,7 @@ class ArchiveAgendaGetDatasEventos
 	private $array_ids;
 	private $array_datas;
 	public function __construct()
+
 	{
 		$this->init();
 	}
@@ -18,6 +19,7 @@ class ArchiveAgendaGetDatasEventos
 			$this->getTodosIdCtpAgenda();
 			$this->getDatasCptAgenda();
 		}
+		console.log($this->getTodosIdCtpAgenda());
 	}
 	public function getTodosIdCtpAgenda(){
 		$this->args_ids = array(
@@ -40,16 +42,23 @@ class ArchiveAgendaGetDatasEventos
 			foreach ($this->query_ids as $item){
 				$this->array_ids[] = $item->ID;
 			}
+            foreach ($this->array_ids as $id){
+                $this->array_datas[] = get_field('data_do_evento', $id);
+                console.log($id);
+            }
+            $this->array_datas = json_encode($this->array_datas);
+            echo '<input type="hidden" name="array_datas_agenda" id="array_datas_agenda" value='.$this->array_datas.'>';
 		}
 	}
-	public function getDatasCptAgenda(){
+	/*public function getDatasCptAgenda(){
 		foreach ($this->array_ids as $id){
 			$this->array_datas[] = get_field('data_do_evento', $id);
+            console.log($id);
 		}
 		$this->array_datas = json_encode($this->array_datas);
 
 		//echo '<div name="array_datas_agenda" id="array_datas_agenda">'.$this->array_datas.'</div>';
 		echo '<input type="hidden" name="array_datas_agenda" id="array_datas_agenda" value='.$this->array_datas.'>';
-	}
+	}*/
 }
 new ArchiveAgendaGetDatasEventos;

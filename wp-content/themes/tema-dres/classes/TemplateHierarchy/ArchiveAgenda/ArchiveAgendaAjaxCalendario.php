@@ -27,11 +27,11 @@ class ArchiveAgendaAjaxCalendario extends Util
 	}
 
 	public function montaQueryAgenda($data_recebida_ao_clicar){
-		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+		//$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 		$args = array(
 			'post_type' => 'agenda',
-			'posts_per_page' => 2,
-    		'paged' => $paged,
+			//'posts_per_page' => 2,
+    		//'paged' => $paged,
 			'meta_key'     => 'data_do_evento',
 			'meta_value'   => $data_recebida_ao_clicar, // change to how "event date" is stored
 			'meta_compare' => '=',
@@ -43,27 +43,32 @@ class ArchiveAgendaAjaxCalendario extends Util
 			<article class="col-lg-12 col-xs-12">
 				<div class="agenda mb-4">
 					<div class="order_hri"><?php
-				//converte campo hora por extenso para ordenar
-				 $hri = $this->getCamposPersonalizados('hora_do_evento');
-				 echo $hri=date('His',$hri);?></div>
+					//converte campo hora por extenso para ordenar
+					 $hri = $this->getCamposPersonalizados('hora_do_evento');
+					 echo $hri=date('His',$hri);?></div>
 					
 					<!--Data do evento-->
-					<div class="horario d-inline"><?= $this->getCamposPersonalizados('data_do_evento').' das ' ?></div>
+					<div id="eventos-agenda" class="horario d-inline"><?= $this->getCamposPersonalizados('data_do_evento').' das ' ?></div>
 					<!--Data do evento-->
+					
+					<!--Hora do evento-->
 					<div class="horario d-inline"><?= $this->getCamposPersonalizados('hora_do_evento') ?> <?= 'às '.$this->getCamposPersonalizados('fim_do_evento') ?></div> |
 					<div class="evento d-inline"><?= get_the_title()?></div>
+					<!--Hora do evento-->
+					
+					<!--Paulta-->
 					<div class="local"><?php 					
 						if ($this->getCamposPersonalizados('pauta_assunto') !== null && $this->getCamposPersonalizados('pauta_assunto') !== ''){
 					?>
-						<div class="local"><strong>Pauta/Assunto:</strong> <?= $this->getCamposPersonalizados('pauta_assunto') ?></div>
+					<div class="local"><strong>Pauta/Assunto:</strong> <?= $this->getCamposPersonalizados('pauta_assunto') ?></div>
 					<?php } ?></div>
+					<!--Paulta-->
 					
 					<!--Endereço-->
 					<div class="local"><?php 					
 						if ($this->getCamposPersonalizados('endereco_do_evento') !== null && $this->getCamposPersonalizados('endereco_do_evento') !== ''){
 					?>
 						<div class="local"><strong>Local:</strong> <?= $this->getCamposPersonalizados('endereco_do_evento') ?></div>
-					<?php } ?></div>
 					<!--Endereço-->
 					
 					<!--Participantes-->
@@ -96,18 +101,36 @@ class ArchiveAgendaAjaxCalendario extends Util
 						}).appendTo(".agenda-ordenada");
 						//oculta campo hora
 						jQuery(".order_hri").hide();
+						
 						</script>';
 					?>
 					<!--Reoordena por horario-->
 					
+					<?php } ?></div>
+					
 				</div>
-				<?php
 				
-				?>
 			</article>
-
-		<?php
-
+		
+		
+		<?php 
+		/*$total_pages = $query->max_num_pages;
+		if($total_pages > 1){
+			$current_page = max(1, get_query_var('paged'));
+        echo paginate_links(array(
+            'base' => str_replace( 999999999, '%#%', get_pagenum_link( 999999999 ) ),
+            'format' => '?paged=%#%',
+            'current' => $current_page,
+            'total' => $total_pages,
+            'prev_text'    => __('«'),
+            'next_text'    => __('»'),
+			'show_all' => false,
+			'add_args'     => false,
+            'mid_size' => 3,
+            'end_size' => 1
+        ));
+		}*/
+		
 		endwhile;
 		else:
 			echo '<p><strong>Não existem eventos cadastrados nesta data</strong></p>';

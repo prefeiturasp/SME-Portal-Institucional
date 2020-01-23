@@ -581,7 +581,7 @@ define('STM_SITE_NAME', get_bloginfo('name'));
 define('STM_SITE_DESCRIPTION', get_bloginfo('description'));
 //define('__ROOT__', dirname(dirname(__FILE__)).'./sme-portal-institucional');
 
-define('__ROOT__', dirname(dirname(__FILE__)).'/tema-dres');
+define('__ROOT__', dirname(dirname(__FILE__)).'./tema-dres/');
 
 if ($_GET && $_GET['lang'] == 'en') {
 	require_once('includes/en.php');
