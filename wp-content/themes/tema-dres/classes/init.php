@@ -20,6 +20,7 @@ require_once __ROOT__.'/classes/Cpt/Cpt.php';
 require_once __ROOT__.'/classes/Cpt/CptPosts.php';
 require_once __ROOT__.'/classes/Cpt/CptPages.php';
 require_once __ROOT__.'/classes/Cpt/CptAgendaDre.php';
+require_once __ROOT__.'/classes/Cpt/CptContatoPrincipal.php';
 //require_once __ROOT__.'/classes/Cpt/CptMediaImages.php';
 //////////////////////////////////////////CPT/////////////////////////////////////////
 
@@ -43,16 +44,14 @@ require_once __ROOT__ .'/classes/TemplateHierarchy/Search/LoopSearchSingle.php';
 
 ////////////////////////////////////MODELO DE PAGINAS///////////////////////////////////////
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicial.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialIconesDetectMobile.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialIcones.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/Mobile/PaginaInicialIconesMobile.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaquePrimaria.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaqueSecundarias.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialTwitter.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNewsletter.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialFacebook.php';
-//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaImagemVideo/PaginaImagemVideo.php';
-//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunas.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialEscolares.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialAgenda.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialEndereco.php';
+
+
+
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticias.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasArrayIdNoticias.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasMenu.php';
@@ -72,6 +71,11 @@ $cptPagessExtend = new \Classes\Cpt\CptPages();
 //////////////////////////////////////AGENDA DRE//////////////////////////////////////
 $cptAgendaDre = new \Classes\Cpt\Cpt('agenda', 'agenda', 'Agenda da DRE', 'Todos os Eventos', 'Eventos', 'Eventos', null, null, null, 'dashicons-calendar-alt', true);
 $cptAgendaDreExtend = new \Classes\Cpt\CptAgendaDre();
+//////////////////////////////////////AGENDA DRE//////////////////////////////////////
+
+//////////////////////////////////////CONTATOS PRINCIPAIS//////////////////////////////////////
+$cptContatoPrincipal = new \Classes\Cpt\Cpt('contato-principal', 'contato-principal', 'Contatos Principais', 'Todos os Contato', 'Contatos', 'Contatos', null, null, null, 'dashicons-calendar-alt', true);
+$cptContatoPrincipalExtend = new \Classes\Cpt\CptContatoPrincipal();
 //////////////////////////////////////AGENDA DRE//////////////////////////////////////
 
 //$taxonomiaMediaImages = new \Classes\Cpt\CptMediaImages();

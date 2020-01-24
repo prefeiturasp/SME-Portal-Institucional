@@ -581,7 +581,7 @@ define('STM_SITE_NAME', get_bloginfo('name'));
 define('STM_SITE_DESCRIPTION', get_bloginfo('description'));
 //define('__ROOT__', dirname(dirname(__FILE__)).'./sme-portal-institucional');
 
-define('__ROOT__', dirname(dirname(__FILE__)).'./tema-dres/');
+define('__ROOT__', dirname(dirname(__FILE__)).'/tema-dres');
 
 if ($_GET && $_GET['lang'] == 'en') {
 	require_once('includes/en.php');
@@ -610,15 +610,15 @@ add_filter('upload_mimes', 'cc_mime_types');
 
 
 function _question_register_post_type(){
-    register_taxonomy( 
+    register_taxonomy(
     'agenda-tag',
-    'agenda', 
-    array( 
-        'hierarchical'  => false, 
-        'label'         => __( 'Agenda Tags','taxonomy general name'), 
-        'singular_name' => __( 'Tag', 'taxonomy general name' ), 
-        'rewrite'       => true, 
-        'query_var'     => true 
+    'agenda',
+    array(
+        'hierarchical'  => false,
+        'label'         => __( 'Agenda Tags','taxonomy general name'),
+        'singular_name' => __( 'Tag', 'taxonomy general name' ),
+        'rewrite'       => true,
+        'query_var'     => true
     ));
 }
 add_action('init', '_question_register_post_type');

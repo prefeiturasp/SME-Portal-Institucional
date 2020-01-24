@@ -95,6 +95,8 @@ datas_agendas
             }
         });
     }
+	
+	
 
     function redebe_data(data_recebida) {
         var conteudo_a_ser_exibido = $('#mostra_data');
@@ -113,25 +115,26 @@ datas_agendas
                 conteudo_a_ser_exibido.html($data);
 				var atual = new Date();
 				var data_atual = moment(atual).format('YYYYMMDD');
-				//////////////////////////////////
-				//////////////////////////////////
-				//////////////////////////////////
-				//////////////////////////////////
+				////////////////////////////////////////
+				////////////PAGINACAO AGENDA////////////
+                ///////////////////////////////////////
 				//verifica se já tem evento listado
 				if ( $("#eventos-agenda").length ){
 					//conta a quantidade de eventos listados
 					$('.agenda-ordenada').each(function(){
                         $(this).data('childs', $(this).children('.agenda').size());
 					})
-                    //verifica se tem conteudo
-					if(($('.agenda-ordenada:eq(0)').data('childs'))>1){
 
-                        pageSize = 2;
+                    //qt de eventos por pagina
+                    //pageSize = 3;
+
+                    //verifica se tem conteudo
+					if(($('.agenda-ordenada:eq(0)').data('childs'))> pageSize){
 
                         var pageCount = $('.agenda-ordenada:eq(0)').data('childs');
                         var pagTotal = Math.ceil(pageCount / pageSize ) ;
                         for(var i = 0 ; i<pagTotal;i++){
-                           $("#pagin").append('<li class="page-item"><a class="page-link" href="#">'+(i+1)+'</a></li> ');
+                           $("#pagin").append('<li class="page-item"><a class="page-link" href="#breadcrumb">'+(i+1)+'</a></li> ');
                         }
                         $("#pagin li").first().addClass("active")
                         showPage = function(page) {
@@ -152,10 +155,17 @@ datas_agendas
 					}
 				}
 				//////////////////////////////////
-				//////////////////////////////////	
-				//////////////////////////////////	
-				//////////////////////////////////	
+			/*if ( is_home() == is_home()  ) {
+				// This is the blog posts index
+				alert('teste home');
+			} else {
+				// This is not the blog posts index
+				alert('teste home');
+			}*/
+				
+				//////////////////////////////////
             },
         });
     }
+	
 });

@@ -8,7 +8,6 @@ class ArchiveAgendaGetDatasEventos
 	private $array_ids;
 	private $array_datas;
 	public function __construct()
-
 	{
 		$this->init();
 	}
@@ -17,7 +16,6 @@ class ArchiveAgendaGetDatasEventos
 		$partes = explode("/", $current_url);
 		if ($partes[1] === 'agenda' || $partes[2] === 'agenda') {
 			$this->getTodosIdCtpAgenda();
-			$this->getDatasCptAgenda();
 		}
 		console.log($this->getTodosIdCtpAgenda());
 	}
@@ -28,14 +26,7 @@ class ArchiveAgendaGetDatasEventos
 			'posts_per_page' => -1,
 			'meta_key' => 'data_do_evento',
 			'orderby' => 'meta_value',
-			'order' => 'ASC',
-			/*'meta_query' => array(
-				array(
-					'key' => 'data_do_evento',
-					'value' => date("d/m/Y"), // date format error
-					'compare' => '<='
-				)
-			)*/
+			'order' => 'ASC'
 		);
 		$this->query_ids = get_posts($this->args_ids);
 		if ($this->query_ids){
@@ -47,18 +38,11 @@ class ArchiveAgendaGetDatasEventos
                 console.log($id);
             }
             $this->array_datas = json_encode($this->array_datas);
-            echo '<input type="hidden" name="array_datas_agenda" id="array_datas_agenda" value='.$this->array_datas.'>';
+
+            if ( ! is_admin() ) {
+                echo '<input type="hidden" name="array_datas_agenda" id="array_datas_agenda" value='.$this->array_datas.'>';
+            }
 		}
 	}
-	/*public function getDatasCptAgenda(){
-		foreach ($this->array_ids as $id){
-			$this->array_datas[] = get_field('data_do_evento', $id);
-            console.log($id);
-		}
-		$this->array_datas = json_encode($this->array_datas);
-
-		//echo '<div name="array_datas_agenda" id="array_datas_agenda">'.$this->array_datas.'</div>';
-		echo '<input type="hidden" name="array_datas_agenda" id="array_datas_agenda" value='.$this->array_datas.'>';
-	}*/
 }
 new ArchiveAgendaGetDatasEventos;

@@ -40,6 +40,7 @@ class LoadDependences
 		wp_enqueue_script('ion_calendar');
 		wp_register_script('ajax-agenda-dre',  STM_THEME_URL . 'classes/assets/js/ajax-agenda-dre.js', array ('jquery'), false, false);
 		wp_enqueue_script('ajax-agenda-dre');
+		
 		wp_localize_script('ajax-agenda-dre', 'bloginfo', array('ajaxurl' => admin_url('admin-ajax.php')));
 		add_action('wp_ajax_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendario(), 'montaHtmlListaEventos' ));
 		add_action('wp_ajax_nopriv_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendario(), 'montaHtmlListaEventos'));
