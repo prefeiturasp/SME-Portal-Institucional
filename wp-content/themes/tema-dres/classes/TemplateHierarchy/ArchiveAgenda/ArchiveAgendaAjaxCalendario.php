@@ -52,9 +52,16 @@ class ArchiveAgendaAjaxCalendario extends Util
 					<!--Data do evento-->
 					
 					<!--Hora do evento-->
-					<div class="horario d-inline"><?= $this->getCamposPersonalizados('hora_do_evento') ?> <?= 'às '.$this->getCamposPersonalizados('fim_do_evento') ?></div> |
-					<div class="evento d-inline"><?= get_the_title()?></div>
+					<div class="horario d-inline"><?= $this->getCamposPersonalizados('hora_do_evento') ?>
+                        <?php if($this->getCamposPersonalizados('fim_do_evento') !== null && $this->getCamposPersonalizados('fim_do_evento') !== ''){
+                            echo 'às '.$this->getCamposPersonalizados('fim_do_evento');
+                        }?>
+                    </div> |
 					<!--Hora do evento-->
+
+                    <!--Nome do evento-->
+                    <div class="evento d-inline"><?= get_the_title()?></div>
+                    <!--Nome do evento-->
 					
 					<!--Paulta-->
 					<div class="local"><?php 					
@@ -65,7 +72,7 @@ class ArchiveAgendaAjaxCalendario extends Util
 					<!--Paulta-->
 					
 					<!--Endereço-->
-					<div class="local"><?php 					
+					<p class="local"><?php
 						if ($this->getCamposPersonalizados('endereco_do_evento') !== null && $this->getCamposPersonalizados('endereco_do_evento') !== ''){
 					?>
 						<div class="local"><strong>Local:</strong> <?= $this->getCamposPersonalizados('endereco_do_evento') ?></div>
@@ -81,8 +88,8 @@ class ArchiveAgendaAjaxCalendario extends Util
 					<!--Participantes-->
 					
 					<!--Tags agenda-->
-					<?php $tag_list = $tags = get_the_term_list( $post->ID, 'agenda-tag', '<div><span class="agenda_tag">','</span><span class="agenda_tag">','</span></div>');
-					print $tag_list; ?>
+                    <p><?php $tag_list = $tags = get_the_term_list( $post->ID, 'agenda-tag', '<div><span class="agenda_tag">','</span><span class="agenda_tag">','</span></div>');
+                        print $tag_list; ?></p>
 					<!--Tags agenda-->
 					
 					<!--Reoordena por horario-->
@@ -111,11 +118,12 @@ class ArchiveAgendaAjaxCalendario extends Util
 				</div>
 				
 			</article>
-		
+			
 		
 		<?php
 		
 		endwhile;
+			
 		else:
 			echo '<p><strong>Não existem eventos cadastrados nesta data</strong></p>';
 		endif;

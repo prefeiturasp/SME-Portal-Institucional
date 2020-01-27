@@ -25,9 +25,12 @@ class PaginaInicialAgenda extends Util
 		?>
 		<script>
 			jQuery(document).ready(function ($) {
-			pageSize = 2;
-				//alert('teste');
-			$(".pagination").hide();
+				pageSize = 2;
+					//alert('Paginacao ok');
+				$(".pagination").hide();
+				$("#btn-mais-eventos").click(function () {
+					window.location.href="<?php echo get_site_url(); ?>/agenda/";
+				});
 			});
 		</script>
 		<section class="container mt-5 mb-5 noticias">
@@ -39,10 +42,7 @@ class PaginaInicialAgenda extends Util
 		</section>
 		<section class="col-lg-6 col-xs-12">
 			<section class="calendario-agenda-sec d-block mb-5 border-bottom pb-5"></section>
-			<button class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Acessar mais eventos</button>
 		</section>
-
-
 		<?php
 	}
 
@@ -56,6 +56,7 @@ class PaginaInicialAgenda extends Util
             <!-- Monta a paginação -->
             <ul class="pagination" id="pagin">
             </ul>
+			<?php echo '<button id="btn-mais-eventos" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Acessar mais eventos</button>'; ?>
 		</section>
 		<?php
 	}
