@@ -49,7 +49,7 @@ class PaginaInicialAgenda extends Util
 	public function insereDivRecebeData(){
 		?>
 		<section class="col-lg-6 col-xs-12">
-			<h2 class="data_agenda mb-4 pb-2 border-bottom">Dia do Evento</h2>
+			<h2 class="">Próximos eventos</h2>
 			<section id="mostra_data"></section>
 			<!-- Monta a lista ordenada por horário -->
 			<section class="agenda-ordenada"></section>

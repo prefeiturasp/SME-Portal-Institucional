@@ -88,11 +88,10 @@ class ArchiveAgendaAjaxCalendario extends Util
 					<!--Participantes-->
 					
 					<!--Tags agenda-->
-                    <p><?php $tag_list = $tags = get_the_term_list( $post->ID, 'agenda-tag', '<div><span class="agenda_tag">','</span><span class="agenda_tag">','</span></div>');
+                    <p><?php $tag_list = $tags = get_the_term_list( $post->ID, 'agenda-tag', '<div class="local"><strong>Tags:</strong> <span class="agenda_tag">','</span><span class="agenda_tag">','</span></div>');
                         print $tag_list; ?></p>
 					<!--Tags agenda-->
-					
-					<!--Reoordena por horario-->
+
 					<?php
 					echo'<script>
 						//limpa div a cada click

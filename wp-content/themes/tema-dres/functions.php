@@ -608,7 +608,7 @@ add_filter('upload_mimes', 'cc_mime_types');
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-
+/////////Tags agenda//////////////////////
 function _question_register_post_type(){
     register_taxonomy(
     'agenda-tag',
@@ -622,3 +622,35 @@ function _question_register_post_type(){
     ));
 }
 add_action('init', '_question_register_post_type');
+
+////////Opções Gerais////////
+if( function_exists('acf_add_options_page') ) {
+
+    acf_add_options_page(array(
+        'page_title' 	=> 'Configurações Gerais',
+        'menu_title'	=> 'Opções Gerais',
+        'menu_slug' 	=> 'conf-geral',
+        'position' => '3',
+        //'capability'	=> 'edit_posts',
+        //'redirect'		=> false
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações da Página Inicial',
+        'menu_title'	=> 'Página Inicial',
+        'parent_slug'	=> 'conf-geral',
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações de Unidades Escolares e CEUS',
+        'menu_title'	=> 'Unidades Escolares e CEUS',
+        'parent_slug'	=> 'conf-geral',
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações de Endereços e Responsáveis',
+        'menu_title'	=> 'Endereços e Responsáveis',
+        'parent_slug'	=> 'conf-geral',
+    ));
+
+}
