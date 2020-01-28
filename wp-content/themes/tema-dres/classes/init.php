@@ -21,6 +21,7 @@ require_once __ROOT__.'/classes/Cpt/CptPosts.php';
 require_once __ROOT__.'/classes/Cpt/CptPages.php';
 require_once __ROOT__.'/classes/Cpt/CptAgendaDre.php';
 require_once __ROOT__.'/classes/Cpt/CptContatoPrincipal.php';
+require_once __ROOT__.'/classes/Cpt/CptOutrosContatos.php';
 //require_once __ROOT__.'/classes/Cpt/CptMediaImages.php';
 //////////////////////////////////////////CPT/////////////////////////////////////////
 
@@ -33,6 +34,7 @@ require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleNoticiaPr
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMaisRecentes.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleRelacionadas.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContatoPrincipal/ArchiveContatoPrincipal.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOutrosContatos/ArchiveOutrosContatos.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgenda.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaAjaxCalendario.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaGetDatasEventos.php';
@@ -75,8 +77,13 @@ $cptAgendaDreExtend = new \Classes\Cpt\CptAgendaDre();
 //////////////////////////////////////AGENDA DRE//////////////////////////////////////
 
 //////////////////////////////////////CONTATOS PRINCIPAIS//////////////////////////////////////
-$cptContatoPrincipal = new \Classes\Cpt\Cpt('contatoprincipal', 'contatoprincipal', 'Contatos Principais', 'Todos os Contato', 'Contatos', 'Contatos', null, null, null, 'dashicons-calendar-alt', true);
+$cptContatoPrincipal = new \Classes\Cpt\Cpt('contatoprincipal', 'contatoprincipal', 'Contatos Principais', 'Todos os Contatos', 'Contatos', 'Contatos', null, null, null, 'dashicons-calendar-alt', true);
 $cptContatoPrincipalExtend = new \Classes\Cpt\CptContatoPrincipal();
+////////////////////////////////////////AGENDA DRE//////////////////////////////////////
+
+////////////////////////////////////// OUTROS CONTATOS//////////////////////////////////////
+$cptOutrosContatos = new \Classes\Cpt\Cpt('outroscontatos', 'outroscontatos', 'Outros Contatos', 'Todos os Contatos', 'Contatos', 'Contatos', null, null, null, 'dashicons-calendar-alt', true);
+$cptOutrosContatosExtend = new \Classes\Cpt\CptOutrosContatos();
 //////////////////////////////////////AGENDA DRE//////////////////////////////////////
 
 //$taxonomiaMediaImages = new \Classes\Cpt\CptMediaImages();

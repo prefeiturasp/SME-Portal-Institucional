@@ -13,8 +13,7 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
 
 	}
 
-	public function montaQueryNoticiasHomePrincipal()
-	{
+	public function montaQueryNoticiasHomePrincipal(){
 		$this->args_noticas_home_principal = array(
 			'post_type' => 'post',
 			'meta_query' => array(
@@ -42,8 +41,22 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
 
 	}
 
-	public function montaHtmlLoopNoticiaPrincipal()
-	{
+	public function montaHtmlLoopNoticiaPrincipal()	{
+
+
+        /*$posts = get_field('primeiro_destaque', 'option');
+        if( $posts ): */?><!--
+            <?php /*foreach( $posts as $post):*/?>
+                <?php /*setup_postdata($post); */?>
+                <a href="<?php /*the_permalink(); */?>"><?php /*the_title(); */?></a>
+            <?php /*endforeach; */?>
+            <?php /*wp_reset_postdata(); */?>
+        --><?php /*endif;*/
+
+
+
+
+
 		echo '<section class="col-lg-6 col-xs-12 mb-xs-4">';
 		if ($this->query_noticias_home_principal->have_posts()) : while ($this->query_noticias_home_principal->have_posts()) : $this->query_noticias_home_principal->the_post();
 			$this->id_noticias_home_principal = get_the_ID();

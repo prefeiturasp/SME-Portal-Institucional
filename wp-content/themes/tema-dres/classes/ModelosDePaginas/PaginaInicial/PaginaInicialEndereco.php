@@ -12,6 +12,13 @@ class PaginaInicialEndereco
 
 	public function montaHtmlEndereco(){
 		?>
+        <script>
+            jQuery(document).ready(function ($) {
+                $("#btn-outroscontatos").click(function () {
+                    window.location.href="<?php echo get_site_url(); ?>/outroscontatos/";
+                });
+            });
+        </script>
 		<section class="container mt-5 mb-5 noticias">
             <article class="row mb-4">
                 <article class="col-lg-12 col-xs-12">
@@ -22,7 +29,6 @@ class PaginaInicialEndereco
 		<section class="container mt-5 mb-5">
             <article class="row mb-4">
                 <article style="padding-right: 40px;" class="col-lg-8 col-xs-8">
-
                     <?php
                     query_posts( array(
                         'post_type'  => 'contatoprincipal',
@@ -55,7 +61,7 @@ class PaginaInicialEndereco
                         </div>
                     <?php endwhile;?>
 
-                    <button class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Outros Contatos</button>
+                    <button id="btn-outroscontatos" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Outros Contatos</button>
                 </article>
 				<article  class="col-lg-4 col-xs-4">
 					<p><img src="http://localhost/SME-Portal-Institucional/diretoria-regional-de-educacao-guaianases/wp-content/uploads/sites/4/2020/01/foto.jpg" width="100%"></p>
