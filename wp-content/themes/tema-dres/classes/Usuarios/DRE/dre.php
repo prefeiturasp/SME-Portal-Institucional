@@ -6,7 +6,7 @@ namespace Classes\Usuarios\DRE;
 class DRE
 {
 
-	const ROLE = 'editor';
+	const ROLE = 'dre';
 	private $role_object;
 
 	public function __construct()
@@ -18,15 +18,15 @@ class DRE
 
 	public function getRole(){
 		// get the the role object
-		if (current_user_can('editor')) {
-			$this->role_object = get_role('editor');
+		if (current_user_can('dre')) {
+			$this->role_object = get_role('dre');
 		}
 	}
 
 	public function addCap(){
 
 		// add $cap capability to this role object
-		if (current_user_can('editor')) {
+		if (current_user_can('dre')) {
 			$this->role_object->add_cap('edit_theme_options');
 
 			$this->role_object->add_cap( 'read' );
@@ -109,7 +109,7 @@ class DRE
 
 		$usuario = wp_get_current_user();
 
-		if ($usuario->roles[0] === 'editor') {
+		if ($usuario->roles[0] === 'dre') {
 
 			remove_submenu_page( 'themes.php', 'themes.php' ); // hide the theme selection submenu
 			remove_submenu_page( 'themes.php', 'widgets.php' ); // hide the widgets submenu
@@ -131,4 +131,4 @@ class DRE
 
 }
 
-new Editor();
+new DRE();
