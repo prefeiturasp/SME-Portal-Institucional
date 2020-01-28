@@ -10,20 +10,18 @@ class EnviarParaRevisao
 
 	public function __construct()
 	{
-		$this->page_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'];
+		$this->post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'];
+		$this->setPostStatus(get_post_status($this->post_id));
+		$this->setPostType(get_post_type($this->post_id));
 
-		$this->setPostStatus(get_post_status($this->page_id));
-		$this->setPostType(get_post_type($this->page_id));
+		add_filter('init', array($this, 'reAprovePosts'), '99', 2);
 
-		add_filter('init', array($this, 'reAprovePages'), '99', 2);
-		add_filter( 'init', array($this, 'reAproveCards'), '99', 2 );
-		add_filter( 'init', array($this, 'reAproveAbas'), '99', 2 );
 
 		$user = wp_get_current_user();
 
 		$usuario = new \WP_User($user->ID);
 
-		$post_type = get_post_type($this->page_id);
+		$post_type = get_post_type($this->post_id);
 	}
 
 	public function setPostStatus($post_status)
@@ -53,36 +51,13 @@ class EnviarParaRevisao
 		return $roles[0];
 	}
 
-	public function reAproveCards() {
 
-		if ($this->getRoleUser() == 'contributor' && 'card' === $this->getPostType()){
+	public function reAprovePosts(){
+
+		if ($this->getRoleUser() == 'dre') {
 			if ($this->getPostStatus() == "publish"){
 				wp_update_post(array(
-					'ID'    =>  $this->page_id,
-					'post_status'   =>  'pending'
-				));
-			}
-		}
-	}
-
-	public function reAproveAbas() {
-
-    	if ($this->getRoleUser() == 'contributor' && 'aba' === $this->getPostType()){
-			if ($this->getPostStatus() == "publish"){
-				wp_update_post(array(
-					'ID'    =>  $this->page_id,
-					'post_status'   =>  'pending'
-				));
-			}
-		}
-	}
-
-	public function reAprovePages(){
-
-		if ($this->getRoleUser() == 'contributor') {
-			if ($this->getPostStatus() == "publish"){
-				wp_update_post(array(
-					'ID'    =>  $this->page_id,
+					'ID'    =>  $this->post_id,
 					'post_status'   =>  'pending'
 				));
 			}

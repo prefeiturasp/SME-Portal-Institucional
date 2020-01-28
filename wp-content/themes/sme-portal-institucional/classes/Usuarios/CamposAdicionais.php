@@ -183,7 +183,7 @@ class CamposAdicionais
 	}
 
 	//Exibindo as colunas no Dashboard
-	public function exibe_cols($cols, $post_type)
+	public function exibe_cols($cols)
 	{
 		$cols['setor'] = 'Setor';
 		return $cols;

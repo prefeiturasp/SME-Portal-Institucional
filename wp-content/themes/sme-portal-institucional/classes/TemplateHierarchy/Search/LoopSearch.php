@@ -111,12 +111,12 @@ class LoopSearch
             <div class="row mb-4">
                 <div class="col-lg-12 pb-4 border-bottom">
                     <h4 class="fonte-dezoito font-weight-bold mb-2">
-                        <a class="text-decoration-none text-dark" href="<?= STM_URL . '/' . $url . '/'  ?>">
+                        <a class="text-decoration-none text-dark" href="<?= STM_URL . '/' . $url ?>">
 							<?= $titulo ?>
                         </a>
                     </h4>
                     <div class="col-12">
-                        <a class="btn btn-primary" href="<?= STM_URL . '/' . $url . '/' ?>"><?php echo VEJAMAIS ?></a>
+                        <a class="btn btn-primary" href="<?= STM_URL . '/' . $url ?>"><?php echo VEJAMAIS ?></a>
                     </div>
                 </div>
             </div>

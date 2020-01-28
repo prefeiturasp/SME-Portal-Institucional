@@ -1,35 +1,44 @@
 <?php
+namespace Classes\Usuarios\Dre;
 
-namespace Classes\Usuarios\Editor;
-
-
-class Editor
+class Dre
 {
 
-	const ROLE = 'editor';
+	const ROLE = 'dre';
 	private $role_object;
 
-	public function __construct()
-	{
+	public function __construct(){
+		$this->removeRole();
+		$this->addRole();
 		$this->getRole();
 		$this->addCap();
-		add_action('admin_menu', array($this, 'escondeMenu' ));
+	}
+
+	public function removeRole(){
+		remove_role('dre');
+	}
+
+	public function addRole(){
+		add_role('dre',
+			__('Usuário DRE')
+		);
 	}
 
 	public function getRole(){
 		// get the the role object
-		if (current_user_can('editor')) {
-			$this->role_object = get_role('editor');
+		if (current_user_can('dre')) {
+			$this->role_object = get_role('dre');
 		}
 	}
 
 	public function addCap(){
 
 		// add $cap capability to this role object
-		if (current_user_can('editor')) {
-			$this->role_object->add_cap('edit_theme_options');
+		if (current_user_can('dre')) {
+			//$this->role_object->add_cap('edit_theme_options');
 
 			$this->role_object->add_cap( 'read' );
+			$this->role_object->add_cap( 'edit_posts' );
 
 			$this->role_object->add_cap( 'read_contatoprincipal');
 			$this->role_object->add_cap( 'read_private_contatoprincipals' );
@@ -79,6 +88,7 @@ class Editor
 			$this->role_object->add_cap( 'delete_agendas' );
 			$this->role_object->add_cap( 'assign_agendas' );
 
+
 			$this->role_object->add_cap( 'manage_imagens' );
 			$this->role_object->add_cap( 'edit_imagens' );
 			$this->role_object->add_cap( 'delete_imagens' );
@@ -86,31 +96,6 @@ class Editor
 
 		}
 	}
-
-	public function escondeMenu(){
-
-		$usuario = wp_get_current_user();
-
-		if ($usuario->roles[0] === 'editor') {
-
-			remove_submenu_page( 'themes.php', 'themes.php' ); // hide the theme selection submenu
-			remove_submenu_page( 'themes.php', 'widgets.php' ); // hide the widgets submenu
-			// Remove Appearance -> Customize
-			remove_submenu_page('themes.php', 'customize.php?return=' . urlencode($_SERVER['REQUEST_URI']));
-			global $submenu;
-			unset($submenu['themes.php'][15]); // header_image
-			unset($submenu['themes.php'][20]); // background_image
-			remove_submenu_page( 'themes.php', 'customize.php?return=%2Fwp-admin%2Ftools.php&#038;autofocus%5Bcontrol%5D=background_image' ); // hide the background submenu
-
-			remove_menu_page( 'wpcf7' );
-			remove_menu_page('edit-comments.php');
-			remove_menu_page('tools.php');
-
-
-		}
-
-	}
-
 }
 
-new Editor();
+new Dre();

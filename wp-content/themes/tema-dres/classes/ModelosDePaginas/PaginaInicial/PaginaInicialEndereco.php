@@ -64,10 +64,12 @@ class PaginaInicialEndereco
                     <button id="btn-outroscontatos" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Outros Contatos</button>
                 </article>
 				<article  class="col-lg-4 col-xs-4">
-					<p><img src="http://localhost/SME-Portal-Institucional/diretoria-regional-de-educacao-guaianases/wp-content/uploads/sites/4/2020/01/foto.jpg" width="100%"></p>
+
+					<p><img src="<?php the_field('foto_do_gabinete', 'option'); ?>" width="100%"></p>
 					<p><img src="http://localhost/SME-Portal-Institucional/diretoria-regional-de-educacao-guaianases/wp-content/uploads/sites/4/2020/01/mapa.jpg" width="100%"></p>
 					</article>
             </article>
+
 		</section>
 		<?php
 	}

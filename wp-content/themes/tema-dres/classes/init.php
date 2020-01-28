@@ -11,6 +11,7 @@ require_once __ROOT__.'/classes/ModelosDePaginas/ModelosDePaginaRemoveThemeSuppo
 require_once __ROOT__.'/classes/Usuarios/Editor/Editor.php';
 require_once __ROOT__.'/classes/Usuarios/Colaborador/Colaborador.php';
 require_once __ROOT__.'/classes/Usuarios/Administrador/Administrador.php';
+require_once __ROOT__.'/classes/Usuarios/Dre/Dre.php';
 require_once __ROOT__.'/classes/Usuarios/EnviarParaRevisao.php';
 require_once __ROOT__.'/classes/Usuarios/CamposAdicionais.php';
 ///////////////////////////////////////USUARIOS///////////////////////////////////////

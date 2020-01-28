@@ -43,61 +43,25 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
 
 	public function montaHtmlLoopNoticiaPrincipal()	{
 
-
-        /*$posts = get_field('primeiro_destaque', 'option');
-        if( $posts ): */?><!--
-            <?php /*foreach( $posts as $post):*/?>
-                <?php /*setup_postdata($post); */?>
-                <a href="<?php /*the_permalink(); */?>"><?php /*the_title(); */?></a>
-            <?php /*endforeach; */?>
-            <?php /*wp_reset_postdata(); */?>
-        --><?php /*endif;*/
-
-
-
-
-
-		echo '<section class="col-lg-6 col-xs-12 mb-xs-4">';
-		if ($this->query_noticias_home_principal->have_posts()) : while ($this->query_noticias_home_principal->have_posts()) : $this->query_noticias_home_principal->the_post();
-			$this->id_noticias_home_principal = get_the_ID();
-
-			$post_thumbnail_id = get_post_thumbnail_id( $this->id_noticias_home_principal );
-			$image_alt = get_post_meta( $post_thumbnail_id, '_wp_attachment_image_alt', true);
-			$image_url = get_the_post_thumbnail_url();
-			?>
-
-            <article class="card h-100 rounded border-0">
-				<?php if (has_post_thumbnail()) {
-					echo '<figure class="mb-0">';
-					echo '<img width="740" height="350" class="card-img desc-img-home" src="'.$image_url.'" alt="'.$image_alt.'"/>';
-					echo '</figure>';
-				} else {
-					echo '<figure>';
-					echo '<img src="https://dummyimage.com/535x325/4F4F4F/4F4F4F" class="card-img" alt="Imagem de Exemplo">';
-					echo '</figure>';
-				}
-				?>
-                <article class="card-img-overlay bg-home-desc h-auto rounded-bottom container-img-noticias-destaques-primaria">
-                    <h3 class="fonte-catorze font-weight-bold">
-                        <a class="text-white" href="<?= get_the_permalink() ?>">
-							<?= get_the_title() ?>
-                        </a>
-                    </h3>
-
-
-					<?php
-					if ($this->getSubtitulo(get_the_ID(), 'p') ){
-						echo '<section class="card-text text-white fonte-doze">';
-						echo $this->getSubtitulo(get_the_ID(), 'p');
-						echo '</section>';
-					}
-					?>
-                </article>
-            </article>
-		<?php
-		endwhile;
-		endif;
-		echo '</section>';
+			$posts = get_field('primeiro_destaque','option');
+			if( $posts ): ?>
+					<?php foreach( $posts as $p ): ?>
+                    <section class="col-lg-6 col-xs-12 mb-xs-4 rounded">
+					        <article class="card h-100 rounded border-0">
+                                <img class="rounded" src="<?php echo get_the_post_thumbnail_url( $p->ID ); ?>" width="100%">
+                                <article class="card-img-overlay bg-home-desc h-auto rounded-bottom container-img-noticias-destaques-primaria">
+                                    <h3 class="fonte-catorze font-weight-bold">
+                                        <a class="text-white" href="<?php echo get_permalink( $p->ID ); ?>">
+											<?php echo get_the_title( $p->ID ); ?>
+                                        </a>
+                                    </h3>
+                                    <section class="card-text text-white fonte-doze"><p class="mb-3 ">Evento marcou o lançamento do 10° guia do #CopiCola que conta a experiência sobre formações criativas em robótica da Secretaria</p></section>
+                                </article>
+                            </article>
+                        <?php /*get_field( $p->ID, 'insira_o_subtitulo')*/?>
+                    </section>
+					<?php endforeach; ?>
+			<?php endif;
 		wp_reset_postdata();
 
 	}
