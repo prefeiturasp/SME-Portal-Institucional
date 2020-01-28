@@ -27,8 +27,6 @@ class Colaborador
 
 		if (current_user_can('contributor')) {
 
-
-
 			$caps = array(
 				'upload_files',
 				'edit_files',
