@@ -19,6 +19,24 @@ class PaginaInicialEndereco
                 });
             });
         </script>
+		<!--<script>
+            jQuery(document).ready(function ($) {
+            function sticky_relocate() {
+                var window_top = $(window).scrollTop();
+                var div_top = $('#sticky-anchor').offset().top;
+                if (window_top > div_top) {
+                    $('#sticky').addClass('stick');
+                } else {
+                    $('#sticky').removeClass('stick');
+                }
+            }
+
+            $(function() {
+                $(window).scroll(sticky_relocate);
+                sticky_relocate();
+            });
+            });
+		</script>-->
 		<section class="container mt-5 mb-5 noticias">
             <article class="row mb-4">
                 <article class="col-lg-12 col-xs-12">
@@ -28,12 +46,13 @@ class PaginaInicialEndereco
 		</section>
 		<section class="container mt-5 mb-5">
             <article class="row mb-4">
-                <article style="padding-right: 40px;" class="col-lg-8 col-xs-8">
+                <article style="padding-right: 40px;" class="col-sm-8">
                     <?php
                     query_posts( array(
                         'post_type'  => 'contatoprincipal',
-                        'orderby' => 'post__in',
-                        'order' =>'DESC'
+                        'orderby' => 'menu_order',
+                        //'orderby' => array('menu_order', 'title'),
+                        'order' =>'ASC'
                     ));
                     ?>
                     <?php while (have_posts()) : the_post(); ?>
@@ -63,11 +82,10 @@ class PaginaInicialEndereco
 
                     <button id="btn-outroscontatos" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Outros Contatos</button>
                 </article>
-				<article  class="col-lg-4 col-xs-4">
-
+				<article class="col-sm-4 sticky">
 					<p><img src="<?php the_field('foto_do_gabinete', 'option'); ?>" width="100%"></p>
 					<p><img src="http://localhost/SME-Portal-Institucional/diretoria-regional-de-educacao-guaianases/wp-content/uploads/sites/4/2020/01/mapa.jpg" width="100%"></p>
-					</article>
+				</article>
             </article>
 
 		</section>

@@ -44,6 +44,7 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
 	public function montaHtmlLoopNoticiaPrincipal()	{
 
 			$posts = get_field('primeiro_destaque','option');
+
 			if( $posts ): ?>
 					<?php foreach( $posts as $p ): ?>
                     <section class="col-lg-6 col-xs-12 mb-xs-4 rounded">
@@ -53,12 +54,12 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
                                     <h3 class="fonte-catorze font-weight-bold">
                                         <a class="text-white" href="<?php echo get_permalink( $p->ID ); ?>">
 											<?php echo get_the_title( $p->ID ); ?>
+
                                         </a>
                                     </h3>
-                                    <section class="card-text text-white fonte-doze"><p class="mb-3 ">Evento marcou o lançamento do 10° guia do #CopiCola que conta a experiência sobre formações criativas em robótica da Secretaria</p></section>
+                                    <section class="card-text text-white fonte-doze"><p class="mb-3 "><?php echo get_the_excerpt($p->ID ); ?></p></section>
                                 </article>
                             </article>
-                        <?php /*get_field( $p->ID, 'insira_o_subtitulo')*/?>
                     </section>
 					<?php endforeach; ?>
 			<?php endif;

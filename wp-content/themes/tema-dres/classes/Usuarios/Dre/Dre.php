@@ -89,10 +89,8 @@ class Dre
 			$this->role_object->add_cap( 'assign_agendas' );
 
 
-			$this->role_object->add_cap( 'manage_imagens' );
-			$this->role_object->add_cap( 'edit_imagens' );
-			$this->role_object->add_cap( 'delete_imagens' );
-			$this->role_object->add_cap( 'assign_imagens' );
+			$this->role_object->add_cap('upload_files');
+			$this->role_object->add_cap('edit_files');
 
 		}
 	}

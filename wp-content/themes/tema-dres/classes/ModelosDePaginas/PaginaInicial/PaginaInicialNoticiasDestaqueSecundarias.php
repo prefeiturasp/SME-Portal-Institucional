@@ -67,7 +67,7 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 						<h3 class="fonte-catorze font-weight-bold">
 							<a class="text-dark" href="<?php echo get_permalink( $p->ID ); ?>"><?php echo get_the_title( $p->ID ); ?></a>
 						</h3>
-						<section class="fonte-doze"><span class="mb-3 ">Atividades recreativas, culturais e esportivas ocorreram nos três Centros de Educação e Cultura Indígena da cidade de São Paulo</span>...</section>
+						<section class="fonte-doze"><span class="mb-3 "><?php echo get_the_excerpt($p->ID ); ?></span></section>
 					</div>
 				</article>
 			<?php endforeach; ?>
@@ -85,7 +85,7 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 						<h3 class="fonte-catorze font-weight-bold">
 							<a class="text-dark" href="<?php echo get_permalink( $p->ID ); ?>"><?php echo get_the_title( $p->ID ); ?></a>
 						</h3>
-						<section class="fonte-doze"><span class="mb-3 ">Atividades recreativas, culturais e esportivas ocorreram nos três Centros de Educação e Cultura Indígena da cidade de São Paulo</span>...</section>
+						<section class="fonte-doze"><span class="mb-3 "><?php echo get_the_excerpt($p->ID ); ?></span></section>
 					</div>
 				</article>
 			<?php endforeach; ?>
