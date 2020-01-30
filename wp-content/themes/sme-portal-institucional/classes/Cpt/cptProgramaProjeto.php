@@ -8,8 +8,56 @@ class cptProgramasEProjetos extends Cpt{
 		$this->name = self::getNameExtend();
 		$this->todosOsItens = self::getTodosOsItensExtend();
 		add_action('init', array($this, 'register'));
-
+		add_filter('manage_posts_columns', array($this, 'exibe_cols'), 10, 2);
+		add_action('manage_' . $this->cptSlug . '_posts_custom_column', array($this, 'cols_content'));
+		add_filter('manage_edit-' . $this->cptSlug . '_sortable_columns', array($this, 'cols_sort'));
+		add_filter('request', array($this, 'orderby'));
 	}
+
+	function orderby($vars)
+	{
+		if (is_admin()) {
+			if (isset($vars['orderby']) && $vars['orderby'] == 'menu_order') {
+				$vars['orderby'] = 'menu_order';
+			}
+
+		}
+		return $vars;
+	}
+
+	// Permitindo a ordenação das colunas exibidas no Dashboard
+	function cols_sort($cols)
+	{
+		$cols['menu_order'] = 'menu_order';
+		return $cols;
+	}
+
+	//Exibindo as informações correspondentes de cada coluna
+	public function cols_content($col)
+	{
+		global $post;
+		switch ($col) {
+			case 'menu_order':
+				$order = $post->menu_order;
+				echo $order;
+				break;
+			default:
+				break;
+
+		}
+	}
+
+	//Exibindo as colunas no Dashboard
+	public function exibe_cols($cols, $post_type)
+	{
+
+		if ($post_type == $this->cptSlug) {
+
+			$cols['menu_order'] = 'Ordenaçao';
+		}
+		return $cols;
+	}
+
 	public function register()
 	{
 		$labels = array(
@@ -44,7 +92,7 @@ class cptProgramasEProjetos extends Cpt{
 			'exclude_from_search' => true,
 			'show_in_rest' => true,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'supports' => array('title', 'editor', 'thumbnail'),
+			'supports' => array('title', 'editor', 'thumbnail','page-attributes'),
 		);
 
 		register_post_type($this->cptSlug, $args);
