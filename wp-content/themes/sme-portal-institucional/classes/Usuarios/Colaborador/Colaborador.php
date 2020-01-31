@@ -76,7 +76,7 @@ class Colaborador
 			$this->role_object->add_cap('edit_private_posts');
 			$this->role_object->add_cap('edit_published_posts');
 
-			$this->role_object->add_cap('publish_posts');
+			//$this->role_object->add_cap('publish_posts');
 			$this->role_object->add_cap('read_private_posts');
 			$this->role_object->add_cap('delete_posts');
 
@@ -86,6 +86,7 @@ class Colaborador
 
 			$this->role_object->add_cap('delete_published_pages');
 			$this->role_object->add_cap('edit_published_pages');
+			//$this->role_object->add_cap('read_published_pages');
 			//$this->role_object->add_cap('edit_private_pages');
 
 			$this->role_object->add_cap( 'read_card');

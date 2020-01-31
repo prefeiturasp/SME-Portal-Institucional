@@ -168,7 +168,15 @@ use Classes\Header\Header;
             </form>
 
             <nav class="collapse navbar-collapse justify-content-end" id="irmenu" aria-label="Menu Principal">
+
                 <?php
+                //Busca o menu do Portal Institucional
+                global $blog_id;
+                $current_blog_id = $blog_id;
+                //Pegando as informações do Main Blog
+                switch_to_blog(1);
+
+                //Passa o array wp_nav_menu global
 				wp_nav_menu(array(
 					'menu' => 'primary',
 					'theme_location' => 'primary',
@@ -178,7 +186,10 @@ use Classes\Header\Header;
 					'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
 					'walker'            => new WP_Bootstrap_Navwalker(),
 				));
-				?>
+
+                //volta para o blog atual que está sendo visualizado - antes de terminar a função
+                switch_to_blog($current_blog_id);
+                ?>
 
             </nav>
         </section>

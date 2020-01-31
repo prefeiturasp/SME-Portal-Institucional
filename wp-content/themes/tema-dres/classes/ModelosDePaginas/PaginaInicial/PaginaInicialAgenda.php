@@ -25,8 +25,8 @@ class PaginaInicialAgenda extends Util
 		?>
 		<script>
 			jQuery(document).ready(function ($) {
-				pageSize = 2;
-					//alert('Paginacao ok');
+				//limitar quantidade de registros impressos
+			    //pageSize = 2;
 				$(".pagination").hide();
 				$("#btn-mais-eventos").click(function () {
 					window.location.href="<?php echo get_site_url(); ?>/agenda/";
@@ -52,11 +52,11 @@ class PaginaInicialAgenda extends Util
 			<h2 class="">Próximos eventos</h2>
 			<section id="mostra_data"></section>
 			<!-- Monta a lista ordenada por horário -->
-			<section class="agenda-ordenada"></section>
+			<div><section class="agenda-ordenada"></section></div>
             <!-- Monta a paginação -->
-            <ul class="pagination" id="pagin">
-            </ul>
-			<?php echo '<button id="btn-mais-eventos" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Acessar mais eventos</button>'; ?>
+            <!--<ul class="pagination" id="pagin">
+            </ul>-->
+			<?php echo '<button id="btn-mais-eventos" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Busque mais eventos</button>'; ?>
 		</section>
 		<?php
 	}

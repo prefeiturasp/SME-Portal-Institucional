@@ -81,6 +81,23 @@ class EnviarParaRevisao
 
 		if ($this->getRoleUser() == 'contributor') {
 			if ($this->getPostStatus() == "publish"){
+				echo'
+				<script>
+				window.onload = initPage;
+				function initPage(){
+					//document.getElementById("post-status-select").setAttribute("style", "display: block;");
+					var selectobject = document.getElementById("post_status");
+					for (var i=0; i<selectobject.length; i++) {
+						if (selectobject.options[i].value == "publish")
+							selectobject.remove(i);
+						if (selectobject.options[i].value == "draft")
+							selectobject.remove(i);
+					}
+				}
+				</script>
+				';
+			}
+			if ($this->getPostStatus() == "pending"){
 				wp_update_post(array(
 					'ID'    =>  $this->page_id,
 					'post_status'   =>  'pending'

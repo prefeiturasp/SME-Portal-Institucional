@@ -22,11 +22,11 @@ function custom_setup() {
 	add_filter('login_headertitle', 'my_login_logo_url_title');
 	add_action( 'widgets_init', 'theme_slug_widgets_init' );
 
-	register_nav_menus(array(
+	// Remove o menu principal do tema para usar o menu do multisite dentro do header.php
+	/*register_nav_menus(array(
 		'primary' => __('Menu Superior', 'THEMENAME'),
 	));
-
-	register_nav_menu('navbar', __('Navbar', 'your-theme'));
+	register_nav_menu('navbar', __('Navbar', 'your-theme'));*/
 
 
 	if (function_exists('add_image_size')) {
@@ -654,3 +654,4 @@ if( function_exists('acf_add_options_page') ) {
     ));
 
 }
+///////////////////////////////////////////////////////////////////
