@@ -52,11 +52,11 @@ class PaginaInicialAgenda extends Util
 			<h2 class="">Próximos eventos</h2>
 			<section id="mostra_data"></section>
 			<!-- Monta a lista ordenada por horário -->
-			<div><section class="agenda-ordenada"></section></div>
+			<div  id="style-2" class="overflow-auto"><section class="agenda-ordenada"></section></div>
             <!-- Monta a paginação -->
             <!--<ul class="pagination" id="pagin">
             </ul>-->
-			<?php echo '<button id="btn-mais-eventos" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Busque mais eventos</button>'; ?>
+			<?php echo '<button id="btn-mais-eventos" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Busca avançada de mais eventos</button>'; ?>
 		</section>
 		<?php
 	}
