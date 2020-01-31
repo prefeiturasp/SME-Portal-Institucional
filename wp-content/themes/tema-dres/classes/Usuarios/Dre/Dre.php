@@ -39,6 +39,8 @@ class Dre
 
 			$this->role_object->add_cap( 'read' );
 			$this->role_object->add_cap( 'edit_posts' );
+			$this->role_object->add_cap('upload_files');
+			$this->role_object->add_cap('edit_files');
 
 			$this->role_object->add_cap( 'read_contatoprincipal');
 			$this->role_object->add_cap( 'read_private_contatoprincipals' );
@@ -87,10 +89,6 @@ class Dre
 			$this->role_object->add_cap( 'edit_agendas' );
 			$this->role_object->add_cap( 'delete_agendas' );
 			$this->role_object->add_cap( 'assign_agendas' );
-
-
-			$this->role_object->add_cap('upload_files');
-			$this->role_object->add_cap('edit_files');
 
 		}
 	}

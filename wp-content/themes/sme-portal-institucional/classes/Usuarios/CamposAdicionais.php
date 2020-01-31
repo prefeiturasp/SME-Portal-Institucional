@@ -138,7 +138,7 @@ class CamposAdicionais
 	{
 		if (is_admin()) {
 			if (isset($vars['orderby']) && $vars['orderby'] == 'setor') {
-				$vars['orderby'] = 'menu_order';
+				$vars['orderby'] = 'setor';
 			}
 
 

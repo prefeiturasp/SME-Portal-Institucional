@@ -35,12 +35,12 @@ class ArchiveAgendaGetDatasEventos
 			}
             foreach ($this->array_ids as $id){
                 $this->array_datas[] = get_field('data_do_evento', $id);
-                console.log($id);
+                //console.log($id);
             }
             $this->array_datas = json_encode($this->array_datas);
 
             if ( ! is_admin() ) {
-                echo '<input type="hidden" name="array_datas_agenda" id="array_datas_agenda" value='.$this->array_datas.'>';
+                echo '<input type="text" name="array_datas_agenda" id="array_datas_agenda" value='.$this->array_datas.'>';
             }
 		}
 	}
