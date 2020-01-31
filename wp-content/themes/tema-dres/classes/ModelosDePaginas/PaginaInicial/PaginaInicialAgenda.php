@@ -56,7 +56,7 @@ class PaginaInicialAgenda extends Util
             <!-- Monta a paginação -->
             <!--<ul class="pagination" id="pagin">
             </ul>-->
-			<?php echo '<button id="btn-mais-eventos" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Busca avançada de mais eventos</button>'; ?>
+			<?php echo '<button id="btn-mais-eventos" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Busca avançada de eventos</button>'; ?>
 		</section>
 		<?php
 	}

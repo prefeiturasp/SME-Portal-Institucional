@@ -48,18 +48,14 @@ class CptContatoPrincipal extends Cpt{
 		}
 	}
 
-
 	//Exibindo as colunas no Dashboard
 	public function exibe_cols($cols, $post_type)
 	{
-
 		if ($post_type == $this->cptSlug) {
-
 			$cols['menu_order'] = 'Ordenaçao';
 		}
 		return $cols;
 	}
-
 
 	public function register(){
         $labels = array(
