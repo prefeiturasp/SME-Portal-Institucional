@@ -37,6 +37,7 @@ class PaginaInicialEscolares
                 <article class="row mb-4">
                     <article style="padding-right: 40px;" class="col-lg-8 col-xs-8">
                         <?php the_field('texto_ceus', 'option'); ?>
+                        <p><a href="<?php the_field('link_escola_aberta', 'option'); ?>"><strong>Ir para a página da Escola Aberta - link externo</strong></a></p>
                     </article>
                     <article
                             style="border: solid 1px #ddd; margin-left: -15px; border-radius: 3px; padding: 20px 10px 2px 20px;"
