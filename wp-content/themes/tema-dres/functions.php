@@ -655,3 +655,8 @@ if( function_exists('acf_add_options_page') ) {
 
 }
 ///////////////////////////////////////////////////////////////////
+/*if ( is_home(0) ) {
+	echo'<h1>SOU A HOME PAGE E ESTOU AQUI</h1>';
+} else {
+	echo'<h1>NÃO ACHEI</h1>';
+}*/

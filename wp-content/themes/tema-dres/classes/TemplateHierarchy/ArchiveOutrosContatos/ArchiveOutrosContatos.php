@@ -14,8 +14,8 @@ class ArchiveOutrosContatos{
                     <?php
                     query_posts( array(
                         'post_type'  => 'outroscontatos',
-                        'orderby' => 'post__in',
-                        'order' =>'DESC'
+						'orderby' => 'menu_order',
+						'order' =>'ASC'
                     ));
                     ?>
                     <?php while (have_posts()) : the_post(); ?>
