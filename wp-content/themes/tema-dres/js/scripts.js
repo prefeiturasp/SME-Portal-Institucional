@@ -134,6 +134,31 @@ $s(document).ready(function () {
     });
 });
 
+///////////////////////////////
+///////////////////////////////
+///////////////////////////////
+
+function stickdesk(){
+    var windowWidth = window.innerWidth;
+    if(windowWidth > 800){
+        var div_top = $s('.move').offset().top;
+        $s(window).scroll(function() {
+            var window_top = $s(window).scrollTop() - 420;
+            if (window_top > div_top) {
+                if (!$s('.move').is('.sticky')) {
+                    $s('.move').addClass('sticky');
+                }
+            } else {
+                $s('.move').removeClass('sticky');
+            }
+        });
+    }
+};
+stickdesk();
+///////////////////////////////
+///////////////////////////////
+///////////////////////////////
+
 
 /* Ativacao Wow*/
 new WOW().init();

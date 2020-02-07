@@ -35,13 +35,11 @@ class PaginaInicialEscolares
             </section>
             <section class="container mt-5 mb-5">
                 <article class="row mb-4">
-                    <article style="padding-right: 40px;" class="col-lg-8 col-xs-8">
+                    <article style="padding-right: 40px;" class="col-sm-8">
                         <?php the_field('texto_ceus', 'option'); ?>
                         <p><a href="<?php the_field('link_escola_aberta', 'option'); ?>"><strong>Ir para Escola Aberta - link externo</strong></a></p>
                     </article>
-                    <article
-                            style="border: solid 1px #ddd; margin-left: -15px; border-radius: 3px; padding: 20px 10px 2px 20px;"
-                            class="col-lg-4 col-xs-4">
+                    <article class="col-sm-4 ceus-home">
                         <p>A Diretoria Regional de Educação de Guaianases possui <span id="cont_ceus"></span> Centros
                             Educacionais Unificados (CEU):</p>
                         <div id="cont-ceus">

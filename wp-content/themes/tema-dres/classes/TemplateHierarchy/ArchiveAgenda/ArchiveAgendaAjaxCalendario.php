@@ -72,7 +72,7 @@ class ArchiveAgendaAjaxCalendario extends Util
 					<!--Paulta-->
 					
 					<!--Endereço-->
-					<p class="local"><?php
+					<div class="local"><?php
 						if ($this->getCamposPersonalizados('endereco_do_evento') !== null && $this->getCamposPersonalizados('endereco_do_evento') !== ''){
 					?>
 						<div class="local"><strong>Local:</strong> <?= $this->getCamposPersonalizados('endereco_do_evento') ?></div>
