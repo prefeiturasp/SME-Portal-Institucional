@@ -19,24 +19,6 @@ class PaginaInicialEndereco
                 });
             });
         </script>
-		<!--<script>
-            jQuery(document).ready(function ($) {
-            function sticky_relocate() {
-                var window_top = $(window).scrollTop();
-                var div_top = $('#sticky-anchor').offset().top;
-                if (window_top > div_top) {
-                    $('#sticky').addClass('stick');
-                } else {
-                    $('#sticky').removeClass('stick');
-                }
-            }
-
-            $(function() {
-                $(window).scroll(sticky_relocate);
-                sticky_relocate();
-            });
-            });
-		</script>-->
 		<section class="container mt-5 mb-5 noticias">
             <article class="row mb-4">
                 <article class="col-lg-12 col-xs-12">
@@ -44,9 +26,9 @@ class PaginaInicialEndereco
                 </article>
             </article>
 		</section>
-		<section class="container mt-5 mb-5">
-            <article class="row mb-4">
-                <article style="padding-right: 40px;" class="col-sm-8">
+		<div class="container">
+            <div class="row ">
+                <div class="col-sm-8 mb-4">
                     <?php
                     query_posts( array(
                         'post_type'  => 'contatoprincipal',
@@ -81,14 +63,18 @@ class PaginaInicialEndereco
                     <?php endwhile;?>
 
                     <button id="btn-outroscontatos" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Outros Contatos</button>
-                </article>
-				<article class="col-sm-4 sticky">
-					<p><img src="<?php the_field('foto_do_gabinete', 'option'); ?>" width="100%"></p>
-					<p><img src="http://localhost/SME-Portal-Institucional/diretoria-regional-de-educacao-guaianases/wp-content/uploads/sites/4/2020/01/mapa.jpg" width="100%"></p>
-				</article>
-            </article>
+                </div>
 
-		</section>
+
+				<div class="col-sm-4 mb-4">
+					<p><img src="<?php the_field('foto_do_gabinete', 'option'); ?>" width="100%"></p>
+					<p class="move"><img src="http://localhost/SME-Portal-Institucional/diretoria-regional-de-educacao-guaianases/wp-content/uploads/sites/4/2020/01/mapa.jpg" width="100%"></p>
+                </div>
+            </div>
+
+		</div>
+
+
 		<?php
 	}
 }
