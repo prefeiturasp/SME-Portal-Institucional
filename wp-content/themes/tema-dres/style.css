@@ -671,3 +671,41 @@ fieldset legend, .esconde-item-acessibilidade{
 .border-filtro{
 	border-bottom: solid 1px #ddd;
 }
+/* Css Mobile Geral: */
+@media only screen and (max-width: 768px) {
+  .area-rodape img {
+    max-width: 190px!important;
+ }
+  .area-rodape a {
+    margin: auto;
+ }
+ #irrodape figure {
+    margin: auto;
+ }
+ .mb-5, .my-5 {
+    margin-bottom: 1rem!important;
+ }
+ .mt-5, .my-5 {
+    margin-top: 1rem!important;
+ }
+ .midias-sociais {
+    margin: auto;
+ }
+ .form-buscar {
+    margin: auto;
+ }
+ .list-inline {
+	margin: auto !important;
+    text-align: center;
+ }
+ .cabecalho-cinza-claro {
+    padding: 10px 5px;
+ }
+ .a11y-toolbar-widget {
+    margin-bottom: 15px;
+	max-width: 230px;
+ }
+ section.col-12.d-flex.flex-row-reverse.mt-3 form {
+    margin: auto;
+ }
+}
