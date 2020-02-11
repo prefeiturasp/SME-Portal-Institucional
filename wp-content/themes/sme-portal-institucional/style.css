@@ -629,7 +629,7 @@ fieldset legend, .esconde-item-acessibilidade{
 ///////////////////////////icones persona home/////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////*/
 .container-fluid-botoes-persona{
-	background-color: #F6F6F6;
+	/*background-color: #F6F6F6;*/
 	display: block;
 	padding-right: 0px !important;
     padding-left: 0px !important;
