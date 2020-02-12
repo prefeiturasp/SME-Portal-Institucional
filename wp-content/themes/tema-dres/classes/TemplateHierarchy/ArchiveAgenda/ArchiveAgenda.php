@@ -23,13 +23,18 @@ class ArchiveAgenda extends Util
 	?>
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-8">
+				<div class="col-sm-8 reverse">
 					<h1 class="mb-4" id="">Agenda da DRE Guaianases</h1>
 	<?php
+		// Numbered Pagination
+	
+	
+	
+
 		$args = array(
 			'post_type' => 'agenda',
 			'posts_per_page' => 6,
-    		'paged' => $paged,
+    		//'paged' => $paged,
 			'meta_key'     => 'data_do_evento',
 			'orderby' => 'meta_value_num',
     		'order' => 'DESC',
@@ -37,6 +42,8 @@ class ArchiveAgenda extends Util
 			'meta_compare' => '=',
 		);
 		$query = new \WP_Query( $args );
+		
+
 
 		if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
 			?>
@@ -89,7 +96,7 @@ class ArchiveAgenda extends Util
 					<!--Participantes-->
 					
 					<!--Tags agenda-->
-                    <p><?php $tag_list = $tags = get_the_term_list( $post->ID, 'agenda-tag', '<div class="local"><strong>Tags:</strong> <span class="agenda_tag">','</span><span class="agenda_tag">','</span></div>');
+                    <p><?php $tag_list = $tags = get_the_term_list( $post->ID, 'agenda-tag', '<div class="local tag-mobile"><strong>Tags:</strong> <span class="agenda_tag">','</span><span class="agenda_tag">','</span></div>');
                         print $tag_list; ?></p>
 					<!--Tags agenda-->
 						
@@ -111,7 +118,7 @@ class ArchiveAgenda extends Util
 		wp_reset_postdata();
 		?>
 				</div>
-		<div class="col-sm-4 mb-4">
+		<div class="col-sm-4 reverse mb-4">
             <span class="filtro-busca">
                 <div class="form-group border-filtro">
                     <label for="usr"><strong><h2>Refine a sua busca</h2></strong></label>
