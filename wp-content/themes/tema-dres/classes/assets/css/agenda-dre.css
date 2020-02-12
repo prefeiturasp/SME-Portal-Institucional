@@ -190,3 +190,30 @@
 .agenda_tag a{
 	color: #4C5862;
 }
+
+/*AGENDA MAIS EVENDOS DA DRE MOBILE*/
+@media (max-width: 576px) {
+  .col-sm-4.reverse {
+    order: 1;
+  }
+  .col-sm-8.reverse {
+    order: 2;
+  }
+  .agenda_tag {
+		border: 1px solid #C9C9C9;
+		box-sizing: border-box;
+		border-radius: 10px;
+		color: #4C5862;
+		padding: 4px 8px;
+		margin-right: 2px;
+	    white-space: nowrap;
+	    display: inline-block;
+	}
+	.tag-mobile{
+		width: inherit;
+        /*display: inline-grid;*/
+	}
+   .agenda_tag a{
+		color: #4C5862;
+	}
+}
