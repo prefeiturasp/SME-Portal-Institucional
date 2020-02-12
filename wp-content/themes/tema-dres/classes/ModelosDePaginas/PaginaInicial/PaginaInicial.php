@@ -23,15 +23,37 @@ class PaginaInicial extends Util
 		$this->page_slug = get_queried_object()->post_name;
 		$util = new Util($this->page_id);
 		// Classe Util
+		$this->montaHtmlBreadcrumb();
 		$util->montaHtmlLoopPadrao();
 		
 		$this->init();
 	}
+	
+	public function montaHtmlBreadcrumb(){
+		?>
+			<div class="container">
+				<div class="row">
+					<nav>
+						<ol id="breadcrumb" class="breadcrumb bg-transparent pl-1">
+							<li class="item-home breadcrumb-item">
+								<a class="bread-link bread-home" href="https://educacao.sme.prefeitura.sp.gov.br">SME Portal Institucional</a>
+							</li>
+							<li class="separator separator-home">  /  </li>
+							<li class="item-home breadcrumb-item">
+								<a class="bread-link bread-home" href="https://educacao.sme.prefeitura.sp.gov.br">DREs - Diretorias Regionais de Educação</a>
+							</li>
+							<li class="separator separator-home">  /  </li>
+							<li class="item-current item-archive"><strong class="bread-current bread-archive">Diretoria Regional de Educação Guaianases</strong></li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		<?php
+	}
 
 	public function init(){
-
 		$this->tituloNoticias();
-
+		
         $noticias_home_tags = array('section','section');
         $noticias_home_css = array('container mt-5 noticias','row');
         $this->abreContainer($noticias_home_tags, $noticias_home_css);
