@@ -30,11 +30,12 @@ class ArchiveAgenda extends Util
 	
 	
 	
-
+		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+		
 		$args = array(
 			'post_type' => 'agenda',
-			'posts_per_page' => 6,
-    		//'paged' => $paged,
+			'posts_per_page' => 5,
+    		'paged' => $paged,
 			'meta_key'     => 'data_do_evento',
 			'orderby' => 'meta_value_num',
     		'order' => 'DESC',
@@ -100,7 +101,6 @@ class ArchiveAgenda extends Util
                         print $tag_list; ?></p>
 					<!--Tags agenda-->
 						
-					
 					<?php } ?></div>
 					
 				</div>
@@ -111,12 +111,25 @@ class ArchiveAgenda extends Util
 		<?php
 		
 		endwhile;
+		?><div class="paginacao-atual"><?php
+		echo paginate_links( array(
+            'format'    => 'page/%#%',
+            'current'   => $paged,
+            'total'     => $query->max_num_pages,
+            'mid_size'  => 2,
+			'prev_text' => __('<<'),
+            'next_text' => __('>>'),
+        ) );
+		?></div><?php
 			
 		else:
 			echo '<p><strong>Não existem eventos cadastrados nesta data</strong></p>';
 		endif;
 		wp_reset_postdata();
+		
+		
 		?>
+
 				</div>
 		<div class="col-sm-4 reverse mb-4">
             <span class="filtro-busca">

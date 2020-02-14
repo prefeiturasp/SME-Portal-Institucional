@@ -13,16 +13,19 @@ function busca_multisite(){
 		'post_type'=> (array( 'post', 'page', 'agenda' , 'contatoprincipal', 'outroscontatos' )),
 
 	);*/
-
+	
+	$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+	
 	$sites = array(
 		's' => $termo_buscado,
 		'site__in' => (array( '1', '4' )),
+		'paged' => $paged,
 		'orderby' => 'id',
 		'order' => 'DESC',
 		'public' => 'true',
 		'post_status' => 'publish',
 		'orderby' => 'publish_date',
-		'posts_per_page' => -1,
+		'posts_per_page' => 5,
 		'post_type'=> (array( 'post', 'page', 'agenda' , 'contatoprincipal', 'outroscontatos' )),
 	);
 	foreach (get_sites($sites) as $blog){
@@ -62,7 +65,18 @@ function busca_multisite(){
 				echo'Não foi encontrado resultado para a pesquisa:'.''.'"'.$termo_buscado.'"';
 				break;
 			}
-
+		
+			?><div class="paginacao-atual"><?php
+		echo paginate_links( array(
+            'format'    => 'page/%#%',
+            'current'   => $paged,
+            'total'     => $busca_geral->max_num_pages,
+            'mid_size'  => 2,
+			'prev_text' => __('<<'),
+            'next_text' => __('>>'),
+        ) );
+		?></div><?php
+		
 		restore_current_blog();
 	}
 }
@@ -99,6 +113,7 @@ function filtro_tipo_sites(){
 	<div class="row">
 		<div class="col-sm-8">
 			    <?php busca_multisite(); ?>
+
 		</div>
 		<div class="col-sm-4">
             <span class="filtro-busca">

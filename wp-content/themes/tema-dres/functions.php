@@ -640,6 +640,12 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Página Inicial',
         'parent_slug'	=> 'conf-geral',
     ));
+	
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações da Página Mais Notícias',
+        'menu_title'	=> 'Mais Notícias',
+        'parent_slug'	=> 'conf-geral',
+    ));
 
     acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações de Unidades Escolares e CEUS',
