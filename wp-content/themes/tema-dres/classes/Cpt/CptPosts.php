@@ -22,8 +22,8 @@ class CptPosts extends Cpt
 				'tags' => 'Tags',
 				'comments' => '<span class="vers"><div title="Comments" class="comment-grey-bubble"></div></span>',
 				'featured_thumb' => 'Thumbnail',
-				'destaque' => 'Destaque',
-				'posicao_destaque' => 'Posição Destaque',
+				//'destaque' => 'Destaque',
+				//'posicao_destaque' => 'Posição Destaque',
 				'date' => 'Date',
 
 			);

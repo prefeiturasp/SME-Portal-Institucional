@@ -16,12 +16,12 @@ class PaginaMaisNoticiasMaisLidas extends PaginaMaisNoticias
 
 	public function queryMaisLidas(){
 		$this->args_mais_lidas = array(
-			'posts_per_page'=> 9,
+			'posts_per_page'=> 6,
 			// Meta Key criada no functions.php
 			'meta_key'=>'popular_posts',
 			'orderby'=>'meta_value_num',
 			'order'=>'DESC',
-			'exclude' => PaginaMaisNoticiasArrayIdNoticias::getArrayIdNoticias(),
+			//'exclude' => PaginaMaisNoticiasArrayIdNoticias::getArrayIdNoticias(),
 		);
 		$this->query_mais_lidas = get_posts($this->args_mais_lidas);
 	}
