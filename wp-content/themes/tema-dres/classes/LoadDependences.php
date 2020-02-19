@@ -31,6 +31,15 @@ class LoadDependences
 		wp_register_style('pagina-inicial', STM_THEME_URL . 'classes/assets/css/pagina-inicial.css', null, null, 'all');
 		wp_enqueue_style('pagina-inicial');
 		
+		//MapLeaFlet
+		wp_register_style( 'leaflet.css','https://unpkg.com/leaflet@1.6.0/dist/leaflet.css', null, '1.6.0', 'all' );
+		wp_enqueue_style('leaflet.css');
+		wp_register_script('leaflet.js', 'https://unpkg.com/leaflet@1.6.0/dist/leaflet.js', null, '1.6.0', false);
+		wp_enqueue_script('leaflet.js');
+		wp_register_script('mapsdre-leaflet.js', STM_THEME_URL . 'classes/assets/js/mapsdre-leaflet.js', array('jquery'), 1.0 ,false);
+		wp_enqueue_script('mapsdre-leaflet.js');
+		
+		
 		// Agenda da DRE
 		wp_register_style('agenda-dre', STM_THEME_URL . 'classes/assets/css/agenda-dre.css', null, null, 'all');
 		wp_enqueue_style('agenda-dre');
