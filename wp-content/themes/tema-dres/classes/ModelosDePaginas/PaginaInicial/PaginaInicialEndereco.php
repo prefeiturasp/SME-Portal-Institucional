@@ -47,7 +47,8 @@ class PaginaInicialEndereco
                                 <span class="row "><strong>Responsável:&nbsp;</strong><?php the_field('principal_responsavel'); ?></span>
                             <?php } ?>
                             <?php if( get_field('principal_logradouro') !== '' && get_field('principal_logradouro') !== null){ ?>
-                            <span class="row "><strong>Endereço:&nbsp;</strong><?php the_field('principal_logradouro'); ?>,<?php the_field('principal_numero'); ?> - <?php the_field('principal_bairro'); ?> - CEP: <?php the_field('principal_cep'); ?></span>
+                            <span class="row "><strong>Endereço:&nbsp;</strong><?php the_field('principal_logradouro'); ?>,<?php the_field('principal_numero'); ?> - <?php the_field('principal_bairro'); ?> - CEP: <?php the_field('principal_cep');?>
+								- <a href="#map" class="story" data-point="<?php the_field('principal_latitude'); ?>,<?php the_field('principal_longitude'); ?>,<strong><?php the_title(); ?></strong><br><?php the_field('principal_logradouro'); ?> nº<?php the_field('principal_numero'); ?><br><?php the_field('principal_bairro'); ?><br>CEP: <?php the_field('principal_cep');?>,<?php the_field('principal_logradouro'); ?>&nbsp;<?php the_field('principal_numero'); ?>&nbsp;<?php the_field('principal_bairro'); ?>"> &nbsp;destacar no mapa</a></span>
                             <?php } ?>
                             <?php if( get_field('principal_telefone_1') !== '' && get_field('principal_telefone_1') !== null){ ?>
                                 <span class="row "><strong>Telefone:&nbsp;</strong><?php the_field('principal_telefone_1'); ?></span>
@@ -63,13 +64,22 @@ class PaginaInicialEndereco
                     <?php endwhile;?>
 
                     <button id="btn-outroscontatos" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Outros Contatos</button>
-                </div>
 
-
+				</div>
+				
+				
 				<div class="col-sm-4 mb-4">
 					<p><img src="<?php the_field('foto_do_gabinete', 'option'); ?>" width="100%"></p>
-					<p class="move"><img src="http://localhost/SME-Portal-Institucional/diretoria-regional-de-educacao-guaianases/wp-content/uploads/sites/4/2020/01/mapa.jpg" width="100%"></p>
+					<div id="results"/></div>
+					<p id="map" style="width: 100%; min-height: 300px;"></p>
+					<!--<div class="move">
+						
+					</div>-->
+					<!--<p class="move">MAPA<img src="http://localhost/SME-Portal-Institucional/diretoria-regional-de-educacao-guaianases/wp-content/uploads/sites/4/2020/01/mapa.jpg" width="100%"></p>-->					
                 </div>
+			
+				
+				
             </div>
 
 		</div>

@@ -135,10 +135,10 @@ $s(document).ready(function () {
 });
 
 ///////////////////////////////
-///////////////////////////////
+//////////move mapa/////////////////////
 ///////////////////////////////
 
-function stickdesk(){
+/*function stickdesk(){
     var windowWidth = window.innerWidth;
     if(windowWidth > 800){
         var div_top = $s('.move').offset().top;
@@ -154,7 +154,7 @@ function stickdesk(){
         });
     }
 };
-stickdesk();
+stickdesk();*/
 ///////////////////////////////
 ///////////////////////////////
 ///////////////////////////////
