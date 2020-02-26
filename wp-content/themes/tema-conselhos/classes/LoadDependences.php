@@ -31,6 +31,10 @@ class LoadDependences
 		wp_register_style('pagina-inicial', STM_THEME_URL . 'classes/assets/css/pagina-inicial.css', null, null, 'all');
 		wp_enqueue_style('pagina-inicial');
 		
+		// Página Agenda Conselho
+		wp_register_style('pagina-agenda-conselho', STM_THEME_URL . 'classes/assets/css/pagina-agenda-conselho.css', null, null, 'all');
+		wp_enqueue_style('pagina-agenda-conselho');
+		
 		// Programas e Projetos
 		//wp_register_style('programa-projeto', STM_THEME_URL . 'classes/assets/css/programa-projeto.css', null, null, 'all');
 		//wp_enqueue_style('programa-projeto');
