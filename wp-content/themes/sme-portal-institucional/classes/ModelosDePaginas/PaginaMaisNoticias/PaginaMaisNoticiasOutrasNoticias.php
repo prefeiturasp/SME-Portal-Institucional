@@ -10,15 +10,21 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
 		$this->montaHtmlOutrasNoticias();
 	}
 	public function queryOutrasNoticias(){
+		$posts_p = get_field('primeiro_destaque','option');if( $posts_p ):foreach( $posts_p as $p ): endforeach; endif;
+		$posts_s = get_field('segundo_destaque','option');if( $posts_s ):foreach( $posts_s as $s ): endforeach; endif;
+		$posts_t = get_field('terceiro_destaque','option');if( $posts_t ):foreach( $posts_t as $t ): endforeach; endif;
+		$posts_q = get_field('quarto_destaque','option');if( $posts_q ):foreach( $posts_q as $q ): endforeach; endif;
+		$posts_u = get_field('quinto_destaque','option');if( $posts_u ):foreach( $posts_u as $u ): endforeach; endif;
 		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 		$this->args_outras_noticias = array(
 			'post_type' => 'post',
 			'posts_per_page'=> 5,
 			'paged'=> $paged,
-			'exclude' => PaginaMaisNoticiasArrayIdNoticias::getArrayIdNoticias(),
+			'post__not_in' => array( $p->ID,$s->ID,$t->ID,$q->ID,$u->ID),
 		);
 		$this->query_outras_noticias = get_posts($this->args_outras_noticias);
 	}
+
 	public function montaHtmlOutrasNoticias(){
 		$container_mais_noticias_tags = array( 'section');
 		$container_mais_noticias_css = array('col-lg-8 col-sm-12 mt-5');
