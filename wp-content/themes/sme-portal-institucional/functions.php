@@ -605,3 +605,45 @@ function cc_mime_types($mimes) {
 add_filter('upload_mimes', 'cc_mime_types');
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+
+////////Habilita Opções Gerais ACF////////
+if( function_exists('acf_add_options_page') ) {
+
+    acf_add_options_page(array(
+        'page_title' 	=> 'Configurações Gerais',
+        'menu_title'	=> 'Opções Gerais',
+        'menu_slug' 	=> 'conf-geral',
+        'position' 		=> '3',
+        //'capability'	=> 'edit_posts',
+        //'redirect'		=> false
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações da Página Inicial',
+        'menu_title'	=> 'Página Inicial',
+        'parent_slug'	=> 'conf-geral',
+    ));
+	
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações da Página Mais Notícias',
+        'menu_title'	=> 'Página Mais Notícias',
+        'parent_slug'	=> 'conf-geral',
+    ));
+
+}
+///////////////////////////////////////////////////////////////////
+
+////////Ordena Relação de posts do ACF por data////////
+function my_relationship_query( $args, $field, $post_id ) {
+	
+    // only show children of the current post being edited
+    //$args['post_parent'] = $post_id;
+	$args['orderby'] = 'date';
+	$args['order'] = 'DESC';
+	
+	// return
+    return $args;
+    
+}
+// filter for every field
+add_filter('acf/fields/relationship/query', 'my_relationship_query', 10, 3);
