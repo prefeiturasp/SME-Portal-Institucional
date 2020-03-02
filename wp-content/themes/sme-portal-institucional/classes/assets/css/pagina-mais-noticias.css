@@ -27,3 +27,6 @@
     color: #fff !important;
 
 }
+.grid-noticias{
+	display: grid;
+}

@@ -58,7 +58,7 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 				</div>
 				<div class="col-sm-6 mb-4">
 					<?php
-						$posts = get_field('terceiro_destaque','option');
+						$posts = get_field('terceiro_destaque','option'); 
 							if( $posts ): ?>
 								<?php foreach( $posts as $p ): ?>
 									<div class="mb-4"><img src="<?php echo get_the_post_thumbnail_url( $p->ID ); ?>" width="100%"></div>
