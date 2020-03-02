@@ -72,12 +72,19 @@ class Util
 	}
 
 	public function getSubtitulo($page_id, $tag_html = 'h2', $tag_css=null){
+		//echo 'subtitulo';
 		$this->deseja_exibir_subtitulo = get_field('deseja_exibir_subtitulo', $page_id);
 		$this->insira_o_subtitulo = get_field('insira_o_subtitulo', $page_id);
 
 		if ($this->deseja_exibir_subtitulo == 'sim' && trim($this->insira_o_subtitulo != '')){
 			return '<'.$tag_html.' class="mb-3 '.$tag_css.'">'.$this->insira_o_subtitulo.'</'.$tag_html.'>';
 		}
+		
+		if($this->insira_o_subtitulo != ''){
+			return '<'.$tag_html.' class="mb-3 '.$tag_css.'">'.$this->insira_o_subtitulo.'</'.$tag_html.'>';
+		}
+		
+		
 
 	}
 
