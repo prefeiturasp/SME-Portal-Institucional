@@ -65,7 +65,7 @@ class PaginaInicial extends Util
         <section class="container mt-5 mb-5 noticias">
             <article class="row mb-4">
                 <article class="col-lg-12 col-xs-12">
-                    <h2 class="border-bottom">Notícias</h2>
+                    <h2 class="border-bottom">Destaques</h2>
                 </article>
             </article>
         </section>

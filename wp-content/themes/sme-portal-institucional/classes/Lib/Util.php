@@ -129,8 +129,8 @@ class Util
             <article class="col-lg-12 col-xs-12 container-btn-mais-noticias">
                 <form>
                     <fieldset>
-                        <legend>Ir para mais notícias</legend>
-                        <a href="<?= STM_URL.'/mais-noticias' ?>" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Mais notícias</a>
+                        <legend>Ir para notícias</legend>
+                        <a href="<?= STM_URL.'/noticias' ?>" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Notícias</a>
                     </fieldset>
                 </form>
             </article>
