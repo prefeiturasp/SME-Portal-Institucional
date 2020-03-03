@@ -231,7 +231,7 @@ function paginacao() {
 	echo '</nav>';
 }
 
-/*function paginacao($query) {
+/*function paginacao2($query) {
 
 	echo '<nav id="pagination">';
 	global $wp_query;
@@ -246,11 +246,15 @@ function paginacao() {
 	echo paginate_links(
 		array(
 			//'base' => str_replace($total_paginas + 1, '%#%', get_pagenum_link($total_paginas + 1)),
+			'base' => @add_query_arg('page','%#%'),
 			'current' => $pagina_atual,
 			'total' => $total_paginas,
-			'prev_next'         => True,
-			'prev_text'          	=> __('<i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i>'),
-			'next_text'          	=> __('<i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i>'),
+			'end_size'  => 1,
+			'mid_size'  => 2,
+			'show_all' => false,
+			'prev_next' => true,
+			'prev_text' => __('<<'),
+			'next_text' => __('>>'),
 		)
 	);
 	echo '</nav>';
