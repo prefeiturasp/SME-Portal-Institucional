@@ -24,7 +24,17 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
 											<?php echo get_the_title( $p->ID ); ?>
                                         </a>
                                     </h3>
-                                    <section class="card-text text-white fonte-doze"><p class="mb-3 "><?php echo get_the_excerpt($p->ID ); ?></p></section>
+                                    <section class="card-text text-white fonte-doze">
+										<p class="mb-3 ">
+											<?php
+												if(get_field('insira_o_subtitulo', $p->ID) != ''){
+													the_field('insira_o_subtitulo', $p->ID);
+												}else if (get_field('insira_o_subtitulo', $p->ID) == ''){
+													 echo get_the_excerpt($p->ID ); 
+												}
+											?>
+										</p>
+									</section>
                                 </article>
                             </article>
                     </section>

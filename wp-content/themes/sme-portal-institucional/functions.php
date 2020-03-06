@@ -629,8 +629,8 @@ if( function_exists('acf_add_options_page') ) {
     ));
 	
 	acf_add_options_sub_page(array(
-        'page_title' 	=> 'Configurações da Página Mais Notícias',
-        'menu_title'	=> 'Página Mais Notícias',
+        'page_title' 	=> 'Configurações da Página Notícias',
+        'menu_title'	=> 'Página Notícias',
         'parent_slug'	=> 'conf-geral',
     ));
 

@@ -60,9 +60,19 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 					</div>
 					<div class="col-12 col-md-7">
 						<h3 class="fonte-catorze font-weight-bold">
-							<a class="text-dark" href="<?php echo get_permalink( $p->ID ); ?>"><?php echo get_the_title( $p->ID ); ?></a>
+							<a class="text-dark" href="<?php echo get_permalink( $p->ID ); ?>"><?php echo get_the_title($p->ID); ?></a>
 						</h3>
-						<section class="fonte-doze"><span class="mb-3 "><?php echo get_the_excerpt($p->ID ); ?></span></section>
+						<section class="fonte-doze">
+							<span class="mb-3 ">
+								<?php
+									if(get_field('insira_o_subtitulo', $p->ID) != ''){
+										the_field('insira_o_subtitulo', $p->ID);
+									}else if (get_field('insira_o_subtitulo', $p->ID) == ''){
+										 echo get_the_excerpt($p->ID ); 
+									}
+								?>
+							</span>
+						</section>
 					</div>
 				</article>
 			<?php endforeach; ?>
@@ -78,9 +88,19 @@ class PaginaInicialNoticiasDestaqueSecundarias extends PaginaInicial
 					</div>
 					<div class="col-12 col-md-7">
 						<h3 class="fonte-catorze font-weight-bold">
-							<a class="text-dark" href="<?php echo get_permalink( $p->ID ); ?>"><?php echo get_the_title( $p->ID ); ?></a>
+							<a class="text-dark" href="<?php echo get_permalink( $p->ID ); ?>"><?php echo get_the_title($p->ID); ?></a>
 						</h3>
-						<section class="fonte-doze"><span class="mb-3 "><?php echo get_the_excerpt($p->ID ); ?></span></section>
+						<section class="fonte-doze">
+							<span class="mb-3 ">
+								<?php
+									if(get_field('insira_o_subtitulo', $p->ID) != ''){
+										the_field('insira_o_subtitulo', $p->ID);
+									}else if (get_field('insira_o_subtitulo', $p->ID) == ''){
+										 echo get_the_excerpt($p->ID ); 
+									}
+								?>
+							</span>
+						</section>
 					</div>
 				</article>
 			<?php endforeach; ?>

@@ -92,11 +92,29 @@ class Administrador
 			$this->role_object->add_cap( 'edit_botoes' );
 			$this->role_object->add_cap( 'delete_botoes' );
 			$this->role_object->add_cap( 'assign_botoes' );
+			
+			$this->role_object->add_cap( 'read_agenda');
+			$this->role_object->add_cap( 'read_private_agendas' );
+			$this->role_object->add_cap( 'edit_agenda' );
+			$this->role_object->add_cap( 'edit_agendas' );
+			$this->role_object->add_cap( 'edit_others_agendas' );
+			$this->role_object->add_cap( 'edit_published_agendas' );
+			$this->role_object->add_cap( 'publish_agendas' );
+			$this->role_object->add_cap( 'delete_agenda' );
+			$this->role_object->add_cap( 'delete_others_agendas' );
+			$this->role_object->add_cap( 'delete_private_agendas' );
+			$this->role_object->add_cap( 'delete_published_agendas' );
+			$this->role_object->add_cap( 'manage_agendas' );
+			$this->role_object->add_cap( 'edit_agendas' );
+			$this->role_object->add_cap( 'delete_agendas' );
+			$this->role_object->add_cap( 'assign_agendas' );
 
 			$this->role_object->add_cap( 'manage_imagens' );
 			$this->role_object->add_cap( 'edit_imagens' );
 			$this->role_object->add_cap( 'delete_imagens' );
 			$this->role_object->add_cap( 'assign_imagens' );
+			
+			
 		}
 	}
 
