@@ -82,7 +82,7 @@ class LoopSingleRelacionadas extends LoopSingle
 
 		$this->fechaContainer($container_mais_noticias_tags);
 
-	}
+	}*/
 
 	public function getComplementosRelacionadas($id_post){
 		$dt_post = get_the_date('d/m/Y g\hi');
@@ -91,7 +91,7 @@ class LoopSingleRelacionadas extends LoopSingle
 		return '<p class="fonte-doze font-italic mb-0">Publicado em: '.$dt_post.' - em '.$categoria.'</p>';
 
 
-	}*/
+	}
 	
 	public function my_related_posts() {
 		$paged = ( get_query_var( 'page' ) ) ?  get_query_var( 'page' ) : 1;
@@ -113,7 +113,23 @@ class LoopSingleRelacionadas extends LoopSingle
 				<img class="rounded " src="<?php the_post_thumbnail_url( 'related-post' ); ?>" width="100%">			
 			</div>
 			<div class="col-sm-8 mb-4">
-				<?php the_title(); ?>
+				<h4 class="fonte-dezoito font-weight-bold mb-2">
+					<a class="text-decoration-none text-dark" href="<?= $url ?>">
+						<?php the_title(); ?>
+					</a>
+				</h4>
+				<?php
+				//echo $this->getSubtitulo($query->ID, 'p', 'fonte-dezesseis mb-2')
+				?>
+				<?php
+					if(get_field('insira_o_subtitulo', $query->ID) != ''){
+						the_field('insira_o_subtitulo', $query->ID);
+					}else if (get_field('insira_o_subtitulo', $query->ID) == ''){
+						 echo get_the_excerpt($query->ID); 
+					}
+				?>
+				<?= $this->getComplementosRelacionadas($query->ID); ?>
+				
 			</div>
 			
 		<?php

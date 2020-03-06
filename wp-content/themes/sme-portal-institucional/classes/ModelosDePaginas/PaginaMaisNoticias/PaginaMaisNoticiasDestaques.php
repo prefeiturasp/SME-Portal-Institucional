@@ -30,7 +30,15 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 										<h2 class="card-title mais-noticias-destaque-principal"><a href="<?php echo get_permalink( $p->ID ); ?>">
 											<?php echo get_the_title( $p->ID ); ?>
 										</a></h2>
-										<p class="mb-3 card-text texto-mais-noticias-destaques"><?php echo get_the_excerpt($p->ID ); ?></p>
+										<p class="mb-3 card-text texto-mais-noticias-destaques">
+											<?php
+												if(get_field('insira_o_subtitulo', $p->ID) != ''){
+													the_field('insira_o_subtitulo', $p->ID);
+												}else if (get_field('insira_o_subtitulo', $p->ID) == ''){
+													 echo get_the_excerpt($p->ID ); 
+												}
+											?>
+										</p>
 									</article>
 	
 									</session>

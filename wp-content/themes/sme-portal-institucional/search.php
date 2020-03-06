@@ -1,9 +1,8 @@
 <?php
 /*use Classes\TemplateHierarchy\Search\GetTipoDePost;*/
 get_header(); ?>
-    <!--new GetTipoDePost();-->
-
-    <!--Libera CTPs para a Busca-->
+	<!--new GetTipoDePost();-->
+<!--Libera CTPs para a Busca-->
 <?php
 add_filter( 'pre_get_posts', 'cpt_busca' );
 function cpt_busca( $search ) {
@@ -94,9 +93,7 @@ if (in_array($campo_de_busca, $texto_buscado_busca_de_escolas)) { ?>
 $searchfor = get_search_query(); // Obtem a consulta de pesquisa para exibição
 ?>
 <?php $query_string=esc_attr($query_string); // Elimina potencial MySQL-injections
-$blogs = get_blog_list( 0,'all' ); // Seta todos os site do multisite
-
-/*$blogs = get_blog_list( 1 ); // Seta todos os site do multisite*/
+$blogs = get_blog_list( 1 ); // Seta todos os site do multisite
 
 foreach ( $blogs as $blog ): switch_to_blog($blog['blog_id']); //faz a busca site por site
 
