@@ -1,159 +1,278 @@
+<?php get_header(); ?>
+
 <?php
-/*use Classes\TemplateHierarchy\Search\GetTipoDePost;*/
-get_header(); ?>
-	<!--new GetTipoDePost();-->
-<!--Libera CTPs para a Busca-->
-<?php
-add_filter( 'pre_get_posts', 'cpt_busca' );
-function cpt_busca( $search ) {
-    if ( $search->is_search ) {
-		$search->set('post_type', array( 'post', 'page', 'card', 'programa-projeto' ));
-	}
-	return $search;
-}
-?>
-<!--Limita quantidade de posts na busca-->
-<?php
-function custom_posts_per_page($query) {
-	if (is_search()) {
-		$query->set('posts_per_page', 50);
-	}
-}
-add_action('pre_get_posts', 'custom_posts_per_page');
-?>
 
-<!--Busca Manual-->
-<?php
-$campo_de_busca = get_search_query();
+function busca_multisite()
+{
 
-$texto_buscado_agenda = array('agenda', 'Agenda', 'agenda secretario' , 'agenda secretário' , 'agenda do secretario' , 'agenda do secretário');
-if (in_array($campo_de_busca, $texto_buscado_agenda)) { ?>
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-sm-8 pb-4 border-bottom">
-                    <h2>Agenda do Secretário de Educação</h2>
-                    <div class="col-12"><a class="btn btn-primary" href="<?= STM_URL .'/'. 'agenda'.'/'?>">Visualizar</a></div>
-            </div>
-        </div>
-    </div>
-    <?php }
+    $termo_buscado = get_search_query(); //termo da busca
+    
+    $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
+    $periodo = isset($_GET['periodo']) ? $_GET['periodo'] : '';
+    $tipoconteudo = isset($_GET['tipoconteudo']) ? $_GET['tipoconteudo'] : '';
+    $categoria = isset($_GET['category']) ? $_GET['category'] : '';
+    $ano = isset($_GET['ano']) ? $_GET['ano'] : '';
+    $sites = array(
+        's' => $termo_buscado,
+        'site__in' => (array(
+            '1',
+            '2',
+            '3',
+            '4'
+        )) ,
+        //informa a lista de sites que deseja ter nos resultados da busca
+        'paged' => $paged,
+        'orderby' => 'publish_date',
+        'order' => 'DESC',
+        'public' => 'true',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'date_query' => [
+            [
+                'after'     => '- '.$periodo.' hours',  
+                'inclusive' => true,
+                'year' => intval($ano),
+            ],
+        ],
+        'post_type' => (array( $tipoconteudo )),     
+        'category_name' => $categoria
+    );
 
-$texto_buscado_organograma = array('organograma', 'Organograma');
-if (in_array($campo_de_busca, $texto_buscado_organograma)) { ?>
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-sm-8 pb-4 border-bottom">
-                <h2>Organograma — Secretaria Municipal de Educação</h2>
-                <div class="col-12"><a class="btn btn-primary" href="<?= STM_URL .'/'. 'organograma'.'/'?>">Visualizar</a></div>
-            </div>
-        </div>
-    </div>
-<?php }
 
-$texto_buscado_mapa_dres = array('Mapa Dres', 'Mapa das Dres', 'mapa dres', 'mapa das dres', 'DRE s', 'dres');
-if (in_array($campo_de_busca, $texto_buscado_mapa_dres)) { ?>
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-sm-8 pb-4 border-bottom">
-                <h2>Mapa das DRE's — Diretorias Regionais de Educação</h2>
-                <div class="col-12"><a class="btn btn-primary" href="<?= STM_URL .'/'. 'mapa-dres'.'/'?>">Visualizar</a></div>
-            </div>
-        </div>
-    </div>
-<?php }
-
-$texto_buscado_curriculo_da_cidade = array('Curriculo da Cidade', 'curriculo da cidade', 'Currículo da Cidade', 'currículo da cidade');
-if (in_array($campo_de_busca, $texto_buscado_curriculo_da_cidade)) { ?>
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-sm-8 pb-4 border-bottom">
-                <h2>Curriculo da Cidade</h2>
-                <div class="col-12"><a class="btn btn-primary" href="<?= STM_URL .'/'. 'curriculo-da-cidade'.'/'?>">Visualizar</a></div>
-            </div>
-        </div>
-    </div>
-<?php }
-
-$texto_buscado_busca_de_escolas = array('Escolas', 'escola', 'Busca de Escolas', 'busca de escolas', 'busca de escola', 'encontrar uma escola');
-if (in_array($campo_de_busca, $texto_buscado_busca_de_escolas)) { ?>
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-sm-8 pb-4 border-bottom">
-                <h2>Encontre a Escola Desejada</h2>
-                <div class="col-12"><a class="btn btn-primary" href="<?= STM_URL .'/'. 'busca-de-escolas'.'/'?>">Visualizar</a></div>
-            </div>
-        </div>
-    </div>
-<?php }
+    foreach (get_sites($sites) as $blog)
+    {
+        switch_to_blog($blog->blog_id);
+        $busca_geral = new WP_Query( $sites );
+        if ($busca_geral->have_posts())
+        {
+            while ($busca_geral->have_posts())
+            {
+                $busca_geral->the_post();
 
 ?>
 
+   <div class="row">
 
-<?php
-$searchfor = get_search_query(); // Obtem a consulta de pesquisa para exibição
-?>
-<?php $query_string=esc_attr($query_string); // Elimina potencial MySQL-injections
-$blogs = get_blog_list( 1 ); // Seta todos os site do multisite
+    <div class="col-sm-4">
 
-foreach ( $blogs as $blog ): switch_to_blog($blog['blog_id']); //faz a busca site por site
-
-	$search = new WP_Query($query_string);
-	if ($search->found_posts>0) {
-		foreach ( $search->posts as $post ) {
-			setup_postdata($post);
-			$author_data = get_userdata(get_the_author_meta('ID'));
-
-			?>
-			<div class="container">
-				<div class="row mb-4">
-					<div class="col-sm-4 pb-4 border-bottom">
-						<?php
-						if (has_post_thumbnail()) {
-							echo '<figure class="">';
-							the_post_thumbnail('medium', array('class' => 'img-fluid rounded float-left'));
-							echo '</figure>';
-						}
-						?>
-					</div>
-					<div class="col-sm-8 pb-4 border-bottom">
-						<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-							<!--por --><?php /*the_author_posts_link();*/?>
-							<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-							<div id="entry-content"><?php the_excerpt(); ?>
-							</div>
-							<?php get_the_archive_description(); ?>
-						</div>
-                        <br>
-						<span>Publicação: <?php the_time('d/m/Y') ?> </span><span> em: <a href="<?php echo get_site_url(); ?>"><?php echo get_bloginfo(); ?></a></span>
-
-					</div>
-
-				</div>
-			</div>
-			<?php
-
-		}
+	<?php
+	if (has_post_thumbnail() != ''){
+		echo '<figure class="">';
+		the_post_thumbnail('medium', array(
+			'class' => 'img-fluid rounded float-left'
+		));
+		echo '</figure>';
 	}else{
-	    ?>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h2>Nenhum resultado encontrado na pesquisa.</h2>
-                </div>
-            </div>
-        </div>
-        <?php
-        break;
-    }?>
+	?>
+	<figure>
+		<img class="img-fluid rounded float-left" src="" width="100%">
+	</figure>
+	<?php
+	}
+    ?>
 
+    </div>
 
-    <?php
-endforeach;
+	  <div class="col-sm-8">
 
-restore_current_blog(); //Reseta e volta para o site atual
-?>
+		  <h2><a href="<?php the_permalink();?>"><?php the_title(); ?></a></h2>
+
+		  <div><?php the_excerpt(); ?></div>
+
+		  <span>Publicado em: <?php	the_time('d/m/Y H:m:s');?>
+		  </span> - <span>
+		  em: <a href="<?php echo get_site_url(); ?>"><?php echo get_bloginfo('description'); ?></a>
+		  </span>
+
+	  </div>
+
+   </div>
+
+   <hr>
 
 <?php
-get_footer()
+            }
+        }else{
+            echo 'Não foi encontrado resultado para a pesquisa:' . '' . '"' . $termo_buscado . '"';
+            break;
+        }
 ?>
+<div class="paginacao-atual">
+	<?php
+        echo paginate_links(array(
+            'format' => 'page/%#%',
+            'current' => $paged,
+            'total' => $busca_geral->max_num_pages,
+            'mid_size' => 2,
+            'prev_text' => __('<<') ,
+            'next_text' => __('>>')
+        ));
+	?>
+</div>
+<?php  restore_current_blog();
+    }
+}
+?>
+
+<div class="container ">
+
+		<div class="row">
+		   <div class="col-sm-8">
+		   	<?php busca_multisite(); ?>
+		   </div>
+
+           <div class="col-sm-4">
+
+            <span class="filtro-busca">
+<form name="filtrosX" method="get" action="" >
+
+               <div class="form-group border-filtro">
+                    <label for="usr"><strong><h2>Refine a sua busca</h2></strong></label>
+               </div>
+
+                <div class="form-group">
+                    <label for="usr"><strong>Busque por um termo</strong></label>
+                    <input class ='form-control' type = 'text' name="s" placeholder = 'Buscar'>
+                </div>
+                <div class="form-group">
+
+<label for="sel2"><strong>Filtre por categorias</strong></label>
+
+<select class="form-control" name="category" id="sel2">
+<?php 
+$current = get_current_site();
+
+// rob: pega cats de todos sites
+$blogs = get_blog_list( 0, 'all' );
+
+echo  "<option value=''>Selecione</option>";
+
+foreach ( $blogs as $blog ) {
+    switch_to_blog( $blog['blog_id'] );
+    $args = array(
+        'hide_empty' => false
+    );
+    $categories = get_categories( $args );
+//    var_dump($categories);
+    foreach ( $categories as $category ) {
+
+        $link = ( $category->name );
+        $name = $category->name;
+        echo  "<option value='".$link."'>".$name."</option>";
+
+        // printf( '<a href="%s" title="%s">%s</a> ', $link, $name, $name );
+    }
+
+}
+switch_to_blog( $current->id );
+?>
+</select>
+
+</div>
+
+               <div class="form-group">
+
+                    <label for="sel1"><strong>Filtre por tipo de conteúdo</strong></label>
+
+                    
+
+                    <select name="tipoconteudo" class="form-control"  id="sel1">
+                    
+                    <?php 
+$current = get_current_site();
+echo  "<option value=''>Selecione o tipo</option>";
+//rob: pega todos tipos de post (inclusive indesejáveis, então precisa excluir, no array abaixo)
+$excluidos = array('wp_block'); 
+$blogs = get_blog_list( 0, 'all' );
+
+
+foreach ( $blogs as $blog ) {
+    switch_to_blog( $blog['blog_id'] );
+    $args = array(
+        'hide_empty' => false
+    );
+    $categories = get_categories( $args );
+    foreach (get_post_types() as $posttipo ) {
+        if(!in_array($posttipo, $excluidos)){
+        echo  "<option value='".$posttipo."'>".$posttipo."</option>";
+}
+        // printf( '<a href="%s" title="%s">%s</a> ', $link, $name, $name );
+    }
+
+}
+switch_to_blog( $current->id );
+?>
+           <script>
+
+           </script>
+                     
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="sel2"><strong>Filtre por um período</strong></label>
+
+                    <select name="periodo" class="form-control" id="sel3">
+
+                        <option value="">Todos os períodos</option>
+
+                        <option value="1">Última hora</option>
+
+                        <option value="24">Últimas 24 horas</option>
+
+                        <option value="168">Última semana</option>
+
+                        <option value="5040">Último mês</option>
+
+                        <option value="1839600">Último ano</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+<label for="sel2"><strong>Filtre por ano</strong></label>
+
+<select name="ano" class="form-control" id="sel3">
+    <option value="">Todos os anos</option>
+    <option value="2020">2020</option>
+    <option value="2019">2019</option>
+    <option value="2018">2018</option>
+    <option value="2017">2017</option>
+    <option value="2016">2016</option>
+    <option value="2015">2015</option>
+    <option value="2014">2014</option>
+    <option value="2013">2013</option>
+</select>
+
+</div>
+
+                <div class="form-group">
+                    <script>
+                    function limpaFiltro(){
+                        setTimeout(() => {
+                            window.location = window.location.pathname+"?s=";
+                        }, 100);
+                    }
+                    </script>
+                    <button onclick="limpaFiltro()"  type="button" class="btn btn-warning btn-sm float-left">Limpar filtros</button>
+                    <button  type="submit" class="btn btn-primary btn-sm float-right">Refinar busca</button>
+
+                </div>
+
+            </span>
+
+                               </div>
+
+ 
+
+                </div>
+
+</div>    </div>            
+</form>              
+
+<?php get_footer(); ?>

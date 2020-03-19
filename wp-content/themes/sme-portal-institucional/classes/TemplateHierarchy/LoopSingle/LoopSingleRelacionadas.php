@@ -114,7 +114,7 @@ class LoopSingleRelacionadas extends LoopSingle
 			</div>
 			<div class="col-sm-8 mb-4">
 				<h4 class="fonte-dezoito font-weight-bold mb-2">
-					<a class="text-decoration-none text-dark" href="<?= $url ?>">
+					<a class="text-decoration-none text-dark" href="<?php the_permalink(); ?>">
 						<?php the_title(); ?>
 					</a>
 				</h4>
