@@ -651,3 +651,33 @@ function my_relationship_query( $args, $field, $post_id ) {
 }
 // filter for every field
 add_filter('acf/fields/relationship/query', 'my_relationship_query', 10, 3);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function remove_editor() {
+    if (isset($_GET['post'])) {
+        $id = $_GET['post'];
+        $template = get_post_meta($id, '_wp_page_template', true);
+        switch ($template) {
+            case 'pagina-modelo-1.php':
+            remove_post_type_support('page', 'editor');
+            break;
+            default :
+            // Don't remove any other template.
+            break;
+        }
+    }
+}
+add_action('init', 'remove_editor');
