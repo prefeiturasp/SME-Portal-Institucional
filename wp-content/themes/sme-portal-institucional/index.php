@@ -1,2 +1,1 @@
-<?php // A palava é prata, o silêncio é ouro ?>
-<h1>Estou na Home</h1>
+<?php ini_set('memory_limity','1500M'); ?>

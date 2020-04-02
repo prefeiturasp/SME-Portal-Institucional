@@ -12,6 +12,8 @@ class Modelo_1 extends Util
 	{
 
 		$this->montaHtmlLandingPage();
+		//contabiliza visualizações de noticias
+		setPostViews(get_the_ID()); /*echo getPostViews(get_the_ID());*/
 
 	}
 

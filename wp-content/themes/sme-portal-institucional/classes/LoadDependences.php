@@ -35,9 +35,12 @@ class LoadDependences
 		wp_register_style('programa-projeto', STM_THEME_URL . 'classes/assets/css/programa-projeto.css', null, null, 'all');
 		wp_enqueue_style('programa-projeto');
 		
-		// Programas e Projetos
-		wp_register_style('lp-modelo-1', STM_THEME_URL . 'classes/assets/css/lp-modelo-1.css');
-		wp_enqueue_style('lp-modelo-1');
+		// landpage
+		if(!is_admin()){
+			wp_register_style('lp-modelo-1', STM_THEME_URL . 'classes/assets/css/lp-modelo-1.css');
+			wp_enqueue_style('lp-modelo-1');
+		}
+		
 
 		// Agenda do Secretário
 		wp_register_style('agenda-secretario', STM_THEME_URL . 'classes/assets/css/agenda-secretario.css', null, null, 'all');
