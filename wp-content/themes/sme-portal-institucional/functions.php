@@ -162,7 +162,7 @@ function custom_formats() {
 	wp_register_script('bootstrap_4_js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', false, '4.2.1', true);
 
 
-	wp_register_script('modal_on_load_js', STM_THEME_URL . 'js/modal_on_load.js', false, false);
+	wp_register_script('modal_on_load_js', STM_THEME_URL . 'js/modal_on_load.js', false, true);
 	wp_register_script('wow_js', STM_THEME_URL . 'js/wow.min.js', array('jquery'), 1.0, true);
 	wp_register_script('jquery_waituntilexists', STM_THEME_URL . 'js/jquery.waituntilexists.js', array('jquery'), 1.0, true);
 	wp_register_script('scripts_js', STM_THEME_URL . 'js/scripts.js', array('jquery'), 1.0, true);
@@ -631,6 +631,12 @@ if( function_exists('acf_add_options_page') ) {
 	acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações da Página Notícias',
         'menu_title'	=> 'Página Notícias',
+        'parent_slug'	=> 'conf-geral',
+    ));
+	
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações da Busca Manual',
+        'menu_title'	=> 'Busca Manual',
         'parent_slug'	=> 'conf-geral',
     ));
 
