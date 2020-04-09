@@ -24,6 +24,7 @@ class PaginaInicial extends Util
 		$util = new Util($this->page_id);
 		// Classe Util
 		$util->montaHtmlLoopPadrao();
+		$this->modalhome();
 
 		$this->init();
 	}
@@ -69,6 +70,39 @@ class PaginaInicial extends Util
                 </article>
             </article>
         </section>
+        <?php
+    }
+	public function modalhome(){
+	    ?>
+		<script>
+			jQuery(document).ready(function ($) {
+				// auto modal
+				jQuery('#modal-content').modal({
+					show: true
+				});
+			});
+		</script>
+        <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					</div>
+					<div class="modal-body">
+					  <p><h1><strong>Cartão Alimentação</strong></h1></p>
+
+					  <p>Famílias receberão o cartão em casa.</p>
+
+					  <p>Não há inscrição ou atendimento para recebimento, o envio será feito direto para a casa dos estudantes em situação de vulnerabilidade social.</p>
+					  <p> Para mais informações, entre em contato pelo <strong>156</strong> ou clique no botão abaixo:</p>
+
+					  <p>
+						<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?conteudo=3335"><button type="button" class="btn btn-primary">Acesso 156</button></a>
+					  </p>
+					</div>
+				</div>
+			</div>
+		</div>
         <?php
     }
 
