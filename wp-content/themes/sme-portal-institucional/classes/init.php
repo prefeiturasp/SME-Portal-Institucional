@@ -84,6 +84,7 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasAcoesDesta
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasConteudos.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaBotoes/PaginaBotoes.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/LandingPages/Modelo_1.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/LandingPages/Modelo_2.php';
 
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticias.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasArrayIdNoticias.php';

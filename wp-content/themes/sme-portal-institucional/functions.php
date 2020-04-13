@@ -685,5 +685,17 @@ function remove_editor() {
             break;
         }
     }
+	if (isset($_GET['post'])) {
+        $id = $_GET['post'];
+        $template = get_post_meta($id, '_wp_page_template', true);
+        switch ($template) {
+            case 'pagina-modelo-2.php':
+            remove_post_type_support('page', 'editor');
+            break;
+            default :
+            // Don't remove any other template.
+            break;
+        }
+    }
 }
 add_action('init', 'remove_editor');
