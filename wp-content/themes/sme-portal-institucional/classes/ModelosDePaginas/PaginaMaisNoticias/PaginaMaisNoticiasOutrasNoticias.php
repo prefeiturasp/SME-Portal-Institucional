@@ -116,10 +116,13 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
 				'add_fragment' => '#outrasNoticias'
 			]
 		);
+		?>
+
+		<?php
 		if ( is_array( $pages ) ) {
-			$pagination = '<div class="pagination justify-content-center" style="text-align: center"><ul class="pagination ">';
+			$pagination = '<div class="pag-noticias"><ul class="pag-noticias-ul">';
 			foreach ($pages as $page) {
-				$pagination .= '<li class="page-item' . (strpos($page, 'current') !== false ? ' active' : '') . '"> ' . str_replace('page-numbers', 'page-link', $page) . '</li>';
+				$pagination .= '<li class="pag-noticias-li page-item' . (strpos($page, 'current') !== false ? ' active' : '') . '"> ' . str_replace('page-numbers', 'space-noticia page-link', $page) . '</li>';
 			}
 			$pagination .= '</ul></div>';
 			if ( $echo ) {

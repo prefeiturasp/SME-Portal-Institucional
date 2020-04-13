@@ -30,3 +30,20 @@
 .grid-noticias{
 	display: grid;
 }
+
+
+
+ul.pag-noticias-ul {
+    list-style: none;
+    display: inline-flex;
+}
+.pag-noticias {
+    margin: auto;
+    text-align: center;
+}
+li.pag-noticias-li.page-item.active {
+    font-weight: bold;
+}
+.space-noticia {
+    padding: 12px 17px !important;
+}
