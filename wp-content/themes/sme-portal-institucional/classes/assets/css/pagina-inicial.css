@@ -181,6 +181,13 @@
 }
 
 /************* inicio Modal CSS *****************/
+button.close {
+    position: absolute;
+    text-align: right;
+    width: 100%;
+    margin: 5px 0px 0px -10px;
+	z-index: 99999;
+}
 .close {
   float: right;
   font-size: 21px;
