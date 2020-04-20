@@ -76,29 +76,46 @@ class PaginaInicial extends Util
 	    ?>
 		<script>
 			jQuery(document).ready(function ($) {
-				// auto modal
-				jQuery('#modal-content').modal({
-					show: true
-				});
+				// Condição ACF para ativar modal
+				var ativo_modal = "<?=get_field('ativar_modal_home','option'); ?>"
+				
+				if(ativo_modal == 'sim'){
+				   		jQuery('#modal-content').modal({ show: true });
+				   }else{
+					 	jQuery('#modal-content').modal({ show: false });
+				   }
 			});
 		</script>
+		
         <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<div class="modal-header">
+					
 						<button type="button" class="close" data-dismiss="modal">×</button>
-					</div>
+					
 					<div class="modal-body">
-					  <p><h1><strong>Cartão Alimentação</strong></h1></p>
-
-					  <p>Famílias receberão o cartão em casa.</p>
-
-					  <p>Não há inscrição ou atendimento para recebimento, o envio será feito direto para a casa dos estudantes em situação de vulnerabilidade social.</p>
-					  <p> Para mais informações, entre em contato pelo <strong>156</strong> ou clique no botão abaixo:</p>
-
-					  <p>
-						<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?conteudo=3335"><button type="button" class="btn btn-primary">Acesso 156</button></a>
-					  </p>
+					<?php
+						if(get_field('titulo_modal_home' , 'option') != ''){
+							?><p><h1><strong><?php the_field('titulo_modal_home' , 'option'); ?></strong></h1></p><?php
+						}
+					?>
+					<?php
+						if(get_field('imagem_modal_home' , 'option') != ''){
+							?><p><img src="<?php the_field('imagem_modal_home' , 'option'); ?>" width="100%"></p><?php
+						}
+					?>
+					<?php
+						if(get_field('mensagem_modal_home' , 'option') != ''){
+							?><p><?php the_field('mensagem_modal_home' , 'option'); ?></p><?php
+						}
+					?>
+					<?php
+						if(get_field('botao_modal_home' , 'option') != ''){
+							?><p>
+						<a href="<?php the_field('botao_modal_home' , 'option'); ?>" target="<?php the_field('link_do_botao_modal_home' , 'option'); ?>"><button type="button" class="btn btn-primary"><?php the_field('nome_botao_modal_home' , 'option'); ?></button></a>
+					  		</p><?php
+						}
+					?> 
 					</div>
 				</div>
 			</div>
