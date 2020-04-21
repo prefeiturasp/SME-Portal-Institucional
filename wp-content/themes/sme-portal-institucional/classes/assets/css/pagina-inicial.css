@@ -388,5 +388,21 @@ button.close {
     max-width: 100%;
     height: auto;
 }
+button.close {
+    padding: 5px 10px 0px 0px !important;
+    width: 100%;
+    text-align: right;
+    position: absolute;
+	z-index: 9999999;
+}
 /************* fim Modal CSS *****************/
-
+.overlay-noticia-home{
+	background: linear-gradient(to top, rgba(13,31,61,0.99), rgba(42,87,117,0.8));
+	color: #fff;
+	padding: 10px;
+	margin-top: -63px;
+}
+.overlay-noticia-home a {color:#fff !important;}
+.overlay-noticia-home a:link {color:#fff !important;}
+.overlay-noticia-home a:visited {color:#fff !important;}
+.overlay-noticia-home a:hover {color:#fff !important;}
