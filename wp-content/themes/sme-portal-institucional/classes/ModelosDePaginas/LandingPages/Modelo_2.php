@@ -40,7 +40,7 @@ class Modelo_2 extends Util
 			<?php
 				if(get_field('conteudo_bloco_2_lp_2') != ''){
 					?>
-			<div class="row bloco-4-lp">
+			<div class="row">
 				<div class="container bloco-4-lp-inter">
 					<div class="row">
 						<div class="col-sm-12 text-center text-uppercase"><h2><?php the_field('titulo_bloco_2_lp_2'); ?></h2></div>
