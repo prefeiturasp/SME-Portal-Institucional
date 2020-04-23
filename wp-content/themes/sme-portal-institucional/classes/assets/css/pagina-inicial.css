@@ -413,3 +413,12 @@ button.close {
 .overlay-noticia-home a:link {color:#fff !important;}
 .overlay-noticia-home a:visited {color:#fff !important;}
 .overlay-noticia-home a:hover {color:#fff !important;}
+
+@media only screen and (max-width: 768px) {
+  .overlay-noticia-home{
+		background: linear-gradient(to top, rgba(13,31,61,0.99), rgba(42,87,117,0.8));
+		color: #fff;
+		padding: 10px;
+	  	margin: 0;
+	}
+}

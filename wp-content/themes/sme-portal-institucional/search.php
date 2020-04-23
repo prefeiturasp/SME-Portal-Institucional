@@ -65,8 +65,8 @@ $GLOBALS['arrayVerId'] = array();
 		
 		//echo get_search_query();
 		//echo $termo_buscado;
-		//if ($tipoconteudo) 
-		//	$tipoconteudo = $arrayO;
+		if (!$tipoconteudo) 
+			$tipoconteudo = $arrayO;
 		
 		
 		
@@ -85,10 +85,12 @@ $GLOBALS['arrayVerId'] = array();
 	    'date_query' => $quetipodedata,
 	
 	
-		'post_type' => $tipoconteudo,
+		'post_type' => ($tipoconteudo),
 		'category_name' => $categoria
 	);
-
+		//aqui ultimo
+		//var_dump($tipoconteudo);
+	
         $GLOBALS['i'] = 0;
 		
 		// mudar a ordem dos sites (descomentar abaixo para verificar order atual)
@@ -703,7 +705,7 @@ jQuery('[name=tipoconteudo] option:eq(5)').insertBefore(jQuery('[name=tipoconteu
                                     }, 100);
                                 }
                             </script>
-                            <button onclick="limpaFiltro()" type="button" class="btn btn-warning btn-sm float-left">Limpar filtros</button>
+                            <button onclick="limpaFiltro()" type="button" class="btn btn-refinar btn-sm float-left">Limpar filtros</button>
                             <button type="submit" class="btn btn-primary btn-sm float-right">Refinar busca</button>
 
                         </div>
