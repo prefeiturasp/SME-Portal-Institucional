@@ -99,7 +99,7 @@ class PaginaAgendaConselho extends Util
 						</strong></span><br>
 						<?php
 							if(get_sub_field('pauta-agconselho') != ''){
-								echo '<strong>Paulta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
+								echo '<strong>Pauta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
 							}
 						?>
 						<?php
@@ -145,7 +145,7 @@ class PaginaAgendaConselho extends Util
 						</strong></span><br>
 						<?php
 							if(get_sub_field('pauta-agconselho') != ''){
-								echo '<strong>Paulta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
+								echo '<strong>Pauta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
 							}
 						?>
 						<?php
@@ -191,7 +191,7 @@ class PaginaAgendaConselho extends Util
 						</strong></span><br>
 						<?php
 							if(get_sub_field('pauta-agconselho') != ''){
-								echo '<strong>Paulta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
+								echo '<strong>Pauta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
 							}
 						?>
 						<?php
@@ -237,7 +237,7 @@ class PaginaAgendaConselho extends Util
 						</strong></span><br>
 						<?php
 							if(get_sub_field('pauta-agconselho') != ''){
-								echo '<strong>Paulta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
+								echo '<strong>Pauta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
 							}
 						?>
 						<?php
@@ -283,7 +283,7 @@ class PaginaAgendaConselho extends Util
 						</strong></span><br>
 						<?php
 							if(get_sub_field('pauta-agconselho') != ''){
-								echo '<strong>Paulta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
+								echo '<strong>Pauta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
 							}
 						?>
 						<?php
@@ -329,7 +329,7 @@ class PaginaAgendaConselho extends Util
 						</strong></span><br>
 						<?php
 							if(get_sub_field('pauta-agconselho') != ''){
-								echo '<strong>Paulta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
+								echo '<strong>Pauta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
 							}
 						?>
 						<?php
@@ -375,7 +375,7 @@ class PaginaAgendaConselho extends Util
 						</strong></span><br>
 						<?php
 							if(get_sub_field('pauta-agconselho') != ''){
-								echo '<strong>Paulta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
+								echo '<strong>Pauta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
 							}
 						?>
 						<?php
@@ -421,7 +421,7 @@ class PaginaAgendaConselho extends Util
 						</strong></span><br>
 						<?php
 							if(get_sub_field('pauta-agconselho') != ''){
-								echo '<strong>Paulta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
+								echo '<strong>Pauta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
 							}
 						?>
 						<?php
@@ -467,7 +467,7 @@ class PaginaAgendaConselho extends Util
 						</strong></span><br>
 						<?php
 							if(get_sub_field('pauta-agconselho') != ''){
-								echo '<strong>Paulta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
+								echo '<strong>Pauta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
 							}
 						?>
 						<?php
@@ -513,7 +513,7 @@ class PaginaAgendaConselho extends Util
 						</strong></span><br>
 						<?php
 							if(get_sub_field('pauta-agconselho') != ''){
-								echo '<strong>Paulta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
+								echo '<strong>Pauta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
 							}
 						?>
 						<?php
@@ -559,7 +559,7 @@ class PaginaAgendaConselho extends Util
 						</strong></span><br>
 						<?php
 							if(get_sub_field('pauta-agconselho') != ''){
-								echo '<strong>Paulta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
+								echo '<strong>Pauta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
 							}
 						?>
 						<?php
@@ -605,7 +605,7 @@ class PaginaAgendaConselho extends Util
 						</strong></span><br>
 						<?php
 							if(get_sub_field('pauta-agconselho') != ''){
-								echo '<strong>Paulta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
+								echo '<strong>Pauta/Assunto:</strong> '.get_sub_field('pauta-agconselho').'<br>';
 							}
 						?>
 						<?php

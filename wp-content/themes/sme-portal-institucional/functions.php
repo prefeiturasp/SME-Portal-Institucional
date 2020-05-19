@@ -665,14 +665,19 @@ add_filter('acf/fields/relationship/query', 'my_relationship_query', 10, 3);
 
 
 
+//força posicionamento dos campos ACF
+function prefix_reset_metabox_positions(){
+  delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_post' );
+  delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_page' );
+  delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_custom_post_type' );
+}
+add_action( 'admin_init', 'prefix_reset_metabox_positions' );
 
 
 
 
 
-
-
-function remove_editor() {
+/*function remove_editor() {
     if (isset($_GET['post'])) {
         $id = $_GET['post'];
         $template = get_post_meta($id, '_wp_page_template', true);
@@ -698,4 +703,4 @@ function remove_editor() {
         }
     }
 }
-add_action('init', 'remove_editor');
+add_action('init', 'remove_editor');*/

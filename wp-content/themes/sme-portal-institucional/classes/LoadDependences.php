@@ -44,6 +44,11 @@ class LoadDependences
 			wp_register_style('lp-modelo-2', STM_THEME_URL . 'classes/assets/css/lp-modelo-2.css');
 			wp_enqueue_style('lp-modelo-2');
 		}
+		//construtor
+		if(!is_admin()){
+			wp_register_style('construtor', STM_THEME_URL . 'classes/assets/css/construtor.css');
+			wp_enqueue_style('construtor');
+		}
 		
 
 		// Agenda do Secretário
