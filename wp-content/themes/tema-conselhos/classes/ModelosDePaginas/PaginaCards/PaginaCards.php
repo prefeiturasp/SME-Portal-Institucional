@@ -43,6 +43,7 @@ class PaginaCards extends Util
 
 		endwhile;  
 		wp_reset_postdata();
+		
 	}
 	
 	
@@ -72,22 +73,21 @@ class PaginaCards extends Util
 	{
 		?>
 		<div class="container">
-					<div class="row">
+					<div class="row">					
 		<?php
-		
 		if ($this->query_cards->have_posts()) : while ($this->query_cards->have_posts()) : $this->query_cards->the_post();
 			?>		
 					<div class="col-sm-3">
+						
 						<article class="card-header card-header-card text-white font-weight-bold bg-color-titulo-cards">
 							<h2 class="fonte-catorze">
 								<a class="text-white stretched-link" href="<?php
-										if(get_the_title() == 'COMO PARTICIPAR'){
+										if(get_the_id() == get_field('card_da_agenda', 'option', $this->ID )){
 											echo get_site_url().'/agenda-do-conselho/';
 										}else{
 											the_permalink();
 										}
 									?>">
-									
 									<?= get_the_title() ?>
 								</a>
 							</h2>

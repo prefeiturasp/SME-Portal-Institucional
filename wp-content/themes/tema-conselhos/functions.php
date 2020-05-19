@@ -655,3 +655,23 @@ add_action('admin_menu', 'remove_noticias');
 ///////////////////////////////////////////////////////////////////
 
 
+////////Habilita Opções Gerais ACF////////
+if( function_exists('acf_add_options_page') ) {
+
+    acf_add_options_page(array(
+        'page_title' 	=> 'Configurações Gerais',
+        'menu_title'	=> 'Opções Gerais',
+        'menu_slug' 	=> 'conf-geral',
+        'position' 		=> '3',
+        //'capability'	=> 'edit_posts',
+        //'redirect'		=> false
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações da Página Inicial',
+        'menu_title'	=> 'Página Inicial',
+        'parent_slug'	=> 'conf-geral',
+    ));
+
+}
+///////////////////////////////////////////////////////////////////

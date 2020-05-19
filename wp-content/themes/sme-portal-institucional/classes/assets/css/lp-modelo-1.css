@@ -100,20 +100,20 @@
 	margin: 30px auto !important;
 	text-align: center;
 }
-video,
+/*video,
 iframe {
 	width: 100% !important;
 	min-height: 450px;
 	height: auto !important;
-}
+}*/
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-  video,
+  /*video,
 	iframe {
 		width: 100% !important;
 		min-height: 180px;
 		height: auto !important;
-	}
+	}*/
 }
 .col {
     text-align: center;
