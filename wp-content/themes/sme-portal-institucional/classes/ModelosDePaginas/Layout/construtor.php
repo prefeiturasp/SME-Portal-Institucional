@@ -39,7 +39,8 @@ class Construtor extends Util
 <?php
 //banner
 if(get_field('fx_flex_habilitar_banner') != null){
-	echo '<div class="bn_fx_banner"><img src="'.get_field('fx_flex_banner').'" width="100%" alt=""></div>';
+	$imagem_banner = get_field('fx_flex_banner');//Pega todos os valores da imagem no array
+	echo '<div class="bn_fx_banner"><img src="'.$imagem_banner['url'].'" width="100%" alt="'.$imagem_banner['alt'].'"></div>';
 }
 		
 if( have_rows('fx_flex_layout') ):
@@ -75,7 +76,11 @@ if( have_rows('fx_flex_layout') ):
 									)); ?>
 									<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 										<div class="col-sm-4 text-center">
-											<img src="<?php echo get_the_post_thumbnail_url(); ?>" width="100%">
+											<?php
+											$image_id = get_post_thumbnail_id();
+											$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
+											?>
+											<img src="<?php echo get_the_post_thumbnail_url(); ?>" width="100%" alt="<?php echo $image_alt; ?>">
 											<p><a href="<?php echo get_permalink(); ?>"><h3><?php the_title(); ?></h3></a></p>
 										</div>
 									<?php endwhile; endif; ?>
@@ -196,7 +201,11 @@ if( have_rows('fx_flex_layout') ):
 									)); ?>
 									<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 										<div class="col-sm-6 mt-3 mb-3 text-center">
-											<img src="<?php echo get_the_post_thumbnail_url(); ?>" width="100%">
+											<?php
+											$image_id = get_post_thumbnail_id();
+											$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
+											?>
+											<img src="<?php echo get_the_post_thumbnail_url(); ?>" width="100%" alt="<?php echo $image_alt; ?>">
 											<p><a href="<?php echo get_permalink(); ?>"><h3><?php the_title(); ?></h3></a></p>
 										</div>
 									<?php endwhile; endif; ?>
@@ -304,7 +313,11 @@ if( have_rows('fx_flex_layout') ):
 									)); ?>
 									<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 										<div class="col-sm-6 mt-3 mb-3 text-center">
-											<img src="<?php echo get_the_post_thumbnail_url(); ?>" width="100%">
+											<?php
+											$image_id = get_post_thumbnail_id();
+											$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
+											?>
+											<img src="<?php echo get_the_post_thumbnail_url(); ?>" width="100%" alt="<?php echo $image_alt; ?>">
 											<p><a href="<?php echo get_permalink(); ?>"><h3><?php the_title(); ?></h3></a></p>
 										</div>
 									<?php endwhile; endif; ?>
