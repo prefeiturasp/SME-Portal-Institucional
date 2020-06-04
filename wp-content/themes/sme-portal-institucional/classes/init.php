@@ -13,6 +13,9 @@ require_once __ROOT__.'/classes/Usuarios/Administrador/Administrador.php';
 require_once __ROOT__.'/classes/Usuarios/EnviarParaRevisao.php';
 require_once __ROOT__.'/classes/Usuarios/CamposAdicionais.php';
 
+//tutorial
+require_once __ROOT__.'/classes/tutorial/tutorial.php';
+
 require_once __ROOT__.'/classes/Cpt/Cpt.php';
 require_once __ROOT__.'/classes/Cpt/CptPosts.php';
 require_once __ROOT__.'/classes/Cpt/CptPages.php';

@@ -639,6 +639,12 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Busca Manual',
         'parent_slug'	=> 'conf-geral',
     ));
+	
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações de suporte',
+        'menu_title'	=> 'Suporte',
+        'parent_slug'	=> 'conf-geral',
+    ));
 
 }
 ///////////////////////////////////////////////////////////////////
