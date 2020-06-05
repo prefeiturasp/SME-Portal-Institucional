@@ -34,6 +34,7 @@ class PaginaAgendaConselho extends Util
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 mb-4">
+					
 					Atualizado em <time datetime="<?php the_modified_time('Y-m-d'); ?>"><?php the_modified_time('d/m/Y'); ?></time>
 				</div>
 			</div>
@@ -68,7 +69,14 @@ class PaginaAgendaConselho extends Util
 		
 		if ($this->query_agendaconselho->have_posts()) : while ($this->query_agendaconselho->have_posts()) : $this->query_agendaconselho->the_post();
 			?>		
-						
+			<div class="container">
+			<div class="row">
+				<div class="col-sm-12 mb-4">
+					
+					Atualizado em <time datetime="<?php the_modified_time('Y-m-d'); ?>"><?php the_modified_time('d/m/Y'); ?></time>
+				</div>
+			</div>
+		</div>		
 			<div class="col-sm-12 mb-4">
 				<h1 class="mb-4"><?= get_the_title() ?></h1>
 				<p class"mb-4"><?= the_content() ?></p>
