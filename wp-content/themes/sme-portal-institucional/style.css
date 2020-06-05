@@ -737,3 +737,17 @@ fieldset legend, .esconde-item-acessibilidade{
 	border: solid 1px #007bff;
 	background-color: #007bff;
 }
+
+/*Página de Tags*/
+.custom-tags{
+	margin-bottom: 30px;
+}
+.custom-tags a{
+	color: #fff;
+    background-color: #589cdd;
+    padding: 5px 15px;
+    font-size: 12px;
+    border-radius: 12px;
+    white-space: nowrap;
+    margin-right: 10px;
+}
