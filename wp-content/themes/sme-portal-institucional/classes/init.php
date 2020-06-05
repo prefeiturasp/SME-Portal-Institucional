@@ -29,6 +29,7 @@ require_once __ROOT__.'/classes/Cpt/CptCurriculoDaCidade.php';
 require_once __ROOT__.'/classes/Cpt/cptProgramaProjeto.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingle.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleCabecalho.php';

@@ -28,7 +28,8 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 				$this->getMidiasSociais();
 				the_content();
 				//$this->getArquivosAnexos();
-				$this->getCategorias(get_the_ID());
+				//$this->getCategorias(get_the_ID());
+				the_tags( '<div class="custom-tags">', '', '</div>' );
 				echo '</article>';
 			endwhile;
 		endif;
