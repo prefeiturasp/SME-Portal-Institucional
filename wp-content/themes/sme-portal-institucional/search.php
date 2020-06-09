@@ -1,12 +1,4 @@
 <?php get_header(); ?>
-
-
-
-
-
-
-
-
 <div class="inicio" style="display:none;">
 <?php
 
@@ -690,9 +682,12 @@ jQuery('[name=tipoconteudo] option:eq(5)').insertBefore(jQuery('[name=tipoconteu
                                 ?>
 							 </select>
 <script>
+	//coloca o id do site atual na variavel
+	var pageId = <?php echo $current->id; ?>;
 	//script para mudar a ordem dos sites
-	jQuery('#sel3sites option:eq(3)').insertBefore(jQuery('#sel3sites option:eq(1)'));
-	jQuery('#sel3sites option:eq(3)').insertBefore(jQuery('#sel3sites option:eq(2)'));
+	jQuery('#sel3sites option[value="'+pageId+'"]').insertBefore(jQuery('#sel3sites option:eq(1)'));//recebe o valor da variavel
+	jQuery('#sel3sites option[value="6"]').insertBefore(jQuery('#sel3sites option:eq(2)'));
+	jQuery('#sel3sites option[value="7"]').insertBefore(jQuery('#sel3sites option:eq(3)'));
 </script>
 						
 								            </div>
