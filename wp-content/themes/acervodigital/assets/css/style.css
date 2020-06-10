@@ -1,0 +1,82 @@
+/*Barra do admin no front*/
+img.logo-new-admin-bar {
+    width: 80px !important;
+}
+#wpadminbar {
+    height: 36px;
+}
+
+/*Default*/
+body{
+	font-size: 1rem;
+}
+h1{
+	font-size: 1.8rem;
+}
+h2{
+	font-size: 1.5rem;
+}
+h3{
+	font-size: 1.2rem;
+}
+.azul-acervo{
+	color: #0048A9;
+}
+.azul-claro-acervo{
+	color: #0069D9;
+}
+.cinza-acervo{
+	color: #42474A;
+}
+
+.acervo-display{
+	border: solid 1px #E4E4E4;
+	margin: 5px;
+}
+.custom-tags{
+	
+}
+.custom-tags a{
+	border: solid 1px #ccc;
+    padding: 3px 6px;
+    border-radius: 10px;
+    font-size: 0.65rem;
+    color: #000;
+}
+.flag{
+	background: #ccc;
+	min-height: 220px;
+	background-position: center;
+    background-size: 180%;
+}
+@media only screen and (max-width: 768px) {
+  .flag{
+		background-size: 100%;
+	}
+}
+.flag img{
+	width: 100%;
+}
+.links-flag{
+	color: #0069D9;
+}
+.links-flag a{
+	color: #0069D9;
+    font-weight: 500;
+    padding: 5px;
+	font-size: 0.9rem;
+}
+.cat-flag{
+	text-transform: capitalize;
+	font-size: 0.9rem;
+}
+.flag-pdf{
+	background: #10A3FB;
+	color: #fff;
+    position: absolute;
+    margin-left: -15px;
+    margin-top: 25px;
+    padding: 5px 10px;
+    border-radius: 0px 5px 5px 0px;
+	text-transform: uppercase;
+}
