@@ -53,6 +53,8 @@ if( have_rows('fx_flex_layout') ):
 					$background = get_sub_field('fx_fundo_da_coluna_1_1');
 					$color = get_sub_field('fx_cor_do_texto_coluna_1_1');
 					$link = get_sub_field('fx_cor_do_link_coluna_1_1');
+					$colorbtn = get_sub_field('fx_cor_do_botao_coluna_1_1');
+					
 		        	//conteudo flexivel 1 coluna
 					if( have_rows('fx_coluna_1_1') ):
 						echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
@@ -154,8 +156,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_1_1') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_1_1' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_1_1').'"><button type="button" class="btn bt_fx btn-primary btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_1').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_1_1').'"><button type="button" class="btn bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_1').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -177,6 +179,7 @@ if( have_rows('fx_flex_layout') ):
 					$background = get_sub_field('fx_fundo_da_coluna_1_1');
 					$color = get_sub_field('fx_cor_do_texto_coluna_1_1');
 					$link = get_sub_field('fx_cor_do_link_coluna_1_1');
+					$colorbtn = get_sub_field('fx_cor_do_botao_coluna_1_1');
 					
 					echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
 					echo '<div class="container">';//bootstrap container
@@ -279,8 +282,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_1_2') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_1_2' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_1_2').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-primary btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_2').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_1_2').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_2').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -391,8 +394,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_2_2') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_2_2' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_2_2').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-primary btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_2').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_2_2').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_2').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -416,6 +419,7 @@ if( have_rows('fx_flex_layout') ):
 					$background = get_sub_field('fx_fundo_da_coluna_1_1');
 					$color = get_sub_field('fx_cor_do_texto_coluna_1_1');
 					$link = get_sub_field('fx_cor_do_link_coluna_1_1');
+					$colorbtn = get_sub_field('fx_cor_do_botao_coluna_1_1');
 					
 					echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
 					echo '<div class="container">';//bootstrap container
@@ -445,8 +449,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_1_3') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_1_3' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_1_3').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-primary btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_3').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_1_3').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_3').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -484,8 +488,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_2_3') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_2_3' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_2_3').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-primary btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_3').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_2_3').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_3').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -524,8 +528,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_3_3') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_3_3' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_3_3').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-primary btn-lg btn-block">'.get_sub_field('fx_nome_botao_3_3').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_3_3').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_3_3').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -549,6 +553,7 @@ if( have_rows('fx_flex_layout') ):
 					$background = get_sub_field('fx_fundo_da_coluna_1_1');
 					$color = get_sub_field('fx_cor_do_texto_coluna_1_1');
 					$link = get_sub_field('fx_cor_do_link_coluna_1_1');
+					$colorbtn = get_sub_field('fx_cor_do_botao_coluna_1_1');
 					
 					echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
 					echo '<div class="container">';//bootstrap container
@@ -578,8 +583,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_1_4') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_1_4' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_1_4').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-primary btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_4').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_1_4').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_4').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -617,8 +622,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_2_4') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_2_4' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_2_4').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-primary btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_4').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_2_4').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_4').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -657,8 +662,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_3_4') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_3_4' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_3_4').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-primary btn-lg btn-block">'.get_sub_field('fx_nome_botao_3_4').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_3_4').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_3_4').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -696,8 +701,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_4_4') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_4_4' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_4_4').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-primary btn-lg btn-block">'.get_sub_field('fx_nome_botao_4_4').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_4_4').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_4_4').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;

@@ -101,8 +101,22 @@
 }
 
 /*botão customizado*/
+.btn-branco{
+	background: #fff !important;
+	color: #196CBD !important;
+}
+.btn-azul{
+	background: #196CBD !important;
+	color: #fff !important;
+}
+.btn-grafite{
+	background: #CDCDCD !important;
+	color: #454545 !important;
+}
 .bt_fx{
 	white-space: nowrap !important;
+	margin: 15px 5px;
+	padding: 20px !important;
 }
 .btn-primary {
     background-color: #196CBD !important;
@@ -111,7 +125,9 @@
 @media only screen and (max-width: 768px) {
 	/*botão customizado*/
 	.bt_fx{
+		white-space: normal !important;
 		margin-bottom: 1rem;
+		margin: 15px 0px;
 	}
 }
 
