@@ -22,9 +22,13 @@ class Construtor extends Util
 				jQuery("table").addClass('table-responsive'); //ativa tabela responsiva
 				jQuery(".nav-tabs li:first-child a").addClass('active'); //ativa a primeira aba
 				jQuery(".tab-content div:first-child").addClass('active'); //ativa a primeira aba
-				jQuery("#collapse1").addClass('show'); //ativa sanfona 1
-				jQuery("#collapsea1").addClass('show'); //ativa sanfona 2
-				jQuery("#collapseb1").addClass('show'); //ativa sanfona 3
+				//jQuery("#collapse1").addClass('show'); //ativa sanfona 1
+				//jQuery("#collapsea1").addClass('show'); //ativa sanfona 2
+				//jQuery("#collapseb1").addClass('show'); //ativa sanfona 3
+				jQuery(".card-header").on('click', function(){
+					jQuery(".card-header").removeClass('bg-sanfona-active');
+					jQuery(this).addClass('bg-sanfona-active');
+				});
 			});
 		</script>
 		<?php
@@ -129,7 +133,7 @@ if( have_rows('fx_flex_layout') ):
 									if(get_sub_field('fx_sanfona_1_1'))://repeater
 										//loop sanfona
 										echo '<div id="accordion">';
-											$count=0;
+											$count=mt_rand(1,99);
 											while(has_sub_field('fx_sanfona_1_1'))://verifica conteudo no repeater
 												$count++;
 												//echo $count;
