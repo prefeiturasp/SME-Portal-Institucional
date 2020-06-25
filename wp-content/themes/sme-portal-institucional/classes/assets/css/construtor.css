@@ -65,8 +65,23 @@ li.nav-item{
 .card.sanfona {
     background: none;
 }
-.card-header {
-    background-color: rgba(0,0,0,0.20) !important;
+.card-header{
+	background-color: rgba(0,0,0,0.2) !important;
+}
+.bg-sanfona-active{
+	background-color: rgba(0,0,0,0.5) !important;
+}
+.sanfona .card-link:after {
+    font-family: 'FontAwesome'; 
+    content: "\f106"; 
+    /*content: "\f068";*/
+    float: right; 
+}
+.sanfona .card-link.collapsed:after {
+    font-family: 'FontAwesome';
+    content: "\f107";
+    /*content: "\f067";*/
+    float: right; 
 }
 
 /*Fundo customizado*/
