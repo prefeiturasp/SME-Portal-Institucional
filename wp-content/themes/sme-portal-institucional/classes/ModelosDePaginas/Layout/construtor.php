@@ -68,7 +68,16 @@ if( have_rows('fx_flex_layout') ):
 							while( have_rows('fx_coluna_1_1') ): the_row();
 								//titulo
 								if( get_row_layout() == 'fx_cl1_titulo_1_1' ):
-									echo '<h1 class="mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_1_1').'</h1>';
+									$cab_h = get_sub_field('cabecalho_h_construtor_1_1');
+									$ali_h = get_sub_field('alinhar_h_construtor_1_1');
+									//echo $cab_h['value'];
+									if($cab_h['value'] == 'h1'){
+										echo '<h1 class="text-'.$ali_h['value'].' mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_1_1').'</h1>';
+									}elseif ($cab_h['value'] == 'h2') {
+										echo '<h2 class="text-'.$ali_h['value'].' mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_1_1').'</h2>';
+									}else{
+										echo '<h1 class="text-left mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_1_1').'</h1>';
+									}
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_1_1' ): 
 									echo '<div class="mt-3 mb-3">'.get_sub_field('fx_editor_1_1').'</div>';
@@ -194,7 +203,16 @@ if( have_rows('fx_flex_layout') ):
 							while( have_rows('fx_coluna_1_2') ): the_row();
 								//titulo
 								if( get_row_layout() == 'fx_cl1_titulo_1_2' ):
-									echo '<h1 class="mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_1_2').'</h1>';
+									$cab_h = get_sub_field('cabecalho_h_construtor_1_2');
+									$ali_h = get_sub_field('alinhar_h_construtor_1_2');
+									//echo $cab_h['value'];
+									if($cab_h['value'] == 'h1'){
+										echo '<h1 class="text-'.$ali_h['value'].' mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_1_2').'</h1>';
+									}elseif ($cab_h['value'] == 'h2') {
+										echo '<h2 class="text-'.$ali_h['value'].' mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_1_2').'</h2>';
+									}else{
+										echo '<h2 class="text-left mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_1_2').'</h2>';
+									}
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_1_2' ): 
 									echo '<div class="mt-3 mb-3">'.get_sub_field('fx_editor_1_2').'</div>';
@@ -259,7 +277,7 @@ if( have_rows('fx_flex_layout') ):
 									if(get_sub_field('fx_sanfona_1_2'))://repeater
 										//loop sanfona
 										echo '<div id="accordiona" class="mt-3 mb-3">';
-											$count_a=0;
+											$count_a=mt_rand(1,99);
 											while(has_sub_field('fx_sanfona_1_2'))://verifica conteudo no repeater
 												$count_a++;
 												//echo $count;
@@ -306,7 +324,16 @@ if( have_rows('fx_flex_layout') ):
 							while( have_rows('fx_coluna_2_2') ): the_row();
 								//titulo
 								if( get_row_layout() == 'fx_cl1_titulo_2_2' ):
-									echo '<h1 class="mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_2_2').'</h1>';
+									$cab_h = get_sub_field('cabecalho_h_construtor_2_2');
+									$ali_h = get_sub_field('alinhar_h_construtor_2_2');
+									//echo $cab_h['value'];
+									if($cab_h['value'] == 'h1'){
+										echo '<h1 class="text-'.$ali_h['value'].' mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_2_2').'</h1>';
+									}elseif ($cab_h['value'] == 'h2') {
+										echo '<h2 class="text-'.$ali_h['value'].' mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_2_2').'</h2>';
+									}else{
+										echo '<h1 class="text-'.$ali_h['value'].' mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_2_2').'</h1>';
+									}
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_2_2' ): 
 									echo '<div class="mt-3 mb-3">'.get_sub_field('fx_editor_2_2').'</div>';
@@ -371,7 +398,7 @@ if( have_rows('fx_flex_layout') ):
 									if(get_sub_field('fx_sanfona_2_2'))://repeater
 										//loop sanfona
 										echo '<div id="accordionb" class="mt-3 mb-3">';
-											$countb=0;
+											$countb=mt_rand(1,99);
 											while(has_sub_field('fx_sanfona_2_2'))://verifica conteudo no repeater
 												$countb++;
 												//echo $count;
