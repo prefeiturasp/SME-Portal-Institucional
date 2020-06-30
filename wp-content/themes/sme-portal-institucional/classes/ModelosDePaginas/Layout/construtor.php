@@ -724,6 +724,492 @@ if( have_rows('fx_flex_layout') ):
 						echo '</div>';//fundo
 		////////////////////////////// Final 3 Colunas ///////////////////////////////
 
+
+
+		////////////////////////////// Inicio 1/3 Colunas ///////////////////////////////
+        elseif( get_row_layout() == 'fx_linha_coluna_1b3' ):
+					//Personalização da coluna
+					$background = get_sub_field('fx_fundo_da_coluna_1_1');
+					$color = get_sub_field('fx_cor_do_texto_coluna_1_1');
+					$link = get_sub_field('fx_cor_do_link_coluna_1_1');
+					$colorbtn = get_sub_field('fx_cor_do_botao_coluna_1_1');
+					
+					echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
+					echo '<div class="container">';//bootstrap container
+					echo '<div class="row">';//bootstrap row
+		        	//conteudo flexivel 2 colunas esquerda
+					if( have_rows('fx_coluna_1_1b3') ):
+
+						echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+							while( have_rows('fx_coluna_1_1b3') ): the_row();
+								//titulo
+								if( get_row_layout() == 'fx_cl1_titulo_1_2' ):
+									echo '<h1 class="mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_1_2').'</h1>';
+								//editor Wysiwyg
+								elseif( get_row_layout() == 'fx_cl1_editor_1_2' ): 
+									echo '<div class="mt-3 mb-3">'.get_sub_field('fx_editor_1_2').'</div>';
+								//Loops noticias por categorias
+								elseif( get_row_layout() == 'fx_cl1_noticias_1_2' ):
+									?>
+									<div  id="noticias_fx" class="row overflow-auto">
+									<?php query_posts(array(
+										'cat' => get_sub_field('fx_noticias_1_2'),
+										'post_per_page' => -1
+									)); ?>
+									<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+										<div class="col-sm-6 mt-3 mb-3 text-center">
+											<?php
+											$image_id = get_post_thumbnail_id();
+											$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
+											?>
+											<img src="<?php echo get_the_post_thumbnail_url(); ?>" width="100%" alt="<?php echo $image_alt; ?>">
+											<p><a href="<?php echo get_permalink(); ?>"><h3><?php the_title(); ?></h3></a></p>
+										</div>
+									<?php endwhile; endif; ?>
+									<?php wp_reset_query(); ?>
+									</div>
+									<?php
+								//Video Responsivo
+								elseif( get_row_layout() == 'fx_cl1_video_1_2' ): 
+									echo '<div class="mt-3 mb-3 video-2">'.get_sub_field('fx_video_1_2').'</div>';
+								//imagem responsiva
+								elseif( get_row_layout() == 'fx_cl1_imagem_1_2' ): 
+									$imagem_1_2 = get_sub_field('fx_imagem_1_2');//Pega todos os valores da imagem no array
+									echo '<img class="mt-3 mb-3" src="'.$imagem_1_2['url'].'" width="100%" alt="'.$imagem_1_2['alt'].'">';
+								//abas
+								elseif( get_row_layout() == 'fx_cl1_abas_1_2' ): 		
+									if(get_sub_field('fx_abas_1_2'))://repeater
+										
+										//loop menu aba
+										echo '<ul class="nav nav-tabs mb-3 mt-3">';
+											$count_1_2=0;
+											while(has_sub_field('fx_abas_1_2'))://verifica conteudo no repeater
+												$count_1_2++;
+												//echo $count;
+												echo '<li class="nav-item">';
+													echo '<a class="nav-link" data-toggle="tab" href="#abaa'.$count_1_2.'"><strong>'.get_sub_field('fx_nome_abas_1_2').'</strong></a>';
+												echo '</li>';
+											endwhile;
+										echo '</ul>';
+		
+										//loop conteudo aba
+										echo '<div class="tab-content mb-3 mt-3">';
+												$count_1_2=0;
+										while(has_sub_field('fx_abas_1_2'))://verifica se editor no repeater
+												$count_1_2++;
+												//echo $count;
+											echo '<div class="tab-pane container mt-3 mb-3" id="abaa'.$count_1_2.'">'.get_sub_field('fx_editor_abas_1_2').'</div>';
+		
+										endwhile;
+										echo '</div>';
+		
+									 endif;
+								//Sanfona
+								elseif( get_row_layout() == 'fx_cl1_sanfona_1_2' ): 		
+									if(get_sub_field('fx_sanfona_1_2'))://repeater
+										//loop sanfona
+										echo '<div id="accordiona" class="mt-3 mb-3">';
+											$count_a=0;
+											while(has_sub_field('fx_sanfona_1_2'))://verifica conteudo no repeater
+												$count_a++;
+												//echo $count;
+												  echo '<div class="card sanfona ">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapsea'.$count_a.'">';
+														echo '<strong>'.get_sub_field('fx_nome_sanfona_1_2').'</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapsea'.$count_a.'" class="collapse" data-parent="#accordiona">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('fx_editor_sanfona_1_2');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+											endwhile;
+										echo '</div>';		
+									 endif;
+								//botão centralizado
+								elseif( get_row_layout() == 'fx_fl1_botao_1_2' ): 
+									//conteudo flexivel Botão
+									if( have_rows('fx_botao_1_2') ):
+										echo '<div class="row">';
+											while ( have_rows('fx_botao_1_2') ) : the_row();
+												if( get_row_layout() == 'fx_cl1_botao_1_2' ):
+														//loop de botões responsivos
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_1_2').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_2').'</button></a>';
+														echo '</div>';
+												endif;
+											endwhile;
+										echo '</div>';
+									else :
+									endif;	
+								endif;
+							endwhile;
+						echo '</div>';//bootstrap col
+
+					endif;//-------------------------------------------------------------
+		
+					//conteudo flexivel 2 colunas direita
+					if( have_rows('fx_coluna_2_1b3') ):
+						echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+							while( have_rows('fx_coluna_2_1b3') ): the_row();
+								//titulo
+								if( get_row_layout() == 'fx_cl1_titulo_2_2' ):
+									echo '<h1 class="mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_2_2').'</h1>';
+								//editor Wysiwyg
+								elseif( get_row_layout() == 'fx_cl1_editor_2_2' ): 
+									echo '<div class="mt-3 mb-3">'.get_sub_field('fx_editor_2_2').'</div>';
+								//Loops noticias por categorias
+								elseif( get_row_layout() == 'fx_cl1_noticias_2_2' ):
+									?>
+									<div  id="noticias_fx" class="row overflow-auto">
+									<?php query_posts(array(
+										'cat' => get_sub_field('fx_noticias_2_2'),
+										'post_per_page' => -1
+									)); ?>
+									<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+										<div class="col-sm-6 mt-3 mb-3 text-center">
+											<?php
+											$image_id = get_post_thumbnail_id();
+											$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
+											?>
+											<img src="<?php echo get_the_post_thumbnail_url(); ?>" width="100%" alt="<?php echo $image_alt; ?>">
+											<p><a href="<?php echo get_permalink(); ?>"><h3><?php the_title(); ?></h3></a></p>
+										</div>
+									<?php endwhile; endif; ?>
+									<?php wp_reset_query(); ?>
+									</div>
+									<?php
+								//Video Responsivo
+								elseif( get_row_layout() == 'fx_cl1_video_2_2' ): 
+									echo '<div class="mt-3 mb-3 video-2">'.get_sub_field('fx_video_2_2').'</div>';
+								//imagem responsiva
+								elseif( get_row_layout() == 'fx_cl1_imagem_2_2' ): 
+									$imagem_2_2 = get_sub_field('fx_imagem_2_2');//Pega todos os valores da imagem no array
+									echo '<img class="mt-3 mb-3" src="'.$imagem_2_2['url'].'" width="100%" alt="'.$imagem_2_2['alt'].'">';
+								//abas
+								elseif( get_row_layout() == 'fx_cl1_abas_2_2' ): 		
+									if(get_sub_field('fx_abas_2_2'))://repeater
+										
+										//loop menu aba
+										echo '<ul class="nav nav-tabs mb-3 mt-3">';
+											$count_2_2=0;
+											while(has_sub_field('fx_abas_2_2'))://verifica conteudo no repeater
+												$count_2_2++;
+												//echo $count;
+												echo '<li class="nav-item">';
+													echo '<a class="nav-link" data-toggle="tab" href="#abab'.$count_2_2.'"><strong>'.get_sub_field('fx_nome_abas_2_2').'</strong></a>';
+												echo '</li>';
+											endwhile;
+										echo '</ul>';
+		
+										//loop conteudo aba
+										echo '<div class="tab-content mb-3 mt-3">';
+												$count_2_2=0;
+										while(has_sub_field('fx_abas_2_2'))://verifica se editor no repeater
+												$count_2_2++;
+												//echo $count;
+											echo '<div class="tab-pane container mt-3 mb-3" id="abab'.$count_2_2.'">'.get_sub_field('fx_editor_abas_2_2').'</div>';
+		
+										endwhile;
+										echo '</div>';
+		
+									 endif;
+								//Sanfona
+								elseif( get_row_layout() == 'fx_cl1_sanfona_2_2' ): 		
+									if(get_sub_field('fx_sanfona_2_2'))://repeater
+										//loop sanfona
+										echo '<div id="accordionb" class="mt-3 mb-3">';
+											$countb=0;
+											while(has_sub_field('fx_sanfona_2_2'))://verifica conteudo no repeater
+												$countb++;
+												//echo $count;
+												  echo '<div class="card sanfona ">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapseb'.$countb.'">';
+														echo '<strong>'.get_sub_field('fx_nome_sanfona_2_2').'</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapseb'.$countb.'" class="collapse" data-parent="#accordionb">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('fx_editor_sanfona_2_2');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+											endwhile;
+										echo '</div>';		
+									 endif;
+								//botão centralizado
+								elseif( get_row_layout() == 'fx_fl1_botao_2_2' ): 
+									//conteudo flexivel Botão
+									if( have_rows('fx_botao_2_2') ):
+										echo '<div class="row">';
+											while ( have_rows('fx_botao_2_2') ) : the_row();
+												if( get_row_layout() == 'fx_cl1_botao_2_2' ):
+														//loop de botões responsivos
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_2_2').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_2').'</button></a>';
+														echo '</div>';
+												endif;
+											endwhile;
+										echo '</div>';
+									else :
+									endif;	
+								endif;
+							endwhile;
+						echo '</div>';//bootstrap col
+
+					endif;//-------------------------------------------------------------
+		
+						echo '</div>';//bootstrap row
+						echo '</div>';//bootstrap container
+						echo '</div>';//fundo
+		////////////////////////////// Final 1/3 Colunas ///////////////////////////////
+
+
+		////////////////////////////// Inicio 3/1 Colunas ///////////////////////////////
+        elseif( get_row_layout() == 'fx_linha_coluna_3b1' ):
+					//Personalização da coluna
+					$background = get_sub_field('fx_fundo_da_coluna_1_1');
+					$color = get_sub_field('fx_cor_do_texto_coluna_1_1');
+					$link = get_sub_field('fx_cor_do_link_coluna_1_1');
+					$colorbtn = get_sub_field('fx_cor_do_botao_coluna_1_1');
+					
+					echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
+					echo '<div class="container">';//bootstrap container
+					echo '<div class="row">';//bootstrap row
+		        	//conteudo flexivel 2 colunas esquerda
+					if( have_rows('fx_coluna_1_3b1') ):
+
+						echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+							while( have_rows('fx_coluna_1_3b1') ): the_row();
+								//titulo
+								if( get_row_layout() == 'fx_cl1_titulo_1_2' ):
+									echo '<h1 class="mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_1_2').'</h1>';
+								//editor Wysiwyg
+								elseif( get_row_layout() == 'fx_cl1_editor_1_2' ): 
+									echo '<div class="mt-3 mb-3">'.get_sub_field('fx_editor_1_2').'</div>';
+								//Loops noticias por categorias
+								elseif( get_row_layout() == 'fx_cl1_noticias_1_2' ):
+									?>
+									<div  id="noticias_fx" class="row overflow-auto">
+									<?php query_posts(array(
+										'cat' => get_sub_field('fx_noticias_1_2'),
+										'post_per_page' => -1
+									)); ?>
+									<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+										<div class="col-sm-6 mt-3 mb-3 text-center">
+											<?php
+											$image_id = get_post_thumbnail_id();
+											$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
+											?>
+											<img src="<?php echo get_the_post_thumbnail_url(); ?>" width="100%" alt="<?php echo $image_alt; ?>">
+											<p><a href="<?php echo get_permalink(); ?>"><h3><?php the_title(); ?></h3></a></p>
+										</div>
+									<?php endwhile; endif; ?>
+									<?php wp_reset_query(); ?>
+									</div>
+									<?php
+								//Video Responsivo
+								elseif( get_row_layout() == 'fx_cl1_video_1_2' ): 
+									echo '<div class="mt-3 mb-3 video-2">'.get_sub_field('fx_video_1_2').'</div>';
+								//imagem responsiva
+								elseif( get_row_layout() == 'fx_cl1_imagem_1_2' ): 
+									$imagem_1_2 = get_sub_field('fx_imagem_1_2');//Pega todos os valores da imagem no array
+									echo '<img class="mt-3 mb-3" src="'.$imagem_1_2['url'].'" width="100%" alt="'.$imagem_1_2['alt'].'">';
+								//abas
+								elseif( get_row_layout() == 'fx_cl1_abas_1_2' ): 		
+									if(get_sub_field('fx_abas_1_2'))://repeater
+										
+										//loop menu aba
+										echo '<ul class="nav nav-tabs mb-3 mt-3">';
+											$count_1_2=0;
+											while(has_sub_field('fx_abas_1_2'))://verifica conteudo no repeater
+												$count_1_2++;
+												//echo $count;
+												echo '<li class="nav-item">';
+													echo '<a class="nav-link" data-toggle="tab" href="#abaa'.$count_1_2.'"><strong>'.get_sub_field('fx_nome_abas_1_2').'</strong></a>';
+												echo '</li>';
+											endwhile;
+										echo '</ul>';
+		
+										//loop conteudo aba
+										echo '<div class="tab-content mb-3 mt-3">';
+												$count_1_2=0;
+										while(has_sub_field('fx_abas_1_2'))://verifica se editor no repeater
+												$count_1_2++;
+												//echo $count;
+											echo '<div class="tab-pane container mt-3 mb-3" id="abaa'.$count_1_2.'">'.get_sub_field('fx_editor_abas_1_2').'</div>';
+		
+										endwhile;
+										echo '</div>';
+		
+									 endif;
+								//Sanfona
+								elseif( get_row_layout() == 'fx_cl1_sanfona_1_2' ): 		
+									if(get_sub_field('fx_sanfona_1_2'))://repeater
+										//loop sanfona
+										echo '<div id="accordiona" class="mt-3 mb-3">';
+											$count_a=0;
+											while(has_sub_field('fx_sanfona_1_2'))://verifica conteudo no repeater
+												$count_a++;
+												//echo $count;
+												  echo '<div class="card sanfona ">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapsea'.$count_a.'">';
+														echo '<strong>'.get_sub_field('fx_nome_sanfona_1_2').'</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapsea'.$count_a.'" class="collapse" data-parent="#accordiona">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('fx_editor_sanfona_1_2');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+											endwhile;
+										echo '</div>';		
+									 endif;
+								//botão centralizado
+								elseif( get_row_layout() == 'fx_fl1_botao_1_2' ): 
+									//conteudo flexivel Botão
+									if( have_rows('fx_botao_1_2') ):
+										echo '<div class="row">';
+											while ( have_rows('fx_botao_1_2') ) : the_row();
+												if( get_row_layout() == 'fx_cl1_botao_1_2' ):
+														//loop de botões responsivos
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_1_2').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_2').'</button></a>';
+														echo '</div>';
+												endif;
+											endwhile;
+										echo '</div>';
+									else :
+									endif;	
+								endif;
+							endwhile;
+						echo '</div>';//bootstrap col
+
+					endif;//-------------------------------------------------------------
+		
+					//conteudo flexivel 2 colunas direita
+					if( have_rows('fx_coluna_2_3b1') ):
+						echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+							while( have_rows('fx_coluna_2_3b1') ): the_row();
+								//titulo
+								if( get_row_layout() == 'fx_cl1_titulo_2_2' ):
+									echo '<h1 class="mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_2_2').'</h1>';
+								//editor Wysiwyg
+								elseif( get_row_layout() == 'fx_cl1_editor_2_2' ): 
+									echo '<div class="mt-3 mb-3">'.get_sub_field('fx_editor_2_2').'</div>';
+								//Loops noticias por categorias
+								elseif( get_row_layout() == 'fx_cl1_noticias_2_2' ):
+									?>
+									<div  id="noticias_fx" class="row overflow-auto">
+									<?php query_posts(array(
+										'cat' => get_sub_field('fx_noticias_2_2'),
+										'post_per_page' => -1
+									)); ?>
+									<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+										<div class="col-sm-6 mt-3 mb-3 text-center">
+											<?php
+											$image_id = get_post_thumbnail_id();
+											$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
+											?>
+											<img src="<?php echo get_the_post_thumbnail_url(); ?>" width="100%" alt="<?php echo $image_alt; ?>">
+											<p><a href="<?php echo get_permalink(); ?>"><h3><?php the_title(); ?></h3></a></p>
+										</div>
+									<?php endwhile; endif; ?>
+									<?php wp_reset_query(); ?>
+									</div>
+									<?php
+								//Video Responsivo
+								elseif( get_row_layout() == 'fx_cl1_video_2_2' ): 
+									echo '<div class="mt-3 mb-3 video-2">'.get_sub_field('fx_video_2_2').'</div>';
+								//imagem responsiva
+								elseif( get_row_layout() == 'fx_cl1_imagem_2_2' ): 
+									$imagem_2_2 = get_sub_field('fx_imagem_2_2');//Pega todos os valores da imagem no array
+									echo '<img class="mt-3 mb-3" src="'.$imagem_2_2['url'].'" width="100%" alt="'.$imagem_2_2['alt'].'">';
+								//abas
+								elseif( get_row_layout() == 'fx_cl1_abas_2_2' ): 		
+									if(get_sub_field('fx_abas_2_2'))://repeater
+										
+										//loop menu aba
+										echo '<ul class="nav nav-tabs mb-3 mt-3">';
+											$count_2_2=0;
+											while(has_sub_field('fx_abas_2_2'))://verifica conteudo no repeater
+												$count_2_2++;
+												//echo $count;
+												echo '<li class="nav-item">';
+													echo '<a class="nav-link" data-toggle="tab" href="#abab'.$count_2_2.'"><strong>'.get_sub_field('fx_nome_abas_2_2').'</strong></a>';
+												echo '</li>';
+											endwhile;
+										echo '</ul>';
+		
+										//loop conteudo aba
+										echo '<div class="tab-content mb-3 mt-3">';
+												$count_2_2=0;
+										while(has_sub_field('fx_abas_2_2'))://verifica se editor no repeater
+												$count_2_2++;
+												//echo $count;
+											echo '<div class="tab-pane container mt-3 mb-3" id="abab'.$count_2_2.'">'.get_sub_field('fx_editor_abas_2_2').'</div>';
+		
+										endwhile;
+										echo '</div>';
+		
+									 endif;
+								//Sanfona
+								elseif( get_row_layout() == 'fx_cl1_sanfona_2_2' ): 		
+									if(get_sub_field('fx_sanfona_2_2'))://repeater
+										//loop sanfona
+										echo '<div id="accordionb" class="mt-3 mb-3">';
+											$countb=0;
+											while(has_sub_field('fx_sanfona_2_2'))://verifica conteudo no repeater
+												$countb++;
+												//echo $count;
+												  echo '<div class="card sanfona ">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapseb'.$countb.'">';
+														echo '<strong>'.get_sub_field('fx_nome_sanfona_2_2').'</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapseb'.$countb.'" class="collapse" data-parent="#accordionb">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('fx_editor_sanfona_2_2');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+											endwhile;
+										echo '</div>';		
+									 endif;
+								//botão centralizado
+								elseif( get_row_layout() == 'fx_fl1_botao_2_2' ): 
+									//conteudo flexivel Botão
+									if( have_rows('fx_botao_2_2') ):
+										echo '<div class="row">';
+											while ( have_rows('fx_botao_2_2') ) : the_row();
+												if( get_row_layout() == 'fx_cl1_botao_2_2' ):
+														//loop de botões responsivos
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_2_2').'"><button type="button" class="btn mt-3 mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_2').'</button></a>';
+														echo '</div>';
+												endif;
+											endwhile;
+										echo '</div>';
+									else :
+									endif;	
+								endif;
+							endwhile;
+						echo '</div>';//bootstrap col
+
+					endif;//-------------------------------------------------------------
+		
+						echo '</div>';//bootstrap row
+						echo '</div>';//bootstrap container
+						echo '</div>';//fundo
+		////////////////////////////// Final 1/3 Colunas ///////////////////////////////
+
+
         endif;
     endwhile;
 endif;
