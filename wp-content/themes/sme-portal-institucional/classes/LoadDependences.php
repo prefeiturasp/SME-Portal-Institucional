@@ -28,9 +28,10 @@ class LoadDependences
 
 	public function custom_formats_public(){
 		// Página Inicial
-		wp_register_style('pagina-inicial', STM_THEME_URL . 'classes/assets/css/pagina-inicial.css', null, null, 'all');
-		wp_enqueue_style('pagina-inicial');
-		
+		if(!is_admin()){
+			wp_register_style('pagina-inicial', STM_THEME_URL . 'classes/assets/css/pagina-inicial.css', null, null, 'all');
+			wp_enqueue_style('pagina-inicial');
+		}
 		// Programas e Projetos
 		wp_register_style('programa-projeto', STM_THEME_URL . 'classes/assets/css/programa-projeto.css', null, null, 'all');
 		wp_enqueue_style('programa-projeto');
