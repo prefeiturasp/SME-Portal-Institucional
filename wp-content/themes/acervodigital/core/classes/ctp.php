@@ -56,8 +56,12 @@ class AcervoRegisterCustomPostType
 			'has_archive' => true,
 			'hierarchical' => false,
 			'menu_position' => null,
-			'taxonomies' => array('post_tag'),
-			'supports' => array('title')
+			'taxonomies' => array(
+				'taxonomy' => 'post_tag',
+				'name' => 'Palavra chave',
+				'slug' => 'palavra-chave'
+			),
+			'supports' => array('title','revisions')
 			
 		);
 
@@ -65,4 +69,56 @@ class AcervoRegisterCustomPostType
 		register_post_type( $this->type_name, $args );
 	}
 }
-$varteste = new AcervoRegisterCustomPostType( 'transparencia','Transparencia','dashicons-media-archive' );
+$varteste = new AcervoRegisterCustomPostType( 'acervo','Acervo','dashicons-media-archive' );
+
+
+//modifica tag para palavra chave
+function change_tax_object_label() {
+    global $wp_taxonomies;
+    $labels = &$wp_taxonomies['post_tag']->labels;
+    $labels->name = "Palavras chaves";
+    $labels->singular_name = "Palavra chave";
+    $labels->search_items = "Buscar palavras chaves";
+    $labels->all_items = "Palavras chaves";
+    $labels->separate_items_with_commas = "Separe palavras chaves por virgulas \";\"";
+    $labels->choose_from_most_used = "Escolha entre os mais usados";
+    $labels->popular_items = "Palavras chaves mais usadas";
+    $labels->edit_item = "Editar palavras chaves";
+    $labels->view_item = "Visualizar palavras chaves";
+    $labels->update_item = "Modificar palavras chaves";
+    $labels->add_new_item = "Nova Palavra chave";
+    $labels->new_item_name = "Novo nome palavras chave";
+    $labels->add_or_remove_items = "Adiconar ou remover palavras chaves";
+    $labels->not_found = "Sem palavras chaves";
+    $labels->no_terms = "Nenhuma palavras chaves";
+    $labels->items_list_navigation = "Navegue pelas palavras chaves";
+    $labels->items_list = "Lista de palavras chaves";
+    $labels->back_to_items = "← Voltar para palavras chaves";
+    $labels->menu_name = "Palavras chaves";
+}
+add_action( 'init', 'change_tax_object_label' );
+
+
+//adiciona colunas ao CPT acervo
+function set_custom_edit_acervo_columns($columns) {
+	//Habilita coluna autor
+    $columns['author'] = __( 'Usuário', 'your_text_domain' );
+    //custom coluna
+    $columns['tipo'] = __( 'Tipo', 'your_text_domain' );
+    return $columns;
+}
+add_filter( 'manage_acervo_posts_columns', 'set_custom_edit_acervo_columns' );
+
+
+
+function custom_acervo_column( $column, $post_id ) {
+    switch ( $column ) {
+
+        case 'tipo' :
+       		$file = get_field('arquivo_acervo', $post_id);
+			$stringSeparada = explode(".", $file['filename']);
+        	echo $stringSeparada[1];
+            break;
+    }
+}
+add_action( 'manage_acervo_posts_custom_column' , 'custom_acervo_column', 10, 2 );

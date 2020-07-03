@@ -56,15 +56,17 @@ ul#adminmenu a.wp-has-current-submenu:after, ul#adminmenu>li.current>a.current:a
 #wpadminbar .ab-empty-item, #wpadminbar a.ab-item, #wpadminbar>#wp-toolbar span.ab-label, #wpadminbar>#wp-toolbar span.noticon {
     color: #fff;
 }
-/**********************************/
-/**********************************/
-/*******BOOTSTRAP CSS ADMIN********/
-/**********************************/
-/**********************************/
-body {
-    line-height: 0.7 !important;
-    font-size: 0.8rem !important;
+/*Aviso do acervo*/
+.alert-info{
+    background: #0073aa;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
 }
-.h2, h2 {
-    font-size: 1.2rem !important;
+/*Cabeçalho do acf*/
+
+.acf-fc-layout-handle {
+    background: #01295c !important;
+    color: #fff !important;
 }

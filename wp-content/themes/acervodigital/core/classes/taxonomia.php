@@ -2,7 +2,7 @@
 /**
  * Register custom taxonomy
  */
-class BzRegisterCustomTaxonomy
+class AcervoRegisterCustomTaxonomy
 {
 	private $type_name = '';
 	private $singular_name = '';
@@ -66,4 +66,4 @@ class BzRegisterCustomTaxonomy
 }
 
 
-new BzRegisterCustomTaxonomy( 'categoria_teste', 'Categoria', 'transparencia' );
+new AcervoRegisterCustomTaxonomy( 'categoria_teste', 'Categoria', 'acervo' );

@@ -142,7 +142,7 @@ li.nav-item{
 	color: #454545 !important;
 }
 .bt_fx{
-	white-space: nowrap !important;
+	/*white-space: nowrap !important;*/
 	margin: 15px 5px;
 	padding: 20px !important;
 }

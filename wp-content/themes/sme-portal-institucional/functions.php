@@ -710,3 +710,45 @@ add_action( 'admin_init', 'prefix_reset_metabox_positions' );
     }
 }
 add_action('init', 'remove_editor');*/
+
+//habilita revisões para o ACF
+add_filter( 'rest_prepare_revision', function($response, $post){
+	$data = $response->get_data();
+	$data['acf'] = get_fields( $post->ID );
+
+	return rest_ensure_response( $data );
+}, 10, 2);
+
+//habilita atualizações para o ACF
+function my_acf_save_post( $post_id ) {
+
+  // bail out early if we don't need to update the date
+  if( is_admin() || $post_id == 'new' ) {
+
+     return;
+
+   }
+
+   global $wpdb;
+
+   $datetime = date("Y-m-d H:i:s");
+
+   $query = "UPDATE $wpdb->posts
+	     SET
+              post_modified = '$datetime'
+             WHERE
+              ID = '$post_id'";
+
+    $wpdb->query( $query );
+
+}
+
+// run after ACF saves the $_POST['acf'] data
+add_action('acf/save_post', 'my_acf_save_post', 20);
+
+//coloca data atual no campo data no ACF
+function my_acf_default_date($field){
+	$field['default_value'] = date('dmY');
+	return $field;
+}
+add_filter('acf/load_field/name=data_da_atualizacao_organograma','my_acf_default_date');
