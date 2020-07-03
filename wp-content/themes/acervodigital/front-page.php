@@ -16,9 +16,9 @@
 				<?php
 				$loop = new WP_Query( array(
 					'post_type' => array(
-						'transparencia',
+						'acervo',
 					),
-					'taxonomy'   => 'transparencia',
+					'taxonomy'   => 'acervo',
 					'order' => 'DESC',
 					'posts_per_page' => 6
 				  )
@@ -69,7 +69,7 @@
 								<div class="cat-flag mb-3"><?php echo $type; ?></div>
 								<p><?php the_field('descricao_acervo'); ?></p>
 								<p><strong>Última atualização:</strong> <?php the_time('d/m/Y' );?></p>
-								<p><strong>Tags: </strong>				
+								<p><strong>Palavras chaves: </strong>				
 									<?php the_tags( '<span class="custom-tags">', '', '<span>' );?>
 								</p>
 								<div class="links-flag">

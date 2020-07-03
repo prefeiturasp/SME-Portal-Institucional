@@ -5,7 +5,7 @@
 function rhs_load_admin(){
 	wp_enqueue_style( 'style_admin', get_template_directory_uri() . '/assets/css/style-admin.css', array() );
 	wp_enqueue_script( 'script_admin', get_template_directory_uri().'/assets/js/script-admin.js', array( 'jquery' ), 2, true );
-	wp_enqueue_style( 'bootstrap_style_admin', get_template_directory_uri().'/assets/css/bootstrap.min.css', array() );
+	//wp_enqueue_style( 'bootstrap_style_admin', get_template_directory_uri().'/assets/css/bootstrap.min.css', array() );
 }
 add_action( 'admin_enqueue_scripts', 'rhs_load_admin' );
 

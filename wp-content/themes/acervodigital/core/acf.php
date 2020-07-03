@@ -41,6 +41,7 @@ if( function_exists('acf_add_options_page') ) {
 		'capability'	=> 'acf_options',
     ));
 
+
 }
 
 
@@ -69,3 +70,13 @@ function acf_change_icon_on_files ( $icon, $mime, $attachment_id ){ // Display t
 	}
 	
 	add_filter( 'wp_mime_type_icon', 'acf_change_icon_on_files', 10, 3 );
+
+
+//habilita revisoes para o acf
+add_filter( 'rest_prepare_revision', function( $response, $post ) {
+    $data = $response->get_data();
+
+    $data['acf'] = get_fields( $post->ID );
+
+    return rest_ensure_response( $data );
+}, 10, 2 );

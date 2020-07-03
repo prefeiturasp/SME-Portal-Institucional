@@ -127,3 +127,54 @@ function admin_color_scheme() {
    $_wp_admin_css_colors = 0;
 }
 add_action('admin_head', 'admin_color_scheme');
+
+//remove avisos de atualizações do wordpress, temas e plugins
+add_filter( 'pre_site_transient_update_core','remove_core_updates' );
+add_filter( 'pre_site_transient_update_plugins','remove_core_updates' );
+add_filter( 'pre_site_transient_update_themes','remove_core_updates' );
+
+function remove_core_updates(){
+    global $wp_version;
+    return(object) array(
+        'last_checked' => time(),
+        'version_checked' => $wp_version
+    );
+}
+
+//remove menus do admin wordpress
+function wpdocs_remove_menus(){
+   
+  //remove_menu_page( 'index.php' );                  //Dashboard
+  //remove_menu_page( 'jetpack' );                    //Jetpack* 
+  remove_menu_page( 'edit.php' );                   //Posts
+  //remove_menu_page( 'upload.php' );                 //Media
+  //remove_menu_page( 'edit.php?post_type=page' );    //Pages
+  remove_menu_page( 'edit-comments.php' );          //Comments
+  //remove_menu_page( 'themes.php' );                 //Appearance
+  //remove_menu_page( 'plugins.php' );                //Plugins
+  //remove_menu_page( 'users.php' );                  //Users
+  //remove_menu_page( 'tools.php' );                  //Tools
+  //remove_menu_page( 'options-general.php' );        //Settings
+   
+}
+add_action( 'admin_menu', 'wpdocs_remove_menus' );
+
+
+//remove menus do admin wordpress
+function editor_remove_menus(){
+   
+   if(current_user_can('editor')){
+   	  //remove_menu_page( 'index.php' );                  //Dashboard
+	  remove_menu_page( 'jetpack' );                    //Jetpack* 
+	  remove_menu_page( 'edit.php' );                   //Posts
+	  //remove_menu_page( 'upload.php' );                 //Media
+	  remove_menu_page( 'edit.php?post_type=page' );    //Pages
+	  remove_menu_page( 'edit-comments.php' );          //Comments
+	  remove_menu_page( 'themes.php' );                 //Appearance
+	  remove_menu_page( 'plugins.php' );                //Plugins
+	  remove_menu_page( 'users.php' );                  //Users
+	  remove_menu_page( 'tools.php' );                  //Tools
+	  remove_menu_page( 'options-general.php' );        //Settings
+   } 
+}
+add_action( 'admin_menu', 'editor_remove_menus' );
