@@ -1,5 +1,5 @@
-# SME-Portal-Institucional
-Novo Portal da SME Desenvolvido em Wordpress
+O Ateliê do Software da SME tem o objetivo de garantir a manutenção e evolução dos sistemas em operação e construir sistemas novos sob demanda, possibilitado a partir do Edital nº 33/SME/2017. Baseados em um modelo de contratação baseado pelos movimentos ágil e de Software Craftsmanship, trabalhamos com equipes multidisciplinares para o desenvolvimento de produtos que beneficiam toda a comunidade escolar (técnicos da SME e DREs, gestores, professores, alunos e famílias).
+
 # Portal Secretaria Municipal de Educação
 
 **Visão do produto:**
@@ -86,11 +86,10 @@ Contatos e organograma - repositório único de contatos integrando lista de con
 
 
 
-### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#jornadas)Jornadas
+### [](#jornadas)Jornadas
 
-![Fluxo](https://smeprefeituraspgov.sharepoint.com/:i:/r/sites/amcom/Shared%20Documents/AMCom/Portal%20SME/Fluxo.png?csf=1&web=1&e=lGFHuv)
 
-### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#roadmap)Roadmap
+### [](#roadmap)Roadmap
 
 **MVP - Portal Secretaria Municipal de Educação**
 
@@ -149,9 +148,9 @@ Contatos e organograma - repositório único de contatos integrando lista de con
 - Chat bot
 
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#como-surgiu)Como surgiu
+## [](#como-surgiu)Como surgiu
 
-### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#fase-de-descoberta)Fase de Descoberta:
+### [](#fase-de-descoberta)Fase de Descoberta:
 
 Inserir os links para os trabalhos de descoberta bem como uma explicação de cada etapa.
 
@@ -171,7 +170,7 @@ https://smeprefeituraspgov.sharepoint.com/:f:/r/sites/amcom/Shared%20Documents/A
 Benchmark https://smeprefeituraspgov.sharepoint.com/:f:/r/sites/amcom/Shared%20Documents/AMCom/Portal%20SME/Reposit%C3%B3rio/Benchmarking?csf=1&web=1&e=2y6BZ1
 
 
-### [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#prot%C3%B3tipos)Protótipos:
+### [](#prot%C3%B3tipos)Protótipos:
 
 Inserir link para os protótipos construídos:
 
@@ -189,7 +188,7 @@ https://www.figma.com/file/OVWVJHsrT8yRguadnfVxC2/Comunica%C3%A7%C3%A3o-Resposit
 
 
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#links-%C3%BAteis)Links Úteis:
+## [](#links-%C3%BAteis)Links Úteis:
 
 Inserir aqui o link para os ambientes utilizados pelo projeto:
 
@@ -205,7 +204,7 @@ Inserir aqui o link para os ambientes utilizados pelo projeto:
 
 [https://educacao.sme.prefeitura.sp.gov.br/wp-admin](http://educacao.sme.prefeitura.sp.gov.br/wp-admin)
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#comunica%C3%A7%C3%A3o)Comunicação:
+## [](#comunica%C3%A7%C3%A3o)Comunicação:
 
 Canal de comunicação
 
@@ -216,11 +215,11 @@ Canal de comunicação
 - Movimentar a comunidade  
 - Falar tópicos que **não** demandem discussões profundas
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#como-contribuir)Como contribuir
+## [](#como-contribuir)Como contribuir
 
 Contribuições são **super bem vindas**! Se você tem vontade de construir o portal da secretaria municipal e educação conosco, veja o nosso [guia de contribuição](https://github.com/prefeiturasp/SME/blob/master/docs/CONTRIBUTING.md) onde explicamos detalhadamente como trabalhamos e de que formas você pode nos ajudar a alcançar nossos objetivos. Lembrando que todos devem seguir nosso [código de conduta](https://github.com/prefeiturasp/SME/blob/master/docs/CODEOFCONDUCT.md).
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#reposit%C3%B3rios)Repositórios:
+## [](#reposit%C3%B3rios)Repositórios:
 
 Informar os repositórios de código que envolvem a solução:
 
@@ -228,10 +227,10 @@ Informar os repositórios de código que envolvem a solução:
 
 
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#documenta%C3%A7%C3%B5es-auxiliares)Documentações Auxiliares:
+## [](#documenta%C3%A7%C3%B5es-auxiliares)Documentações Auxiliares:
 
 Inserir link para a pasta de documentações ou algum material específico que tenha sido produzido.
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#instala%C3%A7%C3%A3o-e-configura%C3%A7%C3%A3o)Instalação e Configuração:
+## [](#instala%C3%A7%C3%A3o-e-configura%C3%A7%C3%A3o)Instalação e Configuração:
 
 Inserir aqui todas as informações de instalação e configuração da aplicação para desenvolvimento.
