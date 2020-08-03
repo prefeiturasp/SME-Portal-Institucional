@@ -1,25 +1,25 @@
 /*texto customizado*/
 .tx_fx_grafite{
-	color: #42474A !important;
+	color: #42474A;
 }
 .tx_fx_grafite h1, h2 , h3{
-	color: #42474A !important;
+	color: #42474A;
 }
 .tx_fx_branco{
-	color: #fff !important;
+	color: #fff;
 }
 .tx_fx_branco h1, h2 , h3{
-	color: #fff !important;
+	color: #fff;
 }
 /*Link customizado*/
 .lk_fx_branco a{
-	color: #fff !important;
+	color: #fff;
 }
 .lk_fx_azul a{
-	color: #0056b3 !important;
+	color: #0056b3;
 }
 .lk_fx_grafite a{
-	color: #42474A !important;
+	color: #42474A;
 }
 
 /*Custom Abas*/
@@ -145,6 +145,7 @@ li.nav-item{
 	/*white-space: nowrap !important;*/
 	margin: 15px 5px;
 	padding: 20px !important;
+	font-weight: bold !important;
 }
 .btn-primary {
     background-color: #196CBD !important;
