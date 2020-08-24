@@ -12,6 +12,7 @@ class Editor
 	public function __construct()
 	{
 		$this->getRole();
+		$this->removeCap();
 		$this->addCap();
 		add_action('admin_menu', array($this, 'escondeMenu' ));
 	}
@@ -21,6 +22,23 @@ class Editor
 		if (current_user_can('editor')) {
 			$this->role_object = get_role('editor');
 		}
+	}
+
+	public function removeCap(){
+
+		if (current_user_can('editor')) {
+
+			$caps = array(
+				'publish_posts',
+				'publish_pages',
+			);
+
+			foreach ($caps as $cap){
+				$this->role_object->remove_cap($cap);
+			}
+
+		}
+
 	}
 
 	public function addCap(){

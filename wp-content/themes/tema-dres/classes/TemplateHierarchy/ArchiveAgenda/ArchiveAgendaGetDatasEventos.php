@@ -34,7 +34,8 @@ class ArchiveAgendaGetDatasEventos
 				$this->array_ids[] = $item->ID;
 			}
             foreach ($this->array_ids as $id){
-                $this->array_datas[] = get_field('data_do_evento', $id);
+                $this->array_datas = get_field('data_do_evento', $id);
+                //$this->array_datas[] = get_field('data_do_evento', $id);
                 //console.log($id);
             }
             $this->array_datas = json_encode($this->array_datas);

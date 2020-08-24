@@ -703,3 +703,19 @@ function run_after_title_meta_boxes() {
     do_meta_boxes( get_current_screen(), 'after_title', $post );
 }
 add_action( 'edit_form_after_title', 'run_after_title_meta_boxes' );
+
+
+//Resolve admin para usuário
+$user_id = get_current_user_id();
+if ($user_id == 9) {
+    echo '
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script>
+	$( document ).ready(function() {
+		$(".column-primary").contents().filter(function(){
+		return this.nodeType == 3;
+		}).remove();
+	});
+	</script>
+	';
+}
