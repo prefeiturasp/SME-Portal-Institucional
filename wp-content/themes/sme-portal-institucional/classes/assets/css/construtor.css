@@ -71,6 +71,12 @@ li.nav-item{
 .bg-sanfona-active{
 	background-color: rgba(0,0,0,0.5) !important;
 }
+.bg-sanfona-active a{
+	color: #fff;
+}
+.bg-sanfona-active a:hover{
+	color: #fff;
+}
 .sanfona .card-link:after {
     font-family: 'FontAwesome'; 
     content: "\f106"; 
@@ -143,9 +149,11 @@ li.nav-item{
 }
 .bt_fx{
 	/*white-space: nowrap !important;*/
-	margin: 15px 5px;
-	padding: 20px !important;
-	font-weight: bold !important;
+	margin: 5px auto !important;
+    padding: 12px !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    width: 245px !important;
 }
 .btn-primary {
     background-color: #196CBD !important;
