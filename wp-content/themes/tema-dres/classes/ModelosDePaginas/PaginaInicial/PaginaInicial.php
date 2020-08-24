@@ -43,7 +43,7 @@ class PaginaInicial extends Util
 								<a class="bread-link bread-home" href="https://educacao.sme.prefeitura.sp.gov.br">DREs - Diretorias Regionais de Educação</a>
 							</li>
 							<li class="separator separator-home">  /  </li>
-							<li class="item-current item-archive"><strong class="bread-current bread-archive">Diretoria Regional de Educação Guaianases</strong></li>
+							<li class="item-current item-archive"><strong class="bread-current bread-archive">Diretoria Regional de Educação</strong></li>
 						</ol>
 					</nav>
 				</div>

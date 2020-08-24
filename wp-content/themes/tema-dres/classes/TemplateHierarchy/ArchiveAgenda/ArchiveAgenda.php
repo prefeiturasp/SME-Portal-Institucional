@@ -24,7 +24,7 @@ class ArchiveAgenda extends Util
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-8 reverse">
-					<h1 class="mb-4" id="">Agenda da DRE Guaianases</h1>
+					<h1 class="mb-4" id="">Agenda da DRE</h1>
 	<?php
 		// Numbered Pagination
 	
