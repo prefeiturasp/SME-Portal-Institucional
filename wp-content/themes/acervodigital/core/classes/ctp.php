@@ -56,11 +56,11 @@ class AcervoRegisterCustomPostType
 			'has_archive' => true,
 			'hierarchical' => false,
 			'menu_position' => null,
-			'taxonomies' => array(
+			/*'taxonomies' => array(
 				'taxonomy' => 'post_tag',
 				'name' => 'Palavra chave',
 				'slug' => 'palavra-chave'
-			),
+			),*/
 			'supports' => array('title','revisions')
 			
 		);

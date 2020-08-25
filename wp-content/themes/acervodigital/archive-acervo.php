@@ -1,19 +1,4 @@
-<?php
-	if ( is_front_page() ) :
-	    get_header( 'front' );
-	else :
-	    get_header();
-	endif;
-?>
-<section style="height: 500px; background: #335482; color: #fff; display: flex; align-items: center;">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12 text-center">
-				<h1>Area para a busca</h1>
-			</div>
-		</div>
-	</div>
-</section>
+<?php get_header(); ?>
 <main class="mt-5 mb-5">
 	<section>
 		<div class="container">	
@@ -28,23 +13,11 @@
 					),
 					'taxonomy'   => 'acervo',
 					'order' => 'ASC',
-					'posts_per_page' => 6
+					'posts_per_page' => -1
 				  )
 				);
 				?>
 				<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 								<?php
 								$file = get_field('arquivo_acervo_digital');
 								$stringSeparada = explode(".", $file['filename']);
@@ -88,19 +61,6 @@
 										</div>
 									</div>
 								</div>
-			
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-					
 					<?php
 					if( have_rows('arquivos_do_repositorio') ):
 

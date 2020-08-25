@@ -5,11 +5,9 @@ $site_cliente = get_option( 'siteurl' );
 global $wp_admin_bar;
 	$wp_admin_bar->add_menu(array(
 		'id' => 'wp-admin-bar-new-item-1',
-		'title' => '<span class="ab-icon dashicons dashicons-editor-help"></span>' . __('Duvidas?'),
-		'href' => 'https://rafaelhsouza.com.br/acervodigital/wp-admin/?cliente='.$site_cliente,
-		'meta' => array(
-                'target' => '_blank',
-            )
+		'title' => '<span class="ab-icon dashicons dashicons-editor-help"></span>' . __('Tutoriais'),
+		'href' => 'https://hom-portal.sme.prefeitura.sp.gov.br/acervodigital/wp-admin/admin.php?page=tutorial_slug'
+		//'meta' => array('target' => '_blank',)
 	));
 }
 add_action('wp_before_admin_bar_render', 'wp_admin_bar_new_item');

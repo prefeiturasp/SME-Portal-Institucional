@@ -66,7 +66,6 @@
 						</a>
 					</div>
 					<div class="menu-home mt-3 col-sm-9">
-						<div class="menu-item"><a href="<?php get_site_url(); ?>">Voltar para a tela inicial</a></div>
 						<div class="menu-item"><a href="#">Sobre o Acervo</a></div>
 						<div class="menu-item"><a href="<?php get_site_url(); ?>wp-login.php">Fazer login</a></div>
 					</div>
