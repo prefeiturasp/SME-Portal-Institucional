@@ -66,9 +66,12 @@
 						</a>
 					</div>
 					<div class="menu-home mt-3 col-sm-9">
-						<div class="menu-item"><a href="<?php get_site_url(); ?>">Voltar para a tela inicial</a></div>
-						<div class="menu-item"><a href="#">Sobre o Acervo</a></div>
-						<div class="menu-item"><a href="<?php get_site_url(); ?>wp-login.php">Fazer login</a></div>
+						<div class="menu-item"><a href="<?php echo get_site_url(); ?>">Voltar para a tela inicial</a></div>
+						<?php
+						wp_nav_menu( array( 
+						    'theme_location' => 'menu-principal', 
+						    'container_class' => 'menu-item-class' ) ); 
+						?>
 					</div>
 				</div>
 			</div>

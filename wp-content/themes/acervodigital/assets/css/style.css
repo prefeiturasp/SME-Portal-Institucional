@@ -117,9 +117,22 @@ h3{
 }
 .menu-item{
 	padding: 15px 10px;
+	margin-left: -5px !important;
+	white-space: nowrap;
 }
 .menu-item a{
 	color: #42474A;
+}
+.menu-item-class li{
+	list-style-type: none;
+    display: inline-block;
+    padding: 0 10px;
+    margin: 0;
+    white-space: nowrap;
+}
+.menu-item-class ul{
+	padding: 0;
+	white-space: nowrap;
 }
 /*////End header////*/
 /*////Initial footer////*/
