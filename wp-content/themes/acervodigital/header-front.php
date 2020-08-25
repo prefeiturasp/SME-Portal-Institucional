@@ -57,7 +57,7 @@
 			<div class="container pt-3 pb-5">
 				<div class="row">
 					<div class="col-sm-3 text-center">
-						<a class="logo-principal" href="<?php echo get_site_url(); ?>">
+						<a class="logo-principal" href="https://educacao.sme.prefeitura.sp.gov.br/<?php //echo get_site_url(); ?>">
 						<?php
 							$custom_logo_id = get_theme_mod( 'custom_logo' );
 							$custom_logo_url = wp_get_attachment_image_url( $custom_logo_id , 'full' );
