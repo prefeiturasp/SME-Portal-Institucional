@@ -28,13 +28,6 @@ if( function_exists('acf_add_options_page') ) {
     ));
 	
 	acf_add_options_sub_page(array(
-        'page_title' 	=> 'Personalização do tema',
-        'menu_title'	=> 'Personalização',
-        'parent_slug'	=> 'conf-geral',
-		'capability'	=> 'acf_options',
-    ));
-	
-	acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações de suporte',
         'menu_title'	=> 'Suporte',
         'parent_slug'	=> 'conf-geral',

@@ -1,5 +1,5 @@
 <?php
-$user_teste = true; //Ative para remover e aplicar novas capacidades ao usuário
+/*$user_teste = true; //Ative para remover e aplicar novas capacidades ao usuário
 if($user_teste = true){
 	remove_role('teste_user1');
 	add_role('teste_user1', __(//Role name
@@ -72,4 +72,4 @@ function posts_for_current_author($query) {
 
   return $query;
 }
-add_filter('pre_get_posts', 'posts_for_current_author');
+add_filter('pre_get_posts', 'posts_for_current_author');*/

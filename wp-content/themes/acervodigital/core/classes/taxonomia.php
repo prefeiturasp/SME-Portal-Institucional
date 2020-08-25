@@ -67,3 +67,46 @@ class AcervoRegisterCustomTaxonomy
 
 
 new AcervoRegisterCustomTaxonomy( 'categoria_teste', 'Categoria', 'acervo' );
+
+
+
+
+
+//taxonomy acervo palavra chave
+function palavra_custom_taxonomy() {
+ 
+  $labels = array(
+    'name' => _x( 'Palavra Chave', 'taxonomy general name' ),
+    'singular_name' => _x( 'Palavra Chave', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Buscar Palavras Chaves' ),
+    'all_items' => __( 'Todas as Palavras Chaves' ),
+    'parent_item' => null,
+    'parent_item_colon' => null,
+	  	//'parent_item' => __( 'Parent Type' ),
+    	//'parent_item_colon' => __( 'Parent Type:' ),
+    'edit_item' => __( 'Editar Palavra Chave' ), 
+    'update_item' => __( 'Atualizar Palavra Chave' ),
+    'add_new_item' => __( 'Cadastrar Palavra Chave' ),
+    'new_item_name' => __( 'nome' ),
+    'menu_name' => __( 'Palavras Chaves' ),
+  ); 	
+ 
+  register_taxonomy('palavra',array('acervo'), array(
+/*    'hierarchical' => false,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'palavra' ),*/
+	  
+	'labels' => $labels,
+	'public' => true,
+	'hierarchical' => true,
+	'show_ui' => true,
+	'show_admin_column' => true,
+	'show_in_nav_menus' => true,
+	'show_tagcloud' => true,  
+	  
+  ));
+}
+add_action( 'init', 'palavra_custom_taxonomy', 0 );
