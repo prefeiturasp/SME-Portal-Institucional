@@ -22,4 +22,10 @@ $value = $field['value'];
 		wp_die('<img style="display: block; margin: auto;" src="'.get_bloginfo('template_directory').'/images/logo_login.png"><h1 style="text-align: center;">Site em manutenção</h1><br /><p style="text-align: center;">Estamos realizando algumas atualizações.</p><p style="text-align: center;">Por favor volte mais tarde.</p>','Manutenção Acervo Digital');
 	}
 }
-add_action('get_header', 'wp_maintenance_mode');	
+add_action('get_header', 'wp_maintenance_mode');
+
+// Registra menu
+function wp_custom_menu() {
+  register_nav_menu('menu-principal',__( 'Menu Principal' ));
+}
+add_action( 'init', 'wp_custom_menu' );
