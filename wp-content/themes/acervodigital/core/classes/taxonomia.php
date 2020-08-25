@@ -67,6 +67,9 @@ class AcervoRegisterCustomTaxonomy
 
 
 new AcervoRegisterCustomTaxonomy( 'categoria_teste', 'Categoria', 'acervo' );
+new AcervoRegisterCustomTaxonomy( 'autor', 'Autor', 'acervo' );
+new AcervoRegisterCustomTaxonomy( 'setor', 'Setor', 'acervo' );
+new AcervoRegisterCustomTaxonomy( 'idioma', 'Idioma', 'acervo' );
 
 
 
