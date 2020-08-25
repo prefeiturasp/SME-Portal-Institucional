@@ -5,13 +5,25 @@
 .tx_fx_grafite{
 	color: #42474A;
 }
-.tx_fx_grafite h1, h2 , h3{
+.tx_fx_grafite h1{
+	color: #42474A;
+}
+.tx_fx_grafite h2{
+	color: #42474A;
+}
+.tx_fx_grafite h3{
 	color: #42474A;
 }
 .tx_fx_branco{
 	color: #fff;
 }
-.tx_fx_branco h1, h2 , h3{
+.tx_fx_branco h1{
+	color: #fff;
+}
+.tx_fx_branco h2{
+	color: #fff;
+}
+.tx_fx_branco h3{
 	color: #fff;
 }
 /*Link customizado*/

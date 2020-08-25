@@ -51,26 +51,26 @@
 						</div>
 						<div class="col-6 mb-3">
 							<h3><strong>Autor</strong></h3>
-							<?php
-							$autor = get_field_object('autor_acervo_digital');
-							if( $autor['value'] ): ?>
-								<p>
-									<?php foreach( $autor['value'] as $value => $label ): ?>
-										<span><?php echo $label['label']; ?></span>&nbsp; 
-									<?php endforeach; ?>
-								</p>
+							<?php 
+							$terms = get_field('autor_acervo_digital');
+							if( $terms ): ?>
+							    <?php foreach( $terms as $term ): ?>
+							        <a href="<?php echo esc_url( get_term_link( $term ) ); ?>">
+							        	<?php echo esc_html( $term->name ); ?>	
+							        </a>
+							    <?php endforeach; ?>
 							<?php endif; ?>
 						</div>
 						<div class="col-6 mb-3">
 							<h3><strong>Setor</strong></h3>
-							<?php
-							$setor = get_field_object('setor_acervo_digital');
-							if( $setor['value'] ): ?>
-								<p>
-									<?php foreach( $setor['value'] as $value => $label ): ?>
-										<span><?php echo $label['label']; ?></span>&nbsp; 
-									<?php endforeach; ?>
-								</p>
+							<?php 
+							$terms = get_field('setor_acervo_digital');
+							if( $terms ): ?>
+							    <?php foreach( $terms as $term ): ?>
+							        <a href="<?php echo esc_url( get_term_link( $term ) ); ?>">
+							        	<?php echo esc_html( $term->name ); ?>	
+							        </a>
+							    <?php endforeach; ?>
 							<?php endif; ?>
 						</div>
 						<div class="col-6 mb-3">
@@ -83,7 +83,7 @@
 						</div>
 						<div class="col-12 mb-3">
 							<h3><strong>Palavra Chave</strong></h3>
-							<p><?php echo  strip_tags (get_the_term_list(get_the_ID(), 'palavra', '', ' / ', '')); ?></p>
+							<p><?php echo  get_the_term_list(get_the_ID(), 'palavra', '', ' - ', ''); ?></p>
 						</div>
 						<div class="col-6 mb-3">
 							<h3><strong>Tipo de documento</strong></h3>
@@ -95,14 +95,14 @@
 						</div>
 						<div class="col-6 mb-3">
 							<h3><strong>Idioma do documento</strong></h3>
-							<?php
-							$idioma = get_field_object('idioma_acervo_digital');
-							if( $idioma['value'] ): ?>
-								<p>
-									<?php foreach( $idioma['value'] as $value => $label ): ?>
-										<span><?php echo $label['label']; ?></span>&nbsp; 
-									<?php endforeach; ?>
-								</p>
+							<?php 
+							$terms = get_field('idioma_acervo_digital');
+							if( $terms ): ?>
+							    <?php foreach( $terms as $term ): ?>
+							        <a href="<?php echo esc_url( get_term_link( $term ) ); ?>">
+							        	<?php echo esc_html( $term->name ); ?>	
+							        </a>
+							    <?php endforeach; ?>
 							<?php endif; ?>
 						</div>
 						<div class="col-6 mb-3">
