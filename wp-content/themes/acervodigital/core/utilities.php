@@ -108,3 +108,8 @@ function add_two_new_dashboard_widgets() {
 function add_three_new_dashboard_widgets() {
 	echo "3 Conteudo NOVO do Painel Admin. ";
 }
+
+
+
+/*/////lixeira de media*/
+define('MEDIA_TRASH', true);
