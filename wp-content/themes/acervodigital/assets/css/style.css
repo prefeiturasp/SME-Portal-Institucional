@@ -178,6 +178,27 @@ footer option a{
 	color: #000 !important;
 }
 /*////End footer////*/
+
+/*Categoria Home*/
+.cat-home{
+	text-align: center;
+	margin: auto;
+}
+.cat-home-inter{
+    border: solid 1px #ccc;
+    padding: 30px;
+    font-size: 22px;
+    font-weight: bold;
+    background: #69A9FF;
+	opacity: 0.85;
+    height: 200px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.cat-home-inter a{
+	color: #fff;
+}
 /*////Initical acessibilidade////*/
 fieldset legend, .esconde-item-acessibilidade {
     position: absolute !important;

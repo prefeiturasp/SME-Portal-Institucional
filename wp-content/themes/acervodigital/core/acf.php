@@ -21,6 +21,13 @@ if( function_exists('acf_add_options_page') ) {
     ));
 
     acf_add_options_sub_page(array(
+        'page_title'    => 'Configurações da Página Inicial',
+        'menu_title'    => 'Página Inicial',
+        'parent_slug'   => 'conf-geral',
+        'capability'    => 'acf_options',
+    ));
+
+    acf_add_options_sub_page(array(
         'page_title' 	=> 'Informações Gerais',
         'menu_title'	=> 'Informações',
         'parent_slug'	=> 'conf-geral',
