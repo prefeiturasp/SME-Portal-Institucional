@@ -15,6 +15,10 @@ jQuery(document).ready(function ($) {
     $('.a-click-botao').each(function (e) {
 
         $(this).click(function (e) {
+	    $('.a-click-botao').removeClass('a-click-botao-clicado');
+	    $('.card-header').removeClass('container-titulo-botoes-on-click');
+            $('.collapse').removeClass('show');
+	    $('.st1').removeClass('on');
             var id_botao_atual = $(this).attr('id');
             $(this).toggleClass('a-click-botao-clicado');
             $(this).parent().parent().toggleClass('container-titulo-botoes-on-click');
