@@ -1,43 +1,29 @@
-
-
-				
-					<?php get_header(); ?>
-<main class="mt-5 mb-5">
-	<section>
-		<div class="container">	
-			<div class="row">
-				<div class="col-sm-12">
-					<h2 class="mt-3 mb-3">Resultados de Palavras Chaves</h2>
-				</div>
-				<div class="col-sm-8 mt-3 mb-5">
-				<?php
-				$tax = $wp_query->get_queried_object();
-				$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-				$loop = new WP_Query( array(
-					'post_type' => array(
-						'acervo',
-					),
-					'tax_query' => array(
-			        array(
-			        'taxonomy' => 'palavra',
-			        //'paged' => $paged,
-			        'field' => 'slug',
-			        'terms' => $tax->slug,
-			                )
-			            ),
-					'order' => 'ASC',
-					//'posts_per_page' => 10
-				  )
-				);
-				?>
-				<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
-								<?php
-								$file = get_field('arquivo_acervo_digital');
-								$stringSeparada = explode(".", $file['filename']);
-								$type = get_post_type();
-
-								?>
-								<div class="row">
+<?php
+/*
+Template Name: Search Page
+*/
+?>
+<?php
+get_header(); ?>
+<div class="wrap">
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+			<div class="container mt-5 mb-5">
+				<div class="row">
+						<div class="col-sm-12">
+							<h3 class="search-title">
+							<span class="azul-claro-acervo"><strong><?php echo $wp_query->found_posts; ?></strong></span> <?php _e( 'Resultados para ', 'locale' ); ?>: <strong> <?php the_search_query(); ?> </strong>
+							</h3>
+						</div>
+						<div class="col-sm-8 mt-3 mb-5">
+							<?php
+							if(have_posts()):
+							while(have_posts()): the_post();
+							$file = get_field('arquivo_acervo_digital');
+							$stringSeparada = explode(".", $file['filename']);
+							$type = get_post_type();
+							?>
+							<div class="row">
 								<div class="col-sm-12">
 									<div class="row acervo-display">
 										<div class="col-sm-4 view-tag flag">
@@ -78,20 +64,24 @@
 									</div>
 								</div>
 							</div>
-					
-				<?php endwhile;  ?>
+							<?php
+							endwhile;
+							else:
+							echo 'Sem conteudo';
+							endif;
+							?>
 							<div class="col-sm-12 mt-5 mb-5 text-center">
 								<?php
 								if(function_exists('wp_pagenavi'))
 								wp_pagenavi(); ?>
 							</div>
-							<?php wp_reset_query(); ?>
-				</div>
+						</div>
 						<div class="col-sm-4 mt-5 mb-5">
 							FILTROS
-						</div>		
+						</div>
+				</div>
 			</div>
-		</div>
-	</section>
-</main>
-<?php get_footer(); ?>
+		</main><!-- #main -->
+	</div><!-- #primary -->
+</div><!-- .wrap -->
+<?php get_footer();

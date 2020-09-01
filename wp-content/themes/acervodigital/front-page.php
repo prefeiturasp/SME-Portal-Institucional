@@ -11,6 +11,7 @@
 			<div class="col-sm-12 text-center">
 				<h1><?php the_field('titulo_busca','options'); ?></h1>
 				<p><?php the_field('texto_busca','options'); ?></p>
+				<div class="mt-5 mb-5"><?php get_search_form(); ?></div>
 			</div>
 		</div>
 	</div>
@@ -19,7 +20,7 @@
 	<section>
 		<div class="container-fluid">
 				<div class="col-sm-12">
-					<h2 class="mt-3 mb-3">Últimos documentos adicionados</h2>
+					<h1 class="titulo-home text-center mt-5 mb-5">Temas</h1>
 				</div>	
 			<div class="row">
 				<?php 
