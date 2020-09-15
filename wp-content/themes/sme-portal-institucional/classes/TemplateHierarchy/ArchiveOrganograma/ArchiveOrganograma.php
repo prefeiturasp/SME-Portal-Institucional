@@ -62,7 +62,7 @@ class ArchiveOrganograma extends ArchiveContato
             </article>
             <article class="row">
                 <article class="col-lg-10 col-xs-12">
-                    <h2>Decreto nº 58.154, de 22 de março de 2018</h2>
+                    <h2>Decreto nº 59.660, de 4 de agosto de 2020</h2>
                     <p>Atualizado em: <?php echo get_the_modified_date('d/m/Y H:i:s'); ?> </p>
                 </article>
             </article>

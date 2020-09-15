@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+
 <div class="inicio" style="display:none;">
 <?php
 
@@ -48,10 +49,15 @@ $GLOBALS['arrayVerId'] = array();
 		);
 		}
 		
+		echo'<pre style="display:none;">';
+		echo'Lista de ID';
+		var_dump(get_sites());
+		echo'</pre>';
 		
 		
 	if($quaissites == '')
-	$arraysites = array('1','2','3','4','5','6','7'); //array dos sites disponíveis
+	$arraysites = array('1','4','5','6');
+	//$arraysites = array('0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'); //array dos sites disponíveis
 	else 
 	$arraysites = array($quaissites);
 		
@@ -69,6 +75,8 @@ $GLOBALS['arrayVerId'] = array();
 		'post_status'    => 'publish',
 		'sentence' => true,
 		'site__in' => $arraysites,
+		//'public' => 1,
+		//'site__in' => $arraysites,
 		//informa a lista de sites que deseja ter nos resultados da busca
 		'paged' => $paged,
 		'orderby' => ['post_type' => 'ASC','id'=>'ASC','date' => 'DESC'],
@@ -95,12 +103,12 @@ $GLOBALS['arrayVerId'] = array();
 		array_push(
 			$sitesNovaOrdem,
 			$arraySitee[0],//Portal SME
-			$arraySitee[3],//DRE
-			$arraySitee[4]//Conselho
-			//$arraySitee[0],//portal SME
-			//$arraySitee[3],//DRE
-			//$arraySitee[4],//Conselho
-			//$arraySitee[6],//portal SME
+			$arraySitee[1],//Portal SME
+			$arraySitee[2],//Portal SME
+			$arraySitee[3],//Portal SME
+			$arraySitee[4],//CAE Conselho
+			$arraySitee[5],//CME Conselho
+			$arraySitee[6]//CACSFUNDEB Conselho
 		);
 		}
 		else
@@ -248,7 +256,7 @@ $esseTemSearch = false;
 							if($esseTemSearch == true){ ?>
 							 
                                 <figure>
-                                    <img class="img-fluid rounded float-left" src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
+                                    <img class="img-fluid rounded float-left" src="https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
                                 </figure>
                             <?php
 							}
@@ -486,7 +494,7 @@ $arrayPalavrasPost = array_map('trim', $arrayPalavrasPost);
 								}else{
 									?>
 									<figure>
-										<img class="img-fluid rounded float-left" src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
+										<img class="img-fluid rounded float-left" src="https://hom-educacaco.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
 									</figure>	
 									<?php
 								}
@@ -633,7 +641,12 @@ if(jQuery('[name=tipoconteudo] option').eq(i).attr('style') == "display: none;")
 }
 }, 20);
 setTimeout(function(){ 
-jQuery('[name=tipoconteudo] option:eq(5)').insertBefore(jQuery('[name=tipoconteudo] option:eq(1)'));
+jQuery('[name=tipoconteudo] option:eq(7)').insertBefore(jQuery('[name=tipoconteudo] option:eq(1)'));
+jQuery('[name=tipoconteudo] option:eq(8)').insertBefore(jQuery('[name=tipoconteudo] option:eq(2)'));
+jQuery('[name=tipoconteudo] option:eq(3)').insertBefore(jQuery('[name=tipoconteudo] option:eq(3)'));
+jQuery('[name=tipoconteudo] option:eq(4)').insertBefore(jQuery('[name=tipoconteudo] option:eq(4)'));
+jQuery('[name=tipoconteudo] option:eq(7)').insertBefore(jQuery('[name=tipoconteudo] option:eq(5)'));
+jQuery('[name=tipoconteudo] option:eq(8)').insertBefore(jQuery('[name=tipoconteudo] option:eq(6)'));
             }, 100);
 							</script>
                         </div>
@@ -681,13 +694,21 @@ jQuery('[name=tipoconteudo] option:eq(5)').insertBefore(jQuery('[name=tipoconteu
                                 }
                                 ?>
 							 </select>
+<!--<script>
+	//script para mudar a ordem dos sites
+	jQuery('#sel3sites option:eq(4)').insertBefore(jQuery('#sel3sites option:eq(1)'));
+	jQuery('#sel3sites option:eq(5)').insertBefore(jQuery('#sel3sites option:eq(2)'));
+	jQuery('#sel3sites option:eq(4)').insertBefore(jQuery('#sel3sites option:eq(3)'));
+</script>-->
 <script>
 	//coloca o id do site atual na variavel
 	var pageId = <?php echo $current->id; ?>;
 	//script para mudar a ordem dos sites
 	jQuery('#sel3sites option[value="'+pageId+'"]').insertBefore(jQuery('#sel3sites option:eq(1)'));//recebe o valor da variavel
-	jQuery('#sel3sites option[value="6"]').insertBefore(jQuery('#sel3sites option:eq(2)'));
-	jQuery('#sel3sites option[value="7"]').insertBefore(jQuery('#sel3sites option:eq(3)'));
+	jQuery('#sel3sites option[value="4"]').insertBefore(jQuery('#sel3sites option:eq(2)'));
+	jQuery('#sel3sites option[value="5"]').insertBefore(jQuery('#sel3sites option:eq(3)'));
+	jQuery('#sel3sites option[value="6"]').insertBefore(jQuery('#sel3sites option:eq(4)'));
+	jQuery('#sel3sites option[value="7"]').insertBefore(jQuery('#sel3sites option:eq(5)'));
 </script>
 						
 								            </div>
@@ -744,12 +765,19 @@ for (i = 0; i < jQuery('option').length; i++) {
 }
 //REMOVE OU MODIFICA OS NOMES DE TODOS OS SELECTS DO FILTRO
 //Troca nome filtro de conteudo
-mudaNomes('page1', 'Página Portal');
-mudaNomes('post1', 'Notícias Portal');
-mudaNomes('page7', 'Página Conselho');
-mudaNomes('post7', 'Notícias do Conselho');
-mudaNomes('page6', 'Página DRE');
-mudaNomes('post6', 'Notícias da DRE');
+mudaNomes('page1', 'Página em SME Portal Educação');
+mudaNomes('post1', 'Notícia em SME Portal Educação');
+mudaNomes('page4', 'Página em CAE Conselho');
+mudaNomes('post4', 'Notícia em CAE Conselho');
+mudaNomes('page5', 'Página em CME Conselho');
+mudaNomes('post5', 'Notícia em CME Conselho');
+mudaNomes('page6', 'Página em CACSFUNDEB Conselho');
+mudaNomes('post6', 'Notícia em CACSFUNDEB Conselho');
+mudaNomes('page7', 'Página em CRECE Conselho');
+mudaNomes('post7', 'Notícia em CRECE Conselho');
+	
+		
+
 //Remove do fitro de conteúdo
 mudaNomes('acf-field-group7', '');
 mudaNomes('aba7', '');
@@ -770,6 +798,7 @@ mudaNomes('revision7', '');
 mudaNomes('rl_gallery7', '');
 mudaNomes('user_request7', '');
 mudaNomes('wpcf7_contact_form7', '');
+		
 mudaNomes('aba6', '');
 mudaNomes('acf-field6', '');
 mudaNomes('acf-field-group6', '');
@@ -789,6 +818,47 @@ mudaNomes('revision6', '');
 mudaNomes('rl_gallery6', '');
 mudaNomes('user_request6', '');
 mudaNomes('wpcf7_contact_form6', '');
+		
+mudaNomes('aba5', '');
+mudaNomes('acf-field5', '');
+mudaNomes('acf-field-group5', '');
+mudaNomes('agenda5', '');
+mudaNomes('attachment5', '');
+mudaNomes('botao5', '');
+mudaNomes('card5', '');
+mudaNomes('contato5', '');
+mudaNomes('curriculo-da-cidade5', '');
+mudaNomes('custom_css5', '');
+mudaNomes('customize_changeset5', '');
+mudaNomes('nav_menu_item5', '');
+mudaNomes('oembed_cache5', '');
+mudaNomes('organograma5', '');
+mudaNomes('programa-projeto5', '');
+mudaNomes('revision5', '');
+mudaNomes('rl_gallery5', '');
+mudaNomes('user_request5', '');
+mudaNomes('wpcf7_contact_form5', '');
+		
+mudaNomes('aba4', '');
+mudaNomes('acf-field4', '');
+mudaNomes('acf-field-group4', '');
+mudaNomes('agenda4', '');
+mudaNomes('attachment4', '');
+mudaNomes('botao4', '');
+mudaNomes('card4', '');
+mudaNomes('contato4', '');
+mudaNomes('curriculo-da-cidade4', '');
+mudaNomes('custom_css4', '');
+mudaNomes('customize_changeset4', '');
+mudaNomes('nav_menu_item4', '');
+mudaNomes('oembed_cache4', '');
+mudaNomes('organograma4', '');
+mudaNomes('programa-projeto4', '');
+mudaNomes('revision4', '');
+mudaNomes('rl_gallery4', '');
+mudaNomes('user_request4', '');
+mudaNomes('wpcf7_contact_form4', '');
+		
 mudaNomes('aba1', '');
 mudaNomes('acf-field1', '');
 mudaNomes('acf-field-group1', '');
@@ -809,9 +879,12 @@ mudaNomes('rl_gallery1', '');
 mudaNomes('user_request1', '');
 mudaNomes('wpcf7_contact_form1', '');
 //Troca nome filtros sites
-mudaNomes('/', 'Portal SME');
-mudaNomes('/cme-conselho-municipal-de-educacao/', 'Conselho CAE');
-mudaNomes('/dre-guaianases/', 'DRE Guarulhos');
+mudaNomes('/', 'SME Portal Educação');
+mudaNomes('/conselho-de-alimentacao-escolar/', 'CAE Conselho');
+mudaNomes('/conselho-municipal-de-educacao/', 'CME Conselho');
+mudaNomes('/conselho-de-representantes-de-conselhos-de-escola/', 'CRECE Conselho');
+mudaNomes('/conselho-de-acompanhamento-e-controle-social-do-fundeb/', 'CACSFUNDEB Conselho');
+
 
 
 		<?php 
@@ -828,7 +901,7 @@ elll.length - o > 0 ? console.log('oi') : jQuery('.inicio .container .row .col-s
 	else
 	{
 		?>
-		jQuery('.inicio .container .row .col-sm-8').html('<p>Digite ao menos 2 caracteres.</p>');
+		jQuery('.inicio .container .row .col-sm-8').html('<p>Digite ao menos 3 caracteres para realizar a busca.</p>');
 														jQuery("#main > div.inicio").show();
 	<?php	
 	}
