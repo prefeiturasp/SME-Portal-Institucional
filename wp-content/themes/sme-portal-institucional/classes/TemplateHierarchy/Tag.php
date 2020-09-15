@@ -16,7 +16,7 @@ class PaginaTag{
 		$paged = ( get_query_var( 'page' ) ) ?  get_query_var( 'page' ) : 1;
 		$args = array(
 			'post_type' => 'post',
-			'post_status' => 'published',
+			'post_status' => 'publish',
 			'taxonomy'	=> 'post_tag',
 			'tag' => $get_term_name,
 			'posts_per_page' => 12,
