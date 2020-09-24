@@ -109,6 +109,19 @@ $GLOBALS['arrayVerId'] = array();
 			$arraySitee[4],//CAE Conselho
 			$arraySitee[5],//CME Conselho
 			$arraySitee[6]//CACSFUNDEB Conselho
+			//$arraySitee[7]//Reservado DRE
+			//$arraySitee[8]//Reservado DRE
+			//$arraySitee[9]//Reservado DRE
+			//$arraySitee[10]//Reservado DRE
+			//$arraySitee[11]//Reservado DRE
+			//$arraySitee[12]//Reservado DRE
+			//$arraySitee[13]//Reservado DRE
+			//$arraySitee[14]//Reservado DRE
+			//$arraySitee[15]//Reservado DRE
+			//$arraySitee[16]//Reservado DRE
+			//$arraySitee[17]//Reservado DRE
+			//$arraySitee[18]//Reservado DRE
+			//$arraySitee[19]//Reservado DRE
 		);
 		}
 		else
@@ -531,7 +544,7 @@ $arrayPalavrasPost = array_map('trim', $arrayPalavrasPost);
 <!--Busca Manual-->				
 				
 				
-                <?php busca_multisite(); ?>
+            <?php busca_multisite(); ?>
 
             </div>
 
@@ -775,6 +788,7 @@ mudaNomes('page6', 'Página em CACSFUNDEB Conselho');
 mudaNomes('post6', 'Notícia em CACSFUNDEB Conselho');
 mudaNomes('page7', 'Página em CRECE Conselho');
 mudaNomes('post7', 'Notícia em CRECE Conselho');
+mudaNomes('post8', 'Página em DREs');
 	
 		
 
