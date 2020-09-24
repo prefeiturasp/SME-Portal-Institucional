@@ -70,6 +70,8 @@ class AcervoRegisterCustomPostType
 	}
 }
 $varteste = new AcervoRegisterCustomPostType( 'acervo','Acervo','dashicons-media-archive' );
+$varteste = new AcervoRegisterCustomPostType( 'download','Download','dashicons-media-archive' );
+$varteste = new AcervoRegisterCustomPostType( 'acesso','Acesso','dashicons-media-archive' );
 
 
 //modifica tag para palavra chave
@@ -100,18 +102,18 @@ add_action( 'init', 'change_tax_object_label' );
 
 
 //adiciona colunas ao CPT acervo
-function set_custom_edit_acervo_columns($columns) {
-	//Habilita coluna autor
-    $columns['author'] = __( 'Usuário', 'your_text_domain' );
-    //custom coluna
-    $columns['tipo'] = __( 'Tipo', 'your_text_domain' );
-    return $columns;
-}
-add_filter( 'manage_acervo_posts_columns', 'set_custom_edit_acervo_columns' );
+//function set_custom_edit_acervo_columns($columns) {
+//	//Habilita coluna autor
+//    $columns['author'] = __( 'Usuário', 'your_text_domain' );
+//    //custom coluna
+//    $columns['tipo'] = __( 'Tipo', 'your_text_domain' );
+//    return $columns;
+//}
+//add_filter( 'manage_acervo_posts_columns', 'set_custom_edit_acervo_columns' );
 
 
 
-function custom_acervo_column( $column, $post_id ) {
+/*function custom_acervo_column( $column, $post_id ) {
     switch ( $column ) {
 
         case 'tipo' :
@@ -121,4 +123,4 @@ function custom_acervo_column( $column, $post_id ) {
             break;
     }
 }
-add_action( 'manage_acervo_posts_custom_column' , 'custom_acervo_column', 10, 2 );
+add_action( 'manage_acervo_posts_custom_column' , 'custom_acervo_column', 10, 2 );*/

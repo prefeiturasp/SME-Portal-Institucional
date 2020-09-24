@@ -24,6 +24,16 @@ add_action( 'wp_enqueue_scripts', 'rhs_load_css' );
 
 
 ////////////////////////////////////////////////
+//////////////////////CDN///////////////////////
+////////////////////////////////////////////////
+function rhs_load_cdn(){
+	wp_enqueue_style( 'bootstrap-select-css', 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css', array() );
+}
+add_action( 'wp_enqueue_scripts', 'rhs_load_cdn' );
+
+
+
+////////////////////////////////////////////////
 /////////////////CSS for PAGE///////////////////
 ////////////////////////////////////////////////
 function acervo_css_for_page(){
@@ -51,6 +61,8 @@ add_action( 'wp_enqueue_scripts', 'acervo_css_id_page' );*/
 function rhs_load_js(){
 	wp_enqueue_script( 'bootstrap-popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', array('jquery'), 1, true );
 	wp_enqueue_script( 'bootstrap-js', get_template_directory_uri().'/assets/js/bootstrap.min.js', array('jquery'), 1, true );
+	wp_enqueue_script( 'bootstrap-select-js', get_template_directory_uri().'/assets/js/bootstrap-select.min.js', array('jquery'), 1, true );
+	wp_enqueue_script( 'bootstrap-select-br', get_template_directory_uri().'/assets/js/defaults-pt_BR.js', array('jquery'), 1, true );
 	wp_enqueue_script( 'js_theme', get_template_directory_uri().'/assets/js/script.js', array( 'jquery' ), 2, true );
 }
 add_action( 'wp_enqueue_scripts', 'rhs_load_js' );
