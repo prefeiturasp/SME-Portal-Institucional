@@ -2,7 +2,6 @@
 
 namespace Classes\ModelosDePaginas\Layout;
 
-
 use Classes\Lib\Util;
 
 class Construtor extends Util
@@ -82,6 +81,9 @@ if( have_rows('fx_flex_layout') ):
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_1_1' ): 
 									echo '<div class="mt-3 mb-3">'.get_sub_field('fx_editor_1_1').'</div>';
+								//editor Wysiwyg com fundo
+								elseif( get_row_layout() == 'fx_cl1_editor_fundo_1_1' ): 
+									echo '<div style="background: url('.get_sub_field('imagem_de_fundo').')" class="mt-3 mb-3 bg_img_fix">'.get_sub_field('fx_editor_1_1').'</div>';
 								//Loops noticias por categorias
 								elseif( get_row_layout() == 'fx_cl1_noticias_1_1' ):
 									?>
@@ -162,6 +164,17 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';		
 									 endif;
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_1_1' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_1_1' ): 
 									//conteudo flexivel Botão
@@ -186,6 +199,196 @@ if( have_rows('fx_flex_layout') ):
 						echo '</div>';//fundo
 					endif;
 		////////////////////////////// Final 1 Coluna///////////////////////////////
+
+		////////////////////////////// Inicio Sanfona DRE ///////////////////////////////
+        elseif( get_row_layout() == 'sanfona_dre' ):
+					
+						echo '<div class="container">';//bootstrap container
+						echo '<div class="row">';//bootstrap row
+						echo '<div class="col-sm-8">';
+						echo '<img src="https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/08/Mapa.png" width="100%">';
+						echo '</div>';
+						echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+								
+										//sanfona DRE
+										echo '<div id="accordion">';
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse1">';
+														echo '<strong>1 - Diretoria Regional de Educação Butantã</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse1" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_butanta');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse2">';
+														echo '<strong>2 - Diretoria Regional de Educação Campo Limpo</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse2" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_campo_limpo');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse3">';
+														echo '<strong>3 - Diretoria Regional de Educação Capela do Socorro</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse3" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_capela_do_socorro');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse4">';
+														echo '<strong>4 - Diretoria Regional de Educação Freguesia/Brasilândia</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse4" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_freguesia_brasilandia');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse5">';
+														echo '<strong>5 - Diretoria Regional de Educação Guaianases</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse5" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_guaianases');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse6">';
+														echo '<strong>6 - Diretoria Regional de Educação Ipiranga</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse6" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_ipiranga');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse7">';
+														echo '<strong>7 - Diretoria Regional de Educação Itaquera</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse7" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_itaquera');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse8">';
+														echo '<strong>8 - Diretoria Regional de Educação Jaçanã/Tremembé</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse8" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_jacanatremembe');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse9">';
+														echo '<strong>9 - Diretoria Regional de Educação Penha</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse9" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_penha');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse10">';
+														echo '<strong>10 - Diretoria Regional de Educação Pirituba</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse10" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_pirituba');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse11">';
+														echo '<strong>11 - Diretoria Regional de Educação Santo Amaro</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse11" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_santo_amaro');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse12">';
+														echo '<strong>12 - Diretoria Regional de Educação São Mateus</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse12" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_sao_mateus');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+												  echo '<div class="card sanfona">';
+													echo '<div class="card-header">';
+													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse13">';
+														echo '<strong>13 - Diretoria Regional de Educação São Miguel</strong>';
+													  echo '</a>';
+													echo '</div>';
+													echo '<div id="collapse13" class="collapse" data-parent="#accordion">';
+													  echo '<div class="card-body">';
+														echo get_sub_field('dre_sao_miguel');
+													  echo '</div>';
+													echo '</div>';
+												  echo '</div>';
+
+										echo '</div>';
+								
+
+						echo '</div>';//bootstrap col
+						echo '</div>';//bootstrap row
+						echo '</div>';//bootstrap container
+
+		////////////////////////////// Final sanfona DRE///////////////////////////////
 		
 		////////////////////////////// Inicio 2 Colunas ///////////////////////////////
         elseif( get_row_layout() == 'fx_linha_coluna_2' ):
@@ -218,6 +421,9 @@ if( have_rows('fx_flex_layout') ):
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_1_2' ): 
 									echo '<div class="mt-3 mb-3">'.get_sub_field('fx_editor_1_2').'</div>';
+								//editor Wysiwyg com fundo
+								elseif( get_row_layout() == 'fx_cl1_editor_fundo_1_2' ): 
+									echo '<div style="background: url('.get_sub_field('imagem_de_fundo').')" class="mt-3 mb-3 bg_img_fix">'.get_sub_field('fx_editor_1_2').'</div>';
 								//Loops noticias por categorias
 								elseif( get_row_layout() == 'fx_cl1_noticias_1_2' ):
 									?>
@@ -298,6 +504,17 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';		
 									 endif;
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_1_2' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_1_2' ): 
 									//conteudo flexivel Botão
@@ -340,6 +557,9 @@ if( have_rows('fx_flex_layout') ):
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_2_2' ): 
 									echo '<div class="mt-3 mb-3">'.get_sub_field('fx_editor_2_2').'</div>';
+								//editor Wysiwyg com fundo
+								elseif( get_row_layout() == 'fx_cl1_editor_fundo_2_2' ): 
+									echo '<div style="background: url('.get_sub_field('imagem_de_fundo').')" class="mt-3 mb-3 bg_img_fix">'.get_sub_field('fx_editor_2_2').'</div>';
 								//Loops noticias por categorias
 								elseif( get_row_layout() == 'fx_cl1_noticias_2_2' ):
 									?>
@@ -420,6 +640,17 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';		
 									 endif;
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_2_2' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_2_2' ): 
 									//conteudo flexivel Botão
@@ -475,6 +706,17 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_3' ): 
 									$imagem_1_3 = get_sub_field('fx_imagem_1_3');//Pega todos os valores da imagem no array
 									echo '<img class="mt-3 mb-3" src="'.$imagem_1_3['url'].'" width="100%" alt="'.$imagem_1_3['alt'].'">';
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_1_3' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_1_3' ): 
 									//conteudo flexivel Botão
@@ -483,8 +725,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_1_3') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_1_3' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_1_3').'"><button type="button" class="btn mt-1 mb-1 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_3').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_1_3').'"><button type="button" class="btn mt-1 mb-1 bt_fx_100 btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_3').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -514,6 +756,17 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_cl1_imagem_2_3' ): 
 									$imagem_2_3 = get_sub_field('fx_imagem_2_3');//Pega todos os valores da imagem no array
 									echo '<img class="mt-3 mb-3" src="'.$imagem_2_3['url'].'" width="100%" alt="'.$imagem_2_3['alt'].'">';
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_2_3' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_2_3' ): 
 									//conteudo flexivel Botão
@@ -522,8 +775,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_2_3') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_2_3' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_2_3').'"><button type="button" class="btn mt-1 mb-1 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_3').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_2_3').'"><button type="button" class="btn mt-1 mb-1 bt_fx_100 btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_3').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -554,6 +807,17 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_cl1_imagem_3_3' ): 
 									$imagem_3_3 = get_sub_field('fx_imagem_3_3');//Pega todos os valores da imagem no array
 									echo '<img class="mt-3 mb-3" src="'.$imagem_3_3['url'].'" width="100%" alt="'.$imagem_3_3['alt'].'">';
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_3_3' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_3_3' ): 
 									//conteudo flexivel Botão
@@ -562,8 +826,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_3_3') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_3_3' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_3_3').'"><button type="button" class="btn mt-1 mb-1 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_3_3').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_3_3').'"><button type="button" class="btn mt-1 mb-1 bt_fx_100 btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_3_3').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -609,6 +873,17 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_4' ): 
 									$imagem_1_4 = get_sub_field('fx_imagem_1_4');//Pega todos os valores da imagem no array
 									echo '<img class="mt-3 mb-3" src="'.$imagem_1_4['url'].'" width="100%" alt="'.$imagem_1_4['alt'].'">';
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_1_4' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_1_4' ): 
 									//conteudo flexivel Botão
@@ -617,8 +892,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_1_4') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_1_4' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_1_4').'"><button type="button" class="btn mt-1 mb-1 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_4').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_1_4').'"><button type="button" class="btn mt-1 mb-1 bt_fx_100 btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_4').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -648,6 +923,17 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_cl1_imagem_2_4' ): 
 									$imagem_2_4 = get_sub_field('fx_imagem_2_4');//Pega todos os valores da imagem no array
 									echo '<img class="mt-3 mb-3" src="'.$imagem_2_4['url'].'" width="100%" alt="'.$imagem_2_4['alt'].'">';
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_2_4' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_2_4' ): 
 									//conteudo flexivel Botão
@@ -656,8 +942,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_2_4') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_2_4' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_2_4').'"><button type="button" class="btn mt-1 mb-1 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_4').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_2_4').'"><button type="button" class="btn mt-1 mb-1 bt_fx_100 btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_4').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -688,6 +974,17 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_cl1_imagem_3_4' ): 
 									$imagem_3_4 = get_sub_field('fx_imagem_3_4');//Pega todos os valores da imagem no array
 									echo '<img class="mt-3 mb-3" src="'.$imagem_3_4['url'].'" width="100%" alt="'.$imagem_3_4['alt'].'">';
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_3_4' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_3_4' ): 
 									//conteudo flexivel Botão
@@ -696,8 +993,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_3_4') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_3_4' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_3_4').'"><button type="button" class="btn mt-1 mb-1 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_3_4').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_3_4').'"><button type="button" class="btn mt-1 mb-1 bt_fx_100 btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_3_4').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -727,6 +1024,17 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_cl1_imagem_4_4' ): 
 									$imagem_4_4 = get_sub_field('fx_imagem_4_4');//Pega todos os valores da imagem no array
 									echo '<img class="mt-3 mb-3" src="'.$imagem_4_4['url'].'" width="100%" alt="'.$imagem_4_4['alt'].'">';
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_4_4' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_4_4' ): 
 									//conteudo flexivel Botão
@@ -735,8 +1043,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_4_4') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_4_4' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_4_4').'"><button type="button" class="btn mt-1 mb-1 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_4_4').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_4_4').'"><button type="button" class="btn mt-1 mb-1 bt_fx_100 btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_4_4').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -868,6 +1176,17 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';		
 									 endif;
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_1_2' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_1_2' ): 
 									//conteudo flexivel Botão
@@ -876,8 +1195,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_1_2') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_1_2' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_1_2').'"><button type="button" class="btn mt-1 mb-1 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_2').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_1_2').'"><button type="button" class="btn mt-1 mb-1 bt_fx_100 btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_2').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
@@ -990,6 +1309,17 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';		
 									 endif;
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_2_2' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_2_2' ): 
 									//conteudo flexivel Botão
@@ -1130,6 +1460,17 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';		
 									 endif;
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_1_2' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_1_2' ): 
 									//conteudo flexivel Botão
@@ -1254,6 +1595,17 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';		
 									 endif;
+								//Divisor
+								elseif( get_row_layout() == 'fx_fl1_divisor_2_2' ): 
+									echo '<div class="mt-3 mb-3 hr-divisor">';
+										if(get_sub_field('divisor_hr') == linhaazul){
+											echo '<hr class=" hr-divisor-azul">';
+										}elseif (get_sub_field('divisor_hr') == linhagrafite) {
+											echo '<hr class=" hr-divisor-grafite">';
+										}else{
+											echo '<hr class=" hr-divisor-branca">';
+										}
+									echo '</div>';
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_2_2' ): 
 									//conteudo flexivel Botão
@@ -1262,8 +1614,8 @@ if( have_rows('fx_flex_layout') ):
 											while ( have_rows('fx_botao_2_2') ) : the_row();
 												if( get_row_layout() == 'fx_cl1_botao_2_2' ):
 														//loop de botões responsivos
-														echo '<div class="col">';
-															echo '<a href="'.get_sub_field('fx_url_botao_2_2').'"><button type="button" class="btn mt-1 mb-1 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_2').'</button></a>';
+														echo '<div class="col-sm-12">';
+															echo '<a href="'.get_sub_field('fx_url_botao_2_2').'"><button type="button" class="btn mt-1 mb-1 bt_fx_100 btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_2_2').'</button></a>';
 														echo '</div>';
 												endif;
 											endwhile;
