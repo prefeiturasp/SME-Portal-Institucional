@@ -1,0 +1,82 @@
+[22-Sep-2020 23:48:01 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/index.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/index.php on line 1
+[22-Sep-2020 23:48:27 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/taxonomy-palavra.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/taxonomy-palavra.php on line 4
+[22-Sep-2020 23:53:43 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function add_filter() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 8
+[22-Sep-2020 23:54:29 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_posts() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 13
+[22-Sep-2020 23:54:31 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_posts() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 13
+[22-Sep-2020 23:55:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_posts() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 13
+[22-Sep-2020 23:56:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 2
+[22-Sep-2020 23:56:54 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 2
+[22-Sep-2020 23:57:41 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 2
+[22-Sep-2020 23:58:54 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 4
+[22-Sep-2020 23:58:55 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 4
+[22-Sep-2020 23:58:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 4
+[22-Sep-2020 23:58:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 4
+[22-Sep-2020 23:58:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 4
+[22-Sep-2020 23:58:57 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 4
+[23-Sep-2020 00:02:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema_semanas.php on line 4
+[23-Sep-2020 00:02:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
+[23-Sep-2020 00:05:17 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function requisre_once() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
+[23-Sep-2020 00:05:39 UTC] PHP Warning:  require_once(/home/rafaelhs/public_html/wp-loads.php): failed to open stream: No such file or directory in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
+[23-Sep-2020 00:05:39 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/rafaelhs/public_html/wp-loads.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
+[23-Sep-2020 00:05:58 UTC] PHP Warning:  require_once(/home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/options.php): failed to open stream: No such file or directory in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
+[23-Sep-2020 00:05:58 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/options.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
+[23-Sep-2020 00:05:59 UTC] PHP Warning:  require_once(/home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/options.php): failed to open stream: No such file or directory in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
+[23-Sep-2020 00:05:59 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/options.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
+[23-Sep-2020 00:06:39 UTC] PHP Warning:  require_once(wp-load.php): failed to open stream: No such file or directory in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
+[23-Sep-2020 00:06:39 UTC] PHP Fatal error:  require_once(): Failed opening required 'wp-load.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
+[23-Sep-2020 00:06:41 UTC] PHP Warning:  require_once(wp-load.php): failed to open stream: No such file or directory in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
+[23-Sep-2020 00:06:41 UTC] PHP Fatal error:  require_once(): Failed opening required 'wp-load.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
