@@ -20,7 +20,7 @@ class WPDocs_Options_Page {
             __( 'Tutoriais', 'textdomain' ),//page title
             __( 'Tutoriais', 'textdomain' ),//menu title
             //'edit_posts',//Capability
-            'read',//Capability
+            'upload_files',//Capability
             'tutorial_slug',//slug
             array(
                 $this,
