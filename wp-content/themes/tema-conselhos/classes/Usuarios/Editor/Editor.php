@@ -27,7 +27,7 @@ class Editor
 
 		// add $cap capability to this role object
 		if (current_user_can('editor')) {
-			$this->role_object->add_cap('edit_theme_options');
+			$this->role_object->remove_cap('edit_theme_options');
 
 			$this->role_object->add_cap( 'read' );
 

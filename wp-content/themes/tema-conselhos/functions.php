@@ -663,6 +663,7 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Opções Gerais',
         'menu_slug' 	=> 'conf-geral',
         'position' 		=> '3',
+        'capability'	=> 'edit_theme_options',
         //'capability'	=> 'edit_posts',
         //'redirect'		=> false
     ));
@@ -671,12 +672,14 @@ if( function_exists('acf_add_options_page') ) {
         'page_title' 	=> 'Configurações da Página Inicial',
         'menu_title'	=> 'Página Inicial',
         'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'edit_theme_options',
     ));
 		
 	acf_add_options_sub_page(array(
-        'page_title' 	=> 'Configurações de suporte',
-        'menu_title'	=> 'Suporte',
+        'page_title' 	=> 'Configurações de tutoriais',
+        'menu_title'	=> 'Inclusão de tutoriais',
         'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'edit_theme_options',
     ));
 
 }
