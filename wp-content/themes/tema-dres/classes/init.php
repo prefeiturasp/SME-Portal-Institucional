@@ -31,6 +31,7 @@ require_once __ROOT__.'/classes/Cpt/CptOutrosContatos.php';
 
 //////////////////////////////////////////TEMPLATE HIERARCHY/////////////////////////////////////////
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/tag.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingle.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleCabecalho.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMenuInterno.php';
