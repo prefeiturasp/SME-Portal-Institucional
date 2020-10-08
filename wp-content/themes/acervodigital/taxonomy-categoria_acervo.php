@@ -10,7 +10,7 @@
 
 				<div class="col-sm-12">
 
-					<h2 class="mt-3 mb-3">Resultado(s) para: <?php echo  strip_tags (get_the_term_list(get_the_ID(), 'palavra', '', ' / ', '')); ?></h2>
+					<h2 class="mt-3 mb-3">Resultado(s) para: <?php echo  strip_tags (get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' / ', '')); ?></h2>
 
 				</div>
 
@@ -34,7 +34,7 @@
 
 			        array(
 
-			        'taxonomy' => 'palavra',
+			        'taxonomy' => 'categoria_acervo',
 
 			        //'paged' => $paged,
 
@@ -64,7 +64,7 @@
 
 								$stringSeparada = explode(".", $file['filename']);
 
-								$type = get_post_type();
+									$type = get_post_type();
 
 
 

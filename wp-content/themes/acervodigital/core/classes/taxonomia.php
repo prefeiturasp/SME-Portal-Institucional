@@ -117,6 +117,7 @@ class AcervoRegisterCustomTaxonomy
 			'show_in_nav_menus' => true,
 
 			'show_tagcloud' => true,
+		
 			
 
 		);
@@ -218,8 +219,6 @@ function palavra_custom_taxonomy() {
     'query_var' => true,
 
     'rewrite' => array( 'slug' => 'palavra' ),*/
-
-	  
 
 	'labels' => $labels,
 
