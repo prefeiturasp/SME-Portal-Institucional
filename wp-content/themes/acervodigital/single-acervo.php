@@ -308,7 +308,7 @@
 						
 						<div class="col-12 mb-3">
 							<h3><strong>Categoria</strong></h3>
-							<p><?php echo  strip_tags (get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' / ', '')); ?></p>
+							<p><?php echo  get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' / ', ''); ?></p>
 						</div>
 
 

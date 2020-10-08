@@ -80,3 +80,27 @@ Stack trace:
 [23-Sep-2020 00:06:39 UTC] PHP Fatal error:  require_once(): Failed opening required 'wp-load.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
 [23-Sep-2020 00:06:41 UTC] PHP Warning:  require_once(wp-load.php): failed to open stream: No such file or directory in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
 [23-Sep-2020 00:06:41 UTC] PHP Fatal error:  require_once(): Failed opening required 'wp-load.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/sistema-semanas.php on line 2
+[08-Oct-2020 00:29:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function esc_url() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/search-filtros.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/search-filtros.php on line 2
+[08-Oct-2020 00:30:33 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function esc_url() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/search-filtros.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/search-filtros.php on line 2
+[08-Oct-2020 00:31:29 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function esc_url() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/search-filtros.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/search-filtros.php on line 3
+[08-Oct-2020 00:38:11 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function esc_url() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/search-filtros.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/search-filtros.php on line 2
+[08-Oct-2020 00:39:24 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function esc_url() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/search-filtros.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/search-filtros.php on line 2
+[08-Oct-2020 00:39:29 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function esc_url() in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/search-filtros.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/rafaelhs/public_html/acervodigital/wp-content/themes/acervodigital/search-filtros.php on line 2
