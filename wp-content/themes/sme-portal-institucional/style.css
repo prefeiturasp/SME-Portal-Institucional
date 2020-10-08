@@ -764,3 +764,24 @@ fieldset legend, .esconde-item-acessibilidade{
     white-space: nowrap;
     margin-right: 10px;
 }
+.rodape-api-col{
+	padding: 15px 0 0 0;
+    font-size: 12px;
+    background: #424242;
+    color: #fff;
+}
+footer h2{
+	color: #fff;
+}
+footer a{
+	color: #fff !important;
+}
+footer{
+	font-size: 12px;
+}
+.seloa img{
+	max-width: 155px !important;
+}
+.rede-rodape{
+	max-width: 50px !important;
+}
