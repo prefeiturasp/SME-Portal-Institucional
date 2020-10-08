@@ -646,6 +646,12 @@ if( function_exists('acf_add_options_page') ) {
         'parent_slug'	=> 'conf-geral',
     ));
 
+    acf_add_options_sub_page(array(
+        'page_title' 	=> 'Informações Rodapé',
+        'menu_title'	=> 'Rodapé',
+        'parent_slug'	=> 'conf-geral',
+		'post_id' => 'conf-rodape',
+    ));
 }
 ///////////////////////////////////////////////////////////////////
 
