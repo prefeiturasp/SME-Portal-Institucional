@@ -111,7 +111,15 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_1' ): 
 									$imagem_1_1 = get_sub_field('fx_imagem_1_1');//Pega todos os valores da imagem no array
-									echo '<img src="'.$imagem_1_1['url'].'" width="100%" alt="'.$imagem_1_1['alt'].'">';
+									if(get_sub_field('fx_imagem_url_1_1') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_1_1') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_1_1['url'] ?>" width="100%" alt="<?php echo $imagem_1_1['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_1_1['url'].'" width="100%" alt="'.$imagem_1_1['alt'].'">';
+									}
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_1_1' ): 		
 									if(get_sub_field('fx_abas_1_1'))://repeater
@@ -451,7 +459,15 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_2' ): 
 									$imagem_1_2 = get_sub_field('fx_imagem_1_2');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_1_2['url'].'" width="100%" alt="'.$imagem_1_2['alt'].'">';
+									if(get_sub_field('fx_imagem_url_1_2') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_1_2') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_1_2['url'] ?>" width="100%" alt="<?php echo $imagem_1_2['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_1_2['url'].'" width="100%" alt="'.$imagem_1_2['alt'].'">';
+									}
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_1_2' ): 		
 									if(get_sub_field('fx_abas_1_2'))://repeater
@@ -587,7 +603,15 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_2_2' ): 
 									$imagem_2_2 = get_sub_field('fx_imagem_2_2');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_2_2['url'].'" width="100%" alt="'.$imagem_2_2['alt'].'">';
+									if(get_sub_field('fx_imagem_url_2_2') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_2_2') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_2_2['url'] ?>" width="100%" alt="<?php echo $imagem_2_2['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_2_2['url'].'" width="100%" alt="'.$imagem_2_2['alt'].'">';
+									}
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_2_2' ): 		
 									if(get_sub_field('fx_abas_2_2'))://repeater
@@ -705,7 +729,15 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_3' ): 
 									$imagem_1_3 = get_sub_field('fx_imagem_1_3');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_1_3['url'].'" width="100%" alt="'.$imagem_1_3['alt'].'">';
+									if(get_sub_field('fx_imagem_url_1_3') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_1_3') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_1_3['url'] ?>" width="100%" alt="<?php echo $imagem_1_3['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_1_3['url'].'" width="100%" alt="'.$imagem_1_3['alt'].'">';
+									}
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_1_3' ): 
 									echo '<div class="mt-3 mb-3 hr-divisor">';
@@ -755,7 +787,15 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_2_3' ): 
 									$imagem_2_3 = get_sub_field('fx_imagem_2_3');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_2_3['url'].'" width="100%" alt="'.$imagem_2_3['alt'].'">';
+									if(get_sub_field('fx_imagem_url_2_3') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_2_3') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_2_3['url'] ?>" width="100%" alt="<?php echo $imagem_2_3['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_2_3['url'].'" width="100%" alt="'.$imagem_2_3['alt'].'">';
+									}
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_2_3' ): 
 									echo '<div class="mt-3 mb-3 hr-divisor">';
@@ -806,7 +846,15 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_3_3' ): 
 									$imagem_3_3 = get_sub_field('fx_imagem_3_3');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_3_3['url'].'" width="100%" alt="'.$imagem_3_3['alt'].'">';
+									if(get_sub_field('fx_imagem_url_3_3') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_3_3') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_3_3['url'] ?>" width="100%" alt="<?php echo $imagem_3_3['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_3_3['url'].'" width="100%" alt="'.$imagem_3_3['alt'].'">';
+									}
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_3_3' ): 
 									echo '<div class="mt-3 mb-3 hr-divisor">';
@@ -872,7 +920,16 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_4' ): 
 									$imagem_1_4 = get_sub_field('fx_imagem_1_4');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_1_4['url'].'" width="100%" alt="'.$imagem_1_4['alt'].'">';
+									//echo the_sub_field('fx_imagem_url_1_4');
+									if(get_sub_field('fx_imagem_url_1_4') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_1_4') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_1_4['url'] ?>" width="100%" alt="<?php echo $imagem_1_4['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_1_4['url'].'" width="100%" alt="'.$imagem_1_4['alt'].'">';
+									}
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_1_4' ): 
 									echo '<div class="mt-3 mb-3 hr-divisor">';
@@ -920,9 +977,19 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_cl1_video_2_4' ): 
 									echo '<div class="mt-3 mb-3 video-4">'.get_sub_field('fx_video_2_4').'</div>';
 								//imagem responsiva
+
 								elseif( get_row_layout() == 'fx_cl1_imagem_2_4' ): 
 									$imagem_2_4 = get_sub_field('fx_imagem_2_4');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_2_4['url'].'" width="100%" alt="'.$imagem_2_4['alt'].'">';
+
+									if(get_sub_field('fx_imagem_url_2_4') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_2_4') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_2_4['url'] ?>" width="100%" alt="<?php echo $imagem_2_4['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_2_4['url'].'" width="100%" alt="'.$imagem_2_4['alt'].'">';
+									}
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_2_4' ): 
 									echo '<div class="mt-3 mb-3 hr-divisor">';
@@ -973,7 +1040,15 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_3_4' ): 
 									$imagem_3_4 = get_sub_field('fx_imagem_3_4');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_3_4['url'].'" width="100%" alt="'.$imagem_3_4['alt'].'">';
+									if(get_sub_field('fx_imagem_url_3_4') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_3_4') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_3_4['url'] ?>" width="100%" alt="<?php echo $imagem_3_4['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_3_4['url'].'" width="100%" alt="'.$imagem_3_4['alt'].'">';
+									}
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_3_4' ): 
 									echo '<div class="mt-3 mb-3 hr-divisor">';
@@ -1023,7 +1098,15 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_4_4' ): 
 									$imagem_4_4 = get_sub_field('fx_imagem_4_4');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_4_4['url'].'" width="100%" alt="'.$imagem_4_4['alt'].'">';
+									if(get_sub_field('fx_imagem_url_4_4') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_4_4') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_4_4['url'] ?>" width="100%" alt="<?php echo $imagem_4_4['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_4_4['url'].'" width="100%" alt="'.$imagem_4_4['alt'].'">';
+									}
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_4_4' ): 
 									echo '<div class="mt-3 mb-3 hr-divisor">';
@@ -1123,7 +1206,15 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_2' ): 
 									$imagem_1_2 = get_sub_field('fx_imagem_1_2');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_1_2['url'].'" width="100%" alt="'.$imagem_1_2['alt'].'">';
+									if(get_sub_field('fx_imagem_url_1_2') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_1_2') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_1_2['url'] ?>" width="100%" alt="<?php echo $imagem_1_2['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_1_2['url'].'" width="100%" alt="'.$imagem_1_2['alt'].'">';
+									}
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_1_2' ): 		
 									if(get_sub_field('fx_abas_1_2'))://repeater
@@ -1256,7 +1347,15 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_2_2' ): 
 									$imagem_2_2 = get_sub_field('fx_imagem_2_2');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_2_2['url'].'" width="100%" alt="'.$imagem_2_2['alt'].'">';
+									if(get_sub_field('fx_imagem_url_2_2') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_2_2') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_2_2['url'] ?>" width="100%" alt="<?php echo $imagem_2_2['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_2_2['url'].'" width="100%" alt="'.$imagem_2_2['alt'].'">';
+									}
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_2_2' ): 		
 									if(get_sub_field('fx_abas_2_2'))://repeater
@@ -1407,7 +1506,15 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_2' ): 
 									$imagem_1_2 = get_sub_field('fx_imagem_1_2');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_1_2['url'].'" width="100%" alt="'.$imagem_1_2['alt'].'">';
+									if(get_sub_field('fx_imagem_url_1_2') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_1_2') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_1_2['url'] ?>" width="100%" alt="<?php echo $imagem_1_2['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_1_2['url'].'" width="100%" alt="'.$imagem_1_2['alt'].'">';
+									}
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_1_2' ): 		
 									if(get_sub_field('fx_abas_1_2'))://repeater
@@ -1540,7 +1647,15 @@ if( have_rows('fx_flex_layout') ):
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_2_2' ): 
 									$imagem_2_2 = get_sub_field('fx_imagem_2_2');//Pega todos os valores da imagem no array
-									echo '<img class="mt-3 mb-3" src="'.$imagem_2_2['url'].'" width="100%" alt="'.$imagem_2_2['alt'].'">';
+									if(get_sub_field('fx_imagem_url_2_2') != ''){
+										?>
+										  <a href="<?php echo the_sub_field('fx_imagem_url_2_2') ?>">
+										  	<img class="mt-3 mb-3" src="<?php echo $imagem_2_2['url'] ?>" width="100%" alt="<?php echo $imagem_2_2['alt'] ?>">
+										  </a>
+										<?php
+									}else{
+										echo '<img class="mt-3 mb-3" src="'.$imagem_2_2['url'].'" width="100%" alt="'.$imagem_2_2['alt'].'">';
+									}
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_2_2' ): 		
 									if(get_sub_field('fx_abas_2_2'))://repeater
