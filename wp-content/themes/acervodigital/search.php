@@ -50,7 +50,7 @@ Template Name: Search Page
 
 							<h3 class="search-title">
 
-							<span class="azul-claro-acervo"><strong><?php echo $wp_query->found_posts; ?></strong></span> <?php _e( 'Resultados para ', 'locale' ); ?>: <strong> <?php the_search_query(); ?> </strong>
+							<span class="azul-claro-acervo"><strong><?php echo $wp_query->found_posts; ?></strong></span> <?php _e( 'resultados para', 'locale' ); ?>: <strong> <?php the_search_query(); ?> </strong>
 
 							</h3>
 
@@ -166,9 +166,11 @@ Template Name: Search Page
 
 							endwhile;
 
-							else:
+							else: ?>
 
-							echo 'Sem conteudo';
+							<img src="<?php echo get_bloginfo('template_directory') ?>/images/search-empty.png" alt="Nenhum conteuúdo encontrado" class='empty-search responsive-img'>
+
+							<?php
 
 							endif;
 
