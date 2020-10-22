@@ -39,3 +39,39 @@ echo '<h3><strong>'.getPostViews(get_the_ID()).'</strong></h3>';
 }
 }
 
+// Funcao para ativar ordenacao
+function ws_sortable_manufacturer_column( $columns )    {
+    $columns['post_views'] =  'post_views';
+    return $columns;
+}
+add_filter( 'manage_edit-post_sortable_columns', 'ws_sortable_manufacturer_column' ); // Noticias
+add_filter( 'manage_edit-agenda_sortable_columns', 'ws_sortable_manufacturer_column' ); // Agenda DRE
+add_filter( 'manage_edit-contatoprincipal_sortable_columns', 'ws_sortable_manufacturer_column' ); // Contatos Principais
+add_filter( 'manage_edit-outroscontatos_sortable_columns', 'ws_sortable_manufacturer_column' ); // Outros Contatos
+add_filter( 'manage_edit-page_sortable_columns', 'ws_sortable_manufacturer_column' ); // Paginas
+
+
+// Funcao para ordernar
+function ws_orderby_custom_column( $query ) {
+    global $pagenow;
+
+    if ( ! is_admin() || 'edit.php' != $pagenow || ! $query->is_main_query()  )  {
+        return;
+    }
+
+    $orderby = $query->get( 'orderby' );
+
+    print_r($orderby);
+
+    switch ( $orderby ) {
+        case 'post_views':
+            $query->set( 'meta_key', 'post_views_count' );
+            $query->set( 'orderby', 'meta_value_num' );
+            break;
+
+        default:
+            break;
+    }
+
+}
+add_action( 'pre_get_posts', 'ws_orderby_custom_column' );

@@ -39,3 +39,44 @@ echo '<h3><strong>'.getPostViews(get_the_ID()).'</strong></h3>';
 }
 }
 
+
+// Funcao para ativar ordenacao
+function ws_sortable_manufacturer_column( $columns )    {
+    $columns['post_views'] =  'post_views';
+    return $columns;
+}
+add_filter( 'manage_edit-post_sortable_columns', 'ws_sortable_manufacturer_column' ); // Noticias
+add_filter( 'manage_edit-card_sortable_columns', 'ws_sortable_manufacturer_column' ); // Cards
+add_filter( 'manage_edit-agenda_sortable_columns', 'ws_sortable_manufacturer_column' ); // Agenda Secretario
+add_filter( 'manage_edit-contato_sortable_columns', 'ws_sortable_manufacturer_column' ); // Contatos SME
+add_filter( 'manage_edit-organograma_sortable_columns', 'ws_sortable_manufacturer_column' ); // Organograma
+add_filter( 'manage_edit-aba_sortable_columns', 'ws_sortable_manufacturer_column' ); // Cadastro Aba
+add_filter( 'manage_edit-botao_sortable_columns', 'ws_sortable_manufacturer_column' ); // Cadastro Botoes
+add_filter( 'manage_edit-curriculo-da-cidade_sortable_columns', 'ws_sortable_manufacturer_column' ); // Curriculo da cidade
+add_filter( 'manage_edit-programa-projeto_sortable_columns', 'ws_sortable_manufacturer_column' ); // Programas Projetos
+add_filter( 'manage_edit-page_sortable_columns', 'ws_sortable_manufacturer_column' ); // Paginas
+
+// Funcao para ordernar
+function ws_orderby_custom_column( $query ) {
+    global $pagenow;
+
+    if ( ! is_admin() || 'edit.php' != $pagenow || ! $query->is_main_query()  )  {
+        return;
+    }
+
+    $orderby = $query->get( 'orderby' );
+
+    print_r($orderby);
+
+    switch ( $orderby ) {
+        case 'post_views':
+            $query->set( 'meta_key', 'post_views_count' );
+            $query->set( 'orderby', 'meta_value_num' );
+            break;
+
+        default:
+            break;
+    }
+
+}
+add_action( 'pre_get_posts', 'ws_orderby_custom_column' );
