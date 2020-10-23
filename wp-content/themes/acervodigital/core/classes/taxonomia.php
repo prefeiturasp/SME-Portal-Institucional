@@ -148,7 +148,7 @@ new AcervoRegisterCustomTaxonomy( 'setor', 'Setor', 'acervo' );
 
 new AcervoRegisterCustomTaxonomy( 'idioma', 'Idioma', 'acervo' );
 
-new AcervoRegisterCustomTaxonomy( 'modalidade', 'Modalidade', 'acervo' );
+new AcervoRegisterCustomTaxonomy( 'modalidade', 'Nível/Etapa/Modalidade', 'acervo' );
 
 new AcervoRegisterCustomTaxonomy( 'componente', 'Componente', 'acervo' );
 

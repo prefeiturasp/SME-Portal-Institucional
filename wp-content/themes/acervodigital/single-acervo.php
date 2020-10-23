@@ -362,7 +362,7 @@
 							if(get_field('modalidade_acervo_digital') != ''){
 								?>
 								<div class="col-6 mb-3">
-									<h3><strong>Modalidade de ensino</strong></h3>
+									<h3><strong>Nível/Etapa/Modalidade</strong></h3>
 									<?php 
 									if( $terms ): ?>
 										<?php foreach( $terms as $term ): ?>
