@@ -631,6 +631,7 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Opções Gerais',
         'menu_slug' 	=> 'conf-geral',
         'position' => '3',
+        'capability'	=> 'publish_pages',
         //'capability'	=> 'edit_posts',
         //'redirect'		=> false
     ));
@@ -639,24 +640,36 @@ if( function_exists('acf_add_options_page') ) {
         'page_title' 	=> 'Configurações da Página Inicial',
         'menu_title'	=> 'Página Inicial',
         'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
     ));
 	
 	acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações da Página Mais Notícias',
         'menu_title'	=> 'Mais Notícias',
         'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
     ));
 
     acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações de Unidades Escolares e CEUS',
         'menu_title'	=> 'Unidades Escolares e CEUS',
         'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
     ));
 
     acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações de Endereços e Responsáveis',
         'menu_title'	=> 'Endereços e Responsáveis',
         'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+    ));
+		
+
+    acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações de tutoriais',
+        'menu_title'	=> 'Inclusão de tutoriais',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
     ));
 
 }
@@ -697,3 +710,19 @@ function run_after_title_meta_boxes() {
     do_meta_boxes( get_current_screen(), 'after_title', $post );
 }
 add_action( 'edit_form_after_title', 'run_after_title_meta_boxes' );
+
+
+//Resolve admin para usuário
+$user_id = get_current_user_id();
+if ($user_id == 9) {
+    echo '
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script>
+	$( document ).ready(function() {
+		$(".column-primary").contents().filter(function(){
+		return this.nodeType == 3;
+		}).remove();
+	});
+	</script>
+	';
+}

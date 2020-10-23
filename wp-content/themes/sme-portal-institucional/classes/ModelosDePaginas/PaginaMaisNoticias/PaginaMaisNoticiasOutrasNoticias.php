@@ -16,13 +16,21 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
 		$posts_q = get_field('quarto_destaque','option');if( $posts_q ):foreach( $posts_q as $q ): endforeach; endif;
 		$posts_u = get_field('quinto_destaque','option');if( $posts_u ):foreach( $posts_u as $u ): endforeach; endif;
 		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+		//remove post iguais do destaque somente da primeira pagina e passa por post__not_in
+		$pagina = get_query_var( 'paged', 1 );
+		if($pagina == 0){
+			$id_destaques = array( $p->ID,$s->ID,$t->ID,$q->ID,$u->ID);
+		}
+		
 		$this->args_outras_noticias = array(
 			'post_type' => 'post',
 			'posts_per_page'=> 5,
 			'paged'=> $paged,
-			'post__not_in' => array( $p->ID,$s->ID,$t->ID,$q->ID,$u->ID),
+			//'post__not_in' => array( $p->ID,$s->ID,$t->ID,$q->ID,$u->ID),//remove de toda a consulta
+			'post__not_in' => $id_destaques,
 		);
 		$this->query_outras_noticias = get_posts($this->args_outras_noticias);
+		
 	}
 
 	public function montaHtmlOutrasNoticias(){
@@ -40,22 +48,32 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
 					$url = get_the_permalink($query->ID);
 					$post_thumbnail_id = get_post_thumbnail_id( $query->ID );
 					$image_alt = get_post_meta( $post_thumbnail_id, '_wp_attachment_image_alt', true);
-
+			
 					if ($thumb){
 						echo '<figure class=" m-0">';
 						echo '<img src="'.$thumb.'" class="img-fluid rounded float-left mr-4 w-25" alt="'.$image_alt.'"/>';
 						echo '</figure>';
 					}
 					?>
+					<div class="grid-noticias">
                     <h4 class="fonte-dezoito font-weight-bold mb-2">
                         <a class="text-decoration-none text-dark" href="<?= $url ?>">
 							<?= $query->post_title ?>
                         </a>
                     </h4>
 					<?php
-					echo $this->getSubtitulo($query->ID, 'p', 'fonte-dezesseis mb-2')
+					//echo $this->getSubtitulo($query->ID, 'p', 'fonte-dezesseis mb-2')
 					?>
-
+						<?php
+							if(get_field('insira_o_subtitulo', $query->ID) != ''){
+								the_field('insira_o_subtitulo', $query->ID);
+							}else if (get_field('insira_o_subtitulo', $query->ID) == ''){
+								 echo get_the_excerpt($query->ID); 
+							}
+						?>
+					
+					<?= $this->getComplementosMaisNoticias($query->ID); ?>
+					</div>
                 </article>
             </section>
 			<?php
@@ -63,6 +81,17 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
 		$this->paginacao_mais_noticias($this->query_outras_noticias);
 		$this->fechaContainer($container_mais_noticias_tags);
 	}
+	
+	public function getComplementosMaisNoticias($id_post){
+		$dt_post = get_the_date('d/m/Y g\hi', $id_post);
+		
+		$categoria = get_the_category($id_post)[0]->name;
+
+		return '<p class="fonte-doze font-italic mb-0">Publicado em: '.$dt_post.' - em '.$categoria.'</p>';
+
+
+	}
+	
 	public function paginacao_mais_noticias( $wp_query = null, $echo = true ) {
 		if ( null === $wp_query ) {
 			global $wp_query;
@@ -87,10 +116,13 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
 				'add_fragment' => '#outrasNoticias'
 			]
 		);
+		?>
+
+		<?php
 		if ( is_array( $pages ) ) {
-			$pagination = '<div class="pagination justify-content-center" style="text-align: center"><ul class="pagination ">';
+			$pagination = '<div class="pag-noticias"><ul class="pag-noticias-ul">';
 			foreach ($pages as $page) {
-				$pagination .= '<li class="page-item' . (strpos($page, 'current') !== false ? ' active' : '') . '"> ' . str_replace('page-numbers', 'page-link', $page) . '</li>';
+				$pagination .= '<li class="pag-noticias-li page-item' . (strpos($page, 'current') !== false ? ' active' : '') . '"> ' . str_replace('page-numbers', 'space-noticia page-link', $page) . '</li>';
 			}
 			$pagination .= '</ul></div>';
 			if ( $echo ) {

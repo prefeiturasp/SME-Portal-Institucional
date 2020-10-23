@@ -40,7 +40,7 @@ class PaginaInicialEscolares
                         <p><a href="<?php the_field('link_escola_aberta', 'option'); ?>"><strong>Ir para Escola Aberta - link externo</strong></a></p>
                     </article>
                     <article class="col-sm-4 ceus-home">
-                        <p>A Diretoria Regional de Educação de Guaianases possui <span id="cont_ceus"></span> Centros
+                        <p>A Diretoria Regional de Educação possui <span id="cont_ceus"></span> Centros
                             Educacionais Unificados (CEU):</p>
                         <div id="cont-ceus">
                             <?php

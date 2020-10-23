@@ -77,6 +77,54 @@ class Administrador
 			$this->role_object->add_cap( 'delete_contatos' );
 			$this->role_object->add_cap( 'assign_contatos' );
 
+			$this->role_object->add_cap( 'read_contatoprincipal');
+			$this->role_object->add_cap( 'read_private_contatoprincipals' );
+			$this->role_object->add_cap( 'edit_contatoprincipal' );
+			$this->role_object->add_cap( 'edit_contatoprincipals' );
+			$this->role_object->add_cap( 'edit_others_contatoprincipals' );
+			$this->role_object->add_cap( 'edit_published_contatoprincipals' );
+			$this->role_object->add_cap( 'publish_contatoprincipals' );
+			$this->role_object->add_cap( 'delete_contatoprincipal' );
+			$this->role_object->add_cap( 'delete_others_contatoprincipals' );
+			$this->role_object->add_cap( 'delete_private_contatoprincipals' );
+			$this->role_object->add_cap( 'delete_published_contatoprincipals' );
+			$this->role_object->add_cap( 'manage_contatoprincipals' );
+			$this->role_object->add_cap( 'edit_contatoprincipals' );
+			$this->role_object->add_cap( 'delete_contatoprincipals' );
+			$this->role_object->add_cap( 'assign_contatoprincipals' );
+
+			$this->role_object->add_cap( 'read_outroscontatos');
+			$this->role_object->add_cap( 'read_private_outroscontatoss' );
+			$this->role_object->add_cap( 'edit_outroscontatos' );
+			$this->role_object->add_cap( 'edit_outroscontatoss' );
+			$this->role_object->add_cap( 'edit_others_outroscontatoss' );
+			$this->role_object->add_cap( 'edit_published_outroscontatoss' );
+			$this->role_object->add_cap( 'publish_outroscontatoss' );
+			$this->role_object->add_cap( 'delete_outroscontatos' );
+			$this->role_object->add_cap( 'delete_others_outroscontatoss' );
+			$this->role_object->add_cap( 'delete_private_outroscontatoss' );
+			$this->role_object->add_cap( 'delete_published_outroscontatoss' );
+			$this->role_object->add_cap( 'manage_outroscontatoss' );
+			$this->role_object->add_cap( 'edit_outroscontatoss' );
+			$this->role_object->add_cap( 'delete_outroscontatoss' );
+			$this->role_object->add_cap( 'assign_outroscontatoss' );
+
+			$this->role_object->add_cap( 'read_agenda');
+			$this->role_object->add_cap( 'read_private_agendas' );
+			$this->role_object->add_cap( 'edit_agenda' );
+			$this->role_object->add_cap( 'edit_agendas' );
+			$this->role_object->add_cap( 'edit_others_agendas' );
+			$this->role_object->add_cap( 'edit_published_agendas' );
+			$this->role_object->add_cap( 'publish_agendas' );
+			$this->role_object->add_cap( 'delete_agenda' );
+			$this->role_object->add_cap( 'delete_others_agendas' );
+			$this->role_object->add_cap( 'delete_private_agendas' );
+			$this->role_object->add_cap( 'delete_published_agendas' );
+			$this->role_object->add_cap( 'manage_agendas' );
+			$this->role_object->add_cap( 'edit_agendas' );
+			$this->role_object->add_cap( 'delete_agendas' );
+			$this->role_object->add_cap( 'assign_agendas' );
+
 			$this->role_object->add_cap( 'read_botao');
 			$this->role_object->add_cap( 'read_private_botoes' );
 			$this->role_object->add_cap( 'edit_botao' );

@@ -72,11 +72,20 @@ class Util
 	}
 
 	public function getSubtitulo($page_id, $tag_html = 'h2', $tag_css=null){
+		//echo get_field('deseja_exibir_subtitulo', $page_id);
 		$this->deseja_exibir_subtitulo = get_field('deseja_exibir_subtitulo', $page_id);
 		$this->insira_o_subtitulo = get_field('insira_o_subtitulo', $page_id);
 
 		if ($this->deseja_exibir_subtitulo == 'sim' && trim($this->insira_o_subtitulo != '')){
 			return '<'.$tag_html.' class="mb-3 '.$tag_css.'">'.$this->insira_o_subtitulo.'</'.$tag_html.'>';
+		}
+		
+		/*if($this->insira_o_subtitulo != ''){
+			return '<'.$tag_html.' class="mb-3 '.$tag_css.'">'.$this->insira_o_subtitulo.'</'.$tag_html.'>';
+		}*/
+		
+		if($this->deseja_exibir_subtitulo == 'nao'){
+			return false;
 		}
 
 	}
@@ -122,8 +131,8 @@ class Util
             <article class="col-lg-12 col-xs-12 container-btn-mais-noticias">
                 <form>
                     <fieldset>
-                        <legend>Ir para mais notícias</legend>
-                        <a href="<?= STM_URL.'/mais-noticias' ?>" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Mais notícias</a>
+                        <legend>Ir para notícias</legend>
+                        <a href="<?= STM_URL.'/noticias' ?>" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Notícias</a>
                     </fieldset>
                 </form>
             </article>

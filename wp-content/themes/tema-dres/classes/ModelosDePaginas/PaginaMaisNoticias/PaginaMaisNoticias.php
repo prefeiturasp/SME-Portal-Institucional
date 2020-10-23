@@ -27,40 +27,7 @@ class PaginaMaisNoticias extends Util
 					?>
 				</div>
 				<div class="col-sm-4 mb-4">
-					<span class="filtro-busca mb-4">
-                <div class="form-group border-filtro">
-                    <label for="usr"><strong><h2>Refine a sua busca</h2></strong></label>
-                </div>
-                <div class="form-group">
-                    <label for="usr"><strong>Filtre por um termo</strong></label>
-                    <input class ='form-control' type = 'text' placeholder = 'Buscar'>
-                </div>
-                <div class="form-group">
-                    <label for="sel1"><strong>Filtre por tipo de conteúdo</strong></label>
-                    <select class="form-control" onchange="location = this.value;" id="sel1">
-                        <option value="">Todos os períodos</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="sel2"><strong>Filtre por um período</strong></label>
-                    <select class="form-control" <!--onchange="location = this.value;"--> id="sel2">
-                        <option value="">Todos os períodos</option>
-                        <option value="">Últimas 24 horas</option>
-                        <option value="">Última semana</option>
-                        <option value="">Último mês</option>
-                        <option value="">Último ano</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="sel2"><strong>Filtre por setores</strong></label>
-                    <select class="form-control" <!--onchange="location = this.value;"--> id="sel2">
-                        <option value="">Todos os períodos</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-primary btn-sm float-right">Refinar busca</button>
-                </div>
-            </span>
+					
 					<?php new PaginaMaisNoticiasMaisLidas(); ?>
 				</div>
 			</div>

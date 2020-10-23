@@ -69,8 +69,11 @@ class Colaborador
 		// add $cap capability to this role object
 		if (current_user_can('contributor')) {
 			$this->role_object->add_cap('upload_files');
+			//midias para colaborador
+			$this->role_object->add_cap(' unfiltered_upload ');
 			$this->role_object->add_cap('edit_files');
 			$this->role_object->add_cap('edit_posts');
+
 
 			$this->role_object->add_cap('edit_others_posts');
 			$this->role_object->add_cap('edit_private_posts');
@@ -131,6 +134,8 @@ class Colaborador
 
 			$this->role_object->add_cap( 'edit_published_imagens' );
 			$this->role_object->add_cap( 'delete_published_imagens' );
+			
+
 
 
 		}

@@ -18,14 +18,40 @@ class PaginaInicialNoticiasDestaquePrimaria extends PaginaInicial
                     <section class="col-lg-6 col-xs-12 mb-xs-4 rounded">
 					        <article class="card h-100 rounded border-0">
                                 <img class="rounded" src="<?php echo get_the_post_thumbnail_url( $p->ID ); ?>" width="100%">
-                                <article class="card-img-overlay bg-home-desc h-auto rounded-bottom container-img-noticias-destaques-primaria">
+								<article class="overlay-noticia-home d-flex flex-column justify-content-end">
+										<h3 class="fonte-catorze text-white font-weight-bold"><a href="<?php echo get_permalink( $p->ID ); ?>">
+											<?php echo get_the_title( $p->ID ); ?>
+										</a></h3>
+									<section class="card-text text-white fonte-doze">
+										<p class="mb-3 card-text texto-mais-noticias-destaques">
+											<?php
+												if(get_field('insira_o_subtitulo', $p->ID) != ''){
+													the_field('insira_o_subtitulo', $p->ID);
+												}else if (get_field('insira_o_subtitulo', $p->ID) == ''){
+													 echo get_the_excerpt($p->ID ); 
+												}
+											?>
+										</p>
+									</section>
+									</article>
+                                <?php /*?><article class="card-img-overlay bg-home-desc h-auto rounded-bottom container-img-noticias-destaques-primaria">
                                     <h3 class="fonte-catorze font-weight-bold">
                                         <a class="text-white" href="<?php echo get_permalink( $p->ID ); ?>">
 											<?php echo get_the_title( $p->ID ); ?>
                                         </a>
                                     </h3>
-                                    <section class="card-text text-white fonte-doze"><p class="mb-3 "><?php echo get_the_excerpt($p->ID ); ?></p></section>
-                                </article>
+                                    <section class="card-text text-white fonte-doze">
+										<p class="mb-3 ">
+											<?php
+												if(get_field('insira_o_subtitulo', $p->ID) != ''){
+													the_field('insira_o_subtitulo', $p->ID);
+												}else if (get_field('insira_o_subtitulo', $p->ID) == ''){
+													 echo get_the_excerpt($p->ID ); 
+												}
+											?>
+										</p>
+									</section>
+                                </article><?php */?>
                             </article>
                     </section>
 					<?php endforeach; ?>

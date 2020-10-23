@@ -655,3 +655,85 @@ add_action('admin_menu', 'remove_noticias');
 ///////////////////////////////////////////////////////////////////
 
 
+////////Habilita Opções Gerais ACF////////
+if( function_exists('acf_add_options_page') ) {
+
+    acf_add_options_page(array(
+        'page_title' 	=> 'Configurações Gerais',
+        'menu_title'	=> 'Opções Gerais',
+        'menu_slug' 	=> 'conf-geral',
+        'position' 		=> '3',
+        'capability'	=> 'edit_theme_options',
+        //'capability'	=> 'edit_posts',
+        //'redirect'		=> false
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações da Página Inicial',
+        'menu_title'	=> 'Página Inicial',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'edit_theme_options',
+    ));
+		
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações de tutoriais',
+        'menu_title'	=> 'Inclusão de tutoriais',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'edit_theme_options',
+    ));
+
+}
+///////////////////////////////////////////////////////////////////
+
+
+//Resolve admin para usuário
+$user_id = get_current_user_id();
+if ($user_id == 9) {
+    echo '
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script>
+	$( document ).ready(function() {
+		$(".column-primary").contents().filter(function(){
+		return this.nodeType == 3;
+		}).remove();
+	});
+	</script>
+	';
+}
+
+
+
+//habilita revisões para o ACF
+add_filter( 'rest_prepare_revision', function($response, $post){
+	$data = $response->get_data();
+	$data['acf'] = get_fields( $post->ID );
+
+	return rest_ensure_response( $data );
+}, 10, 2);
+
+//habilita atualizações para o ACF
+function my_acf_save_post( $post_id ) {
+
+  // bail out early if we don't need to update the date
+  if( is_admin() || $post_id == 'new' ) {
+
+     return;
+
+   }
+
+   global $wpdb;
+
+   $datetime = date("Y-m-d H:i:s");
+
+   $query = "UPDATE $wpdb->posts
+	     SET
+              post_modified = '$datetime'
+             WHERE
+              ID = '$post_id'";
+
+    $wpdb->query( $query );
+
+}
+
+// run after ACF saves the $_POST['acf'] data
+add_action('acf/save_post', 'my_acf_save_post', 20);

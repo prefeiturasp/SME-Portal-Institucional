@@ -24,6 +24,7 @@ class PaginaInicial extends Util
 		$util = new Util($this->page_id);
 		// Classe Util
 		$util->montaHtmlLoopPadrao();
+		$this->modalhome();
 
 		$this->init();
 	}
@@ -65,10 +66,60 @@ class PaginaInicial extends Util
         <section class="container mt-5 mb-5 noticias">
             <article class="row mb-4">
                 <article class="col-lg-12 col-xs-12">
-                    <h2 class="border-bottom">Notícias</h2>
+                    <h2 class="border-bottom">Destaques</h2>
                 </article>
             </article>
         </section>
+        <?php
+    }
+	public function modalhome(){
+	    ?>
+		<script>
+			jQuery(document).ready(function ($) {
+				// Condição ACF para ativar modal
+				var ativo_modal = "<?=get_field('ativar_modal_home','option'); ?>"
+				
+				if(ativo_modal == 'sim'){
+				   		jQuery('#modal-content').modal({ show: true });
+				   }else{
+					 	jQuery('#modal-content').modal({ show: false });
+				   }
+			});
+		</script>
+		
+        <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					
+					<div class="modal-body">
+					<?php
+						if(get_field('titulo_modal_home' , 'option') != ''){
+							?><p><h1><strong><?php the_field('titulo_modal_home' , 'option'); ?></strong></h1></p><?php
+						}
+					?>
+					<?php
+						if(get_field('imagem_modal_home' , 'option') != ''){
+							?><p><img src="<?php the_field('imagem_modal_home' , 'option'); ?>" width="100%"></p><?php
+						}
+					?>
+					<?php
+						if(get_field('mensagem_modal_home' , 'option') != ''){
+							?><p><?php the_field('mensagem_modal_home' , 'option'); ?></p><?php
+						}
+					?>
+					<?php
+						if(get_field('botao_modal_home' , 'option') != ''){
+							?><p>
+						<a href="<?php the_field('botao_modal_home' , 'option'); ?>" target="<?php the_field('link_do_botao_modal_home' , 'option'); ?>"><button type="button" class="btn btn-primary"><?php the_field('nome_botao_modal_home' , 'option'); ?></button></a>
+					  		</p><?php
+						}
+					?> 
+					</div>
+				</div>
+			</div>
+		</div>
         <?php
     }
 

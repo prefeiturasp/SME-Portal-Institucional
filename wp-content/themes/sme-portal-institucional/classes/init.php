@@ -13,6 +13,9 @@ require_once __ROOT__.'/classes/Usuarios/Administrador/Administrador.php';
 require_once __ROOT__.'/classes/Usuarios/EnviarParaRevisao.php';
 require_once __ROOT__.'/classes/Usuarios/CamposAdicionais.php';
 
+//tutorial
+require_once __ROOT__.'/classes/tutorial/tutorial.php';
+
 require_once __ROOT__.'/classes/Cpt/Cpt.php';
 require_once __ROOT__.'/classes/Cpt/CptPosts.php';
 require_once __ROOT__.'/classes/Cpt/CptPages.php';
@@ -26,6 +29,7 @@ require_once __ROOT__.'/classes/Cpt/CptCurriculoDaCidade.php';
 require_once __ROOT__.'/classes/Cpt/cptProgramaProjeto.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingle.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleCabecalho.php';
@@ -83,6 +87,9 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasBotoes.php
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasAcoesDestaque.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasConteudos.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaBotoes/PaginaBotoes.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/LandingPages/Modelo_1.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/LandingPages/Modelo_2.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/Layout/construtor.php';
 
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticias.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasArrayIdNoticias.php';

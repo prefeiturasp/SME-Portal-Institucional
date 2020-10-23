@@ -51,14 +51,15 @@ use Classes\Header\Header;
             <meta name="description" content="<?php echo $descriptionPagina ?>."/>
 		<?php } else { ?>
             <meta name="description"
-                  content="<?php wp_title('', true, '-'); ?> - <?php echo STM_SITE_DESCRIPTION ?>"/>
+                  content="<?php wp_title('', true, '-'); ?>"/>
+                  <?php /*?>content="<?php wp_title('', true, '-'); ?> - <?php echo STM_SITE_DESCRIPTION ?>"/><?php */?>
 		<?php }
 	}
 	?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="author" content="Ollyver Ottoboni">
+    <meta name="author" content="Secretaria Municipal de Educação de São Paulo">
 
 	<?php wp_head() ?>
 

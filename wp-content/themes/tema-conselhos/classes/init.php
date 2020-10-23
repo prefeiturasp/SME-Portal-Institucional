@@ -13,6 +13,10 @@ require_once __ROOT__.'/classes/Usuarios/EnviarParaRevisao.php';
 require_once __ROOT__.'/classes/Usuarios/CamposAdicionais.php';
 
 
+////////////TUTORIAL//////////////
+require_once __ROOT__.'/classes/tutorial/tutorial.php';
+
+
 ////////////CPTS//////////////
 require_once __ROOT__.'/classes/Cpt/Cpt.php';
 require_once __ROOT__.'/classes/Cpt/CptPosts.php';

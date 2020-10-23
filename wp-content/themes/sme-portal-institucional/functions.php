@@ -162,7 +162,7 @@ function custom_formats() {
 	wp_register_script('bootstrap_4_js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', false, '4.2.1', true);
 
 
-	wp_register_script('modal_on_load_js', STM_THEME_URL . 'js/modal_on_load.js', false, false);
+	wp_register_script('modal_on_load_js', STM_THEME_URL . 'js/modal_on_load.js', false, true);
 	wp_register_script('wow_js', STM_THEME_URL . 'js/wow.min.js', array('jquery'), 1.0, true);
 	wp_register_script('jquery_waituntilexists', STM_THEME_URL . 'js/jquery.waituntilexists.js', array('jquery'), 1.0, true);
 	wp_register_script('scripts_js', STM_THEME_URL . 'js/scripts.js', array('jquery'), 1.0, true);
@@ -231,7 +231,7 @@ function paginacao() {
 	echo '</nav>';
 }
 
-/*function paginacao($query) {
+/*function paginacao2($query) {
 
 	echo '<nav id="pagination">';
 	global $wp_query;
@@ -246,11 +246,15 @@ function paginacao() {
 	echo paginate_links(
 		array(
 			//'base' => str_replace($total_paginas + 1, '%#%', get_pagenum_link($total_paginas + 1)),
+			'base' => @add_query_arg('page','%#%'),
 			'current' => $pagina_atual,
 			'total' => $total_paginas,
-			'prev_next'         => True,
-			'prev_text'          	=> __('<i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i>'),
-			'next_text'          	=> __('<i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i>'),
+			'end_size'  => 1,
+			'mid_size'  => 2,
+			'show_all' => false,
+			'prev_next' => true,
+			'prev_text' => __('<<'),
+			'next_text' => __('>>'),
 		)
 	);
 	echo '</nav>';
@@ -614,7 +618,7 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Opções Gerais',
         'menu_slug' 	=> 'conf-geral',
         'position' 		=> '3',
-        //'capability'	=> 'edit_posts',
+        'capability'	=> 'publish_pages',
         //'redirect'		=> false
     ));
 
@@ -622,14 +626,37 @@ if( function_exists('acf_add_options_page') ) {
         'page_title' 	=> 'Configurações da Página Inicial',
         'menu_title'	=> 'Página Inicial',
         'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
     ));
 	
 	acf_add_options_sub_page(array(
-        'page_title' 	=> 'Configurações da Página Mais Notícias',
-        'menu_title'	=> 'Página Mais Notícias',
+        'page_title' 	=> 'Configurações da Página Notícias',
+        'menu_title'	=> 'Página Notícias',
         'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+    ));
+	
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações da Busca Manual',
+        'menu_title'	=> 'Busca Manual',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+    ));
+	
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações de tutoriais',
+        'menu_title'	=> 'Inclusão de tutoriais',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
     ));
 
+    acf_add_options_sub_page(array(
+        'page_title' 	=> 'Informações Rodapé',
+        'menu_title'	=> 'Rodapé',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+		'post_id' => 'conf-rodape',
+    ));
 }
 ///////////////////////////////////////////////////////////////////
 
@@ -647,3 +674,92 @@ function my_relationship_query( $args, $field, $post_id ) {
 }
 // filter for every field
 add_filter('acf/fields/relationship/query', 'my_relationship_query', 10, 3);
+
+
+
+
+
+
+
+
+//força posicionamento dos campos ACF
+function prefix_reset_metabox_positions(){
+  delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_post' );
+  delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_page' );
+  delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_custom_post_type' );
+}
+add_action( 'admin_init', 'prefix_reset_metabox_positions' );
+
+
+
+
+
+/*function remove_editor() {
+    if (isset($_GET['post'])) {
+        $id = $_GET['post'];
+        $template = get_post_meta($id, '_wp_page_template', true);
+        switch ($template) {
+            case 'pagina-modelo-1.php':
+            remove_post_type_support('page', 'editor');
+            break;
+            default :
+            // Don't remove any other template.
+            break;
+        }
+    }
+	if (isset($_GET['post'])) {
+        $id = $_GET['post'];
+        $template = get_post_meta($id, '_wp_page_template', true);
+        switch ($template) {
+            case 'pagina-modelo-2.php':
+            remove_post_type_support('page', 'editor');
+            break;
+            default :
+            // Don't remove any other template.
+            break;
+        }
+    }
+}
+add_action('init', 'remove_editor');*/
+
+//habilita revisões para o ACF
+add_filter( 'rest_prepare_revision', function($response, $post){
+	$data = $response->get_data();
+	$data['acf'] = get_fields( $post->ID );
+
+	return rest_ensure_response( $data );
+}, 10, 2);
+
+//habilita atualizações para o ACF
+function my_acf_save_post( $post_id ) {
+
+  // bail out early if we don't need to update the date
+  if( is_admin() || $post_id == 'new' ) {
+
+     return;
+
+   }
+
+   global $wpdb;
+
+   $datetime = date("Y-m-d H:i:s");
+
+   $query = "UPDATE $wpdb->posts
+	     SET
+              post_modified = '$datetime'
+             WHERE
+              ID = '$post_id'";
+
+    $wpdb->query( $query );
+
+}
+
+// run after ACF saves the $_POST['acf'] data
+add_action('acf/save_post', 'my_acf_save_post', 20);
+
+//coloca data atual no campo data no ACF
+function my_acf_default_date($field){
+	$field['default_value'] = date('dmY');
+	return $field;
+}
+add_filter('acf/load_field/name=data_da_atualizacao_organograma','my_acf_default_date');
