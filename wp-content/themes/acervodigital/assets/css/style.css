@@ -507,9 +507,3 @@ fieldset legend, .esconde-item-acessibilidade {
 	font-weight: bold;
 	cursor: pointer;
 }
-
-
-.empty-search {
-    display: block;
-    margin: 50px auto;
-}

@@ -10,23 +10,8 @@
 
 				<div class="col-sm-12">
 
-					<?php
-						
-						// Pega a quantidade de posts retornados
-						$qtd = $wp_query->found_posts;
+					<h2 class="mt-3 mb-3">Resultado(s) para: <?php echo  strip_tags (get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' / ', '')); ?></h2>
 
-						// valida a quantidade para singular ou plural
-						if($qtd == 1){
-							$text = 'resultado';
-						} else {
-							$text = 'resultados';
-						}
-
-						// Pega o nome da categoria corrente
-						$tax = $wp_query->get_queried_object();
-					?>
-
-					<span class="azul-claro-acervo"><strong><?php echo $qtd; ?></strong></span> <?php echo $text; ?> <?php _e( ' na categoria', 'locale' ); ?>: <strong> <?php echo  $tax->name; ?> </strong>
 				</div>
 
 				<div class="col-sm-8 mt-3 mb-5">
@@ -40,7 +25,9 @@
 				$loop = new WP_Query( array(
 
 					'post_type' => array(
+
 						'acervo',
+
 					),
 
 					'tax_query' => array(
@@ -69,95 +56,91 @@
 
 				?>
 
-				<?php if ( $loop->have_posts() ) : ?>
+				<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
 
-					<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+								<?php
 
-									<?php
+								$file = get_field('arquivo_acervo_digital');
 
-									$file = get_field('arquivo_acervo_digital');
+								$stringSeparada = explode(".", $file['filename']);
 
-									$stringSeparada = explode(".", $file['filename']);
-
-										$type = get_post_type();
+									$type = get_post_type();
 
 
 
-									?>
+								?>
 
-									<div class="row">
+								<div class="row">
 
-									<div class="col-sm-12">
+								<div class="col-sm-12">
 
-										<div class="row acervo-display">
+									<div class="row acervo-display">
 
-											<div class="col-sm-4 view-tag flag">
+										<div class="col-sm-4 view-tag flag">
 
-												<img src="
+											<img src="
 
-															<?php
+														<?php
 
-														if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'pdf'){
+													  if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'pdf'){
 
-															echo $file['icon']; 
+														 echo $file['icon']; 
 
-														}else if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'xlsx'){
+													  }else if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'xlsx'){
 
-															echo $file['icon'];
+														 echo $file['icon'];
 
-														}else if(get_field('substituir_capa_acervo_digital') != ''){
+													  }else if(get_field('substituir_capa_acervo_digital') != ''){
 
-															echo get_field('substituir_capa_acervo_digital'); 
+														 echo get_field('substituir_capa_acervo_digital'); 
 
-														}else{
+													  }else{
 
-															echo $file['url'];
+														 echo $file['url'];
 
-														}
+													  }
 
-														?>		
+													  ?>		
 
-														" alt="">			
+													  " alt="">			
 
-												<span class="flag-pdf-full">
+											<span class="flag-pdf-full">
 
-													<?php
+												<?php
 
-													echo $stringSeparada[1]; 
+												echo $stringSeparada[1]; 
 
-													?>
+												?>
 
-												</span>
+											</span>
 
-											</div>
+										</div>
 
-											<div class="col-sm-8 mt-3 mb-3">
+										<div class="col-sm-8 mt-3 mb-3">
 
-												<h3 class="azul-claro-acervo"><strong><?php the_title(); ?></strong></h3>
+											<h3 class="azul-claro-acervo"><strong><?php the_title(); ?></strong></h3>
 
-												<div class="cat-flag mb-4"><?php echo  strip_tags (get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' / ', '')); ?></div>
+											<div class="cat-flag mb-4"><?php echo  strip_tags (get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' / ', '')); ?></div>
 
-												<p><?php the_field('descricao_acervo_digital'); ?></p>
+											<p><?php the_field('descricao_acervo_digital'); ?></p>
 
-												<p><strong>Ano de publicação:</strong>
+											<p><strong>Ano de publicação:</strong>
 
-													<?php the_field('ano_da_publicacao_acervo_digital'); ?>
+												<?php the_field('ano_da_publicacao_acervo_digital'); ?>
 
-												&nbsp;&nbsp;&nbsp;<strong>Palavras chaves: </strong>				
+											&nbsp;&nbsp;&nbsp;<strong>Palavras chaves: </strong>				
 
-													<?php echo  strip_tags (get_the_term_list(get_the_ID(), 'palavra', '', ' / ', '')); ?>
+												<?php echo  strip_tags (get_the_term_list(get_the_ID(), 'palavra', '', ' / ', '')); ?>
 
-												</p>
+											</p>
 
-												<div class="links-flag">
+											<div class="links-flag">
 
-													<a href="<?php the_permalink(); ?>">Visualizar</a>
+												<a href="<?php the_permalink(); ?>">Visualizar</a>
 
-													<a href="<?php the_permalink(); ?>">Ver detalhes</a>
+												<a href="<?php the_permalink(); ?>">Ver detalhes</a>
 
-													<a href="<?php echo $file['url'] ?>">Fazer download</a>
-
-												</div>
+												<a href="<?php echo $file['url'] ?>">Fazer download</a>
 
 											</div>
 
@@ -167,12 +150,9 @@
 
 								</div>
 
-					<?php endwhile;  ?>
+							</div>
 
-				<?php else: ?>
-					<img src="<?php echo get_bloginfo('template_directory') ?>/images/search-empty.png" alt="Nenhum conteuúdo encontrado" class='empty-search responsive-img'>
-					
-				<?php endif; ?>
+				<?php endwhile;  ?>
 
 							<div class="col-sm-12 mt-5 mb-5 text-center">
 

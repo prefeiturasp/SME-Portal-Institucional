@@ -1,5 +1,5 @@
 <div id="simpleform">
-<form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ) ?>">
+<form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/acervo' ) ) ?>">
 		<?php /*?><span class="screen-reader-text"><?php _x( 'Pesquisar por:', 'label' )?></span><?php */?>
 	<div class="row" >
 	<div class="col-sm-8"><input type="search" minlength="3" class="form-control search-field" placeholder="Busque por título de documento ou palavra-chave" value="<?php echo get_search_query() ?>" name="s" /></div>
@@ -12,7 +12,7 @@
 </div>
 
 <div id="advancedform" style="display: none">
-<form method="get" class="text-left" action="<?php echo esc_url( home_url( '/' ) ) ?>">
+<form method="get" class="text-left" action="<?php echo esc_url( home_url( '/acervo' ) ) ?>">
 	<fieldset>
 		<div class="row">
 			<div class="col-sm-10 p-4 bg-white">
