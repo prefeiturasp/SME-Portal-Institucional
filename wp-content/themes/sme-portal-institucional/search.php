@@ -269,7 +269,7 @@ $esseTemSearch = false;
 							if($esseTemSearch == true){ ?>
 							 
                                 <figure>
-                                    <img class="img-fluid rounded float-left" src="https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
+                                    <img class="img-fluid rounded float-left" src="<?php echo get_site_url(); ?>/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
                                 </figure>
                             <?php
 							}
@@ -507,7 +507,7 @@ $arrayPalavrasPost = array_map('trim', $arrayPalavrasPost);
 								}else{
 									?>
 									<figure>
-										<img class="img-fluid rounded float-left" src="https://hom-educacaco.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
+										<img class="img-fluid rounded float-left" src="<?php echo get_site_url(); ?>/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
 									</figure>	
 									<?php
 								}
