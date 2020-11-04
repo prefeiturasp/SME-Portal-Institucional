@@ -45,8 +45,6 @@ class CUWP_Create_User_With_Password {
      * Adds password input field to the register form
      */
     public function cuwp_plug_pass() {
-        
-        // Remover comentario abaixo para habilitar o campo de senha
         /*
         ?>
         <table class="form-table hook-pass">

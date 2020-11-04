@@ -1,13 +1,13 @@
 <?php
 /*
-  Plugin Name: Criar usuario sem enviar email Multisite
-  Plugin URI: https://www.amcom.com.br/
-  Description: Habilita por padrao nao eviar o email de cadastro.
+  Plugin Name: SME Novo Usuario
+  Plugin URI: http://www.mooveagency.com
+  Description: Criar usuario sem enviar email padrao
   Version: 1.0.1.
-  Author: Felipe Viana
-  Author URI: https://www.amcom.com.br/
+  Author: AMCOM
+  Author URI: http://www.mooveagency.com
   License: GPLv2
-  Text Domain: create-user-without-send-email
+  Text Domain: create-user-withou-send-email
  */
 
 // no need on cron job
@@ -31,6 +31,7 @@ if (is_admin()) {
  */
 function cuwp_activate()
 {
+    /*
     // store old message in option
     $old_message = get_site_option('welcome_user_email');
     update_option('cuwp_welcome_user_email', $old_message);
@@ -40,6 +41,7 @@ function cuwp_activate()
     $text = __($text_var, 'create-user-with-password-multisite');
 
     update_site_option('welcome_user_email', $text);
+    */
 }
 
 register_activation_hook(__FILE__, 'cuwp_activate');
