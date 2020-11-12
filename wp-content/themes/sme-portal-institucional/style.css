@@ -802,3 +802,33 @@ footer .redes-footer{
 		border: 0;
 	}
 }
+
+
+.ultimos-convocados p{
+	margin-bottom: 5px;
+}
+
+.ultimos-convocados br {
+    display: block;
+    margin: 5px 0;
+    content: " ";
+}
+
+.btn-busca button {
+    position: absolute;
+    right: 0.3rem;
+	top: 0.3rem;
+	background: #e0e0e0;
+	color: #FFFFFF;
+	z-index: 99999;
+}
+
+.btn-busca .form-control,
+.custom-select{
+	height: calc(2.9rem + 2px);
+}
+
+.text-atualiza p{
+	color: #828282;
+	font-size: 11px;
+}

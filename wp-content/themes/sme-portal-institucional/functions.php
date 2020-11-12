@@ -763,3 +763,35 @@ function my_acf_default_date($field){
 	return $field;
 }
 add_filter('acf/load_field/name=data_da_atualizacao_organograma','my_acf_default_date');
+
+add_filter( 'request', 'my_request_filter' );
+function my_request_filter( $query_vars ) {
+    if( isset( $_GET['s'] ) && empty( $_GET['s'] ) ) {
+        $query_vars['s'] = " ";
+        global $no_search_results;
+        $no_search_results = TRUE;
+    }
+    return $query_vars;
+}
+
+function template_chooser($template){    
+  global $wp_query;  
+  global $no_search_results;
+  $post_type = get_query_var('post_type');
+  if( $wp_query->is_search && $post_type == 'concurso' )   
+  {
+    return locate_template('search_concurso.php');  //  redirect to archive-search.php
+  }
+  return $template;   
+}
+add_filter('template_include', 'template_chooser');
+
+// Adiciona o title como parametro no wp_query
+add_filter( 'posts_where', 'title_like_posts_where', 10, 2 );
+function title_like_posts_where( $where, $wp_query ) {
+    global $wpdb;
+    if ( $post_title_like = $wp_query->get( 'post_title_like' ) ) {
+        $where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . esc_sql( $wpdb->esc_like( $post_title_like ) ) . '%\'';
+    }
+    return $where;
+}

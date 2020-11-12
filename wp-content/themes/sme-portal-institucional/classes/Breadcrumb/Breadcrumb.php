@@ -36,6 +36,8 @@ class Breadcrumb
 		// Get the query & post information
 		global $post,$wp_query;
 
+		$post_type = get_query_var('post_type');
+
 		// Do not display on the homepage
 		if ( !is_front_page() ) {
 
@@ -243,6 +245,10 @@ class Breadcrumb
 				// Search results page
 				echo '<li class="item-current item-current-' . get_search_query() . '"><strong class="bread-current bread-current-' . get_search_query() . '" >Resultados para: ' . get_search_query() . '</strong></li>';
 
+			} elseif($post_type == 'concurso'){
+				
+				// Busca concurso
+				echo '<li>' . get_the_title( 31830 ) . '</li>';
 			} elseif ( is_404() ) {
 
 				// 404 page
