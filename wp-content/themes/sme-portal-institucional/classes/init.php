@@ -27,6 +27,7 @@ require_once __ROOT__.'/classes/Cpt/CptAba.php';
 require_once __ROOT__.'/classes/Cpt/CptBotao.php';
 require_once __ROOT__.'/classes/Cpt/CptCurriculoDaCidade.php';
 require_once __ROOT__.'/classes/Cpt/cptProgramaProjeto.php';
+require_once __ROOT__.'/classes/Cpt/CptConcursos.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
@@ -91,6 +92,9 @@ require_once __ROOT__.'/classes/ModelosDePaginas/LandingPages/Modelo_1.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/LandingPages/Modelo_2.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/Layout/construtor.php';
 
+// concursos
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaConcursos/PaginaConcursos.php';
+
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticias.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasArrayIdNoticias.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasMenu.php';
@@ -137,6 +141,10 @@ $taxonomiaMediaImages = new \Classes\Cpt\CptMediaImages();
 
 $cptCurriculoDaCidade = new \Classes\Cpt\Cpt('curriculo-da-cidade', 'curriculo-da-cidade', 'Currículo da Cidade', 'Todos os Currículos', 'Currículos da Cidade', 'Currículo da Cidade', 'categorias-curriculo-da-cidade', 'Categorias de Currículos', 'Categoria de Currículo', 'dashicons-format-image', true);
 $cptCurriculoDaCidadeExtende = new \Classes\Cpt\CptCurriculoDaCidade();
+
+// Concursos
+$cptConcursos = new \Classes\Cpt\Cpt('concurso', 'concurso', 'Cadastro de Concurso', 'Todos os Concursos', 'Concursos', 'Cadastro de Concurso', '', '', '', 'dashicons-external' , true);
+$cptConcursosExtend = new \Classes\Cpt\CptConcursos();
 
 $cptProgramasEProjetos = new \Classes\Cpt\Cpt('programa-projeto', 'programa-projeto', 'Programas e Projetos', 'Todos os Programas e Projetos', 'Programas e Projetos', 'Programas e Projetos', 'categorias-programa-projeto', 'Categorias de Programas e Projetos', 'Categoria de Programas e Projetos', 'dashicons-format-image', true);
 $cptProgramasEProjetosExtende = new \Classes\Cpt\CptProgramasEProjetos();
