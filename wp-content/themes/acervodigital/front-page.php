@@ -72,9 +72,19 @@
 
 				    <?php foreach( $terms as $term ): ?>
 
+						<?php
+							$image = get_field('imagem_cat_acervo', $term);
+							if($image){
+								$image = get_field('imagem_cat_acervo', $term);
+							} else {
+								$image = get_field('banner_busca','option');
+							}
+							
+						?>
+
 				    	<div class="col-sm-2 cat-home">
 
-				    		<div style="background: url('<?php the_field('banner_busca','option');?>'); ">
+				    		<div style="background: url('<?php echo $image; ?>'); ">
 
 					    		<div class="cat-home-inter">
 
