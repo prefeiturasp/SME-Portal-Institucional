@@ -61,8 +61,10 @@ use Classes\Header\Header;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="Secretaria Municipal de Educação de São Paulo">
 
-	<?php wp_head() ?>
-
+	<?php wp_head() ?>   
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="<?php echo get_template_directory_uri(); ?>/css/jquery.multiselect.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149756375-1"></script>
 	<!-- Begin Inspectlet Asynchronous Code -->
