@@ -22,38 +22,39 @@ class PaginaInicial extends Util
 		$this->page_id = get_the_ID();
 		$this->page_slug = get_queried_object()->post_name;
 		$util = new Util($this->page_id);
+		
 		// Classe Util
-		$util->montaHtmlLoopPadrao();
-		$this->modalhome();
+		//$util->montaHtmlLoopPadrao();
+		//$this->modalhome();
 
 		$this->init();
 	}
 
 	public function init(){
 
-		new PaginaInicialIconesDetectMobile();
+		//new PaginaInicialIconesDetectMobile();
 
 		$this->tituloNoticias();
 
         $noticias_home_tags = array('section','section');
         $noticias_home_css = array('container mt-5 noticias','row');
         $this->abreContainer($noticias_home_tags, $noticias_home_css);
-		new PaginaInicialNoticiasDestaquePrimaria();
-		new PaginaInicialNoticiasDestaqueSecundarias();
+		//new PaginaInicialNoticiasDestaquePrimaria();
+		//new PaginaInicialNoticiasDestaqueSecundarias();
 		$this->fechaContainer($noticias_home_tags);
 
 		$face_news_twitter_tags = array('section', 'section');
 		$face_news_twitter_css = array('container mt-5 mb-5 noticias' , 'row');
 		$this->abreContainer($face_news_twitter_tags, $face_news_twitter_css);
 
-		new PaginaInicialFacebook();
+		//new PaginaInicialFacebook();
 
 		$news_twitter_tags = array('section');
 		$news_twitter_css = array('col-12 col-md-6');
 		$this->abreContainer($news_twitter_tags, $news_twitter_css);
-		new PaginaInicialNewsletter();
+		//new PaginaInicialNewsletter();
 
-		new PaginaInicialTwitter();
+		//new PaginaInicialTwitter();
 
 		$this->fechaContainer($news_twitter_tags);
 

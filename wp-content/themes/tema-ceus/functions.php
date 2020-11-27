@@ -763,3 +763,164 @@ function my_acf_default_date($field){
 	return $field;
 }
 add_filter('acf/load_field/name=data_da_atualizacao_organograma','my_acf_default_date');
+
+// Altera o nome do menu de Post para Eventos
+
+function change_post_label() {
+    global $menu;
+    global $submenu;
+    $menu[5][0] = 'Eventos';
+    $submenu['edit.php'][5][0] = 'Eventos';
+	$submenu['edit.php'][10][0] = 'Adicionar Evento';
+	$submenu['edit.php'][15][0] = 'Unidades';
+	$submenu['edit.php'][16][0] = 'Tags';	
+    echo '';
+}
+function change_post_object() {
+    global $wp_post_types;
+    $labels = $wp_post_types['post']->labels;
+    $labels->name = 'Eventos';
+    $labels->singular_name = 'Evento';
+    $labels->add_new = 'Adicionar Evento';
+    $labels->add_new_item = 'Adicionar Evento';
+    $labels->edit_item = 'Editar Evento';
+    $labels->new_item = 'Evento';
+    $labels->view_item = 'Ver Evento';
+    $labels->search_items = 'Buscar Eventos';
+    $labels->not_found = 'Nenhum Evento encontrado';
+    $labels->not_found_in_trash = 'Nenhum Evento encontrado no Lixo';
+    $labels->all_items = 'Todos Eventos';
+    $labels->menu_name = 'Eventos';
+	$labels->name_admin_bar = 'Eventos';
+}
+ 
+add_action( 'admin_menu', 'change_post_label' );
+add_action( 'init', 'change_post_object' );
+
+
+// Altera nomes de Categorias para Unidades
+function revcon_change_cat_object() {
+    global $wp_taxonomies;
+    $labels = &$wp_taxonomies['category']->labels;
+    $labels->name = 'Unidades';
+    $labels->singular_name = 'Unidade';
+    $labels->add_new = 'Add Unidade';
+    $labels->add_new_item = 'Adicionar Unidade';
+    $labels->edit_item = 'Editar Unidade';
+    $labels->new_item = 'Unidade';
+    $labels->view_item = 'Ver Unidade';
+    $labels->search_items = 'Buscar Unidades';
+    $labels->not_found = 'Nenhuma Unidade encontrada';
+    $labels->not_found_in_trash = 'Nenhuma Unidade encontrada na lixeira';
+    $labels->all_items = 'Todas as Unidades';
+    $labels->menu_name = 'Unidades';
+    $labels->name_admin_bar = 'Unidades';
+}
+add_action( 'init', 'revcon_change_cat_object' );
+
+// Altera o icone dos Posts (Unidades)
+function replace_admin_menu_icons_css() {
+    ?>
+    <style>
+        .dashicons-admin-post:before{
+			content: '\f508';
+		}
+    </style>
+    <?php
+}
+
+add_action( 'admin_head', 'replace_admin_menu_icons_css' );
+
+// Incluir taxonomia Categoria
+function atividades_taxonomy() {
+    register_taxonomy(
+        'atividades_categories',  // The name of the taxonomy. Name should be in slug form (must not contain capital letters or spaces).
+        'post',             // post type name
+        array(
+            'hierarchical' => true,
+            'label' => 'Atividades', // display name
+            'query_var' => true,
+            'rewrite' => array(
+                'slug' => 'atividades',    // This controls the base slug that will display before each term
+                'with_front' => false  // Don't display the category base before
+            )
+        )
+    );
+}
+add_action( 'init', 'atividades_taxonomy');
+
+// Incluir taxonomia Publico
+function publico_taxonomy() {
+    register_taxonomy(
+        'publico_categories',  // The name of the taxonomy. Name should be in slug form (must not contain capital letters or spaces).
+        'post',             // post type name
+        array(
+            'hierarchical' => true,
+            'label' => 'Publico', // display name
+            'query_var' => true,
+            'rewrite' => array(
+                'slug' => 'publico',    // This controls the base slug that will display before each term
+                'with_front' => false  // Don't display the category base before
+            )
+        )
+    );
+}
+add_action( 'init', 'publico_taxonomy');
+
+// Incluir taxonomia Faixa Etaria
+function faixa_taxonomy() {
+    register_taxonomy(
+        'faixa_categories',  // The name of the taxonomy. Name should be in slug form (must not contain capital letters or spaces).
+        'post',             // post type name
+        array(
+            'hierarchical' => true,
+            'label' => 'Faixa Etaria', // display name
+            'query_var' => true,
+            'rewrite' => array(
+                'slug' => 'faixa',    // This controls the base slug that will display before each term
+                'with_front' => false  // Don't display the category base before
+            )
+        )
+    );
+}
+add_action( 'init', 'faixa_taxonomy');
+
+// Incluir taxonomia Faixa Etaria
+function periodo_taxonomy() {
+    register_taxonomy(
+        'periodo_categories',  // The name of the taxonomy. Name should be in slug form (must not contain capital letters or spaces).
+        'post',             // post type name
+        array(
+            'hierarchical' => true,
+            'label' => 'Periodo do Dia', // display name
+            'query_var' => true,
+            'rewrite' => array(
+                'slug' => 'periodo',    // This controls the base slug that will display before each term
+                'with_front' => false  // Don't display the category base before
+            )
+        )
+    );
+}
+add_action( 'init', 'periodo_taxonomy');
+
+
+function template_chooser($template){    
+	global $wp_query;  
+	global $no_search_results;
+	$post_type = get_query_var('tipo');
+	if( $wp_query->is_search && $post_type == 'programacao' )   
+	{
+	  return locate_template('search_programacao.php');  //  redirect to archive-search.php
+	}
+	return $template;   
+}
+add_filter('template_include', 'template_chooser');
+
+// Thumbnail Customozadas
+add_image_size( 'slide-eventos', 820, 380, true ); // Slide
+add_image_size( 'categoria-eventos', 300, 300, true ); // Categorias
+add_image_size( 'thumb-eventos', 575, 297, true ); // Eventos
+
+add_action( 'init',  function() {
+    add_rewrite_rule( 'page/([a-z0-9-]+)[/]?$', 'index.php?page=$matches[1]', 'top' );
+} );

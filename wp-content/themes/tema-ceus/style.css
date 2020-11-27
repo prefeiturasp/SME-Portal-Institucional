@@ -785,3 +785,265 @@ footer{
 .rede-rodape{
 	max-width: 50px !important;
 }
+
+/********* Slide **********/
+
+.carousel-control-next, .carousel-control-prev{
+    width: 8%;
+}
+
+ol.carousel-indicators {
+    width: 33.333333%;
+    right: 0;
+    left: auto;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.carousel-control-prev-icon { 
+    background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23f3f3f3' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");   
+}
+
+.carousel-control-next-icon { 
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23f3f3f3' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
+
+.carousel-categ{
+    margin-top: 20px;
+}
+
+.carousel-categ p{
+    margin-bottom: 0;
+}
+
+.carousel-categ p a{
+    color: #0048A9;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.carousel-title p a{
+    color: #2071DE;
+    font-size: 32px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.carousel-title p{
+	margin-bottom: 0;
+	line-height: 1.2;
+}
+
+.carousel-subtitle{
+    color: #2071DE;
+    font-size: 18px;
+}
+
+.carousel-subtitle p{
+    margin-bottom: 10px;
+}
+
+ol.carousel-indicators{
+    margin-bottom: 0;
+}
+
+.carousel-indicators li{
+    background: #DADADA;
+}
+.carousel-indicators li.active{
+    background: #69A9FF;
+}
+
+/********* Busca **********/
+
+.ms-options-wrap .ms-options {
+    left: 15px !important;
+}
+
+.search-home{
+    background: #f3f3f3;
+}
+
+.search-home h1 {
+    color: #153394;
+    font-size: 2rem !important;
+    line-height: 1.2;
+}
+
+.search-home .btn-search{
+    background: #0048A9;
+    color: #FFFFFF;
+}
+
+.search-home .ms-options-wrap > button:focus, .search-home .ms-options-wrap > button{
+	display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.search-home .ms-options-wrap > button:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.ms-options-wrap > button:after {
+	border: initial !important;
+    border-style: solid !important;
+    border-width: 0.2em 0.20em 0 0 !important;
+    content: '';
+    display: inline-block !important;
+    height: 0.50em !important;
+    right: 0.3rem !important;
+    position: absolute;
+    top: 0.15em !important;
+    transform: rotate(-45deg) !important;
+    vertical-align: top !important;
+    width: 0.50em !important;
+    top: 15px !important;
+	transform: rotate(135deg) !important;
+	margin-top: 0 !important;
+}
+
+select#tipoData{
+	font-size: 13px;
+}
+
+.ms-options-wrap > .ms-options > ul > li.optgroup .label {
+    display: block;
+    padding: 5px 0 0 0;
+    font-weight: normal !important;
+    font-size: 13px;
+}
+
+.ms-options-wrap > .ms-options > ul label {
+    font-size: 16px !important;
+}
+
+.ms-options-wrap.ms-has-selections > button > span {
+    background: #0048A9;
+    color: #FFFFFF;
+    padding: 2px 7px;
+    border-radius: 12px;
+}
+
+.ms-options-wrap.ms-has-selections > button[disabled] > span {
+    background: initial;
+    color: #333333;
+}
+
+/********* Categorias **********/
+
+.card-categ img{
+    margin: 0 auto;
+    transition: 0.2s;
+    max-width: 85%;
+}
+
+.card-categ a h2{
+    font-size: 18px;
+    margin-top: 10px;
+    color: #42474A;
+}
+
+.card-categ a:hover{
+    text-decoration: none;
+}
+
+.card-categ a:hover img{
+    opacity: 0.8;
+    transition: 0.2s;
+}
+
+/********* Eventos **********/
+.card-eventos{
+    background: #f5f5f5;
+}
+
+.tema-eventos-title h3{
+    color: #2071DE;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.evento-categ a{
+    color: #0048A9;
+    font-weight: bold;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.card-eventos-content h3,
+.card-eventos-content h3 a{
+    font-size: 14px;
+    color: #000000;
+    font-weight: bold;
+    margin-top: 10px;
+    min-height: 50px;
+}
+
+.card-eventos-content p{
+    font-size: 12px;
+    color: #42474A;
+}
+
+.evento-unidade a{
+    color: #0048A9;
+}
+
+.atividades-found p span {
+    color: #2071DE;
+    font-weight: bold;
+}
+
+.wp-pagenavi span, .wp-pagenavi a {
+    border-top: 1px solid #DADADA;
+    border-bottom: 1px solid #DADADA;
+    border-right: 1px solid #DADADA;
+	padding: 12px 17px;
+	color: #42474A;
+	transition: 0.2s;
+}
+
+.wp-pagenavi span.current{
+	background: #2F80ED;
+	color: #FFFFFF;
+}
+
+.wp-pagenavi a:hover{
+	background: #2F80ED;
+	color: #FFFFFF;
+	transition: 0.2s;
+}
+
+.wp-pagenavi span:nth-child(1),
+.wp-pagenavi a:nth-child(1){
+	border-left: 1px solid #DADADA;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.wp-pagenavi span:last-child,
+.wp-pagenavi a:last-child{
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.slide-principal .carousel-indicators li {
+    border-bottom: 1px solid transparent;
+    margin-bottom: 10px;
+    border-top: 1px solid transparent;
+}
