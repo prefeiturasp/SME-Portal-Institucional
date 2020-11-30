@@ -1,143 +1,39 @@
 <?php get_header(); ?>
 
-
-
 <section>
-
-
-
 	<div class="container mt-4 mb-4">
-
-
-
 		<div class="row">
 
-
-
-
-
-
-
 			<?php while ( have_posts() ) : the_post(); ?>
-
-
-
 				<?php
+					$args = array(
+						'type' => get_post_type(),
+						'orderby' => 'name',
+						'order' => 'ASC'
+					);
 
-
-
-				$args = array(
-
-
-
-					'type' => get_post_type(),
-
-
-
-					'orderby' => 'name',
-
-
-
-					'order' => 'ASC'
-
-
-
-				);
-
-
-
-				$file = get_field('arquivo_acervo_digital');
-
-
-
-				$stringSeparada = explode(".", $file['filename']);
-
-
-
-				$type = get_post_type();
-
-
-
-				$postid = get_the_ID();
-
-
-
+					$file = get_field('arquivo_acervo_digital');
+					$stringSeparada = explode(".", $file['filename']);
+					$type = get_post_type();
+					$postid = get_the_ID();
 				?>
 
-
-
-			
-
-
-
-
-
-
-
-
-
-
-
 				<div class="col-sm-12 mb-4">
-
-
-
 					<h2><strong><?php the_title(); ?></strong></h2>
-
-
-
 				</div>	
 
-
-
 				<div class="col-sm-6">
-
-
-
 					<img src="<?php
-
-
-
 							  if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'pdf'){
-
-
-
 								 echo $file['icon']; 
-
-
-
 							  }else if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'xlsx'){
-
-
-
 								 echo $file['icon'];
-
-
-
 							  }else if(get_field('substituir_capa_acervo_digital') != ''){
-
-
-
 								 echo get_field('substituir_capa_acervo_digital'); 
-
-
-
 							  }else{
-
-
-
 								 echo $file['url'];
-
-
-
 							  }
-
-
-
 							  ?>" alt="<?php the_field('campo_alt_acervo_digital'); ?>" width="100%">					
-
-
-
 				</div>
 
 					<?php
@@ -163,9 +59,6 @@
 					  'post_status' => 'any',
 
 					  'post_type' => 'download',
-
-
-
 					 )
 
 					);
@@ -195,9 +88,6 @@
 					);
 
 					$download_id = wp_insert_post( $download_data );
-
-
-
 					// Salva nome do documento.
 
 					$field_key = "field_5f6a0eddf2ee2";
@@ -241,9 +131,6 @@
 					);
 
 					$acesso_id = wp_insert_post( $acesso_data );
-
-
-
 					// Salva nome do documento.
 
 					$field_key = "field_5f6ac9d93c0a7";
@@ -309,10 +196,7 @@
 						<div class="col-12 mb-3">
 							<h3><strong>Categoria</strong></h3>
 							<p><?php echo  get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' / ', ''); ?></p>
-						</div>
-
-
-						<?php
+						</div>						<?php
 							$terms = get_field('autor_acervo_digital');
 							if(get_field('autor_acervo_digital') != ''){
 								?>
@@ -346,9 +230,6 @@
 								<?php
 							}
 						?>
-
-
-
 
 						<div class="col-6 mb-3">
 							<h3><strong>Ultima atualização</strong></h3>
@@ -393,10 +274,7 @@
 							}
 						?>
 
-						
-
-
-						<?php
+												<?php
 							if(get_field('mes_da_publicacao_acervo_digital') != ''){
 								?>
 									<div class="col-6 mb-3">
@@ -418,10 +296,7 @@
 									</div>
 								<?php
 							}
-						?>
-
-
-						<?php
+						?>						<?php
 							$terms = get_field('formacao_acervo_digital');
 							if(get_field('formacao_acervo_digital') != ''){
 								?>
@@ -523,9 +398,6 @@
 								<?php
 							}
 						?>
-
-
-
 						<div class="col-6 mb-3">
 							<h3><strong>Palavra Chave</strong></h3>
 							<p><?php echo  get_the_term_list(get_the_ID(), 'palavra', '', ' - ', ''); ?></p>
@@ -541,10 +413,7 @@
 									echo 'DIVERSOS';
 								}
 								?></p>
-						</div>
-
-
-						<div class="col-6 mb-3">
+						</div>						<div class="col-6 mb-3">
 							<h3><strong>Tamanho do documento</strong></h3>
 							<p><?php
 								if( $file['filesize']  != ''){
@@ -554,9 +423,6 @@
 								}
 								?></p>
 						</div>
-
-
-
 						<div class="col-6 mb-3">
 							<h3><strong>Idioma do documento</strong></h3>
 							<?php 
@@ -569,183 +435,115 @@
 							    <?php endforeach; ?>
 							<?php endif; ?>
 						</div>
-
-
-
 						<div class="col-6 mb-3">
 							<h3><strong>Quantidade de páginas</strong></h3>
 							<p><?php the_field('qt_de_paginas_acervo_digital'); ?></p>
 						</div>
-
-
-
 						<div class="col-6 mb-3">
 							<h3><strong>Quantidade de visualizações</strong></h3>
 							<p>
 							<?php 
-							function retornaNumero($posttype) {
-							$contador = 0;
-							echo '<div style="display: none">';
-							$artigo = get_posts(
-							 array(
-								's' => the_title(),
-								'post_type' => $posttype,
-							    'numberposts' => -1,
-							    'post_status' => 'any',
-							 ));
-							echo '</div>';
 
-							foreach ($artigo as $article) { 
-							$contador++;
-							//var_dump($article);
+							function title_filter( $where, &$wp_query )
+							{
+								global $wpdb;
+								// 2. pull the custom query in here:
+
+								if ( $search_term = $wp_query->get( 'search_prod_title' ) ) {
+									$where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . esc_sql( like_escape( $search_term ) ) . '%\'';
+								}
+								return $where;
+
 							}
-							return $contador;
+
+							function retornaNumero($posttype) {
+								
+								
+
+								$args = array(
+									'post_type' => $posttype,
+									'posts_per_page' => -1,
+									'search_prod_title' => get_the_title(),
+									'post_status' => 'publish',
+									'orderby'     => 'title', 
+									'order'       => 'ASC'
+								);
+
+								add_filter( 'posts_where', 'title_filter', 10, 2 );
+								$wp_query = new WP_Query($args);
+								remove_filter( 'posts_where', 'title_filter', 10 );
+								
+								
+
+								
+
+								$contador = 0;
+								echo '<div style="display: none">';
+								$artigo = get_posts(
+									array(
+										's' => 'Alimentação Escolar',
+										'post_type' => $posttype,
+										'numberposts' => -1,
+										'post_status' => 'any',
+									));
+								echo '</div>';
+
+								foreach ($artigo as $article) { 
+								$contador++;
+								//var_dump($article);
+								}
+								//return $contador;
+								return $wp_query->found_posts;
 							}
 							echo retornaNumero(('acesso'));
 							?>  
 							</p>
 						</div>
-
-
-
 						<div class="col-6 mb-3">
 							<h3><strong>Quantidade de downloads</strong></h3>
 							<p><?php echo retornaNumero(('download')); ?></p>
 						</div>
 					</div>
 				</div>	
-
-
-
 				<div class="col-sm-12 mt-3 mb-3">
-
-
-
 					Compartilhar: 
-
-
-
 					<a href="mailto:?subject=&body=:%20" title="<?php the_title(); ?>" onclick="window.open('mailto:?subject=' + 'Acervo Digital SME' + '&body=' + encodeURIComponent(document.URL)); return false;">
-
-
-
 						<img src="<?php echo get_template_directory_uri(); ?>/images/email-icon.png" width="32" alt="compartilhar no email">
-
-
-
 					</a>
-
-
-
 					<a href="https://twitter.com/intent/tweet?text=<?php the_title(); ?>&url=<?php the_permalink(); ?>">
-
-
-
 						<img src="<?php echo get_template_directory_uri(); ?>/images/twitter-icon.png" width="32" alt="compartilhar no twitter">
-
-
-
 					</a>
-
-
-
 					<a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink(); ?>">
-
-
-
 						<img src="<?php echo get_template_directory_uri(); ?>/images/facebook-icon.png" width="32" alt="compartilhar no facebook">
-
-
-
 					</a>
-
-
-
 					<a href="https://api.whatsapp.com/send?text=<?php the_permalink(); ?>">
-
-
-
 						<img src="<?php echo get_template_directory_uri(); ?>/images/whatsapp-icon.png" width="32" alt="compartilhar no Whatsappl">
-
-
-
 					</a>
-
-
-
 				</div>	
-
-
-
 				<div class="col-sm-12 mt-4 mb-4">
-
-
-
 					<h3><strong>Descrição</strong></h3>
-
-
-
 					<p><?php the_field('descricao_acervo_digital'); ?></p>
-
-
-
 				</div>
-
-
-
-
-
-
 
 			<?php endwhile; wp_reset_query(); ?>
 
-
-
-
-
-
-
 		</div>
-
-
-
 	</div>
-
-
-
 </section>
 
-
-
-
-
-
-
 <script>
-
-
-
 function ctDownload() {
 
     var href = new URL(window.location.href);
 
 href.searchParams.set('ajaxify', '1');
-
-
-
   jQuery.ajax({url: href.toString(), success: function(result){
 
     console.log(result);
 
   }});
 
-}
-
-
-
-
-
-	jQuery( "#download_link" ).click(function() {
+}	jQuery( "#download_link" ).click(function() {
 
 ctDownload();
 
@@ -762,37 +560,13 @@ ctDownload();
 /*
 
 		jQuery.ajax({
-
-
-
 		 type:"POST",
-
-
-
 		 url: 'https://hom-portal.sme.prefeitura.sp.gov.br/acervodigital/wp-admin/admin-ajax.php',
-
-
-
 		 data: {
-
-
-
 			'action':'update_counter',
-
-
-
 			'post_id' : <?php global $post; echo $post->ID; ?>
-
-
-
 		 }
-
-
-
 		 });
-
-
-
 			setTimeout("window.location.reload();", 2000);
 
 */
@@ -800,7 +574,4 @@ ctDownload();
 		 //window.location.reload();
 
 </script>
-
-
-
 <?php get_footer(); ?>
