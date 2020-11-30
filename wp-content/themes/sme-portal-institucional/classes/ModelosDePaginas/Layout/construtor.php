@@ -4,6 +4,11 @@ namespace Classes\ModelosDePaginas\Layout;
 
 use Classes\Lib\Util;
 
+function clean($string) {
+	$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.										 
+	return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+}
+
 class Construtor extends Util
 {
 	
@@ -123,15 +128,18 @@ if( have_rows('fx_flex_layout') ):
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_1_1' ): 		
 									if(get_sub_field('fx_abas_1_1'))://repeater
-										
+
 										//loop menu aba
 										echo '<ul class="nav nav-tabs">';
 											$count=0;
+											 
 											while(has_sub_field('fx_abas_1_1'))://verifica conteudo no repeater
 												$count++;
 												//echo $count;
+												$aba_title = get_sub_field('fx_nome_abas_1_1');
+												$id_aba = clean($aba_title);
 												echo '<li class="nav-item">';
-													echo '<a class="nav-link" data-toggle="tab" href="#aba'.$count.'"><strong>'.get_sub_field('fx_nome_abas_1_1').'</strong></a>';
+													echo '<a class="nav-link" data-toggle="tab" href="#aba'. $count. $id_aba. '"><strong>'.get_sub_field('fx_nome_abas_1_1').'</strong></a>';
 												echo '</li>';
 											endwhile;
 										echo '</ul>';
@@ -142,7 +150,9 @@ if( have_rows('fx_flex_layout') ):
 										while(has_sub_field('fx_abas_1_1'))://verifica se editor no repeater
 												$count++;
 												//echo $count;
-											echo '<div class="tab-pane container mt-3 mb-3" id="aba'.$count.'">'.get_sub_field('fx_editor_abas_1_1').'</div>';
+												$aba_title = get_sub_field('fx_nome_abas_1_1');
+												$id_aba = clean($aba_title);
+											echo '<div class="tab-pane container mt-3 mb-3" id="aba'. $count. $id_aba. '">'.get_sub_field('fx_editor_abas_1_1').'</div>';
 		
 										endwhile;
 										echo '</div>';
@@ -478,8 +488,10 @@ if( have_rows('fx_flex_layout') ):
 											while(has_sub_field('fx_abas_1_2'))://verifica conteudo no repeater
 												$count_1_2++;
 												//echo $count;
+												$aba_title_1_2 = get_sub_field('fx_nome_abas_1_2');
+												$id_aba_1_2 = clean($aba_title);
 												echo '<li class="nav-item">';
-													echo '<a class="nav-link" data-toggle="tab" href="#abaa'.$count_1_2.'"><strong>'.get_sub_field('fx_nome_abas_1_2').'</strong></a>';
+													echo '<a class="nav-link" data-toggle="tab" href="#abaa'. $count_1_2 . $id_aba_1_2 .'"><strong>'.get_sub_field('fx_nome_abas_1_2').'</strong></a>';
 												echo '</li>';
 											endwhile;
 										echo '</ul>';
@@ -490,7 +502,9 @@ if( have_rows('fx_flex_layout') ):
 										while(has_sub_field('fx_abas_1_2'))://verifica se editor no repeater
 												$count_1_2++;
 												//echo $count;
-											echo '<div class="tab-pane container mt-3 mb-3" id="abaa'.$count_1_2.'">'.get_sub_field('fx_editor_abas_1_2').'</div>';
+												$aba_title_1_2 = get_sub_field('fx_nome_abas_1_2');
+												$id_aba_1_2 = clean($aba_title);
+											echo '<div class="tab-pane container mt-3 mb-3" id="abaa'. $count_1_2 . $id_aba_1_2 .'">'.get_sub_field('fx_editor_abas_1_2').'</div>';
 		
 										endwhile;
 										echo '</div>';
@@ -622,8 +636,10 @@ if( have_rows('fx_flex_layout') ):
 											while(has_sub_field('fx_abas_2_2'))://verifica conteudo no repeater
 												$count_2_2++;
 												//echo $count;
+												$aba_title_2_2 = get_sub_field('fx_nome_abas_2_2');
+												$id_aba_2_2 = clean($aba_title);
 												echo '<li class="nav-item">';
-													echo '<a class="nav-link" data-toggle="tab" href="#abab'.$count_2_2.'"><strong>'.get_sub_field('fx_nome_abas_2_2').'</strong></a>';
+													echo '<a class="nav-link" data-toggle="tab" href="#abab' . $count_2_2 . $id_aba_2_2 . '"><strong>'.get_sub_field('fx_nome_abas_2_2').'</strong></a>';
 												echo '</li>';
 											endwhile;
 										echo '</ul>';
@@ -634,7 +650,9 @@ if( have_rows('fx_flex_layout') ):
 										while(has_sub_field('fx_abas_2_2'))://verifica se editor no repeater
 												$count_2_2++;
 												//echo $count;
-											echo '<div class="tab-pane container mt-3 mb-3" id="abab'.$count_2_2.'">'.get_sub_field('fx_editor_abas_2_2').'</div>';
+												$aba_title_2_2 = get_sub_field('fx_nome_abas_2_2');
+												$id_aba_2_2 = clean($aba_title);
+											echo '<div class="tab-pane container mt-3 mb-3" id="abab'. $count_2_2 . $id_aba_2_2 .'">'.get_sub_field('fx_editor_abas_2_2').'</div>';
 		
 										endwhile;
 										echo '</div>';
@@ -1225,8 +1243,10 @@ if( have_rows('fx_flex_layout') ):
 											while(has_sub_field('fx_abas_1_2'))://verifica conteudo no repeater
 												$count_1_2++;
 												//echo $count;
+												$aba_title_1_2 = get_sub_field('fx_nome_abas_1_2');
+												$id_aba_1_2 = clean($aba_title);
 												echo '<li class="nav-item">';
-													echo '<a class="nav-link" data-toggle="tab" href="#abaa'.$count_1_2.'"><strong>'.get_sub_field('fx_nome_abas_1_2').'</strong></a>';
+													echo '<a class="nav-link" data-toggle="tab" href="#abaa' . $count_1_2 . $id_aba_1_2 . '"><strong>'.get_sub_field('fx_nome_abas_1_2').'</strong></a>';
 												echo '</li>';
 											endwhile;
 										echo '</ul>';
@@ -1237,7 +1257,9 @@ if( have_rows('fx_flex_layout') ):
 										while(has_sub_field('fx_abas_1_2'))://verifica se editor no repeater
 												$count_1_2++;
 												//echo $count;
-											echo '<div class="tab-pane container mt-3 mb-3" id="abaa'.$count_1_2.'">'.get_sub_field('fx_editor_abas_1_2').'</div>';
+												$aba_title_1_2 = get_sub_field('fx_nome_abas_1_2');
+												$id_aba_1_2 = clean($aba_title);
+											echo '<div class="tab-pane container mt-3 mb-3" id="abaa' . $count_1_2 . $id_aba_1_2 . '">'.get_sub_field('fx_editor_abas_1_2').'</div>';
 		
 										endwhile;
 										echo '</div>';
@@ -1366,8 +1388,10 @@ if( have_rows('fx_flex_layout') ):
 											while(has_sub_field('fx_abas_2_2'))://verifica conteudo no repeater
 												$count_2_2++;
 												//echo $count;
+												$aba_title_2_2 = get_sub_field('fx_nome_abas_2_2');
+												$id_aba_2_2 = clean($aba_title);
 												echo '<li class="nav-item">';
-													echo '<a class="nav-link" data-toggle="tab" href="#abab'.$count_2_2.'"><strong>'.get_sub_field('fx_nome_abas_2_2').'</strong></a>';
+													echo '<a class="nav-link" data-toggle="tab" href="#abab' . $count_2_2 . $id_aba_2_2 . '"><strong>'.get_sub_field('fx_nome_abas_2_2').'</strong></a>';
 												echo '</li>';
 											endwhile;
 										echo '</ul>';
@@ -1378,7 +1402,9 @@ if( have_rows('fx_flex_layout') ):
 										while(has_sub_field('fx_abas_2_2'))://verifica se editor no repeater
 												$count_2_2++;
 												//echo $count;
-											echo '<div class="tab-pane container mt-3 mb-3" id="abab'.$count_2_2.'">'.get_sub_field('fx_editor_abas_2_2').'</div>';
+												$aba_title_2_2 = get_sub_field('fx_nome_abas_2_2');
+												$id_aba_2_2 = clean($aba_title);
+											echo '<div class="tab-pane container mt-3 mb-3" id="abab' . $count_2_2 . $id_aba_2_2 . '">'.get_sub_field('fx_editor_abas_2_2').'</div>';
 		
 										endwhile;
 										echo '</div>';
@@ -1525,8 +1551,10 @@ if( have_rows('fx_flex_layout') ):
 											while(has_sub_field('fx_abas_1_2'))://verifica conteudo no repeater
 												$count_1_2++;
 												//echo $count;
+												$aba_title_1_2 = get_sub_field('fx_nome_abas_1_2');
+												$id_aba_1_2 = clean($aba_title);
 												echo '<li class="nav-item">';
-													echo '<a class="nav-link" data-toggle="tab" href="#abaa'.$count_1_2.'"><strong>'.get_sub_field('fx_nome_abas_1_2').'</strong></a>';
+													echo '<a class="nav-link" data-toggle="tab" href="#abaa' . $count_1_2 . $id_aba_1_2 . '"><strong>'.get_sub_field('fx_nome_abas_1_2').'</strong></a>';
 												echo '</li>';
 											endwhile;
 										echo '</ul>';
@@ -1537,7 +1565,9 @@ if( have_rows('fx_flex_layout') ):
 										while(has_sub_field('fx_abas_1_2'))://verifica se editor no repeater
 												$count_1_2++;
 												//echo $count;
-											echo '<div class="tab-pane container mt-3 mb-3" id="abaa'.$count_1_2.'">'.get_sub_field('fx_editor_abas_1_2').'</div>';
+												$aba_title_1_2 = get_sub_field('fx_nome_abas_1_2');
+												$id_aba_1_2 = clean($aba_title);
+											echo '<div class="tab-pane container mt-3 mb-3" id="abaa' . $count_1_2 . $id_aba_1_2 . '">'.get_sub_field('fx_editor_abas_1_2').'</div>';
 		
 										endwhile;
 										echo '</div>';
@@ -1666,8 +1696,10 @@ if( have_rows('fx_flex_layout') ):
 											while(has_sub_field('fx_abas_2_2'))://verifica conteudo no repeater
 												$count_2_2++;
 												//echo $count;
+												$aba_title_2_2 = get_sub_field('fx_nome_abas_2_2');
+												$id_aba_2_2 = clean($aba_title);
 												echo '<li class="nav-item">';
-													echo '<a class="nav-link" data-toggle="tab" href="#abab'.$count_2_2.'"><strong>'.get_sub_field('fx_nome_abas_2_2').'</strong></a>';
+													echo '<a class="nav-link" data-toggle="tab" href="#abab' . $count_2_2 . $id_aba_2_2 . '"><strong>'.get_sub_field('fx_nome_abas_2_2').'</strong></a>';
 												echo '</li>';
 											endwhile;
 										echo '</ul>';
@@ -1678,7 +1710,9 @@ if( have_rows('fx_flex_layout') ):
 										while(has_sub_field('fx_abas_2_2'))://verifica se editor no repeater
 												$count_2_2++;
 												//echo $count;
-											echo '<div class="tab-pane container mt-3 mb-3" id="abab'.$count_2_2.'">'.get_sub_field('fx_editor_abas_2_2').'</div>';
+												$aba_title_2_2 = get_sub_field('fx_nome_abas_2_2');
+												$id_aba_2_2 = clean($aba_title);
+											echo '<div class="tab-pane container mt-3 mb-3" id="abab' . $count_2_2 . $id_aba_2_2 . '">'.get_sub_field('fx_editor_abas_2_2').'</div>';
 		
 										endwhile;
 										echo '</div>';
