@@ -16,73 +16,6 @@ class LoopSingleRelacionadas extends LoopSingle
 		$this->my_related_posts();
 	}
 
-	/*public function init(){
-		$this->getQueryRelacionadas();
-		$this->montaHtmlRelacionadas();
-		
-
-	}
-
-	public function getQueryRelacionadas(){
-		$categories = get_the_category($this->id_post_atual);
-
-		if ($categories) {
-			$category_ids = array();
-			foreach ($categories as $individual_category) {
-				$category_ids[] = $individual_category->term_id;
-			}
-		}
-
-			$this->args_relacionadas = array(
-                'category__in' => $category_ids,
-                'posts_per_page' => 5,
-                'caller_get_posts'=>1,
-				//'orderby'        => 'rand',
-                'exclude'=> $this->id_post_atual,
-                'post_in'  => get_the_tag_list($this->id_post_atual)
-		);
-		$this->query_relacionadas = get_posts($this->args_relacionadas);
-	}
-
-	public function montaHtmlRelacionadas(){
-
-		$container_mais_noticias_tags = array('section');
-		$container_mais_noticias_css = array('col-lg-8 col-sm-12 mt-5');
-		$this->abreContainer($container_mais_noticias_tags, $container_mais_noticias_css);
-		echo '<h2 class="fonte-vintequatro mb-4 pb-2 font-weight-bold">RELACIONADAS</h2>';
-
-		foreach ($this->query_relacionadas as $query){
-			?>
-			<div class="row mb-5">
-				<div class="col-lg-12">
-					<?php
-					$thumb = get_the_post_thumbnail_url($query->ID);
-					$url = get_the_permalink($query->ID);
-					$post_thumbnail_id = get_post_thumbnail_id( $query->ID );
-					$image_alt = get_post_meta( $post_thumbnail_id, '_wp_attachment_image_alt', true);
-					if ($thumb){
-						echo '<figure class=" m-0">';
-						echo '<img src="'.$thumb.'" class="img-fluid rounded float-left mr-4 w-25" alt="'.$image_alt.'"/>';
-						echo '</figure>';
-					}
-					?>
-					<h4 class="fonte-dezoito font-weight-bold mb-2">
-                        <a class="text-decoration-none text-dark" href="<?= $url ?>">
-							<?= $query->post_title ?>
-						</a>
-					</h4>
-					<?php
-					echo $this->getSubtitulo($query->ID, 'p', 'fonte-dezesseis mb-2')
-					?>
-					<?= $this->getComplementosRelacionadas($query->ID); ?>
-				</div>
-			</div>
-			<?php
-		}
-
-		$this->fechaContainer($container_mais_noticias_tags);
-
-	}*/
 
 	public function getComplementosRelacionadas($id_post){
 		$dt_post = get_the_date('d/m/Y g\hi');
@@ -94,70 +27,77 @@ class LoopSingleRelacionadas extends LoopSingle
 	}
 	
 	public function my_related_posts() {
-		$paged = ( get_query_var( 'page' ) ) ?  get_query_var( 'page' ) : 1;
-		$args = array(
-			'posts_per_page' => 5,
-			'post_in' => get_the_tag_list(),
-			'paged' => $paged
-		);
-		
-		$the_query = new \WP_Query( $args );
-		echo '<div class="container">';
-		echo '<div class="row mt-4">';
-		echo '<div class="col-sm-8"><h2>Relacionadas</h2>';
-		echo '<div class="row">';
-		while ( $the_query->have_posts() ) : $the_query->the_post();
-		?>
-			
-			<div class="col-sm-4 mb-4">
-				<img class="rounded " src="<?php the_post_thumbnail_url( 'related-post' ); ?>" width="100%">			
-			</div>
-			<div class="col-sm-8 mb-4">
-				<h4 class="fonte-dezoito font-weight-bold mb-2">
-					<a class="text-decoration-none text-dark" href="<?php the_permalink(); ?>">
-						<?php the_title(); ?>
-					</a>
-				</h4>
-				<?php
-				//echo $this->getSubtitulo($query->ID, 'p', 'fonte-dezesseis mb-2')
-				?>
-				<?php
-					if(get_field('insira_o_subtitulo', $query->ID) != ''){
-						the_field('insira_o_subtitulo', $query->ID);
-					}else if (get_field('insira_o_subtitulo', $query->ID) == ''){
-						 echo get_the_excerpt($query->ID); 
-					}
-				?>
-				<?= $this->getComplementosRelacionadas($query->ID); ?>
-				
-			</div>
-			
-		<?php
-		endwhile;
-			
-		echo '</div></div></div></div>';
-		
-		wp_reset_postdata();
-		
-		?>
-		<div class="paginacao-atual">
-			<?php
-			echo paginate_links( array(
-				'base' => @add_query_arg('page','%#%'),
-				'current' => $paged,
-				'total'   => $the_query->max_num_pages,
-				'end_size'  => 1,
-				'mid_size'  => 2,
-				'show_all' => false,
-				'prev_next' => true,
-				'prev_text' => __('<<'),
-				'next_text' => __('>>'),
-			) );
-			?>
+	?>
+		<div class="end-footer py-4 col-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+						
+						<?php
+							global $post;
+							$post_categories = wp_get_post_categories( $post->ID );
+							$cats = array();
+							
+							foreach($post_categories as $c){
+								$cat = get_category( $c );
+								$cats[] = array( 'name' => $cat->name, 'slug' => $cat->slug );
+							}
+
+							$total = count($post_categories); 
+							$j = 0;
+							$unidades = '';
+
+							foreach($cats as $unidade){
+								$j++;
+								if($total - $j == 1 || $total - $j == 0){
+									$unidades .= $unidade['name'] . " ";
+								} elseif($total != $j){
+									$unidades .= $unidade['name'] . ", ";
+								} else {
+									$unidades .= "e " . $unidade['name'];
+								}
+							}
+							
+						?>
+
+                        <div class="end-title-unidade my-3">
+                            <p><?php echo $unidades; ?></p>
+						</div>
+
+						<?php
+							$end = get_field('endereco');
+							$email = get_field('email');
+							$tel = get_field('telefone');
+							$mapa = get_field('iframe_mapa');
+						?>
+						
+                        <div class="end-infos">
+							<?php if($end != ''): ?>								
+								<p><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo $end; ?></p>
+							<?php endif; ?>
+
+							<?php if($email != ''): ?>								
+								<p><i class="fa fa-envelope" aria-hidden="true"></i> <?php echo $email; ?></p>
+							<?php endif; ?>
+
+							<?php if($tel != ''): ?>								
+								<p><i class="fa fa-phone" aria-hidden="true"></i> <?php echo $tel; ?></p>
+							<?php endif; ?>
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+						<?php if($mapa != ''): ?>								
+							<?php echo $mapa; ?>
+						<?php endif; ?>                        
+                    </div>
+                </div>
+            </div>
 		</div>
-		<?php
 		
-		//paginacao2($the_query);
+	<?php
+		
 	}
 	
 
