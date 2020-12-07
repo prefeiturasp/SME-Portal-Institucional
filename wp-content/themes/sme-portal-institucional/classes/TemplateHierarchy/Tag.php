@@ -18,7 +18,7 @@ class PaginaTag{
 			'post_type' => 'post',
 			'post_status' => 'publish',
 			'taxonomy'	=> 'post_tag',
-			'tag' => $get_term_name,
+			'tag__in' => $term_id,
 			'posts_per_page' => 12,
 			'paged' => $paged,
 		);
