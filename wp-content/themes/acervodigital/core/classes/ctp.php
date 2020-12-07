@@ -72,7 +72,7 @@ class AcervoRegisterCustomPostType
 $varteste = new AcervoRegisterCustomPostType( 'acervo','Acervo','dashicons-media-archive' );
 $varteste = new AcervoRegisterCustomPostType( 'download','Download','dashicons-media-archive' );
 $varteste = new AcervoRegisterCustomPostType( 'acesso','Acesso','dashicons-media-archive' );
-
+$novocpt = new AcervoRegisterCustomPostType( 'novo','Novo','dashicons-admin-tools');
 
 //modifica tag para palavra chave
 function change_tax_object_label() {

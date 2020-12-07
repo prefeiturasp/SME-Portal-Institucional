@@ -159,6 +159,8 @@ new AcervoRegisterCustomTaxonomy( 'promotora', 'Promotora', 'acervo' );
 new AcervoRegisterCustomTaxonomy( 'publico', 'Público', 'acervo' );
 
 
+new AcervoRegisterCustomTaxonomy( 'categoria', 'Categoria', 'novo' );
+
 
 
 
