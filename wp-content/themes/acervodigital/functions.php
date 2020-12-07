@@ -274,17 +274,16 @@ function my_pre_get_posts( $query ) {
 add_action('pre_get_posts', 'my_pre_get_posts');
 
 
-// Remove a taxomia da lateral do editor
 function wpse60590_remove_metaboxes() {
-    remove_meta_box( 'palavradiv' , 'acervo' , 'normal' ); // Remove Palavra
-    remove_meta_box( 'categoria_acervodiv' , 'acervo' , 'normal' ); // Remove Categoria
-    remove_meta_box( 'autordiv' , 'acervo' , 'normal' ); // Remove Autor
-    remove_meta_box( 'setordiv' , 'acervo' , 'normal' ); // Remove Setor
-    remove_meta_box( 'idiomadiv' , 'acervo' , 'normal' ); // Remove Idioma
-    remove_meta_box( 'modalidadediv' , 'acervo' , 'normal' ); // Remove Modalidade
-    remove_meta_box( 'componentediv' , 'acervo' , 'normal' ); // Remove Componente
-    remove_meta_box( 'formacaodiv' , 'acervo' , 'normal' ); // Remove Formacao
-    remove_meta_box( 'promotoradiv' , 'acervo' , 'normal' ); // Remove Promotora
-    remove_meta_box( 'publicodiv' , 'acervo' , 'normal' ); // Remove Publico
+    remove_meta_box( 'palavradiv' , 'acervo' , 'normal' ); 
+    remove_meta_box( 'categoria_acervodiv' , 'acervo' , 'normal' ); 
+    remove_meta_box( 'autordiv' , 'acervo' , 'normal' );
+    remove_meta_box( 'setordiv' , 'acervo' , 'normal' ); 
+    remove_meta_box( 'idiomadiv' , 'acervo' , 'normal' ); 
+    remove_meta_box( 'modalidadediv' , 'acervo' , 'normal' ); 
+    remove_meta_box( 'componentediv' , 'acervo' , 'normal' ); 
+    remove_meta_box( 'formacaodiv' , 'acervo' , 'normal' ); 
+    remove_meta_box( 'promotoradiv' , 'acervo' , 'normal' ); 
+    remove_meta_box( 'publicodiv' , 'acervo' , 'normal' ); 
 }
 add_action( 'admin_menu' , 'wpse60590_remove_metaboxes' );

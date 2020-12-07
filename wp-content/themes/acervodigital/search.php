@@ -4,7 +4,19 @@ Template Name: Search Page
 */
 ?>
 
-<?php get_header(); ?>
+<?php get_header(); 
+
+function generateRandomString($length = 10) {
+    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+?>
 
 <div class="wrap">
 
@@ -64,12 +76,47 @@ Template Name: Search Page
 
 							while(have_posts()): the_post();
 
-							$file = get_field('arquivo_acervo_digital');
+								$file = get_field('arquivo_acervo_digital');
 
-							$stringSeparada = explode(".", $file['filename']);
+								$stringSeparada = explode(".", $file['filename']);
 
-							$type = get_post_type();
+								$type = get_post_type();
 
+								$partional = array();
+
+								// Check value exists.
+								if( have_rows('arquivos_particionados') ):
+
+									// Loop through rows.
+									while ( have_rows('arquivos_particionados') ) : the_row();
+
+										// Case: Paragraph layout.
+										if( get_row_layout() == 'adicionar_arquivos' ):
+											$text = get_sub_field('arquivo');
+											$partional[] = $text;
+											// Do something...
+											//echo "<pre>";
+											//print_r($text);
+											//echo "</pre>";
+										// Case: Download layout.
+										elseif( get_row_layout() == 'download' ): 
+											$file = get_sub_field('file');
+											// Do something...
+
+										endif;
+
+									// End loop.
+									endwhile;
+
+									
+
+								// No value.
+								else :
+									// Do something...
+								endif;
+								//echo "<pre>";
+								//print_r($partional);
+								//echo "</pre>";
 							?>
 
 							<div class="row">
@@ -134,13 +181,80 @@ Template Name: Search Page
 
 											&nbsp;&nbsp;&nbsp;<strong>Palavras chaves: </strong>				
 
-												<?php echo  strip_tags (get_the_term_list(get_the_ID(), 'palavra', '', ' / ', '')); ?>
+												<?php echo  strip_tags (get_the_term_list(get_the_ID(), 'palavra', '', ' / ', '')); 
+												
+												$class = generateRandomString();
+
+												if($file['url'] != ''){
+													$url = $file['url']; 
+												} elseif($partional){
+													$url = $partional[0];
+													$stringSeparada = explode(".", $url);
+												}else{
+													$url = false;
+												}
+
+
+
+											?>
 
 											</p>
 
 											<div class="links-flag">
 
-												<a href="<?php the_permalink(); ?>">Visualizar</a>
+												 <?php if($stringSeparada[1] == 'jpg' || $stringSeparada[1] == 'jpeg' || $stringSeparada[1] == 'png' || $stringSeparada[1] == 'gif' || $stringSeparada[1] == 'webp') : ?>
+
+													
+
+													<div class="modal <?php echo $class; ?>" tabindex="-1" role="dialog">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title"><?php the_title(); ?></h5>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+																	<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	<?php if($url) : ?>
+																		<img src="<?php echo $url; ?>" class="img-fluid d-block mx-auto py-2">
+																	<?php else: ?>
+																		<p>Visualização não disponível.</p>
+																	<?php endif; ?>
+																</div>															
+															</div>
+														</div>
+													</div>
+
+												<?php else : ?>
+
+													<div class="modal fade bd-example-modal-lg <?php echo $class; ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+														<div class="modal-dialog modal-xl">
+
+															
+
+															<div class="modal-content">
+
+																<div class="modal-header">
+																	<h5 class="modal-title"><?php the_title(); ?></h5>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+																	<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+
+																<div class="modal-body">
+																	<div class="embed-responsive embed-responsive-16by9">
+																		<iframe title="doc" type="application/pdf" src="https://docs.google.com/gview?url=<?php echo $url; ?>&amp;embedded=true" class="jsx-690872788 eafe-embed-file-iframe"></iframe>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+													</div>
+
+												<?php endif; ?>
+
+												<a data-toggle="modal" data-target=".<?php echo $class; ?>">Visualizar</a>
 
 												<a href="<?php the_permalink(); ?>">Ver detalhes</a>
 

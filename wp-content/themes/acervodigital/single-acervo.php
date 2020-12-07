@@ -1,4 +1,16 @@
-<?php get_header(); ?>
+<?php get_header(); 
+
+function generateRandomString($length = 10) {
+    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+?>
 
 <section>
 	<div class="container mt-4 mb-4">
@@ -16,6 +28,26 @@
 					$stringSeparada = explode(".", $file['filename']);
 					$type = get_post_type();
 					$postid = get_the_ID();
+
+					$class = generateRandomString();
+
+					$partional = array();
+
+					// Check value exists.
+					if( have_rows('arquivos_particionados') ):
+
+						// Loop through rows.
+						while ( have_rows('arquivos_particionados') ) : the_row();
+							
+							if( get_row_layout() == 'adicionar_arquivos' ):
+								$text = get_sub_field('arquivo');
+								$partional[] = $text;													
+							endif;
+
+						// End loop.
+						endwhile;
+
+					endif;
 				?>
 
 				<div class="col-sm-12 mb-4">
@@ -160,9 +192,71 @@
 						<div class="col-sm-6">
 						<div class="row">
 						<div class="col-12 mt-4 mb-4">
-							<a rel="noopener" target="_blank" href="<?php echo $file['url']; ?>" id="view_link">
-								<button type="button" class="btn btn-primary mr-3">Visualizar</button>
-							</a>
+						<?php 
+							if($file['url'] != ''){
+								$url = $file['url']; 
+							} elseif($partional){
+								$url = $partional[0];
+								$stringSeparada = explode(".", $url);
+							}else{
+								$url = false;
+							}
+						?>
+							
+								<button type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target=".<?php echo $class; ?>">Visualizar</button>
+							
+								<?php if($stringSeparada[1] == 'jpg' || $stringSeparada[1] == 'jpeg' || $stringSeparada[1] == 'png' || $stringSeparada[1] == 'gif' || $stringSeparada[1] == 'webp') : ?>
+
+														
+
+									<div class="modal <?php echo $class; ?>" tabindex="-1" role="dialog">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title"><?php the_title(); ?></h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+													<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<?php if($url) : ?>
+														<img src="<?php echo $url; ?>" class="img-fluid d-block mx-auto py-2">
+													<?php else: ?>
+														<p>Visualização não disponível.</p>
+													<?php endif; ?>
+												</div>															
+											</div>
+										</div>
+									</div>
+
+								<?php else : ?>
+
+									<div class="modal fade bd-example-modal-lg <?php echo $class; ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-xl">
+
+											
+
+											<div class="modal-content">
+
+												<div class="modal-header">
+													<h5 class="modal-title"><?php the_title(); ?></h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+													<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+
+												<div class="modal-body">
+													<div class="embed-responsive embed-responsive-16by9">
+														<iframe title="doc" type="application/pdf" src="https://docs.google.com/gview?url=<?php echo $url; ?>&amp;embedded=true" class="jsx-690872788 eafe-embed-file-iframe"></iframe>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+								<?php endif; ?>
+
 							<?php
 								if($file['url'] != ''){
 									?>

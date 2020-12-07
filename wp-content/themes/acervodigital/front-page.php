@@ -68,6 +68,8 @@
 
 				$terms = get_field('categorias_home' , 'options');
 
+				
+
 				if( $terms ): ?>
 
 				    <?php foreach( $terms as $term ): ?>
@@ -82,9 +84,8 @@
 							
 						?>
 
-				    	<div class="col-sm-2 cat-home">
-
-				    		<div style="background: url('<?php echo $image; ?>'); ">
+				    	<div class="col-sm-2 cat-home aa">
+				    		<div style="background: url('<?php echo $image;?>'); background-size: cover;">
 
 					    		<div class="cat-home-inter">
 
