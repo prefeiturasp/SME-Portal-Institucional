@@ -71,9 +71,9 @@
 
 			
 		$sites = array(
-			's' => '',
+			's' => $s,
 			'post_status'    => 'publish',
-			'sentence' => true,
+			'sentence' => false,
 			'site__in' => $arraysites,
 			//informa a lista de sites que deseja ter nos resultados da busca
 			'paged' => $paged,
@@ -130,7 +130,7 @@
 				$busca_geral = new WP_Query($sites);
 
 		
-			/*    print("<pre>".print_r($busca_geral,true)."</pre>"); */
+			//print("<pre>".print_r($busca_geral,true)."</pre>");
 
 
 				if ($busca_geral->have_posts()) {
@@ -139,7 +139,7 @@
 				
 					while ($busca_geral->have_posts()) {
 						$busca_geral->the_post();
-						
+						//echo get_the_title() . "<br>";
 						
 											/*     echo '<script>alert("'.ceil($GLOBALS['i']/$GLOBALS['paginacao']).'")</script>'; */
 
@@ -166,18 +166,20 @@
 	}
 			
 	if($titulo != '' && $termo_buscado != '') {
-	if(preg_match("/{$search}/i", $titulo) ||
-	preg_match("/{$search}/i", $descricao) ||
-	preg_match("/{$search}/i", $conteudo) ||
-	preg_match("/{$search}/i", $stringTags)) 
-	{
-	$GLOBALS['i']++;
-	}
+
+		if(preg_match("/{$search}/i", $titulo) ||
+		preg_match("/{$search}/i", $descricao) ||
+		preg_match("/{$search}/i", $conteudo) ||
+		preg_match("/{$search}/i", $stringTags)) 
+		{
+		$GLOBALS['i']++;
+		}
 				
-				}
-	else {
+	} else {
 	$GLOBALS['i']++;
 	}
+
+
 	if($GLOBALS['i'] > ($GLOBALS['paginacao'] * ($pagina-1)) and ($GLOBALS['i'] <= ($GLOBALS['paginacao'] * ($pagina)) ))
 	{
 
@@ -194,15 +196,27 @@
 	else
 	$search = '';
 
+	//echo $search;
 
+	$searchEnt = explode(" ", $search);
+	$searchSai = implode("|",$searchEnt);
+
+	//echo $searchSai . "<br>";
 						
 	$esseTemSearch = false;
 
 						
-		if(preg_match("/{$search}/i", $titulo		) ||
-		preg_match("/{$search}/i", $descricao	) ||
-		preg_match("/{$search}/i", $conteudo		) ||
-		preg_match("/{$search}/i", $stringTags	)) 
+		if( 
+			preg_match_all("/\b({$searchSai})\b/", $titulo) ||
+			preg_match_all("/\b({$searchSai})\b/", $descricao	) ||
+			preg_match_all("/\b({$searchSai})\b/", $conteudo		) ||
+			preg_match_all("/\b({$searchSai})\b/", $stringTags	) ||
+
+			preg_match("/{$search}/i", $titulo) ||
+			preg_match("/{$search}/i", $descricao	) ||
+			preg_match("/{$search}/i", $conteudo		) ||
+			preg_match("/{$search}/i", $stringTags	)
+		) 
 		{
 			
 			/* if(preg_match("/{$search}/i", $titulo	 )  )   echo 'titulo' ;
@@ -218,6 +232,8 @@
 		else {
 		/*	$GLOBALS['i']--;  */
 		/*	echo 'menosmenos'; */
+		//echo $conteudo . "<br>";
+		
 		}
 
 				
@@ -243,6 +259,7 @@
 					<div class="row">
 							<div class="col-sm-4">
 								<?php
+								$esseTemSearch = true;
 								if (has_post_thumbnail() != '') {
 									echo '<figure class="">';
 									the_post_thumbnail('medium', array(
@@ -254,7 +271,7 @@
 								if($esseTemSearch == true){ ?>
 								
 									<figure>
-										<img class="img-fluid rounded float-left" src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
+										<img class="img-fluid rounded float-left" src="https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
 									</figure>
 								<?php
 								}
@@ -492,7 +509,7 @@
 									}else{
 										?>
 										<figure>
-											<img class="img-fluid rounded float-left" src="https://hom-portal.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
+											<img class="img-fluid rounded float-left" src="https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
 										</figure>	
 										<?php
 									}
