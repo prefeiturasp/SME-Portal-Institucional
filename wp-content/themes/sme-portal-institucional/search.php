@@ -5,7 +5,7 @@
 	//verifica se a busca nao esta vazia
 	if(!$no_search_results): ?>
 
-	<div class="inicio" style="display:none;">
+	<div class="inicio aaa" style="display:none;">
 	<?php
 
 	$GLOBALS['z'] = 0;
@@ -128,7 +128,7 @@
 				switch_to_blog($blog->blog_id);
 
 				$busca_geral = new WP_Query($sites);
-
+				//echo "passei";
 		
 			//print("<pre>".print_r($busca_geral,true)."</pre>");
 
@@ -167,10 +167,15 @@
 			
 	if($titulo != '' && $termo_buscado != '') {
 
-		if(preg_match("/{$search}/i", $titulo) ||
-		preg_match("/{$search}/i", $descricao) ||
-		preg_match("/{$search}/i", $conteudo) ||
-		preg_match("/{$search}/i", $stringTags)) 
+		if(preg_match_all("/\b(" . $searchSai . ")\b/", $titulo) ||
+		preg_match_all("/\b(" . $searchSai . ")\b/", $descricao	) ||
+		preg_match_all("/\b(" . $searchSai . ")\b/", $conteudo		) ||
+		preg_match_all("/\b(" . $searchSai . ")\b/", $stringTags	) ||
+
+		preg_match("/{$search}/i", $titulo) ||
+		preg_match("/{$search}/i", $descricao	) ||
+		preg_match("/{$search}/i", $conteudo		) ||
+		preg_match("/{$search}/i", $stringTags	)) 
 		{
 		$GLOBALS['i']++;
 		}
@@ -201,21 +206,22 @@
 	$searchEnt = explode(" ", $search);
 	$searchSai = implode("|",$searchEnt);
 
+	 
+
 	//echo $searchSai . "<br>";
 						
 	$esseTemSearch = false;
 
 						
 		if( 
-			preg_match_all("/\b({$searchSai})\b/", $titulo) ||
-			preg_match_all("/\b({$searchSai})\b/", $descricao	) ||
-			preg_match_all("/\b({$searchSai})\b/", $conteudo		) ||
-			preg_match_all("/\b({$searchSai})\b/", $stringTags	) ||
-
 			preg_match("/{$search}/i", $titulo) ||
 			preg_match("/{$search}/i", $descricao	) ||
-			preg_match("/{$search}/i", $conteudo		) ||
-			preg_match("/{$search}/i", $stringTags	)
+			preg_match("/{$search}/i", $conteudo ) ||
+			preg_match("/{$search}/i", $stringTags ) ||
+			preg_match_all("/\b(" . $searchSai . ")\b/", $titulo) ||
+			preg_match_all("/\b(" . $searchSai . ")\b/", $descricao	) ||
+			preg_match_all("/\b(" . $searchSai . ")\b/", $conteudo	) ||
+			preg_match_all("/\b(" . $searchSai . ")\b/", $stringTags )
 		) 
 		{
 			
@@ -271,7 +277,7 @@
 								if($esseTemSearch == true){ ?>
 								
 									<figure>
-										<img class="img-fluid rounded float-left" src="https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
+										<img class="img-fluid rounded float-left" src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/06/placeholder-sme.jpg" width="100%">
 									</figure>
 								<?php
 								}
@@ -509,7 +515,7 @@
 									}else{
 										?>
 										<figure>
-											<img class="img-fluid rounded float-left" src="https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg" width="100%">
+											<img class="img-fluid rounded float-left" src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/06/placeholder-sme.jpg" width="100%">
 										</figure>	
 										<?php
 									}
