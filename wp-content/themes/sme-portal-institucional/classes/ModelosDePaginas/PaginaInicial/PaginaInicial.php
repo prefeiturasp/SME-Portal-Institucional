@@ -53,7 +53,7 @@ class PaginaInicial extends Util
 		$this->abreContainer($news_twitter_tags, $news_twitter_css);
 		new PaginaInicialNewsletter();
 
-		new PaginaInicialTwitter();
+		//new PaginaInicialTwitter();
 
 		$this->fechaContainer($news_twitter_tags);
 

@@ -16,23 +16,43 @@
 				<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:<?php the_field('telefone','conf-rodape'); ?>"><?php the_field('telefone','conf-rodape'); ?></a></p>
 				<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:<?php the_field('email','conf-rodape'); ?>"><?php the_field('email','conf-rodape'); ?></a></p>
 				<p><h2>Redes sociais</h2></p>
+				<?php 
+					$facebook = get_field('icone_facebook','conf-rodape');
+					$instagram = get_field('icone_instagram','conf-rodape');
+					$twitter = get_field('icone_twitter','conf-rodape');
+					$youtube = get_field('icone_youtube','conf-rodape');
+				?>
 				<div class="row redes-footer">
-					<div class="col rede-rodape">
-						<a href="<?php the_field('url_facebook','conf-rodape'); ?>">
-						<img src="<?php the_field('icone_facebook','conf-rodape'); ?>" alt="Facebook"></a>
-					</div>
-					<div class="col rede-rodape">
-						<a href="<?php the_field('url_instagram','conf-rodape'); ?>">
-						<img src="<?php the_field('icone_instagram','conf-rodape'); ?>" alt="Instagram"></a>
-					</div>
-					<div class="col rede-rodape">
-						<a href="<?php the_field('url_twitter','conf-rodape'); ?>">
-						<img src="<?php the_field('icone_twitter','conf-rodape'); ?>" alt="Twitter"></a>
-					</div>
-					<div class="col rede-rodape">
-						<a href="<?php the_field('url_youtube','conf-rodape'); ?>">
-						<img src="<?php the_field('icone_youtube','conf-rodape'); ?>" alt="YouTube"></a>
-					</div>
+
+					<?php if($facebook) : ?>
+						<div class="col rede-rodape">
+							<a href="<?php the_field('url_facebook','conf-rodape'); ?>">
+							<img src="<?php echo $facebook; ?>" alt="Facebook"></a>
+						</div>
+					<?php endif; ?>
+
+					<?php if($instagram) : ?>
+						<div class="col rede-rodape">
+							<a href="<?php the_field('url_instagram','conf-rodape'); ?>">
+							<img src="<?php echo $instagram; ?>" alt="Instagram"></a>
+						</div>
+					<?php endif; ?>
+
+					<?php if($twitter) : ?>
+						<div class="col rede-rodape">
+							<a href="<?php the_field('url_twitter','conf-rodape'); ?>">
+							<img src="<?php echo $twitter; ?>" alt="Twitter"></a>
+						</div>
+					<?php endif; ?>
+
+					<?php if($youtube) : ?>
+						<div class="col rede-rodape">
+							<a href="<?php the_field('url_youtube','conf-rodape'); ?>">
+							<img src="<?php echo $youtube; ?>" alt="YouTube"></a>
+						</div>
+					<?php endif; ?>
+
+					
 				</div>
 			</div>
 			<div class="col-sm-3 align-middle text-center">				
