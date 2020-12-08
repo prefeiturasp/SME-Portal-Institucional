@@ -51,15 +51,14 @@ use Classes\Header\Header;
             <meta name="description" content="<?php echo $descriptionPagina ?>."/>
 		<?php } else { ?>
             <meta name="description"
-                  content="<?php wp_title('', true, '-'); ?>"/>
-                  <?php /*?>content="<?php wp_title('', true, '-'); ?> - <?php echo STM_SITE_DESCRIPTION ?>"/><?php */?>
+                  content="<?php wp_title('', true, '-'); ?> - <?php echo STM_SITE_DESCRIPTION ?>"/>
 		<?php }
 	}
 	?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="author" content="Secretaria Municipal de Educação de São Paulo">
+    <meta name="author" content="Ollyver Ottoboni">
 
 	<?php wp_head() ?>
 
@@ -131,11 +130,25 @@ use Classes\Header\Header;
                             </ul>
                         </article>
                         <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
+                            <?php 
+                                $facebook = get_field('url_facebook','conf-rodape');
+                                $instagram = get_field('url_instagram','conf-rodape');
+                                $twitter = get_field('url_twitter','conf-rodape');
+                                $youtube = get_field('url_youtube','conf-rodape');
+                            ?>
                             <ul class="list-inline mt-2 mb-2 midias-sociais">
-                                <li class="list-inline-item"><a class="text-white" href="https://www.facebook.com/EducaPrefSP/"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-facebook-topo.png" alt="Ir para Facebook da Secretaria Muncipal de Educação de São Paulo"></a></li>
-                                <li class="list-inline-item"><a class="text-white" href="https://www.instagram.com/educaprefsp/"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-instagram-topo.png" alt="Ir para Instagram da Secretaria Muncipal de Educação de São Paulo"></a></li>
-                                <li class="list-inline-item"><a class="text-white" href="https://twitter.com/educaprefsp/"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-twitter-topo.png" alt="Ir para Twitter da Secretaria Muncipal de Educação de São Paulo"></a></li>
-                                <li class="list-inline-item"><a class="text-white" href="https://www.youtube.com/c/EducaPrefSP"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-youtube-topo.png" alt="Ir para YouTube da Secretaria Muncipal de Educação de São Paulo"></a></li>
+                                <?php if($facebook) : ?>
+                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $facebook; ?>"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-facebook-topo.png" alt="Ir para Facebook da Secretaria Muncipal de Educação de São Paulo"></a></li>
+                                <?php endif; ?>
+                                <?php if($instagram) : ?>
+                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $instagram; ?>"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-instagram-topo.png" alt="Ir para Instagram da Secretaria Muncipal de Educação de São Paulo"></a></li>
+                                <?php endif; ?>
+                                <?php if($twitter) : ?>
+                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $twitter; ?>"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-twitter-topo.png" alt="Ir para Twitter da Secretaria Muncipal de Educação de São Paulo"></a></li>
+                                <?php endif; ?>
+                                <?php if($youtube) : ?>
+                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $youtube; ?>"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-youtube-topo.png" alt="Ir para YouTube da Secretaria Muncipal de Educação de São Paulo"></a></li>
+                                <?php endif; ?>                                     
                             </ul>
                         </article>
                     </section>

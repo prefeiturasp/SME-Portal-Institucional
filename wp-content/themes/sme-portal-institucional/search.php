@@ -771,76 +771,127 @@
 		jQuery('option').eq(i).html() == nomevelho ? jQuery('option').eq(i).hide() : null	
 	}
 	}
-	//REMOVE OU MODIFICA OS NOMES DE TODOS OS SELECTS DO FILTRO
-	//Troca nome filtro de conteudo
-	mudaNomes('page1', 'Página Portal');
-	mudaNomes('post1', 'Notícias Portal');
-	mudaNomes('page7', 'Página Conselho');
-	mudaNomes('post7', 'Notícias do Conselho');
-	mudaNomes('page6', 'Página DRE');
-	mudaNomes('post6', 'Notícias da DRE');
-	//Remove do fitro de conteúdo
-	mudaNomes('acf-field-group7', '');
-	mudaNomes('aba7', '');
-	mudaNomes('acf-field7', '');
-	mudaNomes('agenda7', '');
-	mudaNomes('attachment7', '');
-	mudaNomes('botao7', '');
-	mudaNomes('card7', '');
-	mudaNomes('contato7', '');
-	mudaNomes('curriculo-da-cidade7', '');
-	mudaNomes('custom_css7', '');
-	mudaNomes('customize_changeset7', '');
-	mudaNomes('nav_menu_item7', '');
-	mudaNomes('oembed_cache7', '');
-	mudaNomes('organograma7', '');
-	mudaNomes('programa-projeto7', '');
-	mudaNomes('revision7', '');
-	mudaNomes('rl_gallery7', '');
-	mudaNomes('user_request7', '');
-	mudaNomes('wpcf7_contact_form7', '');
-	mudaNomes('aba6', '');
-	mudaNomes('acf-field6', '');
-	mudaNomes('acf-field-group6', '');
-	mudaNomes('agenda6', '');
-	mudaNomes('attachment6', '');
-	mudaNomes('botao6', '');
-	mudaNomes('card6', '');
-	mudaNomes('contato6', '');
-	mudaNomes('curriculo-da-cidade6', '');
-	mudaNomes('custom_css6', '');
-	mudaNomes('customize_changeset6', '');
-	mudaNomes('nav_menu_item6', '');
-	mudaNomes('oembed_cache6', '');
-	mudaNomes('organograma6', '');
-	mudaNomes('programa-projeto6', '');
-	mudaNomes('revision6', '');
-	mudaNomes('rl_gallery6', '');
-	mudaNomes('user_request6', '');
-	mudaNomes('wpcf7_contact_form6', '');
-	mudaNomes('aba1', '');
-	mudaNomes('acf-field1', '');
-	mudaNomes('acf-field-group1', '');
-	mudaNomes('agenda1', '');
-	mudaNomes('attachment1', '');
-	mudaNomes('botao1', '');
-	mudaNomes('card1', '');
-	mudaNomes('contato1', '');
-	mudaNomes('curriculo-da-cidade1', '');
-	mudaNomes('custom_css1', '');
-	mudaNomes('customize_changeset1', '');
-	mudaNomes('nav_menu_item1', '');
-	mudaNomes('oembed_cache1', '');
-	mudaNomes('organograma1', '');
-	mudaNomes('programa-projeto1', '');
-	mudaNomes('revision1', '');
-	mudaNomes('rl_gallery1', '');
-	mudaNomes('user_request1', '');
-	mudaNomes('wpcf7_contact_form1', '');
-	//Troca nome filtros sites
-	mudaNomes('/', 'Portal SME');
-	mudaNomes('/cme-conselho-municipal-de-educacao/', 'Conselho CAE');
-	mudaNomes('/dre-guaianases/', 'DRE Guarulhos');
+//REMOVE OU MODIFICA OS NOMES DE TODOS OS SELECTS DO FILTRO
+//Troca nome filtro de conteudo
+mudaNomes('page1', 'Página em SME Portal Educação');
+mudaNomes('post1', 'Notícia em SME Portal Educação');
+mudaNomes('page4', 'Página em CAE Conselho');
+mudaNomes('post4', 'Notícia em CAE Conselho');
+mudaNomes('page5', 'Página em CME Conselho');
+mudaNomes('post5', 'Notícia em CME Conselho');
+mudaNomes('page6', 'Página em CACSFUNDEB Conselho');
+mudaNomes('post6', 'Notícia em CACSFUNDEB Conselho');
+mudaNomes('page7', 'Página em CRECE Conselho');
+mudaNomes('post7', 'Notícia em CRECE Conselho');
+	
+		
+
+//Remove do fitro de conteúdo
+mudaNomes('acf-field-group7', '');
+mudaNomes('aba7', '');
+mudaNomes('acf-field7', '');
+mudaNomes('agenda7', '');
+mudaNomes('attachment7', '');
+mudaNomes('botao7', '');
+mudaNomes('card7', '');
+mudaNomes('contato7', '');
+mudaNomes('curriculo-da-cidade7', '');
+mudaNomes('custom_css7', '');
+mudaNomes('customize_changeset7', '');
+mudaNomes('nav_menu_item7', '');
+mudaNomes('oembed_cache7', '');
+mudaNomes('organograma7', '');
+mudaNomes('programa-projeto7', '');
+mudaNomes('revision7', '');
+mudaNomes('rl_gallery7', '');
+mudaNomes('user_request7', '');
+mudaNomes('wpcf7_contact_form7', '');
+		
+mudaNomes('aba6', '');
+mudaNomes('acf-field6', '');
+mudaNomes('acf-field-group6', '');
+mudaNomes('agenda6', '');
+mudaNomes('attachment6', '');
+mudaNomes('botao6', '');
+mudaNomes('card6', '');
+mudaNomes('contato6', '');
+mudaNomes('curriculo-da-cidade6', '');
+mudaNomes('custom_css6', '');
+mudaNomes('customize_changeset6', '');
+mudaNomes('nav_menu_item6', '');
+mudaNomes('oembed_cache6', '');
+mudaNomes('organograma6', '');
+mudaNomes('programa-projeto6', '');
+mudaNomes('revision6', '');
+mudaNomes('rl_gallery6', '');
+mudaNomes('user_request6', '');
+mudaNomes('wpcf7_contact_form6', '');
+		
+mudaNomes('aba5', '');
+mudaNomes('acf-field5', '');
+mudaNomes('acf-field-group5', '');
+mudaNomes('agenda5', '');
+mudaNomes('attachment5', '');
+mudaNomes('botao5', '');
+mudaNomes('card5', '');
+mudaNomes('contato5', '');
+mudaNomes('curriculo-da-cidade5', '');
+mudaNomes('custom_css5', '');
+mudaNomes('customize_changeset5', '');
+mudaNomes('nav_menu_item5', '');
+mudaNomes('oembed_cache5', '');
+mudaNomes('organograma5', '');
+mudaNomes('programa-projeto5', '');
+mudaNomes('revision5', '');
+mudaNomes('rl_gallery5', '');
+mudaNomes('user_request5', '');
+mudaNomes('wpcf7_contact_form5', '');
+		
+mudaNomes('aba4', '');
+mudaNomes('acf-field4', '');
+mudaNomes('acf-field-group4', '');
+mudaNomes('agenda4', '');
+mudaNomes('attachment4', '');
+mudaNomes('botao4', '');
+mudaNomes('card4', '');
+mudaNomes('contato4', '');
+mudaNomes('curriculo-da-cidade4', '');
+mudaNomes('custom_css4', '');
+mudaNomes('customize_changeset4', '');
+mudaNomes('nav_menu_item4', '');
+mudaNomes('oembed_cache4', '');
+mudaNomes('organograma4', '');
+mudaNomes('programa-projeto4', '');
+mudaNomes('revision4', '');
+mudaNomes('rl_gallery4', '');
+mudaNomes('user_request4', '');
+mudaNomes('wpcf7_contact_form4', '');
+		
+mudaNomes('aba1', '');
+mudaNomes('acf-field1', '');
+mudaNomes('acf-field-group1', '');
+mudaNomes('agenda1', '');
+mudaNomes('attachment1', '');
+mudaNomes('botao1', '');
+mudaNomes('card1', '');
+mudaNomes('contato1', '');
+mudaNomes('curriculo-da-cidade1', '');
+mudaNomes('custom_css1', '');
+mudaNomes('customize_changeset1', '');
+mudaNomes('nav_menu_item1', '');
+mudaNomes('oembed_cache1', '');
+mudaNomes('organograma1', '');
+mudaNomes('programa-projeto1', '');
+mudaNomes('revision1', '');
+mudaNomes('rl_gallery1', '');
+mudaNomes('user_request1', '');
+mudaNomes('wpcf7_contact_form1', '');
+//Troca nome filtros sites
+mudaNomes('/', 'SME Portal Educação');
+mudaNomes('/conselho-de-alimentacao-escolar/', 'CAE Conselho');
+mudaNomes('/conselho-municipal-de-educacao/', 'CME Conselho');
+mudaNomes('/conselho-de-representantes-de-conselhos-de-escola/', 'CRECE Conselho');
+mudaNomes('/conselho-de-acompanhamento-e-controle-social-do-fundeb/', 'CACSFUNDEB Conselho');
 
 
 			<?php 
