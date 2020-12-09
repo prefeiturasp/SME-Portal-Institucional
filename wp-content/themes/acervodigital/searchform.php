@@ -2,7 +2,7 @@
 <form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ) ?>">
 		<?php /*?><span class="screen-reader-text"><?php _x( 'Pesquisar por:', 'label' )?></span><?php */?>
 	<div class="row" >
-	<div class="col-sm-8"><input type="search" minlength="3" class="form-control search-field" placeholder="Busque por título de documento ou palavra-chave" value="<?php echo get_search_query() ?>" name="s" /></div>
+	<div class="col-sm-8"><input type="search" minlength="3" class="form-control search-field campo-busca" placeholder="Busque por título de documento ou palavra-chave" value="<?php echo get_search_query() ?>" name="s" /></div>
 	<div class="col-sm-2 text-left"><button type="submit" class="btn btn-primary search-submit">Buscar</button></div>
 	<div class="col-sm-2 text-left bs-center">
 		<a id="show" >Busca avançada</a>
@@ -18,7 +18,10 @@
 			<div class="col-sm-10 p-4 bg-white">
 				<div class="row">
 					<div class="col-sm-12 mt-2 mb-2">
-						<input type="search" minlength="3" name="s" class="form-control" value="<?php echo $_GET["s"] ?>" placeholder="Busque por título de documento ou palavra-chave"/>
+						<input type="search" minlength="3" name="s" class="form-control campo-busca-avanc" value="" placeholder="Busque por título de documento ou palavra-chave"/>
+						<div class="alert alert-danger mt-2" role="alert" id="empty-field" style="display: none;">
+							Preencha o campo acima ou selecione uma opção abaixo.
+						</div>
 					</div>
 					<div class="col-sm-6 mt-2 mb-2">
 						<label for="type">Categoria:</label>
