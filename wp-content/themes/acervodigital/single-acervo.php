@@ -494,7 +494,14 @@ function generateRandomString($length = 10) {
 						?>
 						<div class="col-6 mb-3">
 							<h3><strong>Palavra Chave</strong></h3>
-							<p><?php echo  get_the_term_list(get_the_ID(), 'palavra', '', ' - ', ''); ?></p>
+							<p>
+								<span class="words-link">
+									<?php echo  get_the_term_list(get_the_ID(), 'palavra', '', '  ', ''); 
+										
+										$class = generateRandomString();										
+									?>
+								</span>
+							</p>
 						</div>
 
 						

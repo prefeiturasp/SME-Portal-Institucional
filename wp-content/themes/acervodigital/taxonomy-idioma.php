@@ -174,12 +174,12 @@ function generateRandomString($length = 10) {
 
 											&nbsp;&nbsp;&nbsp;<strong>Palavras chaves: </strong>				
 
-												<?php 
-														
-													echo  strip_tags (get_the_term_list(get_the_ID(), 'palavra', '', ' / ', '')); 
+											<span class="words-link">
+
+												<?php echo  get_the_term_list(get_the_ID(), 'palavra', '', '  ', ''); 
 													
 													$class = generateRandomString();
-	
+
 													if($file['url'] != ''){
 														$url = $file['url']; 
 													} elseif($partional){
@@ -189,6 +189,8 @@ function generateRandomString($length = 10) {
 														$url = false;
 													}
 												?>
+
+											</span>		
 
 											</p>
 

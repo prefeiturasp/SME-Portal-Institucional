@@ -179,24 +179,26 @@ function generateRandomString($length = 10) {
 
 												<?php the_field('ano_da_publicacao_acervo_digital'); ?>
 
-											&nbsp;&nbsp;&nbsp;<strong>Palavras chaves: </strong>				
+											&nbsp;&nbsp;&nbsp;<strong>Palavras chaves: </strong>
+											<span class="words-link">
 
-												<?php echo  strip_tags (get_the_term_list(get_the_ID(), 'palavra', '', ' / ', '')); 
-												
-												$class = generateRandomString();
+												<?php echo  get_the_term_list(get_the_ID(), 'palavra', '', '  ', ''); 
+													
+													$class = generateRandomString();
 
-												if($file['url'] != ''){
-													$url = $file['url']; 
-												} elseif($partional){
-													$url = $partional[0];
-													$stringSeparada = explode(".", $url);
-												}else{
-													$url = false;
-												}
+													if($file['url'] != ''){
+														$url = $file['url']; 
+													} elseif($partional){
+														$url = $partional[0];
+														$stringSeparada = explode(".", $url);
+													}else{
+														$url = false;
+													}
+												?>
 
+											</span>				
 
-
-											?>
+											
 
 											</p>
 
