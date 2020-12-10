@@ -144,7 +144,8 @@ class Colaborador
 			remove_menu_page('edit.php?post_type=agenda');
 			remove_menu_page('edit.php?post_type=contato');
 			remove_menu_page('edit.php?post_type=organograma');
-			remove_menu_page('edit.php?post_type=curriculo-da-cidade');
+			remove_menu_page('edit.php?post_type=curriculo-da-cidade');			
+			remove_menu_page('admin.php?page=acf-options-pagina-inicial');
 			//remove_menu_page('edit.php?post_type=aba');
 			//remove_menu_page('edit.php?post_type=botao');
 
