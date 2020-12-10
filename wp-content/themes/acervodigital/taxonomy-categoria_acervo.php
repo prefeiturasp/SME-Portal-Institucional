@@ -171,11 +171,11 @@ function generateRandomString($length = 10) {
 
 													<?php the_field('ano_da_publicacao_acervo_digital'); ?>
 
-												&nbsp;&nbsp;&nbsp;<strong>Palavras chaves: </strong>				
+												&nbsp;&nbsp;&nbsp;<strong>Palavras chaves: </strong>
 
-													<?php 
-														
-														echo  strip_tags (get_the_term_list(get_the_ID(), 'palavra', '', ' / ', '')); 
+												<span class="words-link">
+
+													<?php echo  get_the_term_list(get_the_ID(), 'palavra', '', '  ', ''); 
 														
 														$class = generateRandomString();
 
@@ -188,6 +188,8 @@ function generateRandomString($length = 10) {
 															$url = false;
 														}
 													?>
+
+												</span>		
 
 												</p>
 
