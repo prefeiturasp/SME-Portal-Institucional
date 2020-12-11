@@ -186,6 +186,8 @@ function generateRandomString($length = 10) {
 					$value = $ipacesso;
 
 					update_field( $field_key, $value, $acesso_id );
+
+					$tipo = get_field('tipos_de_documentos'); // Tipo de documento
 					?>
 			
 			
@@ -289,7 +291,7 @@ function generateRandomString($length = 10) {
 						
 						<div class="col-12 mb-3">
 							<h3><strong>Categoria</strong></h3>
-							<p><?php echo  get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' / ', ''); ?></p>
+							<p><span class="words-link"><?php echo  get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' ', ''); ?></span></p>
 						</div>						<?php
 							$terms = get_field('autor_acervo_digital');
 							if(get_field('autor_acervo_digital') != ''){
@@ -334,11 +336,12 @@ function generateRandomString($length = 10) {
 						
 						<?php
 							$terms = get_field('modalidade_acervo_digital');
-							if(get_field('modalidade_acervo_digital') != ''){
+
+							if(get_field('modalidade_acervo_digital') != '' && ($tipo == 'publicacoes_institucionais' || $tipo == 'proposta_formativa') ){
 								?>
 								<div class="col-6 mb-3">
 									<h3><strong>Nível/Etapa/Modalidade</strong></h3>
-									<?php 
+									<?php 									
 									if( $terms ): ?>
 										<?php foreach( $terms as $term ): ?>
 												<p><?php echo esc_html( $term->name ); ?></p>
@@ -353,7 +356,7 @@ function generateRandomString($length = 10) {
 
 						<?php
 							$terms = get_field('componente_acervo_digital');
-							if(get_field('componente_acervo_digital') != ''){
+							if(get_field('componente_acervo_digital') != '' && $tipo == 'publicacoes_institucionais' ){
 								?>
 								<div class="col-6 mb-3">
 									<h3><strong>Componente curricular</strong></h3>
@@ -392,7 +395,7 @@ function generateRandomString($length = 10) {
 							}
 						?>						<?php
 							$terms = get_field('formacao_acervo_digital');
-							if(get_field('formacao_acervo_digital') != ''){
+							if(get_field('formacao_acervo_digital') != '' && $tipo == 'proposta_formativa'){
 								?>
 								<div class="col-6 mb-3">
 									<h3><strong>Tipo de Formação</strong></h3>
@@ -410,7 +413,7 @@ function generateRandomString($length = 10) {
 						
 						<?php
 							$terms = get_field('area_promotora');
-							if(get_field('area_promotora') != ''){
+							if(get_field('area_promotora') != '' && $tipo == 'proposta_formativa'){
 								?>
 								<div class="col-6 mb-3">
 									<h3><strong>Área promotora</strong></h3>
@@ -428,7 +431,7 @@ function generateRandomString($length = 10) {
 						
 
 						<?php
-							if(get_field('numero_de_despacho_de_homologacao') != ''){
+							if(get_field('numero_de_despacho_de_homologacao' && $tipo == 'proposta_formativa') != ''){
 								?>
 									<div class="col-6 mb-3">
 										<h3><strong>Nº de despacho de homologação</strong></h3>
@@ -440,7 +443,7 @@ function generateRandomString($length = 10) {
 
 						
 						<?php
-							if(get_field('numero_da_proposta_de_validacao') != ''){
+							if(get_field('numero_da_proposta_de_validacao') != '' && $tipo == 'proposta_formativa'){
 								?>
 									<div class="col-6 mb-3">
 										<h3><strong>Nº da proposta de validação</strong></h3>
@@ -452,7 +455,7 @@ function generateRandomString($length = 10) {
 
 						
 						<?php
-							if(get_field('numero_do_comunicado') != ''){
+							if(get_field('numero_do_comunicado') != '' && $tipo == 'proposta_formativa'){
 								?>
 									<div class="col-6 mb-3">
 										<h3><strong>Nº do comunicado</strong></h3>
@@ -465,7 +468,7 @@ function generateRandomString($length = 10) {
 						
 
 						<?php
-							if(get_field('periodo_de_inscricao') != ''){
+							if(get_field('periodo_de_inscricao') != '' && $tipo == 'proposta_formativa'){
 								?>
 									<div class="col-6 mb-3">
 										<h3><strong>Período de inscrição</strong></h3>
@@ -478,7 +481,7 @@ function generateRandomString($length = 10) {
 						
 						<?php
 							$terms = get_field('publico_alvo');
-							if(get_field('publico_alvo') != ''){
+							if(get_field('publico_alvo') != '' && $tipo == 'proposta_formativa'){
 								?>
 								<div class="col-6 mb-3">
 									<h3><strong>Público alvo</strong></h3>
@@ -530,9 +533,11 @@ function generateRandomString($length = 10) {
 							$terms = get_field('idioma_acervo_digital');
 							if( $terms ): ?>
 							    <?php foreach( $terms as $term ): ?>
-							        <a href="<?php echo esc_url( get_term_link( $term ) ); ?>">
-							        	<?php echo esc_html( $term->name ); ?>	
-							        </a>
+									<span class="words-link">
+										<a href="<?php echo esc_url( get_term_link( $term ) ); ?>">
+											<?php echo esc_html( $term->name ); ?>	
+										</a>
+									</span>
 							    <?php endforeach; ?>
 							<?php endif; ?>
 						</div>
