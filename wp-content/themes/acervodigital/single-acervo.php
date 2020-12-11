@@ -205,7 +205,7 @@ function generateRandomString($length = 10) {
 							}
 						?>
 							
-								<button type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target=".<?php echo $class; ?>">Visualizar</button>
+								<button type="button" class="btn btn-primary mr-2 mb-2" data-toggle="modal" data-target=".<?php echo $class; ?>">Visualizar</button>
 							
 								<?php if($stringSeparada[1] == 'jpg' || $stringSeparada[1] == 'jpeg' || $stringSeparada[1] == 'png' || $stringSeparada[1] == 'gif' || $stringSeparada[1] == 'webp') : ?>
 
@@ -263,11 +263,17 @@ function generateRandomString($length = 10) {
 								if($file['url'] != ''){
 									?>
 									<a href="<?php echo $file['url']; ?>" id="download_link" target="_blank" download>
-										<button type="button" class="btn btn-primary">Baixar documento</button>
+										<button type="button" class="btn btn-primary mr-2 mb-2">Baixar documento</button>
 									</a>
 									<?php
 								}
 							?>
+
+							<?php if(get_field('diario_oficial') && $tipo == 'proposta_formativa'): ?>
+									<a href="<?php the_field('diario_oficial') ?>" id="download_link" target="_blank" download>
+										<button type="button" class="btn btn-primary mb-2">Ver no Diário Oficial</button>
+									</a>
+							<?php endif; ?>
 						</div>
 
 						<div class="col-12 mb-3">
