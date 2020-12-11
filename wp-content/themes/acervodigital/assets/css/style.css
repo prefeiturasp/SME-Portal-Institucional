@@ -340,10 +340,26 @@ fieldset legend,
     margin: 50px auto;
 }
 
+
+.embed-responsive iframe {
+    height: 100% !important;
+}
+
+.links-flag a:hover {
+    cursor: pointer;
+    text-decoration: underline !important;
+}
+
 .words-link a {
     color: #42474A;
     font-size: 14px;
     border: 1px solid #C6C6C6;
     padding: 2px 7px;
     border-radius: 14px;
+    transition: 0.2s;
+}
+
+.words-link a:hover{
+    border: 1px solid #42474A;
+    transition: 0.2s;
 }
