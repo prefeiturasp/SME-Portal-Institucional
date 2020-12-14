@@ -72,9 +72,9 @@ if( function_exists('acf_add_options_page') ) {
 
 	acf_add_options_sub_page(array(
 
-        'page_title' 	=> 'Configurações de suporte',
+        'page_title' 	=> 'Configurações de tutoriais e suporte',
 
-        'menu_title'	=> 'Suporte',
+        'menu_title'	=> 'Inclusão de tutoriais',
 
         'parent_slug'	=> 'conf-geral',
 

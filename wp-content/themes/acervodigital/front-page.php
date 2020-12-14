@@ -52,7 +52,7 @@
 
 				<div class="col-sm-12">
 
-					<h1 class="titulo-home text-center mt-5 mb-5">Temas</h1>
+					<h1 class="titulo-home text-center mt-5 mb-5">Categorias</h1>
 
 				</div>
 			
