@@ -113,11 +113,11 @@ class LoopSingleRelacionadas extends LoopSingle
 				<img class="rounded " src="<?php the_post_thumbnail_url( 'related-post' ); ?>" width="100%">			
 			</div>
 			<div class="col-sm-8 mb-4">
-				<h4 class="fonte-dezoito font-weight-bold mb-2">
+				<h3 class="fonte-dezoito font-weight-bold mb-2">
 					<a class="text-decoration-none text-dark" href="<?php the_permalink(); ?>">
 						<?php the_title(); ?>
 					</a>
-				</h4>
+				</h3>
 				<?php
 				//echo $this->getSubtitulo($query->ID, 'p', 'fonte-dezesseis mb-2')
 				?>

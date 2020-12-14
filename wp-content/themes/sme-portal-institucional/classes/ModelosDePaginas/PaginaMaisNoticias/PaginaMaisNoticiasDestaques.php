@@ -27,9 +27,9 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 										<img src="<?php echo get_the_post_thumbnail_url( $p->ID ); ?>" width="100%">
 									</figure>
 									<article class="overlay-noticia d-flex flex-column justify-content-end">
-										<h3 class="card-title mais-noticias-destaque-principal"><a href="<?php echo get_permalink( $p->ID ); ?>">
+										<h2 class="card-title mais-noticias-destaque-principal"><a href="<?php echo get_permalink( $p->ID ); ?>">
 											<?php echo get_the_title( $p->ID ); ?>
-										</a></h3>
+										</a></h2>
 										<p class="mb-3 card-text texto-mais-noticias-destaques">
 											<?php
 												if(get_field('insira_o_subtitulo', $p->ID) != ''){
