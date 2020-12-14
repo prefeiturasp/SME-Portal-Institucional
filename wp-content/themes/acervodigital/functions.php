@@ -287,3 +287,19 @@ function wpse60590_remove_metaboxes() {
     remove_meta_box( 'publicodiv' , 'acervo' , 'normal' ); 
 }
 add_action( 'admin_menu' , 'wpse60590_remove_metaboxes' );
+
+function wd_admin_menu_rename() {
+    global $menu; // Global to get menu array
+    $menu[10][0] = 'Arquivos'; // Change name of posts to portfolio
+}
+add_action( 'admin_menu', 'wd_admin_menu_rename' );
+
+add_action( 'admin_head', 'admin_head_script' );
+
+function admin_head_script(){
+    global $pagenow, $title;
+
+    if ($pagenow == 'upload.php') {            
+        $title = 'Biblioteca de Arquivos';    
+    } // end pagenow
+} 

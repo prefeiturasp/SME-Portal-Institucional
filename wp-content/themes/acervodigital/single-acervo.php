@@ -263,7 +263,7 @@ function generateRandomString($length = 10) {
 								if($file['url'] != ''){
 									?>
 									<a href="<?php echo $file['url']; ?>" id="download_link" target="_blank" download>
-										<button type="button" class="btn btn-primary mr-2 mb-2">Baixar documento</button>
+										<button type="button" class="btn btn-primary mr-2 mb-2">Baixar Arquivo</button>
 									</a>
 									<?php
 								}
@@ -284,7 +284,7 @@ function generateRandomString($length = 10) {
 										if( get_row_layout() == 'adicionar_arquivos' ):
 											?>
 											<a href="<?php echo $text = get_sub_field('arquivo'); ?>" id="download_link" target="_blank" download>
-												<button type="button" class="btn btn-primary">Baixar parte <?php echo $a++; ?></button>
+												<button type="button" class="btn btn-primary">Baixar Arquivo <?php echo $a++; ?></button>
 											</a>
 											<?php
 										endif;
@@ -515,7 +515,7 @@ function generateRandomString($length = 10) {
 
 						
 						<div class="col-6 mb-3">
-							<h3><strong>Tipo de documento</strong></h3>
+							<h3><strong>Formato de Arquivo</strong></h3>
 							<p class="cx_alta"><?php 
 								if($stringSeparada[1] != ''){
 									echo $stringSeparada[1];
@@ -524,7 +524,7 @@ function generateRandomString($length = 10) {
 								}
 								?></p>
 						</div>						<div class="col-6 mb-3">
-							<h3><strong>Tamanho do documento</strong></h3>
+							<h3><strong>Tamanho do Arquivo</strong></h3>
 							<p><?php
 								if( $file['filesize']  != ''){
 									echo size_format( $file['filesize'] );
@@ -534,7 +534,7 @@ function generateRandomString($length = 10) {
 								?></p>
 						</div>
 						<div class="col-6 mb-3">
-							<h3><strong>Idioma do documento</strong></h3>
+							<h3><strong>Idioma do Arquivo</strong></h3>
 							<?php 
 							$terms = get_field('idioma_acervo_digital');
 							if( $terms ): ?>

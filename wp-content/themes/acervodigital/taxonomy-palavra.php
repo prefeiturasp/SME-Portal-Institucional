@@ -259,7 +259,7 @@ function generateRandomString($length = 10) {
 															}else{
 																the_permalink();
 															}
-															?>">Fazer download</a>
+															?>">Baixar Arquivo</a>
 
 												</div>
 
