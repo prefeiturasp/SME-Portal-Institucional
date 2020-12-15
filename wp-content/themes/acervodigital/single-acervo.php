@@ -501,18 +501,23 @@ function generateRandomString($length = 10) {
 								<?php
 							}
 						?>
-						<div class="col-6 mb-3">
-							<h3><strong>Palavra Chave</strong></h3>
-							<p>
-								<span class="words-link">
-									<?php echo  get_the_term_list(get_the_ID(), 'palavra', '', '  ', ''); 
-										
-										$class = generateRandomString();										
-									?>
-								</span>
-							</p>
-						</div>
+						<?php
+							$palavras = get_the_term_list(get_the_ID(), 'palavra', '', '  ', '');
+							if($palavras):
+						?>
+							<div class="col-6 mb-3">
+								<h3><strong>Palavra Chave</strong></h3>
+								<p>
+									<span class="words-link">
+										<?php echo  get_the_term_list(get_the_ID(), 'palavra', '', '  ', ''); 
+											
+											$class = generateRandomString();										
+										?>
+									</span>
+								</p>
+							</div>
 
+						<?php endif; ?>
 						
 						<div class="col-6 mb-3">
 							<h3><strong>Formato de Arquivo</strong></h3>
@@ -533,20 +538,20 @@ function generateRandomString($length = 10) {
 								}
 								?></p>
 						</div>
-						<div class="col-6 mb-3">
-							<h3><strong>Idioma do Arquivo</strong></h3>
-							<?php 
+						<?php 
 							$terms = get_field('idioma_acervo_digital');
 							if( $terms ): ?>
-							    <?php foreach( $terms as $term ): ?>
-									<span class="words-link">
-										<a href="<?php echo esc_url( get_term_link( $term ) ); ?>">
-											<?php echo esc_html( $term->name ); ?>	
-										</a>
-									</span>
-							    <?php endforeach; ?>
-							<?php endif; ?>
-						</div>
+								<div class="col-6 mb-3">
+									<h3><strong>Idioma do Arquivo</strong></h3>
+									<?php foreach( $terms as $term ): ?>
+										<span class="words-link">
+											<a href="<?php echo esc_url( get_term_link( $term ) ); ?>">
+												<?php echo esc_html( $term->name ); ?>	
+											</a>
+										</span>
+									<?php endforeach; ?>
+								</div>
+						<?php endif; ?>
 						<div class="col-6 mb-3">
 							<h3><strong>Quantidade de páginas</strong></h3>
 							<p><?php the_field('qt_de_paginas_acervo_digital'); ?></p>
