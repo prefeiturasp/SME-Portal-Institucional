@@ -314,3 +314,11 @@ function kiteboat_set_tax_default( $value, $post_id, $field ) {
 	}
   return $value;
 }
+
+// Ocultar itens do menu
+add_action( 'admin_init', 'wpse_136058_remove_menu_pages' );
+
+function wpse_136058_remove_menu_pages() {
+    remove_menu_page( 'edit.php?post_type=download' ); // Ocultar Downloads
+    remove_menu_page( 'edit.php?post_type=acesso' ); // Ocultar Acessos
+}
