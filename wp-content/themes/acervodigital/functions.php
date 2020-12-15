@@ -302,4 +302,15 @@ function admin_head_script(){
     if ($pagenow == 'upload.php') {            
         $title = 'Biblioteca de Arquivos';    
     } // end pagenow
-} 
+}
+
+// Define o idioma padrao para Portugues no acervo
+add_filter('acf/load_value/key=field_5efbf013703c5', 'kiteboat_set_tax_default', 20, 3);
+
+function kiteboat_set_tax_default( $value, $post_id, $field ) {
+	if ($value === false && get_post_status($post_id) == 'auto-draft') {
+        // Esse id correponde ao do site atual nao sendo um valor fixo, em caso de migracao ou duplicidade de ambientes verificar o id do idioma desejado
+		$value = 114; // id do portugues dentro da taxinomia idioma
+	}
+  return $value;
+}

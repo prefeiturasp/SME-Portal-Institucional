@@ -172,7 +172,14 @@ function generateRandomString($length = 10) {
 
 												<?php the_field('ano_da_publicacao_acervo_digital'); ?>
 
-											&nbsp;&nbsp;&nbsp;<strong>Palavras chaves: </strong>				
+												<?php
+													$palavras = get_the_term_list(get_the_ID(), 'palavra', '', '  ', '');
+													if($palavras) : 
+												?>
+
+													&nbsp;&nbsp;&nbsp;<strong>Palavras chaves: </strong>
+
+												<?php endif; ?>				
 
 											<span class="words-link">
 
