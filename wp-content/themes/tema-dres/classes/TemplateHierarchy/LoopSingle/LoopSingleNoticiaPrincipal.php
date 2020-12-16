@@ -13,7 +13,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 	public function montaHtmlNoticiaPrincipal(){
 		if (have_posts()):
 			while (have_posts()): the_post();
-				echo '<article class="col-lg-8 col-sm-12 border-bottom">';
+				echo '<article class="col-lg-8 col-sm-12 border-bottom content-article">';
 				echo '<h2 class="titulo-noticia-principal mb-3" id="'.get_post_field( 'post_name', get_post() ).'">'.get_the_title().'</h2>';
 				//echo $this->getSubtitulo(get_the_ID(), 'h3');
 				echo '<h3>';
@@ -22,7 +22,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 					}else if (get_field('insira_o_subtitulo', get_the_ID()) == ''){
 						 echo get_the_excerpt(get_the_ID()); 
 					}
-		echo '</h3>';
+				echo '</h3>';
 				
 				$this->getDataPublicacaoAlteracao();
 				$this->getMidiasSociais();
