@@ -832,3 +832,9 @@ footer .redes-footer{
 	color: #828282;
 	font-size: 11px;
 }
+
+.content-article h3 {
+    font-weight: normal;
+    font-style: italic;
+    color: #42474A !important;
+}
