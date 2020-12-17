@@ -8,14 +8,20 @@
 				<img src="<?php the_field('logo_prefeitura','conf-rodape'); ?>" alt="<?php bloginfo('name'); ?>">
 			</div>
 			<div class="col-sm-3 align-middle bd-contact">
-				<p><h2><?php the_field('nome_da_secretaria','conf-rodape'); ?></h2></p>
-				<p><?php the_field('endereco_da_secretaria','conf-rodape'); ?></p>
+				<h2 class="pt-2"><?php the_field('nome_da_secretaria','conf-rodape'); ?></h2>
+				<?php the_field('endereco_da_secretaria','conf-rodape'); ?>
 			</div>
 			<div class="col-sm-3 align-middle">
-				<p><h2>Contatos</h2></p>
-				<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:<?php the_field('telefone','conf-rodape'); ?>"><?php the_field('telefone','conf-rodape'); ?></a></p>
-				<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:<?php the_field('email','conf-rodape'); ?>"><?php the_field('email','conf-rodape'); ?></a></p>
-				<p><h2>Redes sociais</h2></p>
+				<h2 class="pt-2">Contatos</h2>
+				
+				<?php if(get_field('telefone','conf-rodape')) :?>
+					<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:<?php the_field('telefone','conf-rodape'); ?>"><?php the_field('telefone','conf-rodape'); ?></a></p>
+				<?php endif; ?>				
+				
+				<?php if(get_field('email','conf-rodape')) :?>
+					<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:<?php the_field('email','conf-rodape'); ?>"><?php the_field('email','conf-rodape'); ?></a></p>
+				<?php endif; ?>
+				<h2>Redes sociais</h2>
 				<?php 
 					$facebook = get_field('icone_facebook','conf-rodape');
 					$instagram = get_field('icone_instagram','conf-rodape');
@@ -75,7 +81,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12 text-center">
-				<p>&copy<?php echo date('Y'); ?> - SECRETARIA MUNICIPAL DE EDUCAÇÃO — Rua Borges Lagoa, 1230 — Vila Clementino — CEP: 04038-003</p>
+				<p>Prefeitura Municipal de São Paulo - Viaduto do Chá, 15 - Centro - CEP: 01002-020</p>
 			</div>
 		</div>
 	</div>

@@ -670,40 +670,21 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Inclusão de tutoriais',
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
+	));
+	
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Informações Rodapé',
+        'menu_title'	=> 'Rodapé',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+		'post_id' => 'conf-rodape',
     ));
 
 }
+
 ///////////////////////////////////////////////////////////////////
 
-/**
-TROCAR RESUMO DE POSIÇÃO
- */
-//remove a posição normal do campo
-function remove_normal_excerpt() {
-    remove_meta_box( 'postexcerpt' , 'post' , 'normal' );
-}
-add_action( 'admin_menu' , 'remove_normal_excerpt' );
- 
-/**
-adiciona a posição para depois do titulo
- */
-function add_excerpt_meta_box( $post_type ) {
-    if ( in_array( $post_type, array( 'post', 'page' ) ) ) {
-        add_meta_box(
-            'oz_postexcerpt',
-            __( 'Resumo', 'thetab-theme' ),
-            'post_excerpt_meta_box',
-            $post_type,
-            'after_title',
-            'high'
-        );
-    }
-}
-add_action( 'add_meta_boxes', 'add_excerpt_meta_box' );
- 
-/**
-	Adiciona depois do titulo
- */
+// Adiciona depois do titulo
 function run_after_title_meta_boxes() {
     global $post, $wp_meta_boxes;
     # Output the `below_title` meta boxes:

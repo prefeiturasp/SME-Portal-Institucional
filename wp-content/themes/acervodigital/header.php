@@ -29,26 +29,41 @@
 						<a class="mr-3" href="https://sp156.prefeitura.sp.gov.br/portal/servicos">SP 156</a>
 					</div>
 					<div class="col-6 text-right">
-						<div class="footer-social">
-							<a href="<?php the_field('facebook','options'); ?>">
-								<img src="<?php echo get_bloginfo('template_directory') ?>/images/icone-facebook-topo.png" width="15" alt="Ir para Facebook da Prefeitura de São Paulo">
-							</a>
-						</div>
-						<div class="footer-social">
-							<a href="<?php the_field('instagram','options'); ?>">
-								<img src="<?php echo get_bloginfo('template_directory') ?>/images/icone-instagram-topo.png" width="15" alt="Ir para Instagram da Prefeitura de São Paulo">
-							</a>
-						</div>
-						<div class="footer-social">
-							<a href="<?php the_field('twitter','options'); ?>">
-								<img src="<?php echo get_bloginfo('template_directory') ?>/images/icone-twitter-topo.png" width="15" alt="Ir para Twitter da Prefeitura de São Paulo">
-							</a>
-						</div>
-						<div class="footer-social">
-							<a href="<?php the_field('youtube','options'); ?>">
-								<img src="<?php echo get_bloginfo('template_directory') ?>/images/icone-youtube-topo.png" width="15" alt="Ir para YouTube da Prefeitura de São Paulo">
-							</a>
-						</div>
+						<?php 
+							$facebook = get_field('url_facebook','conf-rodape');
+							$instagram = get_field('url_instagram','conf-rodape');
+							$twitter = get_field('url_twitter','conf-rodape');
+							$youtube = get_field('url_youtube','conf-rodape');
+						?>
+                            
+						<?php if($facebook) : ?>							
+							<div class="footer-social">
+								<a href="<?php the_field('url_facebook','conf-rodape'); ?>">
+									<img src="<?php echo get_bloginfo('template_directory') ?>/images/icone-facebook-topo.png" width="15" alt="Ir para Facebook da Prefeitura de São Paulo">
+								</a>
+							</div>
+						<?php endif; ?>
+						<?php if($instagram) : ?>
+							<div class="footer-social">
+								<a href="<?php the_field('url_instagram','conf-rodape'); ?>">
+									<img src="<?php echo get_bloginfo('template_directory') ?>/images/icone-instagram-topo.png" width="15" alt="Ir para Instagram da Prefeitura de São Paulo">
+								</a>
+							</div>
+						<?php endif; ?>
+						<?php if($twitter) : ?>
+							<div class="footer-social">
+								<a href="<?php the_field('url_twitter','conf-rodape'); ?>">
+									<img src="<?php echo get_bloginfo('template_directory') ?>/images/icone-twitter-topo.png" width="15" alt="Ir para Twitter da Prefeitura de São Paulo">
+								</a>
+							</div>
+						<?php endif; ?>
+						<?php if($youtube) : ?>
+							<div class="footer-social">
+								<a href="<?php the_field('url_youtube','conf-rodape'); ?>">
+									<img src="<?php echo get_bloginfo('template_directory') ?>/images/icone-youtube-topo.png" width="15" alt="Ir para YouTube da Prefeitura de São Paulo">
+								</a>
+							</div>
+						<?php endif; ?>  						
 					</div>
 				</div>
 			</div>
