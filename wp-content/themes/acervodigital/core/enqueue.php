@@ -19,6 +19,7 @@ function rhs_load_css(){
 	wp_enqueue_style( 'style_theme', get_template_directory_uri().'/assets/css/style.css', array() );
 	wp_enqueue_style( 'style_construtor', get_template_directory_uri().'/assets/css/construtor.css', array() );
 	wp_enqueue_style( 'style_acf_theme', get_template_directory_uri().'/assets/css/custom-styles-acf.css', array() );//custom css ACF
+	wp_enqueue_style('font_awesome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 }
 add_action( 'wp_enqueue_scripts', 'rhs_load_css' );
 

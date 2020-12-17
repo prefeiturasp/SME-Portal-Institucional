@@ -680,6 +680,14 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Inclusão de tutoriais',
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'edit_theme_options',
+	));
+	
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Informações Rodapé',
+        'menu_title'	=> 'Rodapé',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+		'post_id' => 'conf-rodape',
     ));
 
 }
