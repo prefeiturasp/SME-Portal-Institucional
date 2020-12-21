@@ -62,10 +62,11 @@
 				</div>
 			</div>
 			<div class="col-sm-3 align-middle text-center">				
-				<p class="mt-1"><a class="sa sat seloa" href="http://selodigital.imprensaoficial.com.br/validacao/SMPED/011e4eebb735e428dd" target="_blank">
-                        <img src="<?= STM_THEME_URL ?>/img/sa2.svg" alt="Este sitio possui um selo de acessibilidade digital.">
-                        
-                    </a></p>
+				<a class="sa sat seloa mt-1" href="http://selodigital.imprensaoficial.com.br/validacao/SMPED/0118119073598c7823" target="_blank">
+					<img src="<?= STM_THEME_URL ?>/img/sa2.svg" alt="Este sitio possui um selo de acessibilidade digital.">
+					<div class="st"><div>Selo de Acessibilidade Digital</div>Nº do Selo: 2020-AD/102<br>Validade: 18/12/2022<br>Clique para mais informações
+					</div>
+				</a>
 				<p><figure>
 					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR">
 						<img src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Logotipo Creative Commons. Ir para um link externo da Página Inicial da Creative Commons que é uma organização mundial sem fins lucrativos que permite o compartilhamento e a reutilização da criatividade e do conhecimento por meio do fornecimento de ferramentas gratuitas."/>
