@@ -268,17 +268,23 @@ function generateRandomString($length = 10) {
 
 													<?php endif; ?>
 
+													<?php if($partional && !$file) : ?>
+														<p class='partial-text'>* Esse documento foi dividido em partes, acesse <strong>ver detalhes</strong> para baixá-las.</p>
+													<?php endif; ?>
+
 													<a data-toggle="modal" data-target=".<?php echo $class; ?>">Visualizar</a>
 
 													<a href="<?php the_permalink(); ?>">Ver detalhes</a>
-
-													<a href="<?php
+													
+													<?php if($file && !$partial) : ?>
+														<a href="<?php
 															if($file['url'] != ''){
 																echo $file['url']; 
 															}else{
 																the_permalink();
 															}
 															?>">Baixar Arquivo</a>
+													<?php endif; ?>
 
 												</div>
 
