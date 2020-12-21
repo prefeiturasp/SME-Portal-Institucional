@@ -278,27 +278,34 @@ function generateRandomString($length = 10) {
 
 						<div class="col-12 mb-3">
 						<?php
-							$a = 1;
+							if(!$file){
+								$a = 1;
 								if( have_rows('arquivos_particionados') ):
 									while ( have_rows('arquivos_particionados') ) : the_row();
 										if( get_row_layout() == 'adicionar_arquivos' ):
 											?>
 											<a href="<?php echo $text = get_sub_field('arquivo'); ?>" id="download_link" target="_blank" download>
-												<button type="button" class="btn btn-primary">Baixar Arquivo <?php echo $a++; ?></button>
+												<button type="button" class="btn btn-primary mb-1">Baixar Arquivo <?php echo $a++; ?></button>
 											</a>
 											<?php
 										endif;
 									endwhile;
 								else :
 								endif;
-							 ?>
+							}
+						?>
 						</div>
 						
 						
 						<div class="col-12 mb-3">
-							<h3><strong>Categoria</strong></h3>
-							<p><span class="words-link"><?php echo  get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' ', ''); ?></span></p>
-						</div>						<?php
+							<?php
+							 $categorias = get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' ', '');
+							 if($categorias): ?>
+								<h3><strong>Categoria</strong></h3>
+								<p><span class="words-link"><?php echo get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' ', ''); ?></span></p>
+							<?php endif; ?>
+						</div>
+							<?php
 							$terms = get_field('autor_acervo_digital');
 							if(get_field('autor_acervo_digital') != ''){
 								?>
@@ -521,13 +528,32 @@ function generateRandomString($length = 10) {
 						
 						<div class="col-6 mb-3">
 							<h3><strong>Formato de Arquivo</strong></h3>
-							<p class="cx_alta"><?php 
-								if($stringSeparada[1] != ''){
-									echo $stringSeparada[1];
-								}else{
-									echo 'DIVERSOS';
-								}
-								?></p>
+							<p class="cx_alta">
+								<?php 
+									if($partional && !$file){
+										$formats = array();
+
+										foreach($partional as $format){
+											$format = explode(".", $format);
+											$formats[] = $format[6];
+										}
+
+										// Remover formatos duplicados
+										$formats = array_unique($formats);
+
+										echo implode(", ", $formats);
+
+										//echo "<pre>";
+										//print_r($formats);
+										//echo "</pre>";
+									}
+									elseif($stringSeparada[1] != ''){
+										echo $stringSeparada[1];
+									}else{
+										echo 'DIVERSOS';
+									}
+								?>
+							</p>
 						</div>						<div class="col-6 mb-3">
 							<h3><strong>Tamanho do Arquivo</strong></h3>
 							<p><?php
@@ -538,6 +564,7 @@ function generateRandomString($length = 10) {
 								}
 								?></p>
 						</div>
+						
 						<?php 
 							$terms = get_field('idioma_acervo_digital');
 							if( $terms ): ?>
@@ -552,6 +579,7 @@ function generateRandomString($length = 10) {
 									<?php endforeach; ?>
 								</div>
 						<?php endif; ?>
+						
 						<div class="col-6 mb-3">
 							<h3><strong>Quantidade de páginas</strong></h3>
 							<p><?php the_field('qt_de_paginas_acervo_digital'); ?></p>
@@ -567,7 +595,7 @@ function generateRandomString($length = 10) {
 								// 2. pull the custom query in here:
 
 								if ( $search_term = $wp_query->get( 'search_prod_title' ) ) {
-									$where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . esc_sql( like_escape( $search_term ) ) . '%\'';
+									$where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'' . esc_sql( like_escape( $search_term ) ) . '\'';
 								}
 								return $where;
 

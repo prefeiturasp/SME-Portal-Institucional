@@ -151,9 +151,21 @@ function generateRandomString($length = 10) {
 											<span class="flag-pdf-full">
 
 												<?php
+													if($partional && !$file){
+														$formats = array();
 
-												echo $stringSeparada[1]; 
+														foreach($partional as $format){
+															$format = explode(".", $format);
+															$formats[] = $format[6];
+														}
 
+														// Remover formatos duplicados
+														$formats = array_unique($formats);
+
+														echo implode(", ", $formats);														
+													} else {
+														echo $stringSeparada[1]; 
+													}
 												?>
 
 											</span>
