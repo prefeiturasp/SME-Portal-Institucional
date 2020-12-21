@@ -153,17 +153,27 @@ function generateRandomString($length = 10) {
 
 													  " alt="">			
 
-											<span class="flag-pdf-full">
+													<span class="flag-pdf-full">
 
-												<?php
-												if($stringSeparada[1] != ''){
-													echo $stringSeparada[1];
-												}else{
-													echo 'Varios arquivos';
-												}
-												?>
+														<?php
+															if($partional && !$file){
+																$formats = array();
 
-											</span>
+																foreach($partional as $format){
+																	$format = explode(".", $format);
+																	$formats[] = $format[6];
+																}
+
+																// Remover formatos duplicados
+																$formats = array_unique($formats);
+
+																echo implode(", ", $formats);														
+															} else {
+																echo $stringSeparada[1]; 
+															}
+														?>
+
+													</span>
 
 										</div>
 
@@ -179,14 +189,15 @@ function generateRandomString($length = 10) {
 
 												<?php the_field('ano_da_publicacao_acervo_digital'); ?>
 
-												<?php
-													$palavras = get_the_term_list(get_the_ID(), 'palavra', '', '  ', '');
-													if($palavras) : 
-												?>
+											<?php
+												$palavras = get_the_term_list(get_the_ID(), 'palavra', '', '  ', '');
+												if($palavras) : 
+											?>
 
-													&nbsp;&nbsp;&nbsp;<strong>Palavras chaves: </strong>
+												&nbsp;&nbsp;&nbsp;<strong>Palavras chaves: </strong>
 
-												<?php endif; ?>
+											<?php endif; ?>
+
 											<span class="words-link">
 
 												<?php echo  get_the_term_list(get_the_ID(), 'palavra', '', '  ', ''); 
