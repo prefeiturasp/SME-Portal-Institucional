@@ -10,7 +10,7 @@ class metricas_create{
         add_menu_page(
             __( 'Metricas', 'textdomain' ),//page title
             __( 'Metricas', 'textdomain' ),//menu title
-            'manage_options',//Capability
+            'publish_pages',//Capability
             'metricas_slug',//slug
             array(
                 $this,

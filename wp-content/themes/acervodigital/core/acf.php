@@ -48,7 +48,7 @@ if( function_exists('acf_add_options_page') ) {
         'page_title' 	=> 'Informações Rodapé',
         'menu_title'	=> 'Rodapé',
         'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'publish_pages',
+        'capability'	=> 'acf_options',
 		'post_id' => 'conf-rodape',
     ));
 }
