@@ -846,6 +846,11 @@ mudaNomes('revision5', '');
 mudaNomes('rl_gallery5', '');
 mudaNomes('user_request5', '');
 mudaNomes('wpcf7_contact_form5', '');
+mudaNomes('concurso1', '');
+mudaNomes('concurso4', '');
+mudaNomes('concurso5', '');
+mudaNomes('concurso6', '');
+mudaNomes('concurso7', '');
 		
 mudaNomes('aba4', '');
 mudaNomes('acf-field4', '');
