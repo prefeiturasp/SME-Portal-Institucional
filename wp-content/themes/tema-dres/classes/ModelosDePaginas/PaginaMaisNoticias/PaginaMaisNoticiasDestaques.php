@@ -99,8 +99,8 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 						<div class="col-sm-8">
 							<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 							<div><?php the_excerpt(); ?></div>
-							<span>Publicado em: <?php the_time('d/m/Y') ?> </span> -
-							<span> em: <a href="<?php echo get_site_url(); ?>"><?php echo get_bloginfo('description'); ?></a></span>
+							<span>Publicado em: <?php the_time('d/m/Y') ?> </span> 
+							<?php /* - <span> em: <a href="<?php echo get_site_url(); ?>"><?php echo get_bloginfo('description'); ?></a></span> */ ?>
 						</div>
 					</div>
 					<hr>
