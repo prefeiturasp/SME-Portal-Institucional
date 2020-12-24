@@ -169,6 +169,15 @@
                             return $dataPadrao;
                         }
 
+                        $lastEdit = new \WP_Query( array(
+                            'post_type'   => 'concurso',
+                            'posts_per_page' => 1,
+                            'orderby'     => 'modified',
+                        ));
+                
+                        $date = $lastEdit->post->post_modified;
+                        $lastEdit = new \DateTime($date);
+
                         $args = array(
                             'post_type' => array( 'concurso' ),
                             'posts_per_page' => -1,
@@ -376,7 +385,7 @@
                     </div>
                     
                     <div class="col-md-10 mb-3 text-atualiza">
-                        <p class="text-right">Ultima Atualização: <?php echo get_field( "ultima_atualizacao", 31830); ?></p>
+                        <p class="text-right">Ultima Atualização: <?php echo $lastEdit->format('d/m/Y'); ?></p>
                     </div>
                     
                     <div class="col-md-10 mb-5 text-center">

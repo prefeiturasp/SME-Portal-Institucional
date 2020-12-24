@@ -53,6 +53,15 @@ class PaginaConcursos extends Util
             return $dataPadrao;
         }
 
+        $lastEdit = new \WP_Query( array(
+            'post_type'   => 'concurso',
+            'posts_per_page' => 1,
+            'orderby'     => 'modified',
+        ));
+
+        $date = $lastEdit->post->post_modified;
+        $lastEdit = new \DateTime($date);
+
         $lista = $_GET['view'];
         if(!$lista){
             echo '<section class="container">';
@@ -198,7 +207,7 @@ class PaginaConcursos extends Util
             </div>
 
             <div class="col-md-10 mb-3 text-atualiza">
-                <p class="text-right">Ultima Atualização: <?php echo get_field( "ultima_atualizacao"); ?></p>
+                <p class="text-right">Ultima Atualização: <?php echo $lastEdit->format('d/m/Y'); ?></p>
             </div>
 
             <div class="col-md-10 mb-5 text-center">
@@ -219,7 +228,7 @@ class PaginaConcursos extends Util
             echo '<section class="col-lg-12 col-xs-12 d-flex align-content-start flex-wrap">';
         ?>
             <div class="col-md-12 mt-4 text-atualiza">
-                <p class="text-right mb-1">Ultima Atualização: <?php echo get_field( "ultima_atualizacao", 31830); ?></p>
+                <p class="text-right mb-1">Ultima Atualização: <?php echo $lastEdit->format('d/m/Y'); ?></p>
             </div>
         <?php
             echo '<table class="table table-bordered shadow-sm rouded">';
