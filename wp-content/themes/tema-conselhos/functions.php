@@ -745,3 +745,20 @@ function my_acf_save_post( $post_id ) {
 
 // run after ACF saves the $_POST['acf'] data
 add_action('acf/save_post', 'my_acf_save_post', 20);
+
+add_action('pre_user_query','wpse_27518_pre_user_query');
+function wpse_27518_pre_user_query($user_search) {
+    global $wpdb,$current_screen;
+
+    if ( 'users' != $current_screen->id ) 
+        return;
+
+    $vars = $user_search->query_vars;
+
+    if('setor' == $vars['orderby']) 
+    {
+        $user_search->query_from .= " INNER JOIN {$wpdb->usermeta} m1 ON {$wpdb->users}.ID=m1.user_id AND (m1.meta_key='setor')"; 
+        $user_search->query_orderby = ' ORDER BY UPPER(m1.meta_value) '. $vars['order'];
+    } 
+    
+}
