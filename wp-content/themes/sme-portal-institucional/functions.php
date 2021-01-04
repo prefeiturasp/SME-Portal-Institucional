@@ -812,3 +812,6 @@ function wpse_27518_pre_user_query($user_search) {
     } 
     
 }
+
+// Remove o campo "Additional Capabilities" do editor de usuario
+add_filter( 'ure_show_additional_capabilities_section', '__return_false' );
