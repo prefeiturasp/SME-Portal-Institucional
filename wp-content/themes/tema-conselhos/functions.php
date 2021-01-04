@@ -695,19 +695,21 @@ if( function_exists('acf_add_options_page') ) {
 
 
 //Resolve admin para usuário
-$user_id = get_current_user_id();
-if ($user_id == 9) {
-    echo '
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script>
-	$( document ).ready(function() {
-		$(".column-primary").contents().filter(function(){
-		return this.nodeType == 3;
-		}).remove();
-	});
-	</script>
-	';
+function custom_admin_js() {
+    $user_id = get_current_user_id();
+	if ($user_id == 9) {
+		echo '		
+		<script>
+		jQuery( document ).ready(function($) {
+			$(".column-primary").contents().filter(function(){
+			return this.nodeType == 3;
+			}).remove();
+		});
+		</script>
+		';
+	}
 }
+add_action('admin_footer', 'custom_admin_js');
 
 
 
@@ -746,6 +748,7 @@ function my_acf_save_post( $post_id ) {
 // run after ACF saves the $_POST['acf'] data
 add_action('acf/save_post', 'my_acf_save_post', 20);
 
+// Ativa a ordenacao pelo 'setor' na listagem de usuarios passando 'setor' como parametro na query de busca e ordenacao
 add_action('pre_user_query','wpse_27518_pre_user_query');
 function wpse_27518_pre_user_query($user_search) {
     global $wpdb,$current_screen;
