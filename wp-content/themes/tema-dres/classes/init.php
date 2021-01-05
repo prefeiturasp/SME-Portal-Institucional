@@ -55,6 +55,7 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicial.php
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaquePrimaria.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaqueSecundarias.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialEscolares.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialAcervo.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialAgenda.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialEndereco.php';
 
