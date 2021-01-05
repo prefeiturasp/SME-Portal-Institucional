@@ -12,6 +12,7 @@ class PaginaMaisNoticiasMaisLidas extends PaginaMaisNoticias
 	{
 		$this->queryMaisLidas();
 		$this->getMaisLidas();
+		$this->outrasNoticias();
 	}
 
 	public function queryMaisLidas(){
@@ -26,6 +27,21 @@ class PaginaMaisNoticiasMaisLidas extends PaginaMaisNoticias
 		$this->query_mais_lidas = get_posts($this->args_mais_lidas);
 	}
 
+	function outrasNoticias(){
+		$url = get_field('outras_noticias','option');
+		if($url){
+			return '<section class="row mt-5">
+						<article class="col-lg-12 col-xs-12 container-btn-mais-noticias">
+							<form>
+								<fieldset>
+									<legend>Ir para outras notícias</legend>
+									<a href="' . $url . '" class="btn btn-primary btn-sm btn-block bg-azul-escuro font-weight-bold text-white">Outras Notícias</a>
+								</fieldset>
+							</form>
+						</article>
+					</section>';
+		}
+	}
 
 
 	public function getMaisLidas(){
@@ -44,6 +60,8 @@ class PaginaMaisNoticiasMaisLidas extends PaginaMaisNoticias
 
 		wp_reset_postdata();
 		echo '</section>';
+
+		echo $this->outrasNoticias();
 	}
 
 	public function getCategory($id_post){
