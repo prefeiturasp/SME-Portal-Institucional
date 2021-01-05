@@ -26,7 +26,7 @@ class PaginaMaisNoticias extends Util
 						new PaginaMaisNoticiasDestaques();
 					?>
 				</div>
-				<div class="col-sm-4 mb-4">
+				<div class="col-sm-4 mb-4 align-self-start">
 					
 					<?php new PaginaMaisNoticiasMaisLidas(); ?>
 				</div>

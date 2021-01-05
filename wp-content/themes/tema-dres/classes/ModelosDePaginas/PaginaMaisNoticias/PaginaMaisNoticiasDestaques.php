@@ -51,7 +51,7 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 		?>
 		<div class="row mb-2">
 			<div class="col-sm-12">
-				<h3>MAIS NOTÍCIAS</h3>
+				<h3>RECENTES</h3>
 			</div>
 		</div>
 		<?php
