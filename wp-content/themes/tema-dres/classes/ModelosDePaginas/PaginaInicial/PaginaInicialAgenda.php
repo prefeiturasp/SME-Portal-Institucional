@@ -41,14 +41,14 @@ class PaginaInicialAgenda extends Util
             </article>
 		</section>
 		<section class="col-lg-6 col-xs-12">
-			<section class="calendario-agenda-sec d-block mb-5 border-bottom pb-5"></section>
+			<section class="calendario-agenda-sec d-block mb-4 border-bottom pb-4"></section>
 		</section>
 		<?php
 	}
 
 	public function insereDivRecebeData(){
 		?>
-		<section class="col-lg-6 col-xs-12">
+		<section class="col-lg-6 col-xs-12 mb-4">
 			<h2 class="">Próximos eventos</h2>
 			<section id="mostra_data"></section>
 			<!-- Monta a lista ordenada por horário -->

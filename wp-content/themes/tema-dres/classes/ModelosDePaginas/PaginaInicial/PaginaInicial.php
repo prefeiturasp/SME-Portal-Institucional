@@ -61,6 +61,7 @@ class PaginaInicial extends Util
 		new PaginaInicialNoticiasDestaqueSecundarias();
 		$this->fechaContainer($noticias_home_tags);
 		new PaginaInicialAgenda();
+		new PaginaInicialAcervo();
 		new PaginaInicialEscolares();
 		new PaginaInicialEndereco();
     }
