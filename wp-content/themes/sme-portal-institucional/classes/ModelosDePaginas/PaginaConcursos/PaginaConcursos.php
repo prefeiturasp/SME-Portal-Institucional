@@ -211,7 +211,7 @@ class PaginaConcursos extends Util
             </div>
 
             <div class="col-md-10 mb-5 text-center">
-                <h3><a href="<?php echo site_url('/concursos-sme/?view=lista'); ?>">Ver todos os consursos SME</a></h3>              
+                <h3><a href="<?php echo site_url('/concursos-sme/?view=lista'); ?>">Ver todos os concursos SME</a></h3>              
             </div>
 
         <?php 
