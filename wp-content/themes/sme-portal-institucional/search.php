@@ -783,95 +783,66 @@ mudaNomes('page6', 'Página em CACSFUNDEB Conselho');
 mudaNomes('post6', 'Notícia em CACSFUNDEB Conselho');
 mudaNomes('page7', 'Página em CRECE Conselho');
 mudaNomes('post7', 'Notícia em CRECE Conselho');
+mudaNomes('page8', 'Página em DRE Butantã');
+mudaNomes('post8', 'Notícia em DRE Butantã');
+mudaNomes('page9', 'Página em DRE Capela do Socorro');
+mudaNomes('post9', 'Notícia em DRE Capela do Socorro');
+mudaNomes('page10', 'Página em DRE Freguesia/Brasilândia');
+mudaNomes('post10', 'Notícia em DRE Freguesia/Brasilândia');
+mudaNomes('page11', 'Página em DRE Guaianases');
+mudaNomes('post11', 'Notícia em DRE Guaianases');
+mudaNomes('page12', 'Página em DRE Ipiranga');
+mudaNomes('post12', 'Notícia em DRE Ipiranga');
+mudaNomes('page13', 'Página em DRE Itaquera');
+mudaNomes('post13', 'Notícia em DRE Itaquera');
+mudaNomes('page14', 'Página em DRE Jaçanã/Tremembé');
+mudaNomes('post14', 'Notícia em DRE Jaçanã/Tremembé');
+mudaNomes('page15', 'Página em DRE Penha');
+mudaNomes('post15', 'Notícia em DRE Penha');
+mudaNomes('page16', 'Página em DRE Pirituba');
+mudaNomes('post16', 'Notícia em DRE Pirituba');
+mudaNomes('page17', 'Página em DRE Santo Amaro');
+mudaNomes('post17', 'Notícia em DRE Santo Amaro');
+mudaNomes('page18', 'Página em DRE São Mateus');
+mudaNomes('post18', 'Notícia em DRE São Mateus');
+mudaNomes('page19', 'Página em DRE São Miguel');
+mudaNomes('post19', 'Notícia em DRE São Miguel');
+mudaNomes('page20', 'Página em DRE Campo Limpo');
+mudaNomes('post20', 'Notícia em DRE Campo Limpo');
 	
-		
+// Id dos sites ativos
+var sites = ["4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
 
-//Remove do fitro de conteúdo
-mudaNomes('acf-field-group7', '');
-mudaNomes('aba7', '');
-mudaNomes('acf-field7', '');
-mudaNomes('agenda7', '');
-mudaNomes('attachment7', '');
-mudaNomes('botao7', '');
-mudaNomes('card7', '');
-mudaNomes('contato7', '');
-mudaNomes('curriculo-da-cidade7', '');
-mudaNomes('custom_css7', '');
-mudaNomes('customize_changeset7', '');
-mudaNomes('nav_menu_item7', '');
-mudaNomes('oembed_cache7', '');
-mudaNomes('organograma7', '');
-mudaNomes('programa-projeto7', '');
-mudaNomes('revision7', '');
-mudaNomes('rl_gallery7', '');
-mudaNomes('user_request7', '');
-mudaNomes('wpcf7_contact_form7', '');
-		
-mudaNomes('aba6', '');
-mudaNomes('acf-field6', '');
-mudaNomes('acf-field-group6', '');
-mudaNomes('agenda6', '');
-mudaNomes('attachment6', '');
-mudaNomes('botao6', '');
-mudaNomes('card6', '');
-mudaNomes('contato6', '');
-mudaNomes('curriculo-da-cidade6', '');
-mudaNomes('custom_css6', '');
-mudaNomes('customize_changeset6', '');
-mudaNomes('nav_menu_item6', '');
-mudaNomes('oembed_cache6', '');
-mudaNomes('organograma6', '');
-mudaNomes('programa-projeto6', '');
-mudaNomes('revision6', '');
-mudaNomes('rl_gallery6', '');
-mudaNomes('user_request6', '');
-mudaNomes('wpcf7_contact_form6', '');
-		
-mudaNomes('aba5', '');
-mudaNomes('acf-field5', '');
-mudaNomes('acf-field-group5', '');
-mudaNomes('agenda5', '');
-mudaNomes('attachment5', '');
-mudaNomes('botao5', '');
-mudaNomes('card5', '');
-mudaNomes('contato5', '');
-mudaNomes('curriculo-da-cidade5', '');
-mudaNomes('custom_css5', '');
-mudaNomes('customize_changeset5', '');
-mudaNomes('nav_menu_item5', '');
-mudaNomes('oembed_cache5', '');
-mudaNomes('organograma5', '');
-mudaNomes('programa-projeto5', '');
-mudaNomes('revision5', '');
-mudaNomes('rl_gallery5', '');
-mudaNomes('user_request5', '');
-mudaNomes('wpcf7_contact_form5', '');
-mudaNomes('concurso1', '');
-mudaNomes('concurso4', '');
-mudaNomes('concurso5', '');
-mudaNomes('concurso6', '');
-mudaNomes('concurso7', '');
-		
-mudaNomes('aba4', '');
-mudaNomes('acf-field4', '');
-mudaNomes('acf-field-group4', '');
-mudaNomes('agenda4', '');
-mudaNomes('attachment4', '');
-mudaNomes('botao4', '');
-mudaNomes('card4', '');
-mudaNomes('contato4', '');
-mudaNomes('curriculo-da-cidade4', '');
-mudaNomes('custom_css4', '');
-mudaNomes('customize_changeset4', '');
-mudaNomes('nav_menu_item4', '');
-mudaNomes('oembed_cache4', '');
-mudaNomes('organograma4', '');
-mudaNomes('programa-projeto4', '');
-mudaNomes('revision4', '');
-mudaNomes('rl_gallery4', '');
-mudaNomes('user_request4', '');
-mudaNomes('wpcf7_contact_form4', '');
-		
+// remove os itens sobresalente do menu
+function logArrayElements(element, index, array) {
+    //console.log("a[" + index + "] = " + element);
+
+	mudaNomes('acf-field-group' + element, '');
+	mudaNomes('aba' + element, '');
+	mudaNomes('acf-field' + element, '');
+	mudaNomes('agenda' + element, '');
+	mudaNomes('attachment' + element, '');
+	mudaNomes('botao' + element, '');
+	mudaNomes('card' + element, '');
+	mudaNomes('contato' + element, '');
+	mudaNomes('concurso' + element, '');
+	mudaNomes('curriculo-da-cidade' + element, '');
+	mudaNomes('custom_css' + element, '');
+	mudaNomes('customize_changeset' + element, '');
+	mudaNomes('nav_menu_item' + element, '');
+	mudaNomes('oembed_cache' + element, '');
+	mudaNomes('organograma' + element, '');
+	mudaNomes('programa-projeto' + element, '');
+	mudaNomes('revision' + element, '');
+	mudaNomes('rl_gallery' + element, '');
+	mudaNomes('user_request' + element, '');
+	mudaNomes('wpcf7_contact_form' + element, '');
+}
+
+// Executa a funcao passando o id dos istes
+sites.forEach(logArrayElements);	
+
+//Remove do fitro de conteúdo		
 mudaNomes('aba1', '');
 mudaNomes('acf-field1', '');
 mudaNomes('acf-field-group1', '');
@@ -891,12 +862,26 @@ mudaNomes('revision1', '');
 mudaNomes('rl_gallery1', '');
 mudaNomes('user_request1', '');
 mudaNomes('wpcf7_contact_form1', '');
+
 //Troca nome filtros sites
 mudaNomes('/', 'SME Portal Educação');
 mudaNomes('/conselho-de-alimentacao-escolar/', 'CAE Conselho');
 mudaNomes('/conselho-municipal-de-educacao/', 'CME Conselho');
 mudaNomes('/conselho-de-representantes-de-conselhos-de-escola/', 'CRECE Conselho');
 mudaNomes('/conselho-de-acompanhamento-e-controle-social-do-fundeb/', 'CACSFUNDEB Conselho');
+mudaNomes('/diretoria-regional-de-educacao-campo-limpo/', 'DRE Campo Limpo');
+mudaNomes('/diretoria-regional-de-educacao-sao-miguel/', 'DRE São Miguel');
+mudaNomes('/diretoria-regional-de-educacao-sao-mateus/', 'DRE São Mateus');
+mudaNomes('/diretoria-regional-de-educacao-santo-amaro/', 'DRE Santo Amaro');
+mudaNomes('/diretoria-regional-de-educacao-pirituba/', 'DRE Pirituba');
+mudaNomes('/diretoria-regional-de-educacao-penha/', 'DRE Penha');
+mudaNomes('/diretoria-regional-de-educacao-jacana-tremembe/', 'DRE Jaçanã/Tremembé');
+mudaNomes('/diretoria-regional-de-educacao-itaquera/', 'DRE Itaquera');
+mudaNomes('/diretoria-regional-de-educacao-ipiranga/', 'DRE Ipiranga');
+mudaNomes('/diretoria-regional-de-educacao-guaianases/', 'DRE Guaianases');
+mudaNomes('/diretoria-regional-de-educacao-freguesia-brasilandia/', 'DRE Freguesia/Brasilândia');
+mudaNomes('/diretoria-regional-de-educacao-capela-do-socorro/', 'DRE Capela do Socorro');
+mudaNomes('/diretoria-regional-de-educacao-butanta/', 'DRE Butantã');
 
 
 			<?php 
