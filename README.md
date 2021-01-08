@@ -13,7 +13,7 @@ O [Ateliê do Software](http://forum.govit.prefeitura.sp.gov.br/uploads/default/
 
 # [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#portal-secretaria-municipal-de-educa%C3%A7%C3%A3o)Portal Secretaria Municipal de Educação
 
-#Conteúdo
+# Conteúdo
 
 1. [Sobre o Produto](#sobre-o-produto)
 2. [Sobre o Time](#sobre-o-time)    
@@ -24,7 +24,7 @@ O [Ateliê do Software](http://forum.govit.prefeitura.sp.gov.br/uploads/default/
 7. [Repositórios](#repositórios)  
 8. [Instalação e Configuração](#instalação-e-configuração)
 
-##Visão do produto
+## Visão do produto
 
 Para a  **comunidade e servidores**  
 
