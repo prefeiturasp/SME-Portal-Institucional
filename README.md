@@ -11,8 +11,6 @@ Com isso, pretendemos:
 
 O [Ateliê do Software](http://forum.govit.prefeitura.sp.gov.br/uploads/default/original/1X/c88a4715eb3f9fc3ceb882c1f6afe9e308805a17.pdf) é uma das ferramentas para operacionalização. Baseado em um modelo de contratação inspirado pelos movimentos ágil e de Software Craftsmanship, trabalhamos com equipes multidisciplinares para o desenvolvimento de produtos que beneficiam toda a comunidade escolar (técnicos da SME e DREs, gestores, professores, alunos e famílias) e concretizam os objetivos da Estratégia de Transformação Digital e Governo Aberto “Pátio Digital”.
 
-# [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#portal-secretaria-municipal-de-educa%C3%A7%C3%A3o)Portal Secretaria Municipal de Educação
-
 # Conteúdo
 
 1. [Sobre o Produto](#sobre-o-produto)
@@ -26,7 +24,7 @@ O [Ateliê do Software](http://forum.govit.prefeitura.sp.gov.br/uploads/default/
 
 ## Visão do produto
 
-Para a  **comunidade e servidores**  
+Para a  **comunidade e servidores da Secretaria Municipal de Educação (SME)**  
 
 Que  **necessitam de informações sobre as ações do município sobre educação**  
 
@@ -42,41 +40,47 @@ Onosso produto  **tem comunicação clara, eficiente e direcionada, com foco em 
 
 ## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#objetivos-de-neg%C3%B3cio)[](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#objetivos-de-neg%C3%B3cio)Objetivos de Negócio
 
-Comunicação transparente e amigável com maior alcance na comunidade e servidores, através de notícias e divulgação de projetos e programas ativos na rede.
+Portal tem o objetivo de garantir comunicação transparente e amigável com maior alcance na comunidade e servidores, através de notícias e divulgação de projetos e programas ativos na rede.
 
 ## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#personas)[](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#personas)Personas
 
-**Educadores:**  responsáveis pela gestão escolar, com necessidade de otimização de tempo. O portal é essencial para melhor divulgar as ações, programas e projetos realizados para a escola.
+**Quem:** educadores
+**Necessidades:** responsáveis pela gestão escolar, precisam de otimização de tempo. O portal é essencial para melhor divulgar as ações, programas e projetos realizados para a escola
 
-**Estudantes:** participação nas aulas, com garantia de recebimento de informações pedagógicas, atividades complementares e alimentação durante todo o período em que estiver na unidade escolar.
+**Quem:** estudantes
+**Necessidades:** participação nas aulas, com garantia de recebimento de informações pedagógicas, atividades complementares e alimentação durante todo o período em que estiver na unidade escolar
 
-**Família:** participação na formação educacional dos filhos, acesso a informações de programas e projetos oferecidos pela Secretaria Municipal de Educação, assim como, notícias sobre propostas educacionais, concursos, entre outros.
+**Quem:** famílias e responsáveis
+**Necessidades:** participação na formação educacional dos filhos, acesso a informações de programas e projetos oferecidos pela Secretaria Municipal de Educação, assim como, notícias sobre propostas educacionais, concursos, entre outros
 
-**Assessoria de Comunicação** responsável  pelo planejamento, a coordenação, a implementação e a avaliação de políticas e ações de comunicação para informar às unidades da Secretaria Municipal de Educação, à sociedade e aos meios de comunicação sobre políticas públicas, fatos e informações relativas à Educação Municipal.
+**Quem:** Assessoria de Comunicação da SME
+**Necessidades:** responsável  pelo planejamento, a coordenação, a implementação e a avaliação de políticas e ações de comunicação para informar às unidades da Secretaria Municipal de Educação, à sociedade e aos meios de comunicação sobre políticas públicas, fatos e informações relativas à Educação Municipal
 
-**Servidores** responsável pelo encaminhamento de novas demandas para a produção de notícias e páginas por ASCOM, por meio de nova portaria, nova regulamentação e/ou novos projetos e programas desenvolvidos pelas coordenadorias da SME, escolas, CEUs e DREs.
+**Quem:** servidores da SME
+**Necessidades:** responsável pelo encaminhamento de novas demandas para a produção de notícias e páginas por ASCOM, por meio de nova portaria, nova regulamentação e/ou novos projetos e programas desenvolvidos pelas coordenadorias da SME, escolas, CEUs e DREs
 
-**Pesquisadores** consomem informações e dados sobre educação, com a necessidade de divulgação e estudos para melhoria continua das ações realizadas na rede municipal de ensino.
+**Quem:** pesquisadores
+**Necessidades:** consomem informações e dados sobre educação, com a necessidade de divulgação e estudos para melhoria continua das ações realizadas na rede municipal de ensino
 
 ## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#funcionalidades)[](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#funcionalidades)Funcionalidades
 
-Portal Home - página principal do Portal com notícias em destaque,  menu por perfil e redes sociais.
+- Portal Home: página principal do Portal com notícias em destaque,  menu por perfil e redes sociais
 
-Notícias - cadastrar, editar, excluir e visualizar notícias.
+- Notícias: cadastrar, editar, excluir e visualizar notícias
 
-Mailling - banco de dados de e-mail para disparo manual de newsletter.
+- Mailling: banco de dados de e-mail para disparo manual de newsletter
 
-Módulo Escola Aberta - apresentar escolas municipais de São Paulo, com georreferenciamento, e cada unidade apresenta suas estatísticas, como série, períodos, quantidade de turmas e de estudantes, vagas oferecidas e vagas atendidas.
+- Módulo Escola Aberta: apresentar escolas municipais de São Paulo, com georreferenciamento, e cada unidade apresenta suas estatísticas, como série, períodos, quantidade de turmas e de estudantes, vagas oferecidas e vagas atendidas
 
-Construtor de layout páginas - opções para criação de layout modulares, oferecendo flexibilidade para o administrador e editor na formatação e criação de novos modelos.
+- Construtor de layout páginas: opções para criação de layout modulares, oferecendo flexibilidade para o administrador e editor na formatação e criação de novos modelos
 
-Módulo Conselhos - site exclusivo para divulgar formulação, implementação e avaliação de políticas públicas municipais no âmbito dos conselhos municipais, sendo eles: CME/CRECE/CAE/CACS-FUNDEB.
+- Módulo Conselhos: site exclusivo para divulgar formulação, implementação e avaliação de políticas públicas municipais no âmbito dos conselhos municipais, sendo eles: CME/CRECE/CAE/CACS-FUNDEB
 
-Módulo DREs - site exclusivo para divulgação de informações sobre projetos, agenda e endereços das Diretorias Regionais de Educação.
+- Módulo DREs: site exclusivo para divulgação de informações sobre projetos, agenda e endereços das Diretorias Regionais de Educação
 
-Programas e projetos - páginas específicas para divulgação de programas e projetos desenvolvidos pela rede municipal de ensino, com intuito detalhar as ações executadas.
+- Programas e projetos: páginas específicas para divulgação de programas e projetos desenvolvidos pela rede municipal de ensino, com intuito detalhar as ações executadas.
 
-Contatos e organograma - repositório único de contatos integrando lista de servidores e organograma.
+- Contatos e organograma: repositório único de contatos integrando lista de servidores e organograma
 
 ## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#roadmap)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#roadmap)Roadmap
 
@@ -110,7 +114,6 @@ Contatos e organograma - repositório único de contatos integrando lista de ser
     
 -  Pátio Digital
     
-
 **Release 1 - Portal Secretaria Municipal de Educação**
 
 -  Módulo Coordenadorias
@@ -123,15 +126,12 @@ Contatos e organograma - repositório único de contatos integrando lista de ser
 
 -  Módulo Programas e projetos
 
-    
-
 **Release 2 - Portal Secretaria Municipal de Educação**
 
 -  Acervo digital
     
 -  Home para período eleitoral
-    
-
+   
 **Release 3 - Portal Secretaria Municipal de Educação**
 
 - Concursos
@@ -153,9 +153,9 @@ Contatos e organograma - repositório único de contatos integrando lista de ser
 | Analista UX/UI | Giovanna Zanettin |  |  
 | Analista Programador | Felipe Viana de Almeida | |
 
-## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#como-surgiu)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#como-surgiu)Como surgiu
+# [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#como-surgiu)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#como-surgiu)Como surgiu
 
-### [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#fase-de-descoberta)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#fase-de-descoberta)Fase de Descoberta:
+## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#fase-de-descoberta)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#fase-de-descoberta)Fase de Descoberta:
 
 **Oficina sobre Reformulação do Portal:**
 
@@ -181,7 +181,9 @@ Contatos e organograma - repositório único de contatos integrando lista de ser
 
 https://www.figma.com/file/rw7OvDJ3t5dBA9xZOZVsh1/Portal-SME?node-id=23%3A23
 
-**Repositório de documentos:**  [https://www.figma.com/file/OVWVJHsrT8yRguadnfVxC2/Comunica%C3%A7%C3%A3o-Resposit%C3%B3rio](https://www.figma.com/file/OVWVJHsrT8yRguadnfVxC2/Comunica%C3%A7%C3%A3o-Resposit%C3%B3rio)
+# Repositório de documentos
+
+[https://www.figma.com/file/OVWVJHsrT8yRguadnfVxC2/Comunica%C3%A7%C3%A3o-Resposit%C3%B3rio](https://www.figma.com/file/OVWVJHsrT8yRguadnfVxC2/Comunica%C3%A7%C3%A3o-Resposit%C3%B3rio)
 
 # [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#links-%C3%BAteis)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#links-%C3%BAteis)Links Úteis:
 
@@ -201,15 +203,13 @@ https://www.figma.com/file/rw7OvDJ3t5dBA9xZOZVsh1/Portal-SME?node-id=23%3A23
 
 | Canal de comunicação | Objetivos |
 |----------------------|-----------|
-| [Issues do Github](https://github.com/prefeiturasp/SME-PTRF/issues) | - Sugestão de novas funcionalidades<br> - Reportar bugs<br> - Discussões técnicas |
+| [Issues do Github](https://github.com/prefeiturasp/SME-Portal-Institucional/issues) | - Sugestão de novas funcionalidades<br> - Reportar bugs<br> - Discussões técnicas |
 
 # Como contribuir
 
 Contribuições são **super bem vindas**! Se você tem vontade de construir o Portal Secretaria Municipal de Educação conosco, veja o nosso [guia de contribuição](./CONTRIBUTING.md) onde explicamos detalhadamente como trabalhamos e de que formas você pode nos ajudar a alcançar nossos objetivos. Lembrando que todos devem seguir  nosso [código de conduta](./CODEOFCONDUCT.md).
 
 ## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#reposit%C3%B3rios)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#reposit%C3%B3rios)Repositórios:
-
-Informar os repositórios de código que envolvem a solução:
 
 [SME-Portal Institucional]  [https://github.com/prefeiturasp/SME-Portal-Institucional](https://github.com/prefeiturasp/SME-Portal-Institucional)
 
