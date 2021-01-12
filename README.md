@@ -22,6 +22,8 @@ O [Ateliê do Software](http://forum.govit.prefeitura.sp.gov.br/uploads/default/
 7. [Repositórios](#repositórios)  
 8. [Instalação e Configuração](#instalação-e-configuração)
 
+# Sobre o produto
+
 ## Visão do produto
 
 Para a  **comunidade e servidores da Secretaria Municipal de Educação (SME)**  
@@ -38,11 +40,11 @@ Diferentemente do  **antigo Portal**
 
 Onosso produto  **tem comunicação clara, eficiente e direcionada, com foco em transparência e destaque para o visual e conteúdo que estão mais amigáveis, com acessibilidade digital e nova ferramenta de busca e consulta de dados das Escolas.**
 
-## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#objetivos-de-neg%C3%B3cio)[](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#objetivos-de-neg%C3%B3cio)Objetivos de Negócio
+## Objetivos de Negócio
 
 Portal tem o objetivo de garantir comunicação transparente e amigável com maior alcance na comunidade e servidores, através de notícias e divulgação de projetos e programas ativos na rede.
 
-## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#personas)[](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#personas)Personas
+## Personas
 
 **Quem:** educadores
 **Necessidades:** responsáveis pela gestão escolar, precisam de otimização de tempo. O portal é essencial para melhor divulgar as ações, programas e projetos realizados para a escola
@@ -62,7 +64,7 @@ Portal tem o objetivo de garantir comunicação transparente e amigável com mai
 **Quem:** pesquisadores
 **Necessidades:** consomem informações e dados sobre educação, com a necessidade de divulgação e estudos para melhoria continua das ações realizadas na rede municipal de ensino
 
-## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#funcionalidades)[](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#funcionalidades)Funcionalidades
+## Funcionalidades
 
 - Portal Home: página principal do Portal com notícias em destaque,  menu por perfil e redes sociais
 
@@ -82,7 +84,7 @@ Portal tem o objetivo de garantir comunicação transparente e amigável com mai
 
 - Contatos e organograma: repositório único de contatos integrando lista de servidores e organograma
 
-## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#roadmap)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#roadmap)Roadmap
+## Roadmap
 
 **MVP - Portal Secretaria Municipal de Educação**
 
@@ -142,7 +144,7 @@ Portal tem o objetivo de garantir comunicação transparente e amigável com mai
 
 - Chatbot
 
-## [](https://github.com/prefeiturasp/SME/blob/master/docs/TemplateREADME.md#sobre-o-time)Sobre o Time:
+# Sobre o Time:
 
 | Papel | Titular | Suplente  
 |--|--|--|  
@@ -153,9 +155,9 @@ Portal tem o objetivo de garantir comunicação transparente e amigável com mai
 | Analista UX/UI | Giovanna Zanettin |  |  
 | Analista Programador | Felipe Viana de Almeida | |
 
-# [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#como-surgiu)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#como-surgiu)Como surgiu
+# Como surgiu
 
-## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#fase-de-descoberta)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#fase-de-descoberta)Fase de Descoberta:
+## Fase de Descoberta:
 
 **Oficina sobre Reformulação do Portal:**
 
@@ -171,7 +173,7 @@ Portal tem o objetivo de garantir comunicação transparente e amigável com mai
 
 **Benchmark:**  [https://smeprefeituraspgov.sharepoint.com/:f:/r/sites/amcom/Shared%20Documents/AMCom/Portal%20SME/Reposit%C3%B3rio/Benchmarking?csf=1&web=1&e=2y6BZ1](https://smeprefeituraspgov.sharepoint.com/:f:/r/sites/amcom/Shared%20Documents/AMCom/Portal%20SME/Reposit%C3%B3rio/Benchmarking?csf=1&web=1&e=2y6BZ1)
 
-## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#prot%C3%B3tipos)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#prot%C3%B3tipos)Protótipos:
+## Protótipos:
 
 **Portal:**  [https://www.figma.com/file/Chl8gsmb5QKmqc5WPyGy5e/COMUNICA%C3%87%C3%83O-PORTAL-SME_sprint11_11-a-280619?node-id=0%3A1130](https://www.figma.com/file/Chl8gsmb5QKmqc5WPyGy5e/COMUNICA%C3%87%C3%83O-PORTAL-SME_sprint11_11-a-280619?node-id=0%3A1130)
 
@@ -197,8 +199,6 @@ https://www.figma.com/file/rw7OvDJ3t5dBA9xZOZVsh1/Portal-SME?node-id=23%3A23
 [https://educacao.sme.prefeitura.sp.gov.br/](http://educacao.sme.prefeitura.sp.gov.br/)
 
 
-# [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#comunica%C3%A7%C3%A3o)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#comunica%C3%A7%C3%A3o)Comunicação:
-
 # Comunicação:
 
 | Canal de comunicação | Objetivos |
@@ -214,6 +214,6 @@ Contribuições são **super bem vindas**! Se você tem vontade de construir o P
 [SME-Portal Institucional]  [https://github.com/prefeiturasp/SME-Portal-Institucional](https://github.com/prefeiturasp/SME-Portal-Institucional)
 
 
-## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#instala%C3%A7%C3%A3o-e-configura%C3%A7%C3%A3o)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#instala%C3%A7%C3%A3o-e-configura%C3%A7%C3%A3o)Instalação e Configuração:
+## Instalação e Configuração:
 
 - [https://codex.wordpress.org/pt-br:P%C3%A1gina_Inicial](https://codex.wordpress.org/pt-br:P%C3%A1gina_Inicial)
