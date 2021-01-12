@@ -852,3 +852,15 @@ footer .redes-footer{
 .sab .st{top:90%}
 .sad .st{left:105%}
 .sae .st{right:105%}
+
+/* Contatos SME */
+#lista-contatos ul li {
+    list-style-type: none;
+}
+.second-contact{
+	word-break: break-word;
+}
+.second-contact h3,
+.contacts-list h3 {
+    color: #42474A !important;
+}
