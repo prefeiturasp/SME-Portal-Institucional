@@ -209,7 +209,242 @@ if( have_rows('fx_flex_layout') ):
 										echo '</div>';
 									else :
 									endif;	
-								endif;
+								//Contatos em camadas
+								elseif( get_row_layout() == 'fx_cl1_contato_camadas_1_1' ): 
+									
+									//contatos selecionados									
+									if(get_sub_field('contatos'))://repeater
+										
+										// gerar numero aleatorio
+										$count = mt_rand(10,99);
+										$count2 = $count;
+										
+										echo '<div class="row">';
+											echo "<div class='col-sm-12 mb-4' id='lista-contatos'>";
+												echo "<ul>";										
+
+													while(has_sub_field('contatos')):
+														// menu de ancora
+														$principal = get_sub_field('contato_principal');
+													
+														if($principal && $principal != ''){
+															
+															foreach($principal as $contato){
+																echo "<li class='mb-3'><a href='#" . $count ."'>" . get_the_title($contato) . "</a></li>";
+															}
+																	
+														}
+
+														$count++;													
+													endwhile;
+
+												echo "</ul>";
+											echo "</div>"; // end col-sm-12
+										echo "</div>"; // end row
+										
+										
+										//loop contatos
+										echo '<div class="row">';
+											
+											
+											while(has_sub_field('contatos'))://verifica conteudo no repeater
+												
+												
+												echo "<div class='col-sm-12 contacts-list' id='" . $count2 . "'>";
+
+													// Contato principal	
+													$principal = get_sub_field('contato_principal');
+
+													foreach($principal as $contato){
+
+														echo '<h3>' . get_the_title($contato) . '</h3>';
+
+														echo "<div class='col-sm-12 mb-3'>";
+
+															// pega os campos de cada contato
+															$rows = get_field('campos_contato', $contato);
+															
+															if( $rows ) {
+																
+																foreach( $rows as $row ) {
+																	// verifica se os campos estao vazios
+																	if( $row['nome_campo'] && $row['nome_campo'] != '' && $row['informacao_campo'] && $row['informacao_campo'] != ''){
+																		
+																		// verifica o tipo do campos
+																		if($row['tipo_de_campo'] == 'telefone'){
+																			
+																			$telefone = $row['informacao_campo']; // pega o campo telefone
+																			$telefone = preg_replace('/[^A-Za-z0-9\-]/', '', $telefone); // remove os caracteres especiais
+																			$telefone = str_replace('-', '', $telefone); // troca o - por vazio
+
+																			echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='tel:" . $telefone ."'>" . $row['informacao_campo'] . "</a></p>";
+																		} elseif($row['tipo_de_campo'] == 'email'){
+
+																			echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='mailto:" . $row['informacao_campo'] ."'>" . $row['informacao_campo'] . "</a></p>";
+																		
+																		} elseif($row['tipo_de_campo'] == 'url'){
+
+																			echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='" . $row['informacao_campo'] ."'>" . $row['informacao_campo'] . "</a></p>";
+																		
+																		} else {
+																			echo "<p class='mb-0'>" . $row['nome_campo'] . ": " . $row['informacao_campo'] . "</p>";
+																		}
+																	}
+																	
+																}
+																
+															}
+
+														echo "</div>";
+
+													}
+
+												
+
+													
+													// Contato secundario	
+													$secundario = get_sub_field('contato_secundario');
+													if($secundario && $secundario != ''):
+														echo "<div class='col-sm-12'>";
+
+															echo "<div class='row d-flex align-items-stretch'>";
+
+																foreach($secundario as $contato){
+
+																	echo "<div class='col-12 col-sm-6 col-md-4 mb-3 d-flex second-contact'>";
+																		echo '<div class="border p-3 rounded w-100">';
+
+																		echo '<h3>' . get_the_title($contato) . '</h3>';
+																	
+																		// pega os campos de cada contato
+																		$rows = get_field('campos_contato', $contato);
+																		
+																		if( $rows ) {
+																			
+																			foreach( $rows as $row ) {
+																				// verifica se os campos estao vazios
+																				if( $row['nome_campo'] && $row['nome_campo'] != '' && $row['informacao_campo'] && $row['informacao_campo'] != ''){
+																					
+																					// verifica o tipo do campos
+																					if($row['tipo_de_campo'] == 'telefone'){
+																						
+																						$telefone = $row['informacao_campo']; // pega o campo telefone
+																						$telefone = preg_replace('/[^A-Za-z0-9\-]/', '', $telefone); // remove os caracteres especiais
+																						$telefone = str_replace('-', '', $telefone); // troca o - por vazio
+
+																						echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='tel:" . $telefone ."'>" . $row['informacao_campo'] . "</a></p>";
+																					} elseif($row['tipo_de_campo'] == 'email'){
+
+																						echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='mailto:" . $row['informacao_campo'] ."'>" . $row['informacao_campo'] . "</a></p>";
+																					
+																					} elseif($row['tipo_de_campo'] == 'url'){
+
+																						echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='" . $row['informacao_campo'] ."'>" . $row['informacao_campo'] . "</a></p>";
+																					
+																					} else {
+																						echo "<p class='mb-0'>" . $row['nome_campo'] . ": " . $row['informacao_campo'] . "</p>";
+																					}
+																				}
+																				
+																			}
+																			
+																		}
+
+																		echo "</div>"; // end border
+
+																	echo "</div>";
+
+																} // end foreach
+
+															echo "</div>"; // end row													 
+
+														echo "</div>"; // end col-sm-12
+													endif;
+
+													echo "<p class='mb-0 mt-3 text-right'><a href='#lista-contatos'>voltar para o topo</a></p>";
+													echo "<hr>";
+
+												echo "</div>";
+
+												//echo get_sub_field('contato_principal') . "<br>";
+												//echo get_sub_field('contato_secundario') . "<br>";
+
+												$count2++;
+											endwhile;
+
+										echo '</div>';		
+									endif;
+																
+								elseif( get_row_layout() == 'fx_cl1_contato_individual_1_1' ):
+									
+									if(get_sub_field('contatos_individuais'))://repeater
+
+										while(has_sub_field('contatos_individuais'))://verifica conteudo no repeater
+										
+										
+											echo "<div class='col-sm-12 contacts-list p-0'>";
+
+												// Contato principal	
+												$lista_contatos = get_sub_field('lista_contatos');
+
+												foreach($lista_contatos as $contato){													
+
+													echo "<div class='col-sm-12 mb-3 p-0'>";
+
+														echo '<h3>' . get_the_title($contato) . '</h3>';
+
+														// pega os campos de cada contato
+														$rows = get_field('campos_contato', $contato);
+														
+														if( $rows ) {
+															
+															foreach( $rows as $row ) {
+																// verifica se os campos estao vazios
+																if( $row['nome_campo'] && $row['nome_campo'] != '' && $row['informacao_campo'] && $row['informacao_campo'] != ''){
+																	
+																	// verifica o tipo do campos
+																	if($row['tipo_de_campo'] == 'telefone'){
+																		
+																		$telefone = $row['informacao_campo']; // pega o campo telefone
+																		$telefone = preg_replace('/[^A-Za-z0-9\-]/', '', $telefone); // remove os caracteres especiais
+																		$telefone = str_replace('-', '', $telefone); // troca o - por vazio
+
+																		echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='tel:" . $telefone ."'>" . $row['informacao_campo'] . "</a></p>";
+																	} elseif($row['tipo_de_campo'] == 'email'){
+
+																		echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='mailto:" . $row['informacao_campo'] ."'>" . $row['informacao_campo'] . "</a></p>";
+																	
+																	} elseif($row['tipo_de_campo'] == 'url'){
+
+																		echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='" . $row['informacao_campo'] ."'>" . $row['informacao_campo'] . "</a></p>";
+																	
+																	} else {
+																		echo "<p class='mb-0'>" . $row['nome_campo'] . ": " . $row['informacao_campo'] . "</p>";
+																	}
+																}
+																
+															}
+															
+														}
+
+													echo "</div>";
+
+												}
+
+
+												echo "<hr>";
+
+											echo "</div>";
+
+											//echo get_sub_field('contato_principal') . "<br>";
+											//echo get_sub_field('contato_secundario') . "<br>";
+
+											
+										endwhile;
+
+									endif; // contatos_individuais
+
+								endif; // fx_cl1_contato_individual_1_1
 							endwhile;
 						echo '</div>';//bootstrap col
 						echo '</div>';//bootstrap row
