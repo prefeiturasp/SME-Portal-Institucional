@@ -209,11 +209,11 @@ https://www.figma.com/file/rw7OvDJ3t5dBA9xZOZVsh1/Portal-SME?node-id=23%3A23
 
 Contribuições são **super bem vindas**! Se você tem vontade de construir o Portal Secretaria Municipal de Educação conosco, veja o nosso [guia de contribuição](./CONTRIBUTING.md) onde explicamos detalhadamente como trabalhamos e de que formas você pode nos ajudar a alcançar nossos objetivos. Lembrando que todos devem seguir  nosso [código de conduta](./CODEOFCONDUCT.md).
 
-## [](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#reposit%C3%B3rios)[](https://github.com/prefeiturasp/SME-Portal-Institucional/blob/master/README.md#reposit%C3%B3rios)Repositórios:
+# Repositórios:
 
 [SME-Portal Institucional]  [https://github.com/prefeiturasp/SME-Portal-Institucional](https://github.com/prefeiturasp/SME-Portal-Institucional)
 
 
-## Instalação e Configuração:
+# Instalação e Configuração:
 
 - [https://codex.wordpress.org/pt-br:P%C3%A1gina_Inicial](https://codex.wordpress.org/pt-br:P%C3%A1gina_Inicial)
