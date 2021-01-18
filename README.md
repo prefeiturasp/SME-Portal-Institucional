@@ -148,7 +148,7 @@ Portal tem o objetivo de garantir comunicação transparente e amigável com mai
 
 | Papel | Titular | Suplente  
 |--|--|--|  
-| Product Owner | Carlos de Paula| Monica Tang |  
+| Product Owner | Diego Lima| Monica Tang |  
 | Agente de Governança | Fernando Gonsalez |  |  
 | Gerente de Projeto | Aline Freitas |  |  
 | Scrum Master | Augusto Silva |  |   
