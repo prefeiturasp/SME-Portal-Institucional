@@ -23,7 +23,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 							<div class="col-md-7 evento-descri">
 								<h4>Descritivo do evento:</h4>
 								
-								<?php the_content(); ?>
+								<?php echo get_field('descricao'); ?>
 								
 								<?php
 									$flyer = get_field('adicionar_midia');
@@ -42,11 +42,15 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 							</div>
 
 							<?php 
-								$classi = get_field('classificacao_etaria');
+								$categories = get_the_category();
+								$category_id = $categories[0]->cat_ID;
+
+								$classi = get_field('faixa');
 								$espaco = get_field('local_espaco');
 								$inscri = get_field('inscricoes');
 								$datas = get_field('data'); // Datas
-								$end = get_field('endereco'); // Datas
+								
+								$end = get_field('endereco_ceu', 'category_' . $category_id);
 							?>
 
 							<div class="col-md-5 evento-details">
@@ -58,7 +62,18 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
                                             if($datas){
 
                                                 if($datas['tipo_de_data'] == 'data'){ // Se for do tipo data
-                                                    $dataInicial = $datas['data'];
+													
+													$dataEvento = $datas['data'];
+
+                                                    $dataEvento = explode("-", $dataEvento);
+                                                    $mes = $monthName = date('M', mktime(0, 0, 0, $dataEvento[1], 10));
+                                                    $data = $dataEvento[2] . " " . $mes . " " . $dataEvento[0];
+
+													$dataFinal = $data;
+													
+                                                } else if($datas['tipo_de_data'] == 'periodo'){
+													
+													$dataInicial = $datas['data'];
                                                     $dataFinal = $datas['data_final'];
 
                                                     if($dataFinal){ // Verifica se possui a data final
@@ -67,12 +82,17 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
                                                         $mes = $monthName = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
 
                                                         $data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+
+                                                        $dataFinal = $data;
                                                     } else { // Se nao tiver a final mostra apenas a inicial
                                                         $dataInicial = explode("-", $dataInicial);
                                                         $mes = $monthName = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
                                                         $data = $dataInicial[2] . " " . $mes . " " . $dataInicial[0];
+
+                                                        $dataFinal = $data;
                                                     }
-                                                } elseif($datas['tipo_de_data'] == 'semana'){ // se for do tipo semana
+
+												} elseif($datas['tipo_de_data'] == 'semana'){ // se for do tipo semana
 													$semana = $datas['dia_da_semana'];
 													
 													
@@ -130,7 +150,28 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 										<?php if($classi != '') : ?>
 											<tr>
 												<th scope="row" class="align-middle"><i class="fa fa-users" aria-hidden="true"></i></th>
-												<td><?php echo $classi; ?></td>                                    
+												<td><?php 
+													//echo $classi;
+													$m = 0;
+													foreach($classi as $faixa){
+														echo "<p class='m-0'>";
+															if($faixa['faixa_etaria'][0] != ''){
+																$term = get_term( $faixa['faixa_etaria'][0], 'faixa_categories' );
+																echo "<strong>" . $term->name . "</strong>";
+															}
+
+															if($faixa['data_faixa'] != ''){
+																echo " - " . $faixa['data_faixa'];
+															}
+
+															if($faixa['horario_faixa'] != ''){
+																echo " - " . $faixa['horario_faixa'];
+															}
+
+														echo "</p>";
+													}
+													//print_r($classi);
+												?></td>                                    
 											</tr>
 										<?php endif; ?>		
 										
@@ -175,7 +216,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 										<?php if($espaco != '') : ?>
 											<tr>
 												<th scope="row" class="align-middle"><i class="fa fa-street-view" aria-hidden="true"></i></th>
-												<td><?php echo $espaco; ?></td>                                    
+												<td><?php echo $espaco->name;?></td>                                    
 											</tr>
 										<?php endif; ?>
 

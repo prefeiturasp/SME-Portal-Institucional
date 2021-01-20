@@ -888,14 +888,14 @@ add_action( 'init', 'faixa_taxonomy');
 // Incluir taxonomia Faixa Etaria
 function periodo_taxonomy() {
     register_taxonomy(
-        'periodo_categories',  // The name of the taxonomy. Name should be in slug form (must not contain capital letters or spaces).
+        'localidade',  // The name of the taxonomy. Name should be in slug form (must not contain capital letters or spaces).
         'post',             // post type name
         array(
             'hierarchical' => true,
-            'label' => 'Periodo do Dia', // display name
+            'label' => 'Localidade', // display name
             'query_var' => true,
             'rewrite' => array(
-                'slug' => 'periodo',    // This controls the base slug that will display before each term
+                'slug' => 'localidade',    // This controls the base slug that will display before each term
                 'with_front' => false  // Don't display the category base before
             )
         )
@@ -924,3 +924,130 @@ add_image_size( 'thumb-eventos', 575, 297, true ); // Eventos
 add_action( 'init',  function() {
     add_rewrite_rule( 'page/([a-z0-9-]+)[/]?$', 'index.php?page=$matches[1]', 'top' );
 } );
+
+
+$user_edit_limit = new NS_User_Edit_Limit(
+    66,       // User ID we want to limit
+    [20434]   // Array of parent page IDs user is allowed to edit
+                
+);
+
+class NS_User_Edit_Limit {
+
+    /**
+     * Store the ID of the user we want to control, and the
+     * posts we will let the user edit.
+     */
+    private $user_id = 0;
+    private $allowed = array();
+
+    public function __construct( $user_id, $allowed ) {
+
+        // Save the ID of the user we want to limit.
+        $this->user_id = $user_id;
+
+        // Expand the list of allowed pages to include sub pages
+        $all_pages = new WP_Query( array(
+            'post_type' => 'page',
+            'posts_per_page' => -1,
+        ) );            
+        foreach ( $allowed as $page ) {
+            $this->allowed[] = $page;
+            $sub_pages = get_page_children( $page, $all_pages );
+            foreach ( $sub_pages as $sub_page ) {
+                $this->allowed[] = $sub_page->ID;
+            }
+        }
+
+        // For the prohibited user...
+        // Remove the edit link from the front-end as needed
+        add_filter( 'get_edit_post_link', array( $this, 'remove_edit_link' ), 10, 3 );
+        add_action( 'admin_bar_menu', array( $this, 'remove_wp_admin_edit_link' ), 10, 1 );
+        // Remove the edit link from wp-admin as needed
+        add_action( 'page_row_actions', array( $this, 'remove_page_list_edit_link' ), 10, 2 );
+    }
+
+    /**
+     * Helper functions that check if the current user is the one
+     * we want to limit, and check if a specific post is in our
+     * list of posts that we allow the user to edit.
+     */
+    private function is_user_limited() {
+        $current_user = wp_get_current_user();
+        return ( $current_user->ID == $this->user_id );
+    }
+    private function is_page_allowed( $post_id ) {
+        return in_array( $post_id, $this->allowed );
+    }
+
+    /**
+     * Removes the edit link from the front-end as needed.
+     */
+    public function remove_edit_link( $link, $post_id, $test ) {
+        /**
+         * If...
+         * - The limited user is logged in
+         * - The page the edit link is being created for is not in the allowed list
+         * ...return an empty $link. This also causes edit_post_link() to show nothing.
+         *
+         * Otherwise, return link as normal.
+         */
+        if ( $this->is_user_limited() && !$this->is_page_allowed( $post_id ) ) {
+            return '';
+        }
+        return $link;
+    }
+
+    /**
+     * Removes the edit link from WP Admin Bar
+     */
+    public function remove_wp_admin_edit_link( $wp_admin_bar ) {
+        /**
+         *  If:
+         *  - We're on a single page
+         *  - The limited user is logged in
+         *  - The page is not in the allowed list
+         *  ...Remove the edit link from the WP Admin Bar
+         */
+        if ( 
+            is_page() &&
+            $this->is_user_limited() &&
+            !$this->is_page_allowed( get_post()->ID )
+        ) {
+            $wp_admin_bar->remove_node( 'edit' );
+        }
+    }
+
+    /**
+     * Removes the edit link from WP Admin's edit.php
+     */
+    public function remove_page_list_edit_link( $actions, $post ) {
+        /**
+         * If:
+         * -The limited user is logged in
+         * -The page is not in the allowed list
+         * ...Remove the "Edit", "Quick Edit", and "Trash" quick links.
+         */
+        if ( 
+            $this->is_user_limited() &&
+            !$this->is_page_allowed( $post->ID )
+        ) {
+            unset( $actions['edit'] );
+            unset( $actions['inline hide-if-no-js']);
+            unset( $actions['trash'] );
+        }
+        return $actions;
+    }
+}
+
+
+function my_remove_meta_boxes() {
+    remove_meta_box( 'atividades_categoriesdiv', 'post', 'side' );
+    remove_meta_box( 'publico_categoriesdiv', 'post', 'side' );
+	remove_meta_box( 'tagsdiv-post_tag', 'post', 'side' );
+	remove_meta_box( 'faixa_categoriesdiv', 'post', 'side' );
+	remove_meta_box( 'postimagediv', 'post', 'side' );
+	remove_meta_box( 'categorydiv', 'post', 'side' );
+	remove_meta_box( 'localidadediv', 'post', 'side' );
+}
+add_action( 'admin_menu' , 'my_remove_meta_boxes' );

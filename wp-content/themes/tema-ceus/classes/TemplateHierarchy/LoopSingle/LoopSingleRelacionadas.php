@@ -65,10 +65,13 @@ class LoopSingleRelacionadas extends LoopSingle
 						</div>
 
 						<?php
-							$end = get_field('endereco');
-							$email = get_field('email');
-							$tel = get_field('telefone');
-							$mapa = get_field('iframe_mapa');
+							$categories = get_the_category();
+							$category_id = $categories[0]->cat_ID;
+							
+							$end = get_field('endereco_ceu', 'category_' . $category_id);
+							$email = get_field('email_ceu', 'category_' . $category_id);
+							$tel = get_field('telefone_ceu', 'category_' . $category_id);
+							$mapa = get_field('iframe_mapa_ceu', 'category_' . $category_id);
 						?>
 						
                         <div class="end-infos">
