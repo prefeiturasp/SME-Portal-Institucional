@@ -39,11 +39,13 @@ class PaginaProgramacaoEventos
                                 <div class="card-eventos">
                                     <div class="card-eventos-img">
                                         <?php 
-                                            $featured_img_url = get_the_post_thumbnail_url($eventoInterno->ID, 'thumb-eventos');
+                                            //$featured_img_url = get_the_post_thumbnail_url($eventoInterno->ID, 'thumb-eventos');
+                                            $imgSelect = get_field('capa_do_evento', $eventoInterno->ID);
+                                            $featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
                                             if($featured_img_url){
-                                                $imgEvento = $featured_img_url;
-                                                $thumbnail_id = get_post_thumbnail_id( $eventoInterno->ID );
-                                                $alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);  
+                                                $imgEvento = $featured_img_url[0];
+                                                //$thumbnail_id = get_post_thumbnail_id( $eventoInterno->ID );
+                                                $alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
                                             } else {
                                                 $imgEvento = 'https://via.placeholder.com/575x297';
                                                 $alt = get_the_title($eventoInterno->ID);
@@ -86,7 +88,67 @@ class PaginaProgramacaoEventos
                                             // Verifica se possui campos
                                             if($campos){
 
+                                                //print_r($campos);
+
                                                 if($campos['tipo_de_data'] == 'data'){ // Se for do tipo data
+                                                    
+                                                    $dataEvento = $campos['data'];
+
+                                                    $dataEvento = explode("-", $dataEvento);
+                                                    $mes = $monthName = date('M', mktime(0, 0, 0, $dataEvento[1], 10));
+                                                    $data = $dataEvento[2] . " " . $mes . " " . $dataEvento[0];
+
+                                                    $dataFinal = $data;
+
+                                                } elseif($campos['tipo_de_data'] == 'semana'){ // se for do tipo semana
+                                                    
+                                                    $semana = $campos['dia_da_semana'];													
+													
+                                                    $diasSemana = array();
+
+                                                    foreach($semana as $dias){
+
+                                                        $total = count($dias['selecione_os_dias']); 
+                                                        $i = 0;
+                                                        $diasShow = '';
+                                                        
+                                                        foreach($dias['selecione_os_dias'] as $diaS){
+                                                            $i++;
+                                                            //echo $dia . "<br>";
+                                                            if($total - $i == 1){
+                                                                $diasShow .= $diaS . " ";
+                                                            } elseif($total != $i){
+                                                                $diasShow .= $diaS . ", ";
+                                                            } else {
+                                                                $diasShow .= "e " . $diaS;
+                                                            }	
+                                                                                                                    
+                                                        }
+
+                                                        $show[] = $diasShow;
+                                                    }
+                                                    
+                                                    $totalDias = count($show);
+                                                    $j = 0;	
+                                                    
+                                                    $dias = '';
+
+                                                    foreach($show as $diaShow){
+                                                        $j++;
+                                                        if($j == 1){
+                                                            $dias .= $diaShow . " ";                                                        
+                                                        } else {
+                                                            $dias .= "/ " . $diaShow;
+                                                        }
+                                                    }
+
+                                                    $dataFinal = $dias; 
+
+                                                    $dias = '';
+                                                    $show = '';
+                                                    
+                                                } elseif($campos['tipo_de_data'] == 'periodo'){
+                                                    
                                                     $dataInicial = $campos['data'];
                                                     $dataFinal = $campos['data_final'];
 
@@ -96,46 +158,62 @@ class PaginaProgramacaoEventos
                                                         $mes = $monthName = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
 
                                                         $data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+
+                                                        $dataFinal = $data;
                                                     } else { // Se nao tiver a final mostra apenas a inicial
                                                         $dataInicial = explode("-", $dataInicial);
                                                         $mes = $monthName = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
                                                         $data = $dataInicial[2] . " " . $mes . " " . $dataInicial[0];
-                                                    }
-                                                } elseif($campos['tipo_de_data'] == 'semana'){ // se for do tipo semana
-                                                    $semana = $campos['semana'];
-                                                    
-                                                    $total = count($semana); 
-                                                    $i = 0;
-                                                    $dias = '';
 
-                                                    foreach($semana as $dia){
-                                                        $i++;
-                                                        if($total - $i == 1){
-                                                            $dias .= $dia . " ";
-                                                        } elseif($total != $i){
-                                                            $dias .= $dia . ", ";
-                                                        } else {
-                                                            $dias .= "e " . $dia;
-                                                        }
+                                                        $dataFinal = $data;
                                                     }
 
-                                                    $data = $dias; 
                                                 }
 
-                                            }
+                                            } 
                                         ?>
                                         <p class="mb-0">
-                                            <i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $data; ?>
+                                            <i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $dataFinal; ?>
                                             <br>
                                             <?php
-                                                // Exibe os horários
-                                                $horario = get_field('horario', $eventoInterno->ID);
+                                               // Exibe os horários
+                                                        $horario = get_field('horario', $eventoInterno->ID);
 
-                                                if($horario['horario']){
-                                                    $hora = $horario['horario'];
-                                                } else {
-                                                    $hora = '';
-                                                }
+                                                        
+
+                                                        if($horario['selecione_o_horario'] == 'horario'){
+                                                            $hora = $horario['hora'];
+                                                        } elseif($horario['selecione_o_horario'] == 'periodo'){
+                                                            
+                                                            $hora = '';
+                                                            $k = 0;
+                                                            
+                                                            foreach($horario['hora_periodo'] as $periodo){
+                                                                //print_r($periodo['periodo_hora_final']);
+                                                                
+                                                                if($periodo['periodo_hora_inicio']){
+
+                                                                    if($k > 0){
+                                                                        $hora .= ' / ';
+                                                                    }
+
+                                                                    $hora .= $periodo['periodo_hora_inicio'];
+
+                                                                } 
+                                                                
+                                                                if ($periodo['periodo_hora_final']){
+
+                                                                    $hora .= ' ás ' . $periodo['periodo_hora_final'];
+
+                                                                }
+                                                                
+                                                                $k++;
+                                                                
+                                                            }
+
+                                                        }else {
+                                                            $hora = '';
+                                                        }
                                             ?>
                                             <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $hora; ?>
                                         </p>

@@ -19,14 +19,16 @@ class LoopSingleCabecalho extends LoopSingle
             <div class="container">
                 <div class="row bg-event-title py-4">
                     <div class="col-md-5 offset-md-1">
-						<!-- <img src="http://via.placeholder.com/485x246" alt="" class="img-fluid"> -->
+						
 
 						<?php 
-							$featured_img_url = get_the_post_thumbnail_url($post->ID, 'thumb-eventos');
+							//$featured_img_url = get_the_post_thumbnail_url($post->ID, 'thumb-eventos');
+							$imgSelect = get_field('capa_do_evento', $post->ID);							
+                            $featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
 							if($featured_img_url){
-								$imgEvento = $featured_img_url;
-								$thumbnail_id = get_post_thumbnail_id( $post->ID );
-								$alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);  
+								$imgEvento = $featured_img_url[0];
+								//$thumbnail_id = get_post_thumbnail_id( $post->ID );
+								$alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
 							} else {
 								$imgEvento = 'https://via.placeholder.com/485x246';
 								$alt = get_the_title($post->ID);
