@@ -44,6 +44,10 @@ Onosso produto  **tem comunicação clara, eficiente e direcionada, com foco em 
 
 Portal tem o objetivo de garantir comunicação transparente e amigável com maior alcance na comunidade e servidores, através de notícias e divulgação de projetos e programas ativos na rede.
 
+Programação dos CEUs: é uma área onde a comunidade acessa para verificar eventos culturais, esportivos e educacionais em cada um dos CEUs de São Paulo.
+
+Acervo Digital: área que disponibiliza as publicações produzidas pela Secretaria Municipal de Educação, Coordenadorias, Núcleos e Divisões, Diretorias Regionais, e Conselhos.
+
 ## Personas
 
 **Quem:** educadores
@@ -84,34 +88,24 @@ Portal tem o objetivo de garantir comunicação transparente e amigável com mai
 
 - Contatos e organograma: repositório único de contatos integrando lista de servidores e organograma
 
+-  Agenda do secretário: 
+
+-  Acesso à informação e Participação social: páginas no sistema
+
 ## Roadmap
 
 **MVP - Portal Secretaria Municipal de Educação**
 
 -  Migração de dados do antigo Portal
     
--  Home
+-  Nova Home
+        
+-  Novo Organograma
     
--  Templates padrão
+-  Melhorias na área de noticias e criação de área com notícias das DREs
     
--  Usuários e permissionamentos
-    
--  Agenda do secretario
-    
--  Organograma
-    
--  Acesso a informação (e subitens)
-    
--  Participação social (e subitens)
-    
--  Noticias
-    
--  Mailling
-    
--  Redes Sociais
-    
--  Menu Persona Estudantes e famílias/Educadores/Transparência
-    
+-  Rodapé e cabeçalho do portal customizáveis para inserção de redes sociais da SME
+        
 -  Escola Aberta
     
 -  Pátio Digital
@@ -138,9 +132,11 @@ Portal tem o objetivo de garantir comunicação transparente e amigável com mai
 
 - Concursos
     
-- Formulário envie sua pauta/relato de boas práticas
-
+    
+    
 - Impresa Jovem
+
+**backlog**
 
 - Chatbot
 
@@ -156,6 +152,8 @@ Portal tem o objetivo de garantir comunicação transparente e amigável com mai
 | Analista Programador | Felipe Viana de Almeida | |
 
 # Como surgiu
+
+Existia a necessidade de adaptar o portal para garantia de acessibilidade para os usuários.  atender requisitos 
 
 ## Fase de Descoberta:
 
