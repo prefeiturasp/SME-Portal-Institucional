@@ -42,30 +42,36 @@ Onosso produto  **tem comunicação clara, eficiente e direcionada, com foco em 
 
 ## Objetivos de Negócio
 
-Portal tem o objetivo de garantir comunicação transparente e amigável com maior alcance na comunidade e servidores, através de notícias e divulgação de projetos e programas ativos na rede.
+- O Portal tem o objetivo de garantir comunicação transparente e amigável com maior alcance na comunidade e servidores, através de notícias e divulgação de projetos e programas ativos na rede.
 
-Programação dos CEUs: é uma área onde a comunidade acessa para verificar eventos culturais, esportivos e educacionais em cada um dos CEUs de São Paulo.
+- Programação dos CEUs: é uma área onde a comunidade acessa para verificar eventos culturais, esportivos e educacionais em cada um dos CEUs de São Paulo.
 
-Acervo Digital: área que disponibiliza as publicações produzidas pela Secretaria Municipal de Educação, Coordenadorias, Núcleos e Divisões, Diretorias Regionais, e Conselhos.
+- Acervo Digital: área que disponibiliza as publicações produzidas pela Secretaria Municipal de Educação, Coordenadorias, Núcleos e Divisões, Diretorias Regionais, e Conselhos.
 
 ## Personas
 
-**Quem:** educadores
+### Educadores
+
 **Necessidades:** responsáveis pela gestão escolar, precisam de otimização de tempo. O portal é essencial para melhor divulgar as ações, programas e projetos realizados para a escola
 
-**Quem:** estudantes
+### Estudantes
+
 **Necessidades:** participação nas aulas, com garantia de recebimento de informações pedagógicas, atividades complementares e alimentação durante todo o período em que estiver na unidade escolar
 
-**Quem:** famílias e responsáveis
+### Famílias e responsáveis
+
 **Necessidades:** participação na formação educacional dos filhos, acesso a informações de programas e projetos oferecidos pela Secretaria Municipal de Educação, assim como, notícias sobre propostas educacionais, concursos, entre outros
 
-**Quem:** Assessoria de Comunicação da SME
+### Assessoria de Comunicação da SME
+
 **Necessidades:** responsável  pelo planejamento, a coordenação, a implementação e a avaliação de políticas e ações de comunicação para informar às unidades da Secretaria Municipal de Educação, à sociedade e aos meios de comunicação sobre políticas públicas, fatos e informações relativas à Educação Municipal
 
-**Quem:** servidores da SME
+### Servidores da SME
+
 **Necessidades:** responsável pelo encaminhamento de novas demandas para a produção de notícias e páginas por ASCOM, por meio de nova portaria, nova regulamentação e/ou novos projetos e programas desenvolvidos pelas coordenadorias da SME, escolas, CEUs e DREs
 
-**Quem:** pesquisadores
+### Pesquisadores
+
 **Necessidades:** consomem informações e dados sobre educação, com a necessidade de divulgação e estudos para melhoria continua das ações realizadas na rede municipal de ensino
 
 ## Funcionalidades
@@ -88,9 +94,7 @@ Acervo Digital: área que disponibiliza as publicações produzidas pela Secreta
 
 - Contatos e organograma: repositório único de contatos integrando lista de servidores e organograma
 
--  Agenda do secretário: 
-
--  Acesso à informação e Participação social: páginas no sistema
+- Agenda do secretário
 
 ## Roadmap
 
@@ -110,33 +114,7 @@ Acervo Digital: área que disponibiliza as publicações produzidas pela Secreta
     
 -  Pátio Digital
     
-**Release 1 - Portal Secretaria Municipal de Educação**
-
--  Módulo Coordenadorias
-    
--  Módulo DREs
-    
--  Módulo Conselhos
-
--  Busca avançada
-
--  Módulo Programas e projetos
-
-**Release 2 - Portal Secretaria Municipal de Educação**
-
--  Acervo digital
-    
--  Home para período eleitoral
-   
-**Release 3 - Portal Secretaria Municipal de Educação**
-
-- Concursos
-    
-    
-    
 - Impresa Jovem
-
-**backlog**
 
 - Chatbot
 
@@ -153,7 +131,7 @@ Acervo Digital: área que disponibiliza as publicações produzidas pela Secreta
 
 # Como surgiu
 
-Existia a necessidade de adaptar o portal para garantia de acessibilidade para os usuários.  atender requisitos 
+Existia a necessidade de adaptar o antigo portal para atender requisitos e garantir a acessibilidade para os usuários. 
 
 ## Fase de Descoberta:
 
@@ -171,7 +149,7 @@ Existia a necessidade de adaptar o portal para garantia de acessibilidade para o
 
 **Benchmark:**  [https://smeprefeituraspgov.sharepoint.com/:f:/r/sites/amcom/Shared%20Documents/AMCom/Portal%20SME/Reposit%C3%B3rio/Benchmarking?csf=1&web=1&e=2y6BZ1](https://smeprefeituraspgov.sharepoint.com/:f:/r/sites/amcom/Shared%20Documents/AMCom/Portal%20SME/Reposit%C3%B3rio/Benchmarking?csf=1&web=1&e=2y6BZ1)
 
-## Protótipos:
+## Protótipos
 
 **Portal:**  [https://www.figma.com/file/Chl8gsmb5QKmqc5WPyGy5e/COMUNICA%C3%87%C3%83O-PORTAL-SME_sprint11_11-a-280619?node-id=0%3A1130](https://www.figma.com/file/Chl8gsmb5QKmqc5WPyGy5e/COMUNICA%C3%87%C3%83O-PORTAL-SME_sprint11_11-a-280619?node-id=0%3A1130)
 
@@ -197,7 +175,7 @@ https://www.figma.com/file/rw7OvDJ3t5dBA9xZOZVsh1/Portal-SME?node-id=23%3A23
 [https://educacao.sme.prefeitura.sp.gov.br/](http://educacao.sme.prefeitura.sp.gov.br/)
 
 
-# Comunicação:
+# Comunicação
 
 | Canal de comunicação | Objetivos |
 |----------------------|-----------|
@@ -207,11 +185,11 @@ https://www.figma.com/file/rw7OvDJ3t5dBA9xZOZVsh1/Portal-SME?node-id=23%3A23
 
 Contribuições são **super bem vindas**! Se você tem vontade de construir o Portal Secretaria Municipal de Educação conosco, veja o nosso [guia de contribuição](./CONTRIBUTING.md) onde explicamos detalhadamente como trabalhamos e de que formas você pode nos ajudar a alcançar nossos objetivos. Lembrando que todos devem seguir  nosso [código de conduta](./CODEOFCONDUCT.md).
 
-# Repositórios:
+# Repositórios
 
 [SME-Portal Institucional]  [https://github.com/prefeiturasp/SME-Portal-Institucional](https://github.com/prefeiturasp/SME-Portal-Institucional)
 
 
-# Instalação e Configuração:
+# Instalação e Configuração
 
 - [https://codex.wordpress.org/pt-br:P%C3%A1gina_Inicial](https://codex.wordpress.org/pt-br:P%C3%A1gina_Inicial)
