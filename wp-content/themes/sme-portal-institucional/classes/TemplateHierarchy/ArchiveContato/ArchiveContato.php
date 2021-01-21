@@ -204,7 +204,7 @@ class ArchiveContato extends Util
 				}elseif ($d['tipo'] == 'tel'){
 					echo '<p>' . $this->getNomeTipoCampo($d['tipo']) . '<a class="'.$classe_css.'" href="tel: ' . esc_attr($d['valor']) . '">' . esc_attr($d['valor']) . '</a></p>';
 				}elseif($d['tipo'] == 'site'){
-					echo '<p> <strong>Site:</strong> ' . '<a class="'.$classe_css.'" href="' . esc_attr($d['valor']) . '">' . esc_attr($d['valor']) . '</a></p>';
+					echo '<p> <strong>Visite o site:</strong> ' . '<a class="'.$classe_css.'" href="' . esc_attr($d['valor']) . '">' . esc_attr($d['valor']) . '</a></p>';
 				}else{
 					echo '<p>'.$this->getNomeTipoCampo($d['tipo']).esc_attr($d['valor']).'</p>';
 				}
