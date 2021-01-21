@@ -39,6 +39,7 @@ class ArchiveContatoMetabox extends Util
 			<option value="text" >Campo de Texto</option>
 			<option value="tel" >Campo de Telefone</option>
 			<option value="email" >Campo de Email</option>
+			<option value="site" >Site</option>
 		</select>
 		<p><input class="add_campos_contato button-primary" id="add_campos_contato" type="button" value="Adicionar Campo"></p>
 
@@ -172,6 +173,11 @@ class ArchiveContatoMetabox extends Util
 		switch ($tipo_de_campo) {
 			case 'email':
 				return '<span><strong>Campo de email:</strong> </span>';
+			//break;
+		}
+		switch ($tipo_de_campo) {
+			case 'site':
+				return '<span><strong>Site:</strong> </span>';
 			//break;
 		}
 
