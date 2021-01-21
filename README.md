@@ -98,8 +98,6 @@ Onosso produto  **tem comunicação clara, eficiente e direcionada, com foco em 
 
 ## Roadmap
 
-**MVP - Portal Secretaria Municipal de Educação**
-
 -  Migração de dados do antigo Portal
     
 -  Nova Home
