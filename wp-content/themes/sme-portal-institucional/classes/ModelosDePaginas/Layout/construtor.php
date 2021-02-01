@@ -208,7 +208,9 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';
 									else :
-									endif;	
+									endif;
+
+								
 								//Contatos em camadas
 								elseif( get_row_layout() == 'fx_cl1_contato_camadas_1_1' ): 
 									
@@ -257,7 +259,7 @@ if( have_rows('fx_flex_layout') ):
 
 													foreach($principal as $contato){
 
-														echo '<h3>' . get_the_title($contato) . '</h3>';
+														echo '<h2>' . get_the_title($contato) . '</h2>';
 
 														echo "<div class='col-sm-12 mb-3'>";
 
@@ -444,7 +446,324 @@ if( have_rows('fx_flex_layout') ):
 
 									endif; // contatos_individuais
 
-								endif; // fx_cl1_contato_individual_1_1
+								// Slide de Noticias
+								elseif( get_row_layout() == 'fx_cl1_slide_noticias_1_1' ):
+
+									if(get_sub_field('fx_slides_1_1')) :									 
+
+										echo '<div class="slide-principal mt-3 mb-3">';
+											echo '<div class="container">';
+												echo '<div class="row">';
+													
+													$slidesNoticias = get_sub_field('fx_slides_1_1');
+													$qtSlide = count($slidesNoticias);
+													$l = 0;
+													$m = 0;
+													//echo $qtSlide;													
+													
+													echo '<div id="carouselExampleIndicators" class="carousel slide col-sm-12" data-ride="carousel">';
+														echo '<ol class="carousel-indicators">';
+														
+														
+															while($m < $qtSlide) :
+																if($m == 0){
+																	$active = 'active';
+																} else {
+																	$active = '';
+																}
+																echo '<li data-target="#carouselExampleIndicators" data-slide-to="' . $m . '" class="' . $active . '"></li>';
+															
+																$m++;
+															endwhile;
+															
+														echo '</ol>';
+
+														echo '<div class="carousel-inner border">';
+
+															foreach($slidesNoticias as $slide): ?>
+																<div class="carousel-item <?php if($l == 0){echo 'active';} ?>">
+																	<div class="row">
+																		<div class="col-sm-12 col-md-7">
+																			<?php                                                 
+																				 $imgSelect = get_the_post_thumbnail_url($slide, 'slide-noticias');
+																				 
+																				 $featured_img_url =  $imgSelect;
+																				 
+																				 if($featured_img_url){
+																					 $imgSlide =  $imgSelect;
+																				 } else {
+																					 $imgSlide = 'http://via.placeholder.com/656x304';
+																				 }                                               
+																			?>
+																			<img class="d-block w-100" src="<?php echo  $imgSlide; ?>" alt="Slide ">
+																		</div>
+																		<div class="col-sm-12 col-md-5"> 
+																			<div class="carousel-title">
+																				<p><a href="#"><?php echo get_the_title($slide); ?></a></p>
+																			</div>                                            
+																		</div>
+																	</div>
+																</div>
+															
+															
+															<?php
+																$l++;
+															endforeach;
+																
+
+														echo '</div>';
+
+														// Setas do SLide
+														echo '<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">';
+														echo '<span class="carousel-control-prev-icon" aria-hidden="true"></span>';
+														echo '<span class="sr-only">Previous</span>';
+														echo '</a>';
+														echo '<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">';
+														echo '<span class="carousel-control-next-icon" aria-hidden="true"></span>';
+														echo '<span class="sr-only">Next</span>';
+														echo '</a>';
+													echo '</div>';
+												echo '</div>';
+											echo '</div>';
+										echo '</div>';
+
+									endif; // fx_slides_1_1
+
+								// Acesso Rapido
+								elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_1' ):									
+
+									if(get_sub_field('fx_acessos_1_1')) :
+									
+
+										echo '<session class="container-fluid container-fluid-botoes-persona">';
+
+											echo '<div class="container">';
+
+												echo '<div class="row">';
+
+													echo '<div class="col-sm-12">';
+
+														echo '<ul class="card-group nav m-0 acesso-rapido" role="tablist">';
+
+															$acessosRapido = get_sub_field('fx_acessos_1_1');
+
+															//echo "<pre>";
+															//print_r($acessosRapido);
+															//echo "</pre>";
+
+															foreach($acessosRapido as $acessos):
+															?>
+																<li id="tab_<?php echo $acessos['menu']; ?>" class="container-a-icones-home card rounded-0 border-0">
+
+																	<a id="tab_<?php echo $acessos['menu']; ?>" data-toggle="tab" href="#menu_<?php echo $acessos['menu']; ?>" role="tab" aria-selected="false" class="a-icones-home ">
+
+																		<div class="row w-100">
+
+																			<div class="col-sm-4 pr-0">
+																				<div class="icon-card">
+																					<img src="<?php echo $acessos['icone']['sizes']['thumbnail']; ?>" class="img-fluid" alt="<?php echo $acessos['icone']['alt']; ?>">
+																				</div>
+																			</div>
+
+																			<div class="col-sm-8 pr-0 d-flex align-items-center">
+																				<div class="card-body text-center px-0">
+																					<p class="card-text"><?php echo $acessos['titulo']; ?></p>
+																				</div>
+																			</div>
+
+																		</div>
+
+																		
+																	</a>
+
+																</li>
+															<?php
+															endforeach;
+
+															
+																			
+														echo '</ul>';
+													echo '</div>';                  
+
+												echo '</div>';
+											echo '</div>';
+										echo '</session>';
+										
+										
+										echo '<section class="tab-content container acesso-rapido-menu">';
+																
+											foreach($acessosRapido as $acessos):
+
+												echo '<section class="tab-pane fade container p-0 my-3" id="menu_' . $acessos['menu'] . '" role="tabpanel" aria-labelledby="' . $acessos['menu'] . '">';
+									
+													echo '<nav class="navbar navbar-expand-lg nav-icones-menu">';
+
+
+														echo '<article class="collapse navbar-collapse">';
+														
+															wp_nav_menu(array(
+																'menu' => $acessos['menu'],
+																'depth' => 2,
+																'menu_class' => 'navbar-nav m-auto nav nav-tabs',
+																'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
+																'walker'            => new \WP_Bootstrap_Navwalker(),
+															));
+															
+														echo '</article>';
+
+													echo '</nav>';																						
+
+												echo '</section>';
+
+											endforeach;
+										echo '</section>';
+										
+
+									endif; // end fx_acessos_1_1
+
+								// Bloco Noticias
+								elseif( get_row_layout() == 'fx_cl1_bloco_noticias_1_1' ):
+
+									$blocoTitulo = get_sub_field('fx_cl1_bloco_noticias_titulo');
+									$blocoColunas = get_sub_field('fx_cl1_bloco_noticias_colunas');
+									$blocoNoticias = get_sub_field('fx_cl1_bloco_noticias_selecione_noticias');
+									
+									echo '<section class="container lista-noticias mt-4">';
+										echo '<div class="row">';
+											echo '<div class="col-sm-12 lista-noticias-titulo">';
+												echo '<p>' . $blocoTitulo . '</p>';
+											echo '</div>';
+
+											if($blocoNoticias) :
+
+												foreach($blocoNoticias as $noticia):
+																									
+													$imgSelect = get_the_post_thumbnail_url($noticia, 'slide-noticias');
+													$thumbnail_id = get_post_thumbnail_id( $noticia );
+													$alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true); 
+													
+													$featured_img_url =  $imgSelect;
+													
+													if($featured_img_url){
+														$imgSlide =  $imgSelect;
+														if(!$alt){
+															$alt = get_the_title();
+														}
+													} else {
+														$imgSlide = 'http://via.placeholder.com/656x304';
+														$alt = get_the_title();
+													}                                               
+											
+												?>
+													<div class="col-sm-12 col-md-6 col-lg-<?php echo $blocoColunas; ?> lista-noticia">
+														<a href="<?php echo get_the_permalink($noticia); ?>">
+															<img src="<?php echo $imgSlide; ?>" alt="<?php echo $alt; ?>" class="img-fluid">
+															<p><?php echo get_the_title($noticia); ?></p>
+														</a>
+													</div>
+
+												<?php
+												endforeach;
+											
+											endif;
+
+										echo '</div>';
+									echo '</section>';
+
+
+								// Bloco Redes Sociais
+								elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_1' ):
+									
+									if(get_sub_field('fx_fl1_selecione_rede_1_1') == 'insta'):
+								?>
+
+										<div class="container">	
+											<div class="row social-block">
+												<div class="col-sm-12 col-md-5">
+													<?php if(get_sub_field('fx_fl1_titulo_1_1')): ?>
+														<p><?php echo get_sub_field('fx_fl1_titulo_1_1'); ?></p>
+													<?php endif; ?>
+
+													<?php if(get_sub_field('fx_fl1_descricao_1_1')): ?>
+														<p class='social-descri'><?php echo get_sub_field('fx_fl1_descricao_1_1'); ?></p>
+													<?php endif; ?>
+
+													<hr>
+
+													<?php if(get_sub_field('fx_fl1_pagina_1_1')): ?>
+														<a href="<?php echo get_sub_field('fx_fl1_pagina_1_1'); ?>"><button type="button" class="btn btn-primary btn-sm px-3 my-3"><i class="fa fa-instagram" aria-hidden="true"></i> | Instagram</button></a>
+													<?php endif; ?>
+													
+												</div>
+												<div class="col-sm-12 col-md-7">
+													<?php if(get_sub_field('fx_fl1_shortcode_1_1')):
+														$short = get_sub_field('fx_fl1_shortcode_1_1');
+														echo do_shortcode($short);
+													endif; ?>
+													
+												</div>
+											</div>
+										</div>
+
+								<?php
+									elseif(get_sub_field('fx_fl1_selecione_rede_1_1') == 'face'):
+								?>
+									<div class="row social-block">
+										<div class="col-sm-12 col-md-5">
+
+											<?php if(get_sub_field('fx_fl1_titulo_1_1')): ?>
+												<p><?php echo get_sub_field('fx_fl1_titulo_1_1'); ?></p>
+											<?php endif; ?>
+
+											<?php if(get_sub_field('fx_fl1_descricao_1_1')): ?>
+												<p class='social-descri'><?php echo get_sub_field('fx_fl1_descricao_1_1'); ?></p>
+											<?php endif; ?>
+
+											<hr>
+											<?php if(get_sub_field('fx_fl1_pagina_1_1')): ?>
+												<a href="<?php echo get_sub_field('fx_fl1_pagina_1_1'); ?>"><button type="button" class="btn btn-primary btn-sm px-3 my-3"><i class="fa fa-facebook-square" aria-hidden="true"></i> | Facebook</button></a>
+											<?php endif; ?>
+						
+										</div>
+										<div class="col-sm-12 col-md-7">
+											<div class="fb-page" data-href="<?php echo get_sub_field('fx_fl1_pagina_1_1'); ?>" data-tabs="timeline" data-width="" data-height="310" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/EducaPrefSP/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/EducaPrefSP/">Secretaria Municipal de Educação de São Paulo</a></blockquote></div>
+										</div>
+									</div>
+								<?php
+									elseif(get_sub_field('fx_fl1_selecione_rede_1_1') == 'ytube'):
+								?>
+									<div class="container">
+										<div class="row social-block">
+											<div class="col-sm-12 col-md-6">
+												
+												<?php if(get_sub_field('fx_fl1_titulo_1_1')): ?>
+													<p><?php echo get_sub_field('fx_fl1_titulo_1_1'); ?></p>
+												<?php endif; ?>
+
+												<?php if(get_sub_field('fx_fl1_descricao_1_1')): ?>
+													<p class='social-descri'><?php echo get_sub_field('fx_fl1_descricao_1_1'); ?></p>
+												<?php endif; ?>		
+
+												<?php if(get_sub_field('fx_fl1_pagina_1_1')): ?>
+													<a href="<?php echo get_sub_field('fx_fl1_pagina_1_1'); ?>"><button type="button" class="btn btn-primary btn-sm px-3 my-3"><i class="fa fa-youtube-play" aria-hidden="true"></i> | Youtube</button></a>
+												<?php endif; ?>
+												
+											</div>												
+											<div class="col-sm-12 col-md-6">
+												<?php
+													if(get_sub_field('fx_fl1_video_1_1')) :
+														$url = get_sub_field('fx_fl1_video_1_1');
+														parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
+												?>
+													<iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $my_array_of_vars['v']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+												<?php endif; ?>
+											</div>
+										</div>
+									</div>
+								<?php
+									endif;
+								endif; //fx_fl1_bloco_rede_1_1
+
 							endwhile;
 						echo '</div>';//bootstrap col
 						echo '</div>';//bootstrap row
@@ -654,7 +973,8 @@ if( have_rows('fx_flex_layout') ):
 					echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
 					echo '<div class="container">';//bootstrap container
 					echo '<div class="row">';//bootstrap row
-		        	//conteudo flexivel 2 colunas esquerda
+					
+					//conteudo flexivel 2 colunas esquerda
 					if( have_rows('fx_coluna_1_2') ):
 						echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
 							while( have_rows('fx_coluna_1_2') ): the_row();
@@ -795,8 +1115,100 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';
 									else :
-									endif;	
+									endif;
+
+								// Bloco Redes Sociais
+								elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_2' ):
+									if(get_sub_field('fx_fl1_selecione_rede_1_2') == 'insta'):
+								?>
+
+										<div class="container">	
+											<div class="row social-block">
+												<div class="col-sm-12 col-md-5">
+													<?php if(get_sub_field('fx_fl1_titulo_1_2')): ?>
+														<p><?php echo get_sub_field('fx_fl1_titulo_1_2'); ?></p>
+													<?php endif; ?>
+
+													<?php if(get_sub_field('fx_fl1_descricao_1_2')): ?>
+														<p class='social-descri'><?php echo get_sub_field('fx_fl1_descricao_1_2'); ?></p>
+													<?php endif; ?>
+
+													<hr>
+
+													<?php if(get_sub_field('fx_fl1_pagina_1_2')): ?>
+														<a href="<?php echo get_sub_field('fx_fl1_pagina_1_2'); ?>"><button type="button" class="btn btn-primary btn-sm px-3 my-3"><i class="fa fa-instagram" aria-hidden="true"></i> | Instagram</button></a>
+													<?php endif; ?>
+													
+												</div>
+												<div class="col-sm-12 col-md-7">
+													<?php if(get_sub_field('fx_fl1_shortcode_1_2')):
+														$short = get_sub_field('fx_fl1_shortcode_1_2');
+														echo do_shortcode($short);
+													endif; ?>
+													
+												</div>
+											</div>
+										</div>
+
+								<?php
+									elseif(get_sub_field('fx_fl1_selecione_rede_1_2') == 'face'):
+								?>
+									<div class="row social-block">
+										<div class="col-sm-12 col-md-5">
+
+											<?php if(get_sub_field('fx_fl1_titulo_1_2')): ?>
+												<p><?php echo get_sub_field('fx_fl1_titulo_1_2'); ?></p>
+											<?php endif; ?>
+
+											<?php if(get_sub_field('fx_fl1_descricao_1_2')): ?>
+												<p class='social-descri'><?php echo get_sub_field('fx_fl1_descricao_1_2'); ?></p>
+											<?php endif; ?>
+
+											<hr>
+											<?php if(get_sub_field('fx_fl1_pagina_1_2')): ?>
+												<a href="<?php echo get_sub_field('fx_fl1_pagina_1_2'); ?>"><button type="button" class="btn btn-primary btn-sm px-3 my-3"><i class="fa fa-facebook-square" aria-hidden="true"></i> | Facebook</button></a>
+											<?php endif; ?>
+						
+										</div>
+										<div class="col-sm-12 col-md-7">
+											<div class="fb-page" data-href="<?php echo get_sub_field('fx_fl1_pagina_1_2'); ?>" data-tabs="timeline" data-width="" data-height="310" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/EducaPrefSP/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/EducaPrefSP/">Secretaria Municipal de Educação de São Paulo</a></blockquote></div>
+										</div>
+									</div>
+								<?php
+									elseif(get_sub_field('fx_fl1_selecione_rede_1_2') == 'ytube'):
+								?>
+									<div class="container">
+										<div class="row social-block">
+											<div class="col-sm-12">
+												
+												<?php if(get_sub_field('fx_fl1_titulo_1_2')): ?>
+													<p><?php echo get_sub_field('fx_fl1_titulo_1_2'); ?></p>
+												<?php endif; ?>
+
+												<?php if(get_sub_field('fx_fl1_descricao_1_2')): ?>
+													<p class='social-descri'><?php echo get_sub_field('fx_fl1_descricao_1_2'); ?></p>
+												<?php endif; ?>		
+
+												<?php if(get_sub_field('fx_fl1_pagina_1_2')): ?>
+													<a href="<?php echo get_sub_field('fx_fl1_pagina_1_2'); ?>"><button type="button" class="btn btn-primary btn-sm px-3 my-3"><i class="fa fa-youtube-play" aria-hidden="true"></i> | Youtube</button></a>
+												<?php endif; ?>
+												
+											</div>												
+											<div class="col-sm-12 mt-4">
+												<?php
+													if(get_sub_field('fx_fl1_video_1_2')) :
+														$url = get_sub_field('fx_fl1_video_1_2');
+														parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
+												?>
+													<iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $my_array_of_vars['v']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+												<?php endif; ?>
+											</div>
+										</div>
+									</div>
+								<?php
+									endif;
 								endif;
+
 							endwhile;
 						echo '</div>';//bootstrap col
 
@@ -943,7 +1355,98 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';
 									else :
-									endif;	
+									endif;									
+
+								// Bloco Redes Sociais
+								elseif( get_row_layout() == 'fx_fl1_bloco_rede_2_2' ):
+									if(get_sub_field('fx_fl1_selecione_rede_2_2') == 'insta'):
+								?>
+
+										<div class="container">	
+											<div class="row social-block">
+												<div class="col-sm-12 col-md-5">
+													<?php if(get_sub_field('fx_fl1_titulo_2_2')): ?>
+														<p><?php echo get_sub_field('fx_fl1_titulo_2_2'); ?></p>
+													<?php endif; ?>
+
+													<?php if(get_sub_field('fx_fl1_descricao_2_2')): ?>
+														<p class='social-descri'><?php echo get_sub_field('fx_fl1_descricao_2_2'); ?></p>
+													<?php endif; ?>
+
+													<hr>
+
+													<?php if(get_sub_field('fx_fl1_pagina_2_2')): ?>
+														<a href="<?php echo get_sub_field('fx_fl1_pagina_2_2'); ?>"><button type="button" class="btn btn-primary btn-sm px-3 my-3"><i class="fa fa-instagram" aria-hidden="true"></i> | Instagram</button></a>
+													<?php endif; ?>
+													
+												</div>
+												<div class="col-sm-12 col-md-7">
+													<?php if(get_sub_field('fx_fl1_shortcode_2_2')):
+														$short = get_sub_field('fx_fl1_shortcode_2_2');
+														echo do_shortcode($short);
+													endif; ?>
+													
+												</div>
+											</div>
+										</div>
+
+								<?php
+									elseif(get_sub_field('fx_fl1_selecione_rede_2_2') == 'face'):
+								?>
+									<div class="row social-block">
+										<div class="col-sm-12 col-md-5">
+
+											<?php if(get_sub_field('fx_fl1_titulo_2_2')): ?>
+												<p><?php echo get_sub_field('fx_fl1_titulo_2_2'); ?></p>
+											<?php endif; ?>
+
+											<?php if(get_sub_field('fx_fl1_descricao_2_2')): ?>
+												<p class='social-descri'><?php echo get_sub_field('fx_fl1_descricao_2_2'); ?></p>
+											<?php endif; ?>
+
+											<hr>
+											<?php if(get_sub_field('fx_fl1_pagina_2_2')): ?>
+												<a href="<?php echo get_sub_field('fx_fl1_pagina_2_2'); ?>"><button type="button" class="btn btn-primary btn-sm px-3 my-3"><i class="fa fa-facebook-square" aria-hidden="true"></i> | Facebook</button></a>
+											<?php endif; ?>
+						
+										</div>
+										<div class="col-sm-12 col-md-7">
+											<div class="fb-page" data-href="<?php echo get_sub_field('fx_fl1_pagina_2_2'); ?>" data-tabs="timeline" data-width="" data-height="310" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/EducaPrefSP/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/EducaPrefSP/">Secretaria Municipal de Educação de São Paulo</a></blockquote></div>
+										</div>
+									</div>
+								<?php
+									elseif(get_sub_field('fx_fl1_selecione_rede_2_2') == 'ytube'):
+								?>
+									<div class="container">
+										<div class="row social-block">
+											<div class="col-sm-12">
+												
+												<?php if(get_sub_field('fx_fl1_titulo_2_2')): ?>
+													<p><?php echo get_sub_field('fx_fl1_titulo_2_2'); ?></p>
+												<?php endif; ?>
+
+												<?php if(get_sub_field('fx_fl1_descricao_2_2')): ?>
+													<p class='social-descri'><?php echo get_sub_field('fx_fl1_descricao_2_2'); ?></p>
+												<?php endif; ?>		
+
+												<?php if(get_sub_field('fx_fl1_pagina_2_2')): ?>
+													<a href="<?php echo get_sub_field('fx_fl1_pagina_2_2'); ?>"><button type="button" class="btn btn-primary btn-sm px-3 my-3"><i class="fa fa-youtube-play" aria-hidden="true"></i> | Youtube</button></a>
+												<?php endif; ?>
+												
+											</div>												
+											<div class="col-sm-12 mt-4">
+												<?php
+													if(get_sub_field('fx_fl1_video_2_2')) :
+														$url = get_sub_field('fx_fl1_video_2_2');
+														parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
+												?>
+													<iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $my_array_of_vars['v']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+												<?php endif; ?>
+											</div>
+										</div>
+									</div>
+								<?php
+									endif;
 								endif;
 							endwhile;
 						echo '</div>';//bootstrap col
