@@ -2,24 +2,20 @@
 <!--main-->
 
 <footer style="background: #363636; color: #fff;">
-	<div class="container pt-5 pb-5">
+	<div class="container pt-3 pb-3" id="irrodape">
 		<div class="row">
 			<div class="col-sm-3 align-middle d-flex align-items-center">
 				<img src="<?php the_field('logo_prefeitura','conf-rodape'); ?>" alt="<?php bloginfo('name'); ?>">
 			</div>
 			<div class="col-sm-3 align-middle bd-contact">
-				<h2 class="pt-2"><?php the_field('nome_da_secretaria','conf-rodape'); ?></h2>
+				<h2><?php the_field('nome_da_secretaria','conf-rodape'); ?></h2>
 				<?php the_field('endereco_da_secretaria','conf-rodape'); ?>
 			</div>
 			<div class="col-sm-3 align-middle">
-				<h2 class="pt-2">Contatos</h2>
-				
-				<?php if(get_field('telefone','conf-rodape')) :?>
-					<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:<?php the_field('telefone','conf-rodape'); ?>"><?php the_field('telefone','conf-rodape'); ?></a></p>
-				<?php endif; ?>				
-				
+				<h2>Contatos</h2>
+				<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:<?php the_field('telefone','conf-rodape'); ?>"><?php the_field('telefone','conf-rodape'); ?></a></p>
 				<?php if(get_field('email','conf-rodape')) :?>
-					<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:<?php the_field('email','conf-rodape'); ?>"><?php the_field('email','conf-rodape'); ?></a></p>
+				<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:<?php the_field('email','conf-rodape'); ?>"><?php the_field('email','conf-rodape'); ?></a></p>
 				<?php endif; ?>
 				<h2>Redes sociais</h2>
 				<?php 

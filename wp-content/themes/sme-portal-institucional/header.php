@@ -87,28 +87,28 @@ use Classes\Header\Header;
 </head>
 
 <body>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v9.0&appId=635401619866547&autoLogAppEvents=1" nonce="XHGXF3d7"></script>
 <section id="main" role="main">
-    <header class="bg-light pref-menu fonte-dez">
+    <header class="pref-menu fonte-dez">
 
-            <section class="row cabecalho-cinza-escuro">
+            <section class="row cabecalho-acessibilidade" style='display: none;'>
                 <section class="container">
                     <section class="row">
-                        <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
-                            <ul class="list-inline mt-3 mb-0">
+                        <article class="col-lg-8 col-xs-12 d-flex justify-content-start">
+                            <ul class="list-inline my-3">
                                 <?php
                                 $slug_titulo = new Header();
                                 ?>
-                                <li class="list-inline-item"><a accesskey="1" id="1" href="#<?= $slug_titulo->getSlugTitulo() ?>" class="text-white">Ir ao Conteúdo <span class="span-accesskey">1</a></li>
-                                <li class="list-inline-item"><a accesskey="2" id="2" href="#irmenu"  class="text-white">Ir para menu principal <span class="span-accesskey">2</span></a></li>
-                                <li class="list-inline-item"><a accesskey="3" id="3" href="#search-front-end"  class="text-white">Ir para busca <span class="span-accesskey">3</span></a></li>
-                                <li class="list-inline-item"><a accesskey="4" id="4" href="#irrodape"  class="text-white">Ir para rodapé <span class="span-accesskey">4</span></a></li>
+                                <li class="list-inline-item"><a accesskey="1" id="1" href="#<?= $slug_titulo->getSlugTitulo() ?>" >Ir ao Conteúdo <span class="span-accesskey">1</a></li>
+                                <li class="list-inline-item"><a accesskey="2" id="2" href="#irmenu"  >Ir para menu principal <span class="span-accesskey">2</span></a></li>
+                                <li class="list-inline-item"><a accesskey="3" id="3" href="#search-front-end"  >Ir para busca <span class="span-accesskey">3</span></a></li>
+                                <li class="list-inline-item"><a accesskey="4" id="4" href="#irrodape"  >Ir para rodapé <span class="span-accesskey">4</span></a></li>
+                                <li class="list-inline-item"><a href="<?= STM_URL ?>/acessibilidade/" accesskey="5">Acessibilidade <span class="span-accesskey">5</span> </a></li>
                             </ul>
                         </article>
 
-                        <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
-                            <ul class="list-inline mt-3">
-                                <li class="list-inline-item"><a href="<?= STM_URL ?>/acessibilidade/" accesskey="5" class="text-white">Acessibilidade <span class="span-accesskey">5</span> </a></li>
-                            </ul>
+                        <article class="col-lg-4 col-xs-12 d-flex justify-content-end">
                             <?php dynamic_sidebar('Rodape Esquerda') ?>
                         </article>
 
@@ -122,14 +122,14 @@ use Classes\Header\Header;
                 <section class="container">
                     <section class="row">
                         <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
-                            <ul class="list-inline mt-2 mb-0">
+                            <ul class="list-inline my-3">
                                 <li class="list-inline-item"><a class="text-white" href="http://transparencia.prefeitura.sp.gov.br/acesso-a-informacao">Acesso à informação e-sic <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span> </a></li>
                                 <li class="list-inline-item"><a class="text-white" href="https://www.prefeitura.sp.gov.br/cidade/secretarias/ouvidoria/fale_com_a_ouvidoria/index.php?p=464">Ouvidoria <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
                                 <li class="list-inline-item"><a class="text-white" href="http://transparencia.prefeitura.sp.gov.br/Paginas/home.aspx">Portal da Transparência <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
                                 <li class="list-inline-item"><a class="text-white" href="https://sp156.prefeitura.sp.gov.br/portal/servicos">SP 156 <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
                             </ul>
                         </article>
-                        <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
+                        <article class="col-lg-6 col-xs-12 d-flex justify-content-end align-items-center">
                             <?php 
                                 $facebook = get_field('url_facebook','conf-rodape');
                                 $instagram = get_field('url_instagram','conf-rodape');
@@ -138,16 +138,16 @@ use Classes\Header\Header;
                             ?>
                             <ul class="list-inline mt-2 mb-2 midias-sociais">
                                 <?php if($facebook) : ?>
-                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $facebook; ?>"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-facebook-topo.png" alt="Ir para Facebook da Secretaria Muncipal de Educação de São Paulo"></a></li>
+                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $facebook; ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/icone-facebook.png" alt="Ir para Facebook da Secretaria Muncipal de Educação de São Paulo"></a></li>
                                 <?php endif; ?>
                                 <?php if($instagram) : ?>
-                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $instagram; ?>"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-instagram-topo.png" alt="Ir para Instagram da Secretaria Muncipal de Educação de São Paulo"></a></li>
+                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $instagram; ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/icone-insta.png" alt="Ir para Instagram da Secretaria Muncipal de Educação de São Paulo"></a></li>
                                 <?php endif; ?>
                                 <?php if($twitter) : ?>
                                     <li class="list-inline-item"><a class="text-white" href="<?php echo $twitter; ?>"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-twitter-topo.png" alt="Ir para Twitter da Secretaria Muncipal de Educação de São Paulo"></a></li>
                                 <?php endif; ?>
                                 <?php if($youtube) : ?>
-                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $youtube; ?>"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-youtube-topo.png" alt="Ir para YouTube da Secretaria Muncipal de Educação de São Paulo"></a></li>
+                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $youtube; ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/icone-yt.png" alt="Ir para YouTube da Secretaria Muncipal de Educação de São Paulo"></a></li>
                                 <?php endif; ?>                                     
                             </ul>
                         </article>
@@ -155,23 +155,40 @@ use Classes\Header\Header;
                 </section>
             </section>
 
+            <section class='row logo-principal'>
 
-		<?php \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
+                <div class="container">
+                    <div class="row py-3">
+
+                        <div class="col-sm-12 col-md-6">
+                            <?php
+                            // Traz o Logotipo cadastrado no Admin
+                            $custom_logo_id = get_theme_mod('custom_logo');
+                            $image = wp_get_attachment_image_src($custom_logo_id, 'full');
+                            ?>
+                            <p class="logo-topo">
+                                <a class="brand" href="<?php echo STM_URL ?>">
+                                    <img class="img-fluid" src="<?php echo $image[0] ?>" alt="Logotipo da Secretaria Municipal de Educação - Ir para a página principal"/>
+                                </a>
+                            </p>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6 d-flex align-items-center">
+                            <?php \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+
+		
 
     </header>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light menu-topo">
+    <nav class="navbar navbar-expand-lg menu-topo mb-5">
         <section class="container">
-			<?php
-			// Traz o Logotipo cadastrado no Admin
-			$custom_logo_id = get_theme_mod('custom_logo');
-			$image = wp_get_attachment_image_src($custom_logo_id, 'full');
-			?>
-            <p class="logo-topo">
-                <a class="brand" href="<?php echo STM_URL ?>">
-                    <img class="img-fluid" src="<?php echo $image[0] ?>" alt="Logotipo da Secretaria Municipal de Educação - Ir para a página principal"/>
-                </a>
-            </p>
+			
             <form>
                 <fieldset>
                     <legend>Mostra e Esconde Menu</legend>
@@ -181,14 +198,14 @@ use Classes\Header\Header;
                 </fieldset>
             </form>
 
-            <nav class="collapse navbar-collapse justify-content-end" id="irmenu" aria-label="Menu Principal">
+            <nav class="collapse navbar-collapse justify-content-between w-100" id="irmenu" aria-label="Menu Principal">
                 <?php
 				wp_nav_menu(array(
 					'menu' => 'primary',
 					'theme_location' => 'primary',
 					'depth' => 2,
 					'container_id' => 'bs-example-navbar-collapse-1',
-					'menu_class' => 'navbar-nav mr-auto nav nav-tabs',
+					'menu_class' => 'navbar-nav mr-auto nav d-flex justify-content-between',
 					'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
 					'walker'            => new WP_Bootstrap_Navwalker(),
 				));

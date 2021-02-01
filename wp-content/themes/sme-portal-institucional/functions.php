@@ -35,6 +35,7 @@ function custom_setup() {
 
 	if (function_exists('add_image_size')) {
 		add_image_size('home-thumb', 250, 166);
+		add_image_size('slide-noticias', 656, 304);
 	}
 
 	//Permite adicionar no post ou página uma imagem com tamanho personalizado, nesse caso a home-thumb já definida anteriormente com 250X147
@@ -618,7 +619,7 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Opções Gerais',
         'menu_slug' 	=> 'conf-geral',
         'position' 		=> '3',
-        'capability'	=> 'read_private_pages',
+        'capability'	=> 'publish_pages',
         //'redirect'		=> false
     ));
 
@@ -626,35 +627,35 @@ if( function_exists('acf_add_options_page') ) {
         'page_title' 	=> 'Configurações da Página Inicial',
         'menu_title'	=> 'Página Inicial',
         'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'read_private_pages',
+        'capability'	=> 'publish_pages',
     ));
 	
 	acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações da Página Notícias',
         'menu_title'	=> 'Página Notícias',
         'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'read_private_pages',
+        'capability'	=> 'publish_pages',
     ));
 	
 	acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações da Busca Manual',
         'menu_title'	=> 'Busca Manual',
         'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'read_private_pages',
+        'capability'	=> 'publish_pages',
     ));
 	
 	acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações de tutoriais',
         'menu_title'	=> 'Inclusão de tutoriais',
         'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'read_private_pages',
+        'capability'	=> 'publish_pages',
     ));
 
     acf_add_options_sub_page(array(
         'page_title' 	=> 'Informações Rodapé',
         'menu_title'	=> 'Rodapé',
         'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'read_private_pages',
+        'capability'	=> 'publish_pages',
 		'post_id' => 'conf-rodape',
     ));
 }
@@ -796,6 +797,7 @@ function title_like_posts_where( $where, $wp_query ) {
     return $where;
 }
 
+
 add_action('pre_user_query','wpse_27518_pre_user_query');
 function wpse_27518_pre_user_query($user_search) {
     global $wpdb,$current_screen;
@@ -813,5 +815,5 @@ function wpse_27518_pre_user_query($user_search) {
     
 }
 
-// Remove o campo "Additional Capabilities" do editor de usuario
+// Remover o campor "Additional Capabilities" do editor do usuarios
 add_filter( 'ure_show_additional_capabilities_section', '__return_false' );
