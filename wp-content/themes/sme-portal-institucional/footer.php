@@ -89,6 +89,11 @@
     var ht = new HT({
         token: "aa1f4871439ba18dabef482aae5fd934"
     });
+
+	jQuery('.container-a-icones-home').click(function(){
+		jQuery('.container-a-icones-home').removeClass('active');
+		jQuery(this).addClass('active');
+	});
 </script>
 </body>
 </html>

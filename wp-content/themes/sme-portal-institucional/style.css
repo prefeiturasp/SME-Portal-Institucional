@@ -1299,6 +1299,47 @@ ol.carousel-indicators {
     transition: 0.2s;
 }
 
+.acesso-mobile {
+    display: none;
+    transition: 0.2s;
+    margin-top: 15px;
+}
+
+.acesso-mobile .menu-item {
+    width: 100%;
+    margin: 0;
+}
+
+.acesso-mobile .menu-item a,
+.acesso-mobile .menu-item a.nav-link.active {
+    border-radius: 0;
+    background: #196CBD !important;
+    color: #FFFFFF !important;
+    border-bottom: solid 2px;
+    padding: 5px;
+}
+
+.acesso-mobile li a::after {
+    border-color: transparent;
+    border-width: 0;
+}
+
+@media (max-width: 769px) {
+    li.active .acesso-mobile {
+        display: block;
+        transition: 0.2s;
+    }
+    .acesso-rapido-menu {
+        display: none !important;
+    }
+    ol.carousel-indicators {
+        width: 100%;
+        margin-bottom: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
 
 /*** Lista Noticias ***/
 

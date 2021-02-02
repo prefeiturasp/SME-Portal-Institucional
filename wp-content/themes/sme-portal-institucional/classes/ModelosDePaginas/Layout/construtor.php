@@ -499,7 +499,7 @@ if( have_rows('fx_flex_layout') ):
 																		</div>
 																		<div class="col-sm-12 col-md-5"> 
 																			<div class="carousel-title">
-																				<p><a href="#"><?php echo get_the_title($slide); ?></a></p>
+																			<p><a href="<?php echo get_the_permalink($slide); ?>"><?php echo get_the_title($slide); ?></a></p>
 																			</div>                                            
 																		</div>
 																	</div>
@@ -573,6 +573,17 @@ if( have_rows('fx_flex_layout') ):
 
 																		</div>
 
+																		<div class="acesso-mobile">
+																			<?php
+																				wp_nav_menu(array(
+																					'menu' => $acessos['menu'],
+																					'depth' => 2,
+																					'menu_class' => 'navbar-nav m-auto nav nav-tabs',
+																					'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
+																					'walker'            => new \WP_Bootstrap_Navwalker(),
+																				));
+																			?>
+																		</div>
 																		
 																	</a>
 
