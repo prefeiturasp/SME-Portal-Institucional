@@ -44,6 +44,12 @@ function wpse_user_can_edit( $user_id, $page_id ) {
     // pega as informacoes do usuario logado
     $user = wp_get_current_user($user_id);
 
+    $post_author_id = get_post_field( 'post_author', $page_id );
+
+    if($post_author_id == $user_id){
+        return true;
+    }
+
     // usuarios que ficam foram da regra
 	$allowed_roles = array( 'editor', 'administrator' );
 	if ( array_intersect( $allowed_roles, $user->roles ) ) {
@@ -76,8 +82,14 @@ function wpse_user_can_edit( $user_id, $page_id ) {
  //
  add_filter( 'map_meta_cap', function ( $caps, $cap, $user_id, $args ) {
 
+    global $post;
+    
+    if ($post->post_type == 'attachment'){
+        return $caps;
+    }
+
     // capability atribuida
-    $to_filter = [ 'edit_post', 'delete_post', 'edit_page', 'delete_page', 'edit_others_pages' ];
+    $to_filter = [ 'edit_post', 'delete_post', 'edit_page', 'delete_page' ];
 
     // If the capability being filtered isn't of our interest, just return current value
     if ( ! in_array( $cap, $to_filter, true ) ) {
