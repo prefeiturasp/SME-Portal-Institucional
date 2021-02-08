@@ -41,6 +41,8 @@ class PaginaProgramacaoEventos
                                         <?php 
                                             //$featured_img_url = get_the_post_thumbnail_url($eventoInterno->ID, 'thumb-eventos');
                                             $imgSelect = get_field('capa_do_evento', $eventoInterno->ID);
+                                            $tipo = get_field('tipo_de_evento_selecione_o_evento', $eventoInterno->ID);
+                                            
                                             $featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
                                             if($featured_img_url){
                                                 $imgEvento = $featured_img_url[0];
@@ -51,17 +53,29 @@ class PaginaProgramacaoEventos
                                                 $alt = get_the_title($eventoInterno->ID);
                                             }
                                         ?>
-                                        <a href="#"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
+                                        <a href="<?php echo get_the_permalink($eventoInterno->ID); ?>"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
+                                        <?php if($tipo && $tipo != '') : 
+                                            echo '<span class="flag-pdf-full">';
+                                                echo get_the_title($tipo);
+                                            echo '</span>';
+                                        endif; ?>
                                     </div>
                                     <div class="card-eventos-content p-2">
                                         <div class="evento-categ border-bottom pb-1">
                                             <?php
                                                 $atividades = get_the_terms( $eventoInterno->ID, 'atividades_categories' );
                                                 $listaAtividades = array();
-                                                foreach($atividades as $atividade){
-                                                    if($atividade->parent != 0){
-                                                        $listaAtividades[] = $atividade->name;
+
+                                                $atividadesTotal = count($atividades);
+
+                                                if($atividadesTotal > 1){
+                                                    foreach($atividades as $atividade){
+                                                        if($atividade->parent != 0){
+                                                            $listaAtividades[] = $atividade->name;
+                                                        } 
                                                     }
+                                                } else {
+                                                    $listaAtividades[] = $atividades[0]->name;
                                                 }
 
                                                 $total = count($listaAtividades); 
@@ -81,7 +95,7 @@ class PaginaProgramacaoEventos
                                             ?>
                                             <a href="#"><?php echo $showAtividades; ?></a>
                                         </div>
-                                        <h3><a href="<?php echo get_the_permalink(); ?>"><?php echo $eventoInterno->post_title; ?></a></h3>
+                                        <h3><a href="<?php echo get_the_permalink($eventoInterno->ID); ?>"><?php echo $eventoInterno->post_title; ?></a></h3>
                                         <?php
                                             $campos = get_field('data', $eventoInterno->ID);
                                             

@@ -21,7 +21,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 						<div class="row">
 
 							<div class="col-md-7 evento-descri">
-								<h4>Descritivo do evento:</h4>
+								<h2>Descritivo do evento:</h2>
 								
 								<?php echo get_field('descricao'); ?>
 								
@@ -51,11 +51,23 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 								$datas = get_field('data'); // Datas
 								
 								$end = get_field('endereco_ceu', 'category_' . $category_id);
+								$tipo = get_field('tipo_de_evento_selecione_o_evento', get_the_ID());
 							?>
 
 							<div class="col-md-5 evento-details">
 								<table class="table border-right border-left border-bottom">                            
 									<tbody>
+
+										<?php if($tipo && $tipo != '') : ?>
+											<tr>
+												<th scope="row" class="align-middle bg-tipo"><i class="fa fa-globe" aria-hidden="true"></i></th>
+												<td class="py-4 bg-tipo">
+													<p class='m-0'>	
+														Esse evento pertence a: “<strong><?php echo get_the_title($tipo); ?></strong>”.<br>
+														<strong><a href="<?php echo get_the_permalink($tipo); ?>">Clique aqui</a></strong> para conferir o restante da programação
+													</p></td>                                    
+											</tr>
+										<?php endif; ?>
 
 										<?php
 											// Verifica se possui campos
@@ -204,13 +216,17 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 
 										<tr>
 											<th scope="row" class="align-middle"><i class="fa fa-map-marker" aria-hidden="true"></i></th>
-											<td><strong><?php echo $unidades; ?></strong>
-											
-												<?php if($end != '') : ?>
-													<br>
-													<?php echo $end; ?>
-												<?php endif; ?>	
-											</td>                                    
+											<?php if($post_categories[0] == 1): ?>
+												<td><p class="m-0">Consulte abaixo CEUs participantes</p></td>
+											<?php else: ?>
+												<td><strong><?php echo $unidades; ?></strong>
+												
+													<?php if($end != '') : ?>
+														<br>
+														<?php echo $end; ?>
+													<?php endif; ?>	
+												</td>
+											<?php endif; ?>                                
 										</tr>
 
 										<?php if($espaco != '') : ?>

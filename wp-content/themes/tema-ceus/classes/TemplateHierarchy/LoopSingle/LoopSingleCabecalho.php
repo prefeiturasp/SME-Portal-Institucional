@@ -43,10 +43,17 @@ class LoopSingleCabecalho extends LoopSingle
 					<?php
 						$atividades = get_the_terms( $post->ID, 'atividades_categories' );
 						$listaAtividades = array();
-						foreach($atividades as $atividade){
-							if($atividade->parent != 0){
-								$listaAtividades[] = $atividade->name;
+
+						$atividadesTotal = count($atividades);
+
+						if($atividadesTotal > 1){
+							foreach($atividades as $atividade){
+								if($atividade->parent != 0){
+									$listaAtividades[] = $atividade->name;
+								} 
 							}
+						} else {
+							$listaAtividades[] = $atividades[0]->name;
 						}
 
 						$total = count($listaAtividades); 
@@ -70,7 +77,7 @@ class LoopSingleCabecalho extends LoopSingle
 							<?php echo $showAtividades; ?>
                         </p>
 
-						<h3 class="m-0 py-3 w-100"><?php echo get_the_title(); ?></h3>
+						<h1 class="m-0 py-3 w-100"><?php echo get_the_title(); ?></h1>
 						
 						<?php
 							$post_categories = wp_get_post_categories( $post->ID );
