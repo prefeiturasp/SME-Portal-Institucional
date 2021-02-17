@@ -1051,3 +1051,145 @@ function my_remove_meta_boxes() {
 	remove_meta_box( 'localidadediv', 'post', 'side' );
 }
 add_action( 'admin_menu' , 'my_remove_meta_boxes' );
+
+// Filtra as unidades que grupo pertence
+
+function wp37_limit_posts_to_author($query) {
+
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	// 	filtra as unidades pelo grupo pertencente
+	if( $_GET['filter'] == 'grupo' && $user->roles[0] == 'contributor')  {
+		$variable = get_user_meta($user->ID,'grupo',true);
+		$pages = get_post_meta($variable, 'unidades', true);		
+		$query->set('post__in', $pages);
+	} 
+	
+	// 	filtra os eventos pelo grupo pertencente
+	if( $_GET['filter'] == 'grupo' && $_GET['list'] == 'evento' && $user->roles[0] == 'contributor' ){
+
+		global $wpdb;
+		
+		// pega as unidades permitidas para edicao do grupo
+        $variable2 = get_user_meta($user->ID,'grupo',true);
+		$unidades2 = get_post_meta($variable2, 'unidades', true);
+
+		$showEventos = array();
+
+		foreach ($unidades2 as $unidade){
+			$showEventos[] = $wpdb->get_col( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'localizacao' AND meta_value = $unidade ORDER BY post_id" );
+		}
+		$merge = array_merge($showEventos[0], $showEventos[1]);
+		$result = array_unique($merge);
+
+		$query->set('post__in', $result);
+	}
+	
+	return $query;
+	
+}
+add_filter('pre_get_posts', 'wp37_limit_posts_to_author');
+
+// Adiciona o filtro Minhas unidades
+function wp37_add_movies_filter($views){
+	
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+	
+	if($user->roles[0] == 'contributor'){
+
+		if( $_GET['filter'] == 'grupo' ){
+
+			$views['grupos'] = "<a href='" . admin_url('edit.php?&post_type=unidade&filter=grupo') . "' class='current'>Minhas Unidades</a>";
+		return $views;
+
+		} else {
+			$views['grupos'] = "<a href='" . admin_url('edit.php?&post_type=unidade&filter=grupo') . "'>Minhas Unidades</a>";
+		return $views;
+		}
+
+	}
+
+	return $views;
+}
+ 
+add_filter('views_edit-unidade', 'wp37_add_movies_filter');
+
+// Adiciona o filtro Meus Eventos
+function wp38_add_movies_filter($views){
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	if($user->roles[0] == 'contributor'){
+
+		if( $_GET['filter'] == 'grupo' ){
+
+			$views['grupos'] = "<a href='" . admin_url('edit.php?list=evento&filter=grupo') . "' class='current'>Meus Eventos</a>";
+		return $views;
+
+		} else {
+			$views['grupos'] = "<a href='" . admin_url('edit.php?list=evento&filter=grupo') . "'>Meus Eventos</a>";
+		return $views;
+		}
+	}
+
+	return $views;
+}
+ 
+add_filter('views_edit-post', 'wp38_add_movies_filter');
+
+
+// Altera a URL de Eventos e Unidades para colaboladores
+add_action('admin_menu', 'add_custom_link_into_appearnace_menu');
+function add_custom_link_into_appearnace_menu() {
+	global $submenu;
+	
+    // pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+	
+	if($user->roles[0] == 'contributor'){		
+		$submenu['edit.php'][5][2] = 'edit.php?list=evento&filter=grupo';
+		$submenu['edit.php?post_type=unidade'][5][2] = 'edit.php?post_type=unidade&filter=grupo';
+	}
+}
+
+// Carrega todas as localizacoes do grupo para o usuario
+add_filter('acf/load_field/name=localizacao', 'populateUserGroups');
+
+function populateUserGroups( $field ){	
+	
+	// reset choices
+	$field['choices'] = array();
+
+	$user = wp_get_current_user();
+
+	// usuarios que ficam foram da regra
+	$allowed_roles = array( 'editor', 'administrator' );
+    
+    if ( array_intersect( $allowed_roles, $user->roles ) ) {
+        $args = array(
+			'post_type' => 'unidade',
+			'posts_per_page'    =>  -1,
+			'orderby' => 'title',
+    		'order'   => 'ASC',		
+		);
+		$query = new WP_Query( $args );
+
+		while ( $query->have_posts() ) : $query->the_post();
+			$field['choices'][ get_the_id() ] = get_the_title();			
+		endwhile;
+
+		wp_reset_postdata();
+		
+		//print_r($query);
+    } else {
+		$variable = get_user_meta($user->ID,'grupo',true);
+		$pages = get_post_meta($variable, 'unidades', true);
+		foreach ($pages as $page) {
+			$field['choices'][ $page ] = get_the_title($page);
+		}
+	}
+
+	return $field;
+}

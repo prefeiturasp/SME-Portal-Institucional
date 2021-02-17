@@ -125,6 +125,7 @@ require_once 'Cpt/CptMediaImages.php';
 /* Inicialização CPTs */
 $cptPostsExtend = new \Classes\Cpt\CptPosts();
 $cptPagessExtend = new \Classes\Cpt\CptPages();
+$cptAbas = new \Classes\Cpt\Cpt('unidade', 'unidade', 'Sobre o CEU', 'Todos as Unidades', 'Unidades', 'Cadastro de Unidades', '', '', '', 'dashicons-building' , true);
 //$cptCard = new \Classes\Cpt\Cpt('card', 'card', 'Card', 'Todos os Cards', 'Cards', 'Card', 'categorias-card', 'Categorias de Cards', 'Categoria de Card', 'dashicons-feedback', true);
 //$cptCardExtend = new \Classes\Cpt\CptCard();
 

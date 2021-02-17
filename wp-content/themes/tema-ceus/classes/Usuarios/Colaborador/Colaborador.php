@@ -148,7 +148,7 @@ class Colaborador
 
 		if ($usuario->roles[0] === 'contributor') {
 
-			remove_menu_page('edit.php');
+			//remove_menu_page('edit.php');
 			remove_menu_page('edit.php?post_type=agenda');
 			remove_menu_page('edit.php?post_type=contato');
 			remove_menu_page('edit.php?post_type=organograma');
