@@ -217,7 +217,7 @@ class PaginaProgramacaoEventos
                                                                 
                                                                 if ($periodo['periodo_hora_final']){
 
-                                                                    $hora .= ' às ' . $periodo['periodo_hora_final'];
+                                                                    $hora .= ' ás ' . $periodo['periodo_hora_final'];
 
                                                                 }
                                                                 
@@ -232,33 +232,9 @@ class PaginaProgramacaoEventos
                                             <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $hora; ?>
                                         </p>
                                         <?php
-                                            $post_categories = wp_get_post_categories( $eventoInterno->ID );
-                                            $cats = array();
-                                            
-                                            foreach($post_categories as $c){
-                                                $cat = get_category( $c );
-                                                $cats[] = array( 'name' => $cat->name, 'slug' => $cat->slug );
-                                            }
-
-                                            $total = count($post_categories); 
-                                            $j = 0;
-                                            $unidades = '';
-
-                                            foreach($cats as $unidade){
-                                                $j++;
-                                                if($total - $j == 1 || $total - $j == 0){
-                                                    $unidades .= $unidade['name'] . " ";
-                                                } elseif($total != $j){
-                                                    $unidades .= $unidade['name'] . ", ";
-                                                } else {
-                                                    $unidades .= "e " . $unidade['name'];
-                                                }
-                                            }
-
-
-                                            
+                                            $local = get_field('localizacao', $eventoInterno->ID);
                                         ?>
-                                        <p class="mb-0 mt-1 evento-unidade"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo $unidades; ?></a></p>
+                                        <p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo get_the_title($local); ?></a></p>
                                     </div>
                                 </div>
                                 <?php 

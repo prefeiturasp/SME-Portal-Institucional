@@ -53,70 +53,87 @@ class LoopSingleRelacionadas extends LoopSingle
 		<div class="end-footer py-4 col-12">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
+					<div class="col-md-6">
 						
 						<?php
 							global $post;
-							
-							$post_categories = wp_get_post_categories( $post->ID );
-							$cats = array();
-							
-							foreach($post_categories as $c){
-								$cat = get_category( $c );
-								$cats[] = array( 'name' => $cat->name, 'slug' => $cat->slug );
-							}
-
-							$total = count($post_categories); 
-							$j = 0;
-							$unidades = '';
-
-							foreach($cats as $unidade){
-								$j++;
-								if($total - $j == 1 || $total - $j == 0){
-									$unidades .= $unidade['name'] . " ";
-								} elseif($total != $j){
-									$unidades .= $unidade['name'] . ", ";
-								} else {
-									$unidades .= "e " . $unidade['name'];
-								}
-							}
-							
+							$local = get_field('localizacao', $post->ID);							
+							$infosBasicas = get_field('informacoes_basicas', $local);
 						?>
 
                         <div class="end-title-unidade my-3">
-                            <p><?php echo $unidades; ?></p>
+                            <p><?php echo get_the_title($local); ?></p>
 						</div>
-
-						<?php
-							$categories = get_the_category();
-							$category_id = $categories[0]->cat_ID;
-							
-							$end = get_field('endereco_ceu', 'category_' . $category_id);
-							$email = get_field('email_ceu', 'category_' . $category_id);
-							$tel = get_field('telefone_ceu', 'category_' . $category_id);
-							$mapa = get_field('iframe_mapa_ceu', 'category_' . $category_id);
-						?>
 						
                         <div class="end-infos">
-							<?php if($end != ''): ?>								
-								<p><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo $end; ?></p>
+							<p>
+								<?php 
+									if($infosBasicas['endereco'] && $infosBasicas['endereco'] != ''){
+										echo $infosBasicas['endereco'];
+									}
+
+									if($infosBasicas['numero'] && $infosBasicas['numero'] != ''){
+										echo ', ' . $infosBasicas['numero'];
+									}
+
+									if($infosBasicas['complemento'] && $infosBasicas['complemento'] != ''){
+										echo ' - ' . $infosBasicas['complemento'];
+									}
+
+									if($infosBasicas['bairro'] && $infosBasicas['bairro'] != ''){
+										echo ' - ' . $infosBasicas['bairro'];
+									}
+
+									if($infosBasicas['cep'] && $infosBasicas['cep'] != ''){
+										echo ' - CEP: ' . $infosBasicas['cep'];
+									}
+								?>
+							</p>
+
+							<?php if($infosBasicas['email'] != ''): ?>								
+								<p><i class="fa fa-envelope" aria-hidden="true"></i> 
+								<?php 
+									$email_primary = $infosBasicas['email']['email_principal'];
+									$email_second = $infosBasicas['email']['email_second'];
+
+									if($email_primary && $email_primary != ''){
+										echo $email_primary;
+									}
+								
+									if($email_second && $email_second != ''){
+										foreach($email_second as $email){
+											echo '<br>' . $email['email'];
+										}
+									}                        
+								?>
+								</p>
 							<?php endif; ?>
 
-							<?php if($email != ''): ?>								
-								<p><i class="fa fa-envelope" aria-hidden="true"></i> <?php echo $email; ?></p>
-							<?php endif; ?>
+							<?php if($infosBasicas['telefone'] != ''): ?>								
+								<p><i class="fa fa-phone" aria-hidden="true"></i> 
+									<?php 
+										$tel_primary = $infosBasicas['telefone']['telefone_principal'];
+										$tel_second = $infosBasicas['telefone']['tel_second'];
 
-							<?php if($tel != ''): ?>								
-								<p><i class="fa fa-phone" aria-hidden="true"></i> <?php echo $tel; ?></p>
+										if($tel_primary && $tel_primary != ''){
+											echo $tel_primary;
+										}
+									
+										if($tel_second && $tel_second != ''){
+											foreach($tel_second as $tel){
+												echo ' / ' . $tel['telefone_sec'];
+											}
+										}                        
+									?>
+								</p>
 							<?php endif; ?>
                             
                         </div>
                     </div>
 
                     <div class="col-md-6">
-						<?php if($mapa != ''): ?>								
-							<?php echo $mapa; ?>
-						<?php endif; ?>                        
+						<div id="map" style="width: 100%; min-height: 350px;"></div>
+                        <a href="#map" class="story" data-point="<?php echo $infosBasicas['latitude']; ?>,<?php echo $infosBasicas['longitude']; ?>,<strong><?php the_title(); ?></strong><br><?php echo $infosBasicas['endereco'];?> nº <?php echo $infosBasicas['numero']; ?> <br><?php echo $infosBasicas['bairro']; ?> <br> CEP: <?php echo $infosBasicas['cep']; ?>" style="display: none;"> &nbsp;destacar no mapa</a></span>                    
                     </div>
                 </div>
             </div>
@@ -156,7 +173,7 @@ class LoopSingleRelacionadas extends LoopSingle
 					$campos = get_field('data', get_the_ID());
 
 					$atividadesEventos[] = get_the_terms( $post->ID, 'atividades_categories' );
-					$unidadesEventos[] = get_the_terms( $post->ID, 'category' );
+					$unidadesEventos[] = get_field('localizacao', $post->ID);
 
 					if($campos){
 
@@ -191,20 +208,7 @@ class LoopSingleRelacionadas extends LoopSingle
 			
 			$filtroAtividades = array_unique($filtroAtividades);
 
-			$filtroUnidades = array();
-
-			foreach($unidadesEventos as $unidades){
-
-				foreach($unidades as $unidade){
-					if($unidade->parent == 0){
-						$filtroUnidades[] = $unidade->term_id;
-					}
-				}
-
-			}
-
-			$filtroUnidades = array_unique($filtroUnidades);
-			
+			$filtroUnidades = array_unique($unidadesEventos);
 			
 			wp_reset_postdata();
 			
@@ -259,20 +263,15 @@ class LoopSingleRelacionadas extends LoopSingle
 									<?php endforeach; ?>  
 								</select>
 							</div>
-
 							
-
 							<div class="col-sm-12 col-md-6 mt-3 px-1">
 								<label for="unidades">CEUs</label>
 								<select name="unidades[]" multiple="multiple" class="ms-list-5" id="unidades">
-									<?php foreach($filtroUnidades as $term):
-										$showAtividade = get_term_by('id', $term, 'category');
-									?>
-										<option value="<?php echo $term; ?>"><?php echo $showAtividade->name; ?></option>
+									<?php foreach($filtroUnidades as $term): ?>
+										<option value="<?php echo $term; ?>"><?php echo get_the_title($term); ?></option>
 									<?php endforeach; ?>      
 								</select>
 							</div>
-
 							
 							<div class="col-sm-1 text-right mt-3" style="align-self: flex-end;">
 								<button type="submit" class="btn btn-search rounded-0">Buscar</button>
@@ -544,33 +543,9 @@ class LoopSingleRelacionadas extends LoopSingle
 												<i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $hora; ?>
 											</p>
 											<?php
-												$post_categories = wp_get_post_categories( get_the_ID() );
-												$cats = array();
-												
-												foreach($post_categories as $c){
-													$cat = get_category( $c );
-													$cats[] = array( 'name' => $cat->name, 'slug' => $cat->slug );
-												}
-
-												$total = count($post_categories); 
-												$j = 0;
-												$unidades = '';
-
-												foreach($cats as $unidade){
-													$j++;
-													if($total - $j == 1 || $total - $j == 0){
-														$unidades .= $unidade['name'] . " ";
-													} elseif($total != $j){
-														$unidades .= $unidade['name'] . ", ";
-													} else {
-														$unidades .= "e " . $unidade['name'];
-													}
-												}
-
-
-												
-											?>
-											<p class="mb-0 mt-1 evento-unidade"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo $unidades; ?></a></p>
+                                                $local = get_field('localizacao', get_the_ID());                                                
+                                            ?>
+                                            <p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
 										</div>
 									</div>
 									<?php 

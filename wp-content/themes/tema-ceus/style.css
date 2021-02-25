@@ -1212,6 +1212,10 @@ select#tipoData {
     background-position: center;
 }
 
+.bg-event-title .evento-unidade a {
+    color: #FFFFFF;
+}
+
 .evento-infos .categ-dest {
     text-transform: uppercase;
     color: #DADADA;
@@ -1301,4 +1305,166 @@ select#tipoData {
 
 .evento-details tr td.bg-tipo a {
     text-decoration: underline;
+}
+
+
+/*** Unidades ***/
+
+.info-title h1 {
+    font-weight: bold;
+    color: #0048A9;
+}
+
+.info-title p {
+    color: #42474A;
+    font-size: 20px;
+}
+
+.info-contacts .title-unidade {
+    color: #2F80ED;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.info-contacts p {
+    color: #42474A;
+    font-size: 17px;
+}
+
+.unidade-tab ul {
+    margin: 0;
+    margin-bottom: 30px;
+    border: 0;
+}
+
+.unidade-tab ul li {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: 0 2px;
+}
+
+.unidade-tab ul.nav-tabs li a {
+    display: block;
+    text-align: center;
+    background: #F3F3F3;
+    color: #0048A9;
+    font-weight: bold;
+    padding: 15px 10px;
+    border-radius: 3px;
+    box-shadow: 0px 3px 9px -7px #000000;
+    text-transform: uppercase;
+}
+
+.unidade-tab ul.nav-tabs li a.active {
+    background: #0048A9;
+    color: #F3F3F3;
+}
+
+.unidade-tab .tab-pane,
+.unidade-tab .search-home {
+    background: #FFFFFF;
+}
+
+.unidade-tab .tab-pane .unidade-title {
+    color: #42474A !important;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.wp-pagenavi span.current {
+    border-color: #DADADA;
+}
+
+a.previouspostslink,
+a.nextpostslink {
+    font-weight: bold;
+}
+
+.unidade-tab .card {
+    margin-bottom: 5px;
+}
+
+.unidade-tab button .fa {
+    transform: rotate(90deg);
+    transition: 0.2s;
+}
+
+.unidade-tab button.collapsed .fa {
+    transform: rotate(0deg);
+    transition: 0.2s;
+}
+
+.unidade-tab .services-header {
+    background: #f3f3f3;
+}
+
+.unidade-tab .services-header .btn {
+    color: #42474A;
+    font-weight: bold;
+}
+
+.unidade-tab .about-title {
+    font-weight: bold;
+    margin: 25px 0;
+}
+
+.unidade-tab #carouselAbout .carousel-indicators {
+    width: 100%;
+    bottom: -20px;
+}
+
+.unidade-tab #carouselAbout .carousel-indicators li {
+    width: 12px;
+    height: 12px;
+    border: 0;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1px solid #0048A9;
+    box-sizing: border-box;
+}
+
+.unidade-tab #carouselAbout .carousel-indicators li.active {
+    background: #0048A9;
+}
+
+.unidade-tab .about-redes a {
+    font-size: 24px;
+    color: #42474A;
+}
+
+.unidade-tab .about-redes a span,
+.carousel-indicators li span,
+.card-eventos-content i span,
+.carousel-data i span {
+    display: none;
+}
+
+.unidade-tab .about-redes a .fa-instagram {
+    background: #42474A;
+    color: #FFFFFF;
+    box-sizing: border-box;
+    font-size: 22px;
+    border-left: 2px solid #42474A;
+    border-right: 2px solid #42474A;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.unidade-tab .chegar-title {
+    font-weight: bold;
+}
+
+@media (max-width: 576px) {
+    .slide-principal .carousel-item {
+        padding: 10px;
+    }
+    ol.carousel-indicators {
+        width: 100%;
+        margin-bottom: -5px;
+    }
+    .unidade-tab ul li {
+        flex-basis: initial;
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }

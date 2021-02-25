@@ -38,6 +38,11 @@ require_once 'TemplateHierarchy/LoopSingle/LoopSingleNoticiaPrincipal.php';
 require_once 'TemplateHierarchy/LoopSingle/LoopSingleMaisRecentes.php';
 require_once 'TemplateHierarchy/LoopSingle/LoopSingleRelacionadas.php';
 
+require_once 'TemplateHierarchy/LoopUnidades/LoopUnidades.php';
+require_once 'TemplateHierarchy/LoopUnidades/LoopUnidadesCabecalho.php';
+require_once 'TemplateHierarchy/LoopUnidades/LoopUnidadesSlide.php';
+require_once 'TemplateHierarchy/LoopUnidades/LoopUnidadesTabs.php';
+
 require_once 'TemplateHierarchy/ArchiveAgenda/ArchiveAgendaGetDatasEventos.php';
 require_once 'TemplateHierarchy/ArchiveContato/ArchiveContatoMetabox.php';
 require_once 'TemplateHierarchy/ArchiveContato/ArchiveContato.php';

@@ -50,7 +50,6 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 								$inscri = get_field('inscricoes');
 								$datas = get_field('data'); // Datas
 								
-								$end = get_field('endereco_ceu', 'category_' . $category_id);
 								$tipo = get_field('tipo_de_evento_selecione_o_evento', get_the_ID());
 							?>
 
@@ -189,41 +188,22 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 										
 										<?php
 											global $post;
-											$post_categories = wp_get_post_categories( $post->ID );
-											$cats = array();
-											
-											foreach($post_categories as $c){
-												$cat = get_category( $c );
-												$cats[] = array( 'name' => $cat->name, 'slug' => $cat->slug );
-											}
-
-											$total = count($post_categories); 
-											$j = 0;
-											$unidades = '';
-
-											foreach($cats as $unidade){
-												$j++;
-												if($total - $j == 1 || $total - $j == 0){
-													$unidades .= $unidade['name'] . " ";
-												} elseif($total != $j){
-													$unidades .= $unidade['name'] . ", ";
-												} else {
-													$unidades .= "e " . $unidade['name'];
-												}
-											}
-											
+											$local = get_field('localizacao', $post->ID); 
 										?>
 
 										<tr>
 											<th scope="row" class="align-middle"><i class="fa fa-map-marker" aria-hidden="true"></i></th>
-											<?php if($post_categories[0] == 1): ?>
+											<?php if($local == 31244): ?>
 												<td><p class="m-0">Consulte abaixo CEUs participantes</p></td>
 											<?php else: ?>
-												<td><strong><?php echo $unidades; ?></strong>
+												<td><strong><?php echo get_the_title($local); ?></strong>
 												
-													<?php if($end != '') : ?>
+												<?php 
+													$end = get_field('informacoes_basicas', $local);
+													
+													if($end != '') : ?>
 														<br>
-														<?php echo $end; ?>
+														<?php echo $end['endereco'] . ', ' . $end['numero'] . ' - ' .$end['bairro'] . ' - CEP: ' .$end['cep']; ?>
 													<?php endif; ?>	
 												</td>
 											<?php endif; ?>                                

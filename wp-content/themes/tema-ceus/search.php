@@ -87,10 +87,33 @@
                         </div>
 
                         <div class="col-sm-3 mt-3 px-1">
-                            <select name="unidades[]" multiple="multiple" class="ms-list-5" style="">
-                                <?php foreach ($unidades as $unidade): ?>
-                                    <option value="<?php echo $unidade->term_id; ?>"><?php echo $unidade->name; ?></option>
-                                <?php endforeach; ?>     
+                            
+							<select name="unidades[]" multiple="multiple" class="ms-list-5" style="">
+								<?php
+									$currentID = get_the_id();
+									$argsUnidades = array(
+										'post_type' => 'unidade',
+										'posts_per_page' => -1,
+									);
+
+									$todasUnidades = new \WP_Query( $argsUnidades );
+			
+									// The Loop
+									if ( $todasUnidades->have_posts() ) {
+										
+										while ( $todasUnidades->have_posts() ) {
+											$todasUnidades->the_post();
+											if($currentID == get_the_id() ) {
+												echo '<option selected value="' . get_the_id() .'">' . get_the_title() .'</option>';
+											} else {
+												echo '<option value="' . get_the_id() .'">' . get_the_title() .'</option>';
+											}
+											
+										}
+									
+									}
+									wp_reset_postdata();
+								?>      
                             </select>
                         </div>
 
@@ -199,10 +222,16 @@
 			if( isset($_GET['unidades']) && $_GET['unidades'] != ''){
 				$unidades = $_GET['unidades'];
 				
-				$args['tax_query'][] = array (
-					'taxonomy' => 'category',
-					'field'    => 'term_id',
-					'terms'    => $unidades,
+				foreach($unidades as $unidade){
+					$unidadesBusca = array(
+						'key'	 	=> 'localizacao',
+						'value'	  	=> $unidade
+					);
+				}
+
+				$args['meta_query'] = array(
+					'relation'	=> 'OR',
+					$unidadesBusca						
 				);
 			}
 
@@ -340,27 +369,38 @@
 							<div class="card-eventos">
 								<div class="card-eventos-img">
 									<?php 
-										$featured_img_url = get_the_post_thumbnail_url($eventoInterno->ID, 'thumb-eventos');
+										$imgSelect = get_field('capa_do_evento', $eventoInterno->ID);
+										$tipo = get_field('tipo_de_evento_selecione_o_evento', $eventoInterno->ID);
+										
+										$featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
 										if($featured_img_url){
-											$imgEvento = $featured_img_url;
-											$thumbnail_id = get_post_thumbnail_id( $eventoInterno->ID );
-                                            $alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true); 
+											$imgEvento = $featured_img_url[0];
+											//$thumbnail_id = get_post_thumbnail_id( $eventoInterno->ID );
+											$alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
 										} else {
 											$imgEvento = 'https://via.placeholder.com/575x297';
-                                            $alt = get_the_title($eventoInterno->ID);
+											$alt = get_the_title($eventoInterno->ID);
 										}
 									?>
-									<a href="#"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
+									<a href="<?php get_the_permalink($eventoInterno->ID);?>"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
 								</div>
 								<div class="card-eventos-content p-2">
 									<div class="evento-categ border-bottom pb-1">
 										<?php
-											$atividades = get_the_terms( get_the_ID(), 'atividades_categories' );
+											$atividades = get_the_terms( get_the_id(), 'atividades_categories' );
+											
 											$listaAtividades = array();
-											foreach($atividades as $atividade){
-												if($atividade->parent != 0){
-													$listaAtividades[] = $atividade->name;
+
+											$atividadesTotal = count($atividades);
+
+											if($atividadesTotal > 1){
+												foreach($atividades as $atividade){
+													if($atividade->parent != 0){
+														$listaAtividades[] = $atividade->name;
+													} 
 												}
+											} else {
+												$listaAtividades[] = $atividades[0]->name;
 											}
 
 											$total = count($listaAtividades); 
@@ -378,100 +418,152 @@
 												}
 											}
 										?>
-										<a href="#"><?php echo $showAtividades; ?></a>
-										
+										<a href="#"><?php echo $showAtividades; ?></a>									
 									</div>
-									<h3><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></h3>
-									<?php
-										$campos = get_field('data', get_the_ID());
-										
-										// Verifica se possui campos
-										if($campos){
-
-											if($campos['tipo_de_data'] == 'data'){ // Se for do tipo data
-												$dataInicial = $campos['data'];
-												$dataFinal = $campos['data_final'];
-
-												if($dataFinal){ // Verifica se possui a data final
-													$dataInicial = explode("-", $dataInicial);
-													$dataFinal = explode("-", $dataFinal);
-													$mes = $monthName = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
-
-													$data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
-												} else { // Se nao tiver a final mostra apenas a inicial
-													$dataInicial = explode("-", $dataInicial);
-													$mes = $monthName = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
-													$data = $dataInicial[2] . " " . $mes . " " . $dataInicial[0];
-												}
-											} elseif($campos['tipo_de_data'] == 'semana'){ // se for do tipo semana
-												$semana = $campos['semana'];
-												
-												$total = count($semana); 
-												$i = 0;
-												$dias = '';
-
-												foreach($semana as $dia){
-													$i++;
-													if($total - $i == 1){
-														$dias .= $dia . " ";
-													} elseif($total != $i){
-														$dias .= $dia . ", ";
-													} else {
-														$dias .= "e " . $dia;
-													}
-												}
-
-												$data = $dias; 
-											}
-
-										}
-									?>
-									<p class="mb-0">
-										<i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $data; ?>
-										<br>
+										<h3><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></h3>
 										<?php
-											// Exibe os horários
-											$horario = get_field('horario', get_the_ID());
+															
+											$campos = get_field('data', $eventoID);
+											
+											// Verifica se possui campos
+											if($campos){
 
-											if($horario['horario']){
-												$hora = $horario['horario'];
-											} else {
-												$hora = '';
-											}
+												//print_r($campos);
+
+												if($campos['tipo_de_data'] == 'data'){ // Se for do tipo data
+													
+													$dataEvento = $campos['data'];
+
+													$dataEvento = explode("-", $dataEvento);
+													$mes = $monthName = date('M', mktime(0, 0, 0, $dataEvento[1], 10));
+													$data = $dataEvento[2] . " " . $mes . " " . $dataEvento[0];
+
+													$dataFinal = $data;
+
+												} elseif($campos['tipo_de_data'] == 'semana'){ // se for do tipo semana
+													
+													$semana = $campos['dia_da_semana'];													
+													
+													$diasSemana = array();
+
+													foreach($semana as $dias){
+
+														$total = count($dias['selecione_os_dias']); 
+														$i = 0;
+														$diasShow = '';
+														
+														foreach($dias['selecione_os_dias'] as $diaS){
+															$i++;
+															//echo $dia . "<br>";
+															if($total - $i == 1){
+																$diasShow .= $diaS . " ";
+															} elseif($total != $i){
+																$diasShow .= $diaS . ", ";
+															} else {
+																$diasShow .= "e " . $diaS;
+															}	
+																													
+														}
+														$show = array();
+														$show[] = $diasShow;
+													}
+													
+													$totalDias = count($show);
+													$j = 0;	
+													
+													$dias = '';
+
+													foreach($show as $diaShow){
+														$j++;
+														if($j == 1){
+															$dias .= $diaShow . " ";                                                        
+														} else {
+															$dias .= "/ " . $diaShow;
+														}
+													}
+
+													$dataFinal = $dias; 
+
+													$dias = '';
+													$show = '';
+													
+												} elseif($campos['tipo_de_data'] == 'periodo'){
+													
+													$dataInicial = $campos['data'];
+													$dataFinal = $campos['data_final'];
+
+													if($dataFinal){ // Verifica se possui a data final
+														$dataInicial = explode("-", $dataInicial);
+														$dataFinal = explode("-", $dataFinal);
+														$mes = $monthName = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+
+														$data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+
+														$dataFinal = $data;
+													} else { // Se nao tiver a final mostra apenas a inicial
+														$dataInicial = explode("-", $dataInicial);
+														$mes = $monthName = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
+														$data = $dataInicial[2] . " " . $mes . " " . $dataInicial[0];
+
+														$dataFinal = $data;
+													}
+
+												}
+
+											} 
 										?>
-										<i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $hora; ?>
-									</p>
-									<?php
-										$post_categories = wp_get_post_categories( get_the_ID() );
-										$cats = array();
-										
-										foreach($post_categories as $c){
-											$cat = get_category( $c );
-											$cats[] = array( 'name' => $cat->name, 'slug' => $cat->slug );
-										}
+										<p class="mb-0">
+											<i class="fa fa-calendar" aria-hidden="true"><span>icone calendario</span></i> <?php echo $dataFinal; ?>
+											<br>
+											<?php
+												// Exibe os horários
+												$horario = get_field('horario', $eventoID);
 
-										$total = count($post_categories); 
-										$j = 0;
-										$unidades = '';
+												
 
-										foreach($cats as $unidade){
-											$j++;
-											if($total - $j == 1 || $total - $j == 0){
-												$unidades .= $unidade['name'] . " ";
-											} elseif($total != $j){
-												$unidades .= $unidade['name'] . ", ";
-											} else {
-												$unidades .= "e " . $unidade['name'];
-											}
-										}
+												if($horario['selecione_o_horario'] == 'horario'){
+													$hora = $horario['hora'];
+												} elseif($horario['selecione_o_horario'] == 'periodo'){
+													
+													$hora = '';
+													$k = 0;
+													
+													foreach($horario['hora_periodo'] as $periodo){
+														//print_r($periodo['periodo_hora_final']);
+														
+														if($periodo['periodo_hora_inicio']){
 
+															if($k > 0){
+																$hora .= ' / ';
+															}
 
-										
-									?>
-									<p class="mb-0 mt-1 evento-unidade"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo $unidades; ?></a></p>
+															$hora .= $periodo['periodo_hora_inicio'];
+
+														} 
+														
+														if ($periodo['periodo_hora_final']){
+
+															$hora .= ' às ' . $periodo['periodo_hora_final'];
+
+														}
+														
+														$k++;
+														
+													}
+
+												}else {
+													$hora = '';
+												}
+											?>
+											<i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> <?php echo $hora; ?>
+										</p>
+										<?php
+											$local = get_field('localizacao', get_the_ID());                                                
+										?>
+										<p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
 								</div>
 							</div>
-                    </div>
+                    	</div>
 
 					<?php
 					}
