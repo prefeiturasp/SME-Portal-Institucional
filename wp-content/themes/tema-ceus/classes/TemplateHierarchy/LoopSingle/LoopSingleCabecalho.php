@@ -81,32 +81,15 @@ class LoopSingleCabecalho extends LoopSingle
 						
 						<?php
 							$post_categories = wp_get_post_categories( $post->ID );
-							$cats = array();
-							
-							foreach($post_categories as $c){
-								$cat = get_category( $c );
-								$cats[] = array( 'name' => $cat->name, 'slug' => $cat->slug );
-							}
-
-							$total = count($post_categories); 
-							$j = 0;
-							$unidades = '';
-
-							foreach($cats as $unidade){
-								$j++;
-								if($total - $j == 1 || $total - $j == 0){
-									$unidades .= $unidade['name'] . " ";
-								} elseif($total != $j){
-									$unidades .= $unidade['name'] . ", ";
-								} else {
-									$unidades .= "e " . $unidade['name'];
-								}
-							}
-							
+							$local = get_field('localizacao', $post->ID); 
 						?>
 
-                        <p class="evento-unidade m-0 w-100">
-							<?php echo $unidades; ?>
+						<p class="evento-unidade m-0 w-100">
+							<?php if($local == 31244): ?>
+								<?php echo get_the_title($local); ?>
+							<?php else: ?>
+								<a href="<?php echo get_the_permalink($local); ?>"><?php echo get_the_title($local); ?></a>
+							<?php endif; ?>
                         </p>
                     </div>
                 </div>

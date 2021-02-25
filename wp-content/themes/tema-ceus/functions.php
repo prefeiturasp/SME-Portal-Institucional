@@ -1193,3 +1193,19 @@ function populateUserGroups( $field ){
 
 	return $field;
 }
+
+// Remover redirecionamento da pagina de cada unidade
+add_filter('redirect_canonical','pif_disable_redirect_canonical');
+
+function pif_disable_redirect_canonical($redirect_url) {
+    if (is_singular()) $redirect_url = false;
+return $redirect_url;
+}
+
+//MapLeaFlet - Mapa de unidades
+wp_register_style( 'leaflet.css','https://unpkg.com/leaflet@1.6.0/dist/leaflet.css', null, '1.6.0', 'all' );
+wp_enqueue_style('leaflet.css');
+wp_register_script('leaflet.js', 'https://unpkg.com/leaflet@1.6.0/dist/leaflet.js', null, '1.6.0', false);
+wp_enqueue_script('leaflet.js');
+wp_register_script('mapsceus-leaflet.js', get_template_directory_uri() . '/js/mapsceus-leaflet.js', array('jquery'), 1.0 ,false);
+wp_enqueue_script('mapsceus-leaflet.js');
