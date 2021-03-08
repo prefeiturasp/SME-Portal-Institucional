@@ -1202,10 +1202,160 @@ function pif_disable_redirect_canonical($redirect_url) {
 return $redirect_url;
 }
 
-//MapLeaFlet - Mapa de unidades
+
+
+//MapLeaFlet
 wp_register_style( 'leaflet.css','https://unpkg.com/leaflet@1.6.0/dist/leaflet.css', null, '1.6.0', 'all' );
 wp_enqueue_style('leaflet.css');
 wp_register_script('leaflet.js', 'https://unpkg.com/leaflet@1.6.0/dist/leaflet.js', null, '1.6.0', false);
 wp_enqueue_script('leaflet.js');
-wp_register_script('mapsceus-leaflet.js', get_template_directory_uri() . '/js/mapsceus-leaflet.js', array('jquery'), 1.0 ,false);
-wp_enqueue_script('mapsceus-leaflet.js');
+
+function my_enqueue_scripts() {
+	if ( (is_single() && 'unidade' == get_post_type()) || (is_single() && 'post' == get_post_type())){
+		wp_register_script('mapsceus-leaflet.js', get_template_directory_uri() . '/js/mapsceus-leaflet.js', array('jquery'), 1.0 ,false);
+		wp_enqueue_script('mapsceus-leaflet.js');
+	}
+}
+add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts' );
+
+
+
+// Geocoder
+wp_register_style( 'leaflet-geocoder-locationiq.min.css','https://maps.locationiq.com/v2/libs/leaflet-geocoder/1.9.6/leaflet-geocoder-locationiq.min.css', null, '1.6.0', 'all' );
+wp_enqueue_style('leaflet-geocoder-locationiq.min.css');
+
+wp_register_script('leaflet-unwired.js', 'https://tiles.unwiredlabs.com/js/leaflet-unwired.js?v=1', null, '1.6.0', false);
+wp_enqueue_script('leaflet-unwired.js');
+
+wp_register_script('leaflet-hash.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet-hash/0.2.1/leaflet-hash.min.js', null, '1.6.0', false);
+wp_enqueue_script('leaflet-hash.min.js');
+
+wp_register_script('leaflet-geocoder-locationiq.min.js', 'https://maps.locationiq.com/v2/libs/leaflet-geocoder/1.9.6/leaflet-geocoder-locationiq.min.js', null, '1.6.0', false);
+wp_enqueue_script('leaflet-geocoder-locationiq.min.js');
+
+function get_unidades(){
+	$args = array(
+		'post_type' => 'unidade',
+		'post__not_in' => array(31202)
+	);
+
+	$idUnidades = array();
+	
+	// The Query
+	$the_query = new WP_Query( $args );
+	
+	// The Loop
+	if ( $the_query->have_posts() ) {
+		
+		while ( $the_query->have_posts() ) {
+			$the_query->the_post();
+			$idUnidades[] = get_the_id();
+		}
+		
+	} 
+	/* Restore original Post Data */
+	wp_reset_postdata();
+
+	return $idUnidades;
+}
+
+if ( function_exists( 'get_field' ) ) {
+	function get_group_field( string $group, string $field, $post_id = 0 ) {
+		$group_data = get_field( $group, $post_id );
+		if ( is_array( $group_data ) && array_key_exists( $field, $group_data ) ) {
+			return $group_data[ $field ];
+		}
+		return null;
+	}
+}
+
+
+/**** Ajax Busca ****/
+
+// the ajax function
+add_action('wp_ajax_data_fetch','data_fetch');
+add_action('wp_ajax_nopriv_data_fetch','data_fetch');
+function data_fetch(){
+
+    $the_query = new WP_Query( array( 'posts_per_page' => 5, 
+									  's' => esc_attr( $_POST['keyword'] ), 
+									  'post_type' => 'unidade' ) );
+    if( $the_query->have_posts() ) :
+		echo "<ul class='' id='unidade-list'>";
+		echo "<li class='disable-link'>Unidades</li>";
+        while( $the_query->have_posts() ): $the_query->the_post();
+			$campos = get_field( 'informacoes_basicas', get_the_id() );
+			//print_r($campos);
+	?>
+
+		<li class=""><a href="#map" class="story" onclick="alerta(this)" data-point="<?php echo $campos['latitude']; ?>,<?php echo $campos['longitude']; ?>"><div class="name"><?php echo get_the_title(); ?></div><div class="address"><?php echo $campos['endereco']; ?>, <?php echo $campos['numero']; ?> - <?php echo $campos['bairro']; ?> - CEP: <?php echo $campos['cep']; ?></div></a></li>
+
+        <?php endwhile;
+		echo '</ul>';
+        wp_reset_postdata();  
+    
+    endif;
+        die();
+}
+
+// add the ajax fetch js
+add_action( 'wp_footer', 'ajax_fetch' );
+function ajax_fetch() {
+?>
+<script type="text/javascript">
+	
+
+function fetchResults(){
+	var keyword = jQuery('.leaflet-locationiq-input').val();
+	if(keyword == ""){
+		jQuery('#datafetch').html("");
+	} else {
+		jQuery.ajax({
+			url: '<?php echo admin_url( 'admin-ajax.php' ) ?>',
+			type:"post",
+			data: { action: 'data_fetch', keyword: keyword  },
+			success: function(data) {
+
+				//jQuery('.leaflet-locationiq-results').append("<span>Aqui</span>");
+
+				/*
+				if (jQuery(".leaflet-locationiq-list")[0]){
+					// Do something if class exists
+					jQuery('.leaflet-locationiq-results').html( data );
+				} else {
+					// Do something if class does not exist
+					jQuery('.leaflet-locationiq-results').html( data );
+				}
+				*/
+
+				jQuery('#unidade-list').remove();
+				jQuery('.leaflet-locationiq-results').append( data );
+				//console.log(data);
+			},
+			//error : function(error){ console.log(error) }
+		});
+	}
+
+}
+</script>
+
+<?php
+}
+
+function nomeZona($zona){
+	if($zona == 'norte'){
+		return "Zona Norte";
+	} elseif($zona == 'sul'){
+		return "Zona Sul";
+	} elseif($zona == 'leste'){
+		return "Zona Leste";
+	} elseif($zona == 'oeste'){
+		return "Zona Oeste";
+	}
+}
+
+function clearPhone($phone){
+	$clear = preg_replace("/[^0-9]/", "", $phone);
+
+	return $clear;
+}

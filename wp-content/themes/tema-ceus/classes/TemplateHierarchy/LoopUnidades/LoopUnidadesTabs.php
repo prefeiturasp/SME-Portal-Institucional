@@ -722,7 +722,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                     $infoBasicas = get_field('informacoes_basicas');
                                     if($infoBasicas && $infoBasicas != ''): 
                                 ?>
-                                    <div id="map" style="width: 100%; min-height: 450px;"></div>
+                                    <div id="map" style="width: 100%; height: 450px;"></div>
                                     <a href="#map" class="story" data-point="<?php echo $infoBasicas['latitude']; ?>,<?php echo $infoBasicas['longitude']; ?>,<strong><?php the_title(); ?></strong><br><?php echo $infoBasicas['endereco'];?> nº <?php echo $infoBasicas['numero']; ?> <br><?php echo $infoBasicas['bairro']; ?> <br> CEP: <?php echo $infoBasicas['cep']; ?>" style="display: none;"> &nbsp;destacar no mapa</a></span>
                                 <?php endif; ?>
                             </div>

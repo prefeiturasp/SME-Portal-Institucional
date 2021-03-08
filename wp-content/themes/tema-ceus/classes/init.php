@@ -117,6 +117,8 @@ require_once 'ModelosDePaginas/PaginaProgramacao/PaginaProgramacaoBusca.php';
 require_once 'ModelosDePaginas/PaginaProgramacao/PaginaProgramacaoCategorias.php';
 require_once 'ModelosDePaginas/PaginaProgramacao/PaginaProgramacaoEventos.php';
 
+require_once 'ModelosDePaginas/PaginaUnidades/PaginaUnidades.php';
+require_once 'ModelosDePaginas/PaginaUnidades/PaginaUnidadesMapa.php';
 
 require_once 'BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
 require_once 'BuscaDeEscolas/BuscaDeEscolas.php';
