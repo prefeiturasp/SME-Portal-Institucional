@@ -132,7 +132,7 @@ class LoopSingleRelacionadas extends LoopSingle
                     </div>
 
                     <div class="col-md-6">
-						<div id="map" style="width: 100%; min-height: 350px;"></div>
+						<div id="map" style="width: 100%; height: 350px;"></div>
                         <a href="#map" class="story" data-point="<?php echo $infosBasicas['latitude']; ?>,<?php echo $infosBasicas['longitude']; ?>,<strong><?php the_title(); ?></strong><br><?php echo $infosBasicas['endereco'];?> nº <?php echo $infosBasicas['numero']; ?> <br><?php echo $infosBasicas['bairro']; ?> <br> CEP: <?php echo $infosBasicas['cep']; ?>" style="display: none;"> &nbsp;destacar no mapa</a></span>                    
                     </div>
                 </div>

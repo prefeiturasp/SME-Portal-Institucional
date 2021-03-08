@@ -1,71 +1,144 @@
 </section>
 <!--main-->
 
-<footer style="background: #363636; color: #fff;" id='irrodape'>
-	<div class="container pt-5 pb-5">
+<footer style="background: #363636;color: #fff;margin-left: -15px;margin-right: -15px;">
+	<div class="container pt-3 pb-3" id="irrodape">
 		<div class="row">
-			<div class="col-sm-3 align-middle">
+			<div class="col-sm-3 align-middle d-flex align-items-center">
 				<img src="<?php the_field('logo_prefeitura','conf-rodape'); ?>" alt="<?php bloginfo('name'); ?>">
 			</div>
-			<div class="col-sm-3 align-middle">
-				<h2><?php the_field('nome_da_secretaria','conf-rodape'); ?></h2>
+			<div class="col-sm-3 align-middle bd-contact">
+				<p class='footer-title'><?php the_field('nome_da_secretaria','conf-rodape'); ?></p>
 				<?php the_field('endereco_da_secretaria','conf-rodape'); ?>
 			</div>
 			<div class="col-sm-3 align-middle">
-				<h2>Contatos</h2>
-				<p><a href="tel:<?php the_field('telefone','conf-rodape'); ?>"><?php the_field('telefone','conf-rodape'); ?></a></p>
-                <?php
-                    $email = the_field('email','conf-rodape');
-                    if($email) : 
-                ?>
-                    <p><a href="mailto:<?php the_field('email','conf-rodape'); ?>"><?php the_field('email','conf-rodape'); ?></a></p>
-                <?php endif; ?>
-                <p><figure>
-                        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR">
-                            <img src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Logotipo Creative Commons. Ir para um link externo da Página Inicial da Creative Commons que é uma organização mundial sem fins lucrativos que permite o compartilhamento e a reutilização da criatividade e do conhecimento por meio do fornecimento de ferramentas gratuitas."/>
-                        </a>
-                        <p class="mt-2">Esta obra está licenciada com uma Licença Creative Commons
-                            Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional </p>
-                    </figure></p>
-			</div>
-			<div class="col-sm-3 align-middle">
-				<div class="row">
-					<div class="col rede-rodape">
-						<a href="<?php the_field('url_facebook','conf-rodape'); ?>">
-						<img src="<?php the_field('icone_facebook','conf-rodape'); ?>" alt="Facebook"></a>
-					</div>
-					<div class="col rede-rodape">
-						<a href="<?php the_field('url_instagram','conf-rodape'); ?>">
-						<img src="<?php the_field('icone_instagram','conf-rodape'); ?>" alt="Instagram"></a>
-					</div>
-					<div class="col rede-rodape">
-						<a href="<?php the_field('url_twitter','conf-rodape'); ?>">
-						<img src="<?php the_field('icone_twitter','conf-rodape'); ?>" alt="Twitter"></a>
-					</div>
-					<div class="col rede-rodape">
-						<a href="<?php the_field('url_youtube','conf-rodape'); ?>">
-						<img src="<?php the_field('icone_youtube','conf-rodape'); ?>" alt="YouTube"></a>
-					</div>
+				<p class='footer-title'>Contatos</p>
+				<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:<?php the_field('telefone','conf-rodape'); ?>"><?php the_field('telefone','conf-rodape'); ?></a></p>
+				
+				<?php if(get_field('email','conf-rodape')) :?>
+				<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:<?php the_field('email','conf-rodape'); ?>"><?php the_field('email','conf-rodape'); ?></a></p>
+				<?php endif; ?>
+
+				<?php if(get_field('texto_link','conf-rodape') && get_field('link_adicional','conf-rodape')) :?>
+				<p><i class="fa fa-comment" aria-hidden="true"></i> <a href="<?php the_field('link_adicional','conf-rodape'); ?>"><?php the_field('texto_link','conf-rodape'); ?></a></p>
+				<?php endif; ?>
+
+				<p class='footer-title'>Redes sociais</p>
+				<?php 
+					$facebook = get_field('icone_facebook','conf-rodape');
+					$instagram = get_field('icone_instagram','conf-rodape');
+					$twitter = get_field('icone_twitter','conf-rodape');
+					$youtube = get_field('icone_youtube','conf-rodape');
+				?>
+				<div class="row redes-footer">
+
+					<?php if($facebook) : ?>
+						<div class="col rede-rodape">
+							<a href="<?php the_field('url_facebook','conf-rodape'); ?>">
+							<img src="<?php echo $facebook; ?>" alt="Facebook"></a>
+						</div>
+					<?php endif; ?>
+
+					<?php if($instagram) : ?>
+						<div class="col rede-rodape">
+							<a href="<?php the_field('url_instagram','conf-rodape'); ?>">
+							<img src="<?php echo $instagram; ?>" alt="Instagram"></a>
+						</div>
+					<?php endif; ?>
+
+					<?php if($twitter) : ?>
+						<div class="col rede-rodape">
+							<a href="<?php the_field('url_twitter','conf-rodape'); ?>">
+							<img src="<?php echo $twitter; ?>" alt="Twitter"></a>
+						</div>
+					<?php endif; ?>
+
+					<?php if($youtube) : ?>
+						<div class="col rede-rodape">
+							<a href="<?php the_field('url_youtube','conf-rodape'); ?>">
+							<img src="<?php echo $youtube; ?>" alt="YouTube"></a>
+						</div>
+					<?php endif; ?>
+
+					
 				</div>
-				<p class="mt-4"><a class="sa sat seloa" href="http://selodigital.imprensaoficial.com.br/validacao/SMPED/011e4eebb735e428dd">
-                        <img src="<?= STM_THEME_URL ?>/img/sa2.svg" alt="Este sitio possui um selo de acessibilidade digital.">
-                        <div class="st"><div>Selo de Acessibilidade Digital</div>Nº: 20630686115146508509<br>Validade: 18/12/2020<br><span>Clique para mais informações</span>
-                        </div>
-                    </a></p>
+			</div>
+			<div class="col-sm-3 align-middle text-center">				
+				<a class="sa sat seloa mt-1" href="http://selodigital.imprensaoficial.com.br/validacao/SMPED/0118119073598c7823" target="_blank">
+					<img src="<?= STM_THEME_URL ?>/img/sa2.svg" alt="Este sitio possui um selo de acessibilidade digital.">
+					<div class="st"><div>Selo de Acessibilidade Digital</div>Nº do Selo: 2020-AD/102<br>Validade: 18/12/2022<br>Clique para mais informações
+					</div>
+				</a>
+				<p><figure>
+					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR">
+						<img src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Logotipo Creative Commons. Ir para um link externo da Página Inicial da Creative Commons que é uma organização mundial sem fins lucrativos que permite o compartilhamento e a reutilização da criatividade e do conhecimento por meio do fornecimento de ferramentas gratuitas."/>
+					</a>
+					<p class="mt-2">Esta obra está licenciada com uma Licença Creative Commons
+						Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional </p>
+				</figure></p>
 			</div>
 		</div>
 	</div>
 </footer>
-<div class="subfooter rodape-api-col">
+<div class="subfooter rodape-api-col" style="margin-left: -15px;margin-right: -15px;">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12 text-center">
-				<p>&copy<?php echo date('Y'); ?> - SECRETARIA MUNICIPAL DE EDUCAÇÃO — Rua Borges Lagoa, 1230 — Vila Clementino — CEP: 04038-003</p>
+				<p>Prefeitura Municipal de São Paulo - Viaduto do Chá, 15 - Centro - CEP: 01002-020</p>
 			</div>
 		</div>
 	</div>
 </div>		
 <?php wp_footer() ?>
+
+<?php 
+    $unidades = get_unidades();
+
+    $marcadores = array();
+
+    $p = 0;
+
+    foreach ($unidades as $unidade){
+        $zona = get_group_field( 'informacoes_basicas', 'zona_sp', $unidade );
+        $endereco = get_group_field( 'informacoes_basicas', 'endereco', $unidade );
+        $numero = get_group_field( 'informacoes_basicas', 'numero', $unidade );
+        $bairro = get_group_field( 'informacoes_basicas', 'bairro', $unidade );
+        $cep = get_group_field( 'informacoes_basicas', 'cep', $unidade );
+        $emails = get_group_field( 'informacoes_basicas', 'email', $unidade );
+        $emails2 = '';
+        $tels = get_group_field( 'informacoes_basicas', 'telefone', $unidade );
+        $tels2 = '';
+    
+        if($emails['email_second'] && $emails['email_second'] != ''){
+            foreach($emails['email_second'] as $email){
+                $emails2 .= ' / <a href="mailto:' . $email['email'] .'">' . $email['email'] . "</a>";
+            }
+        }
+
+        if($tels['tel_second'] && $tels['tel_second'] != ''){
+            foreach($tels['tel_second'] as $tel){
+                $tels2 .= ' / <a href="tel:' . clearPhone($tel['telefone_sec']) .'">' . $tel['telefone_sec'] . "</a>";
+            }
+        }
+
+        //print_r($emails);
+
+        $marcadores[$p][] = "<div class='marcador-unidade color-" . $zona . "'>
+                                <p class='marcador-title'><a href='". get_the_permalink($unidade) ."'>" . get_the_title($unidade) . "</a></p>
+                                <p><i class='fa fa-map-marker' aria-hidden='true'></i> " . nomeZona($zona) . " • " . $endereco . ", ". $numero ." - " . $bairro . " - CEP: " . $cep . "</p>
+                                
+                                <p><i class='fa fa-phone' aria-hidden='true'></i> " . $tels['telefone_principal'] . $tels2 ."</p>
+                                <p><i class='fa fa-envelope' aria-hidden='true'></i> " . $emails['email_principal'] . $emails2 ."</p>
+                            </div>";
+        $marcadores[$p][] = get_group_field( 'informacoes_basicas', 'latitude', $unidade );
+        $marcadores[$p][] = get_group_field( 'informacoes_basicas', 'longitude', $unidade );
+        $marcadores[$p][] = get_group_field( 'informacoes_basicas', 'zona_sp', $unidade );
+
+        $p++;
+    }
+
+    //print_r($unidades);
+?>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.multiselect.js"></script>
 
@@ -345,5 +418,198 @@
 			token: "aa1f4871439ba18dabef482aae5fd934"
 		});
 	</script>
+
+    <script type="text/javascript">
+        var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
+        triggerTabList.forEach(function (triggerEl) {
+            var tabTrigger = new bootstrap.Tab(triggerEl)
+
+            triggerEl.addEventListener('click', function (event) {
+                event.preventDefault()
+                tabTrigger.show()
+            })
+        })
+
+        
+    </script>
+
+<?php if(is_page()) : ?>
+    <script type="text/javascript">
+
+        // Maps access token goes here
+        //var key = 'pk.87f2d9fcb4fdd8da1d647b46a997c727';
+        var key = 'pk.2217522833071a6e06b34ac78dfc05bc';
+
+        // Initial map view
+        var INITIAL_LNG = -46.6360999;
+        var INITIAL_LAT = -23.5504533;
+
+        // Change the initial view if there is a GeoIP lookup
+        if (typeof Geo === 'object') {
+            INITIAL_LNG = Geo.lon;
+            INITIAL_LAT = Geo.lat;
+        }
+        // Add layers that we need to the map
+        var streets = L.tileLayer.Unwired({
+            key: key,
+            scheme: "streets"
+        });
+
+        var tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: false
+        });
+
+
+
+        var map = L.map('map', {
+            scrollWheelZoom: (window.self === window.top) ? true : false,
+            dragging: (window.self !== window.top && L.Browser.touch) ? false : true,
+            layers: [tileLayer],
+            tap: (window.self !== window.top && L.Browser.touch) ? false : true,
+        }).setView({
+            lng: INITIAL_LNG,
+            lat: INITIAL_LAT
+        }, 11);
+        var hash = new L.Hash(map);
+
+        L.control.zoom({
+            position: 'topright'
+        }).addTo(map);
+
+        // Add the 'layers' control
+        L.control.layers({            
+            "Completo" : tileLayer,
+            "Ruas": streets,
+        }, null, {
+            position: "topright"
+        }).addTo(map);
+
+        // Add the 'scale' control
+        L.control.scale().addTo(map);
+
+        // Add geocoder
+        var geocoder = L.control.geocoder(key, {
+            fullWidth: 650,
+            expanded: true,
+            markers: true,
+            attribution: null,
+            url: 'https://api.locationiq.com/v1',
+            placeholder: 'Encontre CEUs por nome ou endereço',
+            textStrings: {                
+                NO_RESULTS: 'Nenhum endereço encontrado.',
+            },
+            panToPoint: true,
+            params: {
+                countrycodes: 'BR'
+            },
+        }).addTo(map);
+
+        // Focus to geocoder input
+        geocoder.focus();
+
+        geocoder.on('select', function(e) {
+            if (typeof latlng == 'undefined') {
+                // the variable is defined
+                //alert('Aqui');
+            }
+            //console.log(e.latlng);
+            map.setView([e.latlng.lat, e.latlng.lng], 15);
+        });
+
+
+        var newParent = document.getElementById('search-box');
+        var oldParent = document.getElementsByClassName("leaflet-top leaflet-left")
+
+        while (oldParent[0].childNodes.length > 0) {
+            newParent.appendChild(oldParent[0].childNodes[0]);
+        }
+
+        <?php
+            
+            $js_array = json_encode($marcadores);
+            echo "var javascript_array = ". $js_array . ";\n";
+        ?>
+
+                
+        for (var i = 0; i < javascript_array.length; i++) {
+
+            if(javascript_array[i][3] == 'norte'){
+                myIcon = L.icon({
+                    iconUrl: "<?php echo get_template_directory_uri() . '/img/pin-map-norte.png'; ?>",
+                });
+            } else if(javascript_array[i][3] == 'sul'){
+                myIcon = L.icon({
+                    iconUrl: "<?php echo get_template_directory_uri() . '/img/pin-map-sul.png'; ?>",
+                });
+            } else if(javascript_array[i][3] == 'leste'){
+                myIcon = L.icon({
+                    iconUrl: "<?php echo get_template_directory_uri() . '/img/pin-map-leste.png'; ?>",
+                });
+            } else {
+                myIcon = L.icon({
+                    iconUrl: "<?php echo get_template_directory_uri() . '/img/pin-map-oeste.png'; ?>",
+                });
+            }
+
+            marker = new L.marker([javascript_array[i][1], javascript_array[i][2]], {
+                    icon: myIcon
+                })
+                .bindPopup(javascript_array[i][0])
+                .addTo(map);
+        }
+
+        // Posição no navegador
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+        }
+
+        function showPosition(position) {
+            var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+            map.setView([position.coords.latitude, position.coords.longitude], 15);
+
+            jQuery([document.documentElement, document.body]).animate({
+                scrollTop: jQuery("#map").offset().top
+            }, 1000);
+        }
+
+        jQuery( ".leaflet-locationiq-input" ).keyup(function() {
+            fetchResults();
+        });
+
+        //adiciona link aos marcadores
+        jQuery('.name .story').on('click', function(){
+            // pega lat e lng das class ".story" por data attribute            
+            var latlng = jQuery(this).data().point.split(',');
+            var lat = latlng[0];
+            var lng = latlng[1];
+            var desc = latlng[2];
+            var zoom = 17;
+                            
+            // adiciona marcadores
+            var marker = L.marker([lat, lng] ).bindPopup(desc).addTo(map).openPopup();
+            // adiciona no mapa
+            map.setView([lat, lng], zoom);
+        })
+
+        function alerta(content){            
+            var latlng2 = content;
+            var latlng = jQuery(latlng2).data().point.split(',');
+            var lat = latlng[0];
+            var lng = latlng[1];
+            var desc = latlng[2];
+            var zoom = 17;                
+        
+            // adiciona no mapa
+            map.setView([lat, lng], zoom);
+        }
+
+    </script>
+    <?php  endif; ?>
+
+    
+
 </body>
 </html>
