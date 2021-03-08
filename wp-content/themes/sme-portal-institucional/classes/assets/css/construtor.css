@@ -121,6 +121,10 @@ li.nav-item {
     background: none;
 }
 
+.card.sanfona .collapse:not(.show) {
+    display: none;
+}
+
 .card-header {
     background-color: rgba(0, 0, 0, 0.2) !important;
 }
