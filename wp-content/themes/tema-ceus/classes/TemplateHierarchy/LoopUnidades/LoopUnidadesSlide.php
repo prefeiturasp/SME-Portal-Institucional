@@ -213,7 +213,7 @@ class LoopUnidadesSlide extends LoopUnidades{
                                                             
                                                             if ($periodo['periodo_hora_final']){
 
-                                                                $hora .= ' ás ' . $periodo['periodo_hora_final'];
+                                                                $hora .= ' às ' . $periodo['periodo_hora_final'];
 
                                                             }
                                                             

@@ -1080,7 +1080,12 @@ function wp37_limit_posts_to_author($query) {
 		foreach ($unidades2 as $unidade){
 			$showEventos[] = $wpdb->get_col( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'localizacao' AND meta_value = $unidade ORDER BY post_id" );
 		}
-		$merge = array_merge($showEventos[0], $showEventos[1]);
+		if($showEventos[1]){
+			$merge = array_merge($showEventos[0], $showEventos[1]);
+		} else {
+			$merge = $showEventos[0];
+		}
+		
 		$result = array_unique($merge);
 
 		$query->set('post__in', $result);
@@ -1186,8 +1191,10 @@ function populateUserGroups( $field ){
     } else {
 		$variable = get_user_meta($user->ID,'grupo',true);
 		$pages = get_post_meta($variable, 'unidades', true);
-		foreach ($pages as $page) {
-			$field['choices'][ $page ] = get_the_title($page);
+		if($pages && $pages != ""){
+			foreach ($pages as $page) {
+				$field['choices'][ $page ] = get_the_title($page);
+			}
 		}
 	}
 
