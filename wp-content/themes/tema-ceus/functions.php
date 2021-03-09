@@ -14,7 +14,9 @@ remove_filter('the_excerpt', 'wpautop');
 add_action('after_setup_theme', 'custom_setup');
 
 function custom_setup() {
-	add_filter('show_admin_bar', '__return_false');
+	if ( !( current_user_can('editor') || current_user_can('administrator') ) && !is_admin() ) {
+		show_admin_bar(false);
+	}
 	add_action('wp_enqueue_scripts', 'custom_formats');
 	add_filter('get_image_tag_class', 'image_tag_class');
 	add_action('login_head', 'custom_login_logo');
