@@ -495,7 +495,7 @@ if( have_rows('fx_flex_layout') ):
 																					 $imgSlide = 'http://via.placeholder.com/656x304';
 																				 }                                               
 																			?>
-																			<img class="d-block w-100" src="<?php echo  $imgSlide; ?>" alt="Slide ">
+																			<a href="<?php echo get_the_permalink($slide); ?>"><img class="d-block w-100" src="<?php echo  $imgSlide; ?>" alt="Slide "></a>
 																		</div>
 																		<div class="col-sm-12 col-md-5"> 
 																			<div class="carousel-title">
