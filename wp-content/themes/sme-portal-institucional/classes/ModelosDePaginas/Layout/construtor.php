@@ -483,19 +483,12 @@ if( have_rows('fx_flex_layout') ):
 															foreach($slidesNoticias as $slide): ?>
 																<div class="carousel-item <?php if($l == 0){echo 'active';} ?>">
 																	<div class="row">
-																		<div class="col-sm-12 col-md-7">
+																		<div class="col-sm-7">
 																			<?php                                                 
-																				 $imgSelect = get_the_post_thumbnail_url($slide, 'slide-noticias');
-																				 
-																				 $featured_img_url =  $imgSelect;
-																				 
-																				 if($featured_img_url){
-																					 $imgSlide =  $imgSelect;
-																				 } else {
-																					 $imgSlide = 'http://via.placeholder.com/656x304';
-																				 }                                               
+																				// Busca a imagem destaca / primeira imagem / imagem padrao -- functions.php
+																				$thumbs = get_thumb($slide);                                            
 																			?>
-																			<a href="<?php echo get_the_permalink($slide); ?>"><img class="d-block w-100" src="<?php echo  $imgSlide; ?>" alt="Slide "></a>
+																			<a href="<?php get_the_permalink($slide); ?>"><img class="d-block w-100" src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>"></a>
 																		</div>
 																		<div class="col-sm-12 col-md-5"> 
 																			<div class="carousel-title">
@@ -648,27 +641,14 @@ if( have_rows('fx_flex_layout') ):
 											if($blocoNoticias) :
 
 												foreach($blocoNoticias as $noticia):
-																									
-													$imgSelect = get_the_post_thumbnail_url($noticia, 'slide-noticias');
-													$thumbnail_id = get_post_thumbnail_id( $noticia );
-													$alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true); 
 													
-													$featured_img_url =  $imgSelect;
-													
-													if($featured_img_url){
-														$imgSlide =  $imgSelect;
-														if(!$alt){
-															$alt = get_the_title();
-														}
-													} else {
-														$imgSlide = 'http://via.placeholder.com/656x304';
-														$alt = get_the_title();
-													}                                               
+													// Busca a imagem destaca / primeira imagem / imagem padrao -- functions.php
+													$thumbs = get_thumb($noticia);
 											
 												?>
 													<div class="col-sm-12 col-md-6 col-lg-<?php echo $blocoColunas; ?> lista-noticia">
 														<a href="<?php echo get_the_permalink($noticia); ?>">
-															<img src="<?php echo $imgSlide; ?>" alt="<?php echo $alt; ?>" class="img-fluid">
+															<img src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>" class="img-fluid">
 															<p><?php echo get_the_title($noticia); ?></p>
 														</a>
 													</div>

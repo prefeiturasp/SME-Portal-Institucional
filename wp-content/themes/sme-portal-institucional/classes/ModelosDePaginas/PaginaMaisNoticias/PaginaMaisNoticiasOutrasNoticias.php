@@ -44,20 +44,19 @@ class PaginaMaisNoticiasOutrasNoticias extends PaginaMaisNoticias
             <section class="row mb-5">
                 <article class="col-lg-12">
 					<?php
-					$thumb = get_the_post_thumbnail_url($query->ID);
-					$url = get_the_permalink($query->ID);
-					$post_thumbnail_id = get_post_thumbnail_id( $query->ID );
-					$image_alt = get_post_meta( $post_thumbnail_id, '_wp_attachment_image_alt', true);
+
+					// Busca a imagem destaca / primeira imagem / imagem padrao -- functions.php
+					$thumbs = get_thumb($query->ID); 
 			
-					if ($thumb){
+					if ($thumbs){
 						echo '<figure class=" m-0">';
-						echo '<img src="'.$thumb.'" class="img-fluid rounded float-left mr-4 w-25" alt="'.$image_alt.'"/>';
+						echo '<img src="'.$thumbs[0].'" class="img-fluid rounded float-left mr-4 w-25" alt="'.$thumbs[1].'"/>';
 						echo '</figure>';
 					}
 					?>
 					<div class="grid-noticias">
                     <h4 class="fonte-dezoito font-weight-bold mb-2">
-                        <a class="text-decoration-none text-dark" href="<?= $url ?>">
+                        <a class="text-decoration-none text-dark" href="<?php echo get_the_permalink($query->ID); ?>">
 							<?= $query->post_title ?>
                         </a>
                     </h4>

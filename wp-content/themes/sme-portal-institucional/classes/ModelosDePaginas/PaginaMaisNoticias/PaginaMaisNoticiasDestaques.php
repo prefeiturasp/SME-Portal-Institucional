@@ -20,11 +20,15 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 					<?php
 						$posts = get_field('primeiro_destaque','option');
 							if( $posts ): ?>
-								<?php foreach( $posts as $p ): ?>
+								<?php foreach( $posts as $p ): 
+
+									// Busca a imagem destaca / primeira imagem / imagem padrao -- functions.php
+									$thumbs = get_thumb($p->ID); 
+								?>
 									<session class="card text-white mb-3">
 									
 									<figure class="m-0 p-0">
-										<img src="<?php echo get_the_post_thumbnail_url( $p->ID ); ?>" width="100%">
+										<img src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>" width="100%">
 									</figure>
 									<article class="overlay-noticia d-flex flex-column justify-content-end">
 										<h2 class="card-title mais-noticias-destaque-principal"><a href="<?php echo get_permalink( $p->ID ); ?>">
@@ -54,8 +58,11 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 					<?php
 						$posts = get_field('segundo_destaque','option');
 							if( $posts ): ?>
-								<?php foreach( $posts as $p ): ?>
-									<div class="mb-4"><img src="<?php echo get_the_post_thumbnail_url( $p->ID ); ?>" width="100%"></div>
+								<?php foreach( $posts as $p ):
+									// Busca a imagem destaca / primeira imagem / imagem padrao -- functions.php
+									$thumbs = get_thumb($p->ID); 
+								?>
+									<div class="mb-4"><img src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>>"width="100%"></div>
 									<div class="mb-4"><a href="<?php echo get_permalink( $p->ID ); ?>">
 										<h2 class="card-title mais-noticias-titulo-destaque-secundarios"><?php echo get_the_title( $p->ID ); ?></h2>
 									</a></div>
@@ -68,8 +75,11 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 					<?php
 						$posts = get_field('terceiro_destaque','option'); 
 							if( $posts ): ?>
-								<?php foreach( $posts as $p ): ?>
-									<div class="mb-4"><img src="<?php echo get_the_post_thumbnail_url( $p->ID ); ?>" width="100%"></div>
+								<?php foreach( $posts as $p ):
+									// Busca a imagem destaca / primeira imagem / imagem padrao -- functions.php
+									$thumbs = get_thumb($p->ID); 
+								?>
+									<div class="mb-4"><img src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>>"width="100%"></div>
 									<div class="mb-4"><a href="<?php echo get_permalink( $p->ID ); ?>">
 										<h2 class="card-title mais-noticias-titulo-destaque-secundarios"><?php echo get_the_title( $p->ID ); ?></h2>
 									</a></div>
@@ -84,8 +94,11 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 					<?php
 						$posts = get_field('quarto_destaque','option');
 							if( $posts ): ?>
-								<?php foreach( $posts as $p ): ?>
-									<div class="mb-4"><img src="<?php echo get_the_post_thumbnail_url( $p->ID ); ?>" width="100%"></div>
+								<?php foreach( $posts as $p ):
+									// Busca a imagem destaca / primeira imagem / imagem padrao -- functions.php
+									$thumbs = get_thumb($p->ID); 
+								?>
+									<div class="mb-4"><img src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>>"width="100%"></div>
 									<div class="mb-4"><a href="<?php echo get_permalink( $p->ID ); ?>">
 										<h2 class="card-title mais-noticias-titulo-destaque-secundarios"><?php echo get_the_title( $p->ID ); ?></h2>
 									</a></div>
@@ -98,8 +111,11 @@ class PaginaMaisNoticiasDestaques extends PaginaMaisNoticias
 					<?php
 						$posts = get_field('quinto_destaque','option');
 							if( $posts ): ?>
-								<?php foreach( $posts as $p ): ?>
-									<div class="mb-4"><img src="<?php echo get_the_post_thumbnail_url( $p->ID ); ?>" width="100%"></div>
+								<?php foreach( $posts as $p ):
+									// Busca a imagem destaca / primeira imagem / imagem padrao -- functions.php
+									$thumbs = get_thumb($p->ID); 
+								?>
+									<div class="mb-4"><img src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>>"width="100%"></div>
 									<div class="mb-4"><a href="<?php echo get_permalink( $p->ID ); ?>">
 										<h2 class="card-title mais-noticias-titulo-destaque-secundarios"><?php echo get_the_title( $p->ID ); ?></h2>
 									</a></div>
