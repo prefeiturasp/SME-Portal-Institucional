@@ -107,26 +107,22 @@ class LoopSingleRelacionadas extends LoopSingle
 		echo '<div class="col-sm-8"><h2>Relacionadas</h2>';
 		echo '<div class="row">';
 		while ( $the_query->have_posts() ) : $the_query->the_post();
+
+			// Busca a imagem destaca / primeira imagem / imagem padrao -- functions.php
+			$thumbs = get_thumb(get_the_ID());   
 		?>
 			
 			<div class="col-sm-4 mb-4">
-				<img class="rounded " src="<?php the_post_thumbnail_url( 'related-post' ); ?>" width="100%">			
+				<img src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>" class="img-fluid rounded">			
 			</div>
 			<div class="col-sm-8 mb-4">
 				<h3 class="fonte-dezoito font-weight-bold mb-2">
-					<a class="text-decoration-none text-dark" href="<?php the_permalink(); ?>">
+					<a class="text-decoration-none text-dark" href="<?php echo get_the_permalink($query->ID); ?>">
 						<?php the_title(); ?>
 					</a>
 				</h3>
 				<?php
-				//echo $this->getSubtitulo($query->ID, 'p', 'fonte-dezesseis mb-2')
-				?>
-				<?php
-					if(get_field('insira_o_subtitulo', $query->ID) != ''){
-						the_field('insira_o_subtitulo', $query->ID);
-					}else if (get_field('insira_o_subtitulo', $query->ID) == ''){
-						 echo get_the_excerpt($query->ID); 
-					}
+				echo $this->getSubtitulo($query->ID, 'p', 'fonte-dezesseis mb-2')
 				?>
 				<?= $this->getComplementosRelacionadas($query->ID); ?>
 				

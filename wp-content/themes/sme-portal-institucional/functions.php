@@ -37,7 +37,7 @@ function custom_setup() {
 
 	if (function_exists('add_image_size')) {
 		add_image_size('home-thumb', 250, 166);
-		add_image_size('slide-noticias', 656, 304);
+		add_image_size('default-image', 825, 470, true);
 	}
 
 	//Permite adicionar no post ou página uma imagem com tamanho personalizado, nesse caso a home-thumb já definida anteriormente com 250X147
@@ -819,3 +819,71 @@ function wpse_27518_pre_user_query($user_search) {
 
 // Remover o campor "Additional Capabilities" do editor do usuarios
 add_filter( 'ure_show_additional_capabilities_section', '__return_false' );
+
+function get_first_image( $post_id ) {
+
+    $post = get_post($post_id );
+	$content = $post->post_content;
+	$regex = '/src="([^"]*)"/';
+	preg_match_all( $regex, $content, $matches );																			
+
+	$re = '/-\d+[Xx]\d+\./';
+	$str = $matches[1][0];
+	$subst = '.';
+
+	$result = preg_replace($re, $subst, $str, 1);
+	
+	$idImage = attachment_url_to_postid( $result );
+
+	if($idImage != 0){
+		return $idImage;
+	} else {
+		return false;
+	}
+
+}
+
+function get_thumb( $post_id ){
+
+	$result = array();
+
+	$imgSelect = get_the_post_thumbnail_url($post_id, 'default-image');	
+	$firstImage = get_first_image($post_id);
+
+	if($imgSelect){
+
+		$thumbnail_id = get_post_thumbnail_id( $post_id );
+		$alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true); 
+
+		if(!$alt){
+			$alt = get_the_title($post_id);
+		}
+
+		$result[0] = $imgSelect;
+		$result[1] = $alt;
+
+	} elseif($firstImage){
+		
+		$imgOne = wp_get_attachment_image_src($firstImage, 'default-image');
+		$alt = get_post_meta($firstImage, '_wp_attachment_image_alt', true);
+		
+		$imgSlide = $imgOne[0];
+		if(!$alt){
+			$alt = get_the_title($post_id);
+		}
+
+		$result[0] = $imgSlide;
+		$result[1] = $alt;
+
+	} else {
+		$imgSlide = 'https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/03/placeholder06.jpg';
+		if(!$alt){
+			$alt = get_the_title($post_id);
+		}
+
+		$result[0] = $imgSlide;
+		$result[1] = $alt;
+	}
+
+	return $result;
+}
