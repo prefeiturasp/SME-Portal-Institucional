@@ -14,12 +14,13 @@ class LoopSingleCabecalho extends LoopSingle
 
 	public function cabecalhoDetalheNoticia(){
 		global $post;
+		$local = get_field('localizacao', $post->ID); 
+		$zona = get_group_field( 'informacoes_basicas', 'zona_sp', $local );
 		?>
-		<div class="evento-title mt-3 mb-3 col-12">
+		<div class="evento-title mt-3 mb-3 col-12 color-<?php echo $zona; ?>" id="Noticias">
             <div class="container">
                 <div class="row bg-event-title py-4">
                     <div class="col-md-5 offset-md-1">
-						
 
 						<?php 
 							//$featured_img_url = get_the_post_thumbnail_url($post->ID, 'thumb-eventos');

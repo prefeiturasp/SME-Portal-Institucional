@@ -8,22 +8,15 @@ window.onload = function() {
 
     //seta coordenadas inicial do mapa pegando o primeiro valor da lista de contatos
     var latlng = jQuery('.story').data().point.split(',');
-    //console.log(latlng);
+
     var lat = latlng[0];
     var lng = latlng[1];
+    map = L.map('map', { center: [lat, lng], zoom: 17 });
 
-    var tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: false
-    });
-
-    var map = L.map('map', {
-            zoomControl: true,
-            layers: [tileLayer],
-            maxZoom: 18,
-            minZoom: 6
-        })
-        .setView([lat, lng], 17);
-
+    //monta a imagem do mapa
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        subdomains: ['a', 'b', 'c']
+    }).addTo(map);
 
     jQuery("a[href='#chegar']").on("click", function(e) {
         map.invalidateSize(true);
@@ -34,6 +27,7 @@ window.onload = function() {
             map.invalidateSize();
         }, 200);
     });
+
 
     //adiciona marcadores iniciais dos contatos
     //jQuery('.story').each(function(i) {
@@ -48,10 +42,35 @@ window.onload = function() {
         var lng = latlng[1];
         var desc = latlng[2];
         var zoom = 17;
+        var zona = latlng[3]
+
+
+        if (zona == 'norte') {
+            myIcon = L.icon({
+                iconUrl: "/ceu/wp-content/themes/tema-ceus/img/pin-map-norte.png",
+            });
+            console.log('norte');
+        } else if (zona == 'sul') {
+            myIcon = L.icon({
+                iconUrl: "/ceu/wp-content/themes/tema-ceus/img/pin-map-sul.png",
+            });
+        } else if (zona == 'leste') {
+            myIcon = L.icon({
+                iconUrl: "/ceu/wp-content/themes/tema-ceus/img/pin-map-leste.png",
+            });
+        } else if (zona == 'oeste') {
+            myIcon = L.icon({
+                iconUrl: "/ceu/wp-content/themes/tema-ceus/img/pin-map-oeste.png",
+            });
+        } else {
+            myIcon = L.icon({
+                iconUrl: "/ceu/wp-content/themes/tema-ceus/img/pin-map-padrao.png",
+            });
+        }
 
 
         // adiciona marcadores
-        var marker = L.marker([lat, lng]).bindPopup(desc).addTo(map);
+        var marker = L.marker([lat, lng], { icon: myIcon }).bindPopup(desc).addTo(map);
 
         // adiciona no mapa
         map.setView([lat, lng], zoom);

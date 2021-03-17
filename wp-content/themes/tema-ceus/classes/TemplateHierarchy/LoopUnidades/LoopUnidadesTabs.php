@@ -16,7 +16,7 @@ class LoopUnidadesTabs extends LoopUnidades{
         //echo "</pre>";
     ?>
 
-        <div class="container unidade-tab">  
+        <div class="container unidade-tab color-<?php echo $infoBasicas['zona_sp']; ?>"> 
 
             <ul class="nav nav-tabs d-flex">
                 <li class="active"><a data-toggle="tab" href="#programacao-ceu" class="active">Programação</a></li>
@@ -723,7 +723,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                     if($infoBasicas && $infoBasicas != ''): 
                                 ?>
                                     <div id="map" style="width: 100%; height: 450px;"></div>
-                                    <a href="#map" class="story" data-point="<?php echo $infoBasicas['latitude']; ?>,<?php echo $infoBasicas['longitude']; ?>,<strong><?php the_title(); ?></strong><br><?php echo $infoBasicas['endereco'];?> nº <?php echo $infoBasicas['numero']; ?> <br><?php echo $infoBasicas['bairro']; ?> <br> CEP: <?php echo $infoBasicas['cep']; ?>" style="display: none;"> &nbsp;destacar no mapa</a></span>
+                                    <a href="#map" class="story" data-point="<?php echo $infoBasicas['latitude']; ?>,<?php echo $infoBasicas['longitude']; ?>,<div class='marcador-unidade  color-<?php echo $infoBasicas['zona_sp']; ?>'><p class='marcador-title'><?php the_title(); ?></p><p><?php echo $infoBasicas['endereco'];?> nº <?php echo $infoBasicas['numero']; ?> - <?php echo $infoBasicas['bairro']; ?></p><p>CEP: <?php echo $infoBasicas['cep']; ?></p></div>,<?php echo $infoBasicas['zona_sp']; ?>" style="display: none;"> &nbsp;destacar no mapa</a></span>
                                 <?php endif; ?>
                             </div>
                         </div>

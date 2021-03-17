@@ -1506,6 +1506,85 @@ a.nextpostslink {
 }
 
 
+/**** Cores Zonas ****/
+
+.color-leste .info-title h1,
+.color-leste .info-contacts .title-unidade,
+.color-leste.unidade-tab ul.nav-tabs li a {
+    color: #E05317;
+}
+
+.color-leste.unidade-tab ul.nav-tabs li a.active,
+.color-leste .ms-options-wrap.ms-has-selections>button>span,
+.color-leste .search-home .btn-search,
+.color-leste.end-footer,
+.color-leste.end-footer .end-title-unidade {
+    background: #E05317;
+    color: #FFFFFF;
+}
+
+.color-norte .info-title h1,
+.color-norte .info-contacts .title-unidade,
+.color-norte.unidade-tab ul.nav-tabs li a {
+    color: #599E00;
+}
+
+.color-norte.unidade-tab ul.nav-tabs li a.active,
+.color-norte .ms-options-wrap.ms-has-selections>button>span,
+.color-norte .search-home .btn-search,
+.color-norte.end-footer,
+.color-norte.end-footer .end-title-unidade {
+    background: #599E00;
+    color: #FFFFFF;
+}
+
+.color-sul .info-title h1,
+.color-sul .info-contacts .title-unidade,
+.color-sul.unidade-tab ul.nav-tabs li a {
+    color: #9B2FAE;
+}
+
+.color-sul.unidade-tab ul.nav-tabs li a.active,
+.color-sul .ms-options-wrap.ms-has-selections>button>span,
+.color-sul .search-home .btn-search,
+.color-sul.end-footer,
+.color-sul.end-footer .end-title-unidade {
+    background: #9B2FAE;
+    color: #FFFFFF;
+}
+
+.color-oeste .info-title h1,
+.color-oeste .info-contacts .title-unidade,
+.color-oeste.unidade-tab ul.nav-tabs li a {
+    color: #1697A6;
+}
+
+.color-oeste.unidade-tab ul.nav-tabs li a.active,
+.color-oeste .ms-options-wrap.ms-has-selections>button>span,
+.color-oeste .search-home .btn-search,
+.color-oeste.end-footer,
+.color-oeste.end-footer .end-title-unidade {
+    background: #1697A6;
+    color: #FFFFFF;
+}
+
+.color-leste .bg-event-title {
+    background: url(img/BG-topo-leste.jpg);
+}
+
+.color-norte .bg-event-title {
+    background: url(img/BG-topo-norte.jpg);
+}
+
+.color-sul .bg-event-title {
+    background: url(img/BG-topo-sul.jpg);
+}
+
+.color-oeste .bg-event-title {
+    background: url(img/BG-topo-oeste.jpg);
+}
+
+
 /**** Unidades / Mapas ****/
 
 #map {

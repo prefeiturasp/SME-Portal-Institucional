@@ -545,9 +545,13 @@
                 myIcon = L.icon({
                     iconUrl: "<?php echo get_template_directory_uri() . '/img/pin-map-leste.png'; ?>",
                 });
-            } else {
+            } else if(javascript_array[i][3] == 'oeste'){
                 myIcon = L.icon({
                     iconUrl: "<?php echo get_template_directory_uri() . '/img/pin-map-oeste.png'; ?>",
+                });
+            } else {
+                myIcon = L.icon({
+                    iconUrl: "<?php echo get_template_directory_uri() . '/img/pin-map-padrao.png'; ?>",
                 });
             }
 

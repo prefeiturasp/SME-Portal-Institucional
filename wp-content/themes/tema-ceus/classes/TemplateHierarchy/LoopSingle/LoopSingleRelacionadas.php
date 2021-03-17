@@ -49,17 +49,15 @@ class LoopSingleRelacionadas extends LoopSingle
 		global $post;		
 		$group_field = get_field( "tipo_de_evento", $post->ID );
 		if(!$group_field['evento_principal']) :
+
+			$local = get_field('localizacao', $post->ID);							
+			$infosBasicas = get_field('informacoes_basicas', $local);
+			$zona = get_group_field( 'informacoes_basicas', 'zona_sp', $local );
 	?>
-		<div class="end-footer py-4 col-12">
+		<div class="end-footer py-4 col-12 color-<?php echo $zona; ?>">
             <div class="container">
                 <div class="row">
-					<div class="col-md-6">
-						
-						<?php
-							global $post;
-							$local = get_field('localizacao', $post->ID);							
-							$infosBasicas = get_field('informacoes_basicas', $local);
-						?>
+                    <div class="col-md-6">
 
                         <div class="end-title-unidade my-3">
                             <p><?php echo get_the_title($local); ?></p>
@@ -133,7 +131,7 @@ class LoopSingleRelacionadas extends LoopSingle
 
                     <div class="col-md-6">
 						<div id="map" style="width: 100%; height: 350px;"></div>
-                        <a href="#map" class="story" data-point="<?php echo $infosBasicas['latitude']; ?>,<?php echo $infosBasicas['longitude']; ?>,<strong><?php the_title(); ?></strong><br><?php echo $infosBasicas['endereco'];?> nº <?php echo $infosBasicas['numero']; ?> <br><?php echo $infosBasicas['bairro']; ?> <br> CEP: <?php echo $infosBasicas['cep']; ?>" style="display: none;"> &nbsp;destacar no mapa</a></span>                    
+                        <a href="#map" class="story" data-point="<?php echo $infosBasicas['latitude']; ?>,<?php echo $infosBasicas['longitude']; ?>,<div class='marcador-unidade  color-<?php echo $infosBasicas['zona_sp']; ?>'><p class='marcador-title'><?php echo get_the_title($local); ?></p><p><?php echo $infosBasicas['endereco'];?> nº <?php echo $infosBasicas['numero']; ?> - <?php echo $infosBasicas['bairro']; ?></p><p>CEP: <?php echo $infosBasicas['cep']; ?></p></div>,<?php echo $infosBasicas['zona_sp']; ?>" style="display: none;"> &nbsp;destacar no mapa</a></span>                  
                     </div>
                 </div>
             </div>

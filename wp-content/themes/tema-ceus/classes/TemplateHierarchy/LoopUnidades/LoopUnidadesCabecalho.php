@@ -15,7 +15,7 @@ class LoopUnidadesCabecalho extends LoopUnidades{
         //print_r($infoBasicas['horario']);
         //echo "</pre>";
     ?>
-        <div class="container" id="Noticias">
+        <div class="container color-<?php echo $infoBasicas['zona_sp']; ?>" id="Noticias">
             <div class="row info-title border-bottom mb-3">
                 <div class="col-md-9 col-sm-12">
                     <h1><?php echo get_the_title(); ?></h1>
@@ -29,6 +29,9 @@ class LoopUnidadesCabecalho extends LoopUnidades{
                                 $argsUnidades = array(
                                     'post_type' => 'unidade',
                                     'posts_per_page' => -1,
+                                    'orderby' => 'title',
+                                    'order' => 'ASC',
+                                    'post__not_in' => array(31244),
                                 );
 
                                 $todasUnidades = new \WP_Query( $argsUnidades );
@@ -151,7 +154,7 @@ class LoopUnidadesCabecalho extends LoopUnidades{
                                     }
         
                                     if($horario['hora_fechamento'] && $horario['hora_fechamento'] != ''){
-                                        echo ' as ' . $horario['hora_fechamento'];
+                                        echo ' às ' . $horario['hora_fechamento'];
                                     }
                                 }
                             ?>
