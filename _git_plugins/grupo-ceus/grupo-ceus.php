@@ -144,18 +144,17 @@ function wporg_custom_post_type() {
             'has_archive' => true,
 			'rewrite'     => array( 'slug' => 'unidades' ), // my custom slug
 			'capabilities' => array(
-				'edit_post'          => 'update_core',
-				'read_post'          => 'update_core',
-				'delete_post'        => 'update_core',
-				'edit_posts'         => 'update_core',
-				'edit_others_posts'  => 'update_core',
-				'delete_posts'       => 'update_core',
-				'publish_posts'      => 'update_core',
-				'read_private_posts' => 'update_core'
+				'edit_post'          => 'remove_users',
+				'read_post'          => 'remove_users',
+				'delete_post'        => 'remove_users',
+				'edit_posts'         => 'remove_users',
+				'edit_others_posts'  => 'remove_users',
+				'delete_posts'       => 'remove_users',
+				'publish_posts'      => 'remove_users',
+				'read_private_posts' => 'remove_users'
 			),
         )
     );
 }
 
 add_action('init', 'wporg_custom_post_type');
-

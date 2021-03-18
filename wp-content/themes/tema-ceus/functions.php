@@ -623,20 +623,6 @@ if( function_exists('acf_add_options_page') ) {
         'capability'	=> 'publish_pages',
         //'redirect'		=> false
     ));
-
-    acf_add_options_sub_page(array(
-        'page_title' 	=> 'Configurações da Página Inicial',
-        'menu_title'	=> 'Página Inicial',
-        'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'publish_pages',
-    ));
-	
-	acf_add_options_sub_page(array(
-        'page_title' 	=> 'Configurações da Página Notícias',
-        'menu_title'	=> 'Página Notícias',
-        'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'publish_pages',
-    ));
 	
 	acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações da Busca Manual',
@@ -651,14 +637,18 @@ if( function_exists('acf_add_options_page') ) {
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
     ));
+	if ( is_super_admin() ) {
 
-    acf_add_options_sub_page(array(
-        'page_title' 	=> 'Informações Rodapé',
-        'menu_title'	=> 'Rodapé',
-        'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'publish_pages',
-		'post_id' => 'conf-rodape',
-    ));
+		acf_add_options_sub_page(array(
+			'page_title' 	=> 'Informações Rodapé',
+			'menu_title'	=> 'Rodapé',
+			'parent_slug'	=> 'conf-geral',
+			'capability'	=> 'publish_pages',
+			'post_id' => 'conf-rodape',
+		));
+
+	}
+    
 }
 ///////////////////////////////////////////////////////////////////
 
@@ -1368,3 +1358,16 @@ function clearPhone($phone){
 
 	return $clear;
 }
+
+
+// Ocultar itens do menu por tipor de usuario
+function wpdocs_remove_menus(){	
+	remove_menu_page( 'edit-comments.php' ); //Comentarios
+	
+	if(!is_super_admin()){		
+		remove_menu_page( 'themes.php' ); //Aparencia
+		remove_menu_page( 'tools.php' ); //Ferramentas
+		remove_menu_page( 'options-general.php' ); //Configuracoes
+	}
+}
+add_action( 'admin_menu', 'wpdocs_remove_menus' );
