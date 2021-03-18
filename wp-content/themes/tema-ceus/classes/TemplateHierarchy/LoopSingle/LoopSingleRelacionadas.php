@@ -54,7 +54,7 @@ class LoopSingleRelacionadas extends LoopSingle
 			$infosBasicas = get_field('informacoes_basicas', $local);
 			$zona = get_group_field( 'informacoes_basicas', 'zona_sp', $local );
 	?>
-		<?php if(!$local == '31675' || !$local == '31244'): ?>
+		<?php if($local != '31675' || $local != '31244'): ?>
 		<div class="end-footer py-4 col-12 color-<?php echo $zona; ?>">
             <div class="container">
                 <div class="row">
