@@ -133,7 +133,7 @@ class LoopUnidadesCabecalho extends LoopUnidades{
                             }
 
                             if($horario['horario_fechamento'] && $horario['horario_fechamento'] != ''){
-                                echo ' as ' . $horario['horario_fechamento'];
+                                echo ' às ' . $horario['horario_fechamento'];
                             }
                         ?>
                     </p>
