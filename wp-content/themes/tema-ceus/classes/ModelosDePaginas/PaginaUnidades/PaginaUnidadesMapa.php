@@ -23,7 +23,7 @@ class PaginaUnidadesMapa
                     <?php
                         $args = array(
                             'post_type' => 'unidade',
-                            'post__not_in' => array(31202),
+                            'post__not_in' => array(31244, 31675),
                             'order' => 'ASC',
                             'orderby' => 'title',
                         );

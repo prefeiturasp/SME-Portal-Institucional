@@ -42,7 +42,8 @@ class PaginaProgramacaoEventos
                                             //$featured_img_url = get_the_post_thumbnail_url($eventoInterno->ID, 'thumb-eventos');
                                             $imgSelect = get_field('capa_do_evento', $eventoInterno->ID);
                                             $tipo = get_field('tipo_de_evento_selecione_o_evento', $eventoInterno->ID);
-                                            
+                                            $online = get_field('tipo_de_evento_online', $eventoInterno->ID);
+
                                             $featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
                                             if($featured_img_url){
                                                 $imgEvento = $featured_img_url[0];
@@ -57,6 +58,15 @@ class PaginaProgramacaoEventos
                                         <?php if($tipo && $tipo != '') : 
                                             echo '<span class="flag-pdf-full">';
                                                 echo get_the_title($tipo);
+                                            echo '</span>';                                           
+                                        endif; ?>                                      
+
+                                        <?php if($online && $online != '') : 
+                                            if($tipo && $tipo != ''){
+                                                $customClass = 'mt-tags';
+                                            }
+                                            echo '<span class="flag-online flag-pdf-full ' . $customClass . '">';
+                                                echo "Evento Online";
                                             echo '</span>';
                                         endif; ?>
                                     </div>
@@ -232,9 +242,13 @@ class PaginaProgramacaoEventos
                                             <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $hora; ?>
                                         </p>
                                         <?php
-                                            $local = get_field('localizacao', $eventoInterno->ID);
+                                            $local = get_field('localizacao', $eventoInterno->ID);                                                        
+                                            if($local == '31675' || $local == '31244'):
                                         ?>
-                                        <p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo get_the_title($local); ?></a></p>
+                                            <p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></p>
+                                        <?php else: ?>
+                                            <p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                                 <?php 
