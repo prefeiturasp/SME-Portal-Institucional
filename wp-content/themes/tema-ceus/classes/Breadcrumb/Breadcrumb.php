@@ -83,7 +83,12 @@ class Breadcrumb
 					$post_type_object = get_post_type_object($post_type);
 					$post_type_archive = get_post_type_archive_link($post_type);
 
-					echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $post_type_object->labels->name . '</a></li>';
+					if($post_type == 'unidade'){
+						echo '<li class="item-cat cc item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(31247) . '">Unidades</a></li>';
+					} else {
+						echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $post_type_object->labels->name . '</a></li>';
+					}
+					
 					echo '<li class="separator"> ' . $this->separator . ' </li>';
 
 				}
