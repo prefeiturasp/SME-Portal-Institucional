@@ -101,9 +101,32 @@ class PaginaProgramacaoBusca
 
                         <div class="col-sm-3 mt-3 px-1">
                             <select name="unidades[]" multiple="multiple" class="ms-list-5" style="">
-                                <?php foreach ($unidades as $unidade): ?>
-                                    <option value="<?php echo $unidade->term_id; ?>"><?php echo $unidade->name; ?></option>
-                                <?php endforeach; ?>     
+                                <?php
+                                        $currentID = get_the_id();
+                                        $argsUnidades = array(
+                                            'post_type' => 'unidade',
+                                            'posts_per_page' => -1,
+                                            'post__not_in' => array(31675, 31244),
+                                        );
+
+                                        $todasUnidades = new \WP_Query( $argsUnidades );
+                
+                                        // The Loop
+                                        if ( $todasUnidades->have_posts() ) {
+                                            
+                                            while ( $todasUnidades->have_posts() ) {
+                                                $todasUnidades->the_post();
+                                                if($currentID == get_the_id() ) {
+                                                    echo '<option selected value="' . get_the_id() .'">' . get_the_title() .'</option>';
+                                                } else {
+                                                    echo '<option value="' . get_the_id() .'">' . get_the_title() .'</option>';
+                                                }
+                                                
+                                            }
+                                        
+                                        }
+                                        wp_reset_postdata();
+                                    ?>      
                             </select>
                         </div>
 
@@ -135,9 +158,9 @@ class PaginaProgramacaoBusca
 
                         <div class="col-sm-3 mt-3 px-1">
                             <select name="periodos[]" multiple="multiple" class="ms-list-8" style="">                        
-                                <?php foreach ($periodos as $periodo): ?>
-                                    <option value="<?php echo $periodo->term_id; ?>"><?php echo $periodo->name; ?></option>
-                                <?php endforeach; ?>                        
+                                <option value='manha'>Manhã</option>
+                                <option value='tarde'>Tarde</option>
+                                <option value='noite'>Noite</option>                        
                             </select>
                         </div>
                         <div class="col-sm-12 text-right mt-3">

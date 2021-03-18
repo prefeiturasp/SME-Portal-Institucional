@@ -54,6 +54,7 @@ class LoopSingleRelacionadas extends LoopSingle
 			$infosBasicas = get_field('informacoes_basicas', $local);
 			$zona = get_group_field( 'informacoes_basicas', 'zona_sp', $local );
 	?>
+		<?php if(!$local == '31675' || !$local == '31244'): ?>
 		<div class="end-footer py-4 col-12 color-<?php echo $zona; ?>">
             <div class="container">
                 <div class="row">
@@ -136,7 +137,7 @@ class LoopSingleRelacionadas extends LoopSingle
                 </div>
             </div>
 		</div>
-		
+		<?php endif; ?>		
 		<?php
 		else:
 
@@ -541,9 +542,13 @@ class LoopSingleRelacionadas extends LoopSingle
 												<i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $hora; ?>
 											</p>
 											<?php
-                                                $local = get_field('localizacao', get_the_ID());                                                
-                                            ?>
-                                            <p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
+												$local = get_field('localizacao', get_the_ID());                                                        
+												if($local == '31675' || $local == '31244'):
+											?>
+												<p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></p>
+											<?php else: ?>
+												<p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
+											<?php endif; ?>
 										</div>
 									</div>
 									<?php 

@@ -195,9 +195,10 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 											<th scope="row" class="align-middle"><i class="fa fa-map-marker" aria-hidden="true"></i></th>
 											<?php if($local == 31244): ?>
 												<td><p class="m-0">Consulte abaixo CEUs participantes</p></td>
+											<?php elseif($local == 31675): ?>
+												<td><p class="m-0"><strong>Para toda a rede</strong></p></td>
 											<?php else: ?>
 												<td><strong><?php echo get_the_title($local); ?></strong>
-												
 												<?php 
 													$end = get_field('informacoes_basicas', $local);
 													

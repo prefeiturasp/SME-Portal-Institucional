@@ -229,9 +229,13 @@ class PaginaProgramacaoSlide
                                                     <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $hora; ?>
                                                 </p>
                                                 <?php
-                                                    $local = get_field('localizacao', $slide->ID);     
+                                                    $local = get_field('localizacao', $slide->ID);                                                        
+                                                    if($local == '31675' || $local == '31244'):
                                                 ?>
-                                                <p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo get_the_title($local); ?></a></p>
+                                                    <p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></p>
+                                                <?php else: ?>
+                                                    <p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>

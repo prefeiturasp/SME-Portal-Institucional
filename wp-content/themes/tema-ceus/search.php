@@ -94,6 +94,7 @@
 									$argsUnidades = array(
 										'post_type' => 'unidade',
 										'posts_per_page' => -1,
+										'post__not_in' => array(31244, 31675),
 									);
 
 									$todasUnidades = new \WP_Query( $argsUnidades );
@@ -144,10 +145,10 @@
                         </div>
 
                         <div class="col-sm-3 mt-3 px-1">
-                            <select name="periodos[]" multiple="multiple" class="ms-list-8" style="">                        
-                                <?php foreach ($periodos as $periodo): ?>
-                                    <option value="<?php echo $periodo->term_id; ?>"><?php echo $periodo->name; ?></option>
-                                <?php endforeach; ?>                        
+							<select name="periodos[]" multiple="multiple" class="ms-list-8" style="">                        
+								<option value='manha'>Manhã</option>
+                                <option value='tarde'>Tarde</option>
+                                <option value='noite'>Noite</option>                          
                             </select>
                         </div>
                         <div class="col-sm-12 text-right mt-3">
@@ -231,18 +232,123 @@
 
 				$args['meta_query'] = array(
 					'relation'	=> 'OR',
+					array(
+						'key'	 	=> 'localizacao',
+						'value'	  	=> 31675
+					),
 					$unidadesBusca						
 				);
 			}
 
 			if( isset($_GET['periodos']) && $_GET['periodos'] != ''){
 				$periodos = $_GET['periodos'];
-				
-				$args['tax_query'][] = array (
-					'taxonomy' => 'periodo_categories',
-					'field'    => 'term_id',
-					'terms'    => $periodos,
+
+				$args['meta_query'] = array(
+					'relation'	=> 'OR',
 				);
+
+				if(in_array('manha', $periodos)){
+					$args['meta_query'][] = array(
+						'relation' => 'AND',
+						array(
+							'relation' => 'OR',
+							array(
+								'key'	 	=> 'horario_hora',
+								'value' => '00:00:00',
+								'compare' => '>='
+							),
+							array(
+								'key'	 	=> 'horario_hora_periodo_0_periodo_hora_inicio',
+								'value' => '00:00:00',
+								'compare' => '>='
+							),
+						),
+	
+						array(
+							'relation' => 'OR',
+							array(
+								'key'	 	=> 'horario_hora',
+								'value' => '11:59:59',
+								'compare' => '<='
+							),
+							array(
+								'key'	 	=> 'horario_hora_periodo_0_periodo_hora_inicio',
+								'value' => '11:59:59',
+								'compare' => '<='
+							),	
+						),
+					);
+				}
+
+				if(in_array('tarde', $periodos)){
+					$args['meta_query'][] = array(
+						'relation' => 'AND',
+						array(
+							'relation' => 'OR',
+							array(
+								'key'	 	=> 'horario_hora',
+								'value' => '12:00:00',
+								'compare' => '>='
+							),
+							array(
+								'key'	 	=> 'horario_hora_periodo_0_periodo_hora_inicio',
+								'value' => '12:00:00',
+								'compare' => '>='
+							),
+						),
+	
+						array(
+							'relation' => 'OR',
+							array(
+								'key'	 	=> 'horario_hora',
+								'value' => '18:59:59',
+								'compare' => '<='
+							),
+							array(
+								'key'	 	=> 'horario_hora_periodo_0_periodo_hora_inicio',
+								'value' => '18:59:59',
+								'compare' => '<='
+							),	
+						),
+					);
+				}
+
+				if(in_array('noite', $periodos)){
+					$args['meta_query'][] = array(
+						'relation' => 'AND',
+						array(
+							'relation' => 'OR',
+							array(
+								'key'	 	=> 'horario_hora',
+								'value' => '19:00:00',
+								'compare' => '>='
+							),
+							array(
+								'key'	 	=> 'horario_hora_periodo_0_periodo_hora_inicio',
+								'value' => '19:00:00',
+								'compare' => '>='
+							),
+						),
+	
+						array(
+							'relation' => 'OR',
+							array(
+								'key'	 	=> 'horario_hora',
+								'value' => '23:59:59',
+								'compare' => '<='
+							),
+							array(
+								'key'	 	=> 'horario_hora_periodo_0_periodo_hora_inicio',
+								'value' => '23:59:59',
+								'compare' => '<='
+							),	
+						),
+					);
+				}
+
+				
+								
+								
 			}
 
 			if( isset($_GET['tipoData']) && $_GET['tipoData'] != ''){
@@ -366,12 +472,13 @@
 						$query->the_post();
 					?>
 						<div class="col-sm-3">
-							<div class="card-eventos">
+							<div class="card-eventos mb-4">
 								<div class="card-eventos-img">
 									<?php 
 										$imgSelect = get_field('capa_do_evento', $eventoInterno->ID);
 										$tipo = get_field('tipo_de_evento_selecione_o_evento', $eventoInterno->ID);
-										
+										$online = get_field('tipo_de_evento_online', $eventoInterno->ID);
+
 										$featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
 										if($featured_img_url){
 											$imgEvento = $featured_img_url[0];
@@ -383,6 +490,19 @@
 										}
 									?>
 									<a href="<?php get_the_permalink($eventoInterno->ID);?>"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
+									<?php if($tipo && $tipo != '') : 
+										echo '<span class="flag-pdf-full">';
+											echo get_the_title($tipo);
+										echo '</span>';
+									endif; ?>
+									<?php if($online && $online != '') : 
+										if($tipo && $tipo != ''){
+											$customClass = 'mt-tags';
+										}
+										echo '<span class="flag-pdf-full ' . $customClass . '">';
+											echo "Online";
+										echo '</span>';
+									endif; ?>
 								</div>
 								<div class="card-eventos-content p-2">
 									<div class="evento-categ border-bottom pb-1">
@@ -558,9 +678,13 @@
 											<i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> <?php echo $hora; ?>
 										</p>
 										<?php
-											$local = get_field('localizacao', get_the_ID());                                                
+											$local = get_field('localizacao', get_the_ID());                                                        
+											if($local == '31675' || $local == '31244'):
 										?>
-										<p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
+											<p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></p>
+										<?php else: ?>
+											<p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
+										<?php endif; ?>
 								</div>
 							</div>
                     	</div>

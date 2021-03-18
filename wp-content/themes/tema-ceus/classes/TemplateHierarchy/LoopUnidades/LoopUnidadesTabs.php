@@ -177,10 +177,10 @@ class LoopUnidadesTabs extends LoopUnidades{
 
                                     <div class="col-sm-3 mt-3 px-1">
                                         <label for="periodos" class='d-none'>Escolha o tipo de data</label>
-                                        <select id="periodos" name="periodos[]" multiple="multiple" class="ms-list-8" style="">                        
-                                            <?php foreach ($periodos as $periodo): ?>
-                                                <option value="<?php echo $periodo->term_id; ?>"><?php echo $periodo->name; ?></option>
-                                            <?php endforeach; ?>                        
+                                        <select id="periodos" name="periodos[]" multiple="multiple" class="ms-list-8" style="">
+                                                <option value='manha'>Manhã</option>
+                                                <option value='tarde'>Tarde</option>
+                                                <option value='noite'>Noite</option>  
                                         </select>
                                     </div>
                                     <div class="col-sm-12 text-right mt-3">
@@ -228,9 +228,14 @@ class LoopUnidadesTabs extends LoopUnidades{
                                 'posts_per_page' => 16,
                                 'paged' => $paged,
                                 'meta_query' => array(
+                                    'relation' => 'OR',
                                     array(
                                         'key' => 'localizacao',
                                         'value' => $id
+                                    ),
+                                    array(
+                                        'key' => 'localizacao',
+                                        'value' => 31675
                                     )
                                 )
                             );
@@ -252,7 +257,8 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                     <?php 
                                                         $imgSelect = get_field('capa_do_evento', $eventoID);
                                                         $tipo = get_field('tipo_de_evento_selecione_o_evento', $eventoID);
-                                                        
+                                                        $online = get_field('tipo_de_evento_online', $eventoID);
+
                                                         $featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
                                                         if($featured_img_url){
                                                             $imgEvento = $featured_img_url[0];
@@ -264,6 +270,19 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                         }
                                                     ?>
                                                     <a href="#"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
+                                                    <?php if($tipo && $tipo != '') : 
+                                                        echo '<span class="flag-pdf-full">';
+                                                            echo get_the_title($tipo);
+                                                        echo '</span>';
+                                                    endif; ?>
+                                                    <?php if($online && $online != '') : 
+                                                        if($tipo && $tipo != ''){
+                                                            $customClass = 'mt-tags';
+                                                        }
+                                                        echo '<span class="flag-online flag-pdf-full ' . $customClass . '">';
+                                                            echo "Evento Online";
+                                                        echo '</span>';
+                                                    endif; ?>
                                                 </div>
                                                 <div class="card-eventos-content p-2">
                                                 <div class="evento-categ border-bottom pb-1">
@@ -440,9 +459,13 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                         <i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> <?php echo $hora; ?>
                                                     </p>
                                                     <?php
-                                                        $local = get_field('localizacao', $eventoID);                                                
+                                                        $local = get_field('localizacao', $eventoID);                                                        
+                                                        if($local == '31675' || $local == '31244'):
                                                     ?>
-                                                    <p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
+                                                        <p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></p>
+                                                    <?php else: ?>
+                                                        <p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                     </div>

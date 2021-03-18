@@ -1190,8 +1190,13 @@ select#tipoData {
     color: #42474A;
 }
 
-.evento-unidade a {
+.evento-unidade a,
+.evento-unidade.no-link {
     color: #0048A9;
+}
+
+.evento-unidade span {
+    display: none;
 }
 
 .atividades-found p span {
@@ -1327,6 +1332,14 @@ select#tipoData {
     font-size: 15px;
     font-weight: bold;
     margin-right: 15px;
+}
+
+.flag-pdf-full.mt-tags {
+    margin-top: 45px;
+}
+
+.flag-online.flag-pdf-full {
+    background: #0048A9;
 }
 
 .bg-tipo {

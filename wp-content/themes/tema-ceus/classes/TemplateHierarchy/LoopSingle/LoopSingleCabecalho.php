@@ -86,12 +86,15 @@ class LoopSingleCabecalho extends LoopSingle
 						?>
 
 						<p class="evento-unidade m-0 w-100">
-							<?php if($local == 31244): ?>
+							<?php
+								$local = get_field('localizacao', $post->ID);                                                        
+								if($local == '31675' || $local == '31244'):
+							?>
 								<?php echo get_the_title($local); ?>
 							<?php else: ?>
 								<a href="<?php echo get_the_permalink($local); ?>"><?php echo get_the_title($local); ?></a>
 							<?php endif; ?>
-                        </p>
+						</p>
                     </div>
                 </div>
             </div>

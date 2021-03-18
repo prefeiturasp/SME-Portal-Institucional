@@ -88,25 +88,21 @@ class Breadcrumb
 
 				}
 
-				// Get post category info
-				$category = get_the_category();
+				// Pega a unidade do evento
+				
+				$local = get_field('localizacao', get_the_ID()); 
 
-				if(!empty($category)) {
-
-					// Get last category post is in
-					$last_category = end(array_values($category));
-
-					// Get parent any categories and create array
-					$get_cat_parents = rtrim(get_category_parents($last_category->term_id, true, ','),',');
-					$cat_parents = explode(',',$get_cat_parents);
-
+				if(!empty($local)) {
 					// Loop through parent categories and store in variable $cat_display
 					$cat_display = '';
-					foreach($cat_parents as $parents) {
-						$cat_display .= '<li class="item-cat">'.$parents.'</li>';
-						$cat_display .= '<li class="separator"> ' . $this->separator . ' </li>';
-					}
 
+					if($local == '31675' || $local == '31244'){
+						$cat_display .= '<li class="item-cat">'.get_the_title($local).'</li>';
+					} else {
+						$cat_display .= '<li class="item-cat"><a href="' . get_the_permalink($local) . '">'.get_the_title($local).'</a></li>';
+					}
+					
+					$cat_display .= '<li class="separator"> ' . $this->separator . ' </li>';
 				}
 
 				// If it's a custom post type within a custom taxonomy
@@ -122,7 +118,7 @@ class Breadcrumb
 				}
 
 				// Check if the post is in a category
-				if(!empty($last_category)) {
+				if(!empty($local)) {
 					echo $cat_display;
 					echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" >' . get_the_title() . '</strong></li>';
 
