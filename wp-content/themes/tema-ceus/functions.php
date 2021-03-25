@@ -637,8 +637,7 @@ if( function_exists('acf_add_options_page') ) {
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
     ));
-	if ( is_super_admin() ) {
-
+	if( is_super_admin() ){
 		acf_add_options_sub_page(array(
 			'page_title' 	=> 'Informações Rodapé',
 			'menu_title'	=> 'Rodapé',
@@ -646,7 +645,6 @@ if( function_exists('acf_add_options_page') ) {
 			'capability'	=> 'publish_pages',
 			'post_id' => 'conf-rodape',
 		));
-
 	}
     
 }
@@ -1039,39 +1037,57 @@ function my_remove_meta_boxes() {
 	remove_meta_box( 'tagsdiv-post_tag', 'post', 'side' );
 	remove_meta_box( 'faixa_categoriesdiv', 'post', 'side' );
 	remove_meta_box( 'postimagediv', 'post', 'side' );
-	remove_meta_box( 'categorydiv', 'post', 'side' );
+	//remove_meta_box( 'categorydiv', 'post', 'side' );
 	remove_meta_box( 'localidadediv', 'post', 'side' );
 }
 add_action( 'admin_menu' , 'my_remove_meta_boxes' );
 
-// Filtra as unidades que grupo pertence
+// Remove o campo "Additional Capabilities" do editor de usuario
+add_filter( 'ure_show_additional_capabilities_section', '__return_false' );
 
+// Filtra as unidades que grupo pertence
 function wp37_limit_posts_to_author($query) {
 
 	// pega as informacoes do usuario logado
 	$user = wp_get_current_user();
 
 	// 	filtra as unidades pelo grupo pertencente
-	if( $_GET['filter'] == 'grupo' && $user->roles[0] == 'contributor')  {
-		$variable = get_user_meta($user->ID,'grupo',true);
-		$pages = get_post_meta($variable, 'unidades', true);		
+	if( $_GET['filter'] == 'grupo' && ($user->roles[0] == 'contributor' || $user->roles[0] == 'editor'))  {
+		$variable = get_user_meta($user->ID,'grupo',true);		
+		$pages = array();
+		foreach($variable as $grupo){
+			$pages[] = get_post_meta($grupo, 'unidades', true);
+		}		
+		$pages = array_flatten($pages);
+        $pages = array_unique($pages);
 		$query->set('post__in', $pages);
 	} 
 	
 	// 	filtra os eventos pelo grupo pertencente
-	if( $_GET['filter'] == 'grupo' && $_GET['list'] == 'evento' && $user->roles[0] == 'contributor' ){
+	if( $_GET['filter'] == 'grupo' && $_GET['list'] == 'evento' && ($user->roles[0] == 'contributor' || $user->roles[0] == 'editor') ){
 
 		global $wpdb;
 		
 		// pega as unidades permitidas para edicao do grupo
         $variable2 = get_user_meta($user->ID,'grupo',true);
-		$unidades2 = get_post_meta($variable2, 'unidades', true);
+
+		if($variable2 && $variable2 != ''){
+			foreach($variable2 as $variable){
+				$unidades2[] = get_post_meta($variable, 'unidades', true);
+			}
+		}
+
+		$unidades2 = array_flatten($unidades2);
+		$unidades2 = array_unique($unidades2);
+		
+		//print_r($unidades2);
 
 		$showEventos = array();
 
 		foreach ($unidades2 as $unidade){
 			$showEventos[] = $wpdb->get_col( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'localizacao' AND meta_value = $unidade ORDER BY post_id" );
 		}
+		
 		if($showEventos[1]){
 			$merge = array_merge($showEventos[0], $showEventos[1]);
 		} else {
@@ -1081,6 +1097,7 @@ function wp37_limit_posts_to_author($query) {
 		$result = array_unique($merge);
 
 		$query->set('post__in', $result);
+		
 	}
 	
 	return $query;
@@ -1094,7 +1111,7 @@ function wp37_add_movies_filter($views){
 	// pega as informacoes do usuario logado
 	$user = wp_get_current_user();
 	
-	if($user->roles[0] == 'contributor'){
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'editor'){
 
 		if( $_GET['filter'] == 'grupo' ){
 
@@ -1118,7 +1135,7 @@ function wp38_add_movies_filter($views){
 	// pega as informacoes do usuario logado
 	$user = wp_get_current_user();
 
-	if($user->roles[0] == 'contributor'){
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'editor'){
 
 		if( $_GET['filter'] == 'grupo' ){
 
@@ -1136,6 +1153,23 @@ function wp38_add_movies_filter($views){
  
 add_filter('views_edit-post', 'wp38_add_movies_filter');
 
+// Unifica o array multidimensional em array unico
+function array_flatten($array) { 
+	if (!is_array($array)) { 
+	  return FALSE; 
+	} 
+	$result = array(); 
+	foreach ($array as $key => $value) { 
+	  if (is_array($value)) { 
+		$result = array_merge($result, array_flatten($value)); 
+	  } 
+	  else { 
+		$result[$key] = $value; 
+	  } 
+	} 
+	return $result; 
+}
+
 
 // Altera a URL de Eventos e Unidades para colaboladores
 add_action('admin_menu', 'add_custom_link_into_appearnace_menu');
@@ -1145,11 +1179,12 @@ function add_custom_link_into_appearnace_menu() {
     // pega as informacoes do usuario logado
 	$user = wp_get_current_user();
 	
-	if($user->roles[0] == 'contributor'){		
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'editor'){		
 		$submenu['edit.php'][5][2] = 'edit.php?list=evento&filter=grupo';
 		$submenu['edit.php?post_type=unidade'][5][2] = 'edit.php?post_type=unidade&filter=grupo';
 	}
 }
+
 
 // Carrega todas as localizacoes do grupo para o usuario
 add_filter('acf/load_field/name=localizacao', 'populateUserGroups');
@@ -1182,26 +1217,26 @@ function populateUserGroups( $field ){
 		//print_r($query);
     } else {
 		$variable = get_user_meta($user->ID,'grupo',true);
+		
 		$pages = get_post_meta($variable, 'unidades', true);
 		if($pages && $pages != ""){
 			foreach ($pages as $page) {
 				$field['choices'][ $page ] = get_the_title($page);
 			}
 		}
+		
 	}
 
 	return $field;
 }
 
-// Remover redirecionamento da pagina de cada unidade
+
 add_filter('redirect_canonical','pif_disable_redirect_canonical');
 
 function pif_disable_redirect_canonical($redirect_url) {
     if (is_singular()) $redirect_url = false;
 return $redirect_url;
 }
-
-
 
 //MapLeaFlet
 wp_register_style( 'leaflet.css','https://unpkg.com/leaflet@1.6.0/dist/leaflet.css', null, '1.6.0', 'all' );
@@ -1359,7 +1394,6 @@ function clearPhone($phone){
 	return $clear;
 }
 
-
 // Ocultar itens do menu por tipor de usuario
 function wpdocs_remove_menus(){	
 	remove_menu_page( 'edit-comments.php' ); //Comentarios
@@ -1368,6 +1402,29 @@ function wpdocs_remove_menus(){
 		remove_menu_page( 'themes.php' ); //Aparencia
 		remove_menu_page( 'tools.php' ); //Ferramentas
 		remove_menu_page( 'options-general.php' ); //Configuracoes
+		remove_menu_page( 'edit.php?post_type=acf-field-group' ); //Campos Personalizados
 	}
 }
 add_action( 'admin_menu', 'wpdocs_remove_menus' );
+
+add_filter('acf/fields/relationship/query/name=carrocel', 'my_acf_fields_relationship_query', 10, 3);
+function my_acf_fields_relationship_query( $args, $field, $post_id ) {
+		
+	$args['meta_query'] = array(
+		'relation' => 'OR',
+        array(
+            'key'     => 'localizacao',
+            'value'   => $post_id,
+        ),
+        array(
+            'key'     => 'localizacao',
+            'value'   => 31675,
+        ),
+		array(
+            'key'     => 'localizacao',
+            'value'   => 31244,
+        ),
+    );
+
+    return $args;
+}
