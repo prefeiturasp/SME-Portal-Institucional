@@ -757,7 +757,49 @@ class LoopUnidadesTabs extends LoopUnidades{
             </div>
         </div>
 
-        
+        <?php $alertas = get_field('alertas'); ?>
+        <script>
+			jQuery(document).ready(function ($) {
+				// Condição ACF para ativar modal
+				var ativo_modal = "<?php echo $alertas['ativar_o_alerta']; ?>"
+				
+				console.log(ativo_modal);
+                console.log("Aqui");
+                
+                if(ativo_modal == '1'){
+				   		jQuery('#modal-content').modal({ show: true });
+				   }else{
+					 	jQuery('#modal-content').modal({ show: false });
+				   }
+			});
+		</script>
+		
+        <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					
+					<div class="modal-body">
+					<?php
+						if($alertas['titulo_alerta'] && $alertas['titulo_alerta'] != ''){
+							?><p><h1><strong><?php echo $alertas['titulo_alerta']; ?></strong></h1></p><?php
+						}
+					?>
+					<?php
+						if($alertas['tipo_de_alerta'] == 'imagem' && $alertas['imagem_alerta'] != ''){
+							?><p><img src="<?php echo $alertas['imagem_alerta'] ?>" width="100%"></p><?php
+						}
+					?>
+					<?php
+						if($alertas['tipo_de_alerta'] == 'texto' && $alertas['descricao'] != ''){
+							?><p><?php echo $alertas['descricao']; ?></p><?php
+						}
+					?>					
+					</div>
+				</div>
+			</div>
+		</div>
         
         
     <?php
