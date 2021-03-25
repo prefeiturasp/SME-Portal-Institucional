@@ -4,7 +4,7 @@ Plugin Name: Grupos Ceus
 Description:  Plugin Criado para controlar os editores dos CEUs
 Author: Felipe Viana
 Version: 1.0.0
-Author URI: http://ma.tt/
+Author URI: https://amcom.com.br/
 */
 
 
@@ -23,7 +23,7 @@ function wpse_user_can_edit( $user_id, $page_id ) {
     $user = wp_get_current_user($user_id);
 
     // usuarios que ficam foram da regra
-	$allowed_roles = array( 'editor', 'administrator' );
+	$allowed_roles = array( 'administrator' );
     
     if ( array_intersect( $allowed_roles, $user->roles ) ) {
         // se estiverem na lista todas as paginas sao permitidas para edicao
@@ -34,7 +34,7 @@ function wpse_user_can_edit( $user_id, $page_id ) {
 
  
     // pega o grupo que o usuario pertence
-    $variable = get_field('grupo', 'user_' . $user_id);
+    $variable = get_field('grupo', 'user_' . $user_id);    
 
     // verifica se esta liberado para editar todas paginas
 	$todos = get_field('todas_as_paginas', $variable);
@@ -43,9 +43,17 @@ function wpse_user_can_edit( $user_id, $page_id ) {
 		return true;
 	} else {	
         
-        // pega as unidades permitidas para edicao do grupo
-        $unidades = get_field('unidades', $variable);
+        $permitidas = array();
 
+        if($variable && $variable != ''){
+            foreach($variable as $permitido){
+                $permitidas[] = get_field('unidades', $permitido);
+            }
+        }
+
+        $unidades = array_flatten($permitidas);
+        $unidades = array_unique($unidades);
+        
         $args = array(
 			'post_type' => 'post',
             'posts_per_page'    =>  -1,
@@ -53,6 +61,7 @@ function wpse_user_can_edit( $user_id, $page_id ) {
                 'relation' => 'OR',
             ),
         );
+
         
         foreach ($unidades as $unidade){
             
@@ -101,11 +110,11 @@ function wpse_user_can_edit( $user_id, $page_id ) {
 		}
 	} 
 	
- }
+}
 
 
- //
- add_filter( 'map_meta_cap', function ( $caps, $cap, $user_id, $args ) {
+//
+add_filter( 'map_meta_cap', function ( $caps, $cap, $user_id, $args ) {
 
     // capability atribuida
     $to_filter = [ 'edit_post', 'delete_post', 'edit_page', 'delete_page', 'edit_concurso', 'edit_unidade' ];
