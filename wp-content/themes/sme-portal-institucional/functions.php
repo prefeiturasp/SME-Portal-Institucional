@@ -887,3 +887,185 @@ function get_thumb( $post_id ){
 
 	return $result;
 }
+
+// Unifica o array multidimensional em array unico
+function array_flatten($array) { 
+	if (!is_array($array)) { 
+	  return FALSE; 
+	} 
+	$result = array(); 
+	foreach ($array as $key => $value) { 
+	  if (is_array($value)) { 
+		$result = array_merge($result, array_flatten($value)); 
+	  } 
+	  else { 
+		$result[$key] = $value; 
+	  } 
+	} 
+	return $result; 
+}
+
+// Filtra as paginas que grupo pertence
+
+function wp37_limit_posts_to_author($query) {
+
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	// 	filtra as paginas pelo grupo pertencente
+	if( $_GET['filter'] == 'grupo' && $user->roles[0] == 'contributor')  {
+		
+		$variable = get_user_meta($user->ID, 'grupo', true);
+		$variable = array_flatten($variable);
+        $variable = array_unique($variable);
+		
+		$pages = array();
+
+		if($variable && $variable != ''){
+            foreach($variable as $grupo){
+				$pages[] = get_post_meta($grupo, 'selecionar_paginas', true);
+			}
+        }
+
+		$pages = array_flatten($pages);
+        $pages = array_unique($pages);
+		
+		//print_r($variable);
+		$query->set('post__in', $pages);
+	} 
+
+	// 	filtra as paginas por grupos
+	if( $_GET['grupo_id'] != '')  {
+		
+		$grupo = $_GET['grupo_id'];
+
+		if($grupo && $grupo != ''){            
+			$pages = get_post_meta($grupo, 'selecionar_paginas', true);
+        }
+
+		$pages = array_flatten($pages);
+        $pages = array_unique($pages);
+		
+		//print_r($variable);
+		$query->set('post__in', $pages);
+	}	
+	
+	return $query;
+	
+}
+add_filter('pre_get_posts', 'wp37_limit_posts_to_author');
+
+// Adiciona o filtro Minhas Paginas
+function wp38_add_movies_filter($views){
+	
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	if($user->roles[0] == 'contributor'){
+
+		if( $_GET['filter'] == 'grupo' ){
+
+			$views['grupos'] = "<a href='" . admin_url('edit.php?post_type=page&filter=grupo') . "' class='current'>Minhas Páginas</a>";
+		return $views;
+
+		} else {
+			$views['grupos'] = "<a href='" . admin_url('edit.php?post_type=page&filter=grupo') . "'>Minhas Páginas</a>";
+		return $views;
+		}
+	}
+
+	return $views;
+}
+ 
+add_filter('views_edit-page', 'wp38_add_movies_filter');
+
+// Altera a URL de Paginas para colaboladores
+add_action('admin_menu', 'add_custom_link_into_appearnace_menu');
+function add_custom_link_into_appearnace_menu() {
+	global $submenu;
+	
+    // pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+	
+	if($user->roles[0] == 'contributor'){		
+		$submenu['edit.php?post_type=page'][5][2] = 'edit.php?post_type=page&filter=grupo';
+	}
+}
+
+// Nova coluna usuarios
+function new_modify_user_table( $column ) {
+    $column['phone'] = 'Grupos';    
+    return $column;
+}
+add_filter( 'manage_users_columns', 'new_modify_user_table' );
+
+function new_modify_user_table_row( $val, $column_name, $user_id ) {
+    switch ($column_name) {
+        case 'phone' :
+			// pega o grupo que o usuario pertence
+			$usergrupos = get_field('grupo', 'user_' . $user_id);
+			
+			$returngrupos = '';
+			
+			if($usergrupos && $usergrupos != ''){
+				$b = 0;
+				foreach($usergrupos as $usergrupo){
+					if($b == 0){
+						$returngrupos .= "<a href='" . admin_url('users.php?grupo_id=' . $usergrupo) . "'>" . get_the_title($usergrupo) . "</a>";
+					} else {
+						$returngrupos .= ", <a href='" . admin_url('users.php?grupo_id=' . $usergrupo) . "'>" . get_the_title($usergrupo) . "</a>";
+					}
+					$b++;				
+				}
+	
+				//print_r($variable);
+				return $returngrupos;
+			}
+			
+        default:
+    }
+    return $val;
+}
+add_filter( 'manage_users_custom_column', 'new_modify_user_table_row', 10, 3 );
+
+
+// Filtrar usuarios por grupo
+function filter_users_by_grupo_id( $query ) {
+    global $pagenow;
+
+    
+	if ( is_admin() && 
+         'users.php' == $pagenow && 
+         isset( $_GET[ 'grupo_id' ] ) && 
+         !empty( $_GET[ 'grupo_id' ] ) 
+       ) {
+        $section = $_GET[ 'grupo_id' ];
+        $meta_query = array(
+            array(
+				'key' => 'grupo', // name of custom field
+				'value' => '"' . $section . '"', // matches exaclty "123", not just 123. This prevents a match for "1234"
+				'compare' => 'LIKE'
+			)
+        );
+		
+        $query->set( 'meta_key', 'grupo' );
+        $query->set( 'meta_query', $meta_query );
+		
+    }
+}
+add_filter( 'pre_get_users', 'filter_users_by_grupo_id' );
+
+
+// Aumenta o tamanho do seletor de paginas
+function custom_acf_css() {
+	global $typenow;
+    if( 'editores_portal' == $typenow ){
+		echo '<style>
+			.acf-relationship .list {
+				height: 500px;
+			}
+		</style>';
+	}
+
+}
+add_action('admin_head', 'custom_acf_css');
