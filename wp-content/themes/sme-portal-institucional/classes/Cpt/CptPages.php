@@ -14,23 +14,78 @@ class CptPages extends Cpt
 
 	// add featured thumbnail to admin post columns
 	public function exibe_cols_pages($cols) {
-		$columns = array(
-			'cb' => '<input type="checkbox" />',
-			'title' => 'Title',
-			'author' => 'Author',
-			'featured_thumb' => 'Thumbnail',
-			'date' => 'Date',
-
-		);
+		
+		if( current_user_can('editor') || current_user_can('administrator') ) {
+			$columns = array(
+				'cb' => '<input type="checkbox" />',
+				'title' => 'Title',
+				'author' => 'Author',
+				'featured_thumb' => 'Thumbnail',
+				'grupo' => 'Grupo',
+				'date' => 'Date',	
+			);
+		} else {
+			$columns = array(
+				'cb' => '<input type="checkbox" />',
+				'title' => 'Title',
+				'author' => 'Author',
+				'featured_thumb' => 'Thumbnail',
+				'date' => 'Date',	
+			);
+		}		
+		
 		return $columns;
 	}
 
-	public function cols_content_pages( $column) {
+	public function cols_content_pages($column) {	
+		
+		
+
 		switch ( $column ) {
 			case 'featured_thumb':
 				echo '<a href="' . get_edit_post_link() . '">';
 				echo the_post_thumbnail( 'admin-list-thumb' );
 				echo '</a>';
+				break;
+
+			case 'grupo':
+				$localizacao = get_the_ID();
+
+				$paginas = get_posts(array(
+					'post_type' => 'editores_portal',
+					'orderby' => 'title',
+    				'order'   => 'ASC',
+					'post_status'    => 'publish',
+					'meta_query' => array(
+						array(
+							'key' => 'selecionar_paginas', // name of custom field
+							'value' => '"' . $localizacao . '"', // matches exaclty "123", not just 123. This prevents a match for "1234"
+							'compare' => 'LIKE'
+						)
+					)
+				));
+
+				
+				if($paginas && $paginas != ''){
+					$a = 0;
+					foreach($paginas as $pagina){
+						if($a == 0){
+							echo "<a href='" . admin_url('edit.php?post_type=page&filter=grupo&grupo_id=' . $pagina->ID) . "'>" . get_the_title($pagina->ID) . "</a>";
+							
+						} else {
+							echo ", <a href='" . admin_url('edit.php?post_type=page&filter=grupo&grupo_id=' . $pagina->ID) . "'>" . get_the_title($pagina->ID) . "</a>";
+						}
+						
+						$a++;
+					}
+				} else {
+					if($_GET['grupo_id'] && $_GET['grupo_id'] != ''){
+						echo get_the_title($_GET['grupo_id']);
+					}
+				}
+
+				//echo "Aqui: " . $localizacao . "<br>";
+				//print_r($posts);
 				break;
 
 		}
