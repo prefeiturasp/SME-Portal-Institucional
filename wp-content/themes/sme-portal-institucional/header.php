@@ -130,26 +130,46 @@ use Classes\Header\Header;
                             </ul>
                         </article>
                         <article class="col-lg-6 col-xs-12 d-flex justify-content-end align-items-center">
-                            <?php 
+                        <?php 
                                 $facebook = get_field('url_facebook','conf-rodape');
                                 $instagram = get_field('url_instagram','conf-rodape');
                                 $twitter = get_field('url_twitter','conf-rodape');
                                 $youtube = get_field('url_youtube','conf-rodape');
+
+                                // Verifica se existe Redes Sociais
+                                if( have_rows('redes_sociais', 'conf-rodape') ):
+                                    
+                                    echo '<ul class="list-inline mt-2 mb-2 midias-sociais">';						
+                                    
+                                        while( have_rows('redes_sociais', 'conf-rodape') ) : the_row();
+                                            
+                                            $rede_url = get_sub_field('url_rede'); 
+                                            $rede_texto = get_sub_field('texto_alternativo');
+                                            $rede_topo = get_sub_field('tipo_de_icone_topo');
+                                            $rede_t_imagem = get_sub_field('imagem_topo');
+                                            $rede_t_icone = get_sub_field('icone_topo');                                            
+                                            
+                                        ?>
+                                            
+                                            <li class="list-inline-item">
+                                                <a class="text-white" href="<?php echo $rede_url; ?>">
+                                                    <?php if($rede_topo == 'imagem' && $rede_t_imagem != '') : ?>
+                                                        <img src="<?php echo $rede_t_imagem; ?>" alt="<?php echo $rede_texto; ?>">
+                                                    <?php elseif($rede_topo == 'icone' && $rede_t_icone != ''): ?>
+                                                        <i class="fa <?php echo $rede_t_icone; ?>" aria-hidden="true" title="<?php echo $rede_texto; ?>"></i>
+                                                    <?php endif; ?>
+                                                </a>
+                                            </li>
+                                        <?php
+                                            
+
+                                        // End loop.
+                                        endwhile;
+
+                                    echo '</ul>';
+                                
+                                endif;
                             ?>
-                            <ul class="list-inline mt-2 mb-2 midias-sociais">
-                                <?php if($facebook) : ?>
-                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $facebook; ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/icone-facebook.png" alt="Ir para Facebook da Secretaria Muncipal de Educação de São Paulo"></a></li>
-                                <?php endif; ?>
-                                <?php if($instagram) : ?>
-                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $instagram; ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/icone-insta.png" alt="Ir para Instagram da Secretaria Muncipal de Educação de São Paulo"></a></li>
-                                <?php endif; ?>
-                                <?php if($twitter) : ?>
-                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $twitter; ?>"><img src="<?= STM_URL ?>/wp-content/uploads/2019/09/icone-twitter-topo.png" alt="Ir para Twitter da Secretaria Muncipal de Educação de São Paulo"></a></li>
-                                <?php endif; ?>
-                                <?php if($youtube) : ?>
-                                    <li class="list-inline-item"><a class="text-white" href="<?php echo $youtube; ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/icone-yt.png" alt="Ir para YouTube da Secretaria Muncipal de Educação de São Paulo"></a></li>
-                                <?php endif; ?>                                     
-                            </ul>
                         </article>
                     </section>
                 </section>

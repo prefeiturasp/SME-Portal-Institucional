@@ -229,6 +229,15 @@ a {
     font-size: 1.5rem;
 }
 
+.midias-sociais i.fa {
+    font-size: 17px;
+    margin-top: 4px;
+}
+
+.midias-sociais img {
+    margin-top: -3px;
+}
+
 .menu-topo {
     margin-bottom: 0;
     background-color: #F3F3F3 !important;
@@ -994,6 +1003,12 @@ footer .redes-footer {
     max-width: 38px !important;
     padding-right: 7px;
     padding-left: 7px;
+}
+
+.rede-rodape i.fa {
+    font-size: 24px;
+    line-height: 24px;
+    margin-top: -2px;
 }
 
 .bd-contact {

@@ -19,43 +19,39 @@
 				<?php endif; ?>
 				<h2>Redes sociais</h2>
 				<?php 
-					$facebook = get_field('icone_facebook','conf-rodape');
-					$instagram = get_field('icone_instagram','conf-rodape');
-					$twitter = get_field('icone_twitter','conf-rodape');
-					$youtube = get_field('icone_youtube','conf-rodape');
-				?>
-				<div class="row redes-footer">
+					// Verifica se existe Redes Sociais
+					if( have_rows('redes_sociais', 'conf-rodape') ):
+						
+						echo '<div class="row redes-footer">';						
+						
+							while( have_rows('redes_sociais', 'conf-rodape') ) : the_row();
+								
+								$rede_url = get_sub_field('url_rede'); 
+								$rede_texto = get_sub_field('texto_alternativo');								
+								$rede_rodape = get_sub_field('tipo_de_icone_rodape');
+								$rede_r_imagem = get_sub_field('imagem_rodape');
+								$rede_r_icone = get_sub_field('icone_rodape');								
+								
+							?>
+								<div class="col rede-rodape">
+									<a href="<?php echo $rede_url; ?>">
+										<?php if($rede_rodape == 'imagem' && $rede_r_imagem != '') : ?>
+											<img src="<?php echo $rede_r_imagem; ?>" alt="<?php echo $rede_texto; ?>">
+										<?php elseif($rede_rodape == 'icone' && $rede_r_icone != ''): ?>
+											<i class="fa <?php echo $rede_r_icone; ?>" aria-hidden="true" title="<?php echo $rede_texto; ?>"></i>
+										<?php endif; ?>
+									</a>
+								</div>
+							<?php
+								
 
-					<?php if($facebook) : ?>
-						<div class="col rede-rodape">
-							<a href="<?php the_field('url_facebook','conf-rodape'); ?>">
-							<img src="<?php echo $facebook; ?>" alt="Facebook"></a>
-						</div>
-					<?php endif; ?>
+							// End loop.
+							endwhile;
 
-					<?php if($instagram) : ?>
-						<div class="col rede-rodape">
-							<a href="<?php the_field('url_instagram','conf-rodape'); ?>">
-							<img src="<?php echo $instagram; ?>" alt="Instagram"></a>
-						</div>
-					<?php endif; ?>
-
-					<?php if($twitter) : ?>
-						<div class="col rede-rodape">
-							<a href="<?php the_field('url_twitter','conf-rodape'); ?>">
-							<img src="<?php echo $twitter; ?>" alt="Twitter"></a>
-						</div>
-					<?php endif; ?>
-
-					<?php if($youtube) : ?>
-						<div class="col rede-rodape">
-							<a href="<?php the_field('url_youtube','conf-rodape'); ?>">
-							<img src="<?php echo $youtube; ?>" alt="YouTube"></a>
-						</div>
-					<?php endif; ?>
-
+						echo '</div>';
 					
-				</div>
+					endif;
+				?>
 			</div>
 			<div class="col-sm-3 align-middle text-center">				
 				<a class="sa sat seloa mt-1" href="http://selodigital.imprensaoficial.com.br/validacao/SMPED/0118119073598c7823" target="_blank">
