@@ -1069,3 +1069,8 @@ function custom_acf_css() {
 
 }
 add_action('admin_head', 'custom_acf_css');
+
+function clean($string) {
+	$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.										 
+	return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+}
