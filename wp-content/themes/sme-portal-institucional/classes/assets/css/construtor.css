@@ -14,8 +14,8 @@ h2 {
 }
 
 .tx_fx_grafite h1,
-h2,
-h3 {
+.tx_fx_grafite h2,
+.tx_fx_grafite h3 {
     color: #42474A;
 }
 
@@ -24,9 +24,19 @@ h3 {
 }
 
 .tx_fx_branco h1,
-h2,
-h3 {
+.tx_fx_branco h2,
+.tx_fx_branco h3 {
     color: #fff;
+}
+
+.tx_fx_azul {
+    color: #0056b3;
+}
+
+.tx_fx_azul h1,
+.tx_fx_azul h2,
+.tx_fx_azul h3 {
+    color: #0056b3;
 }
 
 
