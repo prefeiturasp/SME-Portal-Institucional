@@ -1074,3 +1074,22 @@ function clean($string) {
 	$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.										 
 	return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
 }
+
+// Inclui o JS para alterar o tipo de campo no alt das imagens
+function custom_admin_js() {
+    $url = get_bloginfo('template_directory') . '/js/wp-admin.js';
+    echo '"<script type="text/javascript" src="'. $url . '"></script>"';
+}
+add_action('admin_footer', 'custom_admin_js');
+
+// Altera o texto da label
+add_filter(  'gettext',  'dirty_translate'  );
+add_filter(  'ngettext',  'dirty_translate'  );
+function dirty_translate( $translated ) {
+     $words = array(
+            // 'word to translate' => 'translation'
+            'Texto alternativo' => 'Descrição para acessibilidade'
+     );
+$translated = str_ireplace(  array_keys($words),  $words,  $translated );
+return $translated;
+}
