@@ -843,11 +843,15 @@ function get_first_image( $post_id ) {
 
 }
 
-function get_thumb( $post_id ){
+function get_thumb( $post_id, $size = null ){
 
-	$result = array();
+	$result = array(); 
 
-	$imgSelect = get_the_post_thumbnail_url($post_id, 'default-image');	
+	if(!$size || $size == ''){
+		$size = 'default-image';
+	}
+
+	$imgSelect = get_the_post_thumbnail_url($post_id, $size);	
 	$firstImage = get_first_image($post_id);
 
 	if($imgSelect){
@@ -864,7 +868,7 @@ function get_thumb( $post_id ){
 
 	} elseif($firstImage){
 		
-		$imgOne = wp_get_attachment_image_src($firstImage, 'default-image');
+		$imgOne = wp_get_attachment_image_src($firstImage, $size);
 		$alt = get_post_meta($firstImage, '_wp_attachment_image_alt', true);
 		
 		$imgSlide = $imgOne[0];
