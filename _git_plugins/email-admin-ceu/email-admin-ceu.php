@@ -56,8 +56,7 @@ function post_unpublished( $new_status, $old_status, $post ) {
             $portalusers = array_merge($adminUsers, $editorUsers); // todos os usuarios em um array
         } else {
             $portalusers = $adminUsers; 
-        }
-        
+        }        
        
         foreach ($portalusers as $user) {
             $emailto[] = $user->user_email;
@@ -67,17 +66,38 @@ function post_unpublished( $new_status, $old_status, $post ) {
         $removeUser = array('ollyver.ottoboni@amcom.com.br', 'ollyverottoboni@gmail.com', 'felipe.almeida@amcom.com.br');
 
         $emailto = array_diff($emailto, $removeUser);
-       
-        // Assunto do email"
-        $subject = 'O ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . ' foi editada no portal.';
+
+        $idUnidade = get_field('localizacao', $post->ID);
+        $unidade = get_the_title($idUnidade);
 
         //Link para editar
         $link = get_edit_post_link( $post->ID );
         $link = str_replace('&amp;' , '&', $link);
+       
+        if($post_type->labels->singular_name == 'Evento'){            
+            
+            if($idUnidade == '31244' || $idUnidade == '31675'){
+                // Assunto do email"
+                $subject = 'O ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . ' que pertence a "' . $unidade . '" foi editada no portal.';
+                
+                // Corpo do email
+                $message = 'O ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . ' que pertence a "' . $unidade . '"' . " foi editado no portal.\n\nPara visualizar as alterações acesse: " . get_permalink( $post->ID ) . "\nPara publicar acesse: " . $link;
+            } else {
+                // Assunto do email"
+                $subject = 'O ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . ' que pertence a unidade "' . $unidade . '" foi editada no portal.';
+                
+                // Corpo do email
+                $message = 'O ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . ' que pertence a unidade "' . $unidade . '"' . " foi editado no portal.\n\nPara visualizar as alterações acesse: " . get_permalink( $post->ID ) . "\nPara publicar acesse: " . $link;
+            }   
 
-        // Corpo do email
-        $message = 'O ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . " foi editado no portal.\nPara visualizar as alterações acesse: " . get_permalink( $post->ID ) . "\nPara publicar acesse: " . $link;
-
+        } else {
+            // Assunto do email"
+            
+            $subject = 'O ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . ' foi editada no portal.';
+            // Corpo do email
+            $message = 'O ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . " foi editado no portal.\nPara visualizar as alterações acesse: " . get_permalink( $post->ID ) . "\nPara publicar acesse: " . $link;
+        }
+        
         // evia o email
         wp_mail( $emailto, $subject, $message );
     }
