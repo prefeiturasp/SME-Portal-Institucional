@@ -134,6 +134,26 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_1' ):
 									get_template_part( 'construtor/construtor', 'bloco_rede_1_1' );
 
+								// Noticias em destaque
+								elseif( get_row_layout() == 'fx_cl1_noticias_destaque_1_1' ):
+									get_template_part( 'construtor/construtor', 'noticias_destaque_1_1' );
+
+								// Noticias mais lidas
+								elseif( get_row_layout() == 'fx_cl1_mais_lidas_1_1' ):
+									get_template_part( 'construtor/construtor', 'mais_lidas_1_1' );
+
+								// Noticias mais lidas (Pagina)
+								elseif( get_row_layout() == 'fx_cl1_mais_lidas_pag_1_1' ):
+									get_template_part( 'construtor/construtor', 'mais_lidas_pag_1_1' );
+
+								// Outras Noticias
+								elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+									get_template_part( 'construtor/construtor', 'outras_noticias_1_1' );
+
+								// Noticias DREs
+								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+									get_template_part( 'construtor/construtor', 'noticias_dres_1_1' );
+								
 								// Integracao Pagina
 								elseif( get_row_layout() == 'integrar_pagina' ):
 
