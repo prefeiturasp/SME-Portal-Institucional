@@ -6,10 +6,9 @@
     <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
         <div class="col-sm-4 text-center">
             <?php
-            $image_id = get_post_thumbnail_id();
-            $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
+                $thumbs = get_thumb(get_the_id(), 'default-image'); 
             ?>
-            <img src="<?php echo get_the_post_thumbnail_url(); ?>" width="100%" alt="<?php echo $image_alt; ?>">
+            <img src="<?php echo $thumbs[0]; ?>" width="100%" alt="<?php echo $thumbs[1]; ?>">
             <p><a href="<?php echo get_permalink(); ?>"><h3><?php the_title(); ?></h3></a></p>
         </div>
     <?php endwhile; endif; ?>
