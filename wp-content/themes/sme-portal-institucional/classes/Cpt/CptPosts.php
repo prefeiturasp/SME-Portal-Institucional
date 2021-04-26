@@ -21,9 +21,7 @@ class CptPosts extends Cpt
 				'categories' => 'Categories',
 				'tags' => 'Tags',
 				'comments' => '<span class="vers"><div title="Comments" class="comment-grey-bubble"></div></span>',
-				'featured_thumb' => 'Thumbnail',
-				'destaque' => 'Destaque',
-				'posicao_destaque' => 'Posição Destaque',
+				'featured_thumb' => 'Thumbnail',				
 				'date' => 'Date',
 
 			);
@@ -42,29 +40,7 @@ class CptPosts extends Cpt
 				echo the_post_thumbnail( 'admin-list-thumb' );
 				echo '</a>';
 				break;
-
-			case 'destaque':
-				echo $this->getDestaque();
-				break;
-
-			case 'posicao_destaque':
-				$posicao_destaque = get_field('posicao_de_destaque_deste_post');
-				echo '<h4>'.$posicao_destaque.'</h4>';
-				break;
-
-
-
 		}
-	}
-
-	public function getDestaque(){
-		$destaque = get_field('deseja_que_este_post_apareca_na_home');
-		if ($destaque == 'sim'){
-			return '<h4>Sim</h4>';
-		}else{
-			return '<h4>Não</h4>';
-		}
-
 	}
 
 }
