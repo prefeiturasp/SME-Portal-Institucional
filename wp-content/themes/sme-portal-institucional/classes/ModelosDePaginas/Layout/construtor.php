@@ -154,6 +154,10 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 									get_template_part( 'construtor/construtor', 'noticias_dres_1_1' );
 								
+								// Organograma DREs
+								elseif( get_row_layout() == 'fx_cl1_organograma' ):
+									get_template_part( 'construtor/construtor', 'organograma_1_1' );
+								
 								// Integracao Pagina
 								elseif( get_row_layout() == 'integrar_pagina' ):
 
