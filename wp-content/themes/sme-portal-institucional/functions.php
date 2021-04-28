@@ -626,18 +626,11 @@ if( function_exists('acf_add_options_page') ) {
     ));
 
     acf_add_options_sub_page(array(
-        'page_title' 	=> 'Configurações da Página Inicial',
-        'menu_title'	=> 'Página Inicial',
+        'page_title' 	=> 'Alerta da Página Inicial',
+        'menu_title'	=> 'Alerta da Página Inicial',
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
-    ));
-	
-	acf_add_options_sub_page(array(
-        'page_title' 	=> 'Configurações da Página Notícias',
-        'menu_title'	=> 'Página Notícias',
-        'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'publish_pages',
-    ));
+    ));	
 	
 	acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações da Busca Manual',
