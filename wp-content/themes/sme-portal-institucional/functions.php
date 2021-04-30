@@ -989,42 +989,11 @@ function add_custom_link_into_appearnace_menu() {
 	}
 }
 
-// Nova coluna usuarios
-function new_modify_user_table( $column ) {
-    $column['phone'] = 'Grupos';    
-    return $column;
+// Incluir CSS no admin
+function admin_style() {
+	wp_enqueue_style('admin-styles', get_template_directory_uri().'/css/admin.css');
 }
-add_filter( 'manage_users_columns', 'new_modify_user_table' );
-
-function new_modify_user_table_row( $val, $column_name, $user_id ) {
-    switch ($column_name) {
-        case 'phone' :
-			// pega o grupo que o usuario pertence
-			$usergrupos = get_field('grupo', 'user_' . $user_id);
-			
-			$returngrupos = '';
-			
-			if($usergrupos && $usergrupos != ''){
-				$b = 0;
-				foreach($usergrupos as $usergrupo){
-					if($b == 0){
-						$returngrupos .= "<a href='" . admin_url('users.php?grupo_id=' . $usergrupo) . "'>" . get_the_title($usergrupo) . "</a>";
-					} else {
-						$returngrupos .= ", <a href='" . admin_url('users.php?grupo_id=' . $usergrupo) . "'>" . get_the_title($usergrupo) . "</a>";
-					}
-					$b++;				
-				}
-	
-				//print_r($variable);
-				return $returngrupos;
-			}
-			
-        default:
-    }
-    return $val;
-}
-add_filter( 'manage_users_custom_column', 'new_modify_user_table_row', 10, 3 );
-
+add_action('admin_enqueue_scripts', 'admin_style');
 
 // Filtrar usuarios por grupo
 function filter_users_by_grupo_id( $query ) {
