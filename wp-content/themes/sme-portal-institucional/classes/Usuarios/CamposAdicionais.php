@@ -138,9 +138,12 @@ class CamposAdicionais
 	{
 		if (is_admin()) {
 			if (isset($vars['orderby']) && $vars['orderby'] == 'setor') {
-				$vars['orderby'] = 'setor';
+				$vars = array_merge( $vars, array(
+					'meta_key' => 'setor',
+					'orderby' => 'meta_value'
+				) );
+				//$vars['orderby'] = 'setor';
 			}
-
 
 		}
 		return $vars;
@@ -184,8 +187,11 @@ class CamposAdicionais
 
 	//Exibindo as colunas no Dashboard
 	public function exibe_cols($cols)
-	{
+	{		
+		$cols['posts'] = 'Notícias';
+		$cols['pages'] = 'Páginas';
 		$cols['setor'] = 'Setor';
+		$cols['grupos'] = 'Grupos';
 		return $cols;
 	}
 
@@ -201,6 +207,43 @@ class CamposAdicionais
 				}else{
 					return "<p>Nenhum Setor Cadastrado</p>";
 				}
+
+			case 'pages' :
+
+				global $wpdb;
+				
+				$where = get_posts_by_author_sql('page', true, $user_id);
+				$count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts $where" );
+				if($count > 0){
+					$number = "<span class='pages-count'><a href='" . admin_url('edit.php?post_type=page&author=' . $user_id) . "'>" . $count . "</a></span>";
+				} else {
+					$number = "<span class='pages-count'>" . $count . "</span>";
+				}
+				return $number;
+
+			case 'grupos' :
+				// pega o grupo que o usuario pertence
+				$usergrupos = get_field('grupo', 'user_' . $user_id);
+				
+				$returngrupos = '';
+				
+				if($usergrupos && $usergrupos != ''){
+					$b = 0;
+					foreach($usergrupos as $usergrupo){
+						if($b == 0){
+							$returngrupos .= "<a href='" . admin_url('users.php?grupo_id=' . $usergrupo) . "'>" . get_the_title($usergrupo) . "</a>";
+						} else {
+							$returngrupos .= ", <a href='" . admin_url('users.php?grupo_id=' . $usergrupo) . "'>" . get_the_title($usergrupo) . "</a>";
+						}
+						$b++;				
+					}
+		
+					//print_r($variable);
+					return $returngrupos;
+				} else {
+					return "-";
+				}
+			
 			default:
 		}
 
