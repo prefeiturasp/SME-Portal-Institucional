@@ -122,8 +122,8 @@ require_once __ROOT__.'/classes/Cpt/CptMediaImages.php';
 /* Inicialização CPTs */
 $cptPostsExtend = new \Classes\Cpt\CptPosts();
 $cptPagessExtend = new \Classes\Cpt\CptPages();
-$cptCard = new \Classes\Cpt\Cpt('card', 'card', 'Card', 'Todos os Cards', 'Cards', 'Card', 'categorias-card', 'Categorias de Cards', 'Categoria de Card', 'dashicons-feedback', true);
-$cptCardExtend = new \Classes\Cpt\CptCard();
+//$cptCard = new \Classes\Cpt\Cpt('card', 'card', 'Card', 'Todos os Cards', 'Cards', 'Card', 'categorias-card', 'Categorias de Cards', 'Categoria de Card', 'dashicons-feedback', true);
+//$cptCardExtend = new \Classes\Cpt\CptCard();
 
 $cptAgendaSecretario = new \Classes\Cpt\Cpt('agenda', 'agenda', 'Agenda do Secretário', 'Todos os Eventos', 'Eventos', 'Eventos', null, null, null, 'dashicons-calendar-alt', true);
 $cptAgendaSecretarioExtend = new \Classes\Cpt\CptAgendaSecretario();
