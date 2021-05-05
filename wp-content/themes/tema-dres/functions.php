@@ -633,37 +633,45 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Opções Gerais',
         'menu_slug' 	=> 'conf-geral',
         'position' => '3',
-        'capability'	=> 'publish_pages',
-        //'capability'	=> 'edit_posts',
+        //'capability'	=> 'publish_pages',
+        'capability'	=> 'editor',
         //'redirect'		=> false
+		'update_button' => __('Atualizar', 'acf'),
     ));
 
     acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações da Página Inicial',
         'menu_title'	=> 'Página Inicial',
         'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'publish_pages',
+        'capability'	=> 'read_private_pages',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Configurações atualizadas com sucesso", 'acf'),
     ));
 	
 	acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações da Página Mais Notícias',
         'menu_title'	=> 'Mais Notícias',
         'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'publish_pages',
+        'capability'	=> 'read_private_pages','update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Configurações das Noticias com sucesso", 'acf'),
     ));
 
     acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações de Unidades Escolares e CEUS',
         'menu_title'	=> 'Unidades Escolares e CEUS',
         'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'publish_pages',
+        'capability'	=> 'read_private_pages',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Configurações de Unidades atualizadas com sucesso", 'acf'),
     ));
 
     acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações de Endereços e Responsáveis',
         'menu_title'	=> 'Endereços e Responsáveis',
         'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'publish_pages',
+        'capability'	=> 'read_private_pages',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __(" Endereços e Responsáveis atualizados com sucesso", 'acf'),
     ));
 		
 
@@ -671,7 +679,9 @@ if( function_exists('acf_add_options_page') ) {
         'page_title' 	=> 'Configurações de tutoriais',
         'menu_title'	=> 'Inclusão de tutoriais',
         'parent_slug'	=> 'conf-geral',
-        'capability'	=> 'publish_pages',
+        'capability'	=> 'read_private_pages',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Tutoriais atualizado com sucesso", 'acf'),
 	));
 	
 	acf_add_options_sub_page(array(
@@ -680,6 +690,8 @@ if( function_exists('acf_add_options_page') ) {
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
 		'post_id' => 'conf-rodape',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Informações do Rodapé atualizado com sucesso", 'acf'),
     ));
 
 }
