@@ -70,7 +70,7 @@ class Colaborador
 		if (current_user_can('contributor')) {
 			$this->role_object->add_cap('upload_files');
 			//midias para colaborador
-			$this->role_object->add_cap(' unfiltered_upload ');
+			$this->role_object->add_cap('unfiltered_upload ');
 			$this->role_object->add_cap('edit_files');
 			$this->role_object->add_cap('edit_posts');
 
@@ -159,9 +159,24 @@ class Colaborador
 			//remove_menu_page('admin.php');
 			remove_menu_page( 'wpcf7' );
 
+			global $submenu;			
+			unset($submenu['edit.php?post_type=unidade'][10]);
+			if (isset($_GET['post_type']) && $_GET['post_type'] == 'unidade') {
+				echo '<style type="text/css">
+				.wrap .wp-heading-inline+.page-title-action { display:none; }
+				</style>';
+			}
+
 
 			remove_menu_page('edit-comments.php');
 			remove_menu_page('tools.php');
+
+			remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
+			remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=post_tag');
+			remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=atividades_categories');
+			remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=publico_categories');
+			remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=faixa_categories');
+			remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=localidade');
 		}
 	}
 

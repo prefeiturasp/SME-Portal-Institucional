@@ -74,6 +74,7 @@ class PaginaProgramacaoEventos
                                         <div class="evento-categ border-bottom pb-1">
                                             <?php
                                                 $atividades = get_the_terms( $eventoInterno->ID, 'atividades_categories' );
+                                                
                                                 $listaAtividades = array();
 
                                                 $atividadesTotal = count($atividades);
@@ -105,7 +106,7 @@ class PaginaProgramacaoEventos
                                             ?>
                                             <a href="#"><?php echo $showAtividades; ?></a>
                                         </div>
-                                        <h3><a href="<?php echo get_the_permalink($eventoInterno->ID); ?>"><?php echo $eventoInterno->post_title; ?></a></h3>
+                                        <h3><a href="<?php echo get_the_permalink(); ?>"><?php echo $eventoInterno->post_title; ?></a></h3>
                                         <?php
                                             $campos = get_field('data', $eventoInterno->ID);
                                             
@@ -127,7 +128,7 @@ class PaginaProgramacaoEventos
                                                 } elseif($campos['tipo_de_data'] == 'semana'){ // se for do tipo semana
                                                     
                                                     $semana = $campos['dia_da_semana'];													
-													
+                                                
                                                     $diasSemana = array();
 
                                                     foreach($semana as $dias){
@@ -143,6 +144,8 @@ class PaginaProgramacaoEventos
                                                                 $diasShow .= $diaS . " ";
                                                             } elseif($total != $i){
                                                                 $diasShow .= $diaS . ", ";
+                                                            } elseif($total == 1){
+                                                                $diasShow = $diaS;
                                                             } else {
                                                                 $diasShow .= "e " . $diaS;
                                                             }	
@@ -150,6 +153,7 @@ class PaginaProgramacaoEventos
                                                         }
 
                                                         $show[] = $diasShow;
+                                                        
                                                     }
                                                     
                                                     $totalDias = count($show);
@@ -203,8 +207,6 @@ class PaginaProgramacaoEventos
                                                // Exibe os horários
                                                         $horario = get_field('horario', $eventoInterno->ID);
 
-                                                        
-
                                                         if($horario['selecione_o_horario'] == 'horario'){
                                                             $hora = $horario['hora'];
                                                         } elseif($horario['selecione_o_horario'] == 'periodo'){
@@ -243,7 +245,7 @@ class PaginaProgramacaoEventos
                                         </p>
                                         <?php
                                             $local = get_field('localizacao', $eventoInterno->ID);                                                        
-                                            if($local == '31675' || $local == '31244'):
+                                            if($local == '31248' || $local == '31202'):
                                         ?>
                                             <p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></p>
                                         <?php else: ?>

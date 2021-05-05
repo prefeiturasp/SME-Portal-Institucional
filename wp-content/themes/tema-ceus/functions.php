@@ -1197,7 +1197,7 @@ function populateUserGroups( $field ){
 	$user = wp_get_current_user();
 
 	// usuarios que ficam foram da regra
-	$allowed_roles = array( 'editor', 'administrator' );
+	$allowed_roles = array( 'administrator' );
     
     if ( array_intersect( $allowed_roles, $user->roles ) ) {
         $args = array(
