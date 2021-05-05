@@ -666,6 +666,7 @@ if( function_exists('acf_add_options_page') ) {
         'menu_slug' 	=> 'conf-geral',
         'position' 		=> '3',
         'capability'	=> 'edit_theme_options',
+		'update_button' => __('Atualizar', 'acf'),
         //'capability'	=> 'edit_posts',
         //'redirect'		=> false
     ));
@@ -675,6 +676,8 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Página Inicial',
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'edit_theme_options',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Configurações atualizadas com sucesso", 'acf'),
     ));
 		
 	acf_add_options_sub_page(array(
@@ -682,6 +685,8 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Inclusão de tutoriais',
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'edit_theme_options',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Tutoriais atualizado com sucesso", 'acf'),
 	));
 	
 	acf_add_options_sub_page(array(
@@ -690,6 +695,8 @@ if( function_exists('acf_add_options_page') ) {
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
 		'post_id' => 'conf-rodape',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Informações do Rodapé atualizado com sucesso", 'acf'),
     ));
 
 }

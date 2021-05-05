@@ -42,7 +42,7 @@ class tutorial_create{
 				<?php
 					if(get_sub_field('botao_tutorial') != ''){
 						?>
-							<p><a href="<?php the_sub_field('botao_tutorial'); ?>"><button>Ver documentação</button></a></p>
+							<p><a href="<?php the_sub_field('botao_tutorial'); ?>"><button>Ver tutorial</button></a></p>
 						<?php
 					}
 				?>

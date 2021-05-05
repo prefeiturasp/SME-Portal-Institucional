@@ -622,6 +622,7 @@ if( function_exists('acf_add_options_page') ) {
         'menu_slug' 	=> 'conf-geral',
         'position' 		=> '3',
         'capability'	=> 'publish_pages',
+		'update_button' => __('Atualizar', 'acf'),
         //'redirect'		=> false
     ));
 
@@ -630,13 +631,17 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Alerta da Página Inicial',
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
-    ));	
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Alerta da Página Inicial atualizado com sucesso", 'acf'),
+    ));
 	
 	acf_add_options_sub_page(array(
         'page_title' 	=> 'Configurações da Busca Manual',
         'menu_title'	=> 'Busca Manual',
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Configurações da Busca atualizado com sucesso", 'acf'),
     ));
 	
 	acf_add_options_sub_page(array(
@@ -644,6 +649,8 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'	=> 'Inclusão de tutoriais',
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Tutoriais atualizado com sucesso", 'acf'),
     ));
 
     acf_add_options_sub_page(array(
@@ -652,6 +659,18 @@ if( function_exists('acf_add_options_page') ) {
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
 		'post_id' => 'conf-rodape',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Informações do Rodapé atualizado com sucesso", 'acf'),
+    ));
+
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Redes Sociais',
+        'menu_title'	=> 'Social',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+		'post_id' => 'conf-redes',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Redes Sociais atualizado com sucesso", 'acf'),
     ));
 }
 ///////////////////////////////////////////////////////////////////
