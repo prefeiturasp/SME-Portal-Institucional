@@ -579,13 +579,16 @@
 																$diasShow .= $diaS . " ";
 															} elseif($total != $i){
 																$diasShow .= $diaS . ", ";
+															} elseif($total == 1){
+																$diasShow = $diaS;
 															} else {
 																$diasShow .= "e " . $diaS;
 															}	
 																													
 														}
-														$show = array();
+
 														$show[] = $diasShow;
+														
 													}
 													
 													$totalDias = count($show);

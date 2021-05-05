@@ -118,11 +118,23 @@ class Editor
 			global $submenu;
 			unset($submenu['themes.php'][15]); // header_image
 			unset($submenu['themes.php'][20]); // background_image
+			unset($submenu['edit.php?post_type=unidade'][10]);
+			if (isset($_GET['post_type']) && $_GET['post_type'] == 'unidade') {
+				echo '<style type="text/css">
+				.wrap .wp-heading-inline+.page-title-action { display:none; }
+				</style>';
+			}
 			remove_submenu_page( 'themes.php', 'customize.php?return=%2Fwp-admin%2Ftools.php&#038;autofocus%5Bcontrol%5D=background_image' ); // hide the background submenu
 
 			remove_menu_page( 'wpcf7' );
 			remove_menu_page('edit-comments.php');
 			remove_menu_page('tools.php');
+			remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
+			remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=post_tag');
+			remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=atividades_categories');
+			remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=publico_categories');
+			remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=faixa_categories');
+			remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=localidade');
 
 
 		}

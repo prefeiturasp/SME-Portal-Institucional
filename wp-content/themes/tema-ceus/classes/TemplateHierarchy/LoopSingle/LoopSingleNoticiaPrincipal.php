@@ -21,7 +21,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 						<div class="row">
 
 							<div class="col-md-7 evento-descri">
-								<h2>Descritivo do evento:</h2>
+								<h4>Descritivo do evento:</h4>
 								
 								<?php echo get_field('descricao'); ?>
 								
@@ -49,6 +49,8 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 								$espaco = get_field('local_espaco');
 								$inscri = get_field('inscricoes');
 								$datas = get_field('data'); // Datas
+								$horario = get_field('horario');
+								
 								
 								$tipo = get_field('tipo_de_evento_selecione_o_evento', get_the_ID());
 							?>
@@ -56,7 +58,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 							<div class="col-md-5 evento-details">
 								<table class="table border-right border-left border-bottom">                            
 									<tbody>
-
+										
 										<?php if($tipo && $tipo != '') : ?>
 											<tr>
 												<th scope="row" class="align-middle bg-tipo"><i class="fa fa-globe" aria-hidden="true"></i></th>
@@ -122,10 +124,11 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 																$diasShow .= $diaS . " ";
 															} elseif($total != $i){
 																$diasShow .= $diaS . ", ";
+															} elseif($total == 1){
+																$diasShow = $diaS;
 															} else {
 																$diasShow .= "e " . $diaS;
-															}	
-																													
+															}																													
 														}
 
 														$show[] = $diasShow;
@@ -156,6 +159,48 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 										<tr>
 											<th scope="row" class="align-middle"><i class="fa fa-calendar" aria-hidden="true"></i></th>
 											<td><?php echo $dataFinal; ?></td>                                    
+										</tr>
+
+										<?php
+											// Exibe os horários
+
+											if($horario['selecione_o_horario'] == 'horario'){
+												$hora = $horario['hora'];
+											} elseif($horario['selecione_o_horario'] == 'periodo'){
+												
+												$hora = '';
+												$k = 0;
+												
+												foreach($horario['hora_periodo'] as $periodo){
+													
+													if($periodo['periodo_hora_inicio']){
+
+														if($k > 0){
+															$hora .= ' / ';
+														}
+
+														$hora .= $periodo['periodo_hora_inicio'];
+
+													} 
+													
+													if ($periodo['periodo_hora_final']){
+
+														$hora .= ' às ' . $periodo['periodo_hora_final'];
+
+													}
+													
+													$k++;
+													
+												}
+
+											}else {
+												$hora = '';
+											}
+										?>
+
+										<tr>
+											<th scope="row" class="align-middle"><i class="fa fa-clock-o" aria-hidden="true"></i></th>
+											<td><?php echo $hora; ?></td> 
 										</tr>
 
 										<?php if($classi != '') : ?>
@@ -193,10 +238,10 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 
 										<tr>
 											<th scope="row" class="align-middle"><i class="fa fa-map-marker" aria-hidden="true"></i></th>
-											<?php if($local == 31244): ?>
+											<?php if($local == 31202): ?>
 												<td><p class="m-0">Consulte abaixo CEUs participantes</p></td>
-											<?php elseif($local == 31675): ?>
-												<td><p class="m-0"><strong>Para toda a rede</strong></p></td>
+											<?php elseif($local == 31248): ?>
+												<td><p class="m-0">Para toda a rede</p></td>
 											<?php else: ?>
 												<td><strong><?php echo get_the_title($local); ?></strong>
 												<?php 
@@ -220,7 +265,11 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 										<?php if($inscri != '') : ?>
 											<tr>
 												<th scope="row" class="align-middle"><i class="fa fa-ticket" aria-hidden="true"></i></th>
-												<td><?php echo $inscri; ?></td>                                    
+												<?php if($inscri['info_inscricoes'] != '' && $inscri['link_inscricoes'] != "") : ?>
+													<td><a href="<?php echo $inscri['link_inscricoes']; ?>"><?php echo $inscri['info_inscricoes']; ?></a></td>
+												<?php elseif($inscri['info_inscricoes'] != '') : ?>
+													<td><?php echo $inscri['info_inscricoes']; ?></td>
+												<?php endif; ?>                                  
 											</tr>
 										<?php endif; ?>
 									</tbody>

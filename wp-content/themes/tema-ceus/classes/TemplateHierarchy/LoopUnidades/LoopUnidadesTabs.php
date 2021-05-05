@@ -16,7 +16,7 @@ class LoopUnidadesTabs extends LoopUnidades{
         //echo "</pre>";
     ?>
 
-        <div class="container unidade-tab color-<?php echo $infoBasicas['zona_sp']; ?>"> 
+        <div class="container unidade-tab color-<?php echo $infoBasicas['zona_sp']; ?>">  
 
             <ul class="nav nav-tabs d-flex">
                 <li class="active"><a data-toggle="tab" href="#programacao-ceu" class="active">Programação</a></li>
@@ -92,7 +92,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                     </div>
 
                                     <div class="col-sm-3 mt-2 px-1">
-                                        <label for="atividadesinternas" class='d-none'>Seleciona as atividades internas</label>
+                                        <label for="atividadesinternas" class='d-none'>Selecione as atividades internas</label>
                                         <select id="atividadesinternas" name="atividadesInternas[]" multiple="multiple" class="ms-list-2" style="">                                
                                         </select>
                                     </div>
@@ -107,7 +107,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                     </div>
 
                                     <div class="col-sm-3 mt-2 px-1">
-                                        <label for="faixaEtaria" class='d-none'>Selecione a faixa etária</label>
+                                        <label for="faixaEtaria" class='d-none'>Selecione a faixa etaria</label>
                                         <select id="faixaEtaria" name="faixaEtaria[]" multiple="multiple" class="ms-list-4" style="">                        
                                             <?php foreach ($faixas as $faixa): ?>
                                                 <option value="<?php echo $faixa->term_id; ?>"><?php echo $faixa->name; ?></option>
@@ -177,10 +177,10 @@ class LoopUnidadesTabs extends LoopUnidades{
 
                                     <div class="col-sm-3 mt-3 px-1">
                                         <label for="periodos" class='d-none'>Escolha o tipo de data</label>
-                                        <select id="periodos" name="periodos[]" multiple="multiple" class="ms-list-8" style="">
-                                                <option value='manha'>Manhã</option>
-                                                <option value='tarde'>Tarde</option>
-                                                <option value='noite'>Noite</option>  
+                                        <select id="periodos" name="periodos[]" multiple="multiple" class="ms-list-8" style="">                        
+                                            <option value='manha'>Manhã</option>
+                                            <option value='tarde'>Tarde</option>
+                                            <option value='noite'>Noite</option>                                                 
                                         </select>
                                     </div>
                                     <div class="col-sm-12 text-right mt-3">
@@ -199,9 +199,14 @@ class LoopUnidadesTabs extends LoopUnidades{
                                 'post_type' => 'post',
                                 'posts_per_page' => -1,                                
                                 'meta_query' => array(
+                                    'relation' => 'OR',
                                     array(
                                         'key' => 'localizacao',
                                         'value' => $id
+                                    ),
+                                    array(
+                                        'key' => 'localizacao',
+                                        'value' => 31248
                                     )
                                 )
                             );
@@ -235,7 +240,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                     ),
                                     array(
                                         'key' => 'localizacao',
-                                        'value' => 31675
+                                        'value' => 31248
                                     )
                                 )
                             );
@@ -258,7 +263,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                         $imgSelect = get_field('capa_do_evento', $eventoID);
                                                         $tipo = get_field('tipo_de_evento_selecione_o_evento', $eventoID);
                                                         $online = get_field('tipo_de_evento_online', $eventoID);
-
+                                                        
                                                         $featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
                                                         if($featured_img_url){
                                                             $imgEvento = $featured_img_url[0];
@@ -320,7 +325,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                             ?>
                                                         <a href="#"><?php echo $showAtividades; ?></a>
                                                         
-                                                    </div>
+                                                </div>
                                                     <p class='unidade-title'><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></p>
                                                     <?php
                                                         
@@ -344,11 +349,11 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                             } elseif($campos['tipo_de_data'] == 'semana'){ // se for do tipo semana
                                                                 
                                                                 $semana = $campos['dia_da_semana'];													
-                                                                
+                                                
                                                                 $diasSemana = array();
-            
+
                                                                 foreach($semana as $dias){
-            
+
                                                                     $total = count($dias['selecione_os_dias']); 
                                                                     $i = 0;
                                                                     $diasShow = '';
@@ -360,20 +365,23 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                                             $diasShow .= $diaS . " ";
                                                                         } elseif($total != $i){
                                                                             $diasShow .= $diaS . ", ";
+                                                                        } elseif($total == 1){
+                                                                            $diasShow = $diaS;
                                                                         } else {
                                                                             $diasShow .= "e " . $diaS;
                                                                         }	
                                                                                                                                 
                                                                     }
-                                                                    $show = array();
+
                                                                     $show[] = $diasShow;
+                                                                    
                                                                 }
                                                                 
                                                                 $totalDias = count($show);
                                                                 $j = 0;	
                                                                 
                                                                 $dias = '';
-            
+
                                                                 foreach($show as $diaShow){
                                                                     $j++;
                                                                     if($j == 1){
@@ -382,7 +390,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                                         $dias .= "/ " . $diaShow;
                                                                     }
                                                                 }
-            
+
                                                                 $dataFinal = $dias; 
             
                                                                 $dias = '';
@@ -460,7 +468,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                     </p>
                                                     <?php
                                                         $local = get_field('localizacao', $eventoID);                                                        
-                                                        if($local == '31675' || $local == '31244'):
+                                                        if($local == '31248' || $local == '31202'):
                                                     ?>
                                                         <p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></p>
                                                     <?php else: ?>
@@ -613,6 +621,12 @@ class LoopUnidadesTabs extends LoopUnidades{
                
                 <div id="sobre" class="tab-pane fade">
                     <p class='unidade-title'>Saiba mais sobre o <?php echo get_the_title(); ?></p>
+                    <?php
+                        $gestor = $infoBasicas['gestor'];
+                        if($gestor && $gestor != ''){
+                            echo "<p class='m-0'><strong>Gestor: </strong>" . $gestor . "</p>";
+                        }
+                    ?>
                     
                     <div class="row py-4">
                         <div class="col-sm-12 col-md-6 about-text">
@@ -756,7 +770,6 @@ class LoopUnidadesTabs extends LoopUnidades{
 
             </div>
         </div>
-
         <?php $alertas = get_field('alertas'); ?>
         <script>
 			jQuery(document).ready(function ($) {
@@ -800,6 +813,7 @@ class LoopUnidadesTabs extends LoopUnidades{
 				</div>
 			</div>
 		</div>
+        
         
         
     <?php
