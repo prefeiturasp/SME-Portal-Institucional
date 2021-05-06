@@ -68,6 +68,7 @@ class CptContato extends Cpt
 				'delete_published_posts' => 'delete_published_contatos',
 			),
 			'has_archive' => true,
+			'map_meta_cap'        => true,
 			'hierarchical' => false,
 			'menu_position' => 10,
 			'menu_icon'   => $this->dashborarIcon,

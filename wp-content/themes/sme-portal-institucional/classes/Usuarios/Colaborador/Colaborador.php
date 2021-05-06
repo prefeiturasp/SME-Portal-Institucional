@@ -125,6 +125,13 @@ class Colaborador
 			$this->role_object->add_cap( 'edit_published_botoes' );
 			$this->role_object->add_cap( 'delete_published_botao' );
 
+			$this->role_object->add_cap( 'edit_contatos');
+			$this->role_object->add_cap( 'edit_contato' );
+			$this->role_object->add_cap( 'edit_published_contatos' );
+			$this->role_object->add_cap( 'read_contato' );
+			$this->role_object->add_cap( 'read_private_contatos' );
+			$this->role_object->add_cap( 'delete_contato' );
+			$this->role_object->add_cap( 'delete_published_contatos' );
 
 			$this->role_object->add_cap( 'read_imagem');
 			$this->role_object->add_cap( 'edit_imagens' );
@@ -150,7 +157,7 @@ class Colaborador
 
 			remove_menu_page('edit.php');
 			remove_menu_page('edit.php?post_type=agenda');
-			remove_menu_page('edit.php?post_type=contato');
+			//remove_menu_page('edit.php?post_type=contato');
 			remove_menu_page('edit.php?post_type=organograma');
 			remove_menu_page('edit.php?post_type=curriculo-da-cidade');
 			//remove_menu_page('edit.php?post_type=aba');
