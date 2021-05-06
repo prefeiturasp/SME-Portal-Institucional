@@ -67,6 +67,8 @@ function wpse_user_can_edit( $user_id, $page_id ) {
         }
     }
 
+    
+
     $liberar = 1;
 
 	if(in_array($liberar, $todasPaginas)){
@@ -78,12 +80,13 @@ function wpse_user_can_edit( $user_id, $page_id ) {
         if($variable && $variable != ''){
             foreach($variable as $permitido){
                 $permitidas[] = get_field('selecionar_paginas', $permitido);
+                $permitidas[] = get_field('contatos_sme', $permitido);
             }
         }
         
         // pega as paginas permitidas para edicao pelo grupo
         $pages = array_flatten($permitidas);
-        $pages = array_unique($pages);   
+        $pages = array_unique($pages);
 
         // se a pagina corrente esta na lista de paginas do grupo libera para edicao
         if( in_array($page_id, $pages) ){
@@ -105,7 +108,7 @@ function wpse_user_can_edit( $user_id, $page_id ) {
     }
 
     // capability atribuida
-    $to_filter = [ 'edit_post', 'delete_post', 'edit_page', 'delete_page' ];
+    $to_filter = [ 'edit_post', 'delete_post', 'edit_page', 'delete_page', 'edit_contato', 'delete_contato' ];
 
     // If the capability being filtered isn't of our interest, just return current value
     if ( ! in_array( $cap, $to_filter, true ) ) {

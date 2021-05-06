@@ -940,6 +940,7 @@ function wp37_limit_posts_to_author($query) {
 		if($variable && $variable != ''){
             foreach($variable as $grupo){
 				$pages[] = get_post_meta($grupo, 'selecionar_paginas', true);
+				$pages[] = get_post_meta($grupo, 'contatos_sme', true);
 			}
         }
 
@@ -1005,8 +1006,33 @@ function add_custom_link_into_appearnace_menu() {
 	
 	if($user->roles[0] == 'contributor'){		
 		$submenu['edit.php?post_type=page'][5][2] = 'edit.php?post_type=page&filter=grupo';
+		$submenu['edit.php?post_type=contato'][5][2] = 'edit.php?post_type=contato&filter=grupo';
 	}
 }
+
+// Adiciona o filtro Meus Contatos
+function contatos_filter($views){
+	
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	if($user->roles[0] == 'contributor'){
+
+		if( $_GET['filter'] == 'grupo' ){
+
+			$views['grupos'] = "<a href='" . admin_url('edit.php?post_type=contato&filter=grupo') . "' class='current'>Meus Contatos</a>";
+		return $views;
+
+		} else {
+			$views['grupos'] = "<a href='" . admin_url('edit.php?post_type=contato&filter=grupo') . "'>Meus Contatos</a>";
+		return $views;
+		}
+	}
+
+	return $views;
+}
+
+add_filter('views_edit-contato', 'contatos_filter');
 
 // Incluir CSS no admin
 function admin_style() {
