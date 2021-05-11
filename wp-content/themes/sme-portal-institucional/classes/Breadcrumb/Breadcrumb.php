@@ -90,6 +90,11 @@ class Breadcrumb
 
 				}
 
+				if($post_type == 'post'){
+					echo '<li><a href="/noticias/">Notícias</a></li>';
+					echo '<li class="separator"> ' . $this->separator . ' </li>';
+				}
+
 				// Get post category info
 				$category = get_the_category();
 
@@ -142,6 +147,9 @@ class Breadcrumb
 				}
 
 			} else if ( is_category() ) {
+
+				echo '<li><a href="/noticias/">Notícias</a></li>';
+				echo '<li class="separator"> ' . $this->separator . ' </li>';
 
 				// Category page
 				echo '<li class="item-current item-cat"><strong class="bread-current bread-cat">' . single_cat_title('', false) . '</strong></li>';
