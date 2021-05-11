@@ -75,7 +75,7 @@ if(get_sub_field('contatos'))://repeater
                                         echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='" . $row['informacao_campo'] ."'>" . $row['informacao_campo'] . "</a></p>";
                                     
                                     } else {
-                                        echo "<p class='mb-0'>" . $row['nome_campo'] . ": " . $row['informacao_campo'] . "</p>";
+                                        echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: " . $row['informacao_campo'] . "</p>";
                                     }
                                 }
                                 
@@ -130,7 +130,7 @@ if(get_sub_field('contatos'))://repeater
                                                     echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='" . $row['informacao_campo'] ."'>" . $row['informacao_campo'] . "</a></p>";
                                                 
                                                 } else {
-                                                    echo "<p class='mb-0'>" . $row['nome_campo'] . ": " . $row['informacao_campo'] . "</p>";
+                                                    echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: " . $row['informacao_campo'] . "</p>";
                                                 }
                                             }
                                             
