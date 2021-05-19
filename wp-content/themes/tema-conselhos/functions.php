@@ -774,3 +774,29 @@ function wpse_27518_pre_user_query($user_search) {
     } 
     
 }
+
+// Incluir CSS no admin
+function admin_style() {
+wp_enqueue_style('admin-styles', get_template_directory_uri().'/css/admin.css');
+}
+add_action('admin_enqueue_scripts', 'admin_style');
+
+//remover opções de cores do perfil de usuários
+function admin_color_scheme() {
+	global $_wp_admin_css_colors;
+	$_wp_admin_css_colors = 0;
+}
+add_action('admin_head', 'admin_color_scheme');
+
+//remove avisos de atualizações do wordpress, temas e plugins
+//add_filter( 'pre_site_transient_update_core','remove_core_updates' );
+add_filter( 'pre_site_transient_update_plugins','remove_core_updates' );
+//add_filter( 'pre_site_transient_update_themes','remove_core_updates' );
+
+function remove_core_updates(){
+	global $wp_version;
+	return(object) array(
+		'last_checked' => time(),
+		'version_checked' => $wp_version
+	);
+}

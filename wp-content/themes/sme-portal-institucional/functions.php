@@ -1040,6 +1040,26 @@ function admin_style() {
 }
 add_action('admin_enqueue_scripts', 'admin_style');
 
+//remover opções de cores do perfil de usuários
+function admin_color_scheme() {
+	global $_wp_admin_css_colors;
+	$_wp_admin_css_colors = 0;
+}
+add_action('admin_head', 'admin_color_scheme');
+
+//remove avisos de atualizações do wordpress, temas e plugins
+add_filter( 'pre_site_transient_update_core','remove_core_updates' );
+add_filter( 'pre_site_transient_update_plugins','remove_core_updates' );
+add_filter( 'pre_site_transient_update_themes','remove_core_updates' );
+
+function remove_core_updates(){
+    global $wp_version;
+    return(object) array(
+        'last_checked' => time(),
+        'version_checked' => $wp_version
+    );
+}
+
 // Filtrar usuarios por grupo
 function filter_users_by_grupo_id( $query ) {
     global $pagenow;
