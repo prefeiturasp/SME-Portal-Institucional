@@ -1530,3 +1530,7 @@ a.blog-link p {
 .news-align .news-date {
     margin-top: auto;
 }
+
+.menu-item-has-children[aria-expanded="true"] .dropdown-menu {
+    display: block;
+}

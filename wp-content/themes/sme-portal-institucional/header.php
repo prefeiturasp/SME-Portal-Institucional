@@ -228,6 +228,7 @@ use Classes\Header\Header;
 					'menu_class' => 'navbar-nav mr-auto nav d-flex justify-content-between',
 					'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
 					'walker'            => new WP_Bootstrap_Navwalker(),
+                    'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
 				));
 				?>
 
