@@ -90,6 +90,27 @@
 		jQuery('.container-a-icones-home').removeClass('active');
 		jQuery(this).addClass('active');
 	});
+
+	jQuery( function ( $ ) {
+		// Focus styles for menus when using keyboard navigation
+
+
+		// Properly update the ARIA states on focus (keyboard) and mouse over events
+		$( '[role="menubar"]' ).on( 'focus.aria', '[aria-haspopup="true"]', function ( ev ) {
+			$( ev.currentTarget ).attr( 'aria-expanded', true );
+			$(this).parent().attr( 'aria-expanded', true );
+			$(this).parent().attr( 'aria-haspopup', true );
+		} );
+
+		// Properly update the ARIA states on blur (keyboard) and mouse out events
+		$( '[role="menubar"]' ).on( 'blur.aria', '[aria-haspopup="true"]', function ( ev ) {
+			$( ev.currentTarget ).attr( 'aria-expanded', false );
+			$(this).parent().attr( 'aria-expanded', false );
+			$(this).parent().attr( 'aria-haspopup', false );
+			
+			//$(this).click();
+		} );
+	} );
 </script>
 </body>
 </html>

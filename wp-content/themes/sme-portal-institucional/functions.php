@@ -1124,3 +1124,16 @@ function dirty_translate( $translated ) {
 $translated = str_ireplace(  array_keys($words),  $words,  $translated );
 return $translated;
 }
+
+function wcag_nav_menu_link_attributes( $atts, $item, $depth ) {
+
+    // Add [aria-haspopup] and [aria-expanded] to menu items that have children
+    $item_has_children = in_array( 'menu-item-has-children', $item->classes );
+    if ( $item_has_children ) {
+        $atts['role'] = "button";
+        $atts['aria-expanded'] = "false";
+    }
+
+    return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'wcag_nav_menu_link_attributes', 10, 4 );
