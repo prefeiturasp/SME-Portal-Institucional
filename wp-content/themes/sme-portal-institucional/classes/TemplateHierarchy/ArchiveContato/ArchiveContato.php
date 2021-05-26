@@ -156,35 +156,9 @@ class ArchiveContato extends Util
 
 		$campo_contato = get_post_meta($term_id, 'campo_contato', true);
 
-		if ($term_name) {
-			echo $this->montaTituloCamposCadastrados($term_name, $nivel_superior);
-		}
+		$campos_contato = get_field('campos_contato', $term_id);
 
-		$array_tipo_de_campo=[];
-		$array_valor_do_campo=[];
-
-		if ($campo_contato) {
-
-			foreach ($campo_contato as $index => $valor) {
-				if ($index == 'tipo') {
-					foreach ($valor as $tipo) {
-						$array_tipo_de_campo[] = $tipo;
-					}
-				}
-				if ($index == 'valor') {
-					foreach ($valor as $v) {
-						$array_valor_do_campo[] = $v;
-					}
-				}
-			}
-		}
-
-		foreach($array_tipo_de_campo as $key => $value) {
-			$data[] = array('tipo' => $value, 'valor' => $array_valor_do_campo[$key]);
-		}
-
-		$this->montaHtmlCamposCadastrados($data, $organograma);
-
+		$this->montaHtmlCamposCadastrados($campos_contato, $organograma);
 
 	}
 
@@ -197,18 +171,21 @@ class ArchiveContato extends Util
 				$classe_css = '';
 			}
 
-			foreach ($data as $d) {
+			foreach ($data as $info){
+				if($info['tipo_de_campo'] == 'telefone'){
 
-				if ($d['tipo'] == 'email') {
-					echo '<p>' . $this->getNomeTipoCampo($d['tipo']) . '<a class="'.$classe_css.'" href="mailto: ' . esc_attr($d['valor']) . '">' . esc_attr($d['valor']) . '</a></p>';
-				}elseif ($d['tipo'] == 'tel'){
-					echo '<p>' . $this->getNomeTipoCampo($d['tipo']) . '<a class="'.$classe_css.'" href="tel: ' . esc_attr($d['valor']) . '">' . esc_attr($d['valor']) . '</a></p>';
-				}elseif($d['tipo'] == 'site'){
-					echo '<p> <strong>Visite o site:</strong> ' . '<a class="'.$classe_css.'" href="' . esc_attr($d['valor']) . '">' . esc_attr($d['valor']) . '</a></p>';
-				}else{
-					echo '<p>'.$this->getNomeTipoCampo($d['tipo']).esc_attr($d['valor']).'</p>';
+					$telefone = $info['informacao_campo']; // pega o campo telefone
+					$telefone = preg_replace('/[^A-Za-z0-9\-]/', '', $telefone); // remove os caracteres especiais
+					$telefone = str_replace('-', '', $telefone); // troca o - por vazio
+
+					echo '<p><strong>' . $info['nome_campo'] . ':</strong> <a class="' . $classe_css . '" href="tel:' . $telefone . '">' . $info['informacao_campo'] . '</a></p>';
+				} elseif($info['tipo_de_campo'] == 'email'){
+					echo '<p><strong>' . $info['nome_campo'] . ':</strong> <a class="' . $classe_css . '" href="mailto:' . $info['informacao_campo'] . '">' . $info['informacao_campo'] . '</a></p>';
+				} else {
+					echo '<p><strong>' . $info['nome_campo'] . ':</strong> ' . $info['informacao_campo'] . '</p>';
 				}
 			}
+
 		}else{
 			return;
 		}
