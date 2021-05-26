@@ -14,18 +14,79 @@ class CptContato extends Cpt
 		add_action('init', array($this, 'register'));
 
 		//Alterando e Exibindo as colunas no Dashboard que vem por padrão na classe CPT
-		add_filter('manage_posts_columns', array($this, 'exibe_cols'), 10, 2);
+		add_filter('manage_contato_posts_columns', array($this, 'exibe_cols_contatos'), 10, 2);
+		add_action( 'manage_contato_posts_custom_column' , array($this, 'cols_content_contato'), 10, 2 );
 
 	}
 
 	//Exibindo as colunas no Dashboard
-	public function exibe_cols($cols, $post_type)
-	{
+	public function exibe_cols_contatos($cols) {
+		
+		if( current_user_can('editor') || current_user_can('administrator') ) {
+			$columns = array(
+				'cb' => '<input type="checkbox" />',
+				'title' => 'Title',
+				'date' => 'Date',					
+				'grupo' => 'Grupo',
+			);
+		} else {
+			$columns = array(
+				'cb' => '<input type="checkbox" />',
+				'title' => 'Title',				
+				'date' => 'Date',	
+			);
+		}		
+		
+		return $columns;
+	}
 
-		if ($post_type == $this->cptSlug) {
-			unset($cols['tags'], $cols['author'],$cols['categories'],$cols['comments'], $cols['featured_thumb']);
+	public function cols_content_contato($column) {	
+		
+		
+
+		switch ( $column ) {			
+
+			case 'grupo':
+				$localizacao = get_the_ID();
+
+				$paginas = get_posts(array(
+					'post_type' => 'editores_portal',
+					'orderby' => 'title',
+    				'order'   => 'ASC',
+					'post_status'    => 'publish',
+					'meta_query' => array(
+						array(
+							'key' => 'contatos_sme', // name of custom field
+							'value' => '"' . $localizacao . '"', // matches exaclty "123", not just 123. This prevents a match for "1234"
+							'compare' => 'LIKE'
+						)
+					)
+				));
+
+				
+				if($paginas && $paginas != ''){
+					$a = 0;
+					foreach($paginas as $pagina){
+						if($a == 0){
+							echo "<a href='" . admin_url('edit.php?post_type=contato&filter=grupo&grupo_id=' . $pagina->ID) . "'>" . get_the_title($pagina->ID) . "</a>";
+							
+						} else {
+							echo ", <a href='" . admin_url('edit.php?post_type=contato&filter=grupo&grupo_id=' . $pagina->ID) . "'>" . get_the_title($pagina->ID) . "</a>";
+						}
+						
+						$a++;
+					}
+				} else {
+					if($_GET['grupo_id'] && $_GET['grupo_id'] != ''){
+						echo "<a href='" . admin_url('edit.php?post_type=contato&filter=grupo&grupo_id=' . $_GET['grupo_id']) . "'>" . get_the_title($_GET['grupo_id']) . "</a>";
+					}
+				}
+
+				//echo "Aqui: " . $localizacao . "<br>";
+				//print_r($posts);
+				break;
+
 		}
-		return $cols;
 	}
 
 	/**
@@ -67,8 +128,8 @@ class CptContato extends Cpt
 				'delete_post' => 'delete_contato',
 				'delete_published_posts' => 'delete_published_contatos',
 			),
-			'has_archive' => true,
 			'map_meta_cap'        => true,
+			'has_archive' => true,
 			'hierarchical' => false,
 			'menu_position' => 10,
 			'menu_icon'   => $this->dashborarIcon,
@@ -84,23 +145,6 @@ class CptContato extends Cpt
 
 		flush_rewrite_rules();
 
-		register_taxonomy(
-			'categorias-contato',
-			$this->cptSlug,
-			array(
-				"hierarchical" => true,
-				"label" => 'Categorias de Contatos',
-				"singular_label" => 'Categoria de Contato',
-				'map_meta_cap'        => true,
-				// Definido as capacidades para a taxonomia tag. Se torna uma Tag porque o 'hierarchical'  => false,
-				'capabilities' => array(
-					'manage_terms'=>'manage_contatos',
-					'edit_terms'=>'edit_contatos',
-					'delete_terms'=>'delete_contatos',
-					'assign_terms'=>'assign_contatos',
-				)
-			)
-		);
 	}
 
 }

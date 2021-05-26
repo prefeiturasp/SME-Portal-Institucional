@@ -956,9 +956,14 @@ function wp37_limit_posts_to_author($query) {
 		
 		$grupo = $_GET['grupo_id'];
 
-		if($grupo && $grupo != ''){            
-			$pages = get_post_meta($grupo, 'selecionar_paginas', true);
-        }
+		if($grupo && $grupo != ''){   
+			if($_GET['post_type'] == 'contato'){
+				$pages = get_post_meta($grupo, 'contatos_sme', true);
+			} else {
+				$pages = get_post_meta($grupo, 'selecionar_paginas', true);
+			}
+			
+        }	
 
 		$pages = array_flatten($pages);
         $pages = array_unique($pages);
