@@ -557,7 +557,7 @@ class LoopSingleRelacionadas extends LoopSingle
 													$hora = '';
 												}
 												?>
-												<i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $hora; ?>
+												<i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo convertHour($hora); ?>
 											</p>
 											<?php
 												$local = get_field('localizacao', get_the_ID());                                                        

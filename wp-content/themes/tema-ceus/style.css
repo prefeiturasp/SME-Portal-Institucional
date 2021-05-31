@@ -1518,6 +1518,11 @@ a.nextpostslink {
     }
 }
 
+.about-title {
+    color: #0048A9;
+    font-size: 20px;
+}
+
 
 /**** Cores Zonas ****/
 
@@ -1551,6 +1556,10 @@ a.nextpostslink {
     color: #FFFFFF;
 }
 
+.color-norte .about-title {
+    color: #599E00;
+}
+
 .color-sul .info-title h1,
 .color-sul .info-contacts .title-unidade,
 .color-sul.unidade-tab ul.nav-tabs li a {
@@ -1566,6 +1575,10 @@ a.nextpostslink {
     color: #FFFFFF;
 }
 
+.color-sul .about-title {
+    color: #9B2FAE;
+}
+
 .color-oeste .info-title h1,
 .color-oeste .info-contacts .title-unidade,
 .color-oeste.unidade-tab ul.nav-tabs li a {
@@ -1579,6 +1592,11 @@ a.nextpostslink {
 .color-oeste.end-footer .end-title-unidade {
     background: #1697A6;
     color: #FFFFFF;
+}
+
+.color-oeste .about-title {
+    color: #1697A6;
+    font-size: 20px;
 }
 
 .color-leste .bg-event-title {

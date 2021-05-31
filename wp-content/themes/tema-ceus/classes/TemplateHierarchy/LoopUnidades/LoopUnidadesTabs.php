@@ -20,7 +20,7 @@ class LoopUnidadesTabs extends LoopUnidades{
 
             <ul class="nav nav-tabs d-flex">
                 <li class="active"><a data-toggle="tab" href="#programacao-ceu" class="active">Programação</a></li>
-                <li><a data-toggle="tab" href="#servicos">Serviços</a></li>
+                <li><a data-toggle="tab" href="#servicos">Serviços e Instalações</a></li>
                 <li><a data-toggle="tab" href="#sobre">Sobre a Unidade </a></li>
                 <li><a data-toggle="tab" href="#chegar">Como Chegar</a></li>
             </ul>
@@ -507,7 +507,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                 </div>
 
                 <div id="servicos" class="tab-pane fade">
-                    <p class='unidade-title'>Confira os serviços disponíveis no <?php echo get_the_title(); ?></p>
+                <p class='unidade-title'>Confira os serviços disponíveis e Instalações no <?php echo get_the_title(); ?></p>
 
                     <div class="row pt-4">
                         <div class="col-sm-12">
@@ -547,8 +547,16 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                 <p><?php echo $servico['descricao']; ?></p>
                                             <?php endif; ?>
 
+                                            <?php if($servico['foto_descricao'] && $servico['foto_descricao'] != ''): ?>
+                                                <p><img src="<?php echo $servico['foto_descricao']; ?>"></p>
+                                            <?php endif; ?>
+
                                             <?php if($servico['telefone'] && $servico['telefone'] != ''): ?>
                                                 <p><strong>Telefone:</strong> <?php echo $servico['telefone']; ?></p>
+                                            <?php endif; ?>
+
+                                            <?php if($servico['email'] && $servico['email'] != ''): ?>
+                                                <p><strong>E-mail:</strong> <a href="mailto:<?php echo $servico['email']; ?>"><?php echo $servico['email']; ?></a></p>
                                             <?php endif; ?>
 
                                             <?php if($servico['horario_serv'] && $servico['horario_serv'] != ''): ?>
@@ -634,14 +642,6 @@ class LoopUnidadesTabs extends LoopUnidades{
                                 $descri = get_field('descricao');
                                 if($descri && $descri != ''){
                                     echo "<p>" . $descri . "</p>";
-                                }
-                            ?>
-
-                            <?php
-                                $insta = get_field('instalacoes');
-                                if($insta && $insta != ''){
-                                    echo '<p class="about-title">Instalações</p>';
-                                    echo "<p>" . $insta . "</p>";
                                 }
                             ?>
 
@@ -737,6 +737,16 @@ class LoopUnidadesTabs extends LoopUnidades{
                                             echo "</div>";
                                         }
                                    } 
+                                ?>
+
+                                <?php
+                                    $link_sp = get_field('link_sptrans');
+                                    if($link_sp && $link_sp != ''){
+                                        echo "<div class='como-chegar'>";
+                                            echo "<p class='chegar-title mb-0'>Veja mais</p>";
+                                            echo "<p>Planeje sua visita conferindo rotas da SPTrans. <br><i class='fa fa-bus' aria-hidden='true'></i> <a href='" . $link_sp . "'>Clique aqui</a>.</p>";
+                                        echo "</div>";
+                                    }
                                 ?>
 
                                 <?php

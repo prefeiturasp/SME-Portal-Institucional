@@ -225,7 +225,7 @@ class LoopUnidadesSlide extends LoopUnidades{
                                                         $hora = '';
                                                     }
                                                 ?>
-                                                <i class="fa fa-clock-o" aria-hidden="true"><span>icone relogio</span></i> <?php echo $hora; ?>
+                                                <i class="fa fa-clock-o" aria-hidden="true"><span>icone relogio</span></i> <?php echo convertHour($hora); ?>
                                             </p>
                                             <?php
                                                 $local = get_field('localizacao', $slide);                                                        
