@@ -200,7 +200,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 
 										<tr>
 											<th scope="row" class="align-middle"><i class="fa fa-clock-o" aria-hidden="true"></i></th>
-											<td><?php echo $hora; ?></td> 
+											<td><?php echo convertHour($hora); ?></td> 
 										</tr>
 
 										<?php if($classi != '') : ?>

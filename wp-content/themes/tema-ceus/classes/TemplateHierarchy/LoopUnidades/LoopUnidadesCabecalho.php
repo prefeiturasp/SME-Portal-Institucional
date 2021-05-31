@@ -129,11 +129,13 @@ class LoopUnidadesCabecalho extends LoopUnidades{
                             }
 
                             if($horario['horario_abertura'] && $horario['horario_abertura'] != ''){
-                                echo ' das ' . $horario['horario_abertura'];
+                                $hora_abert = convertHour($horario['horario_abertura']);                       
+                                echo ' das ' . $hora_abert;
                             }
 
                             if($horario['horario_fechamento'] && $horario['horario_fechamento'] != ''){
-                                echo ' às ' . $horario['horario_fechamento'];
+                                $hora_fech = convertHour($horario['horario_fechamento']); 
+                                echo ' às ' . $hora_fech;
                             }
                         ?>
                     </p>
@@ -150,11 +152,13 @@ class LoopUnidadesCabecalho extends LoopUnidades{
                                     }
         
                                     if($horario['hora_abertura'] && $horario['hora_abertura'] != ''){
-                                        echo ' das ' . $horario['hora_abertura'];
+                                        $hora_a = convertHour($horario['hora_abertura']);      
+                                        echo ' das ' . $hora_a;
                                     }
         
                                     if($horario['hora_fechamento'] && $horario['hora_fechamento'] != ''){
-                                        echo ' às ' . $horario['hora_fechamento'];
+                                        $hora_f = convertHour($horario['hora_fechamento']);
+                                        echo ' às ' . $hora_f;
                                     }
                                 }
                             ?>

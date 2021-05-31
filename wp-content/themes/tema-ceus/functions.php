@@ -1428,3 +1428,18 @@ function my_acf_fields_relationship_query( $args, $field, $post_id ) {
 
     return $args;
 }
+
+function convertHour($hora){	
+	$hora = str_replace('00min', '', $hora);
+	$hora = ltrim($hora, '0');
+
+	print_r($hora);
+
+	return $hora;
+}
+
+// Incluir CSS no admin
+function admin_style() {
+	wp_enqueue_style('admin-styles', get_template_directory_uri().'/css/admin.css');
+}
+add_action('admin_enqueue_scripts', 'admin_style');

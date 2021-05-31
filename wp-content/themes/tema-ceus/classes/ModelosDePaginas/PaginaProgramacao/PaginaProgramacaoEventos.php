@@ -241,7 +241,7 @@ class PaginaProgramacaoEventos
                                                             $hora = '';
                                                         }
                                             ?>
-                                            <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $hora; ?>
+                                            <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo convertHour($hora); ?>
                                         </p>
                                         <?php
                                             $local = get_field('localizacao', $eventoInterno->ID);                                                        
