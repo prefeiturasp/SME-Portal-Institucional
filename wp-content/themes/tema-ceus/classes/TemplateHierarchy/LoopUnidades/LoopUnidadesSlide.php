@@ -108,7 +108,8 @@ class LoopUnidadesSlide extends LoopUnidades{
                                                         $dataEvento = $campos['data'];
 
                                                         $dataEvento = explode("-", $dataEvento);
-                                                        $mes = $monthName = date('M', mktime(0, 0, 0, $dataEvento[1], 10));
+                                                        $mes = date('M', mktime(0, 0, 0, $dataEvento[1], 10));
+                                                        $mes = translateMonth($mes);
                                                         $data = $dataEvento[2] . " " . $mes . " " . $dataEvento[0];
 
                                                         $dataFinal = $data;
@@ -121,14 +122,16 @@ class LoopUnidadesSlide extends LoopUnidades{
                                                         if($dataFinal){ // Verifica se possui a data final
                                                             $dataInicial = explode("-", $dataInicial);
                                                             $dataFinal = explode("-", $dataFinal);
-                                                            $mes = $monthName = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+                                                            $mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+                                                            $mes = translateMonth($mes);
 
                                                             $data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
 
                                                             $dataFinal = $data;
                                                         } else { // Se nao tiver a final mostra apenas a inicial
                                                             $dataInicial = explode("-", $dataInicial);
-                                                            $mes = $monthName = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
+                                                            $mes = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
+                                                            $mes = translateMonth($mes);
                                                             $data = $dataInicial[2] . " " . $mes . " " . $dataInicial[0];
 
                                                             $dataFinal = $data;
@@ -225,7 +228,9 @@ class LoopUnidadesSlide extends LoopUnidades{
                                                         $hora = '';
                                                     }
                                                 ?>
-                                                <i class="fa fa-clock-o" aria-hidden="true"><span>icone relogio</span></i> <?php echo convertHour($hora); ?>
+                                                <?php if($hora) : ?>                                           
+                                                    <i class="fa fa-clock-o" aria-hidden="true"><span>icone relogio</span></i> <?php echo convertHour($hora); ?>
+                                                <?php endif; ?>
                                             </p>
                                             <?php
                                                 $local = get_field('localizacao', $slide);                                                        

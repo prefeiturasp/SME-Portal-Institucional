@@ -1443,3 +1443,53 @@ function admin_style() {
 	wp_enqueue_style('admin-styles', get_template_directory_uri().'/css/admin.css');
 }
 add_action('admin_enqueue_scripts', 'admin_style');
+
+
+function translateMonth($date){
+	$mes = '';
+	
+	switch ($date) {
+		case 'Feb':
+			$mes = 'Fev';
+			break;
+		case 'Apr':
+			$mes = 'Abr';
+			break;
+		case 'May':
+			$mes = 'Mai';
+			break;
+		case 'Aug':
+			$mes = 'Ago';
+			break;
+		case 'Sep':
+			$mes = 'Set';
+			break;
+		case 'Oct':
+			$mes = 'Out';
+			break;
+		case 'Dec':
+			$mes = 'Dez';
+			break;
+	}
+
+	if($mes){
+		return $mes;
+	} else {
+		return $date;
+	}	
+}
+
+add_filter('acf/fields/post_object/query/name=selecione_o_evento', 'my_acf_fields_post_object_query', 10, 3);
+function my_acf_fields_post_object_query( $args, $field, $post_id ) {
+
+	$args['meta_query'] = array(
+		'relation' => 'AND',
+        array(
+            'key'     => 'tipo_de_evento_evento_principal',
+            'value'   => 'principal',
+			'compare' 	=> '=',
+        )
+    );
+
+    return $args;
+}

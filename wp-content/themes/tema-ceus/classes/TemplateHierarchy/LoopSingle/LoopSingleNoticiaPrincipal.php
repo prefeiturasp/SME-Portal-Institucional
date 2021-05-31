@@ -27,16 +27,28 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 								
 								<?php
 									$flyer = get_field('adicionar_midia');
+									$link_flyer = get_field('adicionar_link');
 									
 								if(isset($flyer)): ?>
-									<div class="flyer-evento py-3">
-										<?php if($flyer['url']): ?>
-											<img src="<?php echo $flyer['url']; ?>" alt="<?php echo $flyer['alt']; ?>" class="img-fluid d-block mx-auto w-75" alt="">
-										<?php endif; ?>
-										<?php if($flyer['caption']): ?>
-											<p class="text-center"><?php echo $flyer['caption']; ?></p>
-										<?php endif; ?>											
-									</div>
+									<?php if(!$link_flyer): ?>
+										<div class="flyer-evento py-3">
+											<?php if($flyer['url']): ?>
+												<img src="<?php echo $flyer['url']; ?>" alt="<?php echo $flyer['alt']; ?>" class="img-fluid d-block mx-auto w-75" alt="">
+											<?php endif; ?>
+											<?php if($flyer['caption']): ?>
+												<p class="text-center"><?php echo $flyer['caption']; ?></p>
+											<?php endif; ?>											
+										</div>
+									<?php else: ?>
+										<div class="flyer-evento py-3">
+											<?php if($flyer['url']): ?>
+												<a href="<?php echo $link_flyer; ?>"><img src="<?php echo $flyer['url']; ?>" alt="<?php echo $flyer['alt']; ?>" class="img-fluid d-block mx-auto w-75" alt=""></a>
+											<?php endif; ?>
+											<?php if($flyer['caption']): ?>
+												<p class="text-center"><?php echo $flyer['caption']; ?></p>
+											<?php endif; ?>											
+										</div>
+									<?php endif; ?>
 								<?php endif; ?>
 
 							</div>
@@ -79,7 +91,8 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 													$dataEvento = $datas['data'];
 
                                                     $dataEvento = explode("-", $dataEvento);
-                                                    $mes = $monthName = date('M', mktime(0, 0, 0, $dataEvento[1], 10));
+                                                    $mes = date('M', mktime(0, 0, 0, $dataEvento[1], 10));
+													$mes = translateMonth($mes);
                                                     $data = $dataEvento[2] . " " . $mes . " " . $dataEvento[0];
 
 													$dataFinal = $data;
@@ -92,14 +105,16 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
                                                     if($dataFinal){ // Verifica se possui a data final
                                                         $dataInicial = explode("-", $dataInicial);
                                                         $dataFinal = explode("-", $dataFinal);
-                                                        $mes = $monthName = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+                                                        $mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+														$mes = translateMonth($mes);
 
                                                         $data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
 
                                                         $dataFinal = $data;
                                                     } else { // Se nao tiver a final mostra apenas a inicial
                                                         $dataInicial = explode("-", $dataInicial);
-                                                        $mes = $monthName = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
+                                                        $mes = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
+														$mes = translateMonth($mes);
                                                         $data = $dataInicial[2] . " " . $mes . " " . $dataInicial[0];
 
                                                         $dataFinal = $data;
@@ -198,10 +213,12 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 											}
 										?>
 
-										<tr>
-											<th scope="row" class="align-middle"><i class="fa fa-clock-o" aria-hidden="true"></i></th>
-											<td><?php echo convertHour($hora); ?></td> 
-										</tr>
+										<?php if($hora) : ?>                                           
+											<tr>
+												<th scope="row" class="align-middle"><i class="fa fa-clock-o" aria-hidden="true"></i></th>
+												<td><?php echo convertHour($hora); ?></td> 
+											</tr>
+										<?php endif; ?>
 
 										<?php if($classi != '') : ?>
 											<tr>
