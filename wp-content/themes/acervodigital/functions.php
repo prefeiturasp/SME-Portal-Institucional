@@ -322,3 +322,7 @@ function wpse_136058_remove_menu_pages() {
     remove_menu_page( 'edit.php?post_type=download' ); // Ocultar Downloads
     remove_menu_page( 'edit.php?post_type=acesso' ); // Ocultar Acessos
 }
+
+// Desabilitar funcoes de usuarios
+remove_role( 'subscriber' ); // Assinante
+remove_role( 'author' ); // Autor
