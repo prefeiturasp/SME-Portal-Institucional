@@ -326,3 +326,71 @@ function wpse_136058_remove_menu_pages() {
 // Desabilitar funcoes de usuarios
 remove_role( 'subscriber' ); // Assinante
 remove_role( 'author' ); // Autor
+
+// Ocultar itens do menu para usuarios que não sao ASCOM ou AMCOM
+function hide_menu() {
+     
+	$user = get_current_user_id(); // pega o ID usuario logado
+    $setor = get_field('setor', 'user_' . $user); // pega o setor do usuario logado
+
+    if($setor == 'AMCom' || $setor == 'ASCOM'){
+       
+    } else {
+        remove_menu_page( 'themes.php' ); // Aparencias
+        remove_menu_page( 'plugins.php' ); // Plugins
+        remove_menu_page( 'tools.php' ); // Ferramentas
+        remove_menu_page( 'edit.php?post_type=acf-field-group' ); // Campos Personalizados
+        remove_menu_page( 'options-general.php' ); // Configuracoes
+        remove_menu_page( 'wp-mail-smtp' ); // WP Mails SMTP
+    }      
+    
+}
+add_action('admin_head', 'hide_menu', 5, 1);
+
+// Cria uma nova coluna
+function register_custom_user_column($columns) {
+    $columns['setor'] = 'Setor';
+    return $columns;
+}
+
+add_action('manage_users_columns', 'register_custom_user_column');
+
+// Insere o valor na coluna
+function register_custom_user_column_view($value, $column_name, $user_id) {
+    
+    $setor = get_field('setor', 'user_' . $user_id); // pega o setor do usuario logado
+    
+    if($column_name == 'setor'){
+        if($setor){
+            return $setor;
+        } else {
+            return 'Nenhum setor cadastrado';
+        }
+    } 
+    return $value;
+
+}
+
+add_action('manage_users_custom_column', 'register_custom_user_column_view', 10, 3);
+
+// Adicionar o botão de ordenacao na coluna
+function sortable_setor_column( $columns ) {
+    $columns['setor'] = 'setor';
+    return $columns;
+}
+add_filter( 'manage_users_sortable_columns', 'sortable_setor_column' );
+
+// Ordena usuarios pela coluna "Setor"
+add_action("pre_get_users", function ($WP_User_Query) {
+
+    if (    isset($WP_User_Query->query_vars["orderby"])
+        &&  ("setor" === $WP_User_Query->query_vars["orderby"])
+    ) {
+        $WP_User_Query->query_vars["meta_key"] = "setor";
+        $WP_User_Query->query_vars["orderby"] = "meta_value";
+    }
+
+}, 10, 1);
+
+// Remover o campor "Additional Capabilities" do editor do usuarios
+add_filter( 'ure_show_additional_capabilities_section', '__return_false' );
