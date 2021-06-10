@@ -47,8 +47,10 @@ class PaginaInicialEndereco
                                 <span class="row "><strong>Responsável:&nbsp;</strong><?php the_field('principal_responsavel'); ?></span>
                             <?php } ?>
                             <?php if( get_field('principal_logradouro') !== '' && get_field('principal_logradouro') !== null){ ?>
-                            <span class="row "><strong>Endereço:&nbsp;</strong><?php the_field('principal_logradouro'); ?>,<?php the_field('principal_numero'); ?> - <?php the_field('principal_bairro'); ?> - CEP: <?php the_field('principal_cep');?>
-								- <a href="#map" class="story" data-point="<?php the_field('principal_latitude'); ?>,<?php the_field('principal_longitude'); ?>,<strong><?php the_title(); ?></strong><br><?php the_field('principal_logradouro'); ?> nº<?php the_field('principal_numero'); ?><br><?php the_field('principal_bairro'); ?><br>CEP: <?php the_field('principal_cep');?>,<?php the_field('principal_logradouro'); ?>&nbsp;<?php the_field('principal_numero'); ?>&nbsp;<?php the_field('principal_bairro'); ?>"> &nbsp;destacar no mapa</a></span>
+                            <span class="row "><strong>Endereço:&nbsp;</strong>
+                                <?php the_field('principal_logradouro'); ?>,<?php the_field('principal_numero'); ?><?php if(get_field('complemento') !== '' && get_field('complemento') !== null){ echo ' - '; the_field('complemento'); }?> - <?php the_field('principal_bairro'); ?> - CEP: <?php the_field('principal_cep');?>
+
+								- <a href="#map" class="story" data-point="<?php the_field('principal_latitude'); ?>,<?php the_field('principal_longitude'); ?>,<strong><?php the_title(); ?></strong><br><?php the_field('principal_logradouro'); ?> nº <?php the_field('principal_numero'); ?><?php if(get_field('complemento') !== '' && get_field('complemento') !== null){ echo ' - '; the_field('complemento'); }?><br><?php the_field('principal_bairro'); ?><br>CEP: <?php the_field('principal_cep');?>,<?php the_field('principal_logradouro'); ?>&nbsp;<?php the_field('principal_numero'); ?>&nbsp;<?php the_field('principal_bairro'); ?>"> &nbsp;destacar no mapa</a></span>
                             <?php } ?>
                             <?php if( get_field('principal_telefone_1') !== '' && get_field('principal_telefone_1') !== null){ ?>
                                 <span class="row "><strong>Telefone:&nbsp;</strong><?php the_field('principal_telefone_1'); ?></span>
