@@ -146,8 +146,8 @@ function wporg_custom_post_type() {
     register_post_type('wporg_unidades',
         array(
             'labels'      => array(
-                'name'          => __( 'Editores CEUs', 'textdomain' ),
-                'singular_name' => __( 'Editor CEU', 'textdomain' ),
+                'name'          => __( 'Grupos', 'textdomain' ),
+                'singular_name' => __( 'Grupo', 'textdomain' ),
             ),
             'public'      => true,
             'has_archive' => true,
