@@ -13,8 +13,8 @@ function wporg_custom_post_type() {
     register_post_type('editores_portal',
         array(
             'labels'      => array(
-                'name'          => __( 'Grupo de Colaboradores', 'textdomain' ),
-                'singular_name' => __( 'Grupo de Colaborador', 'textdomain' ),
+                'name'          => __( 'Grupos', 'textdomain' ),
+                'singular_name' => __( 'Grupo', 'textdomain' ),
             ),
             'public'      => true,
             'has_archive' => true,
