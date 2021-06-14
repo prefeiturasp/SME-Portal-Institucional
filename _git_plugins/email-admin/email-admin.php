@@ -10,7 +10,7 @@ Author URI: https://www.amcom.com.br
 */
 
 function post_unpublished( $new_status, $old_status, $post ) {
-    if ( ($old_status == 'publish' || $old_status == 'new' )  &&  $new_status == 'pending' ) {
+    if ( $new_status == 'pending' ) {
         
         if ( ! $post_type = get_post_type_object( $post->post_type ) )
         return;
@@ -19,15 +19,24 @@ function post_unpublished( $new_status, $old_status, $post ) {
         //return;
         
         $emailto = array();
+
+        if($post_type->labels->singular_name == 'Cadastro de Concurso') { // Se for Concurso nao enviar para editores
+            $adminUsers = get_users('role=Administrator'); // Uuarios do tipo admin
+
+            foreach ($adminUsers as $user) {
+                $emailto[] = $user->user_email;
+            }
+        } else {
+            $adminUsers = get_users('role=Administrator'); // Uuarios do tipo admin
+            $editorUsers = get_users('role=Editor'); // Uuarios do tipo Editor        
+            
+            $portalusers = array_merge($adminUsers, $editorUsers); // todos os usuarios em um array
         
-        $adminUsers = get_users('role=Administrator'); // Uuarios do tipo admin
-        $editorUsers = get_users('role=Editor'); // Uuarios do tipo Editor        
-        
-        $portalusers = array_merge($adminUsers, $editorUsers); // todos os usuarios em um array
-       
-        foreach ($portalusers as $user) {
-            $emailto[] = $user->user_email;
+            foreach ($portalusers as $user) {
+                $emailto[] = $user->user_email;
+            }
         }
+        
 
         // usuarios que nao receberao email
         $removeUser = array('felipe.almeida@amcom.com.br', 'ollyver.ottoboni@amcom.com.br', 'ollyverottoboni@gmail.com');
@@ -37,6 +46,11 @@ function post_unpublished( $new_status, $old_status, $post ) {
         if($post_type->labels->singular_name == 'Contatos SME' ){
             // Assunto do email"
             $subject = 'Um dos ' . $post_type->labels->singular_name . ' foi editado no portal.';
+
+        } elseif($post_type->labels->singular_name == 'Cadastro de Concurso') {
+            // Assunto do email"
+            $subject = 'Um ' . $post_type->labels->singular_name . ' foi editado no portal.';
+
         } else {
             // Assunto do email"
             $subject = 'Uma ' . $post_type->labels->singular_name . ' foi editada no portal.';
@@ -49,14 +63,18 @@ function post_unpublished( $new_status, $old_status, $post ) {
         if($post_type->labels->singular_name == 'Contatos SME' ){
             // Corpo do email
             $message = 'O Contato dentro de ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . " foi editado no portal.\nPara visualizar as alterações acesse: " . get_permalink( $post->ID ) . "\nPara publicar acesse: " . $link;
+        
+        } elseif($post_type->labels->singular_name == 'Cadastro de Concurso') {
+            // Corpo do email
+            $message = 'O Concurso dentro do ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . " foi editado no portal.\nPara visualizar as alterações acesse: " . get_permalink( $post->ID ) . "\nPara publicar acesse: " . $link;
+
         } else {
             // Corpo do email
             $message = 'A ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . " foi editada no portal.\nPara visualizar as alterações acesse: " . get_permalink( $post->ID ) . "\nPara publicar acesse: " . $link;
         }
 
-
         // evia o email
-        wp_mail( $emailto2, $subject, $message );
+        wp_mail( $emailto, $subject, $message );
     }
 }
-add_action( 'transition_post_status', 'post_unpublished', 10, 3 );
+add_action( 'transition_post_status', 'post_unpublished', 100, 3 );
