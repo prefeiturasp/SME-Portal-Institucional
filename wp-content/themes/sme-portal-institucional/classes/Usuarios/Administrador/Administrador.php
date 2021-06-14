@@ -97,6 +97,21 @@ class Administrador
 			$this->role_object->add_cap( 'edit_imagens' );
 			$this->role_object->add_cap( 'delete_imagens' );
 			$this->role_object->add_cap( 'assign_imagens' );
+
+			$this->role_object->add_cap( 'read_concurso');
+			$this->role_object->add_cap( 'read_private_concursos' );
+			$this->role_object->add_cap( 'edit_concurso' );
+			$this->role_object->add_cap( 'edit_concursos' );
+			$this->role_object->add_cap( 'edit_others_concursos' );
+			$this->role_object->add_cap( 'edit_published_concursos' );
+			$this->role_object->add_cap( 'publish_concursos' );
+			$this->role_object->add_cap( 'delete_concurso' );
+			$this->role_object->add_cap( 'delete_others_concursos' );
+			$this->role_object->add_cap( 'delete_private_concursos' );
+			$this->role_object->add_cap( 'delete_published_concursos' );
+			$this->role_object->add_cap( 'manage_concursos' );
+			$this->role_object->add_cap( 'delete_concursos' );
+			$this->role_object->add_cap( 'assign_concursos' );
 		}
 	}
 

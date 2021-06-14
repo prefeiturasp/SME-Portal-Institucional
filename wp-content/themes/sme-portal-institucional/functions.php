@@ -1142,3 +1142,19 @@ function wcag_nav_menu_link_attributes( $atts, $item, $depth ) {
     return $atts;
 }
 add_filter( 'nav_menu_link_attributes', 'wcag_nav_menu_link_attributes', 10, 4 );
+
+// Envia Concursos para revisao caso seja Editor
+add_filter( 'wp_insert_post_data', 're_aprove', 50, 2 );
+function re_aprove( $data, $postarr ) {
+	
+	$user = wp_get_current_user();
+	$type = get_post_type();
+
+	if ( in_array( 'editor', (array) $user->roles ) ) {
+		if ( 'publish' === $data['post_status'] && $type == 'concurso') {
+            $data['post_status'] = 'pending';
+        }
+	}
+    
+    return $data;
+}

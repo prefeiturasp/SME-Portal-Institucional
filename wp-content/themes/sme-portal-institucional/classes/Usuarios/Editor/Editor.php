@@ -12,6 +12,7 @@ class Editor
 	public function __construct()
 	{
 		$this->getRole();
+		$this->removeCap();
 		$this->addCap();
 		add_action('admin_menu', array($this, 'escondeMenu' ));
 	}
@@ -20,6 +21,23 @@ class Editor
 		// get the the role object
 		if (current_user_can('editor')) {
 			$this->role_object = get_role('editor');
+		}
+	}
+
+	public function removeCap(){
+		if (current_user_can('editor')) {
+
+			$caps = array(
+				'publish_concursos',
+				'delete_concurso',
+				'delete_others_concursos',
+				'delete_private_concursos',
+				'delete_concursos',
+			);
+
+			foreach ($caps as $cap){
+				$this->role_object->remove_cap($cap);
+			}
 		}
 	}
 
@@ -95,7 +113,9 @@ class Editor
 			$this->role_object->add_cap( 'delete_botoes' );
 			$this->role_object->add_cap( 'assign_botoes' );
 
-
+			$this->role_object->add_cap( 'read_concurso');
+			$this->role_object->add_cap( 'read_private_concursos' );
+			$this->role_object->add_cap( 'assign_concursos' );
 
 			$this->role_object->add_cap( 'manage_imagens' );
 			$this->role_object->add_cap( 'edit_imagens' );
