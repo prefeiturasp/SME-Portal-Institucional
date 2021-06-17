@@ -3505,12 +3505,13 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	 * For new posts check the primitive capability, for updates check the meta capability.
 	 */
 	$post_type_object = get_post_type_object( $post_type );
-
+	/*
 	if ( ! $update && 'pending' === $post_status && ! current_user_can( $post_type_object->cap->publish_posts ) ) {
 		$post_name = '';
 	} elseif ( $update && 'pending' === $post_status && ! current_user_can( 'publish_post', $post_ID ) ) {
 		$post_name = '';
 	}
+	*/
 
 	/*
 	 * Create a valid post name. Drafts and pending posts are allowed to have
