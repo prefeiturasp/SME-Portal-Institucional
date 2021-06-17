@@ -20,22 +20,15 @@ function post_unpublished( $new_status, $old_status, $post ) {
         
         $emailto = array();
 
-        if($post_type->labels->singular_name == 'Cadastro de Concurso') { // Se for Concurso nao enviar para editores
-            $adminUsers = get_users('role=Administrator'); // Uuarios do tipo admin
-
-            foreach ($adminUsers as $user) {
-                $emailto[] = $user->user_email;
-            }
-        } else {
-            $adminUsers = get_users('role=Administrator'); // Uuarios do tipo admin
-            $editorUsers = get_users('role=Editor'); // Uuarios do tipo Editor        
-            
-            $portalusers = array_merge($adminUsers, $editorUsers); // todos os usuarios em um array
+       
+        $adminUsers = get_users('role=Administrator'); // Uuarios do tipo admin
+        $editorUsers = get_users('role=Editor'); // Uuarios do tipo Editor        
         
-            foreach ($portalusers as $user) {
-                $emailto[] = $user->user_email;
-            }
-        }
+        $portalusers = array_merge($adminUsers, $editorUsers); // todos os usuarios em um array
+    
+        foreach ($portalusers as $user) {
+            $emailto[] = $user->user_email;
+        }        
         
 
         // usuarios que nao receberao email
@@ -73,8 +66,8 @@ function post_unpublished( $new_status, $old_status, $post ) {
             $message = 'A ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . " foi editada no portal.\nPara visualizar as alterações acesse: " . get_permalink( $post->ID ) . "\nPara publicar acesse: " . $link;
         }
 
-        // evia o email
         wp_mail( $emailto, $subject, $message );
+        
     }
 }
 add_action( 'transition_post_status', 'post_unpublished', 100, 3 );
