@@ -862,6 +862,24 @@ mudaNomes('revision1', '');
 mudaNomes('rl_gallery1', '');
 mudaNomes('user_request1', '');
 mudaNomes('wpcf7_contact_form1', '');
+mudaNomes('organograma-sec20', '');
+mudaNomes('organograma-sec19', '');
+mudaNomes('organograma-sec18', '');
+mudaNomes('organograma-sec17', '');
+mudaNomes('organograma-sec16', '');
+mudaNomes('organograma-sec15', '');
+mudaNomes('organograma-sec14', '');
+mudaNomes('organograma-sec13', '');
+mudaNomes('organograma-sec12', '');
+mudaNomes('organograma-sec11', '');
+mudaNomes('organograma-sec10', '');
+mudaNomes('organograma-sec9', '');
+mudaNomes('organograma-sec8', '');
+mudaNomes('organograma-sec7', '');
+mudaNomes('organograma-sec6', '');
+mudaNomes('organograma-sec5', '');
+mudaNomes('organograma-sec4', '');
+mudaNomes('organograma-sec1', '');
 
 //Troca nome filtros sites
 mudaNomes('/', 'SME Portal Educação');
