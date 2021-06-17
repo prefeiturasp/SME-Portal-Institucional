@@ -38,9 +38,9 @@ class Colaborador
 				'edit_private_posts',
 				'manage_options',
 				'edit_pages',
-				'edit_published_pages',
+				//'edit_published_pages',
 				//'edit_others_pages',
-				//'edit_private_pages',
+				'edit_private_pages',
 				'delete_others_pages',
 				'delete_private_pages',
 				'delete_published_pages',
@@ -55,6 +55,11 @@ class Colaborador
 				'delete_card',
 				'manage_cards',
 				'assign_cards',
+				'publish_concursos',
+				'delete_concurso',
+				'delete_others_concursos',
+				'delete_private_concursos',
+				'delete_concursos',
 			);
 
 			foreach ($caps as $cap){
@@ -69,8 +74,7 @@ class Colaborador
 		// add $cap capability to this role object
 		if (current_user_can('contributor')) {
 			$this->role_object->add_cap('upload_files');
-			//midias para colaborador
-			$this->role_object->add_cap(' unfiltered_upload ');
+			$this->role_object->add_cap('unfiltered_upload');
 			$this->role_object->add_cap('edit_files');
 			$this->role_object->add_cap('edit_posts');
 
@@ -89,8 +93,8 @@ class Colaborador
 
 			$this->role_object->add_cap('delete_published_pages');
 			$this->role_object->add_cap('edit_published_pages');
-			//$this->role_object->add_cap('read_published_pages');
-			//$this->role_object->add_cap('edit_private_pages');
+			$this->role_object->add_cap('read_published_pages');
+			$this->role_object->add_cap('edit_private_pages');
 
 			$this->role_object->add_cap( 'read_card');
 			$this->role_object->add_cap( 'read_private_cards');
@@ -141,9 +145,16 @@ class Colaborador
 
 			$this->role_object->add_cap( 'edit_published_imagens' );
 			$this->role_object->add_cap( 'delete_published_imagens' );
-			
 
-
+			$this->role_object->add_cap( 'read_concurso');
+			$this->role_object->add_cap( 'read_private_concursos' );
+			$this->role_object->add_cap( 'edit_concurso' );
+			$this->role_object->add_cap( 'edit_concursos' );
+			$this->role_object->add_cap( 'edit_others_concursos' );
+			$this->role_object->add_cap( 'edit_published_concursos' );			
+			$this->role_object->add_cap( 'manage_concursos' );
+			$this->role_object->add_cap( 'edit_concursos' );
+			$this->role_object->add_cap( 'assign_concursos' );
 
 		}
 	}

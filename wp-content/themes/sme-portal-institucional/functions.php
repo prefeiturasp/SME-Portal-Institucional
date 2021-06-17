@@ -1150,8 +1150,8 @@ function re_aprove( $data, $postarr ) {
 	$user = wp_get_current_user();
 	$type = get_post_type();
 
-	if ( in_array( 'editor', (array) $user->roles ) ) {
-		if ( 'publish' === $data['post_status'] && $type == 'concurso') {
+	if ( in_array( 'contributor', (array) $user->roles ) ) {
+		if ( 'publish' === $data['post_status']) {
             $data['post_status'] = 'pending';
         }
 	}
