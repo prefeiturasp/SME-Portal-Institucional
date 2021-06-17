@@ -513,7 +513,7 @@ do_action( 'edit_form_top', $post );
 			}
 		}
 
-		if ( $post_type_object->public && ! ( 'pending' == get_post_status( $post ) && ! current_user_can( $post_type_object->cap->publish_posts ) ) ) {
+		if ( $post_type_object->public ) {
 			$has_sample_permalink = $sample_permalink_html && 'auto-draft' != $post->post_status;
 			?>
 	<div id="edit-slug-box" class="hide-if-no-js">
