@@ -1158,3 +1158,13 @@ function re_aprove( $data, $postarr ) {
     
     return $data;
 }
+
+// Desabilitar funcoes de usuarios
+remove_role( 'subscriber' ); // Assinante
+remove_role( 'author' ); // Autor
+
+// Renomear tipo de usuario Contribuidor para Colaborador
+add_action( 'wp_roles_init', static function ( \WP_Roles $roles ) {
+    $roles->roles['contributor']['name'] = 'Colaborador';
+    $roles->role_names['contributor'] = 'Colaborador';
+} );
