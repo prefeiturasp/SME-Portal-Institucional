@@ -8,15 +8,17 @@ class AcervoRegisterCustomTaxonomy
 {
 	private $type_name = '';
 	private $singular_name = '';
+	private $button_name = '';
 	private $args = array();
 	private $labels = array();
 	private $vinculo = array();
 	public $capabily = '';
 
-	function __construct( $type_name, $singular_name, $vinculo = array(), $args = array(), $labels = array() )
+	function __construct( $type_name, $singular_name, $button_name, $vinculo = array(), $args = array(), $labels = array() )
 	{
 		$this->type_name = $type_name;
 		$this->singular_name = $singular_name;
+		$this->button_name = $button_name;
 		$this->args = $args;
 		$this->labels = $labels;
 		$this->vinculo = $vinculo;
@@ -34,8 +36,8 @@ class AcervoRegisterCustomTaxonomy
 			'menu_name' => $this->singular_name,
 			'all_items' => 'Todas as ' . strtolower( $this->singular_name ) . 's',
 			'parent_item' => $this->singular_name . ' Pai',
-			'new_item_name' => 'Novo nome de ' . strtolower( $this->singular_name ) . '',
-			'add_new_item' => 'Adicionar uma nova ' . strtolower( $this->singular_name ) . '',
+			'new_item_name' => strtolower( $this->button_name ) . strtolower( $this->singular_name ) . '',
+			'add_new_item' => $this->button_name . ' ' . strtolower( $this->singular_name ) . '',
 			'edit_item' => 'Editar ' . strtolower( $this->singular_name ) . '',
 			'update_item' => 'Atualizar ' . strtolower( $this->singular_name ) . '',
 			'view_item' => 'Visualizar ' . strtolower( $this->singular_name ) . '',
@@ -90,14 +92,14 @@ class AcervoRegisterCustomTaxonomy
 $categorias = new AcervoRegisterCustomTaxonomy( 'categoria_acervo', 'Categoria', 'acervo' );
 $categorias->capabily = 'list_users';
 
-new AcervoRegisterCustomTaxonomy( 'autor', 'Autor', 'acervo' );
-new AcervoRegisterCustomTaxonomy( 'setor', 'Setor', 'acervo' );
-new AcervoRegisterCustomTaxonomy( 'idioma', 'Idioma', 'acervo' );
-new AcervoRegisterCustomTaxonomy( 'modalidade', 'Nível/Etapa/Modalidade', 'acervo' );
-new AcervoRegisterCustomTaxonomy( 'componente', 'Componente', 'acervo' );
-new AcervoRegisterCustomTaxonomy( 'formacao', 'Formação', 'acervo' );
-new AcervoRegisterCustomTaxonomy( 'promotora', 'Promotora', 'acervo' );
-new AcervoRegisterCustomTaxonomy( 'publico', 'Público', 'acervo' );
+new AcervoRegisterCustomTaxonomy( 'autor', 'Autor', 'Adicionar um novo', 'acervo' );
+new AcervoRegisterCustomTaxonomy( 'setor', 'Setor', 'Adicionar um novo', 'acervo' );
+new AcervoRegisterCustomTaxonomy( 'idioma', 'Idioma', 'Adicionar um novo', 'acervo' );
+new AcervoRegisterCustomTaxonomy( 'modalidade', 'Nível/Etapa/Modalidade', 'Adicionar um novo', 'acervo' );
+new AcervoRegisterCustomTaxonomy( 'componente', 'Componente', 'Adicionar um novo', 'acervo' );
+new AcervoRegisterCustomTaxonomy( 'formacao', 'Formação', 'Adicionar uma nova', 'acervo' );
+new AcervoRegisterCustomTaxonomy( 'promotora', 'Promotora', 'Adicionar uma nova', 'acervo' );
+new AcervoRegisterCustomTaxonomy( 'publico', 'Público', 'Adicionar um novo', 'acervo' );
 
 
 //taxonomy acervo palavra chave
