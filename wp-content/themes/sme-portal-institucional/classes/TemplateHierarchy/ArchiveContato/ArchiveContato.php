@@ -181,6 +181,8 @@ class ArchiveContato extends Util
 					echo '<p><strong>' . $info['nome_campo'] . ':</strong> <a class="' . $classe_css . '" href="tel:' . $telefone . '">' . $info['informacao_campo'] . '</a></p>';
 				} elseif($info['tipo_de_campo'] == 'email'){
 					echo '<p><strong>' . $info['nome_campo'] . ':</strong> <a class="' . $classe_css . '" href="mailto:' . $info['informacao_campo'] . '">' . $info['informacao_campo'] . '</a></p>';
+				} elseif($info['tipo_de_campo'] == 'url'){
+					echo '<p><strong>' . $info['nome_campo'] . ':</strong> <a class="' . $classe_css . '" href="' . $info['informacao_campo'] . '">' . $info['informacao_campo'] . '</a></p>';
 				} else {
 					echo '<p><strong>' . $info['nome_campo'] . ':</strong> ' . $info['informacao_campo'] . '</p>';
 				}
