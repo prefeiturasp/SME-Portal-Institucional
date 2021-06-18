@@ -290,7 +290,9 @@ add_action( 'admin_menu' , 'wpse60590_remove_metaboxes' );
 
 function wd_admin_menu_rename() {
     global $menu; // Global to get menu array
-    $menu[10][0] = 'Arquivos'; // Change name of posts to portfolio
+    global $submenu;
+    $menu[10][0] = 'Arquivos'; // Change name of posts to portfolio  
+    $submenu['upload.php'][10][0] = 'Adicionar novo';
 }
 add_action( 'admin_menu', 'wd_admin_menu_rename' );
 
@@ -394,3 +396,16 @@ add_action("pre_get_users", function ($WP_User_Query) {
 
 // Remover o campor "Additional Capabilities" do editor do usuarios
 add_filter( 'ure_show_additional_capabilities_section', '__return_false' );
+
+// Altera o texto da label
+add_filter(  'gettext',  'dirty_translate'  );
+add_filter(  'ngettext',  'dirty_translate'  );
+function dirty_translate( $translated ) {
+     $words = array(
+            // 'termo para traducao' => 'traducao'
+            'Enviar nova mídia' => 'Enviar novo arquivo',
+            'Editar mídia' => 'Editar arquivo'
+     );
+$translated = str_ireplace(  array_keys($words),  $words,  $translated );
+return $translated;
+}
