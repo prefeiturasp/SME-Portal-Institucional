@@ -58,13 +58,13 @@ require_once __ROOT__.'/classes/ModelosDePaginas/AgendaConselho/PaginaAgendaCons
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaImagemVideo/PaginaImagemVideo.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunas.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/ModelosDePaginaRemoveThemeSupport.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbas.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasTitulos.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasContato.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasBotoes.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasAcoesDestaque.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasConteudos.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaBotoes/PaginaBotoes.php';
+//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbas.php';
+//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasTitulos.php';
+//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasContato.php';
+//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasBotoes.php';
+//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasAcoesDestaque.php';
+//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasConteudos.php';
+//require_once __ROOT__.'/classes/ModelosDePaginas/PaginaBotoes/PaginaBotoes.php';
 
 ////////////BREADCRUMB//////////////
 require_once __ROOT__.'/classes/Breadcrumb/Breadcrumb.php';
@@ -83,9 +83,9 @@ $cptCardExtend = new \Classes\Cpt\CptCard();
 $cptAgendaConselho = new \Classes\Cpt\Cpt('agendaconselho', 'agendaconselho', 'Agenda Conselho', 'Todos as Agendas', 'Agendas Conselho', 'Agenda Conselho', '', '', '', 'dashicons-feedback', true);
 $cptAgendaConselhoExtend = new \Classes\Cpt\CptAgendaConselho();
 
-$cptAbas = new \Classes\Cpt\Cpt('aba', 'aba', 'Cadastro de Abas', 'Todos as Abas', 'Abas', 'Cadastro de Abas', 'categorias-aba', 'Categorias de Abas', 'Categoria de Aba', 'dashicons-index-card' , true);
-$cptAbasExtend = new \Classes\Cpt\CptAba();
+//$cptAbas = new \Classes\Cpt\Cpt('aba', 'aba', 'Cadastro de Abas', 'Todos as Abas', 'Abas', 'Cadastro de Abas', 'categorias-aba', 'Categorias de Abas', 'Categoria de Aba', 'dashicons-index-card' , true);
+//$cptAbasExtend = new \Classes\Cpt\CptAba();
 
-$cptBotao = new \Classes\Cpt\Cpt('botao', 'botao', 'Cadastro de Botões', 'Todos os Botões', 'Botões', 'Cadastro de Botões', 'categorias-botao', 'Categorias de Botões', 'Categoria de Botão', 'dashicons-external' , true);
-$cptBotaoExtend = new \Classes\Cpt\CptBotao();
+//$cptBotao = new \Classes\Cpt\Cpt('botao', 'botao', 'Cadastro de Botões', 'Todos os Botões', 'Botões', 'Cadastro de Botões', 'categorias-botao', 'Categorias de Botões', 'Categoria de Botão', 'dashicons-external' , true);
+//$cptBotaoExtend = new \Classes\Cpt\CptBotao();
 
