@@ -24,25 +24,34 @@ class PaginaCards extends Util
 
 	
 	public function montaUltimaAtualizacao(){
-		$new_query = new \WP_Query( array(
+		$lastEdit = new \WP_Query( array(
+			'post_type'   => 'contato',
 			'posts_per_page' => 1,
-			'post_type'      => 'card',
-		) );
+			'orderby'     => 'modified',
+		));
+	
+		$date = $lastEdit->post->post_modified;
+		$lastEdit = new \DateTime($date);
 
-		while ( $new_query->have_posts() ) : $new_query->the_post();  
+		$pageDate = get_the_modified_time('Y-m-d H:i:s');
+		$pageDate = new \DateTime($pageDate);
+
+		if($lastEdit > $pageDate){
+			$dataShow = $lastEdit;
+		} else {
+			$dataShow = $pageDate;
+		}
+		 
 
 		?>
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 mb-4">
-					Atualizado em <time datetime="<?php the_modified_time('Y-m-d'); ?>"><?php the_modified_time('d/m/Y'); ?></time>
+					Atualizado em <time datetime="<?php echo $dataShow->format('d/m/Y H:i:s'); ?>"><?php echo $dataShow->format('d/m/Y H:i:s'); ?></time>
 				</div>
 			</div>
 		</div>
 		<?php 
-
-		endwhile;  
-		wp_reset_postdata();
 		
 	}
 	

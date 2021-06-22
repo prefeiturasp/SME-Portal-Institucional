@@ -25,6 +25,15 @@
     $date = $lastEdit->post->post_modified;
     $lastEdit = new DateTime($date);
 
+    $pageDate = get_the_modified_time('Y-m-d H:i:s');
+    $pageDate = new DateTime($pageDate);
+
+    if($lastEdit > $pageDate){
+        $dataShow = $lastEdit;
+    } else {
+        $dataShow = $pageDate;
+    }
+
     $i = 1;
 
     //echo "<pre>";
@@ -75,7 +84,7 @@
                 }
 
                 if($lastEdit != ''){
-                    echo "<p class='font-italic text-date'>Atualizado em:" . $lastEdit->format('d/m/Y H:i:s') . "</p>";
+                    echo "<p class='font-italic text-date'>Atualizado em: " . $dataShow->format('d/m/Y H:i:s') . "</p>";
                 }
             ?>
 
