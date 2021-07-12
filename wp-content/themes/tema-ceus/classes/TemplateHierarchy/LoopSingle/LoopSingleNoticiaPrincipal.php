@@ -21,7 +21,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 						<div class="row">
 
 							<div class="col-md-7 evento-descri">
-								<h4>Descritivo do evento:</h4>
+								<h2>Descritivo do evento:</h2>
 								
 								<?php echo get_field('descricao'); ?>
 								
@@ -57,12 +57,13 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 								$categories = get_the_category();
 								$category_id = $categories[0]->cat_ID;
 
-								$classi = get_field('faixa');
+								$classi = get_field('faixa_etaria');
+								$publico = get_field('publico');
 								$espaco = get_field('local_espaco');
 								$inscri = get_field('inscricoes');
 								$datas = get_field('data'); // Datas
 								$horario = get_field('horario');
-								
+								$tipo_evento = get_field('tipo_de_evento_tipo');
 								
 								$tipo = get_field('tipo_de_evento_selecione_o_evento', get_the_ID());
 							?>
@@ -70,7 +71,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 							<div class="col-md-5 evento-details">
 								<table class="table border-right border-left border-bottom">                            
 									<tbody>
-										
+
 										<?php if($tipo && $tipo != '') : ?>
 											<tr>
 												<th scope="row" class="align-middle bg-tipo"><i class="fa fa-globe" aria-hidden="true"></i></th>
@@ -81,6 +82,8 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 													</p></td>                                    
 											</tr>
 										<?php endif; ?>
+
+										<?php //print_r($tipo_evento); ?>
 
 										<?php
 											// Verifica se possui campos
@@ -171,10 +174,14 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
                                             }
                                         ?>
 
-										<tr>
-											<th scope="row" class="align-middle"><i class="fa fa-calendar" aria-hidden="true"></i></th>
-											<td><?php echo $dataFinal; ?></td>                                    
-										</tr>
+										<?php if($tipo_evento != 'serie') : ?>
+
+											<tr>
+												<th scope="row" class="align-middle"><i class="fa fa-calendar" aria-hidden="true"></i></th>
+												<td><?php echo $dataFinal; ?></td>                                    
+											</tr>
+
+										<?php endif; // Fim tipo_evento ?>
 
 										<?php
 											// Exibe os horários
@@ -222,28 +229,38 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 
 										<?php if($classi != '') : ?>
 											<tr>
-												<th scope="row" class="align-middle"><i class="fa fa-users" aria-hidden="true"></i></th>
+												<th scope="row" class="align-middle"><i class="fa fa-star" aria-hidden="true"></i></th>
 												<td><?php 
-													//echo $classi;
+													//print_r($classi);
 													$m = 0;
 													foreach($classi as $faixa){
 														echo "<p class='m-0'>";
-															if($faixa['faixa_etaria'][0] != ''){
-																$term = get_term( $faixa['faixa_etaria'][0], 'faixa_categories' );
-																echo "<strong>" . $term->name . "</strong>";
+															if($faixa != ''){
+																$term = get_term( $faixa, 'faixa_categories' );
+																echo "<span class='blue-info'>Faixa etária</span> - " . $term->name;
 															}
-
-															if($faixa['data_faixa'] != ''){
-																echo " - " . $faixa['data_faixa'];
-															}
-
-															if($faixa['horario_faixa'] != ''){
-																echo " - " . $faixa['horario_faixa'];
-															}
-
 														echo "</p>";
 													}
 													//print_r($classi);
+												?></td>                                    
+											</tr>
+										<?php endif; ?>
+
+										<?php if($publico != '') : ?>
+											<tr>
+												<th scope="row" class="align-middle"><i class="fa fa-user-circle" aria-hidden="true"></i></th>
+												<td><?php 
+													
+													$m = 0;
+													foreach($publico as $alvo){
+														echo "<p class='m-0'>";
+															if($alvo != ''){
+																$term = get_term( $alvo, 'publico_categories' );
+																echo "<span class='blue-info'>Público alvo</span> - " . $term->name;
+															}
+														echo "</p>";
+													}
+													
 												?></td>                                    
 											</tr>
 										<?php endif; ?>		
@@ -255,10 +272,10 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 
 										<tr>
 											<th scope="row" class="align-middle"><i class="fa fa-map-marker" aria-hidden="true"></i></th>
-											<?php if($local == 31202): ?>
+											<?php if($local == 31244 || $tipo_evento == 'serie'): ?>
 												<td><p class="m-0">Consulte abaixo CEUs participantes</p></td>
-											<?php elseif($local == 31248): ?>
-												<td><p class="m-0">Para toda a rede</p></td>
+											<?php elseif($local == 31675): ?>
+												<td><p class="m-0"><strong>Para toda a rede</strong></p></td>
 											<?php else: ?>
 												<td><strong><?php echo get_the_title($local); ?></strong>
 												<?php 
@@ -279,10 +296,16 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 											</tr>
 										<?php endif; ?>
 
-										<?php if($inscri != '') : ?>
+										<?php
+											//echo "<pre>";
+											//print_r($inscri);
+											//echo "</pre>";
+											?>
+
+										<?php if($inscri != '' && $inscri['info_inscricoes'] != '') : ?>
 											<tr>
 												<th scope="row" class="align-middle"><i class="fa fa-ticket" aria-hidden="true"></i></th>
-												<?php if($inscri['info_inscricoes'] != '' && $inscri['link_inscricoes'] != "") : ?>
+												<?php if($inscri['info_inscricoes'] != '' && $inscri['link_inscricoes'] != '') : ?>
 													<td><a href="<?php echo $inscri['link_inscricoes']; ?>"><?php echo $inscri['info_inscricoes']; ?></a></td>
 												<?php elseif($inscri['info_inscricoes'] != '') : ?>
 													<td><?php echo $inscri['info_inscricoes']; ?></td>
@@ -291,7 +314,210 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 										<?php endif; ?>
 									</tbody>
 								</table>
+
+								<?php if($tipo_evento == 'serie'): 
+
+									$participantes = get_field('ceus_participantes');
+									if($participantes != '') :
+
+										foreach($participantes as $participante):
+										?>
+
+										<table class="table border-right border-left border-bottom">
+											<thead>
+												<tr>
+													<td colspan="2"><?php echo get_the_title($participante['localizacao_serie']); ?></td>
+												</tr>
+											</thead>
+											<tbody>
+
+											<?php
+												// Verifica se possui campos
+												$datas = $participante['data_serie'];
+												if($datas){
+
+													if($datas['tipo_de_data'] == 'data'){ // Se for do tipo data
+														
+														$dataEvento = $datas['data'];
+
+														$dataEvento = explode("-", $dataEvento);
+														$mes = date('M', mktime(0, 0, 0, $dataEvento[1], 10));
+														$mes = translateMonth($mes);
+														$data = $dataEvento[2] . " " . $mes . " " . $dataEvento[0];
+
+														$dataFinal = $data;
+														
+													} else if($datas['tipo_de_data'] == 'periodo'){
+														
+														$dataInicial = $datas['data'];
+														$dataFinal = $datas['data_final'];
+
+														if($dataFinal){ // Verifica se possui a data final
+															$dataInicial = explode("-", $dataInicial);
+															$dataFinal = explode("-", $dataFinal);
+															$mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+															$mes = translateMonth($mes);
+
+															$data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+
+															$dataFinal = $data;
+														} else { // Se nao tiver a final mostra apenas a inicial
+															$dataInicial = explode("-", $dataInicial);
+															$mes = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
+															$mes = translateMonth($mes);
+															$data = $dataInicial[2] . " " . $mes . " " . $dataInicial[0];
+
+															$dataFinal = $data;
+														}
+
+													} elseif($datas['tipo_de_data'] == 'semana'){ // se for do tipo semana
+														$semana = $datas['dia_da_semana'];
+														
+														
+														$diasSemana = array();
+
+														foreach($semana as $dias){
+
+															$total = count($dias['selecione_os_dias']); 
+															$i = 0;
+															$diasShow = '';
+															
+															foreach($dias['selecione_os_dias'] as $diaS){
+																$i++;
+																//echo $dia . "<br>";
+																if($total - $i == 1){
+																	$diasShow .= $diaS . " ";
+																} elseif($total != $i){
+																	$diasShow .= $diaS . ", ";
+																} elseif($total == 1){
+																	$diasShow = $diaS;
+																} else {
+																	$diasShow .= "e " . $diaS;
+																}																													
+															}
+
+															$show[] = $diasShow;
+															
+														}
+
+														$totalDias = count($show);
+														$j = 0;	
+														
+														$dias = '';
+
+														foreach($show as $diaShow){
+															$j++;
+															if($j == 1){
+																$dias .= $diaShow . " ";                                                        
+															} else {
+																$dias .= "/ " . $diaShow;
+															}
+														}
+
+														$dataFinal = $dias; 
+														
+													}
+
+												}
+											?>
+
+											<?php if($dataFinal) : ?>
+
+												<tr>
+													<th scope="row" class="align-middle"><i class="fa fa-calendar" aria-hidden="true"></i></th>
+													<td><?php echo $dataFinal; ?></td>                                    
+												</tr>
+
+											<?php endif; // Fim tipo_evento ?>
+
+												<?php
+													// Exibe os horários
+													$horario = $participante['horario_serie'];
+
+													if($horario['selecione_o_horario'] == 'horario'){
+														$hora = $horario['hora'];
+													} elseif($horario['selecione_o_horario'] == 'periodo'){
+														
+														$hora = '';
+														$k = 0;
+														
+														foreach($horario['hora_periodo'] as $periodo){
+															
+															if($periodo['periodo_hora_inicio']){
+
+																if($k > 0){
+																	$hora .= ' / ';
+																}
+
+																$hora .= $periodo['periodo_hora_inicio'];
+
+															} 
+															
+															if ($periodo['periodo_hora_final']){
+
+																$hora .= ' às ' . $periodo['periodo_hora_final'];
+
+															}
+															
+															$k++;
+															
+														}
+
+													}else {
+														$hora = '';
+													}
+												?>
+
+												<?php if($hora) : ?>                                           
+													<tr>
+														<th scope="row" class="align-middle"><i class="fa fa-clock-o" aria-hidden="true"></i></th>
+														<td><?php echo convertHour($hora); ?></td> 
+													</tr>
+												<?php endif; ?>
+
+												<?php
+													$espacoSerie = $participante['local_espaco_serie'];
+													if($espacoSerie):													
+												?>
+
+													<tr>
+														<th scope="row" class="align-middle"><i class="fa fa-user-circle-o" aria-hidden="true"></i></th>
+														<td><?php echo $espacoSerie->name; ?></td>
+													</tr>
+
+												<?php endif; ?>
+
+												<tr>
+													<th scope="row" class="align-middle"><i class="fa fa-map-marker" aria-hidden="true"></i></th>
+													<td><strong><?php echo get_the_title($participante['localizacao_serie']); ?></strong>
+													<?php 
+														$end = get_field('informacoes_basicas', $participante['localizacao_serie']);
+														
+														if($end != '') : ?>
+															<br>
+															<?php echo $end['endereco'] . ', ' . $end['numero'] . ' - ' .$end['bairro'] . ' - CEP: ' .$end['cep']; ?>
+														<?php endif; ?>	
+													</td>
+												</tr>
+												
+											</tbody>               
+										</table>
+											
+										<?php		
+										endforeach;
+
+									endif; // participantes
+									
+									//echo "<pre>";
+									//print_r($participantes);
+									//echo "</pre>";
+
+								?>
+
+								<?php endif; // tipo evento ?>
 							</div>
+
+							
 
 						</div>
 					</div>

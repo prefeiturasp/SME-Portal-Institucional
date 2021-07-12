@@ -1055,12 +1055,27 @@ function wp37_limit_posts_to_author($query) {
 	if( $_GET['filter'] == 'grupo' && ($user->roles[0] == 'contributor' || $user->roles[0] == 'editor'))  {
 		$variable = get_user_meta($user->ID,'grupo',true);		
 		$pages = array();
-		foreach($variable as $grupo){
-			$pages[] = get_post_meta($grupo, 'unidades', true);
+		if($variable && $variable !=''){
+			foreach($variable as $grupo){
+				$pages[] = get_post_meta($grupo, 'unidades', true);
+			}		
 		}		
-		$pages = array_flatten($pages);
-        $pages = array_unique($pages);
-		$query->set('post__in', $pages);
+			}		
+		}		
+			}		
+		}		
+			}		
+			$pages = array_flatten($pages);
+			$pages = array_unique($pages);
+			$query->set('post__in', $pages);
+		}
+	} 
+		}
+	} 
+		}
+	} 
+		}
+		
 	} 
 	
 	// 	filtra os eventos pelo grupo pertencente
@@ -1071,32 +1086,34 @@ function wp37_limit_posts_to_author($query) {
 		// pega as unidades permitidas para edicao do grupo
         $variable2 = get_user_meta($user->ID,'grupo',true);
 
-		if($variable2 && $variable2 != ''){
-			foreach($variable2 as $variable){
-				$unidades2[] = get_post_meta($variable, 'unidades', true);
+		if($variable2 && $variable2 !=''){
+			if($variable2 && $variable2 != ''){
+				foreach($variable2 as $variable){
+					$unidades2[] = get_post_meta($variable, 'unidades', true);
+				}
 			}
-		}
-
-		$unidades2 = array_flatten($unidades2);
-		$unidades2 = array_unique($unidades2);
-		
-		//print_r($unidades2);
-
-		$showEventos = array();
-
-		foreach ($unidades2 as $unidade){
-			$showEventos[] = $wpdb->get_col( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'localizacao' AND meta_value = $unidade ORDER BY post_id" );
-		}
-		
-		if($showEventos[1]){
-			$merge = array_merge($showEventos[0], $showEventos[1]);
-		} else {
-			$merge = $showEventos[0];
-		}
-		
-		$result = array_unique($merge);
-
-		$query->set('post__in', $result);
+	
+			$unidades2 = array_flatten($unidades2);
+			$unidades2 = array_unique($unidades2);
+			
+			//print_r($unidades2);
+	
+			$showEventos = array();
+	
+			foreach ($unidades2 as $unidade){
+				$showEventos[] = $wpdb->get_col( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'localizacao' AND meta_value = $unidade ORDER BY post_id" );
+			}
+			
+			if($showEventos[1]){
+				$merge = array_merge($showEventos[0], $showEventos[1]);
+			} else {
+				$merge = $showEventos[0];
+			}
+			
+			$result = array_unique($merge);
+	
+			$query->set('post__in', $result);
+		}		
 		
 	}
 	
@@ -1188,6 +1205,7 @@ function add_custom_link_into_appearnace_menu() {
 
 // Carrega todas as localizacoes do grupo para o usuario
 add_filter('acf/load_field/name=localizacao', 'populateUserGroups');
+add_filter('acf/load_field/name=localizacao_serie', 'populateUserGroups');
 
 function populateUserGroups( $field ){	
 	
@@ -1217,7 +1235,7 @@ function populateUserGroups( $field ){
 		//print_r($query);
     } else {
 		$variable = get_user_meta($user->ID,'grupo',true);
-		
+
 		$pages = get_post_meta($variable, 'unidades', true);
 		if($pages && $pages != ""){
 			foreach ($pages as $page) {
@@ -1270,7 +1288,8 @@ wp_enqueue_script('leaflet-geocoder-locationiq.min.js');
 function get_unidades(){
 	$args = array(
 		'post_type' => 'unidade',
-		'post__not_in' => array(31202)
+		'post__not_in' => array(31244, 31675),
+		'posts_per_page' => -1
 	);
 
 	$idUnidades = array();
@@ -1433,7 +1452,7 @@ function convertHour($hora){
 	$hora = str_replace('00min', '', $hora);
 	$hora = ltrim($hora, '0');
 
-	print_r($hora);
+	//print_r($hora);
 
 	return $hora;
 }
@@ -1522,3 +1541,10 @@ function dirty_translate( $translated ) {
 $translated = str_ireplace(  array_keys($words),  $words,  $translated );
 return $translated;
 }
+
+##################
+function wpza_replace_repeater_field( $where ) {
+	$where = str_replace( "meta_key = 'ceus_participantes_$", "meta_key LIKE 'ceus_participantes_%", $where );
+	return $where;
+}
+add_filter( 'posts_where', 'wpza_replace_repeater_field' );

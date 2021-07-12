@@ -57,6 +57,7 @@ class PaginaProgramacaoSlide
                                         <div class="col-sm-4">
                                             <div class="carousel-categ">
                                                 <?php
+                                                    $tipoEvento = get_field('tipo_de_evento_tipo', $slide->ID);
                                                     $atividades = get_the_terms( $slide->ID, 'atividades_categories' );
                                                     $listaAtividades = array();
                                                     foreach($atividades as $atividade){
@@ -161,7 +162,7 @@ class PaginaProgramacaoSlide
                                                                         $diasShow = $diaS;
                                                                     } else {
                                                                         $diasShow .= "e " . $diaS;
-                                                                    }
+                                                                    }	
                                                                                                                             
                                                                 }
 
@@ -186,6 +187,29 @@ class PaginaProgramacaoSlide
                                                             $dataFinal = $dias; 
                                                         }
 
+                                                    }
+                                                    if($tipoEvento == 'serie'){
+                                                        $participantes = get_field('ceus_participantes',  $slide->ID);
+                                                        $countPart = count($participantes);
+                                                        $countPart = $countPart - 1;
+                                                        
+                                                        $dtInicial = $participantes[0]['data_serie'];
+                                                        $dtFinal = $participantes[$countPart]['data_serie'];
+        
+                                                        if($dtInicial['tipo_de_data'] == 'data' && $dtFinal['tipo_de_data'] == 'data'){
+                                                            
+                                                            $dataInicial = explode("-", $dtInicial['data']);
+                                                            $dataFinal = explode("-", $dtFinal['data']);
+                                                            $mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+                                                            $mes = translateMonth($mes);
+        
+                                                            $data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+        
+                                                            $dataFinal = $data;
+        
+                                                        } else {
+                                                            $dataFinal = 'Múltiplas Datas';
+                                                        }											
                                                     }
                                                 ?>
                                                 <p class="mb-0">
@@ -232,7 +256,10 @@ class PaginaProgramacaoSlide
                                                         }
                                                     ?>
                                                     <?php if($hora) : ?>                                           
-                                                        <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo convertHour($hora); ?>
+                                                        <i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> <?php echo convertHour($hora); ?>
+                                                    <?php endif; ?>
+                                                    <?php if($tipoEvento == 'serie'): ?>
+                                                        <i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> Múltiplos Horários
                                                     <?php endif; ?>
                                                 </p>
                                                 <?php
@@ -240,7 +267,9 @@ class PaginaProgramacaoSlide
                                                     if($local == '31675' || $local == '31244'):
                                                 ?>
                                                     <p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></p>
-                                                <?php else: ?>
+                                                    <?php elseif($tipoEvento == 'serie') : ?>
+                                                        <p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> Múltiplas Unidades</p>
+                                                    <?php else: ?>
                                                     <p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
                                                 <?php endif; ?>
                                             </div>

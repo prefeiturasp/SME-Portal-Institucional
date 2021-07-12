@@ -26,15 +26,14 @@ class LoopSingleRelacionadas extends LoopSingle
 
 	}
 
-	public function compareByTimeStamp($time1, $time2) 
-	{ 
+	public function compareByTimeStamp($time1, $time2){ 
 		if (strtotime($time1) < strtotime($time2)) 
 			return -1; 
 		else if (strtotime($time1) > strtotime($time2))  
 			return 1; 
 		else
 			return 0; 
-	}
+	} 
 
 	public function convertData($data){ 
 		$dataEvento = $data;
@@ -48,101 +47,103 @@ class LoopSingleRelacionadas extends LoopSingle
 	} 
 	
 	public function my_related_posts() {
-		global $post;		
+		global $post;
+		$tipoEvento = get_field('tipo_de_evento_tipo', $post->ID);
 		$group_field = get_field( "tipo_de_evento", $post->ID );
 		if($group_field['evento_principal'] == 'parte' || $group_field['tipo'] == 'singular') :
 
 			$local = get_field('localizacao', $post->ID);							
 			$infosBasicas = get_field('informacoes_basicas', $local);
 			$zona = get_group_field( 'informacoes_basicas', 'zona_sp', $local );
+
 	?>
-		<?php if($local != '31248' || !$local != '31202'): ?>
-			<div class="end-footer py-4 col-12 color-<?php echo $zona; ?>">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6">
+		<?php if($local == '31675' || $local == '31244'): ?>
 
-							<div class="end-title-unidade my-3">
-								<p><?php echo get_the_title($local); ?></p>
-							</div>
-							
-							<div class="end-infos">
-								<p>
-									<?php 
-										if($infosBasicas['endereco'] && $infosBasicas['endereco'] != ''){
-											echo $infosBasicas['endereco'];
-										}
+		<?php else : ?>
+		<div class="end-footer py-4 col-12 color-<?php echo $zona; ?>">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
 
-										if($infosBasicas['numero'] && $infosBasicas['numero'] != ''){
-											echo ', ' . $infosBasicas['numero'];
-										}
+                        <div class="end-title-unidade my-3">
+                            <p><?php echo get_the_title($local); ?></p>
+						</div>
+						
+                        <div class="end-infos">
+							<p>
+								<?php 
+									if($infosBasicas['endereco'] && $infosBasicas['endereco'] != ''){
+										echo $infosBasicas['endereco'];
+									}
 
-										if($infosBasicas['complemento'] && $infosBasicas['complemento'] != ''){
-											echo ' - ' . $infosBasicas['complemento'];
-										}
+									if($infosBasicas['numero'] && $infosBasicas['numero'] != ''){
+										echo ', ' . $infosBasicas['numero'];
+									}
 
-										if($infosBasicas['bairro'] && $infosBasicas['bairro'] != ''){
-											echo ' - ' . $infosBasicas['bairro'];
-										}
+									if($infosBasicas['complemento'] && $infosBasicas['complemento'] != ''){
+										echo ' - ' . $infosBasicas['complemento'];
+									}
 
-										if($infosBasicas['cep'] && $infosBasicas['cep'] != ''){
-											echo ' - CEP: ' . $infosBasicas['cep'];
+									if($infosBasicas['bairro'] && $infosBasicas['bairro'] != ''){
+										echo ' - ' . $infosBasicas['bairro'];
+									}
+
+									if($infosBasicas['cep'] && $infosBasicas['cep'] != ''){
+										echo ' - CEP: ' . $infosBasicas['cep'];
+									}
+								?>
+							</p>
+
+							<?php if($infosBasicas['email'] != ''): ?>								
+								<p><i class="fa fa-envelope" aria-hidden="true"></i> 
+								<?php 
+									$email_primary = $infosBasicas['email']['email_principal'];
+									$email_second = $infosBasicas['email']['email_second'];
+
+									if($email_primary && $email_primary != ''){
+										echo $email_primary;
+									}
+								
+									if($email_second && $email_second != ''){
+										foreach($email_second as $email){
+											echo '<br>' . $email['email'];
 										}
-									?>
+									}                        
+								?>
 								</p>
+							<?php endif; ?>
 
-								<?php if($infosBasicas['email'] != ''): ?>								
-									<p><i class="fa fa-envelope" aria-hidden="true"></i> 
+							<?php if($infosBasicas['telefone'] != ''): ?>								
+								<p><i class="fa fa-phone" aria-hidden="true"></i> 
 									<?php 
-										$email_primary = $infosBasicas['email']['email_principal'];
-										$email_second = $infosBasicas['email']['email_second'];
+										$tel_primary = $infosBasicas['telefone']['telefone_principal'];
+										$tel_second = $infosBasicas['telefone']['tel_second'];
 
-										if($email_primary && $email_primary != ''){
-											echo $email_primary;
+										if($tel_primary && $tel_primary != ''){
+											echo $tel_primary;
 										}
 									
-										if($email_second && $email_second != ''){
-											foreach($email_second as $email){
-												echo '<br>' . $email['email'];
+										if($tel_second && $tel_second != ''){
+											foreach($tel_second as $tel){
+												echo ' / ' . $tel['telefone_sec'];
 											}
 										}                        
 									?>
-									</p>
-								<?php endif; ?>
+								</p>
+							<?php endif; ?>
+                            
+                        </div>
+                    </div>
 
-								<?php if($infosBasicas['telefone'] != ''): ?>								
-									<p><i class="fa fa-phone" aria-hidden="true"></i> 
-										<?php 
-											$tel_primary = $infosBasicas['telefone']['telefone_principal'];
-											$tel_second = $infosBasicas['telefone']['tel_second'];
-
-											if($tel_primary && $tel_primary != ''){
-												echo $tel_primary;
-											}
-										
-											if($tel_second && $tel_second != ''){
-												foreach($tel_second as $tel){
-													echo ' / ' . $tel['telefone_sec'];
-												}
-											}                        
-										?>
-									</p>
-								<?php endif; ?>
-								
-							</div>
-						</div>
-
-						<div class="col-md-6">
-							<div id="map" style="width: 100%; min-height: 350px;"></div>
-							<a href="#map" class="story" data-point="<?php echo $infosBasicas['latitude']; ?>,<?php echo $infosBasicas['longitude']; ?>,<div class='marcador-unidade  color-<?php echo $infosBasicas['zona_sp']; ?>'><p class='marcador-title'><?php echo get_the_title($local); ?></p><p><?php echo $infosBasicas['endereco'];?> nº <?php echo $infosBasicas['numero']; ?> - <?php echo $infosBasicas['bairro']; ?></p><p>CEP: <?php echo $infosBasicas['cep']; ?></p></div>,<?php echo $infosBasicas['zona_sp']; ?>" style="display: none;"> &nbsp;destacar no mapa</a></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		<?php endif; ?>
-	
-		
-	<?php
+                    <div class="col-md-6">
+						<div id="map" style="width: 100%; height: 350px;"></div>
+                        <a href="#map" class="story" data-point="<?php echo $infosBasicas['latitude']; ?>,<?php echo $infosBasicas['longitude']; ?>,<div class='marcador-unidade  color-<?php echo $infosBasicas['zona_sp']; ?>'><p class='marcador-title'><?php echo get_the_title($local); ?></p><p><?php echo $infosBasicas['endereco'];?> nº <?php echo $infosBasicas['numero']; ?> - <?php echo $infosBasicas['bairro']; ?></p><p>CEP: <?php echo $infosBasicas['cep']; ?></p></div>,<?php echo $infosBasicas['zona_sp']; ?>" style="display: none;"> &nbsp;destacar no mapa</a></span>                  
+                    </div>
+                </div>
+            </div>
+		</div>
+		<?php endif; ?>		
+		<?php
 		else:
 
 			$args = array(
@@ -200,11 +201,13 @@ class LoopSingleRelacionadas extends LoopSingle
 
 			foreach($atividadesEventos as $atividades){
 
-				foreach($atividades as $atividade){
-					if($atividade->parent == 0){
-						$filtroAtividades[] = $atividade->term_id;
+				if($atividades != ''){
+					foreach($atividades as $atividade){
+						if($atividade->parent == 0){
+							$filtroAtividades[] = $atividade->term_id;
+						}
 					}
-				}
+				}				
 
 			}
 
@@ -219,76 +222,77 @@ class LoopSingleRelacionadas extends LoopSingle
 			$diasEventos = array_unique($diasEventos); // remove datas iguais
 		?>
 
-		<div class="container mt-3">
-		
-			<div class="search-home search-event py-4 col-12" id='programacao'>
-				<div class="container">
-					
-					<div class="row">
-						<div class="col-sm-12 text-center">							
-							<?php 
+		<?php if($tipoEvento != 'serie'): ?>
 
-								// Unidades
-								$unidades = get_terms( array( 
-									'taxonomy' => 'category',
-									'parent'   => 0,                                
-									'hide_empty' => false,
-									'exclude' => 1
-								) );								
-							?>
-						</div>
-						<form action="<?php echo get_the_permalink(); ?>" class="row col-sm-12">
-							
-							<div class="col-sm-12 col-md-6 px-1">
-								<label for="atividades">Atividade(s) de interesse</label>
-								<select name="atividades[]" multiple="multiple" class="ms-list-1" id="atividades">
-									<?php foreach($filtroAtividades as $term):
-										$showAtividade = get_term_by('id', $term, 'atividades_categories');
-									?>
-										<option value="<?php echo $term; ?>"><?php echo $showAtividade->name; ?></option>
-									<?php endforeach; ?>                                                        
-								</select>
+			<div class="container mt-3 px-0">
+			
+				<div class="search-home search-event py-4 col-12" id='programacao'>
+					<div class="container">
+						
+						<div class="row">
+							<div class="col-sm-12 text-center">							
+								<?php 
+
+									// Unidades
+									$unidades = get_terms( array( 
+										'taxonomy' => 'category',
+										'parent'   => 0,                                
+										'hide_empty' => false,
+										'exclude' => 1
+									) );								
+								?>
 							</div>
+							<form action="<?php echo get_the_permalink(); ?>" class="row col-sm-12">
+								
+								<div class="col-sm-12 col-md-6 px-1">
+									<label for="atividades">Atividade(s) de interesse</label>
+									<select name="atividades[]" multiple="multiple" class="ms-list-1" id="atividades">
+										<?php foreach($filtroAtividades as $term):
+											$showAtividade = get_term_by('id', $term, 'atividades_categories');
+										?>
+											<option value="<?php echo $term; ?>"><?php echo $showAtividade->name; ?></option>
+										<?php endforeach; ?>                                                        
+									</select>
+								</div>
 
-							<div class="col-sm-12 col-md-6 px-1">
-								<label for="detalhes">Detalhe(s) de atividade(s)</label>
-								<select name="atividadesInternas[]" multiple="multiple" class="ms-list-2" id="detalhes">                                
-								</select>
-							</div>
+								<div class="col-sm-12 col-md-6 px-1">
+									<label for="detalhes">Detalhe(s) de atividade(s)</label>
+									<select name="atividadesInternas[]" multiple="multiple" class="ms-list-2" id="detalhes">                                
+									</select>
+								</div>
 
-							<div class="col-sm-5 mt-3 px-1">
-								<label for="tipoData">Data</label>
-								<select name='data' class="form-control" id="tipoData">
-									<option value="" disabled selected>Selecione a data</option>
-									
-									<?php foreach($diasEventos as $dia) : ?>
-										<option value="<?php echo $dia; ?>"><?php echo $this->convertData($dia); ?></option>
-									<?php endforeach; ?>  
-								</select>
-							</div>
-
-							<?php print_r($filtroUnidades); ?>
-
-							<div class="col-sm-12 col-md-6 mt-3 px-1">
-								<label for="unidades">CEUs</label>
-								<select name="unidades[]" multiple="multiple" class="ms-list-5" id="unidades">
-									<?php foreach($filtroUnidades as $term): ?>
-										<option value="<?php echo $term; ?>"><?php echo get_the_title($term); ?></option>
-									<?php endforeach; ?>      
-								</select>
-							</div>
-
-							
-							<div class="col-sm-1 text-right mt-3" style="align-self: flex-end;">
-								<button type="submit" class="btn btn-search rounded-0">Buscar</button>
-							</div>
-							
-						</form> <!-- end form -->
-					</div> <!-- end row -->
+								<div class="col-sm-5 mt-3 px-1">
+									<label for="tipoData">Data</label>
+									<select name='data' class="form-control" id="tipoData">
+										<option value="" disabled selected>Selecione a data</option>
+										
+										<?php foreach($diasEventos as $dia) : ?>
+											<option value="<?php echo $dia; ?>"><?php echo $this->convertData($dia); ?></option>
+										<?php endforeach; ?>  
+									</select>
+								</div>
+								
+								<div class="col-sm-12 col-md-6 mt-3 px-1">
+									<label for="unidades">CEUs</label>
+									<select name="unidades[]" multiple="multiple" class="ms-list-5" id="unidades">
+										<?php foreach($filtroUnidades as $term): ?>
+											<option value="<?php echo $term; ?>"><?php echo get_the_title($term); ?></option>
+										<?php endforeach; ?>      
+									</select>
+								</div>
+								
+								<div class="col-sm-1 text-right mt-3" style="align-self: flex-end;">
+									<button type="submit" class="btn btn-search rounded-0">Buscar</button>
+								</div>
+								
+							</form> <!-- end form -->
+						</div> <!-- end row -->
+					</div>
 				</div>
+
 			</div>
 
-		</div>
+		<?php endif; ?>
 
 		<?php
 						
@@ -341,7 +345,7 @@ class LoopSingleRelacionadas extends LoopSingle
 			if ( $the_query->have_posts() ) {
 
 				echo '<div class="tema-eventos my-4 col-12">';
-                	echo '<div class="container">';
+                	echo '<div class="container px-0">';
 						echo '<div class="row">';
 						
 							while ( $the_query->have_posts() ) {
@@ -354,7 +358,6 @@ class LoopSingleRelacionadas extends LoopSingle
 												
 												$imgSelect = get_field('capa_do_evento', get_the_ID());
 												$tipo = get_field('tipo_de_evento_selecione_o_evento', get_the_ID());
-												$online = get_field('tipo_de_evento_online', get_the_ID());
 																							
 												$featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
 												if($featured_img_url){
@@ -370,14 +373,6 @@ class LoopSingleRelacionadas extends LoopSingle
 											<?php if($tipo && $tipo != '') : 
 												echo '<span class="flag-pdf-full">';
 													echo get_the_title($tipo);
-												echo '</span>';
-											endif; ?>
-											<?php if($online && $online != '') : 
-												if($tipo && $tipo != ''){
-													$customClass = 'mt-tags';
-												}
-												echo '<span class="flag-online flag-pdf-full ' . $customClass . '">';
-													echo "Evento Online";
 												echo '</span>';
 											endif; ?>
 
@@ -444,7 +439,7 @@ class LoopSingleRelacionadas extends LoopSingle
 													} elseif($campos['tipo_de_data'] == 'semana'){ // se for do tipo semana
 														
 														$semana = $campos['dia_da_semana'];													
-                                                
+														
 														$diasSemana = array();
 
 														foreach($semana as $dias){
@@ -455,21 +450,17 @@ class LoopSingleRelacionadas extends LoopSingle
 															
 															foreach($dias['selecione_os_dias'] as $diaS){
 																$i++;
-																//echo $dia . "<br>";
 																if($total - $i == 1){
 																	$diasShow .= $diaS . " ";
 																} elseif($total != $i){
 																	$diasShow .= $diaS . ", ";
-																} elseif($total == 1){
-																	$diasShow = $diaS;
 																} else {
 																	$diasShow .= "e " . $diaS;
 																}	
 																														
 															}
-
+															$show = array();
 															$show[] = $diasShow;
-															
 														}
 														
 														$totalDias = count($show);
@@ -486,7 +477,7 @@ class LoopSingleRelacionadas extends LoopSingle
 															}
 														}
 
-														$dataFinal = $dias;
+														$dataFinal = $dias; 
 
 														$dias = '';
 														$show = '';
@@ -567,7 +558,7 @@ class LoopSingleRelacionadas extends LoopSingle
 											</p>
 											<?php
 												$local = get_field('localizacao', get_the_ID());                                                        
-												if($local == '31248' || $local == '31202'):
+												if($local == '31675' || $local == '31244'):
 											?>
 												<p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></p>
 											<?php else: ?>

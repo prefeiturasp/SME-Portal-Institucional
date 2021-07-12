@@ -83,6 +83,7 @@ class LoopSingleCabecalho extends LoopSingle
 						<?php
 							$post_categories = wp_get_post_categories( $post->ID );
 							$local = get_field('localizacao', $post->ID); 
+							$tipo = get_field('tipo_de_evento_tipo', $post->ID);
 						?>
 
 						<p class="evento-unidade m-0 w-100">
@@ -91,9 +92,12 @@ class LoopSingleCabecalho extends LoopSingle
 								if($local == '31675' || $local == '31244'):
 							?>
 								<?php echo get_the_title($local); ?>
+							<?php elseif($tipo == 'serie'): ?>
+								Múltiplas unidades
 							<?php else: ?>
 								<a href="<?php echo get_the_permalink($local); ?>"><?php echo get_the_title($local); ?></a>
 							<?php endif; ?>
+							
 						</p>
                     </div>
                 </div>

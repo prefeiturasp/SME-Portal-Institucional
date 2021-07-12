@@ -16,7 +16,7 @@ class LoopUnidadesTabs extends LoopUnidades{
         //echo "</pre>";
     ?>
 
-        <div class="container unidade-tab color-<?php echo $infoBasicas['zona_sp']; ?>">  
+        <div class="container unidade-tab color-<?php echo $infoBasicas['zona_sp']; ?>"> 
 
             <ul class="nav nav-tabs d-flex">
                 <li class="active"><a data-toggle="tab" href="#programacao-ceu" class="active">Programação</a></li>
@@ -92,7 +92,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                     </div>
 
                                     <div class="col-sm-3 mt-2 px-1">
-                                        <label for="atividadesinternas" class='d-none'>Selecione as atividades internas</label>
+                                        <label for="atividadesinternas" class='d-none'>Seleciona as atividades internas</label>
                                         <select id="atividadesinternas" name="atividadesInternas[]" multiple="multiple" class="ms-list-2" style="">                                
                                         </select>
                                     </div>
@@ -107,7 +107,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                     </div>
 
                                     <div class="col-sm-3 mt-2 px-1">
-                                        <label for="faixaEtaria" class='d-none'>Selecione a faixa etaria</label>
+                                        <label for="faixaEtaria" class='d-none'>Selecione a faixa etária</label>
                                         <select id="faixaEtaria" name="faixaEtaria[]" multiple="multiple" class="ms-list-4" style="">                        
                                             <?php foreach ($faixas as $faixa): ?>
                                                 <option value="<?php echo $faixa->term_id; ?>"><?php echo $faixa->name; ?></option>
@@ -177,10 +177,10 @@ class LoopUnidadesTabs extends LoopUnidades{
 
                                     <div class="col-sm-3 mt-3 px-1">
                                         <label for="periodos" class='d-none'>Escolha o tipo de data</label>
-                                        <select id="periodos" name="periodos[]" multiple="multiple" class="ms-list-8" style="">                        
-                                            <option value='manha'>Manhã</option>
-                                            <option value='tarde'>Tarde</option>
-                                            <option value='noite'>Noite</option>                                                 
+                                        <select id="periodos" name="periodos[]" multiple="multiple" class="ms-list-8" style="">
+                                                <option value='manha'>Manhã</option>
+                                                <option value='tarde'>Tarde</option>
+                                                <option value='noite'>Noite</option>  
                                         </select>
                                     </div>
                                     <div class="col-sm-12 text-right mt-3">
@@ -206,8 +206,12 @@ class LoopUnidadesTabs extends LoopUnidades{
                                     ),
                                     array(
                                         'key' => 'localizacao',
-                                        'value' => 31248
-                                    )
+                                        'value' => 31675
+                                    ),
+                                    array(
+                                        'key' => 'ceus_participantes_$_localizacao_serie',
+                                        'value' => $id
+                                    ),
                                 )
                             );
                              
@@ -240,8 +244,13 @@ class LoopUnidadesTabs extends LoopUnidades{
                                     ),
                                     array(
                                         'key' => 'localizacao',
-                                        'value' => 31248
-                                    )
+                                        'value' => 31675
+                                    ),
+                                    array(
+                                        'key' => 'ceus_participantes_$_localizacao_serie',
+                                        'value' => $id
+                                    ),
+                                    
                                 )
                             );
 
@@ -263,7 +272,8 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                         $imgSelect = get_field('capa_do_evento', $eventoID);
                                                         $tipo = get_field('tipo_de_evento_selecione_o_evento', $eventoID);
                                                         $online = get_field('tipo_de_evento_online', $eventoID);
-                                                        
+                                                        $tipoEvento = get_field('tipo_de_evento_tipo', $eventoID);
+
                                                         $featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
                                                         if($featured_img_url){
                                                             $imgEvento = $featured_img_url[0];
@@ -275,6 +285,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                         }
                                                     ?>
                                                     <a href="#"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
+                                                    
                                                     <?php if($tipo && $tipo != '') : 
                                                         echo '<span class="flag-pdf-full">';
                                                             echo get_the_title($tipo);
@@ -325,7 +336,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                             ?>
                                                         <a href="#"><?php echo $showAtividades; ?></a>
                                                         
-                                                </div>
+                                                    </div>
                                                     <p class='unidade-title'><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></p>
                                                     <?php
                                                         
@@ -392,7 +403,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                                     }
                                                                 }
 
-                                                                $dataFinal = $dias; 
+                                                                $dataFinal = $dias;  
             
                                                                 $dias = '';
                                                                 $show = '';
@@ -422,7 +433,34 @@ class LoopUnidadesTabs extends LoopUnidades{
             
                                                             }
             
-                                                        } 
+                                                        }
+
+                                                        if($tipoEvento == 'serie'){
+                                                            $participantes = get_field('ceus_participantes',  $eventoID);
+                                                            $countPart = count($participantes);
+                                                            $countPart = $countPart - 1;
+                                                            
+                                                            $dtInicial = $participantes[0]['data_serie'];
+                                                            $dtFinal = $participantes[$countPart]['data_serie'];
+
+                                                            if($dtInicial['tipo_de_data'] == 'data' && $dtFinal['tipo_de_data'] == 'data'){
+                                                                
+                                                                $dataInicial = explode("-", $dtInicial['data']);
+                                                                $dataFinal = explode("-", $dtFinal['data']);
+                                                                $mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+                                                                $mes = translateMonth($mes);
+        
+                                                                $data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+        
+                                                                $dataFinal = $data;
+
+                                                            } else {
+                                                                $dataFinal = 'Múltiplas Datas';
+                                                            }
+
+                                                            
+                                                            
+                                                        }
                                                     ?>
                                                     <p class="mb-0">
                                                         <i class="fa fa-calendar" aria-hidden="true"><span>icone calendario</span></i> <?php echo $dataFinal; ?>
@@ -467,15 +505,20 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                                 $hora = '';
                                                             }
                                                         ?>
-                                                        <?php if($hora) : ?>                                           
+                                                        <?php if($hora && $tipoEvento != 'serie') : ?>                                           
                                                             <i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> <?php echo convertHour($hora); ?>
+                                                        <?php endif; ?>
+                                                        <?php if($tipoEvento == 'serie'): ?>
+                                                            <i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> Múltiplos Horários
                                                         <?php endif; ?>
                                                     </p>
                                                     <?php
                                                         $local = get_field('localizacao', $eventoID);                                                        
-                                                        if($local == '31248' || $local == '31202'):
+                                                        if($local == '31675' || $local == '31244'):
                                                     ?>
                                                         <p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></p>
+                                                    <?php elseif($tipoEvento == 'serie') : ?>
+                                                        <p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> Múltiplas Unidades</p>
                                                     <?php else: ?>
                                                         <p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
                                                     <?php endif; ?>
@@ -512,7 +555,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                 </div>
 
                 <div id="servicos" class="tab-pane fade">
-                <p class='unidade-title'>Confira os serviços disponíveis e Instalações no <?php echo get_the_title(); ?></p>
+                    <p class='unidade-title'>Confira os serviços disponíveis e Instalações no <?php echo get_the_title(); ?></p>
 
                     <div class="row pt-4">
                         <div class="col-sm-12">
@@ -532,7 +575,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                         if($servicos && $servicos != ''):
                     ?>
                     
-                        <div id="accordion" class='pb-4'>
+                        <div id="accordion" class='pb-4 sss'>
 
                             <?php foreach($servicos as $servico): ?>
 
@@ -566,7 +609,7 @@ class LoopUnidadesTabs extends LoopUnidades{
 
                                             <?php if($servico['horario_serv'] && $servico['horario_serv'] != ''): ?>
                                                 <p class='mb-0'><strong>Horário de funcionamento</strong></p>
-                                                <p class='mb-0'><?php echo $servico['horario_serv']['dia_abertura'] . ' a ' . $servico['horario_serv']['dia_fechamento']; ?> - <?php echo $servico['horario_serv']['horario_abertura'] . ' às ' . $servico['horario_serv']['horario_fechamento']; ?></p>
+                                                <p class='mb-0'><?php echo $servico['horario_serv']['dia_abertura'] . ' a ' . $servico['horario_serv']['dia_fechamento']; ?> - <?php echo convertHour($servico['horario_serv']['horario_abertura']) . ' às ' . convertHour($servico['horario_serv']['horario_fechamento']); ?></p>
 
                                                 <?php
                                                     $horaAdicional = $servico['horario_serv']['horario_de_funcionamento'];
@@ -579,7 +622,10 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                                 if($hora['data_final'] && $hora['data_final'] != ''){
                                                                     echo " e " . $hora['data_final'];
                                                                 }
-                                                                echo " - " . $hora['hora_abertura'] . " às " . $hora['hora_fechamento'];
+                                                                $horaInicial = convertHour($hora['hora_abertura']);
+                                                                $horaFinal = convertHour($hora['hora_fechamento']);
+                                                                
+                                                                echo " - " . $horaInicial . " às " . $horaFinal;
                                                             ?>
                                                         </p>
                                                 <?php
@@ -785,6 +831,7 @@ class LoopUnidadesTabs extends LoopUnidades{
 
             </div>
         </div>
+
         <?php $alertas = get_field('alertas'); ?>
         <script>
 			jQuery(document).ready(function ($) {
@@ -828,7 +875,6 @@ class LoopUnidadesTabs extends LoopUnidades{
 				</div>
 			</div>
 		</div>
-        
         
         
     <?php
