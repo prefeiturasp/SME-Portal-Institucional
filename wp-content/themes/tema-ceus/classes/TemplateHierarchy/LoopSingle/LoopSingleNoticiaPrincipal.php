@@ -64,6 +64,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 								$datas = get_field('data'); // Datas
 								$horario = get_field('horario');
 								$tipo_evento = get_field('tipo_de_evento_tipo');
+								$turmas = get_field('turmas');
 								
 								$tipo = get_field('tipo_de_evento_selecione_o_evento', get_the_ID());
 							?>
@@ -263,8 +264,118 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 													
 												?></td>                                    
 											</tr>
-										<?php endif; ?>		
+										<?php endif; ?>	
 										
+										<?php 
+											if($turmas && $turmas != ''):
+										?>
+
+										<?php endif; ?>
+										
+											<tr>
+												<th scope="row" class="align-middle"><i class="fa fa-users" aria-hidden="true"></i></th>
+												<td>
+													<?php foreach($turmas as $turma) :?>
+														
+														<p class="mb-0">
+															<span class='blue-info'><?php echo $turma['nome_da_turma']; ?></span> 
+															- 
+															<?php
+																if($datas){
+
+																	if($datas['tipo_de_data'] == 'data'){ // Se for do tipo data
+																		
+																		$dataEvento = $datas['data'];
+					
+																		$dataEvento = explode("-", $dataEvento);
+																		$mes = date('M', mktime(0, 0, 0, $dataEvento[1], 10));
+																		$mes = translateMonth($mes);
+																		$data = $dataEvento[2] . " " . $mes . " " . $dataEvento[0];
+					
+																		echo $data;
+																		
+																	} else if($datas['tipo_de_data'] == 'periodo'){
+																		
+																		$dataInicial = $datas['data'];
+																		$dataFinal = $datas['data_final'];
+					
+																		if($dataFinal){ // Verifica se possui a data final
+																			$dataInicial = explode("-", $dataInicial);
+																			$dataFinal = explode("-", $dataFinal);
+																			$mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+																			$mes = translateMonth($mes);
+					
+																			$data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+					
+																			$dataFinal = $data;
+																		} else { // Se nao tiver a final mostra apenas a inicial
+																			$dataInicial = explode("-", $dataInicial);
+																			$mes = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
+																			$mes = translateMonth($mes);
+																			$data = $dataInicial[2] . " " . $mes . " " . $dataInicial[0];
+					
+																			$dataFinal = $data;
+																		}
+
+																		echo $dataFinal;
+					
+																	} elseif($datas['tipo_de_data'] == 'semana'){ // se for do tipo semana
+																		
+																		$i = $turma['data'] - 1;
+																		$semana = $datas['dia_da_semana'][$i];
+																		
+																		foreach($semana as $dias){
+					
+																			$total = count($dias); 
+																			$i = 0;
+																			$diasShow = '';
+																			$show = array();
+																			
+																			foreach($dias as $diaS){
+																				$i++;
+																				//echo $dia . "<br>";
+																				if($total - $i == 1){
+																					$diasShow .= $diaS . " ";
+																				} elseif($total != $i){
+																					$diasShow .= $diaS . ", ";
+																				} elseif($total == 1){
+																					$diasShow = $diaS;
+																				} else {
+																					$diasShow .= "e " . $diaS;
+																				}																													
+																			}
+					
+																			echo $diasShow;
+																		}
+																	}
+					
+																}
+															?>
+															- 
+															<?php
+																if($horario['selecione_o_horario'] == 'horario'){
+																	$hora = $horario['hora'];
+																	echo convertHour($hora);
+																} else {
+																	$hora = '';
+																	$i = $turma['horario'] - 1;
+
+																	$periodo = $horario['hora_periodo'][$i];
+																		
+																	if($periodo['periodo_hora_inicio']){
+																		$hora .= $periodo['periodo_hora_inicio'];
+																	} 
+																	
+																	if ($periodo['periodo_hora_final']){
+																		$hora .= ' às ' . $periodo['periodo_hora_final'];
+																	}
+																	echo convertHour($hora);
+																}
+															?>
+														</p>														
+													<?php endforeach; ?>
+												</td>
+											</tr>
 										<?php
 											global $post;
 											$local = get_field('localizacao', $post->ID); 
