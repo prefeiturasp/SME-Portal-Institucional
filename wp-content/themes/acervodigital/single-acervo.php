@@ -525,6 +525,18 @@ function generateRandomString($length = 10) {
 							</div>
 
 						<?php endif; ?>
+
+						<?php
+							$edicao = get_field('edicao_volume');
+							if($edicao){
+								?>
+								<div class="col-6 mb-3">
+									<h3><strong>Edição/Volume do acervo</strong></h3>
+									<p><?php echo $edicao; ?></p>
+								</div>
+								<?php
+							}
+						?>
 						
 						<div class="col-6 mb-3">
 							<h3><strong>Formato de Arquivo</strong></h3>
