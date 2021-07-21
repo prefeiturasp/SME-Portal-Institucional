@@ -74,5 +74,19 @@
 	</div>
 </div>
 <?php wp_footer(); ?> 
+<script>
+	document.onkeyup = PresTab;
+ 
+	function PresTab(e)	{
+		var keycode = (window.event) ? event.keyCode : e.keyCode;
+		
+
+		if (keycode == 9){
+			jQuery('.cabecalho-acessibilidade').show();	
+			jQuery(" a[accesskey='1']").focus();
+			document.onkeyup = null;
+		}
+	}
+</script>
 </body>
 </html>

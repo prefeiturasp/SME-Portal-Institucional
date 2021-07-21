@@ -46,12 +46,13 @@ if( have_rows('fx_flex_layout') ):
 		        	//conteudo flexivel 1 coluna
 					if( have_rows('fx_coluna_1_1') ):
 						echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
-						echo '<div class="container">';//bootstrap container
+						echo '<div class="container-fluid">';//bootstrap container
 						echo '<div class="row">';//bootstrap row
 						echo '<div class="col-sm-12 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
 							while( have_rows('fx_coluna_1_1') ): the_row();
 								//titulo
 								if( get_row_layout() == 'fx_cl1_titulo_1_1' ):
+									echo "<div class='container'>";
 									//echo '<h1 class="mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_1_1').'</h1>';
 									$cab_h = get_sub_field('cabecalho_h_construtor_1_1');
 									$ali_h = get_sub_field('alinhar_h_construtor_1_1');
@@ -63,11 +64,15 @@ if( have_rows('fx_flex_layout') ):
 									}else{
 										echo '<h1 class="text-left mt-3 mb-3 tx_fx_'.$color['value'].'">'.get_sub_field('fx_titulo_1_1').'</h1>';
 									}
+									echo '</div>';
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_1_1' ): 
+									echo "<div class='container'>";
 									echo '<div class="mt-3 mb-3">'.get_sub_field('fx_editor_1_1').'</div>';
+									echo "</div>";
 								//Loops noticias por categorias
 								elseif( get_row_layout() == 'fx_cl1_noticias_1_1' ):
+									echo "<div class='container'>";
 									?>
 									<div  id="noticias_fx" class="row overflow-auto">
 									<?php query_posts(array(
@@ -87,17 +92,22 @@ if( have_rows('fx_flex_layout') ):
 									<?php wp_reset_query(); ?>
 									</div>
 									<?php
+									echo "</div>";
 								//Video Responsivo
 								elseif( get_row_layout() == 'fx_cl1_video_1_1' ): 
+									echo "<div class='container'>";
 									echo '<div class="mt-3 mb-3 video-1">'.get_sub_field('fx_video_1_1').'</div>';
+									echo "</div>";
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_1' ): 
+									echo "<div class='container'>";
 									$imagem_1_1 = get_sub_field('fx_imagem_1_1');//Pega todos os valores da imagem no array
 									echo '<img src="'.$imagem_1_1['url'].'" width="100%" alt="'.$imagem_1_1['alt'].'">';
+									echo "</div>";
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_1_1' ): 		
 									if(get_sub_field('fx_abas_1_1'))://repeater
-										
+										echo "<div class='container'>";
 										//loop menu aba
 										echo '<ul class="nav nav-tabs">';
 											$count=0;
@@ -120,11 +130,12 @@ if( have_rows('fx_flex_layout') ):
 		
 										endwhile;
 										echo '</div>';
-		
+										echo "</div>"; // container
 									 endif;
 								//Sanfona
 								elseif( get_row_layout() == 'fx_cl1_sanfona_1_1' ): 		
 									if(get_sub_field('fx_sanfona_1_1'))://repeater
+										echo "<div class='container'>";
 										//loop sanfona
 										echo '<div id="accordion">';
 											$count=mt_rand(1,99);
@@ -144,11 +155,13 @@ if( have_rows('fx_flex_layout') ):
 													echo '</div>';
 												  echo '</div>';
 											endwhile;
-										echo '</div>';		
+										echo '</div>';
+										echo "</div>"; // container	
 									 endif;
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_1_1' ): 
 									//conteudo flexivel Botão
+									echo "<div class='container'>";
 									if( have_rows('fx_botao_1_1') ):
 										echo '<div class="row mt-3 mb-3">';
 											while ( have_rows('fx_botao_1_1') ) : the_row();
@@ -161,7 +174,84 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';
 									else :
-									endif;	
+									endif;
+									echo "</div>";
+									
+								// Busca Principal
+								elseif( get_row_layout() == 'fx_fl1_busca_1_1' ):
+									$titulo = get_sub_field('fx_titulo_1_1'); // Titulo
+									$descritivo = get_sub_field('fx_texto_busca_1_1'); // Descritivo
+									$imagem = get_sub_field('fx_banner_busca_1_1'); // Background
+								?>
+									
+									<section class="bg-busca pt-4 pb-5 mb-5 busca-const" style="background-position: center;
+										background-repeat: no-repeat;
+										background-size: cover;
+										background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('<?php echo $imagem;?>');">
+
+										<div class="container">
+
+											<div class="row">
+
+												<div class="col-sm-8 offset-sm-2 mt-5 mb-5 text-center text-busca">
+													<h1 class="mb-3"><?php echo $titulo; ?></h1>
+													<?php echo $descritivo; ?>
+												</div>
+
+											</div>
+
+											<div class="row">
+												<div class="col-sm-1"></div>
+												<div class="col-sm-10">
+													<?php get_search_form(); ?>
+												</div>
+												<div class="col-sm-1"></div>
+											</div>
+
+										</div>
+
+									</section>
+
+								<?php
+								// Categorias
+								elseif( get_row_layout() == 'fx_fl_1_categorias_1_1' ):
+									echo "<div class='container'>";
+									echo "<div class='row'>";
+										$titulo = get_sub_field('fx_titulo_1_1');
+
+										if($titulo && $titulo != ''){
+											echo "<div class='col-sm-12 categ-title'><p>" . $titulo . "</p></div>";
+										}
+
+										$categorias = get_sub_field('fx_categorias_1_1');
+									
+										foreach( $categorias as $categoria ):
+											$termo = get_term( $categoria, 'categoria_acervo' );
+											
+											$image = get_field('imagem_cat_acervo', $termo->taxonomy . '_' . $categoria);
+											if($image){
+												$image = get_field('imagem_cat_acervo', $termo->taxonomy . '_' . $categoria);
+											} else {
+												$image = get_field('banner_busca','option');
+											}
+											
+										
+								?>
+											<div class="col-sm-4 cat-home cat-const mb-4">
+												
+												<a href="<?php echo esc_url( get_term_link( $categoria ) ); ?>">
+													<div style="background: url('<?php echo $image;?>'); background-size: cover;">
+														<div class="cat-home-inter">
+															<?php echo esc_html( $termo->name ); ?>	
+														</div>
+													</div>
+												</a>
+
+											</div>
+								<?php
+										endforeach;
+									echo '</div>';
+									echo '</div>';
 								endif;
 							endwhile;
 						echo '</div>';//bootstrap col
