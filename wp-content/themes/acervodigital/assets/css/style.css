@@ -191,6 +191,46 @@ h3 {
     white-space: nowrap;
 }
 
+.menu-item-class.navbar-nav ul li {
+    display: block;
+    padding: 15px 10px;
+    margin-left: -5px !important;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.navbar-collapse .menu-item a {
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+button.navbar-toggler {
+    background: #196CBD;
+    padding: 0.25rem 0.5rem;
+}
+
+.navbar-toggler .close-icon {
+    padding: 5px 7px;
+}
+
+
+/* hide close when burger shown */
+
+.navbar-toggler.collapsed .close-icon {
+    display: none;
+}
+
+.navbar-toggler:not(.collapsed) .navbar-toggler-icon {
+    display: inline;
+}
+
+.menu-title {
+    background: #196CBD;
+    padding: 10px 15px;
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
 
 /*////End header////*/
 
@@ -249,32 +289,38 @@ footer option a {
     color: #000 !important;
 }
 
-.rodape-api-col{
-	padding: 15px 0 0 0;
+.rodape-api-col {
+    padding: 15px 0 0 0;
     font-size: 12px;
     background: #424242;
     color: #fff;
 }
-footer h2{
-	color: #fff;
+
+footer h2 {
+    color: #fff;
     font-size: 15px;
     font-weight: bold;
     line-height: 32px;
 }
-footer a{
-	color: #fff !important;
+
+footer a {
+    color: #fff !important;
 }
-footer{
-	font-size: 13px;
+
+footer {
+    font-size: 13px;
 }
-.seloa img{
-	max-width: 135px !important;
+
+.seloa img {
+    max-width: 135px !important;
 }
-footer .redes-footer{
-	padding-left: 8px;
+
+footer .redes-footer {
+    padding-left: 8px;
 }
-.rede-rodape{
-	max-width: 38px !important;
+
+.rede-rodape {
+    max-width: 38px !important;
     padding-right: 7px;
     padding-left: 7px;
 }
@@ -285,9 +331,41 @@ footer .redes-footer{
 }
 
 @media (max-width: 575px) {
-	.bd-contact {
-		border: 0;
-	}
+    .bd-contact {
+        border: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 105px;
+        left: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+        width: 100%;
+        transition: all 0.4s ease;
+        display: block;
+        z-index: 10;
+        height: 100vh;
+    }
+    .navbar-collapse.collapsing {
+        height: auto !important;
+        margin-left: 50%;
+        left: 50%;
+        transition: all 0.2s ease;
+    }
+    .navbar-collapse.show {
+        left: 0;
+    }
+    a#show {
+        margin-right: 2%;
+    }
+    .busca-const .search-form .btn {
+        width: 48%;
+        margin: 0;
+    }
 }
 
 
@@ -313,13 +391,144 @@ footer .redes-footer{
     justify-content: center;
 }
 
+.cat-const .cat-home-inter {
+    min-height: 200px;
+    background: #196CBD;
+    opacity: 0.8;
+}
+
+.cat-const a {
+    color: #FFFFFF !important;
+}
+
+.cat-const a:hover .cat-home-inter {
+    background: #FFFFFF;
+}
+
+.cat-const a:hover {
+    color: #196CBD !important;
+}
+
 .cat-home-inter a {
     color: #fff;
+}
+
+.categ-title {
+    color: #0048A9;
+    font-weight: bold;
+    font-size: 30px;
 }
 
 .titulo-home {
     font-size: 45px;
     font-weight: bold;
+}
+
+
+/**** Busca ****/
+
+.text-busca h1 {
+    color: #0048A9 !important;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.busca-const .search-form {
+    background: #FFFFFF;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.25);
+    position: absolute;
+    width: 100%;
+    bottom: -107px;
+}
+
+.btn-avanc {
+    color: #007bff !important;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.btn-avanc:hover {
+    color: #FFFFFF !important;
+}
+
+.search-submit {
+    font-weight: bold;
+}
+
+
+/*** Menu Acessibilidade ***/
+
+.cabecalho-acessibilidade,
+.cabecalho-cinza-claro {
+    height: auto;
+    background-color: #F3F3F3;
+    color: #fff !important;
+    font-size: 12px !important;
+    line-height: 20px;
+}
+
+.cabecalho-cinza-claro {
+    background-color: #363636;
+}
+
+.cabecalho-cinza-claro a {
+    text-decoration: underline;
+}
+
+.span-accesskey {
+    padding: 1px 6px;
+    background-color: #196CBD;
+    color: #FFF;
+    font-weight: bold;
+}
+
+.list-inline-item:not(:last-child) {
+    margin-right: 1rem;
+}
+
+
+/* Acessibilidade - Plugin WP Acessibility */
+
+.a11y-toolbar-widget ul {
+    list-style-type: none;
+    margin-top: 1rem!important;
+    margin-left: 0.5rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.a11y-toolbar-widget ul li {
+    float: left;
+    margin-right: 10px;
+}
+
+.a11y-toolbar-widget ul li button {
+    border: none !important;
+    background: none !important;
+    color: #196CBD !important;
+}
+
+.offscreen,
+.aticon-font,
+.aticon-adjust {
+    cursor: pointer;
+}
+
+.offscreen:hover,
+.aticon-font:hover,
+.aticon-adjust:hover {
+    text-decoration: underline;
+}
+
+.select-rodape option {
+    color: #000 !important;
+}
+
+[disabled] option {
+    background: #fff;
+    color: #000;
 }
 
 
@@ -384,8 +593,8 @@ fieldset legend,
 .empty-search {
     display: block;
     margin: 50px auto;
+    max-width: 100%;
 }
-
 
 .embed-responsive iframe {
     height: 100% !important;
@@ -405,20 +614,73 @@ fieldset legend,
     transition: 0.2s;
 }
 
-.words-link a:hover{
+.words-link a:hover {
     border: 1px solid #42474A;
     transition: 0.2s;
 }
 
+
 /*Selo de acessibilidade digital*/
-.sa{position:relative;display:inline-block}
-.sa .st{visibility:hidden;width:220px;background-color:#e2e2e2;color:#000;text-align:left;padding:5px;border-radius:6px;position:absolute;z-index:1;opacity:0;transition:opacity 1s}
-.sa .st div{font-weight:700;text-align:center;margin-bottom:5px}
-.sa .st span{display:block;text-align:center;margin-top:5px}
-.sa:hover .st{visibility:visible;opacity:1}
-.sad .st,.sae .st{top:0}
-.sab .st,.sat .st{margin-left:-110px;left:50%}
-.sat .st{bottom:110%}
-.sab .st{top:90%}
-.sad .st{left:105%}
-.sae .st{right:105%}
+
+.sa {
+    position: relative;
+    display: inline-block
+}
+
+.sa .st {
+    visibility: hidden;
+    width: 220px;
+    background-color: #e2e2e2;
+    color: #000;
+    text-align: left;
+    padding: 5px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1s
+}
+
+.sa .st div {
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 5px
+}
+
+.sa .st span {
+    display: block;
+    text-align: center;
+    margin-top: 5px
+}
+
+.sa:hover .st {
+    visibility: visible;
+    opacity: 1
+}
+
+.sad .st,
+.sae .st {
+    top: 0
+}
+
+.sab .st,
+.sat .st {
+    margin-left: -110px;
+    left: 50%
+}
+
+.sat .st {
+    bottom: 110%
+}
+
+.sab .st {
+    top: 90%
+}
+
+.sad .st {
+    left: 105%
+}
+
+.sae .st {
+    right: 105%
+}

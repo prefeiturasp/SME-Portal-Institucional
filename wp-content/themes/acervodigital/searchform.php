@@ -2,11 +2,11 @@
 <form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ) ?>">
 		<?php /*?><span class="screen-reader-text"><?php _x( 'Pesquisar por:', 'label' )?></span><?php */?>
 	<div class="row" >
-	<div class="col-sm-8"><input type="search" minlength="3" class="form-control search-field campo-busca" placeholder="Busque por título de documento ou palavra-chave" value="<?php echo get_search_query() ?>" name="s" /></div>
-	<div class="col-sm-2 text-left"><button type="submit" class="btn btn-primary search-submit">Buscar</button></div>
-	<div class="col-sm-2 text-left bs-center">
-		<a id="show" >Busca avançada</a>
-	</div>
+		<div class="col-sm-12 mb-2"><input type="search" minlength="3" class="form-control search-field campo-busca" placeholder="Busque por título de documento ou palavra-chave" value="<?php echo get_search_query() ?>" name="s" /></div>
+		<div class="col-sm-12 text-right">
+			<a id="show" class='btn btn-outline-primary btn-avanc'>Busca avançada</a> 
+			<button type="submit" class="btn btn-primary search-submit">Buscar</button>			
+		</div>
 	</div>
 </form>
 </div>

@@ -7,18 +7,27 @@
 </head>
 <body>
 	<header>
-		<section class="top-header">
-			<div class="container">
-				<div class="row">
-					<div class="col-6">
-						Menu acessibilidade
-					</div>
-					<div class="col-6 text-right">
-						Menu acessibilidade
-					</div>
-				</div>
-			</div>
-		</section>
+			<section class="row cabecalho-acessibilidade" style='display: none;'>
+                <section class="container">
+                    <section class="row">
+                        <article class="col-lg-8 col-xs-12 d-flex justify-content-start">
+                            <ul class="list-inline my-3">                                
+                                <li class="list-inline-item"><a accesskey="1" id="1" href="#content" >Ir ao Conteúdo <span class="span-accesskey">1</a></li>
+                                <li class="list-inline-item"><a accesskey="2" id="2" href="#irmenu"  >Ir para menu principal <span class="span-accesskey">2</span></a></li>
+                                <li class="list-inline-item"><a accesskey="3" id="3" href="#simpleform"  >Ir para busca <span class="span-accesskey">3</span></a></li>
+                                <li class="list-inline-item"><a accesskey="4" id="4" href="#irrodape"  >Ir para rodapé <span class="span-accesskey">4</span></a></li>
+                                <li class="list-inline-item"><a href="<?php echo get_home_url(); ?>/acessibilidade/" accesskey="5">Acessibilidade <span class="span-accesskey">5</span> </a></li>
+                            </ul>
+                        </article>
+
+                        <article class="col-lg-4 col-xs-12 d-flex justify-content-end">
+                            <?php dynamic_sidebar('Rodape Esquerda') ?>
+                        </article>
+
+                    </section>
+                </section>
+
+            </section>
 		<section class="sub-top-header">
 			<div class="container">
 				<div class="row">
@@ -71,7 +80,7 @@
 		<section>
 			<div class="container pt-3 pb-5">
 				<div class="row">
-					<div class="col-sm-3 text-center">
+					<div class="col-sm-3 text-center d-none d-lg-block d-xl-block">
 						<a class="logo-principal" href="https://educacao.sme.prefeitura.sp.gov.br/<?php //echo get_site_url(); ?>">
 						<?php
 							$custom_logo_id = get_theme_mod( 'custom_logo' );
@@ -80,15 +89,43 @@
 						?>
 						</a>
 					</div>
-					<div class="menu-home mt-3 col-sm-9">
-						<div class="menu-item"><a href="<?php echo get_site_url(); ?>">Voltar para a tela inicial</a></div>
+					<div class="menu-home mt-3 col-sm-9 d-none d-lg-flex d-xl-flex" id="irmenu">
+						<div class="menu-item"><a href="<?php echo get_site_url(); ?>">Página Inicial</a></div>
 						<?php
 						wp_nav_menu( array( 
 						    'theme_location' => 'menu-principal', 
 						    'container_class' => 'menu-item-class' ) ); 
 						?>
 					</div>
+					<div class='col-sm-12 d-lg-none d-xl-none p-0'>
+						<nav class="navbar navbar-expand-lg navbar-dark bg-white">							
+							<a class="navbar-brand" href="https://educacao.sme.prefeitura.sp.gov.br/<?php //echo get_site_url(); ?>">
+								<?php
+									$custom_logo_id = get_theme_mod( 'custom_logo' );
+									$custom_logo_url = wp_get_attachment_image_url( $custom_logo_id , 'full' );
+									echo '<img src="' . esc_url( $custom_logo_url ) . '" alt="Logotipo da Secretaria Municipal de Educação - Ir para a página principal">';
+								?>
+							</a>
+							<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon"></span>
+								<i class="fa fa-times close-icon" aria-hidden="true"></i>
+							</button>
+							
+							<div class="collapse navbar-collapse bg-white p-0" id="navbarCollapse">
+								<div class="menu-title">
+									Acervo Digital
+								</div>
+								<div class="menu-item"><a href="<?php echo get_site_url(); ?>">Página Inicial</a></div>
+								<?php
+								wp_nav_menu( array( 
+									'theme_location' => 'menu-principal', 
+									'container_class' => 'menu-item-class navbar-nav mr-auto' ) ); 
+								?>
+							</div>
+						</nav>
+					</div>
 				</div>
 			</div>
 		</section>
 	</header>
+	<span id='content'></span>
