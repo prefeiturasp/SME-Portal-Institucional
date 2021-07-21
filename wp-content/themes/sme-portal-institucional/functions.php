@@ -672,6 +672,15 @@ if( function_exists('acf_add_options_page') ) {
 		'update_button' => __('Atualizar', 'acf'),
 		'updated_message' => __("Redes Sociais atualizado com sucesso", 'acf'),
     ));
+
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Redirecionamentos',
+        'menu_title'	=> 'Redirecionamentos',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Redirecionamentos atualizado com sucesso", 'acf'),
+    ));
 }
 ///////////////////////////////////////////////////////////////////
 
@@ -1168,3 +1177,32 @@ add_action( 'wp_roles_init', static function ( \WP_Roles $roles ) {
     $roles->roles['contributor']['name'] = 'Colaborador';
     $roles->role_names['contributor'] = 'Colaborador';
 } );
+
+function redirects_admin() {
+	$links = '';
+	$alllinks = get_field('redirecionar','option');
+
+	foreach($alllinks as $link){
+		$origem = $link['origem'];
+		$origem = str_replace('https://educacao.sme.prefeitura.sp.gov.br', '', $origem);
+		$destino = $link['destino'];
+		$links .= 'redirect 301 ' . $origem . ' ' . $destino . PHP_EOL;
+	}
+	
+	$path = get_home_path();
+    $htaccess_content = file_get_contents( $path . '.htaccess' );
+    $filtered_htaccess_content = trim( preg_replace( '/\# REDIRECTS[\s\S]+?# END REDIRECTS/si',
+	 '# REDIRECTS' . PHP_EOL 
+	 . $links . 
+	 PHP_EOL . '# END REDIRECTS', 
+	 $htaccess_content ) );
+    
+    //print_r($filtered_htaccess_content);
+    $fp = fopen( $path . '.htaccess','w+');
+    if($fp)
+    {
+        fwrite($fp, $filtered_htaccess_content);
+        fclose($fp);
+    }
+}
+add_action('acf/save_post', 'redirects_admin');
