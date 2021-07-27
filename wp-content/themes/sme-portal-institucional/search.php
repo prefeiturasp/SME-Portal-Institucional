@@ -655,15 +655,59 @@
 								</select>
 								<script>
 									//script para mudar a ordem mas antes sanear
-	setTimeout(function(){ 
-	for (var i = jQuery('[name=tipoconteudo] option').length; i > 0; i--) { 
-	console.log(i)
-	if(jQuery('[name=tipoconteudo] option').eq(i).attr('style') == "display: none;") jQuery('[name=tipoconteudo] option').eq(i).remove()
-	}
-	}, 20);
-	setTimeout(function(){ 
-	jQuery('[name=tipoconteudo] option:eq(5)').insertBefore(jQuery('[name=tipoconteudo] option:eq(1)'));
-				}, 100);
+									jQuery('#sel1c option[value="page1"]').insertBefore(jQuery('#sel1c option:eq(1)')); // Pagina Portal
+									jQuery('#sel1c option[value="post1"]').insertBefore(jQuery('#sel1c option:eq(2)')); // Noticia Portal
+
+									jQuery('#sel1c option[value="page8"]').insertBefore(jQuery('#sel1c option:eq(3)')); // Pagina DRE Butanta
+									jQuery('#sel1c option[value="post8"]').insertBefore(jQuery('#sel1c option:eq(4)')); // Noticia DRE Butanta
+
+									jQuery('#sel1c option[value="page20"]').insertBefore(jQuery('#sel1c option:eq(5)')); // Pagina DRE Campo Limpo
+									jQuery('#sel1c option[value="post20"]').insertBefore(jQuery('#sel1c option:eq(6)')); // Noticia DRE Campo Limpo
+
+									jQuery('#sel1c option[value="page9"]').insertBefore(jQuery('#sel1c option:eq(7)')); // Pagina DRE Capela
+									jQuery('#sel1c option[value="post9"]').insertBefore(jQuery('#sel1c option:eq(8)')); // Noticia DRE Capela
+
+									jQuery('#sel1c option[value="page10"]').insertBefore(jQuery('#sel1c option:eq(9)')); // Pagina DRE Freg/Bras
+									jQuery('#sel1c option[value="post10"]').insertBefore(jQuery('#sel1c option:eq(10)')); // Noticia DRE Freg/Bras
+
+									jQuery('#sel1c option[value="page11"]').insertBefore(jQuery('#sel1c option:eq(11)')); // Pagina DRE Guianases
+									jQuery('#sel1c option[value="post11"]').insertBefore(jQuery('#sel1c option:eq(12)')); // Noticia DRE Guianases
+
+									jQuery('#sel1c option[value="page12"]').insertBefore(jQuery('#sel1c option:eq(13)')); // Pagina DRE Ipiranga
+									jQuery('#sel1c option[value="post12"]').insertBefore(jQuery('#sel1c option:eq(14)')); // Noticia DRE Ipiranga
+
+									jQuery('#sel1c option[value="page13"]').insertBefore(jQuery('#sel1c option:eq(15)')); // Pagina DRE Itaquera
+									jQuery('#sel1c option[value="post13"]').insertBefore(jQuery('#sel1c option:eq(16)')); // Noticia DRE Itaquera
+
+									jQuery('#sel1c option[value="page14"]').insertBefore(jQuery('#sel1c option:eq(17)')); // Pagina DRE Jacana/Tremb
+									jQuery('#sel1c option[value="post14"]').insertBefore(jQuery('#sel1c option:eq(18)')); // Noticia DRE Jacana/Tremb
+
+									jQuery('#sel1c option[value="page15"]').insertBefore(jQuery('#sel1c option:eq(19)')); // Pagina DRE Penha
+									jQuery('#sel1c option[value="post15"]').insertBefore(jQuery('#sel1c option:eq(20)')); // Noticia DRE Penha
+
+									jQuery('#sel1c option[value="page16"]').insertBefore(jQuery('#sel1c option:eq(21)')); // Pagina DRE Pirituba
+									jQuery('#sel1c option[value="post16"]').insertBefore(jQuery('#sel1c option:eq(22)')); // Noticia DRE Pirituba
+
+									jQuery('#sel1c option[value="page17"]').insertBefore(jQuery('#sel1c option:eq(23)')); // Pagina DRE S Amaro
+									jQuery('#sel1c option[value="post17"]').insertBefore(jQuery('#sel1c option:eq(24)')); // Noticia DRE S Amaro
+
+									jQuery('#sel1c option[value="page18"]').insertBefore(jQuery('#sel1c option:eq(25)')); // Pagina DRE S Mateus
+									jQuery('#sel1c option[value="post18"]').insertBefore(jQuery('#sel1c option:eq(26)')); // Noticia DRE S Mateus
+
+									jQuery('#sel1c option[value="page19"]').insertBefore(jQuery('#sel1c option:eq(27)')); // Pagina DRE S Miguel
+									jQuery('#sel1c option[value="post19"]').insertBefore(jQuery('#sel1c option:eq(28)')); // Noticia DRE S Miguel
+
+									jQuery('#sel1c option[value="page5"]').insertBefore(jQuery('#sel1c option:eq(29)')); // Pagina CME
+									jQuery('#sel1c option[value="post5"]').insertBefore(jQuery('#sel1c option:eq(30)')); // Noticia CME
+
+									jQuery('#sel1c option[value="page4"]').insertBefore(jQuery('#sel1c option:eq(31)')); // Pagina CAE
+									jQuery('#sel1c option[value="post4"]').insertBefore(jQuery('#sel1c option:eq(32)')); // Noticia CAE
+
+									jQuery('#sel1c option[value="page6"]').insertBefore(jQuery('#sel1c option:eq(33)')); // Pagina CACS
+									jQuery('#sel1c option[value="post6"]').insertBefore(jQuery('#sel1c option:eq(34)')); // Noticia CACS
+
+									jQuery('#sel1c option[value="page7"]').insertBefore(jQuery('#sel1c option:eq(35)')); // Pagina CRECE
+									jQuery('#sel1c option[value="post7"]').insertBefore(jQuery('#sel1c option:eq(36)')); // Noticia CRECE
 								</script>
 							</div>
 
@@ -710,14 +754,30 @@
 									}
 									?>
 								</select>
-	<script>
-		//coloca o id do site atual na variavel
-		var pageId = <?php echo $current->id; ?>;
-		//script para mudar a ordem dos sites
-		jQuery('#sel3sites option[value="'+pageId+'"]').insertBefore(jQuery('#sel3sites option:eq(1)'));//recebe o valor da variavel
-		jQuery('#sel3sites option[value="6"]').insertBefore(jQuery('#sel3sites option:eq(2)'));
-		jQuery('#sel3sites option[value="7"]').insertBefore(jQuery('#sel3sites option:eq(3)'));
-	</script>
+								<script>
+									//coloca o id do site atual na variavel
+									var pageId = <?php echo $current->id; ?>;
+									//script para mudar a ordem dos sites
+									//jQuery('#sel3sites option[value="'+pageId+'"]').insertBefore(jQuery('#sel3sites option:eq(1)'));//recebe o valor da variavel
+									jQuery('#sel3sites option[value="1"]').insertBefore(jQuery('#sel3sites option:eq(1)')); // Portal
+									jQuery('#sel3sites option[value="8"]').insertBefore(jQuery('#sel3sites option:eq(2)')); // DRE Butantã
+									jQuery('#sel3sites option[value="20"]').insertBefore(jQuery('#sel3sites option:eq(3)')); // DRE Campo Limpo
+									jQuery('#sel3sites option[value="9"]').insertBefore(jQuery('#sel3sites option:eq(4)')); // DRE Capela do Socorro
+									jQuery('#sel3sites option[value="10"]').insertBefore(jQuery('#sel3sites option:eq(5)')); // DRE Freg/Bras
+									jQuery('#sel3sites option[value="11"]').insertBefore(jQuery('#sel3sites option:eq(6)')); // DRE Guaianases
+									jQuery('#sel3sites option[value="12"]').insertBefore(jQuery('#sel3sites option:eq(7)')); // DRE Ipiranga
+									jQuery('#sel3sites option[value="13"]').insertBefore(jQuery('#sel3sites option:eq(8)')); // DRE Itaquera
+									jQuery('#sel3sites option[value="14"]').insertBefore(jQuery('#sel3sites option:eq(9)')); // DRE Jaçanã/Tremembé
+									jQuery('#sel3sites option[value="15"]').insertBefore(jQuery('#sel3sites option:eq(10)')); // DRE Penha
+									jQuery('#sel3sites option[value="16"]').insertBefore(jQuery('#sel3sites option:eq(11)')); // DRE Pirituba
+									jQuery('#sel3sites option[value="17"]').insertBefore(jQuery('#sel3sites option:eq(12)')); // DRE Santo Amaro
+									jQuery('#sel3sites option[value="18"]').insertBefore(jQuery('#sel3sites option:eq(13)')); // DRE São Mateus
+									jQuery('#sel3sites option[value="19"]').insertBefore(jQuery('#sel3sites option:eq(14)')); // DRE São Miguel
+									jQuery('#sel3sites option[value="5"]').insertBefore(jQuery('#sel3sites option:eq(15)')); // CME
+									jQuery('#sel3sites option[value="4"]').insertBefore(jQuery('#sel3sites option:eq(16)')); // CAE
+									jQuery('#sel3sites option[value="6"]').insertBefore(jQuery('#sel3sites option:eq(17)')); // CACS
+									jQuery('#sel3sites option[value="7"]').insertBefore(jQuery('#sel3sites option:eq(18)')); // CRECE
+								</script>
 							
 												</div>
 
