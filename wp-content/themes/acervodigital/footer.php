@@ -6,18 +6,18 @@
 			</div>
 			<div class="col-sm-3 align-middle bd-contact">
 				<h2 class='pt-3'><?php the_field('nome_da_secretaria','conf-rodape'); ?></h2>
-				<i class="fa fa-map-marker float-left pr-1" aria-hidden="true" style="padding-top: 3px;"></i> <?php the_field('endereco_da_secretaria','conf-rodape'); ?>
+				<i class="fa fa-map-marker float-left pr-1" aria-hidden="true" style="padding-top: 3px;"><span class='d-none'>icone telefone</span></i> <?php the_field('endereco_da_secretaria','conf-rodape'); ?>
 			</div>
 			<div class="col-sm-3 align-middle">
 				<h2 class='pt-3'>Contatos</h2>
 				
 				<?php if(get_field('telefone','conf-rodape')) :?>
-					<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:<?php the_field('telefone','conf-rodape'); ?>"><?php the_field('telefone','conf-rodape'); ?></a></p>
+					<p><i class="fa fa-phone" aria-hidden="true"><span class='d-none'>icone telefone</span></i> <a href="tel:<?php the_field('telefone','conf-rodape'); ?>"><?php the_field('telefone','conf-rodape'); ?></a></p>
 				<?php endif; ?>
 				
 				
 				<?php if(get_field('email','conf-rodape')) :?>
-					<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:<?php the_field('email','conf-rodape'); ?>"><?php the_field('email','conf-rodape'); ?></a></p>
+					<p><i class="fa fa-envelope" aria-hidden="true"><span class='d-none'>icone email</span></i> <a href="mailto:<?php the_field('email','conf-rodape'); ?>"><?php the_field('email','conf-rodape'); ?></a></p>
 				<?php endif; ?>
 				
 				
@@ -88,5 +88,6 @@
 		}
 	}
 </script>
+<noscript>Seu navegador não suporta JavaScript!</noscript>
 </body>
 </html>
