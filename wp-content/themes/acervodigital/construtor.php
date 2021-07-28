@@ -184,7 +184,7 @@ if( have_rows('fx_flex_layout') ):
 									$imagem = get_sub_field('fx_banner_busca_1_1'); // Background
 								?>
 									
-									<section class="bg-busca pt-4 pb-5 mb-5 busca-const" style="background-position: center;
+									<div class="bg-busca busca-const" style="background-position: center;
 										background-repeat: no-repeat;
 										background-size: cover;
 										background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('<?php echo $imagem;?>');">
@@ -193,7 +193,7 @@ if( have_rows('fx_flex_layout') ):
 
 											<div class="row">
 
-												<div class="col-sm-8 offset-sm-2 mt-5 mb-5 text-center text-busca">
+												<div class="col-sm-8 offset-sm-2 pt-4 mt-5 mb-5 text-center text-busca">
 													<h1 class="mb-3"><?php echo $titulo; ?></h1>
 													<?php echo $descritivo; ?>
 												</div>
@@ -201,16 +201,14 @@ if( have_rows('fx_flex_layout') ):
 											</div>
 
 											<div class="row">
-												<div class="col-sm-1"></div>
-												<div class="col-sm-10">
+												<div class="col-sm-10 offset-sm-1">
 													<?php get_search_form(); ?>
 												</div>
-												<div class="col-sm-1"></div>
 											</div>
 
 										</div>
 
-									</section>
+									</div>
 
 								<?php
 								// Categorias

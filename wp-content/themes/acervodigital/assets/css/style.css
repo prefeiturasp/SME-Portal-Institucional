@@ -366,6 +366,9 @@ footer .redes-footer {
         width: 48%;
         margin: 0;
     }
+    .busca-const .search-form .btn-avanc-m {
+        margin-right: 2%;
+    }
 }
 
 
@@ -435,12 +438,10 @@ footer .redes-footer {
 
 .busca-const .search-form {
     background: #FFFFFF;
-    padding: 20px;
+    padding: 30px;
     box-sizing: border-box;
     box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.25);
-    position: absolute;
     width: 100%;
-    bottom: -107px;
 }
 
 .btn-avanc {
@@ -455,6 +456,95 @@ footer .redes-footer {
 
 .search-submit {
     font-weight: bold;
+}
+
+
+/************************************/
+
+.bg-busca {
+    background-repeat: repeat-x !important;
+}
+
+.search-form .form-control,
+#advancedform .form-control,
+#buscaAvanc .form-control {
+    border: 1px solid #0048A9;
+}
+
+#advancedform form {
+    background: #FFFFFF;
+    box-sizing: border-box;
+    box-shadow: 0 0 4px 0 rgb(0 0 0 / 25%);
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#advancedform label,
+#simpleform label,
+#buscaAvanc label {
+    color: #0048A9;
+}
+
+#buscaAvanc .modal-title {
+    color: #196CBD;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#buscaAvanc .modal-header {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    border-bottom: 1px solid #DADADA;
+}
+
+#buscaAvanc .modal-header .close {
+    color: #196CBD;
+    opacity: 1;
+}
+
+#buscaAvanc .modal-header .close:hover {
+    opacity: 0.6;
+}
+
+.modal.left .modal-dialog,
+.modal.right .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 320px;
+    height: 100%;
+    right: 0;
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content,
+.modal.right .modal-content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.modal.left .modal-body,
+.modal.right .modal-body {
+    padding: 15px 15px 80px;
+}
+
+
+/*Right*/
+
+.modal.right.fade .modal-dialog {
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+    right: 0;
 }
 
 

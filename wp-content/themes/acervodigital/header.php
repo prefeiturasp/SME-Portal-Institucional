@@ -12,7 +12,7 @@
                     <section class="row">
                         <article class="col-lg-8 col-xs-12 d-flex justify-content-start">
                             <ul class="list-inline my-3">                                
-                                <li class="list-inline-item"><a accesskey="1" id="1" href="#content" >Ir ao Conteúdo <span class="span-accesskey">1</a></li>
+                                <li class="list-inline-item"><a accesskey="1" id="1" href="#content" >Ir ao Conteúdo <span class="span-accesskey">1</span></a></li>
                                 <li class="list-inline-item"><a accesskey="2" id="2" href="#irmenu"  >Ir para menu principal <span class="span-accesskey">2</span></a></li>
                                 <li class="list-inline-item"><a accesskey="3" id="3" href="#simpleform"  >Ir para busca <span class="span-accesskey">3</span></a></li>
                                 <li class="list-inline-item"><a accesskey="4" id="4" href="#irrodape"  >Ir para rodapé <span class="span-accesskey">4</span></a></li>
@@ -32,9 +32,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-6">
-						<a class="mr-3" href="http://transparencia.prefeitura.sp.gov.br/acesso-a-informacao">Acesso à informação e-sic</a>
+						<a class="mr-3" href="http://esic.prefeitura.sp.gov.br/Account/Login.aspx">Acesso à informação e-sic</a>
 						<a class="mr-3" href="https://www.prefeitura.sp.gov.br/cidade/secretarias/ouvidoria/fale_com_a_ouvidoria/index.php?p=464">Ouvidoria</a>
-						<a class="mr-3" href="http://transparencia.prefeitura.sp.gov.br/Paginas/home.aspx">Portal da Transparência</a>
+						<a class="mr-3" href="http://transparencia.prefeitura.sp.gov.br/">Portal da Transparência</a>
 						<a class="mr-3" href="https://sp156.prefeitura.sp.gov.br/portal/servicos">SP 156</a>
 					</div>
 					<div class="col-6 text-right">
@@ -107,8 +107,8 @@
 								?>
 							</a>
 							<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-								<span class="navbar-toggler-icon"></span>
-								<i class="fa fa-times close-icon" aria-hidden="true"></i>
+								<span class="navbar-toggler-icon"><span class='d-none'>icone abrir</span></span>
+								<i class="fa fa-times close-icon" aria-hidden="true"><span class='d-none'>icone fechar</span></i>
 							</button>
 							
 							<div class="collapse navbar-collapse bg-white p-0" id="navbarCollapse">
@@ -128,4 +128,4 @@
 			</div>
 		</section>
 	</header>
-	<span id='content'></span>
+	<span id='content'><p class='d-none'>inicio do conteudo</p></span>
