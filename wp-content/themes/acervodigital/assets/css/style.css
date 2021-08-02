@@ -51,7 +51,7 @@ h3 {
 
 .acervo-display {
     border: solid 1px #E4E4E4;
-    margin: 5px;
+    margin: 0;
 }
 
 .custom-tags {
@@ -79,14 +79,9 @@ h3 {
         width: 100% !important;
         max-height: max-content !important;
     }
-    .flag-pdf-full {
-        margin-left: -319px !important;
-    }
 }
 
 .flag img {
-    /*width: 100%;*/
-    max-height: 300px;
     max-width: 100%;
 }
 
@@ -361,6 +356,7 @@ footer .redes-footer {
     }
     a#show {
         margin-right: 2%;
+        display: none !important;
     }
     .busca-const .search-form .btn {
         width: 48%;
@@ -454,12 +450,26 @@ footer .redes-footer {
     color: #FFFFFF !important;
 }
 
+.btn-avanc-f {
+    border: 0;
+    margin-bottom: 20px;
+    margin-top: -15px;
+    font-size: 20px;
+}
+
 .search-submit {
     font-weight: bold;
 }
 
 
 /************************************/
+
+p.title-filter {
+    margin: 0;
+    color: #0048A9;
+    font-size: 30px;
+    font-weight: bold;
+}
 
 .bg-busca {
     background-repeat: repeat-x !important;
@@ -486,13 +496,15 @@ footer .redes-footer {
     color: #0048A9;
 }
 
-#buscaAvanc .modal-title {
+#buscaAvanc .modal-title,
+#filtroBusca .modal-title {
     color: #196CBD;
     font-size: 16px;
     font-weight: bold;
 }
 
-#buscaAvanc .modal-header {
+#buscaAvanc .modal-header,
+#filtroBusca .modal-header {
     padding-left: 0;
     padding-right: 0;
     margin-left: 1.5rem;
@@ -500,12 +512,14 @@ footer .redes-footer {
     border-bottom: 1px solid #DADADA;
 }
 
-#buscaAvanc .modal-header .close {
+#buscaAvanc .modal-header .close,
+#filtroBusca .modal-header .close {
     color: #196CBD;
     opacity: 1;
 }
 
-#buscaAvanc .modal-header .close:hover {
+#buscaAvanc .modal-header .close:hover,
+#filtroBusca .modal-header .close:hover {
     opacity: 0.6;
 }
 
@@ -547,6 +561,13 @@ footer .redes-footer {
     right: 0;
 }
 
+.wp-pagenavi a,
+.wp-pagenavi .current {
+    padding: 8px 13px;
+    border-radius: 0;
+    border-color: #DADADA !important;
+}
+
 
 /*** Menu Acessibilidade ***/
 
@@ -576,6 +597,10 @@ footer .redes-footer {
 
 .list-inline-item:not(:last-child) {
     margin-right: 1rem;
+}
+
+.cat-flag {
+    color: #42474A;
 }
 
 
@@ -710,67 +735,69 @@ fieldset legend,
 }
 
 
-/*Selo de acessibilidade digital*/
+/**** Accordeon ****/
 
-.sa {
+.panel-heading {
     position: relative;
-    display: inline-block
 }
 
-.sa .st {
-    visibility: hidden;
-    width: 220px;
-    background-color: #e2e2e2;
-    color: #000;
-    text-align: left;
-    padding: 5px;
-    border-radius: 6px;
+.panel-heading .accordion-toggle:after {
+    content: '\f107';
     position: absolute;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 1s
-}
-
-.sa .st div {
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 5px
-}
-
-.sa .st span {
+    top: 50%;
+    right: 0.8rem;
+    transform: translateY(-50%);
     display: block;
-    text-align: center;
-    margin-top: 5px
+    font-family: 'FontAwesome';
+    font-size: 1.1rem;
 }
 
-.sa:hover .st {
-    visibility: visible;
-    opacity: 1
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: '\f106';
 }
 
-.sad .st,
-.sae .st {
-    top: 0
+.acord-busca #collapseCateg a .fa {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
 }
 
-.sab .st,
-.sat .st {
-    margin-left: -110px;
-    left: 50%
+.acord-busca #collapseCateg p,
+.acord-busca #collapseCategMob p {
+    margin-bottom: 5px;
 }
 
-.sat .st {
-    bottom: 110%
+.acord-busca #collapseCateg p a,
+.acord-busca #collapseCategMob p a {
+    color: #000000;
 }
 
-.sab .st {
-    top: 90%
+.acord-busca .panel-default {
+    margin-bottom: 20px;
 }
 
-.sad .st {
-    left: 105%
+.acord-busca .panel-title {
+    background: #0048A9;
+    padding: 8px 10px;
+    margin: 0;
 }
 
-.sae .st {
-    right: 105%
+.acord-busca .panel-title a {
+    color: #FFFFFF;
+    font-size: 18px;
+}
+
+.acord-busca .panel-body {
+    border: 1px solid #DADADA;
+    padding: 10px;
+    color: #000000;
+}
+
+.btn-filtro {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-left: -15px;
+    border-radius: 0;
 }

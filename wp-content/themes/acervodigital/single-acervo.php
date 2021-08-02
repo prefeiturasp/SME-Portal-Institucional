@@ -58,8 +58,12 @@ function generateRandomString($length = 10) {
 					<img src="<?php
 							  if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'pdf'){
 								 echo $file['icon']; 
-							  }else if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'xlsx'){
-								 echo $file['icon'];
+							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'xlsx' || $stringSeparada[1] == 'xls') ){
+								echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-xls.jpg';
+							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'docx' || $stringSeparada[1] == 'doc') ){
+								echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
+							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'pptx' || $stringSeparada[1] == 'ppt') ){
+								echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
 							  }else if(get_field('substituir_capa_acervo_digital') != ''){
 								 echo get_field('substituir_capa_acervo_digital'); 
 							  }else{
@@ -298,14 +302,9 @@ function generateRandomString($length = 10) {
 						
 						
 						<div class="col-12 mb-3">
-							<?php
-							 $categorias = get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' ', '');
-							 if($categorias): ?>
-								<h3><strong>Categoria</strong></h3>
-								<p><span class="words-link"><?php echo get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' ', ''); ?></span></p>
-							<?php endif; ?>
-						</div>
-							<?php
+							<h3><strong>Categoria</strong></h3>
+							<p><span class="words-link"><?php echo  get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' ', ''); ?></span></p>
+						</div>						<?php
 							$terms = get_field('autor_acervo_digital');
 							if(get_field('autor_acervo_digital') != ''){
 								?>
@@ -537,6 +536,7 @@ function generateRandomString($length = 10) {
 								<?php
 							}
 						?>
+
 						
 						<div class="col-6 mb-3">
 							<h3><strong>Formato de Arquivo</strong></h3>
@@ -547,17 +547,14 @@ function generateRandomString($length = 10) {
 
 										foreach($partional as $format){
 											$format = explode(".", $format);
-											$formats[] = $format[6];
+											$formats[] = $format[6];											
 										}
 
 										// Remover formatos duplicados
 										$formats = array_unique($formats);
 
 										echo implode(", ", $formats);
-
-										//echo "<pre>";
-										//print_r($formats);
-										//echo "</pre>";
+										
 									}
 									elseif($stringSeparada[1] != ''){
 										echo $stringSeparada[1];
@@ -566,7 +563,8 @@ function generateRandomString($length = 10) {
 									}
 								?>
 							</p>
-						</div>						<div class="col-6 mb-3">
+						</div>						
+						<div class="col-6 mb-3">
 							<h3><strong>Tamanho do Arquivo</strong></h3>
 							<p><?php
 								if( $file['filesize']  != ''){
@@ -576,7 +574,6 @@ function generateRandomString($length = 10) {
 								}
 								?></p>
 						</div>
-						
 						<?php 
 							$terms = get_field('idioma_acervo_digital');
 							if( $terms ): ?>
@@ -591,7 +588,6 @@ function generateRandomString($length = 10) {
 									<?php endforeach; ?>
 								</div>
 						<?php endif; ?>
-						
 						<div class="col-6 mb-3">
 							<h3><strong>Quantidade de páginas</strong></h3>
 							<p><?php the_field('qt_de_paginas_acervo_digital'); ?></p>
