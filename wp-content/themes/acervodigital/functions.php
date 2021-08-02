@@ -435,3 +435,24 @@ function theme_slug_widgets_init()
 	}
 
 add_action( 'widgets_init', 'theme_slug_widgets_init' );
+
+
+add_action( 'after_setup_theme', 'wpdocs_theme_setup' );
+function wpdocs_theme_setup() {
+    add_image_size( 'capa-acervo', 372, 479, true ); // (cropped)
+}
+
+function removeParam($url, $varname){
+    $parsedUrl = parse_url($url);
+    $query = array();
+
+    if (isset($parsedUrl['query'])) {
+        parse_str($parsedUrl['query'], $query);
+        unset($query[$varname]);
+    }
+
+    $path = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
+    $query = !empty($query) ? '?'. http_build_query($query) : '';
+
+    return $parsedUrl['scheme']. '://'. $parsedUrl['host']. $path. $query;
+}

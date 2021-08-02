@@ -26,7 +26,7 @@
 
 <div id="advancedform" style="display: none">
 <form method="get" class="text-left" action="<?php echo esc_url( home_url( '/' ) ) ?>">
-	
+		<input type="hidden" name="avanc" value='1'>
 		<div class="row">
 			<div class="col-sm-12 p-4">
 				<div class="row">
@@ -43,7 +43,7 @@
 						   <?php $project_types = get_categories('taxonomy=categoria_acervo'); ?>
 						   <option value="">Selecione a categoria</option>
 						   <?php foreach ($project_types as $project_type) { ?>
-							  <option value="<?php echo $project_type->slug; ?>">
+							  <option value="<?php echo $project_type->term_id; ?>">
 								 <?php echo $project_type->name; ?>
 							  </option>
 						   <?php } ?>
@@ -55,7 +55,7 @@
 						   <?php $project_types = get_categories('taxonomy=palavra'); ?>
 						   <option value="">Escreva a palavra chave</option>
 						   <?php foreach ($project_types as $project_type) { ?>
-							  <option value="<?php echo $project_type->slug; ?>">
+							  <option value="<?php echo $project_type->term_id; ?>">
 								 <?php echo $project_type->name; ?>
 							  </option>
 						   <?php } ?>
@@ -70,11 +70,11 @@
 							  <option value="03">Março</option>
 						</select><?php */?>
 						<label for="type">Idioma da publicação</label>
-						<select id="type" name="idioma" class="selectpicker form-control" data-live-search="true">
+						<select id="type" name="idioma[]" class="selectpicker form-control" data-live-search="true">
 						   <?php $project_types = get_categories('taxonomy=idioma'); ?>
 						   <option value="">Selecione o idioma</option>
 						   <?php foreach ($project_types as $project_type) { ?>
-							  <option value="<?php echo $project_type->slug; ?>">
+							  <option value="<?php echo $project_type->term_id; ?>">
 								 <?php echo $project_type->name; ?>
 							  </option>
 						   <?php } ?>
@@ -82,7 +82,7 @@
 					</div>
 					<div class="col-sm-3 mt-2 mb-2">
 						<label for="type">Ano de publicação</label>
-						<select id="ano_select" name="ano_da_publicacao_acervo_digital" class="selectpicker form-control" data-live-search="true" >
+						<select id="ano_select" name="ano[]" class="selectpicker form-control" data-live-search="true" >
 							<?php
 							$loop = new WP_Query( array(
 								'post_type' => 'acervo',
@@ -109,11 +109,11 @@
 					</div>
 					<div class="col-sm-3 mt-2 mb-2">
 						<label for="type">Setor responsável</label>
-						<select id="type" name="setor" class="selectpicker form-control" data-live-search="true">
+						<select id="type" name="setor[]" class="selectpicker form-control" data-live-search="true">
 						   <?php $project_types = get_categories('taxonomy=setor'); ?>
 						   <option value="">Selecione o setor</option>
 						   <?php foreach ($project_types as $project_type) { ?>
-							  <option value="<?php echo $project_type->slug; ?>">
+							  <option value="<?php echo $project_type->term_id; ?>">
 								 <?php echo $project_type->name; ?>
 							  </option>
 						   <?php } ?>
@@ -125,7 +125,7 @@
 						   <?php $project_types = get_categories('taxonomy=autor'); ?>
 						   <option value="">Escreva o nome do autor</option>
 						   <?php foreach ($project_types as $project_type) { ?>
-							  <option value="<?php echo $project_type->slug; ?>">
+							  <option value="<?php echo $project_type->term_id; ?>">
 								 <?php echo $project_type->name; ?>
 							  </option>
 						   <?php } ?>
