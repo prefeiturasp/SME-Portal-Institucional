@@ -236,8 +236,8 @@ if( have_rows('fx_flex_layout') ):
 										
 								?>
 											<div class="col-sm-4 cat-home cat-const mb-4">
-												
-												<a href="<?php echo esc_url( get_term_link( $categoria ) ); ?>">
+																					
+												<a href="<?php echo get_home_url() . '/?avanc=1&categ=1&s=&categoria_acervo=' .  $termo->term_id;?>">
 													<div style="background: url('<?php echo $image;?>'); background-size: cover;">
 														<div class="cat-home-inter">
 															<?php echo esc_html( $termo->name ); ?>	
