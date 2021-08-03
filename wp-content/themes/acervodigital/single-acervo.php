@@ -48,13 +48,36 @@ function generateRandomString($length = 10) {
 						endwhile;
 
 					endif;
+
+					$tipo = get_field('tipos_de_documentos'); // Tipo de documento
 				?>
 
 				<div class="col-sm-12 mb-4">
-					<h2><strong><?php the_title(); ?></strong></h2>
-				</div>	
+					<a href="<?php echo get_home_url(); ?>"><i class="fa fa-chevron-left" aria-hidden="true"></i> Voltar ao resultado de busca</a>
+				</div>
 
-				<div class="col-sm-6">
+				<div class="col-sm-12 d-lg-none d-xl-none">
+					<p class='title-acervo title-mobile'><strong><?php the_title(); ?></strong></p>
+					<div class="infos mt-3 d-flex justify-content-between">
+						<p>
+							<?php 
+								$categories = get_the_terms(get_the_ID(), 'categoria_acervo' );
+								$n = 0;
+								foreach($categories as $categoria){
+									if($n == 0){
+										echo "<a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $categoria->term_id . "'>" . $categoria->name . "</a>";
+									} else {
+										echo " / <a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $categoria->term_id . "'>" . $categoria->name . "</a>";
+									}
+									$n++;
+								}									
+							?>
+						</p>
+					</div>
+				</div>
+
+				<div class="col-md-4 col-12">
+
 					<img src="<?php
 							  if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'pdf'){
 								 echo $file['icon']; 
@@ -69,7 +92,89 @@ function generateRandomString($length = 10) {
 							  }else{
 								 echo $file['url'];
 							  }
-							  ?>" alt="<?php the_field('campo_alt_acervo_digital'); ?>" width="100%">					
+							  ?>" alt="<?php the_field('campo_alt_acervo_digital'); ?>" class='shadow-sm img-mobile'>
+
+					<?php 
+						if($file['url'] != ''){
+							$url = $file['url']; 
+						} elseif($partional){
+							$url = $partional[0];
+							$stringSeparada = explode(".", $url);
+						}else{
+							$url = false;
+						}
+					?>
+					
+						<button type="button" class="btn btn-view mb-2" data-toggle="modal" data-target=".<?php echo $class; ?>"><i class="fa fa-search" aria-hidden="true"></i> Visualizar</button>
+					
+						<?php if($stringSeparada[1] == 'jpg' || $stringSeparada[1] == 'jpeg' || $stringSeparada[1] == 'png' || $stringSeparada[1] == 'gif' || $stringSeparada[1] == 'webp') : ?>
+
+												
+
+							<div class="modal <?php echo $class; ?>" tabindex="-1" role="dialog">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<p class="modal-title"><?php the_title(); ?></p>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+											<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<?php if($url) : ?>
+												<img src="<?php echo $url; ?>" class="img-fluid d-block mx-auto py-2">
+											<?php else: ?>
+												<p>Visualização não disponível.</p>
+											<?php endif; ?>
+										</div>															
+									</div>
+								</div>
+							</div>
+
+						<?php else : ?>
+
+							<div class="modal fade bd-example-modal-lg <?php echo $class; ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-xl">
+
+									
+
+									<div class="modal-content">
+
+										<div class="modal-header">
+											<p class="modal-title"><?php the_title(); ?></p>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+											<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+
+										<div class="modal-body">
+											<div class="embed-responsive embed-responsive-16by9">
+												<iframe title="doc" type="application/pdf" src="https://docs.google.com/gview?url=<?php echo $url; ?>&amp;embedded=true" class="jsx-690872788 eafe-embed-file-iframe"></iframe>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+						<?php endif; ?>
+
+					<?php
+						if($file['url'] != ''){
+							?>
+							<a href="<?php echo $file['url']; ?>" id="download_link" target="_blank" download>
+								<button type="button" class="btn btn-down btn-primary mb-2"><i class="fa fa-download" aria-hidden="true"></i> Baixar documento</button>
+							</a>
+							<?php
+						}
+					?>
+
+					<?php if(get_field('diario_oficial') && $tipo == 'proposta_formativa'): ?>
+							<a href="<?php the_field('diario_oficial') ?>" id="download_link" target="_blank" download>
+								<button type="button" class="btn btn-primary mb-2 btn-diario">Ver no Diário Oficial</button>
+							</a>
+					<?php endif; ?>
+										
 				</div>
 
 					<?php
@@ -191,93 +296,310 @@ function generateRandomString($length = 10) {
 
 					update_field( $field_key, $value, $acesso_id );
 
-					$tipo = get_field('tipos_de_documentos'); // Tipo de documento
+					
 					?>
 			
 			
-						<div class="col-sm-6">
+						<div class="col-md-8">
 						<div class="row">
-						<div class="col-12 mt-4 mb-4">
-						<?php 
-							if($file['url'] != ''){
-								$url = $file['url']; 
-							} elseif($partional){
-								$url = $partional[0];
-								$stringSeparada = explode(".", $url);
-							}else{
-								$url = false;
-							}
-						?>
-							
-								<button type="button" class="btn btn-primary mr-2 mb-2" data-toggle="modal" data-target=".<?php echo $class; ?>">Visualizar</button>
-							
-								<?php if($stringSeparada[1] == 'jpg' || $stringSeparada[1] == 'jpeg' || $stringSeparada[1] == 'png' || $stringSeparada[1] == 'gif' || $stringSeparada[1] == 'webp') : ?>
-
-														
-
-									<div class="modal <?php echo $class; ?>" tabindex="-1" role="dialog">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title"><?php the_title(); ?></h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-													<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<?php if($url) : ?>
-														<img src="<?php echo $url; ?>" class="img-fluid d-block mx-auto py-2">
-													<?php else: ?>
-														<p>Visualização não disponível.</p>
-													<?php endif; ?>
-												</div>															
-											</div>
-										</div>
-									</div>
-
-								<?php else : ?>
-
-									<div class="modal fade bd-example-modal-lg <?php echo $class; ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-										<div class="modal-dialog modal-xl">
-
-											
-
-											<div class="modal-content">
-
-												<div class="modal-header">
-													<h5 class="modal-title"><?php the_title(); ?></h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-													<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-
-												<div class="modal-body">
-													<div class="embed-responsive embed-responsive-16by9">
-														<iframe title="doc" type="application/pdf" src="https://docs.google.com/gview?url=<?php echo $url; ?>&amp;embedded=true" class="jsx-690872788 eafe-embed-file-iframe"></iframe>
-													</div>
-												</div>
-
-											</div>
-										</div>
-									</div>
-
-								<?php endif; ?>
-
-							<?php
-								if($file['url'] != ''){
+						<div class="col-sm-12 mb-4">
+							<h1 class='title-acervo d-none d-lg-block d-xl-block'><strong><?php the_title(); ?></strong></h1>
+							<div class="infos mt-3 d-flex justify-content-between">
+								<p class='d-none d-lg-block d-xl-block'>
+									<?php 
+										$categories = get_the_terms(get_the_ID(), 'categoria_acervo' );
+										$n = 0;
+										foreach($categories as $categoria){
+											if($n == 0){
+												echo "<a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $categoria->term_id . "'>" . $categoria->name . "</a>";
+											} else {
+												echo " / <a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $categoria->term_id . "'>" . $categoria->name . "</a>";
+											}
+											$n++;
+										}									
 									?>
-									<a href="<?php echo $file['url']; ?>" id="download_link" target="_blank" download>
-										<button type="button" class="btn btn-primary mr-2 mb-2">Baixar Arquivo</button>
+								</p>
+								<div class="share">
+									Compartilhar: 
+									<a href="mailto:?subject=&body=:%20" title="<?php the_title(); ?>" onclick="window.open('mailto:?subject=' + 'Acervo Digital SME' + '&body=' + encodeURIComponent(document.URL)); return false;">
+										<img src="<?php echo get_template_directory_uri(); ?>/images/email-icon.png" width="32" alt="compartilhar no email">
 									</a>
-									<?php
-								}
-							?>
+									<a href="https://twitter.com/intent/tweet?text=<?php the_title(); ?>&url=<?php the_permalink(); ?>">
+										<img src="<?php echo get_template_directory_uri(); ?>/images/twitter-icon.png" width="32" alt="compartilhar no twitter">
+									</a>
+									<a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink(); ?>">
+										<img src="<?php echo get_template_directory_uri(); ?>/images/facebook-icon.png" width="32" alt="compartilhar no facebook">
+									</a>
+									<a href="https://api.whatsapp.com/send?text=<?php the_permalink(); ?>">
+										<img src="<?php echo get_template_directory_uri(); ?>/images/whatsapp-icon.png" width="32" alt="compartilhar no Whatsappl">
+									</a>
+								</div>							
+							</div>
+							
+						</div>
 
-							<?php if(get_field('diario_oficial') && $tipo == 'proposta_formativa'): ?>
-									<a href="<?php the_field('diario_oficial') ?>" id="download_link" target="_blank" download>
-										<button type="button" class="btn btn-primary mb-2">Ver no Diário Oficial</button>
-									</a>
-							<?php endif; ?>
+						<div class="col-sm-12 tabs-acervo">
+							<ul class="nav nav-tabs">
+								<li><a data-toggle="tab" href="#descri" class="active">Descrição</a></li>
+								<li><a data-toggle="tab" href="#especi">Especificações</a></li>
+							</ul>
+
+							<div class="tab-content">
+								<div id="descri" class="tab-pane fade in active show">
+									<p><?php the_field('descricao_acervo_digital'); ?></p>
+								</div>
+								<div id="especi" class="tab-pane fade">
+									<table class="table table-striped table-bordered">
+										<thead>
+											<tr>
+												<td scope="col">
+													<strong>Modalidade de ensino</strong><br>
+													<?php
+													$terms = get_field('modalidade_acervo_digital');
+
+													if($terms != '' && ($tipo == 'publicacoes_institucionais' || $tipo == 'proposta_formativa') ){
+														$n = 0;									
+														if( $terms ):
+															foreach( $terms as $term ):
+																if($n == 0){
+																	echo "<a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidade%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																} else {
+																	echo " / <a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidade%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																}
+																$n++;																
+															endforeach;
+														endif; 
+													} else {
+														echo "-";
+													}
+												?>
+
+												</td>
+												<td scope="col">
+													<strong>Componente curricular</strong><br>
+													<?php
+														$terms = get_field('componente_acervo_digital');
+														if(get_field('componente_acervo_digital') != '' && $tipo == 'publicacoes_institucionais' ){
+															$n = 0;
+															if( $terms ):
+																foreach( $terms as $term ):
+																	if($n == 0){
+																		echo "<a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componente%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																	} else {
+																		echo " / <a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componente%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																	}
+																	$n++;															
+																endforeach;
+															endif;  
+														} else {
+															echo "-";
+														}
+													?>
+												</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td scope="row">
+													<strong>Mês de publicação</strong><br>
+													<?php
+														if(get_field('mes_da_publicacao_acervo_digital') != ''){
+															the_field('mes_da_publicacao_acervo_digital');
+														} else {
+															echo "-";
+														}
+													?>
+												</td>
+												<td>
+													<strong>Ano de publicação</strong><br>
+													<?php
+														if(get_field('ano_da_publicacao_acervo_digital') != ''){
+															$ano = get_field('ano_da_publicacao_acervo_digital');
+															echo "<a href='" . get_home_url() . "/?avanc=1&tano=1&s=&ano%5B%5D=" . $ano . "'>" . $ano . "</a>";															
+														} else {
+															echo "-";
+														}
+													?>
+												</td>
+											</tr>
+
+											<tr>
+												<td scope="row">
+													<strong>Autor</strong><br>
+													<?php
+														$terms = get_field('autor_acervo_digital');
+														if(get_field('autor_acervo_digital') != ''){
+															$n = 0;
+															if( $terms ):
+																foreach( $terms as $term ):
+																	if($n == 0){
+																		echo "<a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autor=" . $term->slug . "'>" . $term->name . "</a>";
+																	} else {
+																		echo " / <a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autor=" . $term->slug . "'>" . $term->name . "</a>";
+																	}
+																	$n++;																	
+																endforeach;
+															endif;
+														}
+													?>
+												</td>
+												<td>
+													<strong>Setor</strong><br>
+													<?php
+														$terms = get_field('setor_acervo_digital');
+														if(get_field('setor_acervo_digital') != ''){
+															$n = 0;
+															if( $terms ):
+																foreach( $terms as $term ):
+																	if($n == 0){
+																		echo "<a href='" . get_home_url() . "/?avanc=1&set=1&s=&setor%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																	} else {
+																		echo " / <a href='" . get_home_url() . "/?avanc=1&set=1&s=&setor%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																	}
+																	$n++;																	
+																endforeach;
+															endif;
+														}
+													?>
+												</td>
+											</tr>
+
+											<tr>
+												<td scope="row">
+													<strong>Tipo de documento</strong><br>
+													<span class="upper">
+														<?php 
+															if($partional && !$file){
+																$formats = array();
+
+																foreach($partional as $format){
+																	$format = explode(".", $format);
+																	$formats[] = $format[6];											
+																}
+
+																// Remover formatos duplicados
+																$formats = array_unique($formats);
+
+																echo implode(", ", $formats);
+																
+															}
+															elseif($stringSeparada[1] != ''){
+																echo $stringSeparada[1];
+															}else{
+																echo 'DIVERSOS';
+															}
+														?>
+													</span>
+												</td>
+												<td>
+													<strong>Tamanho do documento</strong><br>
+													<?php
+														if( $file['filesize']  != ''){
+															echo size_format( $file['filesize'] );
+														}else{
+															echo 'INDEFINIDO';
+														}
+													?>
+												</td>
+											</tr>
+
+											<tr>
+												<td scope="row">
+													<strong>Idioma</strong><br>
+													<?php
+														$terms = get_field('idioma_acervo_digital');
+														if(get_field('autor_acervo_digital') != ''){
+															$n = 0;
+															if( $terms ):
+																foreach( $terms as $term ):
+																	if($n == 0){
+																		echo "<a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idioma%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																	} else {
+																		echo " / <a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idioma%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																	}
+																	$n++;															
+																endforeach;
+															endif;
+														}
+													?>
+												</td>
+												<td>
+													<strong>Número de visualizações</strong><br>
+													<?php 
+														function title_filter_t( $where, &$wp_query ){
+															global $wpdb;
+															if ( $search_term = $wp_query->get( 'search_prod_title' ) ) {
+																$where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'' . esc_sql( like_escape( $search_term ) ) . '\'';
+															}
+															return $where;
+														}
+
+														function retornaNumero_t($posttype) {	
+															$args = array(
+																'post_type' => $posttype,
+																'posts_per_page' => -1,
+																'search_prod_title' => get_the_title(),
+																'post_status' => 'publish',
+																'orderby'     => 'title', 
+																'order'       => 'ASC'
+															);
+
+															add_filter( 'posts_where', 'title_filter_t', 10, 2 );
+															$wp_query = new WP_Query($args);
+															remove_filter( 'posts_where', 'title_filter_t', 10 );
+
+															$contador = 0;
+															echo '<div style="display: none">';
+															$artigo = get_posts(
+																array(
+																	's' => 'Alimentação Escolar',
+																	'post_type' => $posttype,
+																	'numberposts' => -1,
+																	'post_status' => 'any',
+																));
+															echo '</div>';
+
+															foreach ($artigo as $article) { 
+															$contador++;
+															//var_dump($article);
+															}
+															//return $contador;
+															return $wp_query->found_posts;
+														}
+														echo retornaNumero_t(('acesso'));
+													?>  
+												</td>
+											</tr>
+
+											<tr>												
+												<td colspan='2'>
+													<strong>Palavras-chave</strong><br>
+													<span class='single-palavras'>
+														<?php
+															$palavras = get_the_terms(get_the_ID(), 'palavra' );
+															$n = 0;
+															if($palavras){
+																foreach($palavras as $palavra){
+																	if($n == 0){
+																		echo "<a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavra=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
+																	} else {
+																		echo " <a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavra=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
+																	}
+																	$n++;
+																}
+															} else {
+																echo "-";
+															}
+															
+														?>
+													</span>
+												</td>
+											</tr>
+											
+										</tbody>
+									</table>
+								</div>								
+							</div>
 						</div>
 
 						<div class="col-12 mb-3">
@@ -298,385 +620,9 @@ function generateRandomString($length = 10) {
 								endif;
 							}
 						?>
-						</div>
-						
-						
-						<div class="col-12 mb-3">
-							<h3><strong>Categoria</strong></h3>
-							<p><span class="words-link"><?php echo  get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' ', ''); ?></span></p>
-						</div>						<?php
-							$terms = get_field('autor_acervo_digital');
-							if(get_field('autor_acervo_digital') != ''){
-								?>
-								<div class="col-6 mb-3">
-									<h3><strong>Autor</strong></h3>
-									<?php 
-									if( $terms ): ?>
-										<?php foreach( $terms as $term ): ?>
-												<p><?php echo esc_html( $term->name ); ?></p>
-										<?php endforeach; ?>
-									<?php endif; ?>
-								</div>
-								<?php
-							}
-						?>
-
-						
-						<?php
-							$terms = get_field('setor_acervo_digital');
-							if(get_field('setor_acervo_digital') != ''){
-								?>
-								<div class="col-6 mb-3">
-									<h3><strong>Setor</strong></h3>
-									<?php 
-									if( $terms ): ?>
-										<?php foreach( $terms as $term ): ?>
-												<p><?php echo esc_html( $term->name ); ?></p>
-										<?php endforeach; ?>
-									<?php endif; ?>
-								</div>
-								<?php
-							}
-						?>
-
-						<div class="col-6 mb-3">
-							<h3><strong>Ultima atualização</strong></h3>
-							<p><?php the_time('d/m/Y' );?></p>
-						</div>
-
-						
-						
-						<?php
-							$terms = get_field('modalidade_acervo_digital');
-
-							if(get_field('modalidade_acervo_digital') != '' && ($tipo == 'publicacoes_institucionais' || $tipo == 'proposta_formativa') ){
-								?>
-								<div class="col-6 mb-3">
-									<h3><strong>Nível/Etapa/Modalidade</strong></h3>
-									<?php 									
-									if( $terms ): ?>
-										<?php foreach( $terms as $term ): ?>
-												<p><?php echo esc_html( $term->name ); ?></p>
-										<?php endforeach; ?>
-									<?php endif; ?>
-								</div>
-								<?php
-							}
-						?>
-
-						
-
-						<?php
-							$terms = get_field('componente_acervo_digital');
-							if(get_field('componente_acervo_digital') != '' && $tipo == 'publicacoes_institucionais' ){
-								?>
-								<div class="col-6 mb-3">
-									<h3><strong>Componente curricular</strong></h3>
-									<?php 
-									if( $terms ): ?>
-										<?php foreach( $terms as $term ): ?>
-												<p><?php echo esc_html( $term->name ); ?></p>
-										<?php endforeach; ?>
-									<?php endif; ?>
-								</div>
-								<?php
-							}
-						?>
-
-												<?php
-							if(get_field('mes_da_publicacao_acervo_digital') != ''){
-								?>
-									<div class="col-6 mb-3">
-										<h3><strong>Mês da Publicação</strong></h3>
-										<p><?php the_field('mes_da_publicacao_acervo_digital'); ?></p>
-									</div>
-								<?php
-							}
-						?>
-						
-
-						
-						<?php
-							if(get_field('ano_da_publicacao_acervo_digital') != ''){
-								?>
-									<div class="col-6 mb-3">
-										<h3><strong>Ano da Publicação</strong></h3>
-										<p><?php the_field('ano_da_publicacao_acervo_digital'); ?></p>
-									</div>
-								<?php
-							}
-						?>						<?php
-							$terms = get_field('formacao_acervo_digital');
-							if(get_field('formacao_acervo_digital') != '' && $tipo == 'proposta_formativa'){
-								?>
-								<div class="col-6 mb-3">
-									<h3><strong>Tipo de Formação</strong></h3>
-									<?php 
-									if( $terms ): ?>
-										<?php foreach( $terms as $term ): ?>
-												<p><?php echo esc_html( $term->name ); ?></p>
-										<?php endforeach; ?>
-									<?php endif; ?>
-								</div>
-								<?php
-							}
-						?>
-
-						
-						<?php
-							$terms = get_field('area_promotora');
-							if(get_field('area_promotora') != '' && $tipo == 'proposta_formativa'){
-								?>
-								<div class="col-6 mb-3">
-									<h3><strong>Área promotora</strong></h3>
-									<?php 
-									if( $terms ): ?>
-										<?php foreach( $terms as $term ): ?>
-												<p><?php echo esc_html( $term->name ); ?></p>
-										<?php endforeach; ?>
-									<?php endif; ?>
-								</div>
-								<?php
-							}
-						?>
-
-						
-
-						<?php
-							if(get_field('numero_de_despacho_de_homologacao' && $tipo == 'proposta_formativa') != ''){
-								?>
-									<div class="col-6 mb-3">
-										<h3><strong>Nº de despacho de homologação</strong></h3>
-										<p><?php the_field('numero_de_despacho_de_homologacao'); ?></p>
-									</div>
-								<?php
-							}
-						?>
-
-						
-						<?php
-							if(get_field('numero_da_proposta_de_validacao') != '' && $tipo == 'proposta_formativa'){
-								?>
-									<div class="col-6 mb-3">
-										<h3><strong>Nº da proposta de validação</strong></h3>
-										<p><?php the_field('numero_da_proposta_de_validacao'); ?></p>
-									</div>
-								<?php
-							}
-						?>
-
-						
-						<?php
-							if(get_field('numero_do_comunicado') != '' && $tipo == 'proposta_formativa'){
-								?>
-									<div class="col-6 mb-3">
-										<h3><strong>Nº do comunicado</strong></h3>
-										<p><?php the_field('numero_do_comunicado'); ?></p>
-									</div>
-								<?php
-							}
-						?>
-
-						
-
-						<?php
-							if(get_field('periodo_de_inscricao') != '' && $tipo == 'proposta_formativa'){
-								?>
-									<div class="col-6 mb-3">
-										<h3><strong>Período de inscrição</strong></h3>
-										<p><?php the_field('periodo_de_inscricao'); ?></p>
-									</div>
-								<?php
-							}
-						?>
-
-						
-						<?php
-							$terms = get_field('publico_alvo');
-							if(get_field('publico_alvo') != '' && $tipo == 'proposta_formativa'){
-								?>
-								<div class="col-6 mb-3">
-									<h3><strong>Público alvo</strong></h3>
-									<?php 
-									if( $terms ): ?>
-										<?php foreach( $terms as $term ): ?>
-												<p><?php echo esc_html( $term->name ); ?></p>
-										<?php endforeach; ?>
-									<?php endif; ?>
-								</div>
-								<?php
-							}
-						?>
-						<?php
-							$palavras = get_the_term_list(get_the_ID(), 'palavra', '', '  ', '');
-							if($palavras):
-						?>
-							<div class="col-6 mb-3">
-								<h3><strong>Palavra Chave</strong></h3>
-								<p>
-									<span class="words-link">
-										<?php echo  get_the_term_list(get_the_ID(), 'palavra', '', '  ', ''); 
-											
-											$class = generateRandomString();										
-										?>
-									</span>
-								</p>
-							</div>
-
-						<?php endif; ?>
-
-						<?php
-							$edicao = get_field('edicao_volume');
-							if($edicao){
-								?>
-								<div class="col-6 mb-3">
-									<h3><strong>Edição/Volume do acervo</strong></h3>
-									<p><?php echo $edicao; ?></p>
-								</div>
-								<?php
-							}
-						?>
-
-						
-						<div class="col-6 mb-3">
-							<h3><strong>Formato de Arquivo</strong></h3>
-							<p class="cx_alta">
-								<?php 
-									if($partional && !$file){
-										$formats = array();
-
-										foreach($partional as $format){
-											$format = explode(".", $format);
-											$formats[] = $format[6];											
-										}
-
-										// Remover formatos duplicados
-										$formats = array_unique($formats);
-
-										echo implode(", ", $formats);
-										
-									}
-									elseif($stringSeparada[1] != ''){
-										echo $stringSeparada[1];
-									}else{
-										echo 'DIVERSOS';
-									}
-								?>
-							</p>
-						</div>						
-						<div class="col-6 mb-3">
-							<h3><strong>Tamanho do Arquivo</strong></h3>
-							<p><?php
-								if( $file['filesize']  != ''){
-									echo size_format( $file['filesize'] );
-								}else{
-									echo 'INDEFINIDO';
-								}
-								?></p>
-						</div>
-						<?php 
-							$terms = get_field('idioma_acervo_digital');
-							if( $terms ): ?>
-								<div class="col-6 mb-3">
-									<h3><strong>Idioma do Arquivo</strong></h3>
-									<?php foreach( $terms as $term ): ?>
-										<span class="words-link">
-											<a href="<?php echo esc_url( get_term_link( $term ) ); ?>">
-												<?php echo esc_html( $term->name ); ?>	
-											</a>
-										</span>
-									<?php endforeach; ?>
-								</div>
-						<?php endif; ?>
-						<div class="col-6 mb-3">
-							<h3><strong>Quantidade de páginas</strong></h3>
-							<p><?php the_field('qt_de_paginas_acervo_digital'); ?></p>
-						</div>
-						<div class="col-6 mb-3">
-							<h3><strong>Quantidade de visualizações</strong></h3>
-							<p>
-							<?php 
-
-							function title_filter( $where, &$wp_query )
-							{
-								global $wpdb;
-								// 2. pull the custom query in here:
-
-								if ( $search_term = $wp_query->get( 'search_prod_title' ) ) {
-									$where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'' . esc_sql( like_escape( $search_term ) ) . '\'';
-								}
-								return $where;
-
-							}
-
-							function retornaNumero($posttype) {
-								
-								
-
-								$args = array(
-									'post_type' => $posttype,
-									'posts_per_page' => -1,
-									'search_prod_title' => get_the_title(),
-									'post_status' => 'publish',
-									'orderby'     => 'title', 
-									'order'       => 'ASC'
-								);
-
-								add_filter( 'posts_where', 'title_filter', 10, 2 );
-								$wp_query = new WP_Query($args);
-								remove_filter( 'posts_where', 'title_filter', 10 );
-								
-								
-
-								
-
-								$contador = 0;
-								echo '<div style="display: none">';
-								$artigo = get_posts(
-									array(
-										's' => 'Alimentação Escolar',
-										'post_type' => $posttype,
-										'numberposts' => -1,
-										'post_status' => 'any',
-									));
-								echo '</div>';
-
-								foreach ($artigo as $article) { 
-								$contador++;
-								//var_dump($article);
-								}
-								//return $contador;
-								return $wp_query->found_posts;
-							}
-							echo retornaNumero(('acesso'));
-							?>  
-							</p>
-						</div>
-						<div class="col-6 mb-3">
-							<h3><strong>Quantidade de downloads</strong></h3>
-							<p><?php echo retornaNumero(('download')); ?></p>
-						</div>
+						</div>	
 					</div>
 				</div>	
-				<div class="col-sm-12 mt-3 mb-3">
-					Compartilhar: 
-					<a href="mailto:?subject=&body=:%20" title="<?php the_title(); ?>" onclick="window.open('mailto:?subject=' + 'Acervo Digital SME' + '&body=' + encodeURIComponent(document.URL)); return false;">
-						<img src="<?php echo get_template_directory_uri(); ?>/images/email-icon.png" width="32" alt="compartilhar no email">
-					</a>
-					<a href="https://twitter.com/intent/tweet?text=<?php the_title(); ?>&url=<?php the_permalink(); ?>">
-						<img src="<?php echo get_template_directory_uri(); ?>/images/twitter-icon.png" width="32" alt="compartilhar no twitter">
-					</a>
-					<a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink(); ?>">
-						<img src="<?php echo get_template_directory_uri(); ?>/images/facebook-icon.png" width="32" alt="compartilhar no facebook">
-					</a>
-					<a href="https://api.whatsapp.com/send?text=<?php the_permalink(); ?>">
-						<img src="<?php echo get_template_directory_uri(); ?>/images/whatsapp-icon.png" width="32" alt="compartilhar no Whatsappl">
-					</a>
-				</div>	
-				<div class="col-sm-12 mt-4 mb-4">
-					<h3><strong>Descrição</strong></h3>
-					<p><?php the_field('descricao_acervo_digital'); ?></p>
-				</div>
 
 			<?php endwhile; wp_reset_query(); ?>
 

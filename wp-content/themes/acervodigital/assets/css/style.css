@@ -801,3 +801,111 @@ fieldset legend,
     margin-left: -15px;
     border-radius: 0;
 }
+
+/**** Single Acervo ****/
+
+.search-title{
+    font-size: 22px;
+}
+
+.title-acervo{
+    color: #0048A9;
+}
+
+.title-mobile{
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.infos a {
+    color: #42474A;
+}
+
+button.btn-view {
+    border: 1px solid #196CBD;
+    color: #196CBD;
+    margin-top: 20px;
+    width: 46%;
+    font-size: 14px;
+    border-radius: 3px;    
+}
+
+button.btn-view:hover{
+    color: #196CBD;
+    background: rgb(25, 108, 189, 0.2);
+}
+
+
+button.btn-down {
+    width: 46%;
+    font-size: 14px;
+    margin-top: 20px;
+    border-radius: 3px;
+    float: right;
+}
+
+button.btn-diario {
+    width: 100%;
+    border-radius: 3px;
+    margin-top: 5px;
+}
+
+.tabs-acervo .nav.nav-tabs {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #DADADA;
+    border-bottom: 0;
+}
+
+.tabs-acervo .nav.nav-tabs a {
+    color: #42474A;
+    font-size: 16px;
+    border-bottom: 4px solid #FFFFFF;
+    padding: 10px;
+}
+
+.tabs-acervo .nav.nav-tabs a.active {
+    color: #0048A9;
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 4px solid #0048A9;
+    padding: 10px;
+}
+
+.tabs-acervo .tab-content{
+    padding: 15px;
+    border: 1px solid #DADADA;
+}
+
+.tabs-acervo .single-palavras{
+    margin-top: 7px;
+    display: block;
+}
+
+.tabs-acervo .single-palavras a {
+    background: #FFFFFF;
+    padding: 5px 10px;
+    border-radius: 15px;
+    border: 1px solid #C6C6C6;
+    color: #42474A;
+}
+
+.tabs-acervo .upper{
+    text-transform: uppercase;
+}
+
+.tabs-acervo a {
+    color: #000000;
+}
+
+.img-mobile {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .img-mobile {
+        max-width: 65%;
+        display: block;
+        margin: 0 auto;
+    }
+}
