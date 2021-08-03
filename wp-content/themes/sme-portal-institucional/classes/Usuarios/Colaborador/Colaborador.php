@@ -165,21 +165,18 @@ class Colaborador
 		$usuario = wp_get_current_user();
 
 		if ($usuario->roles[0] === 'contributor') {
-
-			remove_menu_page('edit.php');
-			remove_menu_page('edit.php?post_type=agenda');
+			remove_menu_page('edit.php'); // Noticias
+			remove_menu_page('edit.php?post_type=agenda'); // Agenda do Secretario
 			//remove_menu_page('edit.php?post_type=contato');
-			remove_menu_page('edit.php?post_type=organograma');
-			remove_menu_page('edit.php?post_type=curriculo-da-cidade');
-			//remove_menu_page('edit.php?post_type=aba');
-			//remove_menu_page('edit.php?post_type=botao');
-
+			remove_menu_page('edit.php?post_type=organograma'); // Organograma
+			remove_menu_page('edit.php?post_type=curriculo-da-cidade'); // Curriculo
+			//remove_menu_page('edit.php?post_type=aba'); // Cadastro Abas
+			//remove_menu_page('edit.php?post_type=botao'); // Cadastro Botoes
 			//remove_menu_page('admin.php');
 			remove_menu_page( 'wpcf7' );
-
-
-			remove_menu_page('edit-comments.php');
-			remove_menu_page('tools.php');
+			remove_menu_page('edit-comments.php'); // Comentarios
+			remove_menu_page('tools.php'); // Ferramentas
+			remove_menu_page( 'options-general.php' ); // Configuracoes
 		}
 	}
 
