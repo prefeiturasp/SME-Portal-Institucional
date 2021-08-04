@@ -122,6 +122,10 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_cl1_slide_noticias_1_1' ):
 									get_template_part( 'construtor/construtor', 'slide_noticias_1_1' );
 
+								// Slide de Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_slide_timer_1_1' ):
+									get_template_part( 'construtor/construtor', 'slide_timer_1_1' );
+
 								// Acesso Rapido
 								elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_1' ):									
 									get_template_part( 'construtor/construtor', 'acesso_rapido_1_1' );									
@@ -129,6 +133,10 @@ if( have_rows('fx_flex_layout') ):
 								// Bloco Noticias
 								elseif( get_row_layout() == 'fx_cl1_bloco_noticias_1_1' ):
 									get_template_part( 'construtor/construtor', 'bloco_noticias_1_1' );
+
+								// Bloco Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_bloco_timer_1_1' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias_timer_1_1' );
 
 								// Bloco Redes Sociais
 								elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_1' ):
