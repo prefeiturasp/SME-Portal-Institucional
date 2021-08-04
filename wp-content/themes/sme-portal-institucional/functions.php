@@ -1206,3 +1206,14 @@ function redirects_admin() {
     }
 }
 add_action('acf/save_post', 'redirects_admin');
+
+// Ordenar Objeto de Posts por data - ACF
+add_filter('acf/fields/post_object/query', 'my_acf_fields_post_object_query', 10, 3);
+function my_acf_fields_post_object_query( $args, $field, $post_id ) {
+
+    // modify the order
+    $args['orderby'] = 'date';
+    $args['order'] = 'DESC';
+
+    return $args;
+}
