@@ -78,7 +78,8 @@ function generateRandomString($length = 10) {
 
 				<div class="col-md-4 col-12">
 
-					<img src="<?php
+					<div class="mask-detail">
+						<img src="<?php
 							  if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'pdf'){
 								 echo $file['icon']; 
 							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'xlsx' || $stringSeparada[1] == 'xls') ){
@@ -93,7 +94,7 @@ function generateRandomString($length = 10) {
 								 echo $file['url'];
 							  }
 							  ?>" alt="<?php the_field('campo_alt_acervo_digital'); ?>" class='shadow-sm img-mobile'>
-
+					</div>
 					<?php 
 						if($file['url'] != ''){
 							$url = $file['url']; 
@@ -168,6 +169,37 @@ function generateRandomString($length = 10) {
 							<?php
 						}
 					?>
+							
+
+						<?php
+							if(!$file){
+								$a = 1;
+								if( have_rows('arquivos_particionados') ):
+								?>
+									<div class="dropdown" style="display: initial;">
+										<button class="btn btn-down btn-primary mb-1 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Baixar documento
+										</button>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<?php
+												while ( have_rows('arquivos_particionados') ) : the_row();
+													if( get_row_layout() == 'adicionar_arquivos' ):
+														?>
+														<a href="<?php echo $text = get_sub_field('arquivo'); ?>" class="dropdown-item" id="download_link" target="_blank" download>
+															Baixar Arquivo <?php echo $a++; ?>
+														</a>
+														<?php
+													endif;
+												endwhile;											
+										?>
+										</div>
+									</div>
+									
+								<?php
+								endif;
+								
+							}
+						?>
 
 					<?php if(get_field('diario_oficial') && $tipo == 'proposta_formativa'): ?>
 							<a href="<?php the_field('diario_oficial') ?>" id="download_link" target="_blank" download>
@@ -603,23 +635,7 @@ function generateRandomString($length = 10) {
 						</div>
 
 						<div class="col-12 mb-3">
-						<?php
-							if(!$file){
-								$a = 1;
-								if( have_rows('arquivos_particionados') ):
-									while ( have_rows('arquivos_particionados') ) : the_row();
-										if( get_row_layout() == 'adicionar_arquivos' ):
-											?>
-											<a href="<?php echo $text = get_sub_field('arquivo'); ?>" id="download_link" target="_blank" download>
-												<button type="button" class="btn btn-primary mb-1">Baixar Arquivo <?php echo $a++; ?></button>
-											</a>
-											<?php
-										endif;
-									endwhile;
-								else :
-								endif;
-							}
-						?>
+						
 						</div>	
 					</div>
 				</div>	
