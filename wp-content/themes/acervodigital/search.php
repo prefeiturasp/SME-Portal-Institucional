@@ -1098,39 +1098,40 @@ function generateRandomString($length = 10) {
 
 											<div class="col-sm-12 view-tag flag">
 
-												<img src="
+												<div class="img-mask shadow-sm">
+													<img src="
 
-															<?php
+														<?php
 
 														if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'pdf'){
 
-															echo $file['icon']; 
+														echo $file['icon']; 
 
 														}else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'xlsx' || $stringSeparada[1] == 'xls') ){
 
-															echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-xls.jpg';
+														echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-xls.jpg';
 
 														}else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'docx' || $stringSeparada[1] == 'doc') ){
 
-															echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
+														echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
 
 														}else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'pptx' || $stringSeparada[1] == 'ppt') ){
 
-															echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
+														echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
 
 														}else if(get_field('substituir_capa_acervo_digital') != ''){
 
-															echo get_field('substituir_capa_acervo_digital'); 
+														echo get_field('substituir_capa_acervo_digital'); 
 
 														}else{
 
-															echo $file['url'];
+														echo $file['url'];
 
 														}
 
 														?>		
 
-														" alt="capa do Acervo">			
+														" alt="capa do Acervo">
 
 														<span class="flag-pdf-full">
 
@@ -1153,6 +1154,7 @@ function generateRandomString($length = 10) {
 															?>
 
 														</span>
+												</div>														
 
 											</div>
 
@@ -1162,9 +1164,7 @@ function generateRandomString($length = 10) {
 
 												<div class="links-flag">
 													<div class="cat-flag mb-2"><?php echo  strip_tags (get_the_term_list(get_the_ID(), 'categoria_acervo', '', ' / ', '')); ?></div>
-													<?php if($partional && !$file) : ?>
-														<p class='partial-text'>* Esse documento foi dividido em partes, acesse <strong>ver detalhes</strong> para baixá-las.</p>
-													<?php endif; ?>
+													
 
 													<div class="btn-acervo d-flex justify-content-between">
 														
@@ -1177,7 +1177,25 @@ function generateRandomString($length = 10) {
 																}else{
 																	the_permalink();
 																}
-																?>" class='px-3'>Baixar</a>
+																?>" class='p3-4'>Baixar</a>
+														<?php endif; ?>
+
+														<?php if($partional && !$file) : ?>
+															<div class="dropdown show">
+																<a class="btn dropdown-toggle" class='px-3' href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																	Baixar
+																</a>
+
+																<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+																	<?php $a = 1;
+																		foreach($partional as $arquivo) : ?>
+																		<a href="<?php echo $arquivo; ?>" class="dropdown-item" id="download_link" target="_blank" download>
+																			Baixar Arquivo <?php echo $a++; ?>
+																		</a>
+																	<?php endforeach; ?>
+																</div>
+															</div>
+															
 														<?php endif; ?>
 														
 													</div>
@@ -1486,7 +1504,7 @@ function generateRandomString($length = 10) {
 															}
 														?>
 															<div class="form-check">
-																<input class="form-check-input" name='modalidade[]' <?php echo $check; ?> type="checkbox" <?php echo $check; ?> value="<?php echo $modalidade; ?>" id="modalidade" onchange="this.form.submit()">
+																<input class="form-check-input" name='modalidade[]' <?php echo $check; ?> type="checkbox" <?php echo $check; ?> value="<?php echo $modalidade; ?>" id="modalidade">
 																<label class="form-check-label" for="modalidade">
 																	<?php echo get_term( $modalidade )->name; ?>
 																</label>
@@ -1613,7 +1631,7 @@ function generateRandomString($length = 10) {
 															}
 														?>
 															<div class="form-check">
-																<input class="form-check-input" name='componente[]' type="checkbox" <?php echo $check; ?> value="<?php echo $componente; ?>" id="componente" onchange="this.form.submit()">
+																<input class="form-check-input" name='componente[]' type="checkbox" <?php echo $check; ?> value="<?php echo $componente; ?>" id="componente">
 																<label class="form-check-label" for="componente">
 																	<?php echo get_term( $componente )->name; ?>
 																</label>
@@ -1739,7 +1757,7 @@ function generateRandomString($length = 10) {
 															}
 														?>
 															<div class="form-check">
-																<input class="form-check-input" name='ano[]' <?php echo $check; ?> type="checkbox" value="<?php echo $ano; ?>" id="ano" onchange="this.form.submit()">
+																<input class="form-check-input" name='ano[]' <?php echo $check; ?> type="checkbox" value="<?php echo $ano; ?>" id="ano">
 																<label class="form-check-label" for="ano">
 																	<?php echo $ano; ?>
 																</label>
@@ -1899,7 +1917,7 @@ function generateRandomString($length = 10) {
 															}
 														?>
 															<div class="form-check">
-																<input class="form-check-input" name='idioma[]' <?php echo $check; ?> type="checkbox" value="<?php echo $idioma; ?>" id="idioma" onchange="this.form.submit()">
+																<input class="form-check-input" name='idioma[]' <?php echo $check; ?> type="checkbox" value="<?php echo $idioma; ?>" id="idioma">
 																<label class="form-check-label" for="idioma">
 																	<?php echo get_term( $idioma )->name; ?>
 																</label>
@@ -2026,7 +2044,7 @@ function generateRandomString($length = 10) {
 															}
 														?>
 															<div class="form-check">
-																<input class="form-check-input" name='setor[]' type="checkbox" <?php echo $check; ?> value="<?php echo $setor; ?>" id="setor" onchange="this.form.submit()">
+																<input class="form-check-input" name='setor[]' type="checkbox" <?php echo $check; ?> value="<?php echo $setor; ?>" id="setor">
 																<label class="form-check-label" for="setor">
 																	<?php echo get_term( $setor )->name; ?>
 																</label>

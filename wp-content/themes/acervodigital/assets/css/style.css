@@ -802,17 +802,18 @@ fieldset legend,
     border-radius: 0;
 }
 
+
 /**** Single Acervo ****/
 
-.search-title{
+.search-title {
     font-size: 22px;
 }
 
-.title-acervo{
+.title-acervo {
     color: #0048A9;
 }
 
-.title-mobile{
+.title-mobile {
     font-weight: bold;
     font-size: 24px;
 }
@@ -827,14 +828,13 @@ button.btn-view {
     margin-top: 20px;
     width: 46%;
     font-size: 14px;
-    border-radius: 3px;    
+    border-radius: 3px;
 }
 
-button.btn-view:hover{
+button.btn-view:hover {
     color: #196CBD;
     background: rgb(25, 108, 189, 0.2);
 }
-
 
 button.btn-down {
     width: 46%;
@@ -872,12 +872,12 @@ button.btn-diario {
     padding: 10px;
 }
 
-.tabs-acervo .tab-content{
+.tabs-acervo .tab-content {
     padding: 15px;
     border: 1px solid #DADADA;
 }
 
-.tabs-acervo .single-palavras{
+.tabs-acervo .single-palavras {
     margin-top: 7px;
     display: block;
 }
@@ -890,7 +890,7 @@ button.btn-diario {
     color: #42474A;
 }
 
-.tabs-acervo .upper{
+.tabs-acervo .upper {
     text-transform: uppercase;
 }
 
@@ -904,6 +904,43 @@ button.btn-diario {
 
 @media (max-width: 768px) {
     .img-mobile {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+.dropdown-item {
+    white-space: inherit;
+}
+
+.img-mask {
+    height: 325px;
+    overflow: hidden;
+    background: #f3f3f3;
+    position: relative;
+}
+
+.img-mask img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+}
+
+.mask-detail {
+    height: 450px;
+    overflow: hidden;
+    background: #f3f3f3;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .img-mask {
+        height: 230px;
+    }
+    .mask-detail {
+        max-height: 330px;
         max-width: 65%;
         display: block;
         margin: 0 auto;
