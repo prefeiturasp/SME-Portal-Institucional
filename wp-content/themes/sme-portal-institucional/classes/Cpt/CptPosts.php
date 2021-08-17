@@ -21,7 +21,7 @@ class CptPosts extends Cpt
 				'categories' => 'Categories',
 				'tags' => 'Tags',
 				'comments' => '<span class="vers"><div title="Comments" class="comment-grey-bubble"></div></span>',
-				'featured_thumb' => 'Thumbnail',				
+				'featured_thumb' => 'Thumbnail',
 				'date' => 'Date',
 
 			);
@@ -37,10 +37,10 @@ class CptPosts extends Cpt
 		switch ( $column ) {
 			case 'featured_thumb':
 				echo '<a href="' . get_edit_post_link() . '">';
-				echo the_post_thumbnail( 'admin-list-thumb' );
+				$thumb = get_thumb($post_id);
+				echo "<img src='" . $thumb[0] . "' style='max-width: 100%;'>";
 				echo '</a>';
 				break;
 		}
 	}
-
 }

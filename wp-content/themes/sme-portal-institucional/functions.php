@@ -1217,3 +1217,27 @@ function my_acf_fields_post_object_query( $args, $field, $post_id ) {
 
     return $args;
 }
+
+// Definir imagem destacada padrao
+
+function fpw_post_info( $id, $post ) {
+
+	$firstImage = get_first_image($post->ID);
+
+    if( has_post_thumbnail( $post->ID ) ){
+
+		$idThumb = get_post_thumbnail_id($post->ID);
+		set_post_thumbnail( $post->ID, $idThumb );
+
+	} elseif($firstImage){
+
+		set_post_thumbnail( $post->ID, $firstImage );
+
+	} else {
+
+		delete_post_meta( $post->ID, '_thumbnail_id' );
+		set_post_thumbnail( $post->ID, 23755 );
+		
+	}
+}
+add_action( 'publish_post', 'fpw_post_info', 10, 2 );
