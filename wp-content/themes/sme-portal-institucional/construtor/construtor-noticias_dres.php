@@ -1,4 +1,4 @@
-<div class="container">
+
     <div class="row">
         <div class="col-sm-12 p-0">
 				<?php
@@ -125,4 +125,3 @@
 				?>				
 		</div>
     </div>
-</div>

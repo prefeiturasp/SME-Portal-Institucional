@@ -1,5 +1,5 @@
 <?php
-
+echo '<div class="container">';
 $imagem_1_1 = get_sub_field('fx_imagem_1_1');//Pega todos os valores da imagem no array
 if(get_sub_field('fx_imagem_url_1_1') != ''){
     ?>
@@ -10,3 +10,5 @@ if(get_sub_field('fx_imagem_url_1_1') != ''){
 }else{
     echo '<img class="mt-3 mb-3" src="'.$imagem_1_1['url'].'" width="100%" alt="'.$imagem_1_1['alt'].'">';
 }
+
+echo "</div>";

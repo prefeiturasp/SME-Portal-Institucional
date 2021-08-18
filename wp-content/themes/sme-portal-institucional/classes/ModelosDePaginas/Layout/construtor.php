@@ -68,7 +68,7 @@ if( have_rows('fx_flex_layout') ):
 						echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
 						echo '<div class="container-fluid p-0">';//bootstrap container
 						echo '<div class="row">';//bootstrap row
-						echo '<div class="col-sm-12 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-sm-12 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' p-0">';//bootstrap col
 							while( have_rows('fx_coluna_1_1') ): the_row();
 								//titulo
 								if( get_row_layout() == 'fx_cl1_titulo_1_1' ):
@@ -84,7 +84,7 @@ if( have_rows('fx_flex_layout') ):
 								
 								//Loops noticias por categorias
 								elseif( get_row_layout() == 'fx_cl1_noticias_1_1' ):
-									get_template_part( 'construtor/construtor', 'noticias_categ_1_1' );
+									get_template_part( 'construtor/construtor', 'noticias_1_1' );
 								
 								//Video Responsivo
 								elseif( get_row_layout() == 'fx_cl1_video_1_1' ): 
@@ -161,11 +161,11 @@ if( have_rows('fx_flex_layout') ):
 								// Noticias DREs
 								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 									get_template_part( 'construtor/construtor', 'noticias_dres_1_1' );
-								
+
 								// Organograma DREs
 								elseif( get_row_layout() == 'fx_cl1_organograma' ):
 									get_template_part( 'construtor/construtor', 'organograma_1_1' );
-								
+
 								// Integracao Pagina
 								elseif( get_row_layout() == 'integrar_pagina' ):
 
@@ -199,14 +199,13 @@ if( have_rows('fx_flex_layout') ):
 													$color = get_sub_field('fx_cor_do_texto_coluna_1_1');
 													$link = get_sub_field('fx_cor_do_link_coluna_1_1');
 													$colorbtn = get_sub_field('fx_cor_do_botao_coluna_1_1');
-
-																										
+													
 													//conteudo flexivel 1 coluna
 													if( have_rows('fx_coluna_1_1', $post) ):
 														echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
 														echo '<div class="container">';//bootstrap container
 														echo '<div class="row">';//bootstrap row
-														echo '<div class="col-sm-12 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+														echo '<div class="col-sm-12 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' p-0">';//bootstrap col
 															while( have_rows('fx_coluna_1_1', $post) ): the_row();
 																
 																//titulo
@@ -272,6 +271,29 @@ if( have_rows('fx_flex_layout') ):
 																// Bloco Redes Sociais
 																elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_1' ):
 																	get_template_part( 'construtor/construtor', 'bloco_rede_1_1' );
+																// Noticias em destaque
+																elseif( get_row_layout() == 'fx_cl1_noticias_destaque_1_1' ):
+																	get_template_part( 'construtor/construtor', 'noticias_destaque_1_1' );
+
+																// Noticias mais lidas
+																elseif( get_row_layout() == 'fx_cl1_mais_lidas_1_1' ):
+																	get_template_part( 'construtor/construtor', 'mais_lidas_1_1' );
+
+																// Noticias mais lidas (Pagina)
+																elseif( get_row_layout() == 'fx_cl1_mais_lidas_pag_1_1' ):
+																	get_template_part( 'construtor/construtor', 'mais_lidas_pag_1_1' );
+
+																// Outras Noticias
+																elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																	get_template_part( 'construtor/construtor', 'outras_noticias_1_1' );
+
+																// Acesso Rapido
+																elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_2' ):									
+																	get_template_part( 'construtor/construtor', 'acesso_rapido_1_2' );
+																
+																// Noticias DREs
+																elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																	get_template_part( 'construtor/construtor', 'noticias_dres_1_1' );
 																endif;
 
 															endwhile;
@@ -294,7 +316,7 @@ if( have_rows('fx_flex_layout') ):
 													
 														//conteudo flexivel 2 colunas esquerda
 														if( have_rows('fx_coluna_1_2') ):
-															echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_1_2') ): the_row();
 																	
 																	//titulo
@@ -307,39 +329,84 @@ if( have_rows('fx_flex_layout') ):
 																	
 																	//editor Wysiwyg com fundo
 																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'editor_fundo_1_2' );
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '1_2' ) );
 																	
 																	//Loops noticias por categorias
 																	elseif( get_row_layout() == 'fx_cl1_noticias_1_2' ):
-																		get_template_part( 'construtor/construtor', 'noticias_1_2' );
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '1_2' ) );
 																	
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'video_1_2' );
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '1_2' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_1_2' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '1_2' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_1_2' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
 																	
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_1_2' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '1_2' ) );
 																	
 																	//abas
 																	elseif( get_row_layout() == 'fx_cl1_abas_1_2' ): 		
-																		get_template_part( 'construtor/construtor', 'abas_1_2' );
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '1_2' ) );
 																	
 																	//Sanfona
 																	elseif( get_row_layout() == 'fx_cl1_sanfona_1_2' ): 		
-																		get_template_part( 'construtor/construtor', 'sanfona_1_2' );
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '1_2' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_1_2' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'botao_1_2' );
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '1_2' ) );
 
 																	// Bloco Redes Sociais
 																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_2' ):
-																		get_template_part( 'construtor/construtor', 'bloco_rede_1_2' );
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '1_2' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_1_2' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_1_2' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_2' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '1_2' ) );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_1_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_1_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_1_2' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_1_2' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '1_2' ) );
+
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 																	endif;
 
 																endwhile;
@@ -349,7 +416,7 @@ if( have_rows('fx_flex_layout') ):
 
 														//conteudo flexivel 2 colunas direita
 														if( have_rows('fx_coluna_2_2') ):
-															echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_2_2') ): the_row();
 																	//titulo
 																	if( get_row_layout() == 'fx_cl1_titulo_2_2' ):
@@ -361,39 +428,83 @@ if( have_rows('fx_flex_layout') ):
 																	
 																	//editor Wysiwyg com fundo
 																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'editor_fundo_2_2' );
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '2_2' ) );
 																	
 																	//Loops noticias por categorias
 																	elseif( get_row_layout() == 'fx_cl1_noticias_2_2' ):
-																		get_template_part( 'construtor/construtor', 'noticias_2_2' );
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '2_2' ) );
 																	
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'video_2_2' );
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '2_2' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_2_2' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '2_2' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_2_2' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
 																	
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_2_2' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '2_2' ) );
 																	
 																	//abas
 																	elseif( get_row_layout() == 'fx_cl1_abas_2_2' ): 		
-																		get_template_part( 'construtor/construtor', 'abas_2_2' );
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '2_2' ) );
 																	
 																	//Sanfona
 																	elseif( get_row_layout() == 'fx_cl1_sanfona_2_2' ): 		
-																		get_template_part( 'construtor/construtor', 'sanfona_2_2' );
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '2_2' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_2_2' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'botao_2_2' );							
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '2_2' ) );						
 
 																	// Bloco Redes Sociais
 																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_2_2' ):
-																		get_template_part( 'construtor/construtor', 'bloco_rede_2_2' );
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '2_2' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_2_2' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_2_2' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_2_2' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '2_2' ) );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_2_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_2_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_2_2' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_2_2' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '2_2' ) );
+
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
 
 																	endif;
 																endwhile;
@@ -417,7 +528,7 @@ if( have_rows('fx_flex_layout') ):
 													
 														//conteudo flexivel 3 colunas (primeira coluna)
 														if( have_rows('fx_coluna_1_3') ):
-															echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_1_3') ): the_row();
 																	//titulo
 																	if( get_row_layout() == 'fx_cl1_titulo_1_3' ):
@@ -426,22 +537,87 @@ if( have_rows('fx_flex_layout') ):
 																	//editor Wysiwyg
 																	elseif( get_row_layout() == 'fx_cl1_editor_1_3' ): 
 																		get_template_part( 'construtor/construtor', 'editor_3_1' );
+
+																	//editor Wysiwyg com fundo
+																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_1_3' ): 
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '1_3' ) );
 																	
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_1_3' ): 
-																		get_template_part( 'construtor/construtor', 'video_3_1' );
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '1_3' ) );
+
+																	//Loops noticias por categorias
+																	elseif( get_row_layout() == 'fx_cl1_noticias_1_3' ):
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '1_3', 'size' => '1' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_1_3' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '1_3' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_1_3' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
 																	
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_1_3' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_3_1' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '1_3' ) );
+
+																	//abas
+																	elseif( get_row_layout() == 'fx_cl1_abas_1_3' ): 		
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '1_3' ) );
+
+																	//Sanfona
+																	elseif( get_row_layout() == 'fx_cl1_sanfona_1_3' ): 		
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '1_3' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_1_3' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_3_1' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_1_3' ): 
-																		get_template_part( 'construtor/construtor', 'botao_3_1' );
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '1_3' ) );
+
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_3' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '1_3' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_1_3' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_1_3' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_1_3' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_1_3' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Bloco Redes Sociais
+																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_3' ):
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '1_3' ) );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_1_3' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_1_3' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '1_3' ) );
+
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
+																	
 																	endif;
 																endwhile;
 															echo '</div>';
@@ -449,7 +625,7 @@ if( have_rows('fx_flex_layout') ):
 
 														//conteudo flexivel 3 colunas (segunda coluna)
 														if( have_rows('fx_coluna_2_3') ):
-															echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_2_3') ): the_row();
 
 																	//titulo
@@ -459,22 +635,87 @@ if( have_rows('fx_flex_layout') ):
 																	//editor Wysiwyg
 																	elseif( get_row_layout() == 'fx_cl1_editor_2_3' ): 
 																		get_template_part( 'construtor/construtor', 'editor_3_2' );
+
+																	//editor Wysiwyg com fundo
+																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_2_3' ): 
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '2_3' ) );
 																	
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_2_3' ): 
-																		get_template_part( 'construtor/construtor', 'video_3_2' );
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '2_3' ) );
+
+																	//Loops noticias por categorias
+																	elseif( get_row_layout() == 'fx_cl1_noticias_2_3' ):
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '2_3', 'size' => '1' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_2_3' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '2_3' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_2_3' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
 																	
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_2_3' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_3_2' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '2_3' ) );
+
+																	//abas
+																	elseif( get_row_layout() == 'fx_cl1_abas_2_3' ): 		
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '2_3' ) );
+
+																	//Sanfona
+																	elseif( get_row_layout() == 'fx_cl1_sanfona_2_3' ): 		
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '2_3' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_2_3' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_3_2' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_2_3' ): 
-																		get_template_part( 'construtor/construtor', 'botao_3_2' );
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '2_3' ) );
+
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_2_3' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '2_3' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_2_3' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_2_3' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_2_3' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_2_3' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Bloco Redes Sociais
+																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_2_3' ):
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '2_3' ) );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_2_3' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_2_3' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '2_3' ) );
+
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 																	endif;
 
 																endwhile;
@@ -483,7 +724,7 @@ if( have_rows('fx_flex_layout') ):
 
 														//conteudo flexivel 3 colunas (terceira coluna)
 														if( have_rows('fx_coluna_3_3') ):
-															echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_3_3') ): the_row();
 																	
 																	//titulo
@@ -493,22 +734,87 @@ if( have_rows('fx_flex_layout') ):
 																	//editor Wysiwyg
 																	elseif( get_row_layout() == 'fx_cl1_editor_3_3' ): 
 																		get_template_part( 'construtor/construtor', 'editor_3_3' );
+
+																	//editor Wysiwyg com fundo
+																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_3_3' ): 
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '3_3' ) );
 																	
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_3_3' ): 
-																		get_template_part( 'construtor/construtor', 'video_3_3' );
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '3_3' ) );
+
+																	//Loops noticias por categorias
+																	elseif( get_row_layout() == 'fx_cl1_noticias_3_3' ):
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '3_3', 'size' => '1' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_3_3' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '3_3' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_3_3' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
 																	
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_3_3' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_3_3' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '3_3' ) );
+
+																	//abas
+																	elseif( get_row_layout() == 'fx_cl1_abas_3_3' ): 		
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '3_3' ) );
+
+																	//Sanfona
+																	elseif( get_row_layout() == 'fx_cl1_sanfona_3_3' ): 		
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '3_3' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_3_3' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_3_3' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_3_3' ): 
-																		get_template_part( 'construtor/construtor', 'botao_3_3' );
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '3_3' ) );
+
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_3_3' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '3_3' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_3_3' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_3_3' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_3_3' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_3_3' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Bloco Redes Sociais
+																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_3_3' ):
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '3_3' ) );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_3_3' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_3_3' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '3_3' ) );
+
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 																	endif;
 
 																endwhile;
@@ -534,7 +840,7 @@ if( have_rows('fx_flex_layout') ):
 														
 														//conteudo flexivel 4 colunas (primeira coluna)
 														if( have_rows('fx_coluna_1_4') ):
-															echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_1_4') ): the_row();
 
 																	//titulo
@@ -544,23 +850,88 @@ if( have_rows('fx_flex_layout') ):
 																	//editor Wysiwyg
 																	elseif( get_row_layout() == 'fx_cl1_editor_1_4' ): 
 																		get_template_part( 'construtor/construtor', 'editor_4_1' );
+
+																	//editor Wysiwyg com fundo
+																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_1_4' ): 
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '1_4' ) );
 																	
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_1_4' ): 
-																		get_template_part( 'construtor/construtor', 'video_4_1' );
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '1_4' ) );
+
+																	//Loops noticias por categorias
+																	elseif( get_row_layout() == 'fx_cl1_noticias_1_4' ):
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '1_4', 'size' => '1' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_1_4' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '1_4' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_1_4' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
 																	
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_1_4' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_4_1' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '1_4' ) );
+
+																	//abas
+																	elseif( get_row_layout() == 'fx_cl1_abas_1_4' ): 		
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '1_4' ) );
+
+																	//Sanfona
+																	elseif( get_row_layout() == 'fx_cl1_sanfona_1_4' ): 		
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '1_4' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_1_4' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_4_1' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_1_4' ): 
-																		get_template_part( 'construtor/construtor', 'botao_4_1' );
-																	endif;	
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '1_4' ) );
+
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_4' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '1_4' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_1_4' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_1_4' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_1_4' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_1_4' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Bloco Redes Sociais
+																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_4' ):
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '1_4' ) );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_1_4' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_1_4' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '1_4' ) );
+
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
+
+																	endif;
 																
 																endwhile;
 															echo '</div>';
@@ -568,7 +939,7 @@ if( have_rows('fx_flex_layout') ):
 
 														//conteudo flexivel 4 colunas (segunda coluna)
 														if( have_rows('fx_coluna_2_4') ):
-															echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_2_4') ): the_row();
 																	//titulo
 																	if( get_row_layout() == 'fx_cl1_titulo_2_4' ):
@@ -577,30 +948,95 @@ if( have_rows('fx_flex_layout') ):
 																	//editor Wysiwyg
 																	elseif( get_row_layout() == 'fx_cl1_editor_2_4' ): 
 																		get_template_part( 'construtor/construtor', 'editor_4_2' );
+
+																	//editor Wysiwyg com fundo
+																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_2_4' ): 
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '2_4' ) );
 																	
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_2_4' ): 
-																		get_template_part( 'construtor/construtor', 'video_4_2' );
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '2_4' ) );
+
+																	//Loops noticias por categorias
+																	elseif( get_row_layout() == 'fx_cl1_noticias_2_4' ):
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '2_4', 'size' => '1' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_2_4' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '2_4' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_2_4' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
 																	
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_2_4' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_4_2' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '2_4' ) );
+
+																	//abas
+																	elseif( get_row_layout() == 'fx_cl1_abas_2_4' ): 		
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '2_4' ) );
+
+																	//Sanfona
+																	elseif( get_row_layout() == 'fx_cl1_sanfona_2_4' ): 		
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '2_4' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_2_4' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_4_2' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_2_4' ): 
-																		get_template_part( 'construtor/construtor', 'botao_4_2' );
-																	endif;	
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '2_4' ) );
+
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_2_4' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '2_4' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_2_4' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_2_4' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_2_4' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_2_4' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Bloco Redes Sociais
+																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_2_4' ):
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '2_4' ) );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_2_4' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_2_4' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '2_4' ) );
+
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
+
+																	endif;
 																endwhile;
 															echo '</div>';
 														endif;
 
 														//conteudo flexivel 4 colunas (terceira coluna)
 														if( have_rows('fx_coluna_3_4') ):
-															echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_3_4') ): the_row();
 																	//titulo
 																	if( get_row_layout() == 'fx_cl1_titulo_3_4' ):
@@ -609,30 +1045,95 @@ if( have_rows('fx_flex_layout') ):
 																	//editor Wysiwyg
 																	elseif( get_row_layout() == 'fx_cl1_editor_3_4' ): 
 																		get_template_part( 'construtor/construtor', 'editor_4_3' );
+
+																	//editor Wysiwyg com fundo
+																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_3_4' ): 
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '3_4' ) );
 																	
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_3_4' ): 
-																		get_template_part( 'construtor/construtor', 'video_4_3' );
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '3_4' ) );
+
+																	//Loops noticias por categorias
+																	elseif( get_row_layout() == 'fx_cl1_noticias_3_4' ):
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '3_4', 'size' => '1' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_3_4' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '3_4' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_3_4' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
 																	
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_3_4' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_4_3' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '3_4' ) );
+
+																	//abas
+																	elseif( get_row_layout() == 'fx_cl1_abas_3_4' ): 		
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '3_4' ) );
+
+																	//Sanfona
+																	elseif( get_row_layout() == 'fx_cl1_sanfona_3_4' ): 		
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '3_4' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_3_4' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_4_3' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_3_4' ): 
-																		get_template_part( 'construtor/construtor', 'botao_4_3' );
-																	endif;	
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '3_4' ) );
+																	
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_3_4' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '3_4' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_3_4' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_3_4' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_3_4' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_3_4' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Bloco Redes Sociais
+																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_3_4' ):
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '3_4' ) );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_3_4' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_3_4' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '3_4' ) );
+
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
+
+																	endif;
 																endwhile;
 															echo '</div>';
 														endif;
 
 														//conteudo flexivel 4 colunas (quarta coluna)
 														if( have_rows('fx_coluna_4_4') ):
-															echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_4_4') ): the_row();
 																	//titulo
 																	if( get_row_layout() == 'fx_cl1_titulo_4_4' ):
@@ -641,22 +1142,87 @@ if( have_rows('fx_flex_layout') ):
 																	//editor Wysiwyg
 																	elseif( get_row_layout() == 'fx_cl1_editor_4_4' ): 
 																		get_template_part( 'construtor/construtor', 'editor_4_4' );
+
+																	//editor Wysiwyg com fundo
+																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_4_4' ): 
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '4_4' ) );
 																	
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_4_4' ): 
-																		get_template_part( 'construtor/construtor', 'video_4_4' );
-																	
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '4_4' ) );
+
+																	//Loops noticias por categorias
+																	elseif( get_row_layout() == 'fx_cl1_noticias_4_4' ):
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '4_4', 'size' => '1' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_4_4' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '4_4' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_4_4' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
+																									
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_4_4' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_4_4' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '4_4' ) );
+
+																	//abas
+																	elseif( get_row_layout() == 'fx_cl1_abas_4_4' ): 		
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '4_4' ) );
+
+																	//Sanfona
+																	elseif( get_row_layout() == 'fx_cl1_sanfona_4_4' ): 		
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '4_4' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_4_4' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_4_4' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_4_4' ): 
-																		get_template_part( 'construtor/construtor', 'botao_4_4' );
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '4_4' ) );
+
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_4_4' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '4_4' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_4_4' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_4_4' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_4_4' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_4_4' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Bloco Redes Sociais
+																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_4_4' ):
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '4_4' ) );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_4_4' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_4_4' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '4_4' ) );
+																	
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 																	endif;
 																endwhile;
 															echo '</div>';
@@ -680,7 +1246,7 @@ if( have_rows('fx_flex_layout') ):
 														//conteudo flexivel 2 colunas esquerda
 														if( have_rows('fx_coluna_1_1b3') ):
 									
-															echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_1_1b3') ): the_row();
 																	
 																	//titulo
@@ -690,34 +1256,87 @@ if( have_rows('fx_flex_layout') ):
 																	//editor Wysiwyg
 																	elseif( get_row_layout() == 'fx_cl1_editor_1_2' ): 
 																		get_template_part( 'construtor/construtor', 'editor_3b_1' );
+
+																	//editor Wysiwyg com fundo
+																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_1_2' ): 
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '1_2' ) );
 																	
 																	//Loops noticias por categorias
 																	elseif( get_row_layout() == 'fx_cl1_noticias_1_2' ):
-																		get_template_part( 'construtor/construtor', 'noticias_3b_1' );
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '1_2', 'size' => '1' ) );
 																	
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'video_3b_1' );
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '1_2' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_1_2' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '1_2' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_1_2' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
 																	
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_3b_1' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '1_2' ) );
 																	
 																	//abas
 																	elseif( get_row_layout() == 'fx_cl1_abas_1_2' ): 		
-																		get_template_part( 'construtor/construtor', 'abas_3b_1' );
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '1_2' ) );
 																	
 																	//Sanfona
 																	elseif( get_row_layout() == 'fx_cl1_sanfona_1_2' ): 		
-																		get_template_part( 'construtor/construtor', 'sanfona_3b_1' );
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '1_2' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_3b_1' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'botao_3b_1' );
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '1_2' ) );
+
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_2' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '1_2' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_1_2' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_1_2' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_1_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_1_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Bloco Redes Sociais
+																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '1_2' ) );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_1_2' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_1_2' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '1_2' ) );
+
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 																	endif;
 
 																endwhile;
@@ -727,7 +1346,7 @@ if( have_rows('fx_flex_layout') ):
 
 														//conteudo flexivel 2 colunas direita
 														if( have_rows('fx_coluna_2_1b3') ):
-															echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_2_1b3') ): the_row();
 																	//titulo
 																	if( get_row_layout() == 'fx_cl1_titulo_2_2' ):
@@ -736,34 +1355,87 @@ if( have_rows('fx_flex_layout') ):
 																	//editor Wysiwyg
 																	elseif( get_row_layout() == 'fx_cl1_editor_2_2' ): 
 																		get_template_part( 'construtor/construtor', 'editor_1b_3' );
+
+																	//editor Wysiwyg com fundo
+																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_2_2' ): 
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '2_2' ) );
 																	
 																	//Loops noticias por categorias
 																	elseif( get_row_layout() == 'fx_cl1_noticias_2_2' ):
-																		get_template_part( 'construtor/construtor', 'noticias_1b_3' );
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '2_2' ) );
 																	
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'video_1b_3' );
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '2_2' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_2_2' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '2_2' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_2_2' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
 																	
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_1b_3' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '2_2' ) );
 																	
 																	//abas
 																	elseif( get_row_layout() == 'fx_cl1_abas_2_2' ): 		
-																		get_template_part( 'construtor/construtor', 'abas_1b_3' );
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '2_2' ) );
 																	
 																	//Sanfona
 																	elseif( get_row_layout() == 'fx_cl1_sanfona_2_2' ): 		
-																		get_template_part( 'construtor/construtor', 'sanfona_1b_3' );
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '2_2' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_1b_3' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'botao_1b_3' );
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '2_2' ) );
+																	
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_2_2' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '2_2' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_2_2' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_2_2' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_2_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_2_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Bloco Redes Sociais
+																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_2_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '2_2' ) );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_2_2' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_2_2' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '2_2' ) );
+
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 																	endif;
 																endwhile;
 															echo '</div>';
@@ -787,7 +1459,7 @@ if( have_rows('fx_flex_layout') ):
 														//conteudo flexivel 2 colunas esquerda
 														if( have_rows('fx_coluna_1_3b1') ):
 									
-															echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_1_3b1') ): the_row();
 																	//titulo
 																	if( get_row_layout() == 'fx_cl1_titulo_1_2' ):
@@ -796,34 +1468,87 @@ if( have_rows('fx_flex_layout') ):
 																	//editor Wysiwyg
 																	elseif( get_row_layout() == 'fx_cl1_editor_1_2' ): 
 																		get_template_part( 'construtor/construtor', 'editor_1_3b' );
+
+																	//editor Wysiwyg com fundo
+																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_1_2' ): 
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '1_2' ) );
 																	
 																	//Loops noticias por categorias
 																	elseif( get_row_layout() == 'fx_cl1_noticias_1_2' ):
-																		get_template_part( 'construtor/construtor', 'noticias_1_3b' );
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '1_2', 'size' => '' ) );
 																	
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'video_1_3b' );
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '1_2' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_1_2' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '1_2' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_1_2' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
 																	
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_1_3b' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '1_2' ) );
 																	
 																	//abas
 																	elseif( get_row_layout() == 'fx_cl1_abas_1_2' ): 		
-																		get_template_part( 'construtor/construtor', 'abas_1_3b' );
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '1_2' ) );
 																	
 																	//Sanfona
 																	elseif( get_row_layout() == 'fx_cl1_sanfona_1_2' ): 		
-																		get_template_part( 'construtor/construtor', 'sanfona_1_3b' );
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '1_2' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_1_3b' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_1_2' ): 
-																		get_template_part( 'construtor/construtor', 'botao_1_3b' );
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '1_2' ) );
+
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_2' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '1_2' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_1_2' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_1_2' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_1_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_1_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Bloco Redes Sociais
+																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '1_2' ) );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_1_2' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_1_2' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '1_2' ) );
+
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 																	endif;
 																endwhile;
 															echo '</div>';
@@ -832,7 +1557,7 @@ if( have_rows('fx_flex_layout') ):
 
 														//conteudo flexivel 2 colunas direita
 														if( have_rows('fx_coluna_2_3b1') ):
-															echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+															echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 																while( have_rows('fx_coluna_2_3b1') ): the_row();
 																	
 																	//titulo
@@ -842,36 +1567,89 @@ if( have_rows('fx_flex_layout') ):
 																	//editor Wysiwyg
 																	elseif( get_row_layout() == 'fx_cl1_editor_2_2' ): 
 																		get_template_part( 'construtor/construtor', 'editor_3_1b' );
+
+																	//editor Wysiwyg com fundo
+																	elseif( get_row_layout() == 'fx_cl1_editor_fundo_2_2' ): 
+																		get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '2_2' ) );
 																	
 																	//Loops noticias por categorias
 																	elseif( get_row_layout() == 'fx_cl1_noticias_2_2' ):
-																		get_template_part( 'construtor/construtor', 'noticias_3_1b' );
-																	
+																		get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '2_2', 'size' => '1' ) );
+
 																	//Video Responsivo
 																	elseif( get_row_layout() == 'fx_cl1_video_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'video_3_1b' );
+																		get_template_part( 'construtor/construtor', 'video', array( 'key' => '2_2' ) );
+
+																	// Slide de Noticias
+																	elseif( get_row_layout() == 'fx_cl1_slide_noticias_2_2' ):
+																		get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '2_2' ) );
+
+																	// Slide de Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_slide_timer_2_2' ):
+																		get_template_part( 'construtor/construtor', 'slide_timer' );
 																	
 																	//imagem responsiva
 																	elseif( get_row_layout() == 'fx_cl1_imagem_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'imagem_3_1b' );
+																		get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '2_2' ) );
 																	
 																	//abas
 																	elseif( get_row_layout() == 'fx_cl1_abas_2_2' ): 		
-																		get_template_part( 'construtor/construtor', 'abas_3_1b' );
+																		get_template_part( 'construtor/construtor', 'abas', array( 'key' => '2_2' ) );
 																	
 																	//Sanfona
 																	elseif( get_row_layout() == 'fx_cl1_sanfona_2_2' ): 		
-																		get_template_part( 'construtor/construtor', 'sanfona_3_1b' );
+																		get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '2_2' ) );
 																	
 																	//Divisor
 																	elseif( get_row_layout() == 'fx_fl1_divisor_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'divisor_3_1b' );
+																		get_template_part( 'construtor/construtor', 'divisor' );
 																	
 																	//botão centralizado
 																	elseif( get_row_layout() == 'fx_fl1_botao_2_2' ): 
-																		get_template_part( 'construtor/construtor', 'botao_3_1b' );
-																	endif;
+																		get_template_part( 'construtor/construtor', 'botao', array( 'key' => '2_2' ) );
 
+																	// Acesso Rapido								
+																	elseif( get_row_layout() == 'fx_cl1_acesso_rapido_2_2' ):									
+																		get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '2_2' ) );
+
+																	//Contatos em camadas
+																	elseif( get_row_layout() == 'fx_cl1_contato_camadas_2_2' ): 
+																		get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+																	//Contato Individual
+																	elseif( get_row_layout() == 'fx_cl1_contato_individual_2_2' ):
+																		get_template_part( 'construtor/construtor', 'contato_individual' );
+
+																	// Bloco Noticias
+																	elseif( get_row_layout() == 'fx_cl1_bloco_noticias_2_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+																	// Bloco Noticias - Timer
+																	elseif( get_row_layout() == 'fx_cl1_bloco_timer_2_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+																	// Bloco Redes Sociais
+																	elseif( get_row_layout() == 'fx_fl1_bloco_rede_2_2' ):
+																		get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '2_2' ) );
+
+																	// Noticias em destaque
+																	elseif( get_row_layout() == 'fx_cl1_noticias_destaque_2_2' ):
+																		get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+																	// Noticias mais lidas
+																	elseif( get_row_layout() == 'fx_cl1_mais_lidas_2_2' ):
+																		get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '2_2' ) );
+
+																	// Outras Noticias
+																	elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+																		get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+																	// Noticias DREs
+																	elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+																		get_template_part( 'construtor/construtor', 'noticias_dres' );
+
+																	endif;
+																	
 																endwhile;
 															echo '</div>';
 
@@ -929,6 +1707,7 @@ if( have_rows('fx_flex_layout') ):
 					$color = get_sub_field('fx_cor_do_texto_coluna_1_1');
 					$link = get_sub_field('fx_cor_do_link_coluna_1_1');
 					$colorbtn = get_sub_field('fx_cor_do_botao_coluna_1_1');
+
 					
 					echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
 					echo '<div class="container">';//bootstrap container
@@ -936,7 +1715,7 @@ if( have_rows('fx_flex_layout') ):
 					
 					//conteudo flexivel 2 colunas esquerda
 					if( have_rows('fx_coluna_1_2') ):
-						echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 							while( have_rows('fx_coluna_1_2') ): the_row();
 								
 								//titulo
@@ -949,39 +1728,84 @@ if( have_rows('fx_flex_layout') ):
 								
 								//editor Wysiwyg com fundo
 								elseif( get_row_layout() == 'fx_cl1_editor_fundo_1_2' ): 
-									get_template_part( 'construtor/construtor', 'editor_fundo_1_2' );
+									get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '1_2' ) );
 								
 								//Loops noticias por categorias
 								elseif( get_row_layout() == 'fx_cl1_noticias_1_2' ):
-									get_template_part( 'construtor/construtor', 'noticias_1_2' );
+									get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '1_2' ) );
 								
 								//Video Responsivo
 								elseif( get_row_layout() == 'fx_cl1_video_1_2' ): 
-									get_template_part( 'construtor/construtor', 'video_1_2' );
+									get_template_part( 'construtor/construtor', 'video', array( 'key' => '1_2' ) );
+
+								// Slide de Noticias
+								elseif( get_row_layout() == 'fx_cl1_slide_noticias_1_2' ):
+									get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '1_2' ) );
+
+								// Slide de Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_slide_timer_1_2' ):
+									get_template_part( 'construtor/construtor', 'slide_timer' );
 								
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_2' ): 
-									get_template_part( 'construtor/construtor', 'imagem_1_2' );
+									get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '1_2' ) );
 								
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_1_2' ): 		
-									get_template_part( 'construtor/construtor', 'abas_1_2' );
+									get_template_part( 'construtor/construtor', 'abas', array( 'key' => '1_2' ) );
 								
 								//Sanfona
 								elseif( get_row_layout() == 'fx_cl1_sanfona_1_2' ): 		
-									get_template_part( 'construtor/construtor', 'sanfona_1_2' );
+									get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '1_2' ) );
 								
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_1_2' ): 
-									get_template_part( 'construtor/construtor', 'divisor_1_2' );
+									get_template_part( 'construtor/construtor', 'divisor' );
 								
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_1_2' ): 
-									get_template_part( 'construtor/construtor', 'botao_1_2' );
+									get_template_part( 'construtor/construtor', 'botao', array( 'key' => '1_2' ) );
 
 								// Bloco Redes Sociais
 								elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_2' ):
-									get_template_part( 'construtor/construtor', 'bloco_rede_1_2' );
+									get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '1_2' ) );
+
+								//Contatos em camadas
+								elseif( get_row_layout() == 'fx_cl1_contato_camadas_1_2' ): 
+									get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+								//Contato Individual
+								elseif( get_row_layout() == 'fx_cl1_contato_individual_1_2' ):
+									get_template_part( 'construtor/construtor', 'contato_individual' );
+
+								// Acesso Rapido								
+								elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_2' ):									
+									get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '1_2' ) );
+
+								// Bloco Noticias
+								elseif( get_row_layout() == 'fx_cl1_bloco_noticias_1_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+								// Bloco Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_bloco_timer_1_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+								// Noticias em destaque
+								elseif( get_row_layout() == 'fx_cl1_noticias_destaque_1_2' ):
+									get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+								// Noticias mais lidas
+								elseif( get_row_layout() == 'fx_cl1_mais_lidas_1_2' ):
+									get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '1_2' ) );
+
+								// Outras Noticias
+								elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+									get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+								// Noticias DREs
+								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+									get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 								endif;
 
 							endwhile;
@@ -991,7 +1815,7 @@ if( have_rows('fx_flex_layout') ):
 		
 					//conteudo flexivel 2 colunas direita
 					if( have_rows('fx_coluna_2_2') ):
-						echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 							while( have_rows('fx_coluna_2_2') ): the_row();
 								
 								//titulo
@@ -1004,39 +1828,83 @@ if( have_rows('fx_flex_layout') ):
 								
 								//editor Wysiwyg com fundo
 								elseif( get_row_layout() == 'fx_cl1_editor_fundo_2_2' ): 
-									get_template_part( 'construtor/construtor', 'editor_fundo_2_2' );
+									get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '2_2' ) );
 								
 								//Loops noticias por categorias
 								elseif( get_row_layout() == 'fx_cl1_noticias_2_2' ):
-									get_template_part( 'construtor/construtor', 'noticias_2_2' );
+									get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '2_2' ) );
 								
 								//Video Responsivo
 								elseif( get_row_layout() == 'fx_cl1_video_2_2' ): 
-									get_template_part( 'construtor/construtor', 'video_2_2' );
+									get_template_part( 'construtor/construtor', 'video', array( 'key' => '2_2' ) );
+
+								// Slide de Noticias
+								elseif( get_row_layout() == 'fx_cl1_slide_noticias_2_2' ):
+									get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '2_2' ) );
+
+								// Slide de Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_slide_timer_2_2' ):
+									get_template_part( 'construtor/construtor', 'slide_timer' );
 								
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_2_2' ): 
-									get_template_part( 'construtor/construtor', 'imagem_2_2' );
+									get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '2_2' ) );
 								
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_2_2' ): 		
-									get_template_part( 'construtor/construtor', 'abas_2_2' );
+									get_template_part( 'construtor/construtor', 'abas', array( 'key' => '2_2' ) );
 								
 								//Sanfona
 								elseif( get_row_layout() == 'fx_cl1_sanfona_2_2' ): 		
-									get_template_part( 'construtor/construtor', 'sanfona_2_2' );
+									get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '2_2' ) );
 								
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_2_2' ): 
-									get_template_part( 'construtor/construtor', 'divisor_2_2' );
+									get_template_part( 'construtor/construtor', 'divisor' );
 								
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_2_2' ): 
-									get_template_part( 'construtor/construtor', 'botao_2_2' );							
+									get_template_part( 'construtor/construtor', 'botao', array( 'key' => '2_2' ) );						
 
 								// Bloco Redes Sociais
 								elseif( get_row_layout() == 'fx_fl1_bloco_rede_2_2' ):
-									get_template_part( 'construtor/construtor', 'bloco_rede_2_2' );	
+									get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '2_2' ) );
+
+								//Contatos em camadas
+								elseif( get_row_layout() == 'fx_cl1_contato_camadas_2_2' ): 
+									get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+								//Contato Individual
+								elseif( get_row_layout() == 'fx_cl1_contato_individual_2_2' ):
+									get_template_part( 'construtor/construtor', 'contato_individual' );
+
+								// Acesso Rapido								
+								elseif( get_row_layout() == 'fx_cl1_acesso_rapido_2_2' ):									
+									get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '2_2' ) );
+
+								// Bloco Noticias
+								elseif( get_row_layout() == 'fx_cl1_bloco_noticias_2_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+								// Bloco Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_bloco_timer_2_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+								// Noticias em destaque
+								elseif( get_row_layout() == 'fx_cl1_noticias_destaque_2_2' ):
+									get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+								// Noticias mais lidas
+								elseif( get_row_layout() == 'fx_cl1_mais_lidas_2_2' ):
+									get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '2_2' ) );
+
+								// Outras Noticias
+								elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+									get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+								// Noticias DREs
+								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+									get_template_part( 'construtor/construtor', 'noticias_dres' );
 
 								endif;
 
@@ -1064,7 +1932,7 @@ if( have_rows('fx_flex_layout') ):
 		        	
 						//conteudo flexivel 3 colunas (primeira coluna)
 						if( have_rows('fx_coluna_1_3') ):
-							echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+							echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 								while( have_rows('fx_coluna_1_3') ): the_row();
 									
 									//titulo
@@ -1074,22 +1942,87 @@ if( have_rows('fx_flex_layout') ):
 									//editor Wysiwyg
 									elseif( get_row_layout() == 'fx_cl1_editor_1_3' ): 
 										get_template_part( 'construtor/construtor', 'editor_3_1' );
+
+									//editor Wysiwyg com fundo
+									elseif( get_row_layout() == 'fx_cl1_editor_fundo_1_3' ): 
+										get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '1_3' ) );
 									
 									//Video Responsivo
 									elseif( get_row_layout() == 'fx_cl1_video_1_3' ): 
-										get_template_part( 'construtor/construtor', 'video_3_1' );
+										get_template_part( 'construtor/construtor', 'video', array( 'key' => '1_3' ) );
+
+									//Loops noticias por categorias
+									elseif( get_row_layout() == 'fx_cl1_noticias_1_3' ):
+										get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '1_3', 'size' => '1' ) );
+
+									// Slide de Noticias
+									elseif( get_row_layout() == 'fx_cl1_slide_noticias_1_3' ):
+										get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '1_3' ) );
+
+									// Slide de Noticias - Timer
+									elseif( get_row_layout() == 'fx_cl1_slide_timer_1_3' ):
+										get_template_part( 'construtor/construtor', 'slide_timer' );
 									
 									//imagem responsiva
 									elseif( get_row_layout() == 'fx_cl1_imagem_1_3' ): 
-										get_template_part( 'construtor/construtor', 'imagem_3_1' );
+										get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '1_3' ) );
+
+									//abas
+									elseif( get_row_layout() == 'fx_cl1_abas_1_3' ): 		
+										get_template_part( 'construtor/construtor', 'abas', array( 'key' => '1_3' ) );
+
+									//Sanfona
+									elseif( get_row_layout() == 'fx_cl1_sanfona_1_3' ): 		
+										get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '1_3' ) );
 									
 									//Divisor
 									elseif( get_row_layout() == 'fx_fl1_divisor_1_3' ): 
-										get_template_part( 'construtor/construtor', 'divisor_3_1' );
+										get_template_part( 'construtor/construtor', 'divisor' );
 									
 									//botão centralizado
 									elseif( get_row_layout() == 'fx_fl1_botao_1_3' ): 
-										get_template_part( 'construtor/construtor', 'botao_3_1' );
+										get_template_part( 'construtor/construtor', 'botao', array( 'key' => '1_3' ) );
+
+									// Acesso Rapido								
+									elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_3' ):									
+										get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '1_3' ) );
+
+									//Contatos em camadas
+									elseif( get_row_layout() == 'fx_cl1_contato_camadas_1_3' ): 
+										get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+									//Contato Individual
+									elseif( get_row_layout() == 'fx_cl1_contato_individual_1_3' ):
+										get_template_part( 'construtor/construtor', 'contato_individual' );
+
+									// Bloco Noticias
+									elseif( get_row_layout() == 'fx_cl1_bloco_noticias_1_3' ):
+										get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+									// Bloco Noticias - Timer
+									elseif( get_row_layout() == 'fx_cl1_bloco_timer_1_3' ):
+										get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+									// Bloco Redes Sociais
+									elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_3' ):
+										get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '1_3' ) );
+
+									// Noticias em destaque
+									elseif( get_row_layout() == 'fx_cl1_noticias_destaque_1_3' ):
+										get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+									// Noticias mais lidas
+									elseif( get_row_layout() == 'fx_cl1_mais_lidas_1_3' ):
+										get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '1_3' ) );
+
+									// Outras Noticias
+									elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+										get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+									// Noticias DREs
+									elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+										get_template_part( 'construtor/construtor', 'noticias_dres' );
+									
 									endif;
 
 								endwhile;
@@ -1099,7 +2032,7 @@ if( have_rows('fx_flex_layout') ):
 			
 						//conteudo flexivel 3 colunas (segunda coluna)
 						if( have_rows('fx_coluna_2_3') ):
-							echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+							echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 								while( have_rows('fx_coluna_2_3') ): the_row();
 									
 									//titulo
@@ -1109,22 +2042,87 @@ if( have_rows('fx_flex_layout') ):
 									//editor Wysiwyg
 									elseif( get_row_layout() == 'fx_cl1_editor_2_3' ): 
 										get_template_part( 'construtor/construtor', 'editor_3_2' );
+
+									//editor Wysiwyg com fundo
+									elseif( get_row_layout() == 'fx_cl1_editor_fundo_2_3' ): 
+										get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '2_3' ) );
 									
 									//Video Responsivo
 									elseif( get_row_layout() == 'fx_cl1_video_2_3' ): 
-										get_template_part( 'construtor/construtor', 'video_3_2' );
+										get_template_part( 'construtor/construtor', 'video', array( 'key' => '2_3' ) );
+
+									//Loops noticias por categorias
+									elseif( get_row_layout() == 'fx_cl1_noticias_2_3' ):
+										get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '2_3', 'size' => '1' ) );
+
+									// Slide de Noticias
+									elseif( get_row_layout() == 'fx_cl1_slide_noticias_2_3' ):
+										get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '2_3' ) );
+
+									// Slide de Noticias - Timer
+									elseif( get_row_layout() == 'fx_cl1_slide_timer_2_3' ):
+										get_template_part( 'construtor/construtor', 'slide_timer' );
 									
 									//imagem responsiva
 									elseif( get_row_layout() == 'fx_cl1_imagem_2_3' ): 
-										get_template_part( 'construtor/construtor', 'imagem_3_2' );
+										get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '2_3' ) );
+
+									//abas
+									elseif( get_row_layout() == 'fx_cl1_abas_2_3' ): 		
+										get_template_part( 'construtor/construtor', 'abas', array( 'key' => '2_3' ) );
+
+									//Sanfona
+									elseif( get_row_layout() == 'fx_cl1_sanfona_2_3' ): 		
+										get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '2_3' ) );
 									
 									//Divisor
 									elseif( get_row_layout() == 'fx_fl1_divisor_2_3' ): 
-										get_template_part( 'construtor/construtor', 'divisor_3_2' );
+										get_template_part( 'construtor/construtor', 'divisor' );
 									
 									//botão centralizado
 									elseif( get_row_layout() == 'fx_fl1_botao_2_3' ): 
-										get_template_part( 'construtor/construtor', 'botao_3_2' );
+										get_template_part( 'construtor/construtor', 'botao', array( 'key' => '2_3' ) );
+
+									// Acesso Rapido								
+									elseif( get_row_layout() == 'fx_cl1_acesso_rapido_2_3' ):									
+										get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '2_3' ) );
+
+									//Contatos em camadas
+									elseif( get_row_layout() == 'fx_cl1_contato_camadas_2_3' ): 
+										get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+									//Contato Individual
+									elseif( get_row_layout() == 'fx_cl1_contato_individual_2_3' ):
+										get_template_part( 'construtor/construtor', 'contato_individual' );
+
+									// Bloco Noticias
+									elseif( get_row_layout() == 'fx_cl1_bloco_noticias_2_3' ):
+										get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+									// Bloco Noticias - Timer
+									elseif( get_row_layout() == 'fx_cl1_bloco_timer_2_3' ):
+										get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+									// Bloco Redes Sociais
+									elseif( get_row_layout() == 'fx_fl1_bloco_rede_2_3' ):
+										get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '2_3' ) );
+
+									// Noticias em destaque
+									elseif( get_row_layout() == 'fx_cl1_noticias_destaque_2_3' ):
+										get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+									// Noticias mais lidas
+									elseif( get_row_layout() == 'fx_cl1_mais_lidas_2_3' ):
+										get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '2_3' ) );
+
+									// Outras Noticias
+									elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+										get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+									// Noticias DREs
+									elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+										get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 									endif;
 
 								endwhile;
@@ -1135,7 +2133,7 @@ if( have_rows('fx_flex_layout') ):
 			
 						//conteudo flexivel 3 colunas (terceira coluna)
 						if( have_rows('fx_coluna_3_3') ):
-							echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+							echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 								while( have_rows('fx_coluna_3_3') ): the_row();
 									
 									//titulo
@@ -1145,22 +2143,87 @@ if( have_rows('fx_flex_layout') ):
 									//editor Wysiwyg
 									elseif( get_row_layout() == 'fx_cl1_editor_3_3' ): 
 										get_template_part( 'construtor/construtor', 'editor_3_3' );
+
+									//editor Wysiwyg com fundo
+									elseif( get_row_layout() == 'fx_cl1_editor_fundo_3_3' ): 
+										get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '3_3' ) );
 									
 									//Video Responsivo
 									elseif( get_row_layout() == 'fx_cl1_video_3_3' ): 
-										get_template_part( 'construtor/construtor', 'video_3_3' );
+										get_template_part( 'construtor/construtor', 'video', array( 'key' => '3_3' ) );
+
+									//Loops noticias por categorias
+									elseif( get_row_layout() == 'fx_cl1_noticias_3_3' ):
+										get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '3_3', 'size' => '1' ) );
+
+									// Slide de Noticias
+									elseif( get_row_layout() == 'fx_cl1_slide_noticias_3_3' ):
+										get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '3_3' ) );
+
+									// Slide de Noticias - Timer
+									elseif( get_row_layout() == 'fx_cl1_slide_timer_3_3' ):
+										get_template_part( 'construtor/construtor', 'slide_timer' );
 									
 									//imagem responsiva
 									elseif( get_row_layout() == 'fx_cl1_imagem_3_3' ): 
-										get_template_part( 'construtor/construtor', 'imagem_3_3' );
+										get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '3_3' ) );
+
+									//abas
+									elseif( get_row_layout() == 'fx_cl1_abas_3_3' ): 		
+										get_template_part( 'construtor/construtor', 'abas', array( 'key' => '3_3' ) );
+
+									//Sanfona
+									elseif( get_row_layout() == 'fx_cl1_sanfona_3_3' ): 		
+										get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '3_3' ) );
 									
 									//Divisor
 									elseif( get_row_layout() == 'fx_fl1_divisor_3_3' ): 
-										get_template_part( 'construtor/construtor', 'divisor_3_3' );
+										get_template_part( 'construtor/construtor', 'divisor' );
 									
 									//botão centralizado
 									elseif( get_row_layout() == 'fx_fl1_botao_3_3' ): 
-										get_template_part( 'construtor/construtor', 'botao_3_3' );
+										get_template_part( 'construtor/construtor', 'botao', array( 'key' => '3_3' ) );
+
+									// Acesso Rapido								
+									elseif( get_row_layout() == 'fx_cl1_acesso_rapido_3_3' ):									
+										get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '3_3' ) );
+
+									//Contatos em camadas
+									elseif( get_row_layout() == 'fx_cl1_contato_camadas_3_3' ): 
+										get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+									//Contato Individual
+									elseif( get_row_layout() == 'fx_cl1_contato_individual_3_3' ):
+										get_template_part( 'construtor/construtor', 'contato_individual' );
+
+									// Bloco Noticias
+									elseif( get_row_layout() == 'fx_cl1_bloco_noticias_3_3' ):
+										get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+									// Bloco Noticias - Timer
+									elseif( get_row_layout() == 'fx_cl1_bloco_timer_3_3' ):
+										get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+									// Bloco Redes Sociais
+									elseif( get_row_layout() == 'fx_fl1_bloco_rede_3_3' ):
+										get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '3_3' ) );
+
+									// Noticias em destaque
+									elseif( get_row_layout() == 'fx_cl1_noticias_destaque_3_3' ):
+										get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+									// Noticias mais lidas
+									elseif( get_row_layout() == 'fx_cl1_mais_lidas_3_3' ):
+										get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '3_3' ) );
+
+									// Outras Noticias
+									elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+										get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+									// Noticias DREs
+									elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+										get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 									endif;
 
 								endwhile;
@@ -1188,7 +2251,7 @@ if( have_rows('fx_flex_layout') ):
 		        	
 					//conteudo flexivel 4 colunas (primeira coluna)
 					if( have_rows('fx_coluna_1_4') ):
-						echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 							while( have_rows('fx_coluna_1_4') ): the_row();
 								
 								//titulo
@@ -1198,22 +2261,87 @@ if( have_rows('fx_flex_layout') ):
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_1_4' ): 
 									get_template_part( 'construtor/construtor', 'editor_4_1' );
+
+								//editor Wysiwyg com fundo
+								elseif( get_row_layout() == 'fx_cl1_editor_fundo_1_4' ): 
+									get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '1_4' ) );
 								
 								//Video Responsivo
 								elseif( get_row_layout() == 'fx_cl1_video_1_4' ): 
-									get_template_part( 'construtor/construtor', 'video_4_1' );
+									get_template_part( 'construtor/construtor', 'video', array( 'key' => '1_4' ) );
+
+								//Loops noticias por categorias
+								elseif( get_row_layout() == 'fx_cl1_noticias_1_4' ):
+									get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '1_4', 'size' => '1' ) );
+
+								// Slide de Noticias
+								elseif( get_row_layout() == 'fx_cl1_slide_noticias_1_4' ):
+									get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '1_4' ) );
+
+								// Slide de Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_slide_timer_1_4' ):
+									get_template_part( 'construtor/construtor', 'slide_timer' );
 								
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_4' ): 
-									get_template_part( 'construtor/construtor', 'imagem_4_1' );
+									get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '1_4' ) );
+
+								//abas
+								elseif( get_row_layout() == 'fx_cl1_abas_1_4' ): 		
+									get_template_part( 'construtor/construtor', 'abas', array( 'key' => '1_4' ) );
+
+								//Sanfona
+								elseif( get_row_layout() == 'fx_cl1_sanfona_1_4' ): 		
+									get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '1_4' ) );
 								
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_1_4' ): 
-									get_template_part( 'construtor/construtor', 'divisor_4_1' );
+									get_template_part( 'construtor/construtor', 'divisor' );
 								
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_1_4' ): 
-									get_template_part( 'construtor/construtor', 'botao_4_1' );
+									get_template_part( 'construtor/construtor', 'botao', array( 'key' => '1_4' ) );
+
+								// Acesso Rapido								
+								elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_4' ):									
+									get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '1_4' ) );
+
+								//Contatos em camadas
+								elseif( get_row_layout() == 'fx_cl1_contato_camadas_1_4' ): 
+									get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+								//Contato Individual
+								elseif( get_row_layout() == 'fx_cl1_contato_individual_1_4' ):
+									get_template_part( 'construtor/construtor', 'contato_individual' );
+
+								// Bloco Noticias
+								elseif( get_row_layout() == 'fx_cl1_bloco_noticias_1_4' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+								// Bloco Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_bloco_timer_1_4' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+								// Bloco Redes Sociais
+								elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_4' ):
+									get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '1_4' ) );
+
+								// Noticias em destaque
+								elseif( get_row_layout() == 'fx_cl1_noticias_destaque_1_4' ):
+									get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+								// Noticias mais lidas
+								elseif( get_row_layout() == 'fx_cl1_mais_lidas_1_4' ):
+									get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '1_4' ) );
+
+								// Outras Noticias
+								elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+									get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+								// Noticias DREs
+								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+									get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 								endif;
 
 							endwhile;
@@ -1223,7 +2351,7 @@ if( have_rows('fx_flex_layout') ):
 		
 					//conteudo flexivel 4 colunas (segunda coluna)
 					if( have_rows('fx_coluna_2_4') ):
-						echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 							while( have_rows('fx_coluna_2_4') ): the_row();
 								
 								//titulo
@@ -1233,22 +2361,87 @@ if( have_rows('fx_flex_layout') ):
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_2_4' ): 
 									get_template_part( 'construtor/construtor', 'editor_4_2' );
+
+								//editor Wysiwyg com fundo
+								elseif( get_row_layout() == 'fx_cl1_editor_fundo_2_4' ): 
+									get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '2_4' ) );
 								
 								//Video Responsivo
 								elseif( get_row_layout() == 'fx_cl1_video_2_4' ): 
-									get_template_part( 'construtor/construtor', 'video_4_2' );
+									get_template_part( 'construtor/construtor', 'video', array( 'key' => '2_4' ) );
+
+								//Loops noticias por categorias
+								elseif( get_row_layout() == 'fx_cl1_noticias_2_4' ):
+									get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '2_4', 'size' => '1' ) );
+
+								// Slide de Noticias
+								elseif( get_row_layout() == 'fx_cl1_slide_noticias_2_4' ):
+									get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '2_4' ) );
+
+								// Slide de Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_slide_timer_2_4' ):
+									get_template_part( 'construtor/construtor', 'slide_timer' );
 								
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_2_4' ): 
-									get_template_part( 'construtor/construtor', 'imagem_4_2' );
+									get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '2_4' ) );
+
+								//abas
+								elseif( get_row_layout() == 'fx_cl1_abas_2_4' ): 		
+									get_template_part( 'construtor/construtor', 'abas', array( 'key' => '2_4' ) );
+
+								//Sanfona
+								elseif( get_row_layout() == 'fx_cl1_sanfona_2_4' ): 		
+									get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '2_4' ) );
 								
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_2_4' ): 
-									get_template_part( 'construtor/construtor', 'divisor_4_2' );
+									get_template_part( 'construtor/construtor', 'divisor' );
 								
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_2_4' ): 
-									get_template_part( 'construtor/construtor', 'botao_4_2' );
+									get_template_part( 'construtor/construtor', 'botao', array( 'key' => '2_4' ) );
+
+								// Acesso Rapido								
+								elseif( get_row_layout() == 'fx_cl1_acesso_rapido_2_4' ):									
+									get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '2_4' ) );
+
+								//Contatos em camadas
+								elseif( get_row_layout() == 'fx_cl1_contato_camadas_2_4' ): 
+									get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+								//Contato Individual
+								elseif( get_row_layout() == 'fx_cl1_contato_individual_2_4' ):
+									get_template_part( 'construtor/construtor', 'contato_individual' );
+
+								// Bloco Noticias
+								elseif( get_row_layout() == 'fx_cl1_bloco_noticias_2_4' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+								// Bloco Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_bloco_timer_2_4' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+								// Bloco Redes Sociais
+								elseif( get_row_layout() == 'fx_fl1_bloco_rede_2_4' ):
+									get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '2_4' ) );
+
+								// Noticias em destaque
+								elseif( get_row_layout() == 'fx_cl1_noticias_destaque_2_4' ):
+									get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+								// Noticias mais lidas
+								elseif( get_row_layout() == 'fx_cl1_mais_lidas_2_4' ):
+									get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '2_4' ) );
+
+								// Outras Noticias
+								elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+									get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+								// Noticias DREs
+								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+									get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 								endif;	
 
 							endwhile;
@@ -1259,7 +2452,7 @@ if( have_rows('fx_flex_layout') ):
 		
 					//conteudo flexivel 4 colunas (terceira coluna)
 					if( have_rows('fx_coluna_3_4') ):
-						echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 							while( have_rows('fx_coluna_3_4') ): the_row();
 								
 								//titulo
@@ -1269,22 +2462,87 @@ if( have_rows('fx_flex_layout') ):
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_3_4' ): 
 									get_template_part( 'construtor/construtor', 'editor_4_3' );
+
+								//editor Wysiwyg com fundo
+								elseif( get_row_layout() == 'fx_cl1_editor_fundo_3_4' ): 
+									get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '3_4' ) );
 								
 								//Video Responsivo
 								elseif( get_row_layout() == 'fx_cl1_video_3_4' ): 
-									get_template_part( 'construtor/construtor', 'video_4_3' );
+									get_template_part( 'construtor/construtor', 'video', array( 'key' => '3_4' ) );
+
+								//Loops noticias por categorias
+								elseif( get_row_layout() == 'fx_cl1_noticias_3_4' ):
+									get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '3_4', 'size' => '1' ) );
+
+								// Slide de Noticias
+								elseif( get_row_layout() == 'fx_cl1_slide_noticias_3_4' ):
+									get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '3_4' ) );
+
+								// Slide de Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_slide_timer_3_4' ):
+									get_template_part( 'construtor/construtor', 'slide_timer' );
 								
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_3_4' ): 
-									get_template_part( 'construtor/construtor', 'imagem_4_3' );
+									get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '3_4' ) );
+
+								//abas
+								elseif( get_row_layout() == 'fx_cl1_abas_3_4' ): 		
+									get_template_part( 'construtor/construtor', 'abas', array( 'key' => '3_4' ) );
+
+								//Sanfona
+								elseif( get_row_layout() == 'fx_cl1_sanfona_3_4' ): 		
+									get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '3_4' ) );
 								
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_3_4' ): 
-									get_template_part( 'construtor/construtor', 'divisor_4_3' );
+									get_template_part( 'construtor/construtor', 'divisor' );
 								
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_3_4' ): 
-									get_template_part( 'construtor/construtor', 'botao_4_3' );
+									get_template_part( 'construtor/construtor', 'botao', array( 'key' => '3_4' ) );
+								
+								// Acesso Rapido								
+								elseif( get_row_layout() == 'fx_cl1_acesso_rapido_3_4' ):									
+									get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '3_4' ) );
+
+								//Contatos em camadas
+								elseif( get_row_layout() == 'fx_cl1_contato_camadas_3_4' ): 
+									get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+								//Contato Individual
+								elseif( get_row_layout() == 'fx_cl1_contato_individual_3_4' ):
+									get_template_part( 'construtor/construtor', 'contato_individual' );
+
+								// Bloco Noticias
+								elseif( get_row_layout() == 'fx_cl1_bloco_noticias_3_4' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+								// Bloco Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_bloco_timer_3_4' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+								// Bloco Redes Sociais
+								elseif( get_row_layout() == 'fx_fl1_bloco_rede_3_4' ):
+									get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '3_4' ) );
+
+								// Noticias em destaque
+								elseif( get_row_layout() == 'fx_cl1_noticias_destaque_3_4' ):
+									get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+								// Noticias mais lidas
+								elseif( get_row_layout() == 'fx_cl1_mais_lidas_3_4' ):
+									get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '3_4' ) );
+
+								// Outras Noticias
+								elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+									get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+								// Noticias DREs
+								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+									get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 								endif;	
 
 							endwhile;
@@ -1294,7 +2552,7 @@ if( have_rows('fx_flex_layout') ):
 		
 					//conteudo flexivel 4 colunas (quarta coluna)
 					if( have_rows('fx_coluna_4_4') ):
-						echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 							while( have_rows('fx_coluna_4_4') ): the_row();
 								
 								//titulo
@@ -1304,22 +2562,87 @@ if( have_rows('fx_flex_layout') ):
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_4_4' ): 
 									get_template_part( 'construtor/construtor', 'editor_4_4' );
+
+								//editor Wysiwyg com fundo
+								elseif( get_row_layout() == 'fx_cl1_editor_fundo_4_4' ): 
+									get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '4_4' ) );
 								
 								//Video Responsivo
 								elseif( get_row_layout() == 'fx_cl1_video_4_4' ): 
-									get_template_part( 'construtor/construtor', 'video_4_4' );
-								
+									get_template_part( 'construtor/construtor', 'video', array( 'key' => '4_4' ) );
+
+								//Loops noticias por categorias
+								elseif( get_row_layout() == 'fx_cl1_noticias_4_4' ):
+									get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '4_4', 'size' => '1' ) );
+
+								// Slide de Noticias
+								elseif( get_row_layout() == 'fx_cl1_slide_noticias_4_4' ):
+									get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '4_4' ) );
+
+								// Slide de Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_slide_timer_4_4' ):
+									get_template_part( 'construtor/construtor', 'slide_timer' );
+																
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_4_4' ): 
-									get_template_part( 'construtor/construtor', 'imagem_4_4' );
+									get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '4_4' ) );
+
+								//abas
+								elseif( get_row_layout() == 'fx_cl1_abas_4_4' ): 		
+									get_template_part( 'construtor/construtor', 'abas', array( 'key' => '4_4' ) );
+
+								//Sanfona
+								elseif( get_row_layout() == 'fx_cl1_sanfona_4_4' ): 		
+									get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '4_4' ) );
 								
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_4_4' ): 
-									get_template_part( 'construtor/construtor', 'divisor_4_4' );
+									get_template_part( 'construtor/construtor', 'divisor' );
 								
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_4_4' ): 
-									get_template_part( 'construtor/construtor', 'botao_4_4' );
+									get_template_part( 'construtor/construtor', 'botao', array( 'key' => '4_4' ) );
+
+								// Acesso Rapido								
+								elseif( get_row_layout() == 'fx_cl1_acesso_rapido_4_4' ):									
+									get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '4_4' ) );
+
+								//Contatos em camadas
+								elseif( get_row_layout() == 'fx_cl1_contato_camadas_4_4' ): 
+									get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+								//Contato Individual
+								elseif( get_row_layout() == 'fx_cl1_contato_individual_4_4' ):
+									get_template_part( 'construtor/construtor', 'contato_individual' );
+
+								// Bloco Noticias
+								elseif( get_row_layout() == 'fx_cl1_bloco_noticias_4_4' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+								// Bloco Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_bloco_timer_4_4' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+								// Bloco Redes Sociais
+								elseif( get_row_layout() == 'fx_fl1_bloco_rede_4_4' ):
+									get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '4_4' ) );
+
+								// Noticias em destaque
+								elseif( get_row_layout() == 'fx_cl1_noticias_destaque_4_4' ):
+									get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+								// Noticias mais lidas
+								elseif( get_row_layout() == 'fx_cl1_mais_lidas_4_4' ):
+									get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '4_4' ) );
+								
+								// Outras Noticias
+								elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+									get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+								// Noticias DREs
+								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+									get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 								endif;	
 
 							endwhile;
@@ -1331,8 +2654,6 @@ if( have_rows('fx_flex_layout') ):
 						echo '</div>';//bootstrap container
 						echo '</div>';//fundo
 		////////////////////////////// Final 3 Colunas ///////////////////////////////
-
-
 
 		////////////////////////////// Inicio 1/3 Colunas ///////////////////////////////
         elseif( get_row_layout() == 'fx_linha_coluna_1b3' ):
@@ -1348,7 +2669,7 @@ if( have_rows('fx_flex_layout') ):
 		        	//conteudo flexivel 2 colunas esquerda
 					if( have_rows('fx_coluna_1_1b3') ):
 
-						echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 							while( have_rows('fx_coluna_1_1b3') ): the_row();
 								
 								//titulo
@@ -1358,34 +2679,87 @@ if( have_rows('fx_flex_layout') ):
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_1_2' ): 
 									get_template_part( 'construtor/construtor', 'editor_3b_1' );
+
+								//editor Wysiwyg com fundo
+								elseif( get_row_layout() == 'fx_cl1_editor_fundo_1_2' ): 
+									get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '1_2' ) );
 								
 								//Loops noticias por categorias
 								elseif( get_row_layout() == 'fx_cl1_noticias_1_2' ):
-									get_template_part( 'construtor/construtor', 'noticias_3b_1' );
+									get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '1_2', 'size' => '1' ) );
 								
 								//Video Responsivo
 								elseif( get_row_layout() == 'fx_cl1_video_1_2' ): 
-									get_template_part( 'construtor/construtor', 'video_3b_1' );
+									get_template_part( 'construtor/construtor', 'video', array( 'key' => '1_2' ) );
+
+								// Slide de Noticias
+								elseif( get_row_layout() == 'fx_cl1_slide_noticias_1_2' ):
+									get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '1_2' ) );
+
+								// Slide de Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_slide_timer_1_2' ):
+									get_template_part( 'construtor/construtor', 'slide_timer' );
 								
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_2' ): 
-									get_template_part( 'construtor/construtor', 'imagem_3b_1' );
+									get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '1_2' ) );
 								
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_1_2' ): 		
-									get_template_part( 'construtor/construtor', 'abas_3b_1' );
+									get_template_part( 'construtor/construtor', 'abas', array( 'key' => '1_2' ) );
 								
 								//Sanfona
 								elseif( get_row_layout() == 'fx_cl1_sanfona_1_2' ): 		
-									get_template_part( 'construtor/construtor', 'sanfona_3b_1' );
+									get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '1_2' ) );
 								
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_1_2' ): 
-									get_template_part( 'construtor/construtor', 'divisor_3b_1' );
+									get_template_part( 'construtor/construtor', 'divisor' );
 								
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_1_2' ): 
-									get_template_part( 'construtor/construtor', 'botao_3b_1' );
+									get_template_part( 'construtor/construtor', 'botao', array( 'key' => '1_2' ) );
+
+								// Acesso Rapido								
+								elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_2' ):									
+									get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '1_2' ) );
+
+								//Contatos em camadas
+								elseif( get_row_layout() == 'fx_cl1_contato_camadas_1_2' ): 
+									get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+								//Contato Individual
+								elseif( get_row_layout() == 'fx_cl1_contato_individual_1_2' ):
+									get_template_part( 'construtor/construtor', 'contato_individual' );
+
+								// Bloco Noticias
+								elseif( get_row_layout() == 'fx_cl1_bloco_noticias_1_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+								// Bloco Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_bloco_timer_1_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+								// Bloco Redes Sociais
+								elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '1_2' ) );
+
+								// Noticias em destaque
+								elseif( get_row_layout() == 'fx_cl1_noticias_destaque_1_2' ):
+									get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+								// Noticias mais lidas
+								elseif( get_row_layout() == 'fx_cl1_mais_lidas_1_2' ):
+									get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '1_2' ) );
+
+								// Outras Noticias
+								elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+									get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+								// Noticias DREs
+								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+									get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 								endif;
 
 							endwhile;
@@ -1395,7 +2769,7 @@ if( have_rows('fx_flex_layout') ):
 		
 					//conteudo flexivel 2 colunas direita
 					if( have_rows('fx_coluna_2_1b3') ):
-						echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 							while( have_rows('fx_coluna_2_1b3') ): the_row();
 								
 								//titulo
@@ -1405,34 +2779,87 @@ if( have_rows('fx_flex_layout') ):
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_2_2' ): 
 									get_template_part( 'construtor/construtor', 'editor_1b_3' );
+
+								//editor Wysiwyg com fundo
+								elseif( get_row_layout() == 'fx_cl1_editor_fundo_2_2' ): 
+									get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '2_2' ) );
 								
 								//Loops noticias por categorias
 								elseif( get_row_layout() == 'fx_cl1_noticias_2_2' ):
-									get_template_part( 'construtor/construtor', 'noticias_1b_3' );
+									get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '2_2' ) );
 								
 								//Video Responsivo
 								elseif( get_row_layout() == 'fx_cl1_video_2_2' ): 
-									get_template_part( 'construtor/construtor', 'video_1b_3' );
+									get_template_part( 'construtor/construtor', 'video', array( 'key' => '2_2' ) );
+
+								// Slide de Noticias
+								elseif( get_row_layout() == 'fx_cl1_slide_noticias_2_2' ):
+									get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '2_2' ) );
+
+								// Slide de Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_slide_timer_2_2' ):
+									get_template_part( 'construtor/construtor', 'slide_timer' );
 								
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_2_2' ): 
-									get_template_part( 'construtor/construtor', 'imagem_1b_3' );
+									get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '2_2' ) );
 								
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_2_2' ): 		
-									get_template_part( 'construtor/construtor', 'abas_1b_3' );
+									get_template_part( 'construtor/construtor', 'abas', array( 'key' => '2_2' ) );
 								
 								//Sanfona
 								elseif( get_row_layout() == 'fx_cl1_sanfona_2_2' ): 		
-									get_template_part( 'construtor/construtor', 'sanfona_1b_3' );
+									get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '2_2' ) );
 								
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_2_2' ): 
-									get_template_part( 'construtor/construtor', 'divisor_1b_3' );
+									get_template_part( 'construtor/construtor', 'divisor' );
 								
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_2_2' ): 
-									get_template_part( 'construtor/construtor', 'botao_1b_3' );
+									get_template_part( 'construtor/construtor', 'botao', array( 'key' => '2_2' ) );
+								
+								// Acesso Rapido								
+								elseif( get_row_layout() == 'fx_cl1_acesso_rapido_2_2' ):									
+									get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '2_2' ) );
+
+								//Contatos em camadas
+								elseif( get_row_layout() == 'fx_cl1_contato_camadas_2_2' ): 
+									get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+								//Contato Individual
+								elseif( get_row_layout() == 'fx_cl1_contato_individual_2_2' ):
+									get_template_part( 'construtor/construtor', 'contato_individual' );
+
+								// Bloco Noticias
+								elseif( get_row_layout() == 'fx_cl1_bloco_noticias_2_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+								// Bloco Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_bloco_timer_2_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+								// Bloco Redes Sociais
+								elseif( get_row_layout() == 'fx_fl1_bloco_rede_2_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '2_2' ) );
+
+								// Noticias em destaque
+								elseif( get_row_layout() == 'fx_cl1_noticias_destaque_2_2' ):
+									get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+								// Noticias mais lidas
+								elseif( get_row_layout() == 'fx_cl1_mais_lidas_2_2' ):
+									get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '2_2' ) );
+
+								// Outras Noticias
+								elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+									get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+								// Noticias DREs
+								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+									get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 								endif;
 
 							endwhile;
@@ -1444,7 +2871,6 @@ if( have_rows('fx_flex_layout') ):
 					echo '</div>';//bootstrap container
 					echo '</div>';//fundo
 		////////////////////////////// Final 1/3 Colunas ///////////////////////////////
-
 
 		////////////////////////////// Inicio 3/1 Colunas ///////////////////////////////
         elseif( get_row_layout() == 'fx_linha_coluna_3b1' ):
@@ -1460,7 +2886,7 @@ if( have_rows('fx_flex_layout') ):
 		        	//conteudo flexivel 2 colunas esquerda
 					if( have_rows('fx_coluna_1_3b1') ):
 
-						echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 							while( have_rows('fx_coluna_1_3b1') ): the_row();
 								
 								//titulo
@@ -1470,34 +2896,87 @@ if( have_rows('fx_flex_layout') ):
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_1_2' ): 
 									get_template_part( 'construtor/construtor', 'editor_1_3b' );
+
+								//editor Wysiwyg com fundo
+								elseif( get_row_layout() == 'fx_cl1_editor_fundo_1_2' ): 
+									get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '1_2' ) );
 								
 								//Loops noticias por categorias
 								elseif( get_row_layout() == 'fx_cl1_noticias_1_2' ):
-									get_template_part( 'construtor/construtor', 'noticias_1_3b' );
+									get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '1_2', 'size' => '' ) );
 								
 								//Video Responsivo
 								elseif( get_row_layout() == 'fx_cl1_video_1_2' ): 
-									get_template_part( 'construtor/construtor', 'video_1_3b' );
+									get_template_part( 'construtor/construtor', 'video', array( 'key' => '1_2' ) );
+
+								// Slide de Noticias
+								elseif( get_row_layout() == 'fx_cl1_slide_noticias_1_2' ):
+									get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '1_2' ) );
+
+								// Slide de Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_slide_timer_1_2' ):
+									get_template_part( 'construtor/construtor', 'slide_timer' );
 								
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_1_2' ): 
-									get_template_part( 'construtor/construtor', 'imagem_1_3b' );
+									get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '1_2' ) );
 								
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_1_2' ): 		
-									get_template_part( 'construtor/construtor', 'abas_1_3b' );
+									get_template_part( 'construtor/construtor', 'abas', array( 'key' => '1_2' ) );
 								
 								//Sanfona
 								elseif( get_row_layout() == 'fx_cl1_sanfona_1_2' ): 		
-									get_template_part( 'construtor/construtor', 'sanfona_1_3b' );
+									get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '1_2' ) );
 								
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_1_2' ): 
-									get_template_part( 'construtor/construtor', 'divisor_1_3b' );
+									get_template_part( 'construtor/construtor', 'divisor' );
 								
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_1_2' ): 
-									get_template_part( 'construtor/construtor', 'botao_1_3b' );
+									get_template_part( 'construtor/construtor', 'botao', array( 'key' => '1_2' ) );
+
+								// Acesso Rapido								
+								elseif( get_row_layout() == 'fx_cl1_acesso_rapido_1_2' ):									
+									get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '1_2' ) );
+
+								//Contatos em camadas
+								elseif( get_row_layout() == 'fx_cl1_contato_camadas_1_2' ): 
+									get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+								//Contato Individual
+								elseif( get_row_layout() == 'fx_cl1_contato_individual_1_2' ):
+									get_template_part( 'construtor/construtor', 'contato_individual' );
+
+								// Bloco Noticias
+								elseif( get_row_layout() == 'fx_cl1_bloco_noticias_1_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+								// Bloco Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_bloco_timer_1_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+								// Bloco Redes Sociais
+								elseif( get_row_layout() == 'fx_fl1_bloco_rede_1_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '1_2' ) );
+
+								// Noticias em destaque
+								elseif( get_row_layout() == 'fx_cl1_noticias_destaque_1_2' ):
+									get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+								// Noticias mais lidas
+								elseif( get_row_layout() == 'fx_cl1_mais_lidas_1_2' ):
+									get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '1_2' ) );
+
+								// Outras Noticias
+								elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+									get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+								// Noticias DREs
+								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+									get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 								endif;
 
 							endwhile;
@@ -1507,7 +2986,7 @@ if( have_rows('fx_flex_layout') ):
 		
 					//conteudo flexivel 2 colunas direita
 					if( have_rows('fx_coluna_2_3b1') ):
-						echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].'">';//bootstrap col
 							while( have_rows('fx_coluna_2_3b1') ): the_row();
 								
 								//titulo
@@ -1517,34 +2996,87 @@ if( have_rows('fx_flex_layout') ):
 								//editor Wysiwyg
 								elseif( get_row_layout() == 'fx_cl1_editor_2_2' ): 
 									get_template_part( 'construtor/construtor', 'editor_3_1b' );
+
+								//editor Wysiwyg com fundo
+								elseif( get_row_layout() == 'fx_cl1_editor_fundo_2_2' ): 
+									get_template_part( 'construtor/construtor', 'editor_fundo', array( 'key' => '2_2' ) );
 								
 								//Loops noticias por categorias
 								elseif( get_row_layout() == 'fx_cl1_noticias_2_2' ):
-									get_template_part( 'construtor/construtor', 'noticias_3_1b' );
-								
+									get_template_part( 'construtor/construtor', 'noticias', array( 'key' => '2_2', 'size' => '1' ) );
+
 								//Video Responsivo
 								elseif( get_row_layout() == 'fx_cl1_video_2_2' ): 
-									get_template_part( 'construtor/construtor', 'video_3_1b' );
+									get_template_part( 'construtor/construtor', 'video', array( 'key' => '2_2' ) );
+
+								// Slide de Noticias
+								elseif( get_row_layout() == 'fx_cl1_slide_noticias_2_2' ):
+									get_template_part( 'construtor/construtor', 'slide_noticias', array( 'key' => '2_2' ) );
+
+								// Slide de Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_slide_timer_2_2' ):
+									get_template_part( 'construtor/construtor', 'slide_timer' );
 								
 								//imagem responsiva
 								elseif( get_row_layout() == 'fx_cl1_imagem_2_2' ): 
-									get_template_part( 'construtor/construtor', 'imagem_3_1b' );
+									get_template_part( 'construtor/construtor', 'imagem', array( 'key' => '2_2' ) );
 								
 								//abas
 								elseif( get_row_layout() == 'fx_cl1_abas_2_2' ): 		
-									get_template_part( 'construtor/construtor', 'abas_3_1b' );
+									get_template_part( 'construtor/construtor', 'abas', array( 'key' => '2_2' ) );
 								
 								//Sanfona
 								elseif( get_row_layout() == 'fx_cl1_sanfona_2_2' ): 		
-									get_template_part( 'construtor/construtor', 'sanfona_3_1b' );
+									get_template_part( 'construtor/construtor', 'sanfona', array( 'key' => '2_2' ) );
 								
 								//Divisor
 								elseif( get_row_layout() == 'fx_fl1_divisor_2_2' ): 
-									get_template_part( 'construtor/construtor', 'divisor_3_1b' );
+									get_template_part( 'construtor/construtor', 'divisor' );
 								
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_2_2' ): 
-									get_template_part( 'construtor/construtor', 'botao_3_1b' );
+									get_template_part( 'construtor/construtor', 'botao', array( 'key' => '2_2' ) );
+
+								// Acesso Rapido								
+								elseif( get_row_layout() == 'fx_cl1_acesso_rapido_2_2' ):									
+									get_template_part( 'construtor/construtor', 'acesso_rapido', array( 'key' => '2_2' ) );
+
+								//Contatos em camadas
+								elseif( get_row_layout() == 'fx_cl1_contato_camadas_2_2' ): 
+									get_template_part( 'construtor/construtor', 'contato_camadas' );
+
+								//Contato Individual
+								elseif( get_row_layout() == 'fx_cl1_contato_individual_2_2' ):
+									get_template_part( 'construtor/construtor', 'contato_individual' );
+
+								// Bloco Noticias
+								elseif( get_row_layout() == 'fx_cl1_bloco_noticias_2_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias' );
+
+								// Bloco Noticias - Timer
+								elseif( get_row_layout() == 'fx_cl1_bloco_timer_2_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_noticias_timer' );
+
+								// Bloco Redes Sociais
+								elseif( get_row_layout() == 'fx_fl1_bloco_rede_2_2' ):
+									get_template_part( 'construtor/construtor', 'bloco_rede', array( 'key' => '2_2' ) );
+
+								// Noticias em destaque
+								elseif( get_row_layout() == 'fx_cl1_noticias_destaque_2_2' ):
+									get_template_part( 'construtor/construtor', 'noticias_destaque' );
+
+								// Noticias mais lidas
+								elseif( get_row_layout() == 'fx_cl1_mais_lidas_2_2' ):
+									get_template_part( 'construtor/construtor', 'mais_lidas', array( 'key' => '2_2' ) );
+
+								// Outras Noticias
+								elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
+									get_template_part( 'construtor/construtor', 'outras_noticias' );
+
+								// Noticias DREs
+								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
+									get_template_part( 'construtor/construtor', 'noticias_dres' );
+
 								endif;
 
 							endwhile;

@@ -339,3 +339,83 @@ iframe {
         height: 185px !important;
     }
 }
+
+.bg-branco .card-body {
+    background-color: #FFFFFF;
+}
+
+.bg-azul .card-body {
+    background-color: #264270;
+}
+
+.bg-azul-claro .card-body {
+    background-color: #71a0b8;
+}
+
+.bg-cinza .card-body {
+    background-color: #CCCCCC;
+}
+
+.bg-cinza-claro .card-body {
+    background-color: #F3F3F3;
+}
+
+.text-grafite .card-body p {
+    color: #42474A;
+}
+
+.text-branco .card-body p {
+    color: #FFFFFF;
+}
+
+.text-azul .card-body p {
+    color: #0056b3;
+}
+
+.link-grafite .card-body p a {
+    color: #42474A;
+}
+
+.link-branco .card-body p a {
+    color: #FFFFFF;
+}
+
+.link-azul .card-body p a {
+    color: #0056b3;
+}
+
+.btn-azul .card-header {
+    background-color: #196CBD !important;
+}
+
+.btn-azul .card-header.bg-sanfona-active {
+    background-color: #0a4d8e !important;
+}
+
+.btn-azul .card-header a {
+    color: #FFFFFF;
+}
+
+.btn-azul-escuro .card-header {
+    background-color: #264270 !important;
+}
+
+.btn-azul-escuro .card-header.bg-sanfona-active {
+    background-color: #0a4d8e !important;
+}
+
+.btn-azul-escuro .card-header a {
+    color: #FFFFFF;
+}
+
+.btn-branco .card-header {
+    background-color: #FFFFFF !important;
+}
+
+.btn-branco .card-header.bg-sanfona-active {
+    background-color: #F3F3F3 !important;
+}
+
+.btn-branco .card-header a {
+    color: #196CBD;
+}
