@@ -1,12 +1,12 @@
 <?php
-
-$titulo = get_sub_field('lidas_titulo_1_1'); // titulo
+$chave = 'lidas_titulo_' . $args['key'];
+$titulo = get_sub_field($chave); // titulo
 $link = get_sub_field('lidas_ver_tudo'); // link
 $qtd = get_sub_field('lidas_quantidade'); // quantidade
 $colunas = get_sub_field('colunas'); // colunas
 
 ?>
-    <div class="container pt-3">
+    <div class="pt-3">
         <div class="row">
             <?php if($titulo && $titulo != ''){
                 echo "<div class='col-sm-8 title-lidas'><p>" . $titulo . "</p></div>";
@@ -32,7 +32,7 @@ $the_query = new WP_Query( $args );
 
 // The Loop
 if ( $the_query->have_posts() ) {
-    echo '<div class="container">';
+    echo '<div class="container p-0">';
     echo '<div class="row">';
         while ( $the_query->have_posts() ) :
             $the_query->the_post();

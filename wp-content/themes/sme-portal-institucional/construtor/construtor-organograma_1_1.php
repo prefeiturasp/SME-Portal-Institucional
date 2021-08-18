@@ -77,14 +77,14 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-sm-12 texto-org">
+    <div class="col-sm-12 texto-org">
             <?php
                 if($texto && $texto != ''){
                     echo $texto;
                 }
 
                 if($lastEdit != ''){
-                    echo "<p class='font-italic text-date'>Atualizado em: " . $dataShow->format('d/m/Y H:i:s') . "</p>";
+                    echo "<p class='font-italic text-date'>Atualizado em:" . $lastEdit->format('d/m/Y H:i:s') . "</p>";
                 }
             ?>
 

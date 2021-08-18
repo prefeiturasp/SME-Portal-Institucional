@@ -4,7 +4,7 @@ if(get_sub_field('contatos_individuais'))://repeater
 
     while(has_sub_field('contatos_individuais'))://verifica conteudo no repeater
     
-        echo '<div class="container">';
+       // echo '<div class="container">';
             echo '<div class="row">';
                 echo "<div class='col-sm-12 contacts-list mb-3'>";
 
@@ -60,7 +60,7 @@ if(get_sub_field('contatos_individuais'))://repeater
 
                 echo "</div>";
             echo "</div>";
-        echo "</div>";
+        //echo "</div>";
         //echo get_sub_field('contato_principal') . "<br>";
         //echo get_sub_field('contato_secundario') . "<br>";
 

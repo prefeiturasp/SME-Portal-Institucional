@@ -4,10 +4,10 @@
 if(get_sub_field('contatos'))://repeater
 										
     // gerar numero aleatorio
-    $count = mt_rand(10,99);
+    $count = mt_rand(10,9999);
     $count2 = $count;
     
-    echo '<div class="container">';
+    //echo '<div class="container">';
         echo '<div class="row">';
             echo "<div class='col-sm-12 mb-4' id='lista-contatos'>";
                 echo "<ul>";										
@@ -30,10 +30,10 @@ if(get_sub_field('contatos'))://repeater
                 echo "</ul>";
             echo "</div>"; // end col-sm-12
         echo "</div>"; // end row
-    echo "</div>"; // end container
+    //echo "</div>"; // end container
     
     //loop contatos
-    echo '<div class="container">';
+    //echo '<div class="container">';
         echo '<div class="row">';
             
             
@@ -101,7 +101,7 @@ if(get_sub_field('contatos'))://repeater
 
                                 foreach($secundario as $contato){
 
-                                    echo "<div class='col-12 col-sm-6 col-md-4 mb-3 d-flex second-contact'>";
+                                    echo "<div class='col-12 mb-3 d-flex second-contact'>";
                                         echo '<div class="border p-3 rounded w-100">';
 
                                         echo '<h3>' . get_the_title($contato) . '</h3>';
@@ -163,5 +163,5 @@ if(get_sub_field('contatos'))://repeater
             endwhile;
 
         echo '</div>';	
-    echo '</div>';		
+    //echo '</div>';		
 endif;
