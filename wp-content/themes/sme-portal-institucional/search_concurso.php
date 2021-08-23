@@ -41,7 +41,7 @@
 
             if ($queryConcurso->have_posts()) : while ($queryConcurso->have_posts()) : $queryConcurso->the_post();
 			
-                $titleConc[] = get_the_title();
+                $titleConc[] = get_the_id();
                 $anoHomolog[] = get_field( "homologacao");
                 $anoValidade[] = get_field( "validade");
                 $status[] = get_field( "status");
@@ -101,7 +101,7 @@
                                             <option selected value=''>Selecione um cargo</option>
                                             <?php 
                                                 foreach($titleConc as $title){
-                                                    echo "<option value='$title'>$title</option>";
+                                                    echo "<option value='$title'>" . get_the_title($title) . "</option>";
                                                 }
                                             ?>
                                         </select>
@@ -231,7 +231,7 @@
                         if(isset($_GET['cargo']) && $_GET['cargo'] != ''){
                             $cargo = $_GET['cargo'];
                             
-                            $args['post_title_like'] = $cargo;
+                            $args['p'] = $cargo;
                         }
 
                         if(isset($_GET['status']) && $_GET['status'] != ''){

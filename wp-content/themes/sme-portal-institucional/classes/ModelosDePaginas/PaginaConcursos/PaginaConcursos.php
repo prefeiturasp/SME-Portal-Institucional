@@ -99,7 +99,7 @@ class PaginaConcursos extends Util
             if ($this->query_concurso->have_posts()) : while ($this->query_concurso->have_posts()) : $this->query_concurso->the_post();
 
                 
-                $titleConc[] = get_the_title();
+                $titleConc[] = get_the_id();
                 $anoHomolog[] = get_field( "homologacao");
                 $anoValidade[] = get_field( "validade");
                 $status[] = get_field( "status");
@@ -130,7 +130,7 @@ class PaginaConcursos extends Util
                                     <option selected value=''>Selecione um cargo</option>
                                     <?php 
                                         foreach($titleConc as $title){
-                                            echo "<option value='$title'>$title</option>";
+                                            echo "<option value='$title'>" . get_the_title($title) . "</option>";
                                         }
                                     ?>
                                 </select>
