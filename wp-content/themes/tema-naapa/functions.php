@@ -57,6 +57,14 @@ function custom_setup() {
 
 	function theme_slug_widgets_init()
 	{
+		register_sidebar(array(
+			'name' => 'Quem Cuida',
+			'id' => 'quem-cuida',
+			'before_widget' => '',
+			'after_widget' => '',
+			'before_title' => '<p class="widget-title-cuida">',
+			'after_title' => '</p>',
+		));
 
 		register_sidebar(array(
 			'name' => 'Rodape Esquerda',
@@ -791,9 +799,9 @@ function template_chooser($template){
 add_filter('template_include', 'template_chooser');
 
 // Thumbnail Customozadas
-add_image_size( 'slide-eventos', 820, 380, true ); // Slide
-add_image_size( 'categoria-eventos', 300, 300, true ); // Categorias
-add_image_size( 'thumb-eventos', 575, 297, true ); // Eventos
+add_image_size('default-image', 825, 470, true);
+add_image_size('cuida-news', 825, 538, true);
+add_image_size('home-news', 300, 300, true);
 
 add_action( 'init',  function() {
     add_rewrite_rule( 'page/([a-z0-9-]+)[/]?$', 'index.php?page=$matches[1]', 'top' );
@@ -1440,3 +1448,295 @@ function my_acf_fields_relationship_result( $text, $post, $field, $post_id ) {
     }
     return $text;
 }
+
+function get_first_image( $post_id ) {
+
+    $post = get_post($post_id );
+	$content = $post->post_content;
+	$regex = '/src="([^"]*)"/';
+	preg_match_all( $regex, $content, $matches );																			
+
+	$re = '/-\d+[Xx]\d+\./';
+	$str = $matches[1][0];
+	$subst = '.';
+
+	$result = preg_replace($re, $subst, $str, 1);
+	
+	$idImage = attachment_url_to_postid( $result );
+
+	if($idImage != 0){
+		return $idImage;
+	} else {
+		return false;
+	}
+
+}
+
+
+function get_thumb( $post_id, $size = null ){
+
+	$result = array(); 
+
+	if(!$size || $size == ''){
+		$size = 'default-image';
+	}
+
+	$imgSelect = get_the_post_thumbnail_url($post_id, $size);	
+	$firstImage = get_first_image($post_id);
+
+	if($imgSelect){
+
+		$thumbnail_id = get_post_thumbnail_id( $post_id );
+		$alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true); 
+
+		if(!$alt){
+			$alt = get_the_title($post_id);
+		}
+
+		$result[0] = $imgSelect;
+		$result[1] = $alt;
+
+	} elseif($firstImage){
+		
+		$imgOne = wp_get_attachment_image_src($firstImage, $size);
+		$alt = get_post_meta($firstImage, '_wp_attachment_image_alt', true);
+		
+		$imgSlide = $imgOne[0];
+		if(!$alt){
+			$alt = get_the_title($post_id);
+		}
+
+		$result[0] = $imgSlide;
+		$result[1] = $alt;
+
+	} else {
+		$imgSlide = 'https://hom-turmadonaapa.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/logo-NAAPA-news.jpg';
+		if(!$alt){
+			$alt = get_the_title($post_id);
+		}
+
+		$result[0] = $imgSlide;
+		$result[1] = $alt;
+	}
+
+	return $result;
+}
+
+add_action('wp_head', 'myplugin_ajaxurl');
+
+function myplugin_ajaxurl() {
+
+   echo '<script type="text/javascript">
+           var ajaxurl = "' . admin_url('admin-ajax.php') . '";
+         </script>';
+}
+
+wp_localize_script( 'core-js', 'ajax_posts', array(
+	'ajaxurl' => admin_url( 'admin-ajax.php' ),
+	'noposts' => __('No older posts found', 'twentyfifteen'),
+));
+
+
+function more_post_ajax(){
+
+    $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 10;
+    $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
+
+	
+
+    header("Content-Type: text/html");
+
+    $args = array(
+        'suppress_filters' => true,
+        'post_type' => 'quem-cuida',
+        'posts_per_page' => $ppp,
+        'paged'    => $page,
+    );
+
+	if($_POST['filter'] && $_POST['filter'] != '' ){
+		$args['tax_query'][] = array(
+				'taxonomy' => 'categoria-cuida',   // taxonomy name
+				'field' => 'term_id',           // term_id, slug or name
+				'terms' => $_POST['filter'],                  // term id, term slug or term name
+		);									
+	}
+
+    $loop = new WP_Query($args);
+
+    $out = '';
+
+    if ($loop -> have_posts()) :  while ($loop -> have_posts()) : $loop -> the_post();
+	
+		$out .= '<div class="row mx-0 cuida-list-item">';
+			$out .= '<div class="col-12 col-md-4">';
+				$thumbs = get_thumb(get_the_ID(), 'cuida-news');
+				$out .= '<a href="' . get_the_permalink() . '"><img src="' . $thumbs[0] . '" alt="' . $thumbs[1] . '" class="img-fluid"></a>';
+			$out .= '</div>';
+			$out .= '<div class="col-12 col-md-8">';
+				
+				$categories = get_the_terms(get_the_ID(), 'categoria-cuida');
+				$separator = ' / ';
+				$output = '';
+				
+				$out .= '<div class="d-flex justify-content-between cuida-infos">';
+					$out .= '<div class="cuida-categs">';
+						
+						if ( ! empty( $categories ) ) {
+							foreach( $categories as $category ) {
+								$output .= '<a class="cuida-categ" href="' . esc_url( get_category_link( $category->term_id ) ) . '" alt="' . esc_attr( sprintf( __( 'View all posts in %s', 'textdomain' ), $category->name ) ) . '">' . esc_html( $category->name ) . '</a>' . $separator;
+							}
+							$out .= trim( $output, $separator );
+						}
+						
+					$out .= '</div>';
+					$out .= '<div class="cuida-date">';
+						$out .= get_the_date( 'd/m/Y \à\s H\hi' );
+					$out .= '</div>';
+				$out .= '</div>';
+				$out .= '<h2><a href="' . get_the_permalink() . '">' . get_the_title() .'</a></h2>';
+				
+				$sub = get_field( "insira_o_subtitulo", get_the_ID() );
+				if($sub){
+					$out .= "<p>" . $sub . "</p>";
+				} else {
+					$out .= "<p>" . get_the_excerpt() . "</p>";
+				}
+				
+			$out .= '</div>';                  
+		$out .= '</div>';
+
+    endwhile;
+    endif;
+    wp_reset_postdata();
+    die($out);
+}
+
+add_action('wp_ajax_nopriv_more_post_ajax', 'more_post_ajax');
+add_action('wp_ajax_more_post_ajax', 'more_post_ajax');
+
+function my_acf_load_sidebar( $field ){
+	// reset choices
+	$field['choices'] = array();
+	foreach ( $GLOBALS['wp_registered_sidebars'] as $sidebar ){
+		$field['choices'][$sidebar['id']] = $sidebar['name'];
+	}
+   
+	// load repeater from the options page
+	if(get_field('sidebars', 'option')) {
+   
+	  // loop through the repeater and use the sub fields "value" and "label"
+	  while(has_sub_field('sidebars', 'option')) {
+		$label = get_sub_field('sidebar_name');
+		$value = str_replace(" ", "-", $label);
+		$value = strtolower($value);
+		$field['choices'][ $value ] = $label;
+	  }
+	}
+   
+	// Important: return the field
+	return $field;
+}
+   
+add_filter('acf/load_field/name=select_sidebar', 'my_acf_load_sidebar');
+  
+// Creating the widget 
+class wpb_widget extends WP_Widget {
+  
+	function __construct() {
+		parent::__construct(
+		
+			// Base ID of your widget
+			'wpb_widget', 
+			
+			// Widget name will appear in UI
+			__('Quem Cuida - Mais Lidos', 'wpb_widget_domain'), 
+			
+			// Widget description
+			array( 'description' => __( 'Para quem cuida - Mais lidos', 'wpb_widget_domain' ), ) 
+		);
+	}
+	  
+	// Creating widget front-end
+	  
+	public function widget( $args, $instance ) {
+		$title = apply_filters( 'widget_title', $instance['title'] );
+		
+		// before and after widget arguments are defined by themes
+		echo $args['before_widget'];
+		echo "<div class='lidas-widget'>";
+		if ( ! empty( $title ) )
+		echo $args['before_title'] . $title . $args['after_title'];
+		
+		
+		// query
+		$the_query = new WP_Query(array(
+			'post_type'			=> 'quem-cuida',
+			'posts_per_page'	=> 5,
+			'meta_key'			=> 'post_views_count',
+			'orderby'			=> 'meta_value_num',
+			'order'				=> 'DESC'
+		));
+
+		?>
+		<?php if( $the_query->have_posts() ): ?>
+			
+			<?php while( $the_query->have_posts() ) : $the_query->the_post(); ?>
+				<div class="lida-widget">
+					<div class="widget-categ">
+						<?php
+							$categories = get_the_terms(get_the_ID(), 'categoria-cuida');
+							$separator = ' / ';
+							$output = '';
+							if ( ! empty( $categories ) ) {
+								foreach( $categories as $category ) {
+									$output .= '<a class="cuida-categ" href="' . esc_url( get_category_link( $category->term_id ) ) . '" alt="' . esc_attr( sprintf( __( 'View all posts in %s', 'textdomain' ), $category->name ) ) . '">' . esc_html( $category->name ) . '</a>' . $separator;
+								}
+								echo trim( $output, $separator );
+							}
+						?>
+					</div>
+					<a class='cuida-title' href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+				</div>
+			<?php endwhile; ?>
+			
+		<?php endif; ?>
+
+		<?php wp_reset_query();	 // Restore global post data stomped by the_post(). ?>
+
+		<?php
+		echo "</div>";
+		echo $args['after_widget'];
+	}
+			  
+	// Widget Backend 
+	public function form( $instance ) {
+		if ( isset( $instance[ 'title' ] ) ) {
+			$title = $instance[ 'title' ];
+		} else {
+			$title = __( 'MAIS LIDAS', 'wpb_widget_domain' );
+		}
+		// Widget admin form
+		?>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Titulo:' ); ?></label> 
+			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+		</p>
+		<?php 
+	}
+		  
+	// Updating widget replacing old instances with new
+	public function update( $new_instance, $old_instance ) {
+		$instance = array();
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		return $instance;
+	}
+	 
+	// Class wpb_widget ends here
+} 
+	 
+	 
+// Register and load the widget
+function wpb_load_widget() {
+	register_widget( 'wpb_widget' );
+}
+add_action( 'widgets_init', 'wpb_load_widget' );

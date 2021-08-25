@@ -123,7 +123,6 @@ use Classes\Header\Header;
 		<?php //\Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
 
     </header>
-
     <header>
         <div class="line-top">
             <div class="container">

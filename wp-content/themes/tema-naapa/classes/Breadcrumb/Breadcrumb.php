@@ -45,7 +45,7 @@ class Breadcrumb
 			echo '<ol id="' . $this->breadcrums_id . '" class="' . $this->breadcrums_class . '">';
 
 			// Home page
-			echo '<li class="item-home breadcrumb-item"><a class="bread-link bread-home" href="' . get_home_url() . '">' . $this->home_title . '</a></li>';
+			echo '<li class="item-home breadcrumb-item"><a class="bread-link bread-home" href="' . get_home_url() . '">Home NAAPA</a></li>';
 			echo '<li class="separator separator-home"> ' . $this->separator . ' </li>';
 
 			if ( is_archive() && !is_tax() && !is_category() && !is_tag() ) {
@@ -57,9 +57,15 @@ class Breadcrumb
 				// If post is a custom post type
 
 				$post_type = get_post_type();
+				$tax = get_queried_object()->name;
 
 				// If it is a custom post type display name and link
-				if($post_type != 'post') {
+				if(is_tax('categoria-cuida')){
+					
+					echo '<li class="item-cat cc item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(385) . '">Para quem cuida</a></li>';
+					echo '<li class="separator"> ' . $this->separator . ' </li>';
+
+				}elseif($post_type != 'post') {
 
 					$post_type_object = get_post_type_object($post_type);
 					$post_type_archive = get_post_type_archive_link($post_type);
@@ -70,7 +76,8 @@ class Breadcrumb
 				}
 
 				$custom_tax_name = get_queried_object()->name;
-				echo '<li class="item-current item-archive"><strong class="bread-current bread-archive">' . $custom_tax_name . '</strong></li>';
+				
+				echo '<li class="item-current item-archive"><strong class="bread-current bread-archive">Categoria - ' . $custom_tax_name . '</strong></li>';
 
 			} else if ( is_single() ) {
 
@@ -83,8 +90,8 @@ class Breadcrumb
 					$post_type_object = get_post_type_object($post_type);
 					$post_type_archive = get_post_type_archive_link($post_type);
 
-					if($post_type == 'unidade'){
-						echo '<li class="item-cat cc item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(31247) . '">Unidades</a></li>';
+					if($post_type == 'quem-cuida'){
+						echo '<li class="item-cat cc item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(385) . '">Para quem cuida</a></li>';
 					} else {
 						echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $post_type_object->labels->name . '</a></li>';
 					}

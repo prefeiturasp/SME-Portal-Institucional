@@ -79,307 +79,75 @@
 <?php wp_footer() ?>
 
 <?php 
-    $unidades = get_unidades();
-
-    $marcadores = array();
-
-    $p = 0;
-
-    foreach ($unidades as $unidade){
-        $zona = get_group_field( 'informacoes_basicas', 'zona_sp', $unidade );
-        $endereco = get_group_field( 'informacoes_basicas', 'endereco', $unidade );
-        $numero = get_group_field( 'informacoes_basicas', 'numero', $unidade );
-        $bairro = get_group_field( 'informacoes_basicas', 'bairro', $unidade );
-        $cep = get_group_field( 'informacoes_basicas', 'cep', $unidade );
-        $emails = get_group_field( 'informacoes_basicas', 'email', $unidade );
-        $emails2 = '';
-        $tels = get_group_field( 'informacoes_basicas', 'telefone', $unidade );
-        $tels2 = '';
     
-        if($emails['email_second'] && $emails['email_second'] != ''){
-            foreach($emails['email_second'] as $email){
-                $emails2 .= ' / <a href="mailto:' . $email['email'] .'">' . $email['email'] . "</a>";
-            }
-        }
+        if( have_rows('fx_flex_layout', get_the_ID()) ):
+            while( have_rows('fx_flex_layout', get_the_ID() ) ): the_row();
+            
+                if( get_row_layout() == 'fx_linha_coluna_3b1' ):
+                    while( have_rows('fx_coluna_1_3b1') ): the_row();
+                        if( get_row_layout() == 'quem_cuida_listagem' ):
+                            $qtd = get_sub_field('quantidade');
+                        endif;
+                    endwhile;
+                endif;
 
-        if($tels['tel_second'] && $tels['tel_second'] != ''){
-            foreach($tels['tel_second'] as $tel){
-                $tels2 .= ' / <a href="tel:' . clearPhone($tel['telefone_sec']) .'">' . $tel['telefone_sec'] . "</a>";
-            }
-        }
+            endwhile;
+        endif;
+   
 
-        //print_r($emails);
-
-        $marcadores[$p][] = "<div class='marcador-unidade color-" . $zona . "'>
-                                <p class='marcador-title'><a href='". get_the_permalink($unidade) ."'>" . get_the_title($unidade) . "</a></p>
-                                <p><i class='fa fa-map-marker' aria-hidden='true'></i> " . nomeZona($zona) . " • " . $endereco . ", ". $numero ." - " . $bairro . " - CEP: " . $cep . "</p>
-                                
-                                <p><i class='fa fa-phone' aria-hidden='true'></i> " . $tels['telefone_principal'] . $tels2 ."</p>
-                                <p><i class='fa fa-envelope' aria-hidden='true'></i> " . $emails['email_principal'] . $emails2 ."</p>
-                            </div>";
-        $marcadores[$p][] = get_group_field( 'informacoes_basicas', 'latitude', $unidade );
-        $marcadores[$p][] = get_group_field( 'informacoes_basicas', 'longitude', $unidade );
-        $marcadores[$p][] = get_group_field( 'informacoes_basicas', 'zona_sp', $unidade );
-
-        $p++;
+    if(!$qtd){
+        $qtd = 10;
     }
-
-    //print_r($unidades);
-?>
+ ?>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.multiselect.js"></script>
 
     <script>
 		var $s = jQuery.noConflict();
 
         $s(function () {
-            $s('.ms-list-1').multiselect({
-                columns  : 1,
-                search   : false,
-                selectAll: false,
-                texts    : {
-                    placeholder: 'Selecione a(s) atividade(s) de interesse',
-                    selectedOptions: ' selecionados'
-                },
-                maxHeight : 300,
-                maxWidth: 245,
-                onOptionClick :function( element, option ){
-                    var thisOpt = $s(option);
+           
+            var ppp = <?php echo $qtd; ?>; // Post per page
+            var pageNumber = 1;
 
-                    
-                    var selecionados = $s('.ms-list-1').val();
+            <?php if($_GET['filter'] && $_GET['filter'] ): ?>
+                var filter = <?php echo $_GET['filter']; ?>;
+            <?php elseif(get_queried_object()->term_id): ?>
+                var filter = <?php echo get_queried_object()->term_id; ?>;
+            <?php else: ?>
+                var filter = '';
+            <?php endif; ?>
 
-                    //console.log(selecionados);
-
-                    if(selecionados != null){
-                        $s('.ms-list-2').multiselect( 'disable', false );
-
-                        $s.ajax({
-                            type: "POST",
-                            url: "<?php echo get_template_directory_uri(); ?>/get_category.php",
-                            data: {data : selecionados}, 
-                            cache: false,
-
-                            success: function(res){
-                                
-                                var b = JSON.parse(res); 
-                                var options = b;
-                                console.log(b);
-                                $s('.ms-list-2').multiselect('loadOptions', options );
-
-                                if(b.length == 0){
-                                    $s('.ms-list-2').multiselect( 'disable', true );
-                                }
-                            }
-                        });
-
-                    } else {
-                        $s('.ms-list-2').multiselect( 'disable', true );
-                    }                    
-
-                    
-                }
-            });
-
-            
-
-
-            $s('.ms-list-2').multiselect({
-                columns  : 1,
-                search   : false,
-                selectAll: false,
-                texts    : {
-                    placeholder: 'Selecione a(s) atividade(s) interna(s)',
-                    selectedOptions: ' selecionados'
-                },
-                maxHeight : 300,
-                maxWidth: 245
-            });
-
-            $s('.ms-list-2').multiselect( 'disable', true );
-
-            $s('.ms-list-3').multiselect({
-                columns  : 1,
-                search   : false,
-                selectAll: false,
-                texts    : {
-                    placeholder: 'Selecione o(s) público(s)',
-                    selectedOptions: ' selecionados'
-                },
-                maxHeight : 300,
-                maxWidth: 245
-            });
-
-            $s('.ms-list-4').multiselect({
-                columns  : 1,
-                search   : false,
-                selectAll: false,
-                texts    : {
-                    placeholder: 'Selecione a(s) faixa(s) estária(s)',
-                    selectedOptions: ' selecionados'
-                },
-                maxHeight : 300,
-                maxWidth: 245
-            });
-
-            $s('.ms-list-5').multiselect({
-                columns  : 1,
-                search   : false,
-                selectAll: false,
-                texts    : {
-                    placeholder: 'Selecione o(s) CEU(s)',
-                    selectedOptions: ' selecionados'
-                },
-                maxHeight : 300,
-                maxWidth: 245
-            });
-
-            $s('.ms-list-10').multiselect({
-                columns  : 1,
-                search   : false,
-                selectAll: false,
-                texts    : {
-                    placeholder: 'Selecione a(s) data(s)',
-                    selectedOptions: ' selecionados'
-                },
-                maxHeight : 300,
-                maxWidth: 245,
-                maxSelect: 1
-            });
-            $s('.ms-list-10').multiselect( 'disable', true );
-
-            $s('.ms-list-8').multiselect({
-                columns  : 1,
-                search   : false,
-                selectAll: false,
-                texts    : {
-                    placeholder: 'Selecione o período do dia',
-                    selectedOptions: ' selecionados'
-                },
-                maxHeight : 300,
-                maxWidth: 245
-            });
-
-            $s('#tipoData').change(function(){ 
-                var value = $s(this).val();
-                console.log(value);
-
-                if(value == 'dia_semana'){
-                    $s('.ms-list-10').multiselect( 'disable', false );
-                    $s('.ms-list-10').multiselect('loadOptions', [{
-                        name   :'Segunda',
-                        value  :'segunda',
-                        checked:false
-                    },{
-                        name   :'Terça',
-                        value  :'terca',
-                        checked:false
-                    },{
-                        name   :'Quarta',
-                        value  :'quarta',
-                        checked:false
-                    },{
-                        name   :'Quinta',
-                        value  :'quinta',
-                        checked:false
-                    },{
-                        name   :'Sexta',
-                        value  :'sexta',
-                        checked:false
-                    },{
-                        name   :'Sabado',
-                        value  :'sabado',
-                        checked:false
-                    },{
-                        name   :'Domingo',
-                        value  :'domingo',
-                        checked:false
+            function load_posts(){
+                pageNumber++;
+                var str = '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&filter=' + filter + '&action=more_post_ajax';
+                jQuery.ajax({
+                    type: "POST",
+                    dataType: "html",
+                    url: ajaxurl,
+                    data: str,
+                    success: function(data){
+                        var $data = jQuery(data);
+                        if($data.length){
+                            jQuery("#ajax-posts").append($data);
+                            jQuery("#more_posts").attr("disabled",false);
+                        } else{
+                            jQuery("#more_posts").attr("disabled",true);
+                        }
+                    },
+                    error : function(jqXHR, textStatus, errorThrown) {
+                        $loader.html(jqXHR + " :: " + textStatus + " :: " + errorThrown);
                     }
-                    ]);
-                    $s('#date-range').hide();
-                    $s('#date-periode').show();
-                } else if(value == 'mes'){
-                    $s('.ms-list-10').multiselect( 'disable', false );
-                    $s('.ms-list-10').multiselect('loadOptions', [{
-                        name   :'Janeiro',
-                        value  :'01',
-                        checked:false
-                    },{
-                        name   :'Fevereiro',
-                        value  :'02',
-                        checked:false
-                    },{
-                        name   :'Março',
-                        value  :'03',
-                        checked:false
-                    },{
-                        name   :'Abril',
-                        value  :'04',
-                        checked:false
-                    },{
-                        name   :'Maio',
-                        value  :'05',
-                        checked:false
-                    },{
-                        name   :'Junho',
-                        value  :'06',
-                        checked:false
-                    },{
-                        name   :'Julho',
-                        value  :'07',
-                        checked:false
-                    },{
-                        name   :'Agosto',
-                        value  :'08',
-                        checked:false
-                    },{
-                        name   :'Setembro',
-                        value  :'09',
-                        checked:false
-                    },{
-                        name   :'Outubro',
-                        value  :'10',
-                        checked:false
-                    },{
-                        name   :'Novembro',
-                        value  :'11',
-                        checked:false
-                    },{
-                        name   :'Dezembro',
-                        value  :'12',
-                        checked:false
-                    }
-                    ]);
-                    $s('#date-range').hide();
-                    $s('#date-periode').show();
-                } else if(value == 'intervalo') {
-                    $s('#date-range').show();
-                    $s('#date-periode').hide();
-                    $s('.ms-list-10').multiselect( 'disable', true );
-                }
+
+                });
+                return false;
+            }
+            var $s = jQuery.noConflict();
+
+            $s("#more_posts").on("click",function(){ // When btn is pressed.
+                $s("#more_posts").attr("disabled",true); // Disable the button, temp.
+                load_posts();
+                $s(this).insertAfter('#ajax-posts'); // Move the 'Load More' button to the end of the the newly added posts.
             });
-
-			// DYNAMICALLY LOAD OPTIONS
-			/*
-            $s('.ms-list-1').multiselect( 'loadOptions', [{
-                name   : 'Option Name 1',
-                value  : 'option-value-1',
-                checked: false,
-                attributes : {
-                    custom1: 'value1',
-                    custom2: 'value2'
-                }
-            },{
-                name   : 'Option Name 2',
-                value  : 'option-value-2',
-                checked: false,
-                attributes : {
-                    custom1: 'value1',
-                    custom2: 'value2'
-                }
-            }]);
-
-            */
     
         });
 
@@ -400,6 +168,8 @@
     </script>
 
 	<script src="//api.handtalk.me/plugin/latest/handtalk.min.js"></script>
+    
+     
 	<script>
 		var ht = new HT({
 			token: "aa1f4871439ba18dabef482aae5fd934"
@@ -417,6 +187,8 @@
                 document.onkeyup = null;
             }
         }
+
+        
 	</script>
 
     <script type="text/javascript">
@@ -432,188 +204,6 @@
 
         
     </script>
-
-<?php if(is_page()) : ?>
-    <script type="text/javascript">
-
-        // Maps access token goes here
-        //var key = 'pk.87f2d9fcb4fdd8da1d647b46a997c727';
-        var key = 'pk.2217522833071a6e06b34ac78dfc05bc';
-
-        // Initial map view
-        var INITIAL_LNG = -46.6360999;
-        var INITIAL_LAT = -23.5504533;
-
-        // Change the initial view if there is a GeoIP lookup
-        if (typeof Geo === 'object') {
-            INITIAL_LNG = Geo.lon;
-            INITIAL_LAT = Geo.lat;
-        }
-        // Add layers that we need to the map
-        var streets = L.tileLayer.Unwired({
-            key: key,
-            scheme: "streets"
-        });
-
-        var tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: false
-        });
-
-
-
-        var map = L.map('map', {
-            scrollWheelZoom: (window.self === window.top) ? true : false,
-            dragging: (window.self !== window.top && L.Browser.touch) ? false : true,
-            layers: [tileLayer],
-            tap: (window.self !== window.top && L.Browser.touch) ? false : true,
-        }).setView({
-            lng: INITIAL_LNG,
-            lat: INITIAL_LAT
-        }, 11);
-        var hash = new L.Hash(map);
-
-        L.control.zoom({
-            position: 'topright'
-        }).addTo(map);
-
-        // Add the 'layers' control
-        L.control.layers({            
-            "Completo" : tileLayer,
-            "Ruas": streets,
-        }, null, {
-            position: "topright"
-        }).addTo(map);
-
-        // Add the 'scale' control
-        L.control.scale().addTo(map);
-
-        // Add geocoder
-        var geocoder = L.control.geocoder(key, {
-            fullWidth: 650,
-            expanded: true,
-            markers: true,
-            attribution: null,
-            url: 'https://api.locationiq.com/v1',
-            placeholder: 'Encontre CEUs por nome ou endereço',
-            textStrings: {                
-                NO_RESULTS: 'Nenhum endereço encontrado.',
-            },
-            panToPoint: true,
-            params: {
-                countrycodes: 'BR'
-            },
-        }).addTo(map);
-
-        // Focus to geocoder input
-        geocoder.focus();
-
-        geocoder.on('select', function(e) {
-            if (typeof latlng == 'undefined') {
-                // the variable is defined
-                //alert('Aqui');
-            }
-            //console.log(e.latlng);
-            map.setView([e.latlng.lat, e.latlng.lng], 15);
-        });
-
-
-        var newParent = document.getElementById('search-box');
-        var oldParent = document.getElementsByClassName("leaflet-top leaflet-left")
-
-        while (oldParent[0].childNodes.length > 0) {
-            newParent.appendChild(oldParent[0].childNodes[0]);
-        }
-
-        <?php
-            
-            $js_array = json_encode($marcadores);
-            echo "var javascript_array = ". $js_array . ";\n";
-        ?>
-
-                
-        for (var i = 0; i < javascript_array.length; i++) {
-
-            if(javascript_array[i][3] == 'norte'){
-                myIcon = L.icon({
-                    iconUrl: "<?php echo get_template_directory_uri() . '/img/pin-map-norte.png'; ?>",
-                });
-            } else if(javascript_array[i][3] == 'sul'){
-                myIcon = L.icon({
-                    iconUrl: "<?php echo get_template_directory_uri() . '/img/pin-map-sul.png'; ?>",
-                });
-            } else if(javascript_array[i][3] == 'leste'){
-                myIcon = L.icon({
-                    iconUrl: "<?php echo get_template_directory_uri() . '/img/pin-map-leste.png'; ?>",
-                });
-            } else if(javascript_array[i][3] == 'oeste'){
-                myIcon = L.icon({
-                    iconUrl: "<?php echo get_template_directory_uri() . '/img/pin-map-oeste.png'; ?>",
-                });
-            } else {
-                myIcon = L.icon({
-                    iconUrl: "<?php echo get_template_directory_uri() . '/img/pin-map-padrao.png'; ?>",
-                });
-            }
-
-            marker = new L.marker([javascript_array[i][1], javascript_array[i][2]], {
-                    icon: myIcon
-                })
-                .bindPopup(javascript_array[i][0])
-                .addTo(map);
-        }
-
-        // Posição no navegador
-
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            }
-        }
-
-        function showPosition(position) {
-            var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-            map.setView([position.coords.latitude, position.coords.longitude], 15);
-
-            jQuery([document.documentElement, document.body]).animate({
-                scrollTop: jQuery("#map").offset().top
-            }, 1000);
-        }
-
-        jQuery( ".leaflet-locationiq-input" ).keyup(function() {
-            fetchResults();
-        });
-
-        //adiciona link aos marcadores
-        jQuery('.name .story').on('click', function(){
-            // pega lat e lng das class ".story" por data attribute            
-            var latlng = jQuery(this).data().point.split(',');
-            var lat = latlng[0];
-            var lng = latlng[1];
-            var desc = latlng[2];
-            var zoom = 17;
-                            
-            // adiciona marcadores
-            var marker = L.marker([lat, lng] ).bindPopup(desc).addTo(map).openPopup();
-            // adiciona no mapa
-            map.setView([lat, lng], zoom);
-        })
-
-        function alerta(content){            
-            var latlng2 = content;
-            var latlng = jQuery(latlng2).data().point.split(',');
-            var lat = latlng[0];
-            var lng = latlng[1];
-            var desc = latlng[2];
-            var zoom = 17;                
-        
-            // adiciona no mapa
-            map.setView([lat, lng], zoom);
-        }
-
-    </script>
-    <?php  endif; ?>
-
-    
 
 </body>
 </html>

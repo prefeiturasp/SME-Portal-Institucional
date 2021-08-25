@@ -38,6 +38,10 @@ require_once 'TemplateHierarchy/LoopSingle/LoopSingleNoticiaPrincipal.php';
 require_once 'TemplateHierarchy/LoopSingle/LoopSingleMaisRecentes.php';
 require_once 'TemplateHierarchy/LoopSingle/LoopSingleRelacionadas.php';
 
+require_once 'TemplateHierarchy/LoopCuida/LoopCuida.php';
+require_once 'TemplateHierarchy/LoopCuida/LoopCuidaCabecalho.php';
+require_once 'TemplateHierarchy/LoopCuida/LoopCuidaNoticiaPrincipal.php';
+
 require_once 'TemplateHierarchy/LoopUnidades/LoopUnidades.php';
 require_once 'TemplateHierarchy/LoopUnidades/LoopUnidadesCabecalho.php';
 require_once 'TemplateHierarchy/LoopUnidades/LoopUnidadesSlide.php';

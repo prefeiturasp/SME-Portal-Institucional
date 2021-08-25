@@ -1957,3 +1957,69 @@ a.nextpostslink {
     transform: scale(1.1);
     transition: 0.2s;
 }
+
+/*** Noticia - Quem cuida ****/
+
+.single-cuida-title {
+    margin-top: 15px;
+    border-bottom: 1px solid #000000;
+    margin-bottom: 20px;
+}
+
+.single-cuida-title h1 {
+    color: #000000;
+    font-family: 'Poppins', sans-serif;
+}
+
+.single-cuida-title .primary-titile h1 {
+    color: #000000;
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.single-cuida-title .primary-titile h3 {
+    color: #181313 !important;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.single-cuida .title-special{
+    margin-bottom: 50px;
+}
+
+.single-cuida .thumb-post {
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.single-cuida .cuida-relateds {
+    margin-top: 25px;
+    border-top: 1px solid;
+    padding-top: 20px;
+    margin-bottom: 35px;
+}
+
+.single-cuida .cuida-relateds .related-title {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.at-share-tbx-element .at-icon-wrapper {
+    vertical-align: middle;
+    border-radius: 4px !important;
+    background-color: #E7600C;
+}
+
+.single-categ{
+    margin-bottom: 20px;
+}
+
+.single-categ a {
+    color: #CF443C;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 28px;
+}
