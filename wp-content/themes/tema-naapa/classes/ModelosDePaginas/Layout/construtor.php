@@ -188,7 +188,7 @@ if( have_rows('fx_flex_layout') ):
 															$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
 															if($image_id):
 															?>
-																<img src="<?php echo get_the_post_thumbnail_url(get_the_id(), 'medium'); ?>" alt="<?php echo $image_alt; ?>" class='img-fluid'>
+																<img src="<?php echo get_the_post_thumbnail_url(get_the_id(), 'home-news'); ?>" alt="<?php echo $image_alt; ?>" class='img-fluid'>
 
 															<?php else: ?>
 																<img src="<?php echo get_template_directory_uri(); ?>/img/logo-NAAPA-news.jpg" alt="<?php echo $image_alt; ?>" class='img-fluid'>
@@ -386,29 +386,10 @@ if( have_rows('fx_flex_layout') ):
 
 								<?php
 
-								// Objetivos
-								elseif( get_row_layout() == 'fx_fl1_objetivos_1_1' ):
-									$objetivos = get_sub_field('fx_objetivos_1_1');
-									echo '<div class="container">';
-										echo '<div class="row">';
-											foreach($objetivos as $objetivo):
-											
-											$objimg = wp_get_attachment_url($objetivo['fx_icone_objetivos']);
-											$objalt = get_post_meta($objetivo['fx_icone_objetivos'], '_wp_attachment_image_alt', TRUE);
-										?>
-											
-												<div class="col-md-4 mb-3">
-													<div class="card obj-card h-100">
-														<img src="<?php echo $objimg; ?>" alt="<?php echo $objimg; ?>">
-														<div class="card-body">
-															<p class="card-title"><?php echo $objetivo['fx_descritivo_objetivos']; ?></p>														
-														</div>
-													</div>												
-												</div>
-										<?php
-											endforeach;											
-										echo '</div>'; // row
-									echo '</div>'; // container
+								// Destaque Quem Cuida
+								elseif( get_row_layout() == 'destaque_quem_cuida' ):
+									get_template_part( 'construtor/construtor', 'destaque_cuida' );
+
 								endif;
 							endwhile;
 						echo '</div>';//bootstrap col
@@ -417,196 +398,6 @@ if( have_rows('fx_flex_layout') ):
 						echo '</div>';//fundo
 					endif;
 		////////////////////////////// Final 1 Coluna///////////////////////////////
-
-		////////////////////////////// Inicio Sanfona DRE ///////////////////////////////
-        elseif( get_row_layout() == 'sanfona_dre' ):
-					
-						echo '<div class="container">';//bootstrap container
-						echo '<div class="row">';//bootstrap row
-						echo '<div class="col-sm-8">';
-						echo '<img src="https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/08/Mapa.png" width="100%">';
-						echo '</div>';
-						echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
-								
-										//sanfona DRE
-										echo '<div id="accordion">';
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse1">';
-														echo '<strong>1 - Diretoria Regional de Educação Butantã</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse1" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_butanta');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse2">';
-														echo '<strong>2 - Diretoria Regional de Educação Campo Limpo</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse2" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_campo_limpo');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse3">';
-														echo '<strong>3 - Diretoria Regional de Educação Capela do Socorro</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse3" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_capela_do_socorro');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse4">';
-														echo '<strong>4 - Diretoria Regional de Educação Freguesia/Brasilândia</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse4" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_freguesia_brasilandia');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse5">';
-														echo '<strong>5 - Diretoria Regional de Educação Guaianases</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse5" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_guaianases');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse6">';
-														echo '<strong>6 - Diretoria Regional de Educação Ipiranga</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse6" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_ipiranga');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse7">';
-														echo '<strong>7 - Diretoria Regional de Educação Itaquera</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse7" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_itaquera');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse8">';
-														echo '<strong>8 - Diretoria Regional de Educação Jaçanã/Tremembé</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse8" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_jacanatremembe');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse9">';
-														echo '<strong>9 - Diretoria Regional de Educação Penha</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse9" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_penha');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse10">';
-														echo '<strong>10 - Diretoria Regional de Educação Pirituba</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse10" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_pirituba');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse11">';
-														echo '<strong>11 - Diretoria Regional de Educação Santo Amaro</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse11" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_santo_amaro');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse12">';
-														echo '<strong>12 - Diretoria Regional de Educação São Mateus</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse12" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_sao_mateus');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-												  echo '<div class="card sanfona">';
-													echo '<div class="card-header">';
-													  echo '<a class="collapsed card-link" data-toggle="collapse" href="#collapse13">';
-														echo '<strong>13 - Diretoria Regional de Educação São Miguel</strong>';
-													  echo '</a>';
-													echo '</div>';
-													echo '<div id="collapse13" class="collapse" data-parent="#accordion">';
-													  echo '<div class="card-body">';
-														echo get_sub_field('dre_sao_miguel');
-													  echo '</div>';
-													echo '</div>';
-												  echo '</div>';
-
-										echo '</div>';
-								
-
-						echo '</div>';//bootstrap col
-						echo '</div>';//bootstrap row
-						echo '</div>';//bootstrap container
-
-		////////////////////////////// Final sanfona DRE///////////////////////////////
 		
 		////////////////////////////// Inicio 2 Colunas ///////////////////////////////
         elseif( get_row_layout() == 'fx_linha_coluna_2' ):
@@ -1824,7 +1615,12 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';
 									else :
-									endif;	
+									endif;
+
+								// Quem Cuida - Listagem
+								elseif( get_row_layout() == 'quem_cuida_listagem' ):
+									get_template_part( 'construtor/construtor', 'cuida_listagem' );
+								
 								endif;
 							endwhile;
 						echo '</div>';//bootstrap col
@@ -1967,7 +1763,11 @@ if( have_rows('fx_flex_layout') ):
 											endwhile;
 										echo '</div>';
 									else :
-									endif;	
+									endif;
+								// Quem Cuida - Listagem
+								elseif( get_row_layout() == 'sidebar' ):
+									get_template_part( 'construtor/construtor', 'sidebar' );
+
 								endif;
 							endwhile;
 						echo '</div>';//bootstrap col

@@ -41,43 +41,7 @@ class LoopSingleCabecalho extends LoopSingle
 
                     <div class="col-md-5 evento-infos d-flex align-content-between flex-wrap">
 						
-					<?php
-						$atividades = get_the_terms( $post->ID, 'atividades_categories' );
-						$listaAtividades = array();
-
-						$atividadesTotal = count($atividades);
-
-						if($atividadesTotal > 1){
-							foreach($atividades as $atividade){
-								if($atividade->parent != 0){
-									$listaAtividades[] = $atividade->name;
-								} 
-							}
-						} else {
-							$listaAtividades[] = $atividades[0]->name;
-						}
-
-						$total = count($listaAtividades); 
-						$k = 0;
-						$showAtividades = '';
-
-						foreach($listaAtividades as $atividade){
-							$k++;
-							if($total - $k == 1 || $total - $k == 0){
-								$showAtividades .= $atividade . " ";
-							} elseif($total != $k){
-								$showAtividades .= $atividade . ", ";
-							} else {
-								$showAtividades .= "e " . $atividade;
-							}
-						}
-					?>
 					
-					
-						<p class="categ-dest w-100 m-0">
-							<?php echo $showAtividades; ?>
-                        </p>
-
 						<h1 class="m-0 py-3 w-100"><?php echo get_the_title(); ?></h1>
 						
 						<?php
