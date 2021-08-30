@@ -1534,3 +1534,153 @@ a.blog-link p {
 .menu-item-has-children[aria-expanded="true"] .dropdown-menu {
     display: block;
 }
+
+.vertical-menu {
+    margin-left: 0;
+    margin-bottom: 40px;
+}
+
+.vertical-menu li a {
+    background: #F3F3F3;
+    border: 1px solid #DADADA;
+    border-radius: 6px;
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    color: #42474A;
+    transition: 0.2s;
+}
+
+.vertical-menu li a.active,
+.vertical-menu li a:hover {
+    border: 1px solid #F3F3F3;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    border-radius: 6px;
+    background: #FFFFFF;
+    color: #196CBD;
+    font-weight: bold;
+    transition: 0.2s;
+    text-decoration: none;
+    border-left: 6px solid #196CBD;
+    padding-left: 16px;
+}
+
+.content-margin {
+    margin-top: 0 !important;
+}
+
+.modal.left .modal-dialog,
+.modal.right .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 320px;
+    height: 100%;
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+    margin-top: 0 !important;
+}
+
+.modal.left .modal-content,
+.modal.right .modal-content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.modal.left .modal-body,
+.modal.right .modal-body {
+    padding: 15px 15px 80px;
+}
+
+
+/*Right*/
+
+.modal.right.fade .modal-dialog {
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+    right: 0;
+}
+
+
+/*Left*/
+
+.modal.left.fade .modal-dialog {
+    -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+    transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.left.fade.in .modal-dialog {
+    left: 0;
+}
+
+#filtroBusca .modal-header {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    border-bottom: 1px solid #DADADA;
+}
+
+#filtroBusca .modal-title {
+    color: #196CBD;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#filtroBusca .modal-header .close {
+    color: #196CBD;
+    opacity: 1;
+    position: relative;
+    padding: 1rem !important;
+    width: initial;
+}
+
+.vertical-menu-mobile {
+    margin: 0;
+}
+
+.vertical-menu-mobile li a {
+    color: #000000;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: left;
+    display: block;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+}
+
+.vertical-menu-mobile li a.active {
+    background: #F3F3F3;
+}
+
+.btn-submenu {
+    color: #264270;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 0;
+    padding: 0;
+    background: #FFFFFF;
+}
+
+.btn-submenu span {
+    text-decoration: underline;
+}
+
+h2.submenu-title {
+    font-weight: bold;
+    font-size: 28px;
+    color: #196CBD;
+}
+
+#filtroBusca {
+    z-index: 999999;
+}

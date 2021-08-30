@@ -21,22 +21,193 @@ class Util
 	public function montaHtmlLoopPadrao()
 	{
 
+		global $post;
+		$post_slug = $post->post_name;
+		
+		if(get_field('fx_flex_habilitar_menu', $post->post_parent) != null){
+			$parent = $post->post_parent;
+		}
+
+		//echo $post->post_parent;
+		
 		echo '<section class="container">';
 		if (have_posts()) : while (have_posts()) : the_post();
 			?>
-			<article class="row">
-				<article class="col-lg-12 col-xs-12">
-					<h1 class="mb-4" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
+
+			<?php if(get_field('fx_flex_habilitar_menu') != null || get_field('fx_flex_habilitar_menu', $parent) != null): ?>
+				<article class="row">
+					<div class="col-lg-12 col-xs-12">
+						<h1 class="mb-4">
+							<?php if($parent){
+								echo get_the_title($parent);
+							} else {
+								the_title();
+							} ?>
+						</h1>
+					</div>
+					<div class="col-lg-4">
+						<button type="button" class="btn-submenu d-lg-none d-xl-none b-0" data-toggle="modal" data-target="#filtroBusca">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i> <span>Submenu</span>					
+						</button>
+
+						<hr class='d-lg-none d-xl-none'>
+
+						<!-- Modal -->
+						<div class="modal left fade" id="filtroBusca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+
+									<div class="modal-header">
+										<p class="modal-title" id="myModalLabel2">Submenu</p>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>				
+									</div>
+
+									<div class="modal-body">
+										<ul class="nav flex-column vertical-menu-mobile">					
+						
+											<?php
+												if($parent){
+													$campos = get_field('menu_lateral_item_principal', $parent);	
+												} else {
+													$campos = get_field('menu_lateral_item_principal');	
+												}
+												
+
+												if($campos['rotulo'] != '' && $campos['menu_lateral_principal'][0] != ''){
+													$page = $campos['menu_lateral_principal'][0];
+													if($page == get_the_ID()){
+														$classe = 'active';
+													}
+													echo '<li><a href="' . get_the_permalink($page) . '" class="' . $classe . '">' . $campos['rotulo'] . '</a></li>';
+												} elseif(!$campos['rotulo'] && $campos['menu_lateral_principal'][0] != ''){
+													$page = $campos['menu_lateral_principal'][0];
+													if($page == get_the_ID()){
+														$classe = 'active';
+													}
+													echo '<li><a href="' . get_the_permalink($page) . '" class="' . $classe . '">' . get_the_title($page) . '</a></li>';
+													$classe = '';
+												}
+
+												$outrasPages = $campos['menu_lateral_outros_itens'];
+												$currentTitle = '';
+
+												if($outrasPages){
+													
+													foreach($outrasPages as $page){
+														if($page['nome_do_rotulo'] != ''){
+															if($page['outros_pagina'][0] == get_the_ID()){
+																$currentTitle = $page['nome_do_rotulo'];
+																$classe = 'active';
+															}
+															echo '<li><a href="' . get_the_permalink($page['outros_pagina'][0]) . '" class="' . $classe . '">' . $page['nome_do_rotulo'] . '</a></li>';
+															$classe = '';
+														} else {
+															if($page['outros_pagina'][0] == get_the_ID()){
+																$currentTitle = get_the_title($page['outros_pagina'][0]);
+																$classe = 'active';
+															}
+															echo '<li><a href="' . get_the_permalink($page['outros_pagina'][0]) . '" class="' . $classe . '">' . get_the_title($page['outros_pagina'][0]) . '</a></li>';
+															$classe = '';
+														}
+													}
+												}	
+
+												//echo "<pre>";
+												//print_r($campos);
+												//echo "</pre>";
+											?>
+										</ul>
+									</div>
+
+								</div><!-- modal-content -->
+							</div><!-- modal-dialog -->
+						</div><!-- modal -->
+
+						<ul class="nav flex-column vertical-menu d-none d-lg-block d-xl-block">					
+						
+							<?php
+								if($parent){
+									$campos = get_field('menu_lateral_item_principal', $parent);	
+								} else {
+									$campos = get_field('menu_lateral_item_principal');	
+								}
+								
+
+								if($campos['rotulo'] != '' && $campos['menu_lateral_principal'][0] != ''){
+									$page = $campos['menu_lateral_principal'][0];
+									if($page == get_the_ID()){
+										$classe = 'active';
+									}
+									echo '<li><a href="' . get_the_permalink($page) . '" class="' . $classe . '">' . $campos['rotulo'] . '</a></li>';
+									$classe = '';
+								} elseif(!$campos['rotulo'] && $campos['menu_lateral_principal'][0] != ''){
+									$page = $campos['menu_lateral_principal'][0];
+									if($page == get_the_ID()){
+										$classe = 'active';
+									}
+									echo '<li><a href="' . get_the_permalink($page) . '" class="' . $classe . '">' . get_the_title($page) . '</a></li>';
+									$classe = '';
+								}
+
+								$outrasPages = $campos['menu_lateral_outros_itens'];
+								$currentTitle = '';
+
+								if($outrasPages){
+									
+									foreach($outrasPages as $page){
+										if($page['nome_do_rotulo'] != ''){
+											if($page['outros_pagina'][0] == get_the_ID()){
+												$currentTitle = $page['nome_do_rotulo'];
+												$classe = 'active';
+											}
+											echo '<li><a href="' . get_the_permalink($page['outros_pagina'][0]) . '" class="' . $classe . '">' . $page['nome_do_rotulo'] . '</a></li>';
+											$classe = '';
+										} else {
+											if($page['outros_pagina'][0] == get_the_ID()){
+												$currentTitle = get_the_title($page['outros_pagina'][0]);
+												$classe = 'active';
+											}
+											echo '<li><a href="' . get_the_permalink($page['outros_pagina'][0]) . '" class="' . $classe . '">' . get_the_title($page['outros_pagina'][0]) . '</a></li>';
+											$classe = '';
+										}
+									}
+								}
+								
+								if($campos['rotulo'] != '' && $campos['menu_lateral_principal'][0] == get_the_ID()){
+									$currentTitle = $campos['rotulo'];
+								} elseif(!$campos['rotulo'] && $campos['menu_lateral_principal'][0] == get_the_ID()) {
+									$currentTitle = get_the_title();
+								}
+								
+							?>
+						</ul>
+					</div>
+
+					<div class="col-lg-8">
+						<?php if($currentTitle): ?>
+							<h2 class="submenu-title"><?php echo $currentTitle; ?></h2>
+						<?php endif; ?>
+
+						<div class="my-3">
+							<?php the_content(); ?>
+						</div>						
+					</div>
 				</article>
-			</article>
+			<?php else: ?>
+				<article class="row">
+					<article class="col-lg-12 col-xs-12">
+						<h1 class="mb-4" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
+					</article>
+				</article>
 
 
-			<article class="row">
-				<article class="col-lg-9 col-xs-12">
-					<?php echo $this->getSubtitulo($this->page_id)?>
-					<?php the_content(); ?>
+				<article class="row">
+					<article class="col-lg-9 col-xs-12">
+						<?php echo $this->getSubtitulo($this->page_id)?>
+						<?php the_content(); ?>
+					</article>
 				</article>
-			</article>
+			<?php endif; ?>
 		<?php
 		endwhile;
 		endif;

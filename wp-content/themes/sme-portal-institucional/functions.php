@@ -1252,3 +1252,22 @@ function generateRandomString($length = 10) {
     }
     return $randomString;
 }
+
+// Listar apenas pagina atual e as subpaginas
+add_filter('acf/fields/relationship/query/name=menu_lateral_principal', 'change_posts_order', 10, 3);
+add_filter('acf/fields/relationship/query/name=outros_pagina', 'change_posts_order', 10, 3);
+function change_posts_order( $args, $field, $post_id ){
+
+	$pages = array();
+	$pages[] = $post_id;
+
+	$getpages = get_pages(array( 'child_of' => $post_id) );
+
+	foreach($getpages as $page){
+		$pages[] = $page->ID;
+	}
+
+	$args['post__in'] = $pages;
+
+    return $args;
+}
