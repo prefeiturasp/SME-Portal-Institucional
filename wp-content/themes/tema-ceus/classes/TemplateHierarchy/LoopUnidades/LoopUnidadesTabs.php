@@ -650,7 +650,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                             <?php endif; ?>
 
                                             <?php if($servico['tipo_de_servico'] == 'uni') : ?>
-                                                <p class='mb-0'>CEU – Fazer inscrição em cursos Uni CEU (<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?t=&a=NTgx&conteudo=1146">ir para Fazer inscrição em cursos</a>)</p>
+                                                <p class='mb-0'>CEU – Fazer inscrição em cursos UniCEU (<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?t=&a=NTgx&conteudo=1146">ir para Fazer inscrição em cursos</a>)</p>
                                             <?php endif; ?>
 
                                             <?php if($servico['tipo_de_servico'] == 'piscina') : ?>

@@ -1548,3 +1548,9 @@ function wpza_replace_repeater_field( $where ) {
 	return $where;
 }
 add_filter( 'posts_where', 'wpza_replace_repeater_field' );
+
+add_action('admin_menu', 'my_remove_sub_menus');
+function my_remove_sub_menus() {
+    remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
+    remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=post_tag');
+}
