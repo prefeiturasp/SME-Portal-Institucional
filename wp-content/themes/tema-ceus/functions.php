@@ -1549,8 +1549,19 @@ function wpza_replace_repeater_field( $where ) {
 }
 add_filter( 'posts_where', 'wpza_replace_repeater_field' );
 
+// Desabilitar Unidades e Tags no menu Eventos
 add_action('admin_menu', 'my_remove_sub_menus');
 function my_remove_sub_menus() {
     remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
     remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=post_tag');
 }
+
+// Alterar place cadastro/edicao Sobre o CEU
+function wpb_change_title_text( $title ){
+	$screen = get_current_screen(); 
+	if  ( 'unidade' == $screen->post_type ) {
+		 $title = 'Digite o nome do CEU';
+	} 
+	return $title;}
+ 
+add_filter( 'enter_title_here', 'wpb_change_title_text' );
