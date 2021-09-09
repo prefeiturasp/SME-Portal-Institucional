@@ -1614,6 +1614,88 @@ function more_post_ajax(){
 add_action('wp_ajax_nopriv_more_post_ajax', 'more_post_ajax');
 add_action('wp_ajax_more_post_ajax', 'more_post_ajax');
 
+function more_post_quebrada(){
+
+    $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 10;
+    $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 1;
+
+	
+
+    header("Content-Type: text/html");
+
+    $args = array(
+        'suppress_filters' => true,
+        'post_type' => 'na-quebrada',
+        'posts_per_page' => $ppp,
+        'paged'    => $page,
+		'post_status' => 'publish'
+    );
+
+	if($_POST['filter'] && $_POST['filter'] != '' ){
+		$args['tax_query'][] = array(
+				'taxonomy' => 'categoria-quebrada',   // taxonomy name
+				'field' => 'term_id',           // term_id, slug or name
+				'terms' => $_POST['filter'],                  // term id, term slug or term name
+		);									
+	}
+
+    $loop = new WP_Query($args);
+
+    $out = '';
+
+    if ($loop -> have_posts()) :  while ($loop -> have_posts()) : $loop -> the_post();
+	
+		$out .= '<div class="item">';
+		$out .= '<div class="item">';
+			$out .= '<div class="item-content">';
+				$out .= '<a href="' . get_the_permalink() . '">';
+					$out .= '<img class="img-fluid" src="' . get_the_post_thumbnail_url(get_the_ID(),"full") . '">';
+				$out .= '</a>';
+				$out .= '<div class="infos-quebrada d-flex justify-content-between">';
+					$out .= '<div class="quebrada-likes">';
+						global $wpdb;
+						$postid = get_the_id();                                    
+						$totalrow1 = $wpdb->get_results( "SELECT id FROM $wpdb->post_like_table WHERE postid = '$postid'");
+						$total_like = $wpdb->num_rows;
+
+						if($total_like == 1){
+							$contador = $total_like . " like";
+						} else {
+							$contador = $total_like . " likes";
+						}
+				
+						$out .= '<i class="fa fa-heart" aria-hidden="true"></i> ' . $contador;
+						
+					$out .= '</div>';
+					$out .= '<div class="quebrada-date">';
+						$out .= get_the_date( 'd/m/Y \à\s H\hi' );
+					$out .= '</div>';                 
+				$out .= '</div>';
+				$out .= '<a href="' . get_the_permalink() . '">';
+					$out .= '<div class="item-title">' . get_the_title() . '</div>';
+				$out .= '</a>';
+				$out .= '<div class="item-autor">';
+					
+					if(get_field('nome')){
+						$out .= 'por ' . get_field('nome');
+					} else {
+						$out .= 'por Turma do NAAPA';
+					}
+					
+				$out .= '</div>';            
+			$out .= '</div>';         
+		$out .= '</div>';
+		$out .= '</div>';
+
+    endwhile;
+    endif;
+    wp_reset_postdata();
+    die($out);
+}
+
+add_action('wp_ajax_nopriv_more_post_quebrada', 'more_post_quebrada');
+add_action('wp_ajax_more_post_quebrada', 'more_post_quebrada');
+
 function my_acf_load_sidebar( $field ){
 	// reset choices
 	$field['choices'] = array();
@@ -1740,3 +1822,103 @@ function wpb_load_widget() {
 	register_widget( 'wpb_widget' );
 }
 add_action( 'widgets_init', 'wpb_load_widget' );
+
+function post_like_table_create() {
+
+	global $wpdb;
+	$table_name = $wpdb->prefix. "post_like_table";
+	global $charset_collate;
+	$charset_collate = $wpdb->get_charset_collate();
+	global $db_version;
+	
+	if( $wpdb->get_var("SHOW TABLES LIKE '" . $table_name . "'") != $table_name)
+	{ $create_sql = "CREATE TABLE " . $table_name . " (
+	id INT(11) NOT NULL auto_increment,
+	postid INT(11) NOT NULL ,
+	
+	clientip VARCHAR(40) NOT NULL ,
+	
+	PRIMARY KEY (id))$charset_collate;";
+	require_once(ABSPATH . "wp-admin/includes/upgrade.php");
+	dbDelta( $create_sql );
+	}
+	
+	
+	
+	//register the new table with the wpdb object
+	if (!isset($wpdb->post_like_table))
+	{
+	$wpdb->post_like_table = $table_name;
+	//add the shortcut so you can use $wpdb->stats
+	$wpdb->tables[] = str_replace($wpdb->prefix, '', $table_name);
+	}
+	
+}
+add_action( 'init', 'post_like_table_create');
+	
+	// Add the JS
+function theme_name_scripts() {
+	wp_enqueue_script( 'script-name', get_template_directory_uri() . '/js/post-like.js', array('jquery'), '1.0.0', true );
+	wp_localize_script( 'script-name', 'MyAjax', array(
+	// URL to wp-admin/admin-ajax.php to process the request
+	'ajaxurl' => admin_url( 'admin-ajax.php' ),
+	// generate a nonce with a unique ID "myajax-post-comment-nonce"
+	// so that you can check it later when an AJAX request is sent
+	'security' => wp_create_nonce( 'my-special-string' )
+	));
+}
+add_action( 'wp_enqueue_scripts', 'theme_name_scripts' );
+// The function that handles the AJAX request
+	
+function get_client_ip() {
+	if (!empty($_SERVER['HTTP_CLIENT_IP']))   //check ip from share internet
+	{
+		$ip=$_SERVER['HTTP_CLIENT_IP'];
+	}
+	elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))   //to check ip is pass from proxy
+	{
+		$ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+	}
+	else
+	{
+		$ip=$_SERVER['REMOTE_ADDR'];
+	}
+	return $ip;
+}
+	
+function my_action_callback() {
+	check_ajax_referer( 'my-special-string', 'security' );
+	$postid = intval( $_POST['postid'] );
+	$clientip = get_client_ip();
+	$like = 0;
+	$dislike = 0;
+	$like_count = 0;
+
+	//check if post id and ip present
+	global $wpdb;
+	$row = $wpdb->get_results( "SELECT id FROM $wpdb->post_like_table WHERE postid = '$postid' AND clientip = '$clientip'");
+
+	if(empty($row)){
+		//insert row
+		$wpdb->insert( $wpdb->post_like_table, array( 'postid' => $postid, 'clientip' => $clientip ), array( '%d', '%s' ) );
+		//echo $wpdb->insert_id;
+		$like=1;
+	}
+
+	if(!empty($row)){
+		//delete row
+		$wpdb->delete( $wpdb->post_like_table, array( 'postid' => $postid, 'clientip'=> $clientip ), array( '%d','%s' ) );
+		$dislike = 1;
+	}
+
+	//calculate like count from db.
+	$totalrow = $wpdb->get_results( "SELECT id FROM $wpdb->post_like_table WHERE postid = '$postid'");
+	$total_like = $wpdb->num_rows;
+	$data = array( 'postid' => $postid,'likecount' => $total_like, 'clientip' => $clientip, 'like' => $like, 'dislike' => $dislike);
+	echo json_encode($data);
+	//echo $clientip;
+	die(); // this is required to return a proper result
+}
+
+add_action( 'wp_ajax_my_action', 'my_action_callback' );
+add_action( 'wp_ajax_nopriv_my_action', 'my_action_callback' );
