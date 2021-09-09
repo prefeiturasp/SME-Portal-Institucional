@@ -390,6 +390,14 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'destaque_quem_cuida' ):
 									get_template_part( 'construtor/construtor', 'destaque_cuida' );
 
+								// Form Na Quebrada
+								elseif( get_row_layout() == 'cadastro_quebrada' ):
+									get_template_part( 'construtor/construtor', 'form_quebrada' );
+
+								// Posts Na Quebrada
+								elseif( get_row_layout() == 'posts_quebrada' ):
+									get_template_part( 'construtor/construtor', 'posts_quebrada' );
+
 								endif;
 							endwhile;
 						echo '</div>';//bootstrap col

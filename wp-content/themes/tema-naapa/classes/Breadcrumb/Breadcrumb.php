@@ -92,6 +92,8 @@ class Breadcrumb
 
 					if($post_type == 'quem-cuida'){
 						echo '<li class="item-cat cc item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(385) . '">Para quem cuida</a></li>';
+					} elseif($post_type == 'na-quebrada'){
+						echo '<li class="item-cat cc item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(423) . '">O que rola na quebrada?</a></li>';
 					} else {
 						echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $post_type_object->labels->name . '</a></li>';
 					}

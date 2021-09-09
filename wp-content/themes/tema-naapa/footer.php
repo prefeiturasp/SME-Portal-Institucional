@@ -91,6 +91,14 @@
                     endwhile;
                 endif;
 
+                if( get_row_layout() == 'fx_linha_coluna_1' ):
+                    while( have_rows('fx_coluna_1_1') ): the_row();
+                        if( get_row_layout() == 'posts_quebrada' ):
+                            $qtd = get_sub_field('quantidade');
+                        endif;
+                    endwhile;
+                endif;
+
             endwhile;
         endif;
    
@@ -100,10 +108,16 @@
     }
  ?>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/gridify.min.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.mask.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/script.js"></script>
+    
 
     <script>
 		var $s = jQuery.noConflict();
 
+        // Quem Cuida
         $s(function () {
            
             var ppp = <?php echo $qtd; ?>; // Post per page
@@ -150,6 +164,56 @@
             });
     
         });
+
+         // Na Quebrada
+         $s(function () {
+           
+           var ppp = <?php echo $qtd; ?>; // Post per page
+           var pageNumber = 1;
+
+           <?php if($_GET['filter'] && $_GET['filter'] ): ?>
+               var filter = <?php echo $_GET['filter']; ?>;
+           <?php elseif(get_queried_object()->term_id): ?>
+               var filter = <?php echo get_queried_object()->term_id; ?>;
+           <?php else: ?>
+               var filter = '';
+           <?php endif; ?>
+
+           function load_quebrada(){
+               pageNumber++;
+               var str = '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&filter=' + filter + '&action=more_post_quebrada';
+               jQuery.ajax({
+                   type: "POST",
+                   dataType: "html",
+                   url: ajaxurl,
+                   data: str,
+                   success: function(data){
+                       var $data = jQuery(data);
+                       if($data.length){
+                           jQuery(".all-itens").append($data);
+                           jQuery("#more_quebrada").attr("disabled",false);
+                           gridify.reInit();
+                       } else{
+                           jQuery("#more_quebrada").attr("disabled",true);
+                       }
+                   },
+                   error : function(jqXHR, textStatus, errorThrown) {
+                       $loader.html(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+                   }
+
+               });
+               gridify.reInit();
+               return false;
+           }
+           
+           $s("#more_quebrada").on("click",function(){ // When btn is pressed.
+                $s("#more_quebrada").attr("disabled",true); // Disable the button, temp.               
+                gridify.destroy();
+                load_quebrada();
+                $s(this).insertAfter('.all-itens'); // Move the 'Load More' button to the end of the the newly added posts.               
+           });
+           
+       });
 
         // Carrocel
         $s('.carousel').carousel({
@@ -204,6 +268,16 @@
 
         
     </script>
-
+    
+    
+    <?php if($_SESSION['success']): ?>
+        <script>
+            Swal.fire(
+            'Publicação enviada para análise!',
+            'Após a aprovação do administrador seu conteúdo estará disponível.',
+            'success'
+            )
+        </script>
+    <?php endif; ?>
 </body>
 </html>

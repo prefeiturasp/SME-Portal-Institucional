@@ -42,10 +42,9 @@ require_once 'TemplateHierarchy/LoopCuida/LoopCuida.php';
 require_once 'TemplateHierarchy/LoopCuida/LoopCuidaCabecalho.php';
 require_once 'TemplateHierarchy/LoopCuida/LoopCuidaNoticiaPrincipal.php';
 
-require_once 'TemplateHierarchy/LoopUnidades/LoopUnidades.php';
-require_once 'TemplateHierarchy/LoopUnidades/LoopUnidadesCabecalho.php';
-require_once 'TemplateHierarchy/LoopUnidades/LoopUnidadesSlide.php';
-require_once 'TemplateHierarchy/LoopUnidades/LoopUnidadesTabs.php';
+require_once 'TemplateHierarchy/LoopQuebrada/LoopQuebrada.php';
+require_once 'TemplateHierarchy/LoopQuebrada/LoopQuebradaCabecalho.php';
+require_once 'TemplateHierarchy/LoopQuebrada/LoopQuebradaNoticiaPrincipal.php';
 
 require_once 'TemplateHierarchy/ArchiveAgenda/ArchiveAgendaGetDatasEventos.php';
 require_once 'TemplateHierarchy/ArchiveContato/ArchiveContatoMetabox.php';
@@ -137,6 +136,7 @@ require_once 'Cpt/CptMediaImages.php';
 $cptPostsExtend = new \Classes\Cpt\CptPosts();
 $cptPagessExtend = new \Classes\Cpt\CptPages();
 $cptAbas = new \Classes\Cpt\Cpt('quem-cuida', 'quem-cuida', 'Quem Cuida', 'Minhas Noticias', 'Noticias', 'Cadastro de Noticias', 'categoria-cuida', 'Categorias', 'Categoria', 'dashicons-building' , true);
+$cptAbas = new \Classes\Cpt\Cpt('na-quebrada', 'na-quebrada', 'Na Quebrada', 'Meus Posts', 'Posts', 'Cadastro de Posts', 'categoria-quebrada', 'Categorias', 'Categoria', 'dashicons-building' , true);
 //$cptCard = new \Classes\Cpt\Cpt('card', 'card', 'Card', 'Todos os Cards', 'Cards', 'Card', 'categorias-card', 'Categorias de Cards', 'Categoria de Card', 'dashicons-feedback', true);
 //$cptCardExtend = new \Classes\Cpt\CptCard();
 

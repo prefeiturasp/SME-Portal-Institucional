@@ -1851,6 +1851,7 @@ a.nextpostslink {
     font-size: 56px;
     padding-left: 10px;
     margin-bottom: 0;
+    line-height: 1;
 }
 
 .title-special h2 {
@@ -1859,6 +1860,7 @@ a.nextpostslink {
     font-size: 54px;
     padding-left: 10px;
     margin-bottom: 0;
+    line-height: 1;
 }
 
 .title-special a {
@@ -2022,4 +2024,142 @@ a.nextpostslink {
     color: #CF443C;
     font-family: 'Bebas Neue', cursive;
     font-size: 28px;
+}
+
+/***** Na Quebrada *****/
+
+.custom-file-label::after{
+    background: #FFC701;
+    box-shadow: inset 0px -4px 4px rgba(0, 0, 0, 0.25);
+    font-weight: bold;
+    content: "Escolher";
+}
+
+.form-bg {
+    background: #15608A;
+    padding: 35px 0;
+    color: #f3f3f3;
+}
+
+.form-bg a{
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+.form-bg .form-title{
+    font-family: 'Bebas Neue', cursive;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.form-bg .form-check-label{
+    font-size: 12px;
+}
+
+.form-bg .btn-form-quebrada{
+    background: #E7600C;
+    box-shadow: inset 0px -4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.quebrada-title{
+    font-family: 'Bebas Neue', cursive;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.all-itens{
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.all-itens .item {
+	padding: 10px;
+}
+
+.all-itens .item img {
+	width: 100%;
+	height: auto;
+    border-radius: 12px;
+    transition: 0.2s;
+}
+
+.infos-quebrada {
+    font-size: 14px;
+    padding: 15px 0 10px;
+}
+
+.infos-quebrada .quebrada-likes {
+    color: #42474A;
+}
+
+.infos-quebrada .quebrada-date {
+    color: #8F8E8E;
+}
+
+.item-content .item-title {
+    font-weight: 500;
+    color: #000000;
+}
+
+.item-content .item-autor {
+    color: #8E8E8E;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.item-content:hover img{
+    transform: scale(1.02);
+    transition: 0.2s;
+}
+
+.column.size-1of4 {
+	width: 25%;
+	float: left;
+}
+
+#more_quebrada {
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 20px;
+    background: #15608A;
+    box-shadow: inset 0px -4px 4px rgb(0 0 0 / 25%);
+    border-radius: 4px;
+    color: #FFFFFF;
+    border: 0;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+#more_quebrada:disabled {
+    opacity: 0.6;
+}
+
+/**** Single Na Quebrada ****/
+.content-quebrada {
+    background: #FFFFFF;
+    border: 1px solid #F3F3F3;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 4px rgb(0 0 0 / 25%);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 30px 0;
+}
+
+.quebrada-likes a {
+    color: #42474A;
+    font-weight: 500;
+}
+
+.likes-post .fa {
+    font-size: 22px;
+    margin-top: -4px;
+    margin-right: 6px;
+}
+
+.single-categ .quebrada-categ {
+    color: #E7600C;
 }
