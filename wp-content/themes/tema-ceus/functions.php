@@ -1565,3 +1565,102 @@ function wpb_change_title_text( $title ){
 	return $title;}
  
 add_filter( 'enter_title_here', 'wpb_change_title_text' );
+
+// Funcao para ativar ordenacao
+function sortable_destaque_column( $columns )    {
+    $columns['destaque'] =  'destaque';
+    return $columns;
+}
+add_filter( 'manage_edit-post_sortable_columns', 'sortable_destaque_column' ); // Evento Destaque
+
+// Funcao para ordernar
+function orderby_destaque_column( $query ) {
+    global $pagenow;
+
+    if ( ! is_admin() || 'edit.php' != $pagenow || ! $query->is_main_query()  )  {
+        return;
+    }
+
+    $orderby = $_GET['orderby'];
+
+    print_r($orderby);
+
+    switch ( $orderby ) {
+        case 'destaque':
+            $query->set( 'meta_key', 'evento_destaque_home' );
+            $query->set( 'orderby', 'meta_value' );
+            break;
+
+        default:
+            break;
+    }
+
+}
+add_action( 'pre_get_posts', 'orderby_destaque_column' );
+
+// Ocultar campo Destaque Home para não Admins
+add_action('admin_head', 'hide_event_css');
+function hide_event_css () {   
+
+    global $current_user;
+    if (is_admin() && is_user_logged_in() && !in_array('administrator', $current_user->roles)) {
+        echo '<style>';        
+            echo 'div.dest-home{display: none}'; 
+            echo 'div.sub-admin{width: 100% !important}'; 
+        echo '</style>';
+    }
+}
+
+// Criar Ação em Massa - Marcar destaque home / Remover destaque home
+add_filter('bulk_actions-edit-post', function($bulk_actions) {
+	
+	global $current_user;
+    
+	if (is_admin() && is_user_logged_in() && in_array('administrator', $current_user->roles)) {
+		$bulk_actions['aplicar-destaque'] = __('Marcar destaque home', 'txtdomain');
+		$bulk_actions['remover-destaque'] = __('Remover destaque home', 'txtdomain');		
+	}
+
+	return $bulk_actions;
+});
+
+add_filter('handle_bulk_actions-edit-post', function($redirect_url, $action, $post_ids) {
+	// Aplicar
+	if ($action == 'aplicar-destaque') {
+		foreach ($post_ids as $post_id) {
+			update_post_meta($post_id, 'evento_destaque_home', '1');
+		}
+		$redirect_url = add_query_arg('aplicar-destaque', count($post_ids), $redirect_url);
+	}
+
+	// Remover
+	if ($action == 'remover-destaque') {
+		foreach ($post_ids as $post_id) {
+			update_post_meta($post_id, 'evento_destaque_home', '0');
+		}
+		$redirect_url = add_query_arg('remover-destaque', count($post_ids), $redirect_url);
+	}
+	return $redirect_url;
+
+}, 10, 3);
+
+
+// ACF - Filtrar Posts do Slide por Eventos em Destaque
+add_filter('acf/fields/relationship/query/name=slide', 'acf_filter_destaque', 10, 3);
+add_filter('acf/fields/relationship/query/name=eventos', 'acf_filter_destaque', 10, 3);
+function acf_filter_destaque( $args, $field, $post_id ) {
+
+    $meta_query = array(
+		array(
+		  'key' => 'evento_destaque_home',
+		  'value' => 1,
+		  'compare' => 'LIKE'
+		)
+	  );
+	
+	// the correct argument key is 'meta_query'
+	$args['meta_query'] = $meta_query;
+
+	// return
+	 return $args;
+}
