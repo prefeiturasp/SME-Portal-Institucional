@@ -9,6 +9,7 @@ class CptPosts extends Cpt
 	{
 		add_filter('manage_posts_columns', array($this, 'exibe_cols'), 10, 2);
 		add_action( 'manage_posts_custom_column' , array($this, 'cols_content'), 10, 2 );
+		add_action('manage_edit-post_sortable_columns');
 	}
 
 	// add featured thumbnail to admin post columns
@@ -18,12 +19,14 @@ class CptPosts extends Cpt
 				'cb' => '<input type="checkbox" />',
 				'title' => 'Title',
 				'author' => 'Author',
-				'categories' => 'Categories',
-				'tags' => 'Tags',
-				'comments' => '<span class="vers"><div title="Comments" class="comment-grey-bubble"></div></span>',
-				'featured_thumb' => 'Thumbnail',
-				'destaque' => 'Destaque',
-				'posicao_destaque' => 'Posição Destaque',
+				'unidade' => 'Unidade',
+				'destaque' => 'Destaque Home',
+				//'categories' => 'Categories',
+				//'tags' => 'Tags',
+				//'comments' => '<span class="vers"><div title="Comments" class="comment-grey-bubble"></div></span>',
+				//'featured_thumb' => 'Thumbnail',
+				//'destaque' => 'Destaque',
+				//'posicao_destaque' => 'Posição Destaque',
 				'date' => 'Date',
 
 			);
@@ -37,6 +40,11 @@ class CptPosts extends Cpt
 
 	public function cols_content($column) {
 		switch ( $column ) {
+			case 'unidade':
+				$localizacao = get_field('localizacao');
+				echo get_the_title($localizacao);
+				break;
+
 			case 'featured_thumb':
 				echo '<a href="' . get_edit_post_link() . '">';
 				echo the_post_thumbnail( 'admin-list-thumb' );
@@ -55,14 +63,14 @@ class CptPosts extends Cpt
 
 
 		}
-	}
+	}	
 
 	public function getDestaque(){
-		$destaque = get_field('deseja_que_este_post_apareca_na_home');
+		$destaque = get_field('evento_destaque_home');
 		if ($destaque == 'sim'){
 			return '<h4>Sim</h4>';
 		}else{
-			return '<h4>Não</h4>';
+			return '<h4>-</h4>';
 		}
 
 	}
