@@ -946,3 +946,7 @@ button.btn-diario {
         margin: 0 auto;
     }
 }
+
+span.extend {
+    padding: 8px 10px;
+}
