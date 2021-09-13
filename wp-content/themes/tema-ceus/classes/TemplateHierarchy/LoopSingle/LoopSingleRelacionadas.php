@@ -359,7 +359,7 @@ class LoopSingleRelacionadas extends LoopSingle
 												$imgSelect = get_field('capa_do_evento', get_the_ID());
 												$tipo = get_field('tipo_de_evento_selecione_o_evento', get_the_ID());
 																							
-												$featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
+												$featured_img_url = wp_get_attachment_image_src($imgSelect, 'recorte-unidades');
 												if($featured_img_url){
 													$imgEvento = $featured_img_url[0];													
 													$alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  

@@ -23,9 +23,9 @@ class LoopSingleCabecalho extends LoopSingle
                     <div class="col-md-5 offset-md-1">
 
 						<?php 
-							//$featured_img_url = get_the_post_thumbnail_url($post->ID, 'thumb-eventos');
+							//$featured_img_url = get_the_post_thumbnail_url($post->ID, 'recorte-eventos');
 							$imgSelect = get_field('capa_do_evento', $post->ID);							
-                            $featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
+                            $featured_img_url = wp_get_attachment_image_src($imgSelect, 'recorte-eventos');
 							if($featured_img_url){
 								$imgEvento = $featured_img_url[0];
 								//$thumbnail_id = get_post_thumbnail_id( $post->ID );

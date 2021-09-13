@@ -42,9 +42,9 @@ class PaginaProgramacaoSlide
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <?php 
-                                                //$featured_img_url = get_the_post_thumbnail_url($slide->ID, 'slide-eventos');
+                                                //$featured_img_url = get_the_post_thumbnail_url($slide->ID, 'recorte-eventos');
                                                 $imgSelect = get_field('capa_do_evento', $slide->ID);
-                                                $featured_img_url = wp_get_attachment_image_src($imgSelect, 'slide-eventos');
+                                                $featured_img_url = wp_get_attachment_image_src($imgSelect, 'recorte-eventos');
                                                 
                                                 if($featured_img_url){
                                                     $imgSlide = $featured_img_url[0];

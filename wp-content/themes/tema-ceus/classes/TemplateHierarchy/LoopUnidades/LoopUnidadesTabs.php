@@ -274,7 +274,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                         $online = get_field('tipo_de_evento_online', $eventoID);
                                                         $tipoEvento = get_field('tipo_de_evento_tipo', $eventoID);
 
-                                                        $featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
+                                                        $featured_img_url = wp_get_attachment_image_src($imgSelect, 'recorte-unidades');
                                                         if($featured_img_url){
                                                             $imgEvento = $featured_img_url[0];
                                                             //$thumbnail_id = get_post_thumbnail_id( $eventoID );
@@ -559,12 +559,17 @@ class LoopUnidadesTabs extends LoopUnidades{
 
                     <div class="row pt-4">
                         <div class="col-sm-12">
-                            <?php
-                                $orientacao = get_field('orientacao');
-                                if($orientacao && $orientacao != ''){
-                                    echo $orientacao;
-                                }
-                            ?>
+                            <p>A Carta de Serviços da Prefeitura de São Paulo, disponível no Portal SP 156, traz a ficha técnica detalhada de oito serviços relacionados relacionados aos Centros Educacionais Unificados:</p>
+                            <ul>
+                                <li>CEU – Emprestar livros em bibliotecas (<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?t=&amp;a=NTgx&amp;conteudo=1139">ir para Emprestar livros em bibliotecas</a>)</li>
+                                <li>CEU – Fazer inscrição de crianças e adolescentes para atividades de férias (<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?t=&amp;a=NTgx&amp;conteudo=1145">ir para Fazer inscrição de crianças e adolescentes</a>)</li>
+                                <li>CEU – Fazer inscrição em atividades de extensão de jornada escolar (<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?t=&amp;a=NTgx&amp;conteudo=1144">ir para Fazer inscrição em atividades de extensão</a>)</li>
+                                <li>CEU – Fazer inscrição em cursos UniCEU (<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?t=&amp;a=NTgx&amp;conteudo=1146">ir para Fazer inscrição em cursos</a>)</li>
+                                <li>CEU – Usar piscina (<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?t=&amp;a=NTgx&amp;conteudo=1143">ir para Usar piscina</a>)</li>
+                                <li>CEU – Usar quadra (<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?t=&amp;a=NTgx&amp;conteudo=1142">ir para Usar quadra</a>)</li>
+                                <li>CEU – Consultar Programação (<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?conteudo=1759">ir para Consultar Programação</a>)</li>
+                                <li>CEU – Fazer inscrição de crianças e adolescentes para atividades de férias (<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?t=&amp;a=NzAx&amp;conteudo=1145">ir para Fazer inscrição para atividades de férias</a>)</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -595,8 +600,11 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                 <p><?php echo $servico['descricao']; ?></p>
                                             <?php endif; ?>
 
-                                            <?php if($servico['foto_descricao'] && $servico['foto_descricao'] != ''): ?>
-                                                <p><img src="<?php echo $servico['foto_descricao']; ?>"></p>
+                                            <?php if($servico['foto_descricao'] && $servico['foto_descricao'] != ''): 
+                                                    $imgurl = wp_get_attachment_image_url( $servico['foto_descricao'], 'recorte-unidades' );
+                                                    $image_alt = get_post_meta($servico['foto_descricao'], '_wp_attachment_image_alt', TRUE);
+                                                ?>
+                                                <p><img src="<?php echo  $imgurl; ?>" alt='<?php echo $image_alt; ?>'></p>
                                             <?php endif; ?>
 
                                             <?php if($servico['telefone'] && $servico['telefone'] != ''): ?>
@@ -661,7 +669,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                 <p class='mb-0'>CEU – Usar quadra (<a href="https://sp156.prefeitura.sp.gov.br/portal/servicos/informacao?t=&a=NTgx&conteudo=1143">ir para Usar quadra</a>)</p>
                                             <?php endif; ?>
 
-                                            <?php if($servico['tipo_de_servico'] == 'perso') : ?>
+                                            <?php if($servico['tipo_de_servico'] == 'perso' && $servico['link_url'] != '') : ?>
                                                 <p class='mb-0'><?php echo $servico['texto_link']; ?> (<a href="<?php echo $servico['link_url']; ?>">ir para <?php echo $servico['texto_link']; ?></a>)</p>
                                             <?php endif; ?>
                                             
@@ -744,7 +752,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                     <div class="carousel-inner">
 
                                         <?php foreach($todasFotos as $foto):
-                                                $featured_img_url = wp_get_attachment_image_src($foto, 'medium_large');
+                                                $featured_img_url = wp_get_attachment_image_src($foto, 'recorte-unidades');
                                                 if($featured_img_url){
                                                     $imgEvento = $featured_img_url[0];
                                                     //$thumbnail_id = get_post_thumbnail_id( $eventoID );

@@ -488,7 +488,7 @@
 										$tipo = get_field('tipo_de_evento_selecione_o_evento', $eventoInterno->ID);
 										$online = get_field('tipo_de_evento_online', $eventoInterno->ID);
 
-										$featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
+										$featured_img_url = wp_get_attachment_image_src($imgSelect, 'recorte-unidades');
 										if($featured_img_url){
 											$imgEvento = $featured_img_url[0];
 											//$thumbnail_id = get_post_thumbnail_id( $eventoInterno->ID );
