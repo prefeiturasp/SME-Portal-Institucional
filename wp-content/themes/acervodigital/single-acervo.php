@@ -26,6 +26,8 @@ function generateRandomString($length = 10) {
 
 					$file = get_field('arquivo_acervo_digital');
 					$stringSeparada = explode(".", $file['filename']);
+					$indice = count($stringSeparada);
+					$indice = $indice - 1;
 					$type = get_post_type();
 					$postid = get_the_ID();
 
@@ -65,9 +67,9 @@ function generateRandomString($length = 10) {
 								$n = 0;
 								foreach($categories as $categoria){
 									if($n == 0){
-										echo "<a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $categoria->term_id . "'>" . $categoria->name . "</a>";
+										echo "<a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categ_acervo=" . $categoria->term_id . "'>" . $categoria->name . "</a>";
 									} else {
-										echo " / <a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $categoria->term_id . "'>" . $categoria->name . "</a>";
+										echo " / <a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categ_acervo=" . $categoria->term_id . "'>" . $categoria->name . "</a>";
 									}
 									$n++;
 								}									
@@ -80,18 +82,20 @@ function generateRandomString($length = 10) {
 
 					<div class="mask-detail">
 						<img src="<?php
-							  if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'pdf'){
+							  if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[$indice] == 'pdf'){
 								 echo $file['icon']; 
-							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'xlsx' || $stringSeparada[1] == 'xls') ){
+							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[$indice] == 'xlsx' || $stringSeparada[$indice] == 'xls') ){
 								echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-xls.jpg';
-							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'docx' || $stringSeparada[1] == 'doc') ){
+							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[$indice] == 'docx' || $stringSeparada[$indice] == 'doc') ){
 								echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
-							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'pptx' || $stringSeparada[1] == 'ppt') ){
+							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[$indice] == 'pptx' || $stringSeparada[$indice] == 'ppt') ){
 								echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
 							  }else if(get_field('substituir_capa_acervo_digital') != ''){
 								 echo get_field('substituir_capa_acervo_digital'); 
-							  }else{
+							  }else if($file['url']){
 								 echo $file['url'];
+							  } else {
+								  echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
 							  }
 							  ?>" alt="<?php the_field('campo_alt_acervo_digital'); ?>" class='shadow-sm img-mobile'>
 					</div>
@@ -101,6 +105,8 @@ function generateRandomString($length = 10) {
 						} elseif($partional){
 							$url = $partional[0];
 							$stringSeparada = explode(".", $url);
+							$indice = count($stringSeparada);
+							$indice = $indice - 1;
 						}else{
 							$url = false;
 						}
@@ -108,7 +114,7 @@ function generateRandomString($length = 10) {
 					
 						<button type="button" class="btn btn-view mb-2" data-toggle="modal" data-target=".<?php echo $class; ?>"><i class="fa fa-search" aria-hidden="true"></i> Visualizar</button>
 					
-						<?php if($stringSeparada[1] == 'jpg' || $stringSeparada[1] == 'jpeg' || $stringSeparada[1] == 'png' || $stringSeparada[1] == 'gif' || $stringSeparada[1] == 'webp') : ?>
+						<?php if($stringSeparada[$indice] == 'jpg' || $stringSeparada[$indice] == 'jpeg' || $stringSeparada[$indice] == 'png' || $stringSeparada[$indice] == 'gif' || $stringSeparada[$indice] == 'webp') : ?>
 
 												
 
@@ -343,9 +349,9 @@ function generateRandomString($length = 10) {
 										$n = 0;
 										foreach($categories as $categoria){
 											if($n == 0){
-												echo "<a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $categoria->term_id . "'>" . $categoria->name . "</a>";
+												echo "<a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categ_acervo=" . $categoria->term_id . "'>" . $categoria->name . "</a>";
 											} else {
-												echo " / <a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $categoria->term_id . "'>" . $categoria->name . "</a>";
+												echo " / <a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categ_acervo=" . $categoria->term_id . "'>" . $categoria->name . "</a>";
 											}
 											$n++;
 										}									
@@ -447,7 +453,7 @@ function generateRandomString($length = 10) {
 													<?php
 														if(get_field('ano_da_publicacao_acervo_digital') != ''){
 															$ano = get_field('ano_da_publicacao_acervo_digital');
-															echo "<a href='" . get_home_url() . "/?avanc=1&tano=1&s=&ano%5B%5D=" . $ano . "'>" . $ano . "</a>";															
+															echo "<a href='" . get_home_url() . "/?avanc=1&tano=1&s=&anob%5B%5D=" . $ano . "'>" . $ano . "</a>";															
 														} else {
 															echo "-";
 														}
@@ -465,9 +471,9 @@ function generateRandomString($length = 10) {
 															if( $terms ):
 																foreach( $terms as $term ):
 																	if($n == 0){
-																		echo "<a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autor=" . $term->slug . "'>" . $term->name . "</a>";
+																		echo "<a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autorb=" . $term->slug . "'>" . $term->name . "</a>";
 																	} else {
-																		echo " / <a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autor=" . $term->slug . "'>" . $term->name . "</a>";
+																		echo " / <a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autorb=" . $term->slug . "'>" . $term->name . "</a>";
 																	}
 																	$n++;																	
 																endforeach;
@@ -484,9 +490,9 @@ function generateRandomString($length = 10) {
 															if( $terms ):
 																foreach( $terms as $term ):
 																	if($n == 0){
-																		echo "<a href='" . get_home_url() . "/?avanc=1&set=1&s=&setor%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																		echo "<a href='" . get_home_url() . "/?avanc=1&set=1&s=&setorb%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
 																	} else {
-																		echo " / <a href='" . get_home_url() . "/?avanc=1&set=1&s=&setor%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																		echo " / <a href='" . get_home_url() . "/?avanc=1&set=1&s=&setorb%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
 																	}
 																	$n++;																	
 																endforeach;
@@ -515,8 +521,8 @@ function generateRandomString($length = 10) {
 																echo implode(", ", $formats);
 																
 															}
-															elseif($stringSeparada[1] != ''){
-																echo $stringSeparada[1];
+															elseif($stringSeparada[$indice] != ''){
+																echo $stringSeparada[$indice];
 															}else{
 																echo 'DIVERSOS';
 															}
@@ -545,9 +551,9 @@ function generateRandomString($length = 10) {
 															if( $terms ):
 																foreach( $terms as $term ):
 																	if($n == 0){
-																		echo "<a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idioma%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																		echo "<a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idiomab%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
 																	} else {
-																		echo " / <a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idioma%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																		echo " / <a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idiomab%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
 																	}
 																	$n++;															
 																endforeach;
@@ -613,9 +619,9 @@ function generateRandomString($length = 10) {
 															if($palavras){
 																foreach($palavras as $palavra){
 																	if($n == 0){
-																		echo "<a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavra=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
+																		echo "<a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavrab=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
 																	} else {
-																		echo " <a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavra=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
+																		echo " <a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavrab=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
 																	}
 																	$n++;
 																}

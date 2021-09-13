@@ -13,12 +13,12 @@ jQuery(document).ready(function() {
     jQuery('.search-submit').click(function() {
         var busca = jQuery('.campo-busca').val();
         var buscaAv = jQuery('.campo-busca-avanc').val();
-        var categoria = jQuery('select[name ="categoria_acervo"]').children("option:selected").val();
-        var palavra = jQuery('select[name ="palavra"]').children("option:selected").val();
-        var idioma = jQuery('select[name ="idioma[]"]').children("option:selected").val();
-        var ano = jQuery('select[name ="ano[]"]').children("option:selected").val();
-        var setor = jQuery('select[name ="setor[]"]').children("option:selected").val();
-        var autor = jQuery('select[name ="autor"]').children("option:selected").val();
+        var categoria = jQuery('select[name ="categ_acervo"]').children("option:selected").val();
+        var palavra = jQuery('select[name ="palavrab"]').children("option:selected").val();
+        var idioma = jQuery('select[name ="idiomab[]"]').children("option:selected").val();
+        var ano = jQuery('select[name ="anob[]"]').children("option:selected").val();
+        var setor = jQuery('select[name ="setorb[]"]').children("option:selected").val();
+        var autor = jQuery('select[name ="autorb"]').children("option:selected").val();
 
 
 

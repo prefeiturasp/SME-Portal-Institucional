@@ -39,7 +39,7 @@
 					</div>
 					<div class="col-sm-6 mt-2 mb-2">
 						<label for="type">Categoria:</label>
-						<select id="type" name="categoria_acervo" class="selectpicker form-control" data-live-search="true">
+						<select id="type" name="categ_acervo" class="selectpicker form-control" data-live-search="true">
 						   <?php $project_types = get_categories('taxonomy=categoria_acervo'); ?>
 						   <option value="">Selecione a categoria</option>
 						   <?php foreach ($project_types as $project_type) { ?>
@@ -51,7 +51,7 @@
 					</div>
 					<div class="col-sm-6 mt-2 mb-2">
 						<label for="type">Palavra Chave:</label>
-						<select id="type" name="palavra" class="selectpicker form-control" data-live-search="true">
+						<select id="type" name="palavrab" class="selectpicker form-control" data-live-search="true">
 						   <?php $project_types = get_categories('taxonomy=palavra'); ?>
 						   <option value="">Escreva a palavra chave</option>
 						   <?php foreach ($project_types as $project_type) { ?>
@@ -70,7 +70,7 @@
 							  <option value="03">Março</option>
 						</select><?php */?>
 						<label for="type">Idioma da publicação</label>
-						<select id="type" name="idioma[]" class="selectpicker form-control" data-live-search="true">
+						<select id="type" name="idiomab[]" class="selectpicker form-control" data-live-search="true">
 						   <?php $project_types = get_categories('taxonomy=idioma'); ?>
 						   <option value="">Selecione o idioma</option>
 						   <?php foreach ($project_types as $project_type) { ?>
@@ -82,7 +82,7 @@
 					</div>
 					<div class="col-sm-3 mt-2 mb-2">
 						<label for="type">Ano de publicação</label>
-						<select id="ano_select" name="ano[]" class="selectpicker form-control" data-live-search="true" >
+						<select id="ano_select" name="anob[]" class="selectpicker form-control" data-live-search="true" >
 							<?php
 							$loop = new WP_Query( array(
 								'post_type' => 'acervo',
@@ -109,7 +109,7 @@
 					</div>
 					<div class="col-sm-3 mt-2 mb-2">
 						<label for="type">Setor responsável</label>
-						<select id="type" name="setor[]" class="selectpicker form-control" data-live-search="true">
+						<select id="type" name="setorb[]" class="selectpicker form-control" data-live-search="true">
 						   <?php $project_types = get_categories('taxonomy=setor'); ?>
 						   <option value="">Selecione o setor</option>
 						   <?php foreach ($project_types as $project_type) { ?>
@@ -121,7 +121,7 @@
 					</div>
 					<div class="col-sm-3 mt-2 mb-2">
 						<label for="type">Autor:</label>
-						<select id="type" name="autor" class="selectpicker form-control" data-live-search="true">
+						<select id="type" name="autorb" class="selectpicker form-control" data-live-search="true">
 						   <?php $project_types = get_categories('taxonomy=autor'); ?>
 						   <option value="">Escreva o nome do autor</option>
 						   <?php foreach ($project_types as $project_type) { ?>
@@ -167,7 +167,7 @@
 									</div>
 									<div class="col-sm-12 mt-2 mb-2">
 										<label for="type">Categoria:</label>
-										<select id="type" name="categoria_acervo" class="selectpicker form-control" data-live-search="true">
+										<select id="type" name="categ_acervo" class="selectpicker form-control" data-live-search="true">
 										<?php $project_types = get_categories('taxonomy=categoria_acervo'); ?>
 										<option value="">Selecione a categoria</option>
 										<?php foreach ($project_types as $project_type) { ?>
@@ -179,7 +179,7 @@
 									</div>
 									<div class="col-sm-12 mt-2 mb-2">
 										<label for="type">Palavra Chave:</label>
-										<select id="type" name="palavra" class="selectpicker form-control" data-live-search="true">
+										<select id="type" name="palavrab" class="selectpicker form-control" data-live-search="true">
 										<?php $project_types = get_categories('taxonomy=palavra'); ?>
 										<option value="">Escreva a palavra chave</option>
 										<?php foreach ($project_types as $project_type) { ?>
@@ -198,7 +198,7 @@
 											<option value="03">Março</option>
 										</select><?php */?>
 										<label for="type">Idioma da publicação</label>
-										<select id="type" name="idioma" class="selectpicker form-control" data-live-search="true">
+										<select id="type" name="idiomab" class="selectpicker form-control" data-live-search="true">
 										<?php $project_types = get_categories('taxonomy=idioma'); ?>
 										<option value="">Selecione o idioma</option>
 										<?php foreach ($project_types as $project_type) { ?>
@@ -246,7 +246,7 @@
 									</div>
 									<div class="col-sm-12 mt-2 mb-2">
 										<label for="type">Autor:</label>
-										<select id="type" name="autor" class="selectpicker form-control" data-live-search="true">
+										<select id="type" name="autorb" class="selectpicker form-control" data-live-search="true">
 										<?php $project_types = get_categories('taxonomy=autor'); ?>
 										<option value="">Escreva o nome do autor</option>
 										<?php foreach ($project_types as $project_type) { ?>
