@@ -907,9 +907,9 @@ function template_chooser($template){
 add_filter('template_include', 'template_chooser');
 
 // Thumbnail Customozadas
-add_image_size( 'slide-eventos', 820, 380, true ); // Slide
+add_image_size( 'recorte-eventos', 820, 380, true ); // Slide
 add_image_size( 'categoria-eventos', 300, 300, true ); // Categorias
-add_image_size( 'thumb-eventos', 575, 297, true ); // Eventos
+add_image_size( 'recorte-unidades', 575, 297, true ); // Eventos
 
 add_action( 'init',  function() {
     add_rewrite_rule( 'page/([a-z0-9-]+)[/]?$', 'index.php?page=$matches[1]', 'top' );
@@ -1059,21 +1059,9 @@ function wp37_limit_posts_to_author($query) {
 			foreach($variable as $grupo){
 				$pages[] = get_post_meta($grupo, 'unidades', true);
 			}		
-		}		
-			}		
-		}		
-			}		
-		}		
-			}		
 			$pages = array_flatten($pages);
 			$pages = array_unique($pages);
 			$query->set('post__in', $pages);
-		}
-	} 
-		}
-	} 
-		}
-	} 
 		}
 		
 	} 
@@ -1549,7 +1537,16 @@ function wpza_replace_repeater_field( $where ) {
 }
 add_filter( 'posts_where', 'wpza_replace_repeater_field' );
 
-// Desabilitar Unidades e Tags no menu Eventos
+add_filter('acf/fields/relationship/result', 'my_acf_fields_relationship_result', 10, 4);
+function my_acf_fields_relationship_result( $text, $post, $field, $post_id ) {
+    $page_views = get_field( 'localizacao', $post->ID );
+	$title = get_the_title($page_views);
+    if( $title ) {
+        $text .= ' ' . sprintf( '(%s)', $title );
+    }
+    return $text;
+}
+
 add_action('admin_menu', 'my_remove_sub_menus');
 function my_remove_sub_menus() {
     remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
@@ -1605,8 +1602,11 @@ function hide_event_css () {
     global $current_user;
     if (is_admin() && is_user_logged_in() && !in_array('administrator', $current_user->roles)) {
         echo '<style>';        
-            echo 'div.dest-home{display: none}'; 
-            echo 'div.sub-admin{width: 100% !important}'; 
+            echo 'div.dest-home{display: none;}'; 
+            echo 'div.sub-admin{width: 100% !important;}';
+			echo '.tipo-evento .acf-radio-list li:nth-child(3){display: none;}';
+			echo '.cptImageSize-thumbnail{display: none;} ';
+			echo '.cptImageSize-categoria-eventos{display: none;}';
         echo '</style>';
     }
 }

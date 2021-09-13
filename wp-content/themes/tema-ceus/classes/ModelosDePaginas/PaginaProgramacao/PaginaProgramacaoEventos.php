@@ -39,13 +39,13 @@ class PaginaProgramacaoEventos
                                 <div class="card-eventos">
                                     <div class="card-eventos-img">
                                         <?php 
-                                            //$featured_img_url = get_the_post_thumbnail_url($eventoInterno->ID, 'thumb-eventos');
+                                            //$featured_img_url = get_the_post_thumbnail_url($eventoInterno->ID, 'recorte-unidades');
                                             $imgSelect = get_field('capa_do_evento', $eventoInterno->ID);
                                             $tipo = get_field('tipo_de_evento_selecione_o_evento', $eventoInterno->ID);
                                             $online = get_field('tipo_de_evento_online', $eventoInterno->ID);
                                             $tipoEvento = get_field('tipo_de_evento_tipo', $eventoInterno->ID);
 
-                                            $featured_img_url = wp_get_attachment_image_src($imgSelect, 'thumb-eventos');
+                                            $featured_img_url = wp_get_attachment_image_src($imgSelect, 'recorte-unidades');
                                             if($featured_img_url){
                                                 $imgEvento = $featured_img_url[0];
                                                 //$thumbnail_id = get_post_thumbnail_id( $eventoInterno->ID );
