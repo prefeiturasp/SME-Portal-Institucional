@@ -289,7 +289,89 @@ function generateRandomString($length = 10) {
 
 					$value = $ipacesso;
 
-          update_field( $field_key, $value, $download_id );
+          			update_field( $field_key, $value, $download_id );
+
+					$allItens = array();
+					$allItens['modalidade'] = get_field('modalidade_acervo_digital'); // Modalidade
+					$allItens['componente'] = get_field('componente_acervo_digital'); // Componente
+					$allItens['mes'] = get_field('mes_da_publicacao_acervo_digital'); // Mes			
+					$allItens['ano'] = get_field('ano_da_publicacao_acervo_digital'); // Ano
+					$allItens['formacao'] = get_field('formacao_acervo_digital'); // Tipo de Formação
+					$allItens['promotora'] = get_field('area_promotora'); // Area Promotora
+					$allItens['alvo'] = get_field('publico_alvo'); // publico_alvo
+					$allItens['despacho'] = get_field('numero_de_despacho_de_homologacao'); // Numero Despacho
+					$allItens['proposta'] = get_field('numero_da_proposta_de_validacao'); // Numero Proposta
+					$allItens['comunicado'] = get_field('numero_do_comunicado'); // Numero Comunicado
+					$allItens['periodo'] = get_field('periodo_de_inscricao'); // Periodo Inscricao
+					
+					$allItens['autor'] = get_field('autor_acervo_digital'); // Autor
+					$allItens['setor'] = get_field('setor_acervo_digital'); // Setor
+					$allItens['idioma'] = get_field('idioma_acervo_digital'); //Idioma
+					
+					// Tipo
+					if($partional && !$file){
+						$formats = array();
+						foreach($partional as $format){
+							$format = explode(".", $format);
+							$formats[] = $format[6];											
+						}
+						// Remover formatos duplicados
+						$formats = array_unique($formats);
+						$allItens['tipo'] = implode(", ", $formats);						
+					}
+					elseif($stringSeparada[1] != ''){
+						$allItens['tipo'] = $stringSeparada[1];
+					}else{
+						$allItens['tipo'] = 'DIVERSOS';
+					}
+					// Tamanho
+					if( $file['filesize']  != ''){
+						$allItens['tamanho'] = size_format( $file['filesize'] );
+					}else{
+						$allItens['tamanho'] = 'INDEFINIDO';
+					}
+					// Qtd Visualizações					
+					function title_filter_total( $where, &$wp_query ){
+						global $wpdb;
+						if ( $search_term = $wp_query->get( 'search_prod_title' ) ) {
+							$where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'' . esc_sql( like_escape( $search_term ) ) . '\'';
+						}
+						return $where;
+					}
+
+					function retornaNumero_total($posttype) {	
+						$args = array(
+							'post_type' => $posttype,
+							'posts_per_page' => -1,
+							'search_prod_title' => get_the_title(),
+							'post_status' => 'publish',
+							'orderby'     => 'title', 
+							'order'       => 'ASC'
+						);
+
+						add_filter( 'posts_where', 'title_filter_total', 10, 2 );
+						$wp_query = new WP_Query($args);
+						remove_filter( 'posts_where', 'title_filter_total', 10 );
+
+						$contador = 0;
+						echo '<div style="display: none">';
+						$artigo = get_posts(
+							array(
+								's' => 'Alimentação Escolar',
+								'post_type' => $posttype,
+								'numberposts' => -1,
+								'post_status' => 'any',
+							));
+						echo '</div>';
+
+						foreach ($artigo as $article) { 
+						$contador++;
+						//var_dump($article);
+						}
+						//return $contador;
+						return $wp_query->found_posts;
+					}
+					$allItens['views'] = retornaNumero_total(('acesso'));
 
         }
 
@@ -387,253 +469,277 @@ function generateRandomString($length = 10) {
 									<p><?php the_field('descricao_acervo_digital'); ?></p>
 								</div>
 								<div id="especi" class="tab-pane fade">
-									<table class="table table-striped table-bordered">
-										<thead>
-											<tr>
-												<td scope="col">
-													<strong>Modalidade de ensino</strong><br>
-													<?php
-													$terms = get_field('modalidade_acervo_digital');
-
-													if($terms != '' && ($tipo == 'publicacoes_institucionais' || $tipo == 'proposta_formativa') ){
-														$n = 0;									
-														if( $terms ):
-															foreach( $terms as $term ):
-																if($n == 0){
-																	echo "<a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidade%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
-																} else {
-																	echo " / <a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidade%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
-																}
-																$n++;																
-															endforeach;
-														endif; 
-													} else {
-														echo "-";
-													}
-												?>
-
-												</td>
-												<td scope="col">
-													<strong>Componente curricular</strong><br>
-													<?php
-														$terms = get_field('componente_acervo_digital');
-														if(get_field('componente_acervo_digital') != '' && $tipo == 'publicacoes_institucionais' ){
-															$n = 0;
-															if( $terms ):
-																foreach( $terms as $term ):
-																	if($n == 0){
-																		echo "<a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componente%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
-																	} else {
-																		echo " / <a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componente%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
-																	}
-																	$n++;															
-																endforeach;
-															endif;  
-														} else {
-															echo "-";
-														}
-													?>
-												</td>
-											</tr>
-										</thead>
+								<table class="table table-bordered table-espec">
 										<tbody>
-											<tr>
-												<td scope="row">
-													<strong>Mês de publicação</strong><br>
-													<?php
-														if(get_field('mes_da_publicacao_acervo_digital') != ''){
-															the_field('mes_da_publicacao_acervo_digital');
-														} else {
-															echo "-";
+											<?php
+												$count = 1;
+												$vazio = 0;
+												foreach($allItens as $chave => $item){
+													
+													if($allItens[$chave] != '' || $allItens[$chave][0] != ''){
+														
+														if($count % 2 == 1 && $vazio == 0){
+															echo "<tr>";
 														}
-													?>
-												</td>
-												<td>
-													<strong>Ano de publicação</strong><br>
-													<?php
-														if(get_field('ano_da_publicacao_acervo_digital') != ''){
-															$ano = get_field('ano_da_publicacao_acervo_digital');
-															echo "<a href='" . get_home_url() . "/?avanc=1&tano=1&s=&anob%5B%5D=" . $ano . "'>" . $ano . "</a>";															
-														} else {
-															echo "-";
-														}
-													?>
-												</td>
-											</tr>
+															if($chave == 'modalidade'): ?>
+																<td scope="col">
+																	<strong>Modalidade de ensino</strong><br>
+																	<?php
+																	$modalidades = $item;
 
-											<tr>
-												<td scope="row">
-													<strong>Autor</strong><br>
-													<?php
-														$terms = get_field('autor_acervo_digital');
-														if(get_field('autor_acervo_digital') != ''){
-															$n = 0;
-															if( $terms ):
-																foreach( $terms as $term ):
-																	if($n == 0){
-																		echo "<a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autorb=" . $term->slug . "'>" . $term->name . "</a>";
-																	} else {
-																		echo " / <a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autorb=" . $term->slug . "'>" . $term->name . "</a>";
+																	if($modalidades != '' && ($tipo == 'publicacoes_institucionais' || $tipo == 'proposta_formativa') ){
+																		$n = 0;									
+																		if( $modalidades ):
+																			foreach( $modalidades as $modalidade ):
+																				if($n == 0){
+																					echo "<a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidade%5B%5D=" . $modalidade->term_id . "'>" . $modalidade->name . "</a>";
+																				} else {
+																					echo " / <a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidade%5B%5D=" . $modalidade->term_id . "'>" . $modalidade->name . "</a>";
+																				}
+																				$n++;																
+																			endforeach;
+																		endif; 
 																	}
-																	$n++;																	
-																endforeach;
-															endif;
-														}
-													?>
-												</td>
-												<td>
-													<strong>Setor</strong><br>
-													<?php
-														$terms = get_field('setor_acervo_digital');
-														if(get_field('setor_acervo_digital') != ''){
-															$n = 0;
-															if( $terms ):
-																foreach( $terms as $term ):
-																	if($n == 0){
-																		echo "<a href='" . get_home_url() . "/?avanc=1&set=1&s=&setorb%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
-																	} else {
-																		echo " / <a href='" . get_home_url() . "/?avanc=1&set=1&s=&setorb%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
-																	}
-																	$n++;																	
-																endforeach;
-															endif;
-														}
-													?>
-												</td>
-											</tr>
+																	?>
 
-											<tr>
-												<td scope="row">
-													<strong>Tipo de documento</strong><br>
-													<span class="upper">
-														<?php 
-															if($partional && !$file){
-																$formats = array();
-
-																foreach($partional as $format){
-																	$format = explode(".", $format);
-																	$formats[] = $format[6];											
-																}
-
-																// Remover formatos duplicados
-																$formats = array_unique($formats);
-
-																echo implode(", ", $formats);
-																
-															}
-															elseif($stringSeparada[$indice] != ''){
-																echo $stringSeparada[$indice];
-															}else{
-																echo 'DIVERSOS';
-															}
-														?>
-													</span>
-												</td>
-												<td>
-													<strong>Tamanho do documento</strong><br>
-													<?php
-														if( $file['filesize']  != ''){
-															echo size_format( $file['filesize'] );
-														}else{
-															echo 'INDEFINIDO';
-														}
-													?>
-												</td>
-											</tr>
-
-											<tr>
-												<td scope="row">
-													<strong>Idioma</strong><br>
-													<?php
-														$terms = get_field('idioma_acervo_digital');
-														if(get_field('autor_acervo_digital') != ''){
-															$n = 0;
-															if( $terms ):
-																foreach( $terms as $term ):
-																	if($n == 0){
-																		echo "<a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idiomab%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
-																	} else {
-																		echo " / <a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idiomab%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
-																	}
-																	$n++;															
-																endforeach;
-															endif;
-														}
-													?>
-												</td>
-												<td>
-													<strong>Número de visualizações</strong><br>
-													<?php 
-														function title_filter_t( $where, &$wp_query ){
-															global $wpdb;
-															if ( $search_term = $wp_query->get( 'search_prod_title' ) ) {
-																$where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'' . esc_sql( like_escape( $search_term ) ) . '\'';
-															}
-															return $where;
-														}
-
-														function retornaNumero_t($posttype) {	
-															$args = array(
-																'post_type' => $posttype,
-																'posts_per_page' => -1,
-																'search_prod_title' => get_the_title(),
-																'post_status' => 'publish',
-																'orderby'     => 'title', 
-																'order'       => 'ASC'
-															);
-
-															add_filter( 'posts_where', 'title_filter_t', 10, 2 );
-															$wp_query = new WP_Query($args);
-															remove_filter( 'posts_where', 'title_filter_t', 10 );
-
-															$contador = 0;
-															echo '<div style="display: none">';
-															$artigo = get_posts(
-																array(
-																	's' => 'Alimentação Escolar',
-																	'post_type' => $posttype,
-																	'numberposts' => -1,
-																	'post_status' => 'any',
-																));
-															echo '</div>';
-
-															foreach ($artigo as $article) { 
-															$contador++;
-															//var_dump($article);
-															}
-															//return $contador;
-															return $wp_query->found_posts;
-														}
-														echo retornaNumero_t(('acesso'));
-													?>  
-												</td>
-											</tr>
-
-											<tr>												
-												<td colspan='2'>
-													<strong>Palavras-chave</strong><br>
-													<span class='single-palavras'>
-														<?php
-															$palavras = get_the_terms(get_the_ID(), 'palavra' );
-															$n = 0;
-															if($palavras){
-																foreach($palavras as $palavra){
-																	if($n == 0){
-																		echo "<a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavrab=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
-																	} else {
-																		echo " <a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavrab=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
-																	}
-																	$n++;
-																}
-															} else {
-																echo "-";
-															}
+																</td>
+															<?php elseif($chave == 'componente'): ?>
+																<td scope="col">
+																	<strong>Componente curricular</strong><br>
+																	<?php
+																		$terms = $item;
+																		if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
+																			$n = 0;
+																			if( $terms ):
+																				foreach( $terms as $term ):
+																					if($n == 0){
+																						echo "<a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componente%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																					} else {
+																						echo " / <a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componente%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
+																					}
+																					$n++;															
+																				endforeach;
+																			endif;  
+																		} 
+																	?>
+																</td>
+															<?php elseif($chave == 'formacao'): ?>
+																<td scope="col">
+																	<strong>Tipo de Formação</strong><br>
+																	<?php
+																		$terms = $item;
+																		if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
+																			$n = 0;
+																			if( $terms ):
+																				foreach( $terms as $term ):
+																					if($n == 0){
+																						echo "<a href='" . get_home_url() . "/?avanc=1&forma=1&s=&formab=" . $term->term_id . "'>" . $term->name . "</a>";
+																					} else {
+																						echo " / <a href='" . get_home_url() . "/?avanc=1&forma=1&s=&formab=" . $term->term_id . "'>" . $term->name . "</a>";
+																					}
+																					$n++;															
+																				endforeach;
+																			endif;  
+																		} else {
+																			echo "-";
+																		}
+																	?>
+																</td>
+															<?php elseif($chave == 'promotora'): ?>
+																<td scope="col">
+																	<strong>Área promotora</strong><br>
+																	<?php
+																		$terms = $item;
+																		if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
+																			$n = 0;
+																			if( $terms ):
+																				foreach( $terms as $term ):
+																					if($n == 0){
+																						echo "<a href='" . get_home_url() . "/?avanc=1&area=1&s=&areab=" . $term->term_id . "'>" . $term->name . "</a>";
+																					} else {
+																						echo " / <a href='" . get_home_url() . "/?avanc=1&area=1&s=&areab=" . $term->term_id . "'>" . $term->name . "</a>";
+																					}
+																					$n++;															
+																				endforeach;
+																			endif;  
+																		} else {
+																			echo "-";
+																		}
+																	?>
+																</td>
+															<?php elseif($chave == 'alvo'): ?>
+																<td scope="col">
+																	<strong>Público alvo</strong><br>
+																	<?php
+																		$terms = $item;
+																		if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
+																			$n = 0;
+																			if( $terms ):
+																				foreach( $terms as $term ):
+																					if($n == 0){
+																						echo "<a href='" . get_home_url() . "/?avanc=1&alvo=1&s=&alvob=" . $term->term_id . "'>" . $term->name . "</a>";
+																					} else {
+																						echo " / <a href='" . get_home_url() . "/?avanc=1&alvo=1&s=&alvob=" . $term->term_id . "'>" . $term->name . "</a>";
+																					}
+																					$n++;															
+																				endforeach;
+																			endif;  
+																		} 
+																	?>
+																</td>															
+															<?php elseif($chave == 'autor'): ?>
+																<td scope="col">
+																	<strong>Autor</strong><br>
+																	<?php
+																		$autores = $item;
+																		if($autores != '' || $autores[0] != ''){
+																			$n = 0;
+																			if( $autores ):
+																				foreach( $autores as $autor ):
+																					if($n == 0){
+																						echo "<a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autor=" . $autor->slug . "'>" . $autor->name . "</a>";
+																					} else {
+																						echo " / <a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autor=" . $autor->slug . "'>" . $autor->name . "</a>";
+																					}
+																					$n++;																	
+																				endforeach;
+																			endif;
+																		}
+																	?>
+																</td>
+															<?php elseif($chave == 'setor'): ?>
+																<td>
+																	<strong>Setor</strong><br>
+																	<?php
+																		$setores = $item;
+																		if($setores != '' || $setores[0] != 0){
+																			$n = 0;
+																			if( $setores ):
+																				foreach( $setores as $setor ):
+																					if($n == 0){
+																						echo "<a href='" . get_home_url() . "/?avanc=1&set=1&s=&setor%5B%5D=" . $setor->term_id . "'>" . $setor->name . "</a>";
+																					} else {
+																						echo " / <a href='" . get_home_url() . "/?avanc=1&set=1&s=&setor%5B%5D=" . $setor->term_id . "'>" . $setor->name . "</a>";
+																					}
+																					$n++;																	
+																				endforeach;
+																			endif;
+																		}
+																	?>
+																</td>
+															<?php elseif($chave == 'despacho'): ?>
+																<td scope="col">
+																	<strong>Nº de despacho de homologação</strong><br>
+																	<?php echo $item; ?>
+																</td>
+															<?php elseif($chave == 'proposta'): ?>
+																<td scope="col">
+																	<strong>Nº da proposta de validação</strong><br>
+																	<?php echo $item; ?>
+																</td>
+															<?php elseif($chave == 'comunicado'): ?>
+																<td scope="col">
+																	<strong>Número do comunicado</strong><br>
+																	<?php echo $item; ?>
+																</td>
+															<?php elseif($chave == 'periodo'): ?>
+																<td scope="col">
+																	<strong>Período de inscrição</strong><br>
+																	<?php echo $item; ?>
+																</td>
+															<?php elseif($chave == 'mes'):?>
+																<td scope="col">
+																	<strong>Mês de publicação</strong><br>
+																	<?php echo $item; ?>
+																</td>
+															<?php elseif($chave == 'ano'):?>
+																<td scope="col">
+																	<strong>Ano de publicação</strong><br>
+																	<?php echo "<a href='" . get_home_url() . "/?avanc=1&tano=1&s=&ano%5B%5D=" . $item . "'>" . $item . "</a>";?>
+																</td>
+															<?php elseif($chave == 'tipo'):?>
+																<td scope="col">
+																	<strong>Tipo</strong><br>
+																	<span class="upper"><?php echo $item; ?></span>
+																</td>
+															<?php elseif($chave == 'tamanho'): ?>
+																<td>
+																	<strong>Tamanho do documento</strong><br>
+																	<?php echo $item; ?>
+																</td>
+															<?php elseif($chave == 'idioma'): ?>
+																<td scope="col">
+																	<strong>Idioma</strong><br>
+																	<?php
+																		$idiomas = $item;
+																		if($idiomas != '' || $idiomas[0] != ''){
+																			$n = 0;
+																			if( $idiomas ):
+																				foreach( $idiomas as $idioma ):
+																					if($n == 0){
+																						echo "<a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idioma%5B%5D=" . $idioma->term_id . "'>" . $idioma->name . "</a>";
+																					} else {
+																						echo " / <a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idioma%5B%5D=" . $idioma->term_id . "'>" . $idioma->name . "</a>";
+																					}
+																					$n++;															
+																				endforeach;
+																			endif;
+																		}
+																	?>
+																</td>															
+															<?php elseif($chave == 'views'): ?>
+																<td>
+																	<strong>Número de visualizações</strong><br>
+																	<?php echo $item; ?>
+																</td>
+															<?php endif;															
 															
-														?>
-													</span>
-												</td>
-											</tr>
-											
+														if($count % 2 == 0 && $vazio == 0){
+															echo "</tr>";
+														}
+
+														$count++;													
+														
+														$vazio = 0;
+													} else {
+														$vazio = 1;
+													}													
+													
+												}
+												if($count % 2 == 1){
+													echo "</tr>";
+												}
+
+											?>
+											<?php 
+												$palavras = get_the_terms(get_the_ID(), 'palavra' );
+												if($palavras != '' || $palavras[0] != ''):
+											?>
+												<tr>												
+													<td colspan='2'>
+														<strong>Palavras-chave</strong><br>
+														<span class='single-palavras'>
+															<?php
+																
+																$n = 0;
+																if($palavras){
+																	foreach($palavras as $palavra){
+																		if($n == 0){
+																			echo "<a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavra=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
+																		} else {
+																			echo " <a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavra=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
+																		}
+																		$n++;
+																	}
+																} else {
+																	echo "-";
+																}
+																
+															?>
+														</span>
+													</td>
+												</tr>
+											<?php endif; ?>
 										</tbody>
 									</table>
 								</div>								
