@@ -947,6 +947,14 @@ button.btn-diario {
     }
 }
 
+.table-espec tr {
+    background: rgba(0,0,0,.05);
+}
+
+.table-espec tr:nth-of-type(odd){
+    background: #FFFFFF;
+}
+
 span.extend {
     padding: 8px 10px;
 }
