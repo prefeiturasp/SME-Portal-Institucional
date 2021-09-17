@@ -222,3 +222,74 @@ function validate(){
 
     //event.preventDefault();
 }
+
+// Carregar mais comentarios
+$s(document).ready(function(){   
+    //show more option
+      var size_item = $s('.listing').length;
+      var v = 5;
+      $s('.listing').hide(); // hide all divs with class `listing`
+      $s('.listing:lt('+v+')').show();
+      $s('#load_more').click(function () {
+          v= (v+5 <= size_item) ? v+5 : size_item;
+          $s('.listing:lt('+v+')').show();
+          // hide load more button if all items are visible
+          if($s(".listing:visible").length >= size_item ){ $s("#load_more").hide(); }
+      });
+      if(size_item == 0 || size_item <= v){
+        $s("#load_more").hide();
+      }
+      console.log(size_item);
+      console.log('Aqui');
+});
+
+
+function validaNomeComent(){
+    var name = document.getElementById('author').value;
+    const [first, last] = name.split(' ');
+
+    if(first && last){
+        if(first.length < 3 || last.length < 3 ) {
+            $s('#author').removeClass('is-valid');
+            $s('#author').addClass('is-invalid');
+            event.preventDefault();
+        } else {
+            $s('#author').removeClass('is-invalid');
+            $s('#author').addClass('is-valid');
+            return true;
+        }
+    } else {
+        $s('#author').removeClass('is-valid');
+        $s('#author').addClass('is-invalid');
+        event.preventDefault();
+    }
+}
+
+function validaComentario(){
+    var content = $s('#comment').val().length;
+    if(content < 10 || content > 300){
+        $s('#comment').removeClass('is-valid');
+        $s('#comment').addClass('is-invalid');
+        event.preventDefault();
+    } else {
+        $s('#comment').removeClass('is-invalid');
+        $s('#comment').addClass('is-valid');
+    }
+}
+
+// Validar formulario de comentario
+$s(document).ready(function(){
+
+    $s('#author').focusout( function(){
+        validaNomeComent();
+    } );
+
+    $s('#comment').focusout(function() {
+        validaComentario();
+    });
+
+    $s('#submit').click(function(){
+        validaNomeComent();
+        validaComentario();
+    });
+});

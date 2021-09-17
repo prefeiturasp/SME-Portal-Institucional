@@ -279,5 +279,21 @@
             )
         </script>
     <?php endif; ?>
+
+    
+        <?php
+        global $wp;
+        $url = home_url( $wp->request );
+
+        if(strpos($url, 'comment-page-1') !== false): ?>
+            <script>
+            Swal.fire(
+            'Comentário enviado para análise!',
+            'Após a aprovação do administrador seu comentário será publicado.',
+            'success'
+            )
+        </script>
+
+        <?php endif; ?>
 </body>
 </html>

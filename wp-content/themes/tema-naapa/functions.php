@@ -1306,7 +1306,7 @@ function clearPhone($phone){
 
 // Ocultar itens do menu por tipor de usuario
 function wpdocs_remove_menus(){	
-	remove_menu_page( 'edit-comments.php' ); //Comentarios
+	//remove_menu_page( 'edit-comments.php' ); //Comentarios
 	
 	if(!is_super_admin()){		
 		remove_menu_page( 'themes.php' ); //Aparencia
@@ -1922,3 +1922,42 @@ function my_action_callback() {
 
 add_action( 'wp_ajax_my_action', 'my_action_callback' );
 add_action( 'wp_ajax_nopriv_my_action', 'my_action_callback' );
+
+
+// Ativar comentarioas na sessao Na Quebrada
+function enable_comments_custom_post_type() {
+	add_post_type_support( 'na-quebrada', 'comments' );
+}
+add_action( 'init', 'enable_comments_custom_post_type', 11 );
+
+// Carregar a lista de comentarios
+require get_template_directory() . '/comments-helper.php';
+
+// Altera a ordem do campo "Comentario" no formulario
+add_filter( 'comment_form_fields', 'move_comment_field' );
+function move_comment_field( $fields ) {
+    $comment_field = $fields['comment'];
+    unset( $fields['comment'] );
+    $fields['comment'] = $comment_field;
+    return $fields;
+}
+
+// AAAAA
+add_filter( 'cld_like_count', 'show_zero_cld', 10, 2 );
+add_filter( 'cld_dislike_count', 'show_zero_cld', 10, 2 );
+
+function show_zero_cld( $like_dislike_count, $comment_id ) {
+    if ( empty( $like_dislike_count ) ) {
+        return '0 likes';
+    } elseif($like_dislike_count == '1'){
+		return '1 like';
+	} else {
+        return $like_dislike_count . ' likes';
+    }
+}
+
+add_action('cld_after_ajax_process', 'teste_func');
+
+function teste_func($comment_id){
+	return 'Aqui:' . $comment_id;
+}

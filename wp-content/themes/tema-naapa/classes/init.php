@@ -45,6 +45,7 @@ require_once 'TemplateHierarchy/LoopCuida/LoopCuidaNoticiaPrincipal.php';
 require_once 'TemplateHierarchy/LoopQuebrada/LoopQuebrada.php';
 require_once 'TemplateHierarchy/LoopQuebrada/LoopQuebradaCabecalho.php';
 require_once 'TemplateHierarchy/LoopQuebrada/LoopQuebradaNoticiaPrincipal.php';
+require_once 'TemplateHierarchy/LoopQuebrada/LoopQuebradaComentarios.php';
 
 require_once 'TemplateHierarchy/ArchiveAgenda/ArchiveAgendaGetDatasEventos.php';
 require_once 'TemplateHierarchy/ArchiveContato/ArchiveContatoMetabox.php';
