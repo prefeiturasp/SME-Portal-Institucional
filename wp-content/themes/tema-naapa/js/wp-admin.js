@@ -62,7 +62,7 @@ window.onload = function() {
             }
         });
     });
-    observer.observe($div[0], {
-        attributes: true
-    });
+    //observer.observe($div[0], {
+        //attributes: true
+    //});
 }

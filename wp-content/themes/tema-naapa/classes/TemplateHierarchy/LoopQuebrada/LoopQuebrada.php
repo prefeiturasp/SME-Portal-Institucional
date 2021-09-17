@@ -19,6 +19,7 @@ class LoopQuebrada extends Util
 
 		new LoopQuebradaCabecalho();
 		new LoopQuebradaNoticiaPrincipal();
+		new LoopQuebradaComentarios();
 
 		$this->fechaContainer($container_geral_tags);
 	}

@@ -2163,3 +2163,71 @@ a.nextpostslink {
 .single-categ .quebrada-categ {
     color: #E7600C;
 }
+
+.form-coments .form-group {
+    text-align: left;
+}
+
+.form-coments .comment-notes {
+    display: none;
+}
+
+.form-submit{
+    text-align: right;
+}
+
+.form-submit .btn-comment{
+    background: #15608A !important;
+    transition: 0.2s;
+    box-shadow: 0px -4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+.form-submit .btn-comment:hover{
+    opacity: 0.75;
+    transition: 0.2s;
+}
+
+.comment.row {
+    border-bottom: 1px solid #000000;
+    margin-bottom: 25px;
+}
+
+.thumbnail-comment .min-block {
+    max-width: 80px;
+    max-height: 80px;
+    display: block;
+    border-radius: 50%;
+    border: 3px solid #000000;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: #15608A;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.thumbnail-comment .min-block p {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 40px;
+    margin-top: 9px;
+}
+
+.comment-by{
+    margin-bottom: 10px;
+    display: block;
+    color: #6F777C;
+}
+
+.comment-by .autor-name {
+    color: #000000;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+#load_more{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#load_more:hover{
+    text-decoration: underline;
+}

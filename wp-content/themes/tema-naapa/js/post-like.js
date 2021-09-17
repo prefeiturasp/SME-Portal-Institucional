@@ -35,7 +35,6 @@ jQuery(document).ready(function($) {
             } 
             jQuery('.pp_like').show();
         });
-    });
-    
+    });    
     
 });

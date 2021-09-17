@@ -27,63 +27,62 @@ if (post_password_required()) { ?>
 }
 ?>
 
+<div class="d-flex align-items-center justify-content-between">
+	<h3>COMENTÁRIOS</h3>
+	<?php if (have_comments()) : ?>
+		<p>(
+			<?php
+			if (1 == get_comments_number()) {								
+				echo '1 comentário';
+			} else {
+				echo get_comments_number() . ' comentários';
+			}
+			?>
+		)</p>
+	<?php endif; ?>
+</div>
+
+
+	<?php
+	// Customizando os campos do comment_form()
+	$comment_args = array('title_reply' => '',
+		'fields' => apply_filters('comment_form_default_fields', array(
+				'author' => '<div class="row"><div class="form-group col"><label for="author">' . __('Name'). '*' . ($req ? ' <span class="required">*</span>' : '') . '</label> ' .
+					'<input placeholder="Digite seu nome e  sobrenome" class="form-control" id="author" name="author" type="text" value="' . esc_attr($commenter['comment_author']) . '" ' . $aria_req . $html_req . ' />' . 
+					'<div class="invalid-tooltip">Nome e Sobrenome são inválidos.</div></div>',
+				'url' => '<div class="form-group col"><label for="url">' . __('Apelido (Opcional)') . '</label> ' .
+					'<input placeholder="Digite seu apelido" class="form-control" id="url" name="url" ' . ($html5 ? 'type="url"' : 'type="text"') . ' value="' . esc_attr($commenter['comment_author_url']) . '" /></div></div>',
+				
+			)
+		),
+		'comment_field' => '<div class="form-group" style="position-relative"><label for="comment">' . _x('Comment', 'noun') . '*</label> <textarea placeholder="Adicione seu comentário para esse conteúdo" class="form-control" rows="3" id="comment" name="comment" maxlength="500" aria-required="true" required="required"></textarea>' .
+		'<div class="invalid-tooltip">No mínimo 10 e no máximo 500 caracteres.</div></div>',
+					wp_nonce_field( 'user_check', 'hdn_hash' ),
+		'class_submit' => 'btn btn-primary btn-comment',
+		'label_submit' => 'Enviar'
+	);
+
+	comment_form($comment_args);
+	?>
+
+
 <!-- You can start editing here. -->
 <?php if (have_comments()) : ?>
-	<h3 id="comments">
+	
+	
+	<div class="comments-list mt-5 mb-4">
 		<?php
-		if (1 == get_comments_number()) {
-			/* translators: %s: post title */
-			printf(__('One response to %s'), '&#8220;' . get_the_title() . '&#8221;');
-		} else {
-			/* translators: 1: number of comments, 2: post title */
-			printf(_n('%1$s response to %2$s', '%1$s responses to %2$s', get_comments_number()),
-				number_format_i18n(get_comments_number()), '&#8220;' . get_the_title() . '&#8221;');
-		}
+		wp_list_comments( array(
+			'style'      => '',
+			'short_ping' => true,
+				'callback' => 'better_commets'
+		) );
 		?>
-	</h3>
-
-	<div class="navigation">
-		<div class="alignleft"><?php previous_comments_link() ?></div>
-		<div class="alignright"><?php next_comments_link() ?></div>
 	</div>
 
-	<ol class="commentlist">
-		<?php wp_list_comments(); ?>
-	</ol>
-
-	<div class="navigation">
-		<div class="alignleft"><?php previous_comments_link() ?></div>
-		<div class="alignright"><?php next_comments_link() ?></div>
-	</div>
-<?php else : // this is displayed if there are no comments so far ?>
-
-	<?php if (comments_open()) : ?>
-		<!-- If comments are open, but there are no comments. -->
-
-	<?php else : // comments are closed ?>
-		<!-- If comments are closed. -->
-		<p class="nocomments"><?php _e('Comments are closed.'); ?></p>
-
-	<?php endif; ?>
-<?php endif; ?>
-
-<?php
-// Customizando os campos do comment_form()
-$comment_args = array('title_reply' => 'Deixe seu comentário:',
-	'fields' => apply_filters('comment_form_default_fields', array(
-			'author' => '<div class="form-group"><label for="author">' . __('Name') . ($req ? ' <span class="required">*</span>' : '') . '</label> ' .
-				'<input class="form-control" id="author" name="author" type="text" value="' . esc_attr($commenter['comment_author']) . '" ' . $aria_req . $html_req . ' /></div>',
-			'email' => '<div class="form-group"><label for="email">' . __('Email') . ($req ? ' <span class="required">*</span>' : '') . '</label> ' .
-				'<input class="form-control" id="email" name="email" ' . ($html5 ? 'type="email"' : 'type="text"') . ' value="' . esc_attr($commenter['comment_author_email']) . '" aria-describedby="email-notes"' . $aria_req . $html_req . ' /></div>',
-			'url' => '<div class="form-group"><label for="url">' . __('Website') . '</label> ' .
-				'<input class="form-control" id="url" name="url" ' . ($html5 ? 'type="url"' : 'type="text"') . ' value="' . esc_attr($commenter['comment_author_url']) . '" /></div>')
-	),
-	'comment_field' => '<div class="form-group"><label for="comment">' . _x('Comment', 'noun') . '*</label> <textarea class="form-control" rows="3" id="comment" name="comment" maxlength="65525" aria-required="true" required="required"></textarea></div>',
-	wp_nonce_field( 'user_check', 'hdn_hash' ),
-    'class_submit' => 'btn btn-primary',
-);
-
-comment_form($comment_args);
+	<div id="load_more" class='mb-5'>        
+		Ver mais comentários
+    </div>
 
 
-?>
+<?php endif;
