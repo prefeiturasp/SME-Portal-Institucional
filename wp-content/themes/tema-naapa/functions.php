@@ -67,6 +67,15 @@ function custom_setup() {
 		));
 
 		register_sidebar(array(
+			'name' => 'Se Liga',
+			'id' => 'se-liga',
+			'before_widget' => '',
+			'after_widget' => '',
+			'before_title' => '<p class="widget-title-liga">',
+			'after_title' => '</p>',
+		));
+
+		register_sidebar(array(
 			'name' => 'Rodape Esquerda',
 			'id' => 'sidebar-4',
 			'before_widget' => '',
@@ -1541,21 +1550,29 @@ function more_post_ajax(){
 
     $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 10;
     $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
+	$type = (isset($_POST['type'])) ? $_POST['type'] : 'quem-cuida';
 
+	if($type == 'post'){
+		$tax = 'category';
+		$showCateg = 'liga-categs';
+	} else {
+		$tax = 'categoria-cuida';
+		$showCateg = '';
+	}
 	
 
     header("Content-Type: text/html");
 
     $args = array(
         'suppress_filters' => true,
-        'post_type' => 'quem-cuida',
+        'post_type' => $type,
         'posts_per_page' => $ppp,
         'paged'    => $page,
     );
 
 	if($_POST['filter'] && $_POST['filter'] != '' ){
 		$args['tax_query'][] = array(
-				'taxonomy' => 'categoria-cuida',   // taxonomy name
+				'taxonomy' => $tax,   // taxonomy name
 				'field' => 'term_id',           // term_id, slug or name
 				'terms' => $_POST['filter'],                  // term id, term slug or term name
 		);									
@@ -1574,12 +1591,12 @@ function more_post_ajax(){
 			$out .= '</div>';
 			$out .= '<div class="col-12 col-md-8">';
 				
-				$categories = get_the_terms(get_the_ID(), 'categoria-cuida');
+				$categories = get_the_terms(get_the_ID(), $tax);
 				$separator = ' / ';
 				$output = '';
 				
 				$out .= '<div class="d-flex justify-content-between cuida-infos">';
-					$out .= '<div class="cuida-categs">';
+					$out .= '<div class="cuida-categs ' . $showCateg . '">';
 						
 						if ( ! empty( $categories ) ) {
 							foreach( $categories as $category ) {
@@ -1606,6 +1623,9 @@ function more_post_ajax(){
 		$out .= '</div>';
 
     endwhile;
+	else:
+
+		$out = "Nada encontrado";
     endif;
     wp_reset_postdata();
     die($out);
@@ -1814,14 +1834,113 @@ class wpb_widget extends WP_Widget {
 	}
 	 
 	// Class wpb_widget ends here
-} 
+}
+
+// Creating the widget 
+class wpb_liga extends WP_Widget {
+  
+	function __construct() {
+		parent::__construct(
+		
+			// Base ID of your widget
+			'wpb_liga', 
+			
+			// Widget name will appear in UI
+			__('Se Liga - Mais Curtidos', 'wpb_liga_domain'), 
+			
+			// Widget description
+			array( 'description' => __( 'Se Liga - Mais Curtidos', 'wpb_liga_domain' ), ) 
+		);
+	}
+	  
+	// Creating widget front-end
+	  
+	public function widget( $args, $instance ) {
+		$title = apply_filters( 'widget_title', $instance['title'] );
+		
+		// before and after widget arguments are defined by themes
+		echo $args['before_widget'];
+		echo "<div class='lidas-widget'>";
+			if ( ! empty( $title ) )
+				echo $args['before_title'] . $title . $args['after_title'];
+			
+				global $wpdb;			
+
+				$resultados = $wpdb->get_results( "SELECT * FROM $wpdb->post_like_table" );
+				$curtidos = array();
+				foreach($resultados as $resultado){
+					$curtidos[] = $resultado->postid;
+				}
+				$contador = array_count_values($curtidos);
+				arsort($contador);
+				
+				$i = 1;
+
+				foreach($contador as $key => $post):
+					if($i <= 5):
+						$img = get_the_post_thumbnail_url($key);
+						$nome = get_field('nome', $key);
+						if(!$nome || $nome == ''){
+							$nome = 'Turma do NAAPA';
+						}
+						$textLike = $post == 1 ? "like" : "likes";
+							
+				?>
+						<div class="quebrada-curtidas">
+							<a href="<?php echo get_the_permalink($key); ?>">
+								<p><?php echo $i . "º - ". $nome; ?></p>
+								<img src="<?php echo $img; ?>" alt="">
+								<p class="title"><?php echo get_the_title($key); ?></p>
+								<p class="d-flex justify-content-between">
+									<span class="likes"><i class="fa fa-heart" aria-hidden="true"></i> <?php echo $post . ' ' . $textLike;?></span>
+									<span class="date"><?php echo get_the_date( 'd/m/Y \à\s H\hi',  $key); ?></span>
+								</p>
+							</a>
+						</div>
+				<?php
+					endif;
+				$i++;
+				endforeach;		
+			
+		
+		echo "</div>";
+		echo $args['after_widget'];
+	}
+			  
+	// Widget Backend 
+	public function form( $instance ) {
+		if ( isset( $instance[ 'title' ] ) ) {
+			$title = $instance[ 'title' ];
+		} else {
+			$title = __( 'SUCESSO NA QUEBRADA', 'wpb_liga_domain' );
+		}
+		// Widget admin form
+		?>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Titulo:' ); ?></label> 
+			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+		</p>
+		<?php 
+	}
+		  
+	// Updating widget replacing old instances with new
+	public function update( $new_instance, $old_instance ) {
+		$instance = array();
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		return $instance;
+	}
+	 
+	// Class wpb_liga ends here
+}
 	 
 	 
 // Register and load the widget
 function wpb_load_widget() {
 	register_widget( 'wpb_widget' );
+	register_widget( 'wpb_liga' );
 }
 add_action( 'widgets_init', 'wpb_load_widget' );
+
 
 function post_like_table_create() {
 

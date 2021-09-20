@@ -65,6 +65,11 @@ class Breadcrumb
 					echo '<li class="item-cat cc item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(385) . '">Para quem cuida</a></li>';
 					echo '<li class="separator"> ' . $this->separator . ' </li>';
 
+				}elseif(is_tax('category')){
+					
+					echo '<li class="item-cat cc item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(656) . '">Se liga!</a></li>';
+					echo '<li class="separator"> ' . $this->separator . ' </li>';
+
 				}elseif($post_type != 'post') {
 
 					$post_type_object = get_post_type_object($post_type);
@@ -78,14 +83,20 @@ class Breadcrumb
 				$custom_tax_name = get_queried_object()->name;
 				
 				echo '<li class="item-current item-archive"><strong class="bread-current bread-archive">Categoria - ' . $custom_tax_name . '</strong></li>';
-
+			}elseif(is_category()){
+				echo '<li class="item-cat cc item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(656) . '">Se liga!</a></li>';
+				echo '<li class="separator"> ' . $this->separator . ' </li>';
+				$custom_tax_name = get_queried_object()->name;
+				
+				echo '<li class="item-current item-archive"><strong class="bread-current bread-archive">Categoria - ' . $custom_tax_name . '</strong></li>';
+			
 			} else if ( is_single() ) {
 
 				// If post is a custom post type
 				$post_type = get_post_type();
 
 				// If it is a custom post type display name and link
-				if($post_type != 'post') {
+				//if($post_type != 'post') {
 
 					$post_type_object = get_post_type_object($post_type);
 					$post_type_archive = get_post_type_archive_link($post_type);
@@ -94,13 +105,15 @@ class Breadcrumb
 						echo '<li class="item-cat cc item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(385) . '">Para quem cuida</a></li>';
 					} elseif($post_type == 'na-quebrada'){
 						echo '<li class="item-cat cc item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(423) . '">O que rola na quebrada?</a></li>';
+					} elseif($post_type == 'post'){
+						echo '<li class="item-cat cc item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(656) . '">Se liga!</a></li>';
 					} else {
 						echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $post_type_object->labels->name . '</a></li>';
 					}
 					
 					echo '<li class="separator"> ' . $this->separator . ' </li>';
 
-				}
+				//}
 
 				// Pega a unidade do evento
 				

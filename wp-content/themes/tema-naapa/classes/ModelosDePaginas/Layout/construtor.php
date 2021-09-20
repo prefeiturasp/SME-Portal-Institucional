@@ -137,7 +137,7 @@ if( have_rows('fx_flex_layout') ):
 															$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
 															if($image_id):
 															?>
-																<img src="<?php echo get_the_post_thumbnail_url(get_the_id(), 'medium'); ?>" alt="<?php echo $image_alt; ?>" class='img-fluid'>
+																<img src="<?php echo get_the_post_thumbnail_url(get_the_id(), 'home-news'); ?>" alt="<?php echo $image_alt; ?>" class='img-fluid'>
 
 															<?php else: ?>
 																<img src="<?php echo get_template_directory_uri(); ?>/img/logo-NAAPA-news.jpg" alt="<?php echo $image_alt; ?>" class='img-fluid'>
@@ -389,6 +389,10 @@ if( have_rows('fx_flex_layout') ):
 								// Destaque Quem Cuida
 								elseif( get_row_layout() == 'destaque_quem_cuida' ):
 									get_template_part( 'construtor/construtor', 'destaque_cuida' );
+
+								// Destaque Se Liga
+								elseif( get_row_layout() == 'destaque_se_liga' ):
+									get_template_part( 'construtor/construtor', 'destaque_liga' );
 
 								// Form Na Quebrada
 								elseif( get_row_layout() == 'cadastro_quebrada' ):
@@ -1628,6 +1632,10 @@ if( have_rows('fx_flex_layout') ):
 								// Quem Cuida - Listagem
 								elseif( get_row_layout() == 'quem_cuida_listagem' ):
 									get_template_part( 'construtor/construtor', 'cuida_listagem' );
+
+								// Quem Cuida - Listagem
+								elseif( get_row_layout() == 'se_liga_listagem' ):
+									get_template_part( 'construtor/construtor', 'liga_listagem' );
 								
 								endif;
 							endwhile;

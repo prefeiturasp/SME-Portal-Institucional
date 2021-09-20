@@ -1998,6 +1998,16 @@ a.nextpostslink {
     margin-bottom: 20px;
 }
 
+.single-cuida blockquote {
+    border-left: 4px solid #E7600C;
+    padding-left: 10px;
+    font-size: 24px;
+}
+
+.single-cuida h3 {
+    margin: 20px 0;
+}
+
 .single-cuida .cuida-relateds {
     margin-top: 25px;
     border-top: 1px solid;
@@ -2024,6 +2034,11 @@ a.nextpostslink {
     color: #CF443C;
     font-family: 'Bebas Neue', cursive;
     font-size: 28px;
+}
+
+.single-liga .single-categ a,
+.single-liga .cuida-categs a {
+    color: #e7600c;
 }
 
 /***** Na Quebrada *****/

@@ -33,10 +33,7 @@ require_once 'TemplateHierarchy/Tag.php';
 require_once 'TemplateHierarchy/LoopSingleCard.php';
 require_once 'TemplateHierarchy/LoopSingle/LoopSingle.php';
 require_once 'TemplateHierarchy/LoopSingle/LoopSingleCabecalho.php';
-require_once 'TemplateHierarchy/LoopSingle/LoopSingleMenuInterno.php';
 require_once 'TemplateHierarchy/LoopSingle/LoopSingleNoticiaPrincipal.php';
-require_once 'TemplateHierarchy/LoopSingle/LoopSingleMaisRecentes.php';
-require_once 'TemplateHierarchy/LoopSingle/LoopSingleRelacionadas.php';
 
 require_once 'TemplateHierarchy/LoopCuida/LoopCuida.php';
 require_once 'TemplateHierarchy/LoopCuida/LoopCuidaCabecalho.php';
