@@ -87,6 +87,8 @@
                     while( have_rows('fx_coluna_1_3b1') ): the_row();
                         if( get_row_layout() == 'quem_cuida_listagem' ):
                             $qtd = get_sub_field('quantidade');
+                        elseif( get_row_layout() == 'se_liga_listagem' ):
+                            $qtd = get_sub_field('quantidade');
                         endif;
                     endwhile;
                 endif;
@@ -112,8 +114,7 @@
     <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.mask.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/js/script.js"></script>
-    
-
+        
     <script>
 		var $s = jQuery.noConflict();
 
@@ -122,6 +123,11 @@
            
             var ppp = <?php echo $qtd; ?>; // Post per page
             var pageNumber = 1;
+            <?php if(get_the_ID() == 656): ?>
+                var type = 'post';
+            <?php else: ?>
+                var type = 'quem-cuida';
+            <?php endif; ?>
 
             <?php if($_GET['filter'] && $_GET['filter'] ): ?>
                 var filter = <?php echo $_GET['filter']; ?>;
@@ -133,7 +139,7 @@
 
             function load_posts(){
                 pageNumber++;
-                var str = '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&filter=' + filter + '&action=more_post_ajax';
+                var str = '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&type=' + type + '&filter=' + filter + '&action=more_post_ajax';
                 jQuery.ajax({
                     type: "POST",
                     dataType: "html",

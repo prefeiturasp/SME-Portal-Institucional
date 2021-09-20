@@ -381,6 +381,17 @@ iframe {
 	font-size: 14px;
 }
 
+#more_posts.more-liga{
+    background: #E7600C;
+}
+
+.liga-categs a {
+    color: #E7600C;
+	font-family: 'Bebas Neue', cursive;
+	font-size: 22px;
+}
+
+
 #more_posts:disabled{
 	opacity: 0.6;
 }
@@ -394,7 +405,8 @@ iframe {
     margin-top: 15px;
 }
 
-.lidas-widget .widget-title-cuida {
+.lidas-widget .widget-title-cuida,
+.lidas-widget .widget-title-liga {
     font-size: 28px;
     padding: 10px 18px;
     border-bottom: 1px solid #DADADA;
@@ -451,4 +463,53 @@ a.filter-link.filter-active {
     color: #CF443C;
     border-color: #CF443C;
     transition: 0.2s;
+}
+
+.filter-list.liga-filter .filter-link:hover,
+.liga-filter a.filter-link.filter-active {
+    color: #E7600C;
+    border-color: #E7600C;
+    transition: 0.2s;
+}
+
+.quebrada-curtidas {
+    padding: 10px 0;
+    border-bottom: 1px solid #DADADA;
+    margin: 0 18px 15px;
+}
+
+.quebrada-curtidas:nth-last-child(1){
+    border: 0;
+    margin-bottom: 0;
+}
+
+.quebrada-curtidas img {
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.quebrada-curtidas p{
+    font-weight: 500;
+    font-size: 16px;
+    color: #000000
+}
+
+.quebrada-curtidas .likes {
+    color: #42474A;
+    font-size: 15px;
+}
+
+.quebrada-curtidas .date {
+    color: #8F8E8E;
+    font-size: 14px;
+    transition: .2s;
+}
+
+.quebrada-curtidas a:hover{
+    text-decoration: none;
+}
+
+.quebrada-curtidas:hover img{
+    transform: scale(1.05);
+    transition: .2s;
 }
