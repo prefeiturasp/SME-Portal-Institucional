@@ -55,7 +55,7 @@ function generateRandomString($length = 10) {
 				?>
 
 				<div class="col-sm-12 mb-4">
-					<a href="<?php echo get_home_url(); ?>"><i class="fa fa-chevron-left" aria-hidden="true"></i> Voltar ao resultado de busca</a>
+					<a href="javascript:history.back()"><i class="fa fa-chevron-left" aria-hidden="true"></i> Voltar ao resultado de busca</a>
 				</div>
 
 				<div class="col-sm-12 d-lg-none d-xl-none">
