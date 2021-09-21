@@ -22,6 +22,8 @@ if( function_exists('acf_add_options_page') ) {
         //'redirect'		=> false
     ));
 
+    // Para ativar o item "Página Inicial" em Opções Gerais basta descomentar o trecho abaixo    
+    /*
     acf_add_options_sub_page(array(
         'page_title'    => 'Configurações da Página Inicial',
         'menu_title'    => 'Página Inicial',
@@ -30,7 +32,9 @@ if( function_exists('acf_add_options_page') ) {
         'update_button' => __('Atualizar', 'acf'),
 		'updated_message' => __("Alerta da Página Inicial atualizado com sucesso", 'acf'),
     ));
+    */
 
+    // Para ativar o item "Informações" em Opções Gerais basta descomentar o trecho abaixo    
     /*
     acf_add_options_sub_page(array(
         'page_title' 	=> 'Informações Gerais',
