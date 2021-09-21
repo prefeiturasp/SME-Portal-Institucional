@@ -1664,3 +1664,12 @@ function acf_filter_destaque( $args, $field, $post_id ) {
 	// return
 	 return $args;
 }
+
+// Alterar paleta de cores do admin para 'Amanhecer'
+add_filter( 'get_user_option_admin_color', 'update_user_option_admin_color', 5 );
+
+function update_user_option_admin_color( $color_scheme ) {
+    $color_scheme = 'sunrise';
+
+    return $color_scheme;
+}
