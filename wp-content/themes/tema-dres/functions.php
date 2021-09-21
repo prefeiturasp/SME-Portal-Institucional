@@ -780,3 +780,12 @@ function dirty_translate( $translated ) {
 $translated = str_ireplace(  array_keys($words),  $words,  $translated );
 return $translated;
 }
+
+// Alterar paleta de cores do admin para 'Amanhecer'
+add_filter( 'get_user_option_admin_color', 'update_user_option_admin_color', 5 );
+
+function update_user_option_admin_color( $color_scheme ) {
+    $color_scheme = 'sunrise';
+
+    return $color_scheme;
+}

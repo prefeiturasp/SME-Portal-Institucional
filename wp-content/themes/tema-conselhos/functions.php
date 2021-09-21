@@ -810,3 +810,12 @@ add_action( 'wp_roles_init', static function ( \WP_Roles $roles ) {
     $roles->roles['contributor']['name'] = 'Colaborador';
     $roles->role_names['contributor'] = 'Colaborador';
 } );
+
+// Alterar paleta de cores do admin para 'Amanhecer'
+add_filter( 'get_user_option_admin_color', 'update_user_option_admin_color', 5 );
+
+function update_user_option_admin_color( $color_scheme ) {
+    $color_scheme = 'sunrise';
+
+    return $color_scheme;
+}
