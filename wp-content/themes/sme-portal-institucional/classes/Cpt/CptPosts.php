@@ -20,7 +20,7 @@ class CptPosts extends Cpt
 				'author' => 'Author',
 				'categories' => 'Categories',
 				'tags' => 'Tags',
-				'comments' => '<span class="vers"><div title="Comments" class="comment-grey-bubble"></div></span>',
+				//'comments' => '<span class="vers"><div title="Comments" class="comment-grey-bubble"></div></span>',
 				'featured_thumb' => 'Thumbnail',
 				'date' => 'Date',
 

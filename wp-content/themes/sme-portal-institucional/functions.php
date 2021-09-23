@@ -1280,3 +1280,17 @@ function update_user_option_admin_color( $color_scheme ) {
 
     return $color_scheme;
 }
+
+// Desabilitar colunas do Yoast no listagem de noticias e paginas
+add_filter( 'manage_edit-post_columns', 'yoast_seo_admin_remove_columns', 10, 1 );
+add_filter( 'manage_edit-page_columns', 'yoast_seo_admin_remove_columns', 10, 1 );
+
+function yoast_seo_admin_remove_columns( $columns ) {
+  unset($columns['wpseo-score-readability']);
+  unset($columns['wpseo-title']);
+  unset($columns['wpseo-metadesc']);
+  unset($columns['wpseo-focuskw']);
+  unset($columns['wpseo-links']);
+  unset($columns['wpseo-linked']);
+  return $columns;
+}
