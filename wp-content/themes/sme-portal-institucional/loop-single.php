@@ -1,6 +1,6 @@
 <br>
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-    <section class="row container-taxonomias">
+    <section class="row container-taxonomias" id="conteudo">
         <article class='col-12'>
             <h2 class="titulo-taxonomias"><i class="fa fa-th-large"></i>
 				<?php the_title(); ?>
