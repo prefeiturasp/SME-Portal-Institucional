@@ -201,7 +201,7 @@ class Util
 				</article>
 
 
-				<article class="row">
+				<article class="row" id="conteudo">
 					<article class="col-lg-9 col-xs-12">
 						<?php echo $this->getSubtitulo($this->page_id)?>
 						<?php the_content(); ?>
@@ -284,7 +284,7 @@ class Util
 			$posicao = strpos($index, "_");
 			$tag = substr($index,0,$posicao);
 
-			echo '<'.$tag.' class="'.$valor.'">';
+			echo '<'.$tag.' class="'.$valor.'" id="conteudo">';
 		}
 	}
 
