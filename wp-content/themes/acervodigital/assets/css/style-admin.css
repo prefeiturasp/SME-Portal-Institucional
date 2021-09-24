@@ -15,3 +15,18 @@
     background: #01295c !important;
     color: #fff !important;
 }
+
+
+/* Aviso remoção arquivo */
+
+.acf-field.hide-message .description {
+    display: none;
+    padding: 10px;
+    background: red;
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.acf-field.hide-message .description a {
+    color: #FFFFFF;
+}
