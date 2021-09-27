@@ -62,3 +62,34 @@ function cuwp_deactivate()
 register_deactivation_hook(__FILE__, 'cuwp_deactivate');
 
 
+function wnet_custom_user_profile_fields($user){
+	if (!is_super_admin( $user_id ) && get_current_blog_id() != 1) {
+?>
+    <table class="form-table">
+		<tr>
+		<th scope="row"><?php _e('Skip Confirmation Email') ?></th>
+		<td><input type="checkbox" name="noconfirmation" value="1" <?php checked( $_POST['noconfirmation'], 1 ); ?> /> Adicione o usuário sem enviar um e-mail que exige a sua confirmação.</td>
+	</tr>
+    </table>
+<?php
+	}
+}
+add_action( "user_new_form", "wnet_custom_user_profile_fields" );
+
+//add_filter('wpmu_signup_user_notification', 'wnet_auto_activate_users', 10, 4);
+function wnet_auto_activate_users($user, $user_email, $key, $meta){
+
+	if(!current_user_can('manage_options'))
+        return false;
+
+	if (!empty($_POST['noconfirmation']) && $_POST['noconfirmation'] == 1) {
+        wpmu_activate_signup($key);
+        $redirect = add_query_arg(array('update' => 'add'), 'user-new.php');
+        
+		//return false;
+    }
+    
+    wp_redirect($redirect);
+
+}
+
