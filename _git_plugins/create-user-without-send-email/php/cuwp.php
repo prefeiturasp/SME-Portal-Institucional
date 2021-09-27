@@ -117,12 +117,12 @@ class CUWP_Create_User_With_Password {
                      * @param string $user_login The sanitized username.
                      */
                     $new_user_login = apply_filters('pre_user_login', sanitize_user(wp_unslash($_REQUEST['user_login']), true));
-                    if (isset($_POST['noconfirmation']) && is_super_admin()) {
+                    if (isset($_POST['noconfirmation'])) {
                         add_filter('wpmu_signup_user_notification', '__return_false'); // Disable confirmation email
                         add_filter('wpmu_welcome_user_notification', '__return_false'); // Disable welcome email
                     }
                     wpmu_signup_user($new_user_login, $_REQUEST['email'], array('add_to_blog' => $wpdb->blogid, 'new_role' => $_REQUEST['role']));
-                    if (isset($_POST['noconfirmation']) && is_super_admin()) {
+                    if (isset($_POST['noconfirmation'])) {
                         $key = $wpdb->get_var($wpdb->prepare("SELECT activation_key FROM {$wpdb->signups} WHERE user_login = %s AND user_email = %s", $new_user_login, $_REQUEST['email']));
                         wpmu_activate_signup($key);
                         $redirect = add_query_arg(array('update' => 'add'), 'user-new.php');
@@ -136,7 +136,7 @@ class CUWP_Create_User_With_Password {
                         wp_set_password(sanitize_text_field($_REQUEST['cuwp_pass1']), $user->ID);
                     endif;
 
-                    if (isset($_POST['noconfirmation']) && is_super_admin()) {
+                    if (isset($_POST['noconfirmation'])) {
                         // send email with login details
                         $replaced_all = sprintf(__('Dear User,'. '<br/>' .
                             'Your new account has been set up.'. '<br/>' .
@@ -149,9 +149,9 @@ class CUWP_Create_User_With_Password {
                             '<br/>' .
                             'Thanks!'. '<br/>', 'create-user-with-password-multisite'), sanitize_user(wp_unslash($_REQUEST['user_login']), true), sanitize_text_field($_REQUEST['cuwp_pass1']), get_admin_url());
 
-                        $headers = 'From: ' . get_option('admin_email') . "\r\n" .
+                        $headers = 'From: institucional@sme.prefeitura.sp.gov.br' . "\r\n" .
                                 'Content-type: text/html; charset=utf-8\n' .
-                                'Reply-To: noreply@noreply.com' . "\r\n" .
+                                'Reply-To: institucional@sme.prefeitura.sp.gov.br' . "\r\n" .
                                 'X-Mailer: PHP/' . phpversion();
 
                         $mail = wp_mail(sanitize_text_field($_REQUEST['email']), __('Login details', 'create-user-with-password-multisite'), $replaced_all, $headers);

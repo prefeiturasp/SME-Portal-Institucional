@@ -1684,3 +1684,16 @@ h2.submenu-title {
 #filtroBusca {
     z-index: 999999;
 }
+
+ul.nav.nav-tabs {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.wp-activate-container {
+    padding: 20px;
+    max-width: 1120px;
+    display: block;
+    margin: 0 auto;
+}

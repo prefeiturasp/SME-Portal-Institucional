@@ -5,8 +5,11 @@ use Classes\Header\Header;
 <html lang="pt-br">
 <head>
 	<?php
-	$tituloPagina = get_field("insira_o_title_desejado");
-	$descriptionPagina = get_field("insira_a_description_desejada");
+    if (function_exists('get_field')){
+        $tituloPagina = get_field("insira_o_title_desejado");
+	    $descriptionPagina = get_field("insira_a_description_desejada");
+    }
+	
 	if (is_front_page()) {
 		if (trim($tituloPagina != "")) { ?>
             <title><?php echo $tituloPagina ?></title>
@@ -22,10 +25,12 @@ use Classes\Header\Header;
 	} elseif (is_category() || is_tax()) {
 		$queried_object = get_queried_object();
 		$taxonomy = $queried_object->taxonomy;
-		$term_id = $queried_object->term_id;
+		$term_id = $queried_object->term_id;		
 
-		$tituloCategoria = get_field('insira_o_title_desejado', $taxonomy . '_' . $term_id);
-		$descriptionCategoria = get_field("insira_a_description_desejada", $taxonomy . '_' . $term_id);
+        if (function_exists('get_field')){
+            $tituloCategoria = get_field('insira_o_title_desejado', $taxonomy . '_' . $term_id);
+            $descriptionCategoria = get_field("insira_a_description_desejada", $taxonomy . '_' . $term_id);
+        }
 
 		if (trim($tituloCategoria != "")) { ?>
             <title><?php echo $tituloCategoria ?></title>
@@ -83,7 +88,6 @@ use Classes\Header\Header;
 
         gtag('config', 'UA-149756375-1');
     </script>
-
 </head>
 
 <body>
@@ -130,45 +134,42 @@ use Classes\Header\Header;
                             </ul>
                         </article>
                         <article class="col-lg-6 col-xs-12 d-flex justify-content-end align-items-center">
-                        <?php 
-                                $facebook = get_field('url_facebook','conf-rodape');
-                                $instagram = get_field('url_instagram','conf-rodape');
-                                $twitter = get_field('url_twitter','conf-rodape');
-                                $youtube = get_field('url_youtube','conf-rodape');
+                            <?php 
+                                if (function_exists('have_rows')){
+                                    // Verifica se existe Redes Sociais
+                                    if( have_rows('redes_sociais', 'conf-rodape') ):
+                                        
+                                        echo '<ul class="list-inline mt-2 mb-2 midias-sociais">';						
+                                        
+                                            while( have_rows('redes_sociais', 'conf-rodape') ) : the_row();
+                                                
+                                                $rede_url = get_sub_field('url_rede'); 
+                                                $rede_texto = get_sub_field('texto_alternativo');
+                                                $rede_topo = get_sub_field('tipo_de_icone_topo');
+                                                $rede_t_imagem = get_sub_field('imagem_topo');
+                                                $rede_t_icone = get_sub_field('icone_topo');                                            
+                                                
+                                            ?>
+                                                
+                                                <li class="list-inline-item">
+                                                    <a class="text-white" href="<?php echo $rede_url; ?>">
+                                                        <?php if($rede_topo == 'imagem' && $rede_t_imagem != '') : ?>
+                                                            <img src="<?php echo $rede_t_imagem; ?>" alt="<?php echo $rede_texto; ?>">
+                                                        <?php elseif($rede_topo == 'icone' && $rede_t_icone != ''): ?>
+                                                            <i class="fa <?php echo $rede_t_icone; ?>" aria-hidden="true" title="<?php echo $rede_texto; ?>"></i>
+                                                        <?php endif; ?>
+                                                    </a>
+                                                </li>
+                                            <?php
+                                                
 
-                                // Verifica se existe Redes Sociais
-                                if( have_rows('redes_sociais', 'conf-rodape') ):
+                                            // End loop.
+                                            endwhile;
+
+                                        echo '</ul>';
                                     
-                                    echo '<ul class="list-inline mt-2 mb-2 midias-sociais">';						
-                                    
-                                        while( have_rows('redes_sociais', 'conf-rodape') ) : the_row();
-                                            
-                                            $rede_url = get_sub_field('url_rede'); 
-                                            $rede_texto = get_sub_field('texto_alternativo');
-                                            $rede_topo = get_sub_field('tipo_de_icone_topo');
-                                            $rede_t_imagem = get_sub_field('imagem_topo');
-                                            $rede_t_icone = get_sub_field('icone_topo');                                            
-                                            
-                                        ?>
-                                            
-                                            <li class="list-inline-item">
-                                                <a class="text-white" href="<?php echo $rede_url; ?>">
-                                                    <?php if($rede_topo == 'imagem' && $rede_t_imagem != '') : ?>
-                                                        <img src="<?php echo $rede_t_imagem; ?>" alt="<?php echo $rede_texto; ?>">
-                                                    <?php elseif($rede_topo == 'icone' && $rede_t_icone != ''): ?>
-                                                        <i class="fa <?php echo $rede_t_icone; ?>" aria-hidden="true" title="<?php echo $rede_texto; ?>"></i>
-                                                    <?php endif; ?>
-                                                </a>
-                                            </li>
-                                        <?php
-                                            
-
-                                        // End loop.
-                                        endwhile;
-
-                                    echo '</ul>';
-                                
-                                endif;
+                                    endif;
+                                }
                             ?>
                         </article>
                     </section>
