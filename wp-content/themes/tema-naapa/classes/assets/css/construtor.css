@@ -190,6 +190,13 @@ li.nav-item{
 	background: #CDCDCD !important;
 	color: #454545 !important;
 }
+.btn-preto{
+    background: #000000 !important;
+    color: #FFFFFF !important;
+}
+.btn-preto:hover{
+    background: #424242 !important;
+}
 .btn-transparente{
 	border: 2px solid #FFFFFF !important;
     color: #FFFFFF !important;
@@ -379,6 +386,7 @@ iframe {
     cursor: pointer;
 	font-weight: bold;
 	font-size: 14px;
+    margin-bottom: 30px;
 }
 
 #more_posts.more-liga{
