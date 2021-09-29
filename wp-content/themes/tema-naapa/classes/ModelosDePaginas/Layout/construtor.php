@@ -402,6 +402,10 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'posts_quebrada' ):
 									get_template_part( 'construtor/construtor', 'posts_quebrada' );
 
+								// Posts Na Quebrada
+								elseif( get_row_layout() == 'turma_do_naapa' ):
+									get_template_part( 'construtor/construtor', 'turma_naapa' );
+
 								endif;
 							endwhile;
 						echo '</div>';//bootstrap col
