@@ -647,6 +647,14 @@ if( function_exists('acf_add_options_page') ) {
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
     ));
+
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Turma do NAAPA',
+        'menu_title'	=> 'Turma do NAAPA',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+		'post_id' 		=> 'conf-turma',
+    ));
 	
 	acf_add_options_sub_page(array(
 		'page_title' 	=> 'Informações Rodapé',
