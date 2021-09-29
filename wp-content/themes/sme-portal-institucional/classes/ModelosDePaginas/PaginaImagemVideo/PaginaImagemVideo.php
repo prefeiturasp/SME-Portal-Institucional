@@ -59,7 +59,7 @@ class PaginaImagemVideo extends Util
 		if (have_posts()) : while (have_posts()) : the_post();
 			?>
 			<section class="row">
-				<article class="col-lg-9 col-xs-12">
+				<article class="col-lg-9 col-xs-12" id="conteudo">
 					<h1 class="mb-5" id="<?= $this->page_slug ?>"><?php the_title(); ?></h1>
 					<?php echo $this->getSubtitulo($this->page_id)?>
 					<?= $this->getImagemOuVideo(); ?>
