@@ -65,9 +65,7 @@ use Classes\Header\Header;
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
     <link href="<?php echo get_template_directory_uri(); ?>/css/jquery.multiselect.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149756375-1"></script>
-	<!-- Begin Inspectlet Asynchronous Code -->
+    
 	<script type="text/javascript">
 	(function() {
 	window.__insp = window.__insp || [];
@@ -79,13 +77,12 @@ use Classes\Header\Header;
 	</script>
 	<!-- End Inspectlet Asynchronous Code -->
 
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-149756375-1');
-    </script>
+    <?php
+        $analytics = get_field('codigo','conf-analytics');
+        if($analytics && $analytics != ''){
+            echo $analytics;
+        }
+    ?>
 
 </head>
 
@@ -175,16 +172,18 @@ use Classes\Header\Header;
                     </div>
 
                     <div class="col-md-3 search-top">
-                        <div class="row no-gutters">
-                            <div class="col">
-                                <input class="form-control border-right-0" type="search" value="" placeholder="Buscar" id="example-search-input4">
+                        <form action="<?php echo get_home_url(); ?>" method="GET">
+                            <div class="row no-gutters">
+                                <div class="col">
+                                    <input class="form-control border-right-0" name="s" type="search" value="" placeholder="Buscar" id="example-search-input4">
+                                </div>
+                                <div class="col-auto">
+                                    <button type='submit' class="btn border-left-0" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-auto">
-                                <button class="btn border-left-0" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
