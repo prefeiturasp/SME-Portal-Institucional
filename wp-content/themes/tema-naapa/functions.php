@@ -1724,6 +1724,95 @@ function more_post_quebrada(){
 add_action('wp_ajax_nopriv_more_post_quebrada', 'more_post_quebrada');
 add_action('wp_ajax_more_post_quebrada', 'more_post_quebrada');
 
+function more_post_busca(){
+
+    $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 10;
+    $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
+	$search = $_POST['search'];
+	$pt = (isset($_POST["filter"])) ? $_POST["filter"] : array('post', 'page', 'quem-cuida', 'na-quebrada');
+
+    header("Content-Type: text/html");
+    
+	$args = array(
+		'post_type' => $pt,
+		's' => $search,
+		'paged'    => $page,
+		'posts_per_page' => $ppp,
+	);
+
+    $loop = new WP_Query($args);
+
+    $out = '';
+
+    if ($loop -> have_posts()) :  while ($loop -> have_posts()) : $loop -> the_post();
+		$type = get_post_type();
+		$out .= '<div class="row mx-0 cuida-list-item type-' . $type .'">';
+			$out .= '<div class="col-12 col-md-4">';
+				$thumbs = get_thumb(get_the_ID(), 'cuida-news');
+				$out .= '<a href="' . get_the_permalink() . '"><img src="' . $thumbs[0] . '" alt="' . $thumbs[1] . '" class="img-fluid"></a>';
+			$out .= '</div>';
+			$out .= '<div class="col-12 col-md-8">';
+				
+				if($type == 'post'){
+					$categories = get_the_terms(get_the_ID(), 'category');
+				} elseif($type == 'quem-cuida'){
+					$categories = get_the_terms(get_the_ID(), 'categoria-cuida');
+				}
+				
+				$separator = ' / ';
+				$output = '';
+				
+				$out .= '<div class="d-flex justify-content-between cuida-infos">';
+					$out .= '<div class="cuida-categs ' . $showCateg . '">';
+
+						if($type == 'na-quebrada'){
+							$output = '';
+							$categories = '';
+							$out .= '<a href="' . get_the_permalink(423) . '">O QUE ROLA NA QUEBRADA</a>';
+						}
+
+						if($type == 'page'){
+							$output = '';
+							$categories = '';
+							$out .= "Página: " . get_the_title();
+						}
+						
+						if ( ! empty( $categories ) ) {
+							foreach( $categories as $category ) {
+								$output .= '<a class="cuida-categ" href="' . esc_url( get_category_link( $category->term_id ) ) . '" alt="' . esc_attr( sprintf( __( 'View all posts in %s', 'textdomain' ), $category->name ) ) . '">' . esc_html( $category->name ) . '</a>' . $separator;
+							}
+							$out .= trim( $output, $separator );
+						}						
+						
+					$out .= '</div>';
+					$out .= '<div class="cuida-date">';
+						$out .= get_the_date( 'd/m/Y \à\s H\hi' );
+					$out .= '</div>';
+				$out .= '</div>';
+				$out .= '<h2><a href="' . get_the_permalink() . '">' . get_the_title() .'</a></h2>';
+				
+				$sub = get_field( "insira_o_subtitulo", get_the_ID() );
+				if($sub){
+					$out .= "<p>" . $sub . "</p>";
+				} else {
+					$out .= "<p>" . get_the_excerpt() . "</p>";
+				}
+				
+			$out .= '</div>';                  
+		$out .= '</div>';
+
+    endwhile;
+	else:
+
+		$out = "Nada encontrado";
+    endif;
+    wp_reset_postdata();
+    die($out);
+}
+
+add_action('wp_ajax_nopriv_more_post_busca', 'more_post_busca');
+add_action('wp_ajax_more_post_busca', 'more_post_busca');
+
 function my_acf_load_sidebar( $field ){
 	// reset choices
 	$field['choices'] = array();
@@ -2085,6 +2174,61 @@ function show_zero_cld( $like_dislike_count, $comment_id ) {
 
 add_action('cld_after_ajax_process', 'teste_func');
 
-function teste_func($comment_id){
-	return 'Aqui:' . $comment_id;
+
+/**
+ * Extend WordPress search to include custom fields
+ *
+ * https://adambalee.com
+ */
+
+/**
+ * Join posts and postmeta tables
+ *
+ * http://codex.wordpress.org/Plugin_API/Filter_Reference/posts_join
+ */
+function cf_search_join( $join ) {
+    global $wpdb;
+
+    if ( is_search() ) {    
+        $join .=' LEFT JOIN '.$wpdb->postmeta. ' ON '. $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id ';
+    }
+
+    return $join;
 }
+add_filter('posts_join', 'cf_search_join' );
+
+/**
+ * Modify the search query with posts_where
+ *
+ * http://codex.wordpress.org/Plugin_API/Filter_Reference/posts_where
+ */
+function cf_search_where( $where ) {
+    global $pagenow, $wpdb;
+
+    if ( is_search() ) {
+        $where = preg_replace(
+            "/\(\s*".$wpdb->posts.".post_title\s+LIKE\s*(\'[^\']+\')\s*\)/",
+            "(".$wpdb->posts.".post_title LIKE $1) OR (".$wpdb->postmeta.".meta_value LIKE $1)", $where );
+    }
+
+    return $where;
+}
+add_filter( 'posts_where', 'cf_search_where' );
+
+/**
+ * Prevent duplicates
+ *
+ * http://codex.wordpress.org/Plugin_API/Filter_Reference/posts_distinct
+ */
+function cf_search_distinct( $where ) {
+    global $wpdb;
+
+    if ( is_search() ) {
+        return "DISTINCT";
+    }
+
+    return $where;
+}
+add_filter( 'posts_distinct', 'cf_search_distinct' );
+
+add_post_type_support( 'page', 'excerpt' );
