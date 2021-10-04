@@ -2368,3 +2368,67 @@ li.current a::before {
     bottom: -30px;
     z-index: 999999999;
 }
+
+#more_busca {
+    background: #E7600C;
+    box-shadow: inset 0px -4px 4px rgb(0 0 0 / 25%);
+    border-radius: 4px;
+    color: #FFFFFF;
+    border: 0;
+    width: 100%;
+    padding: 7px;
+    cursor: pointer;
+	font-weight: bold;
+	font-size: 14px;
+    margin-bottom: 30px;
+}
+
+#more_busca:disabled{
+	opacity: 0.6;
+}
+
+.type-na-quebrada .cuida-categs a {
+    color: #15608A;
+}
+
+a.filter-link.type-na-quebrada:hover,
+a.filter-link.filter-active.type-na-quebrada{
+    color: #15608A;
+    border-color: #15608A;
+}
+
+.type-quem-cuida .cuida-categs a{
+    color: #CF443C;
+}
+
+.type-post .cuida-categs a{
+    color: #E7600C;
+}
+
+a.filter-link.type-post:hover,
+a.filter-link.filter-active.type-post{
+    color: #E7600C;
+    border-color: #E7600C;
+}
+
+.type-page .cuida-categs a{
+    color: #000000;
+}
+
+a.filter-link.type-page:hover,
+a.filter-link.filter-active.type-page{
+    color: #000000;
+    border-color: #000000;
+}
+
+.type-page .cuida-categs{
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22px;
+}
+
+.cuida-filters.filter-search {
+    width: 100%;
+    border-top: 1px solid #000000;
+    margin-top: 30px;
+    padding-top: 20px;
+}

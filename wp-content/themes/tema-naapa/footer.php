@@ -130,9 +130,9 @@
             <?php endif; ?>
 
             <?php if($_GET['filter'] && $_GET['filter'] ): ?>
-                var filter = <?php echo $_GET['filter']; ?>;
+                var filter = '<?php echo $_GET['filter']; ?>';
             <?php elseif(get_queried_object()->term_id): ?>
-                var filter = <?php echo get_queried_object()->term_id; ?>;
+                var filter = '<?php echo get_queried_object()->term_id; ?>';
             <?php else: ?>
                 var filter = '';
             <?php endif; ?>
@@ -171,16 +171,16 @@
     
         });
 
-         // Na Quebrada
-         $s(function () {
+        // Na Quebrada
+        $s(function () {
            
            var ppp = <?php echo $qtd; ?>; // Post per page
            var pageNumber = 1;
 
            <?php if($_GET['filter'] && $_GET['filter'] ): ?>
-               var filter = <?php echo $_GET['filter']; ?>;
+               var filter = '<?php echo $_GET['filter']; ?>';
            <?php elseif(get_queried_object()->term_id): ?>
-               var filter = <?php echo get_queried_object()->term_id; ?>;
+               var filter = '<?php echo get_queried_object()->term_id; ?>';
            <?php else: ?>
                var filter = '';
            <?php endif; ?>
@@ -219,7 +219,66 @@
                 $s(this).insertAfter('.all-itens'); // Move the 'Load More' button to the end of the the newly added posts.               
            });
            
-       });
+        });
+
+        <?php if ( is_search() ) : ?>           
+        
+            // Busca
+            $s(function () {
+            
+                var ppp = 10; // Post per page
+                var pageNumber = 1;
+
+                <?php if($_GET['filter'] && $_GET['filter'] ): ?>
+                var filter = '<?php echo $_GET['filter']; ?>';
+                <?php elseif(get_queried_object()->term_id): ?>
+                var filter = '<?php echo get_queried_object()->term_id; ?>';
+                <?php else: ?>
+                var filter = '';
+                <?php endif; ?>
+
+                <?php if($_GET['s'] && $_GET['s'] != '') : ?>
+                    var search = '<?php echo $_GET['s']; ?>';
+                <?php else: ?>
+                var search = '';
+                <?php endif; ?>
+
+                function load_busca(){
+                    pageNumber++;
+                    var str = '&pageNumber=' + pageNumber + '&ppp=' + ppp + '&search=' + search + '&filter=' + filter + '&action=more_post_busca';
+                    jQuery.ajax({
+                        type: "POST",
+                        dataType: "html",
+                        url: ajaxurl,
+                        data: str,
+                        success: function(data){
+                            var $data = jQuery(data);
+                            if($data.length){
+                                jQuery("#ajax-posts").append($data);
+                                jQuery("#more_busca").attr("disabled",false);
+                                gridify.reInit();
+                            } else{
+                                jQuery("#more_busca").attr("disabled",true);
+                            }
+                        },
+                        error : function(jqXHR, textStatus, errorThrown) {
+                            $loader.html(jqXHR + " :: " + textStatus + " :: " + errorThrown);
+                        }
+
+                    });
+                    gridify.reInit();
+                    return false;
+                }
+                
+                $s("#more_busca").on("click",function(){ // When btn is pressed.
+                        $s("#more_busca").attr("disabled",true); // Disable the button, temp.               
+                        load_busca();
+                        $s(this).insertAfter('#ajax-posts'); // Move the 'Load More' button to the end of the the newly added posts.               
+                });
+            
+            });
+
+        <?php endif; ?>
 
         // Carrocel
         $s('.carousel').carousel({

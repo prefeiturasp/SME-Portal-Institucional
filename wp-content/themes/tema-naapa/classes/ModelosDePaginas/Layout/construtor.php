@@ -191,7 +191,7 @@ if( have_rows('fx_flex_layout') ):
 																<img src="<?php echo get_the_post_thumbnail_url(get_the_id(), 'home-news'); ?>" alt="<?php echo $image_alt; ?>" class='img-fluid'>
 
 															<?php else: ?>
-																<img src="<?php echo get_template_directory_uri(); ?>/img/logo-NAAPA-news.jpg" alt="<?php echo $image_alt; ?>" class='img-fluid'>
+																<img src="<?php echo wp_get_attachment_image_url(391, 'home-news'); ?>" alt="<?php echo $image_alt; ?>" class='img-fluid'>
 															<?php endif; ?>
 														</a>
 														<?php
