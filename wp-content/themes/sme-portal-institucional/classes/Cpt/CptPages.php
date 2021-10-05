@@ -20,6 +20,7 @@ class CptPages extends Cpt
 				'cb' => '<input type="checkbox" />',
 				'title' => 'Title',
 				'author' => 'Author',
+				'modified' => 'Modificado por',
 				'featured_thumb' => 'Thumbnail',
 				'grupo' => 'Grupo',
 				'date' => 'Date',	
@@ -80,10 +81,15 @@ class CptPages extends Cpt
 					}
 				} else {
 					if($_GET['grupo_id'] && $_GET['grupo_id'] != ''){
-						echo get_the_title($_GET['grupo_id']);
+						echo "<a href='https://hom-educacao.sme.prefeitura.sp.gov.br/wp-admin/edit.php?post_type=page&filter=grupo&grupo_id=" . $_GET['grupo_id'] . "'>". get_the_title($_GET['grupo_id']) . "</a>";
 					}
 				}
-
+				break;
+			case 'modified':
+				
+				$last_id = get_post_meta( get_the_ID(), '_edit_last', true );							
+				echo "<a href='" . get_home_url() . "/wp-admin/user-edit.php?user_id=" . $last_id . "'>" . get_the_modified_author() . "</a>";
+				
 				//echo "Aqui: " . $localizacao . "<br>";
 				//print_r($posts);
 				break;
