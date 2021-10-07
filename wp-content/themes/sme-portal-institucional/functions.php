@@ -1294,3 +1294,10 @@ function yoast_seo_admin_remove_columns( $columns ) {
   unset($columns['wpseo-linked']);
   return $columns;
 }
+
+// Move Yoast Meta Box to bottom
+function yoasttobottom() {
+	return 'low';
+}
+
+add_filter( 'wpseo_metabox_prio', 'yoasttobottom');

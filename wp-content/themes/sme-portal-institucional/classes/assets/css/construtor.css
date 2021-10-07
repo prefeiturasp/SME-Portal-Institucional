@@ -419,3 +419,15 @@ iframe {
 .btn-branco .card-header a {
     color: #196CBD;
 }
+
+.align-left{
+	text-align: left;
+}
+
+.align-left{
+	text-align: right;
+}
+
+.align-center{
+	text-align: center;
+}
