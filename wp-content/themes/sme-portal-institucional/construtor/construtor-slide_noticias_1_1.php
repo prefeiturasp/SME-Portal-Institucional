@@ -43,7 +43,13 @@ if(get_sub_field('fx_slides_1_1')) :
                                     </div>
                                     <div class="col-sm-5"> 
                                         <div class="carousel-title">
-                                            <p><a href="<?php echo get_the_permalink($slide); ?>"><?php echo get_the_title($slide); ?></a></p>
+                                            <?php
+                                                $titulo = get_field('titulo_destaque', $slide);
+                                                if($titulo == ''){
+                                                    $titulo = get_the_title($slide);
+                                                }
+                                            ?>
+                                            <p><a href="<?php echo get_the_permalink($slide); ?>"><?php echo $titulo; ?></a></p>
                                         </div>                                            
                                     </div>
                                 </div>
