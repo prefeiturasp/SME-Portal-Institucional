@@ -8,15 +8,16 @@ if( have_rows('fx_botao_1_1') ):
 
                 // Responsivo
                 if( get_row_layout() == 'fx_cl1_botao_1_1' ):
-                        //loop de botões responsivos
-                        echo '<div class="col-12 text-center">';
-                            echo '<a href="'.get_sub_field('fx_url_botao_1_1').'"><button type="button" class="btn mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg">'.get_sub_field('fx_nome_botao_1_1').'</button></a>';
-                        echo '</div>';
+                    //loop de botões responsivos
+                    $align = get_sub_field('alinhamento');
+                    echo '<div class="col-12 align-' . $align .'">';
+                        echo '<a href="'.get_sub_field('fx_url_botao_1_1').'"><button type="button" class="btn mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg">'.get_sub_field('fx_nome_botao_1_1').'</button></a>';
+                    echo '</div>';
                 endif;
 
                 // Bloco
                 if( get_row_layout() == 'fx_cl1_botao_bloco_1_1' ):
-                    //loop de botões responsivos
+                    //loop de botões bloco
                     echo '<div class="col-12 text-center">';
                         echo '<a href="'.get_sub_field('fx_url_botao_1_1').'"><button type="button" class="btn mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field('fx_nome_botao_1_1').'</button></a>';
                     echo '</div>';
@@ -24,8 +25,9 @@ if( have_rows('fx_botao_1_1') ):
 
                 // Fixo
                 if( get_row_layout() == 'fx_cl1_botao_fixo_1_1' ):
-                    //loop de botões responsivos
-                    echo '<div class="col-12 text-center">';
+                    //loop de botões fixo
+                    $align = get_sub_field('alinhamento');
+                    echo '<div class="col-12 align-' . $align .'">';
                         echo '<a href="'.get_sub_field('fx_url_botao_1_1').'"><button type="button" class="btn mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg" style="width: ' . get_sub_field('fx_tamanho_botao_1_1') . 'px;">'.get_sub_field('fx_nome_botao_1_1').'</button></a>';
                     echo '</div>';
                 endif;

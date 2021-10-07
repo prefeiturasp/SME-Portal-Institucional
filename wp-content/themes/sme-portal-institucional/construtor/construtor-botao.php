@@ -16,14 +16,15 @@ if( have_rows($chave) ):
             // Responsivo
             if( get_row_layout() == $responsivo ):
                 //loop de botões responsivos
-                echo '<div class="col-12 text-center">';
+                $align = get_sub_field('alinhamento');
+                echo '<div class="col-12 align-' . $align .'">';
                     echo '<a href="'.get_sub_field($url).'"><button type="button" class="btn mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg">'.get_sub_field($texto).'</button></a>';
                 echo '</div>';
             endif;
 
             // Bloco
             if( get_row_layout() == $bloco ):
-                //loop de botões responsivos
+                //loop de botões bloco
                 echo '<div class="col-12 text-center">';
                     echo '<a href="'.get_sub_field($url).'"><button type="button" class="btn mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field($texto).'</button></a>';
                 echo '</div>';
@@ -31,8 +32,9 @@ if( have_rows($chave) ):
 
             // Fixo
             if( get_row_layout() == $fixo ):
-                //loop de botões responsivos
-                echo '<div class="col-12 text-center">';
+                //loop de botões fixo
+                $align = get_sub_field('alinhamento');
+                echo '<div class="col-12 align-' . $align .'">';
                     echo '<a href="'.get_sub_field($url).'"><button type="button" class="btn mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg" style="width: ' . get_sub_field($tamanho) . 'px;">'.get_sub_field($texto).'</button></a>';
                 echo '</div>';
             endif;
