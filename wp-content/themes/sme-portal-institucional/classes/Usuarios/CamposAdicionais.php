@@ -9,10 +9,10 @@ class CamposAdicionais
 	public function __construct()
 	{
 		// Add e Salvando o campo personalizado
-		add_action('show_user_profile', array($this, 'fb_add_custom_user_profile_fields'));
-		add_action('edit_user_profile', array($this, 'fb_add_custom_user_profile_fields'));
-		add_action('personal_options_update', array($this, 'fb_save_custom_user_profile_fields'));
-		add_action('edit_user_profile_update', array($this, 'fb_save_custom_user_profile_fields'));
+		//add_action('show_user_profile', array($this, 'fb_add_custom_user_profile_fields'));
+		//add_action('edit_user_profile', array($this, 'fb_add_custom_user_profile_fields'));
+		//add_action('personal_options_update', array($this, 'fb_save_custom_user_profile_fields'));
+		//add_action('edit_user_profile_update', array($this, 'fb_save_custom_user_profile_fields'));
 
 		add_filter('manage_users_columns', array($this, 'exibe_cols'));
 		add_filter('manage_users_custom_column', array($this, 'cols_content'), 10, 3);
