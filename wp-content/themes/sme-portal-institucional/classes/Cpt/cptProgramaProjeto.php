@@ -92,7 +92,7 @@ class cptProgramasEProjetos extends Cpt{
 			'exclude_from_search' => true,
 			'show_in_rest' => true,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'supports' => array('title', 'editor', 'thumbnail','page-attributes'),
+			'supports' => array('title', 'editor', 'thumbnail','page-attributes', 'revisions'),
 		);
 
 		register_post_type($this->cptSlug, $args);

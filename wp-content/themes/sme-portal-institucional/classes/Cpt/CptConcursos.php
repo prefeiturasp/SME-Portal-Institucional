@@ -73,7 +73,7 @@ class CptConcursos extends Cpt
 			'exclude_from_search' => true,
 			'show_in_rest' => true,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'supports' => array('excerpt'),
+			'supports' => array('excerpt', 'revisions'),
 		);
 
 		register_post_type($this->cptSlug, $args);
