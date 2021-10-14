@@ -1301,3 +1301,143 @@ function yoasttobottom() {
 }
 
 add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
+
+
+/**
+ * Relacionamento Reciproco / Grupos e Paginas
+ * Entre dois campos de relacionamento que pertencem a diferentes tipos de postagem
+ */
+// Defina as chaves de campo para os dois campos de relacionamento
+$key_a = 'field_5fecb928c7571'; // Grupos
+$key_b = 'field_616875a8b6c80'; // Paginas
+
+// Adicione o filtro ao primeiro campo de relacionamento
+// A chave deve corresponder a $ key_a acima
+add_filter(
+    'acf/update_value/key=field_5fecb928c7571',
+    function ($value, $post_id, $field) use ($key_a, $key_b) {
+        return acf_reciprocal_relationship($value, $post_id, $field, $key_a, $key_b);
+    },
+    10, 5
+);
+
+// Adicione o filtro ao segundo campo de relacionamento
+// A chave deve corresponder a $ key_b acima
+add_filter(
+    'acf/update_value/key=field_616875a8b6c80',
+    function ($value, $post_id, $field) use ($key_a, $key_b) {
+        return acf_reciprocal_relationship($value, $post_id, $field, $key_a, $key_b);
+    },
+    10, 5
+);
+
+
+/**
+ * Quando um campo de relacionamento é definido, um relacionamento recíproco
+ * também é definido no tipo de post de destino.
+ *
+ * @param [type] $value
+ * @param [type] $post_id
+ * @param [type] $field
+ * @param [type] $key_a
+ * @param [type] $key_b
+ * @return void
+ */
+function acf_reciprocal_relationship($value, $post_id, $field, $key_a, $key_b)
+{
+    // descobrir em que lado estamos trabalhando e configurar as variáveis
+    // $key_a representa o campo para as postagens atuais
+    // e $key_b representa o campo em postagens relacionadas
+    if ($key_a !== $field['key']) {
+        $temp = $key_a;
+        $key_a = $key_b;
+        $key_b = $temp;
+    }
+    
+    // obter os dois campos
+    // esta funcao do ACF obtem od valores dos campos
+    $field_a = acf_get_field($key_a);
+    $field_b = acf_get_field($key_b);
+    
+    // defina os nomes dos campos para verificar em cada postagem
+    $name_a = $field_a['name'];
+    $name_b = $field_b['name'];
+    
+    // obtem o valor do campo da postagem atual
+	// e verifica se ela precisa ser atualizada
+    
+	$old_values = get_post_meta($post_id, $name_a, true);
+    // verificar se o valor contem um array
+    if (!is_array($old_values)) {
+        if (empty($old_values)) {
+            $old_values = array();
+        } else {
+            $old_values = array($old_values);
+        }
+    }
+    // define novos valores para $value
+    $new_values = $value;
+    // verificar se o valor contem um array
+    if (!is_array($new_values)) {
+        if (empty($new_values)) {
+            $new_values = array();
+        } else {
+            $new_values = array($new_values);
+        }
+    }
+    
+    
+    $add = $new_values;
+    $delete = array_diff($old_values, $new_values);
+    
+    // reordene os arrays para evitar possiveis erros de indice invalido
+    $add = array_values($add);
+    $delete = array_values($delete);
+    
+    if (!count($add) && !count($delete)) {
+        // se nao tiver diferenca
+        // nao ha nada pra fazer
+        return $value;
+    }
+    
+    // deleta o primeiro
+    // passa por todos os posts que precisam ter a relacao removida
+    for ($i=0; $i<count($delete); $i++) {
+        $related_values = get_post_meta($delete[$i], $name_b, true);
+        if (!is_array($related_values)) {
+            if (empty($related_values)) {
+                $related_values = array();
+            } else {
+                $related_values = array($related_values);
+            }
+        }
+        
+        $related_values = array_diff($related_values, array($post_id));
+        // insere o novo valor
+        update_post_meta($delete[$i], $name_b, $related_values);
+        // insere a chave do acf
+        update_post_meta($delete[$i], '_'.$name_b, $key_b);
+    }
+    
+    
+    for ($i=0; $i<count($add); $i++) {
+        $related_values = get_post_meta($add[$i], $name_b, true);
+        if (!is_array($related_values)) {
+            if (empty($related_values)) {
+                $related_values = array();
+            } else {
+                $related_values = array($related_values);
+            }
+        }
+        if (!in_array($post_id, $related_values)) {
+            // add new relationship if it does not exist
+            $related_values[] = $post_id;
+        }
+        // atualiza os valores
+        update_post_meta($add[$i], $name_b, $related_values);
+        // insere a chave do acf
+        update_post_meta($add[$i], '_'.$name_b, $key_b);
+    }
+    
+    return $value;
+}
