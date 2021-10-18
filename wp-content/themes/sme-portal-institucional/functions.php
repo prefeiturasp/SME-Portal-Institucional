@@ -1441,3 +1441,9 @@ function acf_reciprocal_relationship($value, $post_id, $field, $key_a, $key_b)
     
     return $value;
 }
+
+/* Add Dashicons na site sem estar logado */
+add_action( 'wp_enqueue_scripts', 'load_dashicons_front_end' );
+function load_dashicons_front_end() {
+   wp_enqueue_style( 'dashicons' );
+}
