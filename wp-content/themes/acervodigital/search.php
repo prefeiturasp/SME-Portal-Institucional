@@ -76,6 +76,21 @@ function generateRandomString($length = 10) {
 										<input type="hidden" name="palavrab" value="<?php echo $_GET['palavrab']; ?>">
 									<?php endif; ?>
 
+									<?php if($_GET['areab'] && $_GET['areab'] != ''): ?>
+										<input type="hidden" name="area" value="1">
+										<input type="hidden" name="areab" value="<?php echo $_GET['areab']; ?>">
+									<?php endif; ?>
+
+									<?php if($_GET['alvob'] && $_GET['alvob'] != ''): ?>
+										<input type="hidden" name="alvo" value="1">
+										<input type="hidden" name="alvob" value="<?php echo $_GET['alvob']; ?>">
+									<?php endif; ?>
+
+									<?php if($_GET['despb'] && $_GET['despb'] != ''): ?>
+										<input type="hidden" name="desp" value="1">
+										<input type="hidden" name="despb" value="<?php echo $_GET['despb']; ?>">
+									<?php endif; ?>
+
 									<div class="panel-group" id="accordion">
 										<div class="panel panel-default">
 											<div class="panel-heading">
@@ -202,6 +217,11 @@ function generateRandomString($length = 10) {
 																			'terms' => $_GET['palavrab'],                  // term id, term slug or term name
 																		
 																	);
+																}
+
+																if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+																	$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+																	$args['meta_value'] = $_GET['despb']; 
 																}
 															}
 															$the_query = new WP_Query( $args ); 
@@ -335,6 +355,11 @@ function generateRandomString($length = 10) {
 															'terms' => $_GET['palavrab'],                  // term id, term slug or term name
 														
 													);
+												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
 												}
 											}
 											$the_query = new WP_Query( $args );
@@ -491,6 +516,11 @@ function generateRandomString($length = 10) {
 														
 													);
 												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
+												}
 											}
 											$the_query = new WP_Query( $args );
 											if($the_query->have_posts()):
@@ -646,6 +676,11 @@ function generateRandomString($length = 10) {
 														
 													);
 												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
+												}
 											}
 											$the_query = new WP_Query( $args );
 											if($the_query->have_posts()):
@@ -693,7 +728,167 @@ function generateRandomString($length = 10) {
 												<?php endif; // anos 	?>														
 										<?php endif; ?>												
 
-										
+										<?php // Formacao
+											$formas = array();
+											$formaBusca = array();
+											if($_GET['formab'] && $_GET['formab'] != ''){
+												$formaBusca = $_GET['formab'];
+											}
+											$args = array(
+												's' => $_GET['s'],
+												'posts_per_page' => -1,
+												'tax_query' => array(
+													'relation' => 'AND',										
+												)
+											);
+											if($_GET['avanc'] && $_GET['avanc'] != ''){
+												if($_GET['modalidade'] && $_GET['modalidade'] ){
+													$args['tax_query'][] = array(
+															'taxonomy' => 'modalidade',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['modalidade'],                  // term id, term slug or term name
+													);									
+												}
+												
+												if($_GET['componente'] && $_GET['componente'] ){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'componente',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['componente'],                  // term id, term slug or term name
+														
+													);
+												}
+				
+												if($_GET['idioma'] && $_GET['idioma'] != '' && $_GET['idioma'][0] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'idioma',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['idioma'],                  // term id, term slug or term name
+														
+													);
+												}
+												
+												if($_GET['setor'] && $_GET['setor'] != '' && $_GET['setor'][0] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'setor',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['setor'],                  // term id, term slug or term name
+														
+													);
+												}
+
+												if($_GET['formab'] && $_GET['formab'] != '' && $_GET['formab'][0] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'formacao',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['formab'],                  // term id, term slug or term name
+														
+													);
+												}
+
+												if($_GET['area'] && $_GET['areab'] != '' && $_GET['areab'][0] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'promotora',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['areab'],                  // term id, term slug or term name
+														
+													);
+												}
+
+												if($_GET['alvo'] && $_GET['alvob'] != '' && $_GET['alvob'][0] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'publico',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['alvob'],                  // term id, term slug or term name
+														
+													);
+												}
+				
+												if($_GET['autor'] && $_GET['autor'] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'autor',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['autor'],                  // term id, term slug or term name
+														
+													);
+												}
+				
+												if($_GET['ano'] && $_GET['ano'] != '' && $_GET['ano'][0] != '' ){
+													$args['ano_da_publicacao_acervo_digital'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['ano']; 
+												}
+				
+												if($_GET['categoria_acervo'] && $_GET['categoria_acervo'] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'categoria_acervo',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['categoria_acervo'],                  // term id, term slug or term name
+														
+													);
+												}
+
+												if($_GET['palavra'] && $_GET['palavra'] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'palavra',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['palavra'],                  // term id, term slug or term name
+														
+													);
+												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
+												}
+											}
+											$the_query = new WP_Query( $args );
+											if($the_query->have_posts()):
+
+												while($the_query->have_posts()): $the_query->the_post();
+													$term_list = wp_get_post_terms( get_the_ID(), 'formacao', array( 'fields' => 'ids' ) );
+													foreach($term_list as $forma){
+														$formas[] = $forma;
+													}
+													
+												endwhile;
+
+												$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+												$formas = array_unique($formas);
+												
+												if($formas && $formas !=''):
+												?>
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<p class="panel-title">
+																<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseForma">
+																Tipo de Formação
+																</a>
+															</p>
+														</div>
+														<div id="collapseForma" class="panel-collapse collapse in show">
+															<div class="panel-body">
+																<?php
+																	
+																	foreach($formas as $forma):
+																		$check = '';
+																		if( in_array($forma, $formaBusca) ){
+																			$check = 'checked';
+																		}
+																	?>
+																		<div class="form-check">
+																			<input class="form-check-input" name='formab[]' type="checkbox" <?php echo $check; ?> value="<?php echo $forma; ?>" id="formab" onchange="this.form.submit()">
+																			<label class="form-check-label" for="formab">
+																				<?php echo get_term( $forma )->name; ?>
+																			</label>
+																		</div>
+																	<?php
+																	endforeach;
+																?>
+															</div>
+														</div>
+													</div>
+												<?php endif; // Formacao	?>														
+										<?php endif; ?>
 
 										<?php // Autor
 											$autores = array();
@@ -800,6 +995,11 @@ function generateRandomString($length = 10) {
 															'terms' => $_GET['palavrab'],                  // term id, term slug or term name
 														
 													);
+												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
 												}
 											}
 											$the_query = new WP_Query( $args );
@@ -959,6 +1159,11 @@ function generateRandomString($length = 10) {
 														
 													);
 												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
+												}
 											}
 											$the_query = new WP_Query( $args );
 											if($the_query->have_posts()):
@@ -1113,6 +1318,11 @@ function generateRandomString($length = 10) {
 															'terms' => $_GET['palavrab'],                  // term id, term slug or term name
 														
 													);
+												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
 												}
 											}
 											$the_query = new WP_Query( $args );
@@ -1306,6 +1516,11 @@ function generateRandomString($length = 10) {
 										
 									);
 								}
+
+								if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+									$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+									$args['meta_value'] = $_GET['despb']; 
+								}
 								$the_query = new WP_Query( $args );
 							?>							
 							<div class="row">
@@ -1360,13 +1575,19 @@ function generateRandomString($length = 10) {
 
 								<?php if($_GET['forma'] && $_GET['formab'][0] != ''): ?>
 									<div class="col-12">
-										<p class="search-title"><span class="azul-claro-acervo"><strong>Buscando por:</strong></span> Tipo de Formação - <?php echo get_term( $_GET['formab'] )->name; ?></p>
+										<p class="search-title"><span class="azul-claro-acervo"><strong>Buscando por:</strong></span> Tipo de Formação - <?php echo get_term( $_GET['formab'][0] )->name; ?></p>
 									</div>
 								<?php endif; ?>
 
 								<?php if($_GET['area'] && $_GET['areab'][0] != ''): ?>
 									<div class="col-12">
 										<p class="search-title"><span class="azul-claro-acervo"><strong>Buscando por:</strong></span> Área promotora - <?php echo get_term( $_GET['areab'] )->name; ?></p>
+									</div>
+								<?php endif; ?>
+
+								<?php if($_GET['desp'] && $_GET['despb'][0] != ''): ?>
+									<div class="col-12">
+										<p class="search-title"><span class="azul-claro-acervo"><strong>Buscando por:</strong></span> Nº de despacho de homologação - <?php echo $_GET['despb']; ?></p>
 									</div>
 								<?php endif; ?>
 
@@ -1647,10 +1868,6 @@ function generateRandomString($length = 10) {
 							<input type="hidden" name="palavrab" value="<?php echo $_GET['palavrab']; ?>">
 						<?php endif; ?>
 						
-						<?php if($_GET['formab'] && $_GET['formab'] != ''): ?>
-							<input type="hidden" name="forma" value="1">
-							<input type="hidden" name="formab" value="<?php echo $_GET['formab']; ?>">
-						<?php endif; ?>
 
 						<?php if($_GET['areab'] && $_GET['areab'] != ''): ?>
 							<input type="hidden" name="area" value="1">
@@ -1660,6 +1877,11 @@ function generateRandomString($length = 10) {
 						<?php if($_GET['alvob'] && $_GET['alvob'] != ''): ?>
 							<input type="hidden" name="alvo" value="1">
 							<input type="hidden" name="alvob" value="<?php echo $_GET['alvob']; ?>">
+						<?php endif; ?>
+
+						<?php if($_GET['despb'] && $_GET['despb'] != ''): ?>
+							<input type="hidden" name="desp" value="1">
+							<input type="hidden" name="despb" value="<?php echo $_GET['despb']; ?>">
 						<?php endif; ?>
 						
 
@@ -1725,8 +1947,8 @@ function generateRandomString($length = 10) {
 															
 														);
 													}
-					
-													if($_GET['forma'] && $_GET['formab'] != '' && $_GET['formab'][0] != ''){
+
+													if($_GET['formab'] && $_GET['formab'] != '' && $_GET['formab'][0] != ''){
 														$args['tax_query'][] = 	array(
 																'taxonomy' => 'formacao',   // taxonomy name
 																'field' => 'term_id',           // term_id, slug or name
@@ -1783,6 +2005,11 @@ function generateRandomString($length = 10) {
 																'terms' => $_GET['palavrab'],                  // term id, term slug or term name
 															
 														);
+													}
+
+													if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+														$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+														$args['meta_value'] = $_GET['despb']; 
 													}
 												}
 												$the_query = new WP_Query( $args ); 
@@ -1858,8 +2085,8 @@ function generateRandomString($length = 10) {
 											
 										);
 									}
-	
-									if($_GET['forma'] && $_GET['formab'] != '' && $_GET['formab'][0] != ''){
+
+									if($_GET['formab'] && $_GET['formab'] != '' && $_GET['formab'][0] != ''){
 										$args['tax_query'][] = 	array(
 												'taxonomy' => 'formacao',   // taxonomy name
 												'field' => 'term_id',           // term_id, slug or name
@@ -1916,6 +2143,11 @@ function generateRandomString($length = 10) {
 												'terms' => $_GET['palavrab'],                  // term id, term slug or term name
 											
 										);
+									}
+
+									if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+										$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+										$args['meta_value'] = $_GET['despb']; 
 									}
 								}
 								$the_query = new WP_Query( $args );
@@ -2072,7 +2304,12 @@ function generateRandomString($length = 10) {
 											
 										);
 									}
-								}
+
+									if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+										$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+										$args['meta_value'] = $_GET['despb']; 
+									}
+								}							
 								
 								$the_query_comp = new WP_Query( $args );
 								if($the_query_comp->have_posts()):
@@ -2228,6 +2465,11 @@ function generateRandomString($length = 10) {
 											
 										);
 									}
+
+									if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+										$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+										$args['meta_value'] = $_GET['despb']; 
+									}
 								}
 								$the_query = new WP_Query( $args );
 								if($the_query->have_posts()):
@@ -2261,7 +2503,7 @@ function generateRandomString($length = 10) {
 															}
 														?>
 															<div class="form-check">
-																<input class="form-check-input" name='anob[]' <?php echo $check; ?> type="checkbox" value="<?php echo $ano; ?>" id="ano">
+																<input class="form-check-input" name='ano[]' <?php echo $check; ?> type="checkbox" value="<?php echo $ano; ?>" id="ano">
 																<label class="form-check-label" for="ano">
 																	<?php echo $ano; ?>
 																</label>
@@ -2273,7 +2515,167 @@ function generateRandomString($length = 10) {
 											</div>
 										</div>
 									<?php endif; // anos 	?>														
-							<?php endif; ?>												
+							<?php endif; ?>
+							
+							<?php // Formacao
+								$formas = array();
+								$formaBusca = array();
+								if($_GET['formab'] && $_GET['formab'] != ''){
+									$formaBusca = $_GET['formab'];
+								}
+								$args = array(
+									's' => $_GET['s'],
+									'posts_per_page' => -1,
+									'tax_query' => array(
+										'relation' => 'AND',										
+									)
+								);
+								if($_GET['avanc'] && $_GET['avanc'] != ''){
+									if($_GET['modalidade'] && $_GET['modalidade'] ){
+										$args['tax_query'][] = array(
+												'taxonomy' => 'modalidade',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['modalidade'],                  // term id, term slug or term name
+										);									
+									}
+									
+									if($_GET['componente'] && $_GET['componente'] ){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'componente',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['componente'],                  // term id, term slug or term name
+											
+										);
+									}
+	
+									if($_GET['idioma'] && $_GET['idioma'] != '' && $_GET['idioma'][0] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'idioma',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['idioma'],                  // term id, term slug or term name
+											
+										);
+									}
+									
+									if($_GET['setor'] && $_GET['setor'] != '' && $_GET['setor'][0] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'setor',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['setor'],                  // term id, term slug or term name
+											
+										);
+									}
+
+									if($_GET['formab'] && $_GET['formab'] != '' && $_GET['formab'][0] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'formacao',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['formab'],                  // term id, term slug or term name
+											
+										);
+									}
+
+									if($_GET['area'] && $_GET['areab'] != '' && $_GET['areab'][0] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'promotora',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['areab'],                  // term id, term slug or term name
+											
+										);
+									}
+
+									if($_GET['alvo'] && $_GET['alvob'] != '' && $_GET['alvob'][0] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'publico',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['alvob'],                  // term id, term slug or term name
+											
+										);
+									}
+	
+									if($_GET['autor'] && $_GET['autor'] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'autor',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['autor'],                  // term id, term slug or term name
+											
+										);
+									}
+	
+									if($_GET['ano'] && $_GET['ano'] != '' && $_GET['ano'][0] != '' ){
+										$args['ano_da_publicacao_acervo_digital'] = '';           // term id, term slug or term name
+										$args['meta_value'] = $_GET['ano']; 
+									}
+	
+									if($_GET['categoria_acervo'] && $_GET['categoria_acervo'] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'categoria_acervo',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['categoria_acervo'],                  // term id, term slug or term name
+											
+										);
+									}
+
+									if($_GET['palavra'] && $_GET['palavra'] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'palavra',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['palavra'],                  // term id, term slug or term name
+											
+										);
+									}
+
+									if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+										$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+										$args['meta_value'] = $_GET['despb']; 
+									}
+								}
+								$the_query = new WP_Query( $args );
+								if($the_query->have_posts()):
+
+									while($the_query->have_posts()): $the_query->the_post();
+										$term_list = wp_get_post_terms( get_the_ID(), 'formacao', array( 'fields' => 'ids' ) );
+										foreach($term_list as $forma){
+											$formas[] = $forma;
+										}
+										
+									endwhile;
+
+									$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+									$formas = array_unique($formas);		
+									if($formas && $formas !=''):
+									?>
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<p class="panel-title">
+													<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionMob" href="#collapseFormaMob">
+													Tipo de Formação
+													</a>
+												</p>
+											</div>
+											<div id="collapseFormaMob" class="panel-collapse collapse in show">
+												<div class="panel-body">
+													<?php
+														foreach($formas as $forma):
+															$check = '';
+															if( in_array($forma, $formaBusca) ){
+																$check = 'checked';
+															}
+														?>
+															<div class="form-check">
+																<input class="form-check-input" name='formab[]' type="checkbox" <?php echo $check; ?> value="<?php echo $forma; ?>" id="formab">
+																<label class="form-check-label" for="formab">
+																	<?php echo get_term( $forma )->name; ?>
+																</label>
+															</div>
+														<?php
+														endforeach;
+													?>
+												</div>
+											</div>
+										</div>
+									<?php endif; // Formacao	?>														
+							<?php endif; ?>
 
 							<div class="panel panel-default">
 								<div class="panel-heading">
@@ -2357,8 +2759,8 @@ function generateRandomString($length = 10) {
 											
 										);
 									}
-	
-									if($_GET['forma'] && $_GET['formab'] != '' && $_GET['formab'][0] != ''){
+
+									if($_GET['formab'] && $_GET['formab'] != '' && $_GET['formab'][0] != ''){
 										$args['tax_query'][] = 	array(
 												'taxonomy' => 'formacao',   // taxonomy name
 												'field' => 'term_id',           // term_id, slug or name
@@ -2414,6 +2816,11 @@ function generateRandomString($length = 10) {
 												'terms' => $_GET['palavrab'],                  // term id, term slug or term name
 											
 										);
+									}
+
+									if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+										$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+										$args['meta_value'] = $_GET['despb']; 
 									}
 								}
 								$the_query = new WP_Query( $args );
@@ -2512,7 +2919,7 @@ function generateRandomString($length = 10) {
 										);
 									}
 
-									if($_GET['forma'] && $_GET['formab'] != '' && $_GET['formab'][0] != ''){
+									if($_GET['formab'] && $_GET['formab'] != '' && $_GET['formab'][0] != ''){
 										$args['tax_query'][] = 	array(
 												'taxonomy' => 'formacao',   // taxonomy name
 												'field' => 'term_id',           // term_id, slug or name
@@ -2569,6 +2976,11 @@ function generateRandomString($length = 10) {
 												'terms' => $_GET['palavrab'],                  // term id, term slug or term name
 											
 										);
+									}
+
+									if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+										$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+										$args['meta_value'] = $_GET['despb']; 
 									}
 								}
 								$the_query = new WP_Query( $args );
