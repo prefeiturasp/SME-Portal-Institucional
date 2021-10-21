@@ -269,9 +269,6 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 										<?php 
 											if($turmas && $turmas != ''):
 										?>
-
-										<?php endif; ?>
-										
 											<tr>
 												<th scope="row" class="align-middle"><i class="fa fa-users" aria-hidden="true"></i></th>
 												<td>
@@ -376,29 +373,38 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 													<?php endforeach; ?>
 												</td>
 											</tr>
+										
+										<?php endif; ?>	
+
 										<?php
 											global $post;
 											$local = get_field('localizacao', $post->ID); 
 										?>
 
-										<tr>
-											<th scope="row" class="align-middle"><i class="fa fa-map-marker" aria-hidden="true"></i></th>
-											<?php if($local == 31244 || $tipo_evento == 'serie'): ?>
-												<td><p class="m-0">Consulte abaixo CEUs participantes</p></td>
-											<?php elseif($local == 31675): ?>
-												<td><p class="m-0"><strong>Para toda a rede</strong></p></td>
-											<?php else: ?>
-												<td><strong><?php echo get_the_title($local); ?></strong>
-												<?php 
-													$end = get_field('informacoes_basicas', $local);
-													
-													if($end != '') : ?>
-														<br>
-														<?php echo $end['endereco'] . ', ' . $end['numero'] . ' - ' .$end['bairro'] . ' - CEP: ' .$end['cep']; ?>
-													<?php endif; ?>	
-												</td>
-											<?php endif; ?>                                
-										</tr>
+										<?php 
+											if($local && $local != ''):
+										?>
+
+											<tr>
+												<th scope="row" class="align-middle"><i class="fa fa-map-marker" aria-hidden="true"></i></th>
+												<?php if($local == 31244 || $tipo_evento == 'serie'): ?>
+													<td><p class="m-0">Consulte abaixo CEUs participantes</p></td>
+												<?php elseif($local == 31675): ?>
+													<td><p class="m-0"><strong>Para toda a rede</strong></p></td>
+												<?php else: ?>
+													<td><strong><?php echo get_the_title($local); ?></strong>
+													<?php 
+														$end = get_field('informacoes_basicas', $local);
+														
+														if($end != '') : ?>
+															<br>
+															<?php echo $end['endereco'] . ', ' . $end['numero'] . ' - ' .$end['bairro'] . ' - CEP: ' .$end['cep']; ?>
+														<?php endif; ?>	
+													</td>
+												<?php endif; ?>                                
+											</tr>
+
+										<?php endif; ?>
 
 										<?php if($espaco != '') : ?>
 											<tr>
@@ -598,18 +604,22 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 
 												<?php endif; ?>
 
-												<tr>
-													<th scope="row" class="align-middle"><i class="fa fa-map-marker" aria-hidden="true"></i></th>
-													<td><strong><?php echo get_the_title($participante['localizacao_serie']); ?></strong>
-													<?php 
-														$end = get_field('informacoes_basicas', $participante['localizacao_serie']);
+												<?php 
+													$end = get_field('informacoes_basicas', $participante['localizacao_serie']);
+													
+													if($end != '') : ?>
+
+													<tr>
+														<th scope="row" class="align-middle"><i class="fa fa-map-marker" aria-hidden="true"></i></th>
+														<td><strong><?php echo get_the_title($participante['localizacao_serie']); ?></strong>
 														
-														if($end != '') : ?>
-															<br>
-															<?php echo $end['endereco'] . ', ' . $end['numero'] . ' - ' .$end['bairro'] . ' - CEP: ' .$end['cep']; ?>
-														<?php endif; ?>	
-													</td>
-												</tr>
+																<br>
+																<?php echo $end['endereco'] . ', ' . $end['numero'] . ' - ' .$end['bairro'] . ' - CEP: ' .$end['cep']; ?>
+															
+														</td>
+													</tr>
+
+												<?php endif; ?>	
 												
 											</tbody>               
 										</table>
