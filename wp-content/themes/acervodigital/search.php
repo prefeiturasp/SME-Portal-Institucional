@@ -76,6 +76,21 @@ function generateRandomString($length = 10) {
 										<input type="hidden" name="palavrab" value="<?php echo $_GET['palavrab']; ?>">
 									<?php endif; ?>
 
+									<?php if($_GET['areab'] && $_GET['areab'] != ''): ?>
+										<input type="hidden" name="area" value="1">
+										<input type="hidden" name="areab" value="<?php echo $_GET['areab']; ?>">
+									<?php endif; ?>
+
+									<?php if($_GET['alvob'] && $_GET['alvob'] != ''): ?>
+										<input type="hidden" name="alvo" value="1">
+										<input type="hidden" name="alvob" value="<?php echo $_GET['alvob']; ?>">
+									<?php endif; ?>
+
+									<?php if($_GET['despb'] && $_GET['despb'] != ''): ?>
+										<input type="hidden" name="desp" value="1">
+										<input type="hidden" name="despb" value="<?php echo $_GET['despb']; ?>">
+									<?php endif; ?>
+
 									<div class="panel-group" id="accordion">
 										<div class="panel panel-default">
 											<div class="panel-heading">
@@ -202,6 +217,11 @@ function generateRandomString($length = 10) {
 																			'terms' => $_GET['palavrab'],                  // term id, term slug or term name
 																		
 																	);
+																}
+
+																if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+																	$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+																	$args['meta_value'] = $_GET['despb']; 
 																}
 															}
 															$the_query = new WP_Query( $args ); 
@@ -335,6 +355,11 @@ function generateRandomString($length = 10) {
 															'terms' => $_GET['palavrab'],                  // term id, term slug or term name
 														
 													);
+												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
 												}
 											}
 											$the_query = new WP_Query( $args );
@@ -491,6 +516,11 @@ function generateRandomString($length = 10) {
 														
 													);
 												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
+												}
 											}
 											$the_query = new WP_Query( $args );
 											if($the_query->have_posts()):
@@ -645,6 +675,11 @@ function generateRandomString($length = 10) {
 															'terms' => $_GET['palavrab'],                  // term id, term slug or term name
 														
 													);
+												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
 												}
 											}
 											$the_query = new WP_Query( $args );
@@ -961,6 +996,11 @@ function generateRandomString($length = 10) {
 														
 													);
 												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
+												}
 											}
 											$the_query = new WP_Query( $args );
 											if($the_query->have_posts()):
@@ -1119,6 +1159,11 @@ function generateRandomString($length = 10) {
 														
 													);
 												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
+												}
 											}
 											$the_query = new WP_Query( $args );
 											if($the_query->have_posts()):
@@ -1273,6 +1318,11 @@ function generateRandomString($length = 10) {
 															'terms' => $_GET['palavrab'],                  // term id, term slug or term name
 														
 													);
+												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
 												}
 											}
 											$the_query = new WP_Query( $args );
@@ -1466,6 +1516,11 @@ function generateRandomString($length = 10) {
 										
 									);
 								}
+
+								if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+									$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+									$args['meta_value'] = $_GET['despb']; 
+								}
 								$the_query = new WP_Query( $args );
 							?>							
 							<div class="row">
@@ -1520,13 +1575,19 @@ function generateRandomString($length = 10) {
 
 								<?php if($_GET['forma'] && $_GET['formab'][0] != ''): ?>
 									<div class="col-12">
-										<p class="search-title"><span class="azul-claro-acervo"><strong>Buscando por:</strong></span> Tipo de Formação - <?php echo get_term( $_GET['formab'] )->name; ?></p>
+										<p class="search-title"><span class="azul-claro-acervo"><strong>Buscando por:</strong></span> Tipo de Formação - <?php echo get_term( $_GET['formab'][0] )->name; ?></p>
 									</div>
 								<?php endif; ?>
 
 								<?php if($_GET['area'] && $_GET['areab'][0] != ''): ?>
 									<div class="col-12">
 										<p class="search-title"><span class="azul-claro-acervo"><strong>Buscando por:</strong></span> Área promotora - <?php echo get_term( $_GET['areab'] )->name; ?></p>
+									</div>
+								<?php endif; ?>
+
+								<?php if($_GET['desp'] && $_GET['despb'][0] != ''): ?>
+									<div class="col-12">
+										<p class="search-title"><span class="azul-claro-acervo"><strong>Buscando por:</strong></span> Nº de despacho de homologação - <?php echo $_GET['despb']; ?></p>
 									</div>
 								<?php endif; ?>
 
