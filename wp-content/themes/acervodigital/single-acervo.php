@@ -307,6 +307,7 @@ function generateRandomString($length = 10) {
 					$allItens['autor'] = get_field('autor_acervo_digital'); // Autor
 					$allItens['setor'] = get_field('setor_acervo_digital'); // Setor
 					$allItens['idioma'] = get_field('idioma_acervo_digital'); //Idioma
+					$allItens['pagina'] = get_field('pagina_do_diario_oficial'); //Pagina Diario Oficial
 					
 					// Tipo
 					if($partional && !$file){
@@ -469,279 +470,267 @@ function generateRandomString($length = 10) {
 									<p><?php the_field('descricao_acervo_digital'); ?></p>
 								</div>
 								<div id="especi" class="tab-pane fade">
-								<table class="table table-bordered table-espec">
-										<tbody>
-											<?php
-												$count = 1;
-												$vazio = 0;
-												foreach($allItens as $chave => $item){
-													
-													if($allItens[$chave] != '' || $allItens[$chave][0] != ''){
-														
-														if($count % 2 == 1 && $vazio == 0){
-															echo "<tr>";
-														}
-															if($chave == 'modalidade'): ?>
-																<td scope="col">
-																	<strong>Modalidade de ensino</strong><br>
-																	<?php
-																	$modalidades = $item;
+									<div class="row table-especificacoes">
+									<?php
+										$contador = 0;
+										foreach($allItens as $chave => $item){
+												
+											if($allItens[$chave] != '' || $allItens[$chave][0] != ''){
+												$contador++;
 
-																	if($modalidades != '' && ($tipo == 'publicacoes_institucionais' || $tipo == 'proposta_formativa') ){
-																		$n = 0;									
-																		if( $modalidades ):
-																			foreach( $modalidades as $modalidade ):
-																				if($n == 0){
-																					echo "<a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidade%5B%5D=" . $modalidade->term_id . "'>" . $modalidade->name . "</a>";
-																				} else {
-																					echo " / <a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidade%5B%5D=" . $modalidade->term_id . "'>" . $modalidade->name . "</a>";
-																				}
-																				$n++;																
-																			endforeach;
-																		endif; 
+												if($chave == 'modalidade'): ?>
+													<div class="col-6 espec-element">
+														<strong>Modalidade de ensino</strong><br>
+														<?php
+														$modalidades = $item;
+
+														if($modalidades != '' && ($tipo == 'publicacoes_institucionais' || $tipo == 'proposta_formativa') ){
+															$n = 0;									
+															if( $modalidades ):
+																foreach( $modalidades as $modalidade ):
+																	if($n == 0){
+																		echo "<a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidade%5B%5D=" . $modalidade->term_id . "'>" . $modalidade->name . "</a>";
+																	} else {
+																		echo " / <a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidade%5B%5D=" . $modalidade->term_id . "'>" . $modalidade->name . "</a>";
 																	}
-																	?>
-
-																</td>
-															<?php elseif($chave == 'componente'): ?>
-																<td scope="col">
-																	<strong>Componente curricular</strong><br>
-																	<?php
-																		$terms = $item;
-																		if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
-																			$n = 0;
-																			if( $terms ):
-																				foreach( $terms as $term ):
-																					if($n == 0){
-																						echo "<a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componente%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
-																					} else {
-																						echo " / <a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componente%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
-																					}
-																					$n++;															
-																				endforeach;
-																			endif;  
-																		} 
-																	?>
-																</td>
-															<?php elseif($chave == 'formacao'): ?>
-																<td scope="col">
-																	<strong>Tipo de Formação</strong><br>
-																	<?php
-																		$terms = $item;
-																		if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
-																			$n = 0;
-																			if( $terms ):
-																				foreach( $terms as $term ):
-																					if($n == 0){
-																						echo "<a href='" . get_home_url() . "/?avanc=1&forma=1&s=&formab=" . $term->term_id . "'>" . $term->name . "</a>";
-																					} else {
-																						echo " / <a href='" . get_home_url() . "/?avanc=1&forma=1&s=&formab=" . $term->term_id . "'>" . $term->name . "</a>";
-																					}
-																					$n++;															
-																				endforeach;
-																			endif;  
-																		} else {
-																			echo "-";
-																		}
-																	?>
-																</td>
-															<?php elseif($chave == 'promotora'): ?>
-																<td scope="col">
-																	<strong>Área promotora</strong><br>
-																	<?php
-																		$terms = $item;
-																		if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
-																			$n = 0;
-																			if( $terms ):
-																				foreach( $terms as $term ):
-																					if($n == 0){
-																						echo "<a href='" . get_home_url() . "/?avanc=1&area=1&s=&areab=" . $term->term_id . "'>" . $term->name . "</a>";
-																					} else {
-																						echo " / <a href='" . get_home_url() . "/?avanc=1&area=1&s=&areab=" . $term->term_id . "'>" . $term->name . "</a>";
-																					}
-																					$n++;															
-																				endforeach;
-																			endif;  
-																		} else {
-																			echo "-";
-																		}
-																	?>
-																</td>
-															<?php elseif($chave == 'alvo'): ?>
-																<td scope="col">
-																	<strong>Público alvo</strong><br>
-																	<?php
-																		$terms = $item;
-																		if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
-																			$n = 0;
-																			if( $terms ):
-																				foreach( $terms as $term ):
-																					if($n == 0){
-																						echo "<a href='" . get_home_url() . "/?avanc=1&alvo=1&s=&alvob=" . $term->term_id . "'>" . $term->name . "</a>";
-																					} else {
-																						echo " / <a href='" . get_home_url() . "/?avanc=1&alvo=1&s=&alvob=" . $term->term_id . "'>" . $term->name . "</a>";
-																					}
-																					$n++;															
-																				endforeach;
-																			endif;  
-																		} 
-																	?>
-																</td>															
-															<?php elseif($chave == 'autor'): ?>
-																<td scope="col">
-																	<strong>Autor</strong><br>
-																	<?php
-																		$autores = $item;
-																		if($autores != '' || $autores[0] != ''){
-																			$n = 0;
-																			if( $autores ):
-																				foreach( $autores as $autor ):
-																					if($n == 0){
-																						echo "<a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autor=" . $autor->slug . "'>" . $autor->name . "</a>";
-																					} else {
-																						echo " / <a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autor=" . $autor->slug . "'>" . $autor->name . "</a>";
-																					}
-																					$n++;																	
-																				endforeach;
-																			endif;
-																		}
-																	?>
-																</td>
-															<?php elseif($chave == 'setor'): ?>
-																<td>
-																	<strong>Setor</strong><br>
-																	<?php
-																		$setores = $item;
-																		if($setores != '' || $setores[0] != 0){
-																			$n = 0;
-																			if( $setores ):
-																				foreach( $setores as $setor ):
-																					if($n == 0){
-																						echo "<a href='" . get_home_url() . "/?avanc=1&set=1&s=&setor%5B%5D=" . $setor->term_id . "'>" . $setor->name . "</a>";
-																					} else {
-																						echo " / <a href='" . get_home_url() . "/?avanc=1&set=1&s=&setor%5B%5D=" . $setor->term_id . "'>" . $setor->name . "</a>";
-																					}
-																					$n++;																	
-																				endforeach;
-																			endif;
-																		}
-																	?>
-																</td>
-															<?php elseif($chave == 'despacho'): ?>
-																<td scope="col">
-																	<strong>Nº de despacho de homologação</strong><br>
-																	<?php echo $item; ?>
-																</td>
-															<?php elseif($chave == 'proposta'): ?>
-																<td scope="col">
-																	<strong>Nº da proposta de validação</strong><br>
-																	<?php echo $item; ?>
-																</td>
-															<?php elseif($chave == 'comunicado'): ?>
-																<td scope="col">
-																	<strong>Número do comunicado</strong><br>
-																	<?php echo $item; ?>
-																</td>
-															<?php elseif($chave == 'periodo'): ?>
-																<td scope="col">
-																	<strong>Período de inscrição</strong><br>
-																	<?php echo $item; ?>
-																</td>
-															<?php elseif($chave == 'mes'):?>
-																<td scope="col">
-																	<strong>Mês de publicação</strong><br>
-																	<?php echo $item; ?>
-																</td>
-															<?php elseif($chave == 'ano'):?>
-																<td scope="col">
-																	<strong>Ano de publicação</strong><br>
-																	<?php echo "<a href='" . get_home_url() . "/?avanc=1&tano=1&s=&ano%5B%5D=" . $item . "'>" . $item . "</a>";?>
-																</td>
-															<?php elseif($chave == 'tipo'):?>
-																<td scope="col">
-																	<strong>Tipo</strong><br>
-																	<span class="upper"><?php echo $item; ?></span>
-																</td>
-															<?php elseif($chave == 'tamanho'): ?>
-																<td>
-																	<strong>Tamanho do documento</strong><br>
-																	<?php echo $item; ?>
-																</td>
-															<?php elseif($chave == 'idioma'): ?>
-																<td scope="col">
-																	<strong>Idioma</strong><br>
-																	<?php
-																		$idiomas = $item;
-																		if($idiomas != '' || $idiomas[0] != ''){
-																			$n = 0;
-																			if( $idiomas ):
-																				foreach( $idiomas as $idioma ):
-																					if($n == 0){
-																						echo "<a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idioma%5B%5D=" . $idioma->term_id . "'>" . $idioma->name . "</a>";
-																					} else {
-																						echo " / <a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idioma%5B%5D=" . $idioma->term_id . "'>" . $idioma->name . "</a>";
-																					}
-																					$n++;															
-																				endforeach;
-																			endif;
-																		}
-																	?>
-																</td>															
-															<?php elseif($chave == 'views'): ?>
-																<td>
-																	<strong>Número de visualizações</strong><br>
-																	<?php echo $item; ?>
-																</td>
-															<?php endif;															
-															
-														if($count % 2 == 0 && $vazio == 0){
-															echo "</tr>";
+																	$n++;																
+																endforeach;
+															endif; 
 														}
-
-														$count++;													
-														
-														$vazio = 0;
-													} else {
-														$vazio = 1;
-													}													
-													
-												}
-												if($count % 2 == 1){
-													echo "</tr>";
-												}
-
-											?>
-											<?php 
-												$palavras = get_the_terms(get_the_ID(), 'palavra' );
-												if($palavras != '' || $palavras[0] != ''):
-											?>
-												<tr>												
-													<td colspan='2'>
-														<strong>Palavras-chave</strong><br>
-														<span class='single-palavras'>
-															<?php
-																
+														?>
+													</div>
+												<?php elseif($chave == 'componente'): ?>
+													<div class="col-6 espec-element">
+														<strong>Componente curricular</strong><br>
+														<?php
+															$terms = $item;
+															if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
 																$n = 0;
-																if($palavras){
-																	foreach($palavras as $palavra){
+																if( $terms ):
+																	foreach( $terms as $term ):
 																		if($n == 0){
-																			echo "<a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavra=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
+																			echo "<a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componente%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
 																		} else {
-																			echo " <a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavra=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
+																			echo " / <a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componente%5B%5D=" . $term->term_id . "'>" . $term->name . "</a>";
 																		}
-																		$n++;
-																	}
+																		$n++;															
+																	endforeach;
+																endif;  
+															} 
+														?>
+													</div>
+												<?php elseif($chave == 'formacao'): ?>
+													<div class="col-6 espec-element">
+														<strong>Tipo de Formação</strong><br>
+														<?php
+															$terms = $item;
+															if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
+																$n = 0;
+																if( $terms ):
+																	foreach( $terms as $term ):
+																		if($n == 0){
+																			echo "<a href='" . get_home_url() . "/?avanc=1&forma=1&s=&formab[]=" . $term->term_id . "'>" . $term->name . "</a>";
+																		} else {
+																			echo " / <a href='" . get_home_url() . "/?avanc=1&forma=1&s=&formab[]=" . $term->term_id . "'>" . $term->name . "</a>";
+																		}
+																		$n++;															
+																	endforeach;
+																endif;  
+															} else {
+																echo "-";
+															}
+														?>
+													</div>
+												<?php elseif($chave == 'promotora'): ?>
+													<div class="col-6 espec-element">
+														<strong>Área promotora</strong><br>
+														<?php
+															$terms = $item;
+															if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
+																$n = 0;
+																if( $terms ):
+																	foreach( $terms as $term ):
+																		if($n == 0){
+																			echo "<a href='" . get_home_url() . "/?avanc=1&area=1&s=&areab=" . $term->term_id . "'>" . $term->name . "</a>";
+																		} else {
+																			echo " / <a href='" . get_home_url() . "/?avanc=1&area=1&s=&areab=" . $term->term_id . "'>" . $term->name . "</a>";
+																		}
+																		$n++;															
+																	endforeach;
+																endif;  
+															}
+														?>
+													</div>
+												<?php elseif($chave == 'alvo'): ?>
+													<div class="col-6 espec-element">
+														<strong>Público alvo</strong><br>
+														<?php
+															$terms = $item;
+															if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
+																$n = 0;
+																if( $terms ):
+																	foreach( $terms as $term ):
+																		if($n == 0){
+																			echo "<a href='" . get_home_url() . "/?avanc=1&alvo=1&s=&alvob=" . $term->term_id . "'>" . $term->name . "</a>";
+																		} else {
+																			echo " / <a href='" . get_home_url() . "/?avanc=1&alvo=1&s=&alvob=" . $term->term_id . "'>" . $term->name . "</a>";
+																		}
+																		$n++;															
+																	endforeach;
+																endif;  
+															} 
+														?>
+													</div>															
+												<?php elseif($chave == 'autor'): ?>
+													<div class="col-6 espec-element">
+														<strong>Autor</strong><br>
+														<?php
+															$autores = $item;
+															if($autores != '' || $autores[0] != ''){
+																$n = 0;
+																if( $autores ):
+																	foreach( $autores as $autor ):
+																		if($n == 0){
+																			echo "<a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autor=" . $autor->slug . "'>" . $autor->name . "</a>";
+																		} else {
+																			echo " / <a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autor=" . $autor->slug . "'>" . $autor->name . "</a>";
+																		}
+																		$n++;																	
+																	endforeach;
+																endif;
+															}
+														?>
+													</div>
+												<?php elseif($chave == 'setor'): ?>
+													<div class="col-6 espec-element">
+														<strong>Setor</strong><br>
+														<?php
+															$setores = $item;
+															if($setores != '' || $setores[0] != 0){
+																$n = 0;
+																if( $setores ):
+																	foreach( $setores as $setor ):
+																		if($n == 0){
+																			echo "<a href='" . get_home_url() . "/?avanc=1&set=1&s=&setor%5B%5D=" . $setor->term_id . "'>" . $setor->name . "</a>";
+																		} else {
+																			echo " / <a href='" . get_home_url() . "/?avanc=1&set=1&s=&setor%5B%5D=" . $setor->term_id . "'>" . $setor->name . "</a>";
+																		}
+																		$n++;																	
+																	endforeach;
+																endif;
+															}
+														?>
+													</div>
+												<?php elseif($chave == 'despacho'): ?>
+													<div class="col-6 espec-element">
+														<strong>Nº de despacho de homologação</strong><br>
+														<?php echo "<a href='" . get_home_url() . "/?avanc=1&desp=1&s=&despb=" . $item . "'>" . $item . "</a>"; ?>
+													</div>
+												<?php elseif($chave == 'pagina'): ?>
+													<div class="col-6 espec-element">
+														<strong>Página do Diário Oficial</strong><br>
+														<?php echo $item; ?>
+													</div>
+												<?php elseif($chave == 'proposta'): ?>
+													<div class="col-6 espec-element">
+														<strong>Nº da proposta de validação</strong><br>
+														<?php echo $item; ?>
+													</div>
+												<?php elseif($chave == 'comunicado'): ?>
+													<div class="col-6 espec-element">
+														<strong>Número do comunicado</strong><br>
+														<?php echo $item; ?>
+													</div>
+												<?php elseif($chave == 'periodo'): ?>
+													<div class="col-6 espec-element">
+														<strong>Período de inscrição</strong><br>
+														<?php echo $item; ?>
+													</div>
+												<?php elseif($chave == 'mes'):?>
+													<div class="col-6 espec-element">
+														<strong>Mês de publicação</strong><br>
+														<?php echo $item; ?>
+													</div>
+												<?php elseif($chave == 'ano'):?>
+													<div class="col-6 espec-element">
+														<strong>Ano de publicação</strong><br>
+														<?php echo "<a href='" . get_home_url() . "/?avanc=1&tano=1&s=&ano%5B%5D=" . $item . "'>" . $item . "</a>";?>
+													</div>
+												<?php elseif($chave == 'tipo'):?>
+													<div class="col-6 espec-element">
+														<strong>Tipo</strong><br>
+														<span class="upper"><?php echo $item; ?></span>
+													</div>
+												<?php elseif($chave == 'tamanho'): ?>
+													<div class="col-6 espec-element">
+														<strong>Tamanho do documento</strong><br>
+														<?php echo $item; ?>
+													</div>
+												<?php elseif($chave == 'idioma'): ?>
+													<div class="col-6 espec-element">
+														<strong>Idioma</strong><br>
+														<?php
+															$idiomas = $item;
+															if($idiomas != '' || $idiomas[0] != ''){
+																$n = 0;
+																if( $idiomas ):
+																	foreach( $idiomas as $idioma ):
+																		if($n == 0){
+																			echo "<a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idioma%5B%5D=" . $idioma->term_id . "'>" . $idioma->name . "</a>";
+																		} else {
+																			echo " / <a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idioma%5B%5D=" . $idioma->term_id . "'>" . $idioma->name . "</a>";
+																		}
+																		$n++;															
+																	endforeach;
+																endif;
+															}
+														?>
+													</div>															
+												<?php elseif($chave == 'views'): ?>
+													<div class="col-6 espec-element">
+														<strong>Número de visualizações</strong><br>
+														<?php echo $item; ?>
+													</div>
+												<?php endif;
+											}
+										}
+
+										//print_r($contador);
+									?>
+
+									<?php if($contador % 2 == 1): ?>
+										<div class="col-6 espec-element">&nbsp;</div>
+									<?php endif; ?>
+
+									<?php 
+										$palavras = get_the_terms(get_the_ID(), 'palavra' );
+										if($palavras != '' || $palavras[0] != ''):
+									?>
+																						
+											<div class="col-12 espec-element">
+												<strong>Palavras-chave</strong><br>
+												<span class='single-palavras'>
+													<?php
+														
+														$n = 0;
+														if($palavras){
+															foreach($palavras as $palavra){
+																if($n == 0){
+																	echo "<a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavra=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
 																} else {
-																	echo "-";
+																	echo " <a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavra=" . $palavra->term_id . "'>" . $palavra->name . "</a>";
 																}
-																
-															?>
-														</span>
-													</td>
-												</tr>
-											<?php endif; ?>
-										</tbody>
-									</table>
+																$n++;
+															}
+														} else {
+															echo "-";
+														}
+														
+													?>
+												</span>
+											</div>
+										
+									<?php endif; ?>
 								</div>								
 							</div>
 						</div>
