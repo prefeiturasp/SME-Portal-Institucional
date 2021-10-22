@@ -1673,3 +1673,17 @@ function update_user_option_admin_color( $color_scheme ) {
 
     return $color_scheme;
 }
+
+// Ocultar Unidades(Categorias) e Tags de Eventos(Posts)
+add_filter( 'quick_edit_show_taxonomy', function( $show, $taxonomy_name, $view ) {
+
+    if ( 'category' == $taxonomy_name ){
+		return false;
+	}
+
+	if ( 'post_tag' == $taxonomy_name ){
+		return false;
+	}
+
+    return $show;
+}, 10, 3 );
