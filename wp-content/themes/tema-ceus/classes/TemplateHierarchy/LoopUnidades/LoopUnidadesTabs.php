@@ -274,13 +274,13 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                         $online = get_field('tipo_de_evento_online', $eventoID);
                                                         $tipoEvento = get_field('tipo_de_evento_tipo', $eventoID);
 
-                                                        $featured_img_url = wp_get_attachment_image_src($imgSelect, 'recorte-unidades');
+                                                        $featured_img_url = wp_get_attachment_image_src($imgSelect, 'recorte-eventos');
                                                         if($featured_img_url){
                                                             $imgEvento = $featured_img_url[0];
                                                             //$thumbnail_id = get_post_thumbnail_id( $eventoID );
                                                             $alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
                                                         } else {
-                                                            $imgEvento = 'https://via.placeholder.com/575x297';
+                                                            $imgEvento = 'https://via.placeholder.com/820x380';
                                                             $alt = get_the_title($eventoID);
                                                         }
                                                     ?>
