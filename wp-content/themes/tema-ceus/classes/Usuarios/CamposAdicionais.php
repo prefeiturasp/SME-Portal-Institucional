@@ -8,12 +8,7 @@ class CamposAdicionais
 
 	public function __construct()
 	{
-		// Add e Salvando o campo personalizado
-		add_action('show_user_profile', array($this, 'fb_add_custom_user_profile_fields'));
-		add_action('edit_user_profile', array($this, 'fb_add_custom_user_profile_fields'));
-		add_action('personal_options_update', array($this, 'fb_save_custom_user_profile_fields'));
-		add_action('edit_user_profile_update', array($this, 'fb_save_custom_user_profile_fields'));
-
+	
 		add_filter('manage_users_columns', array($this, 'exibe_cols'));
 		add_filter('manage_users_custom_column', array($this, 'cols_content'), 10, 3);
 		add_filter('manage_users_sortable_columns', array($this, 'cols_sort'));
@@ -23,9 +18,9 @@ class CamposAdicionais
 
 		//$this->exibeTodosUsuarios();
 
-		add_action( 'restrict_manage_users', array($this,'add_setor_filter' ));
+		add_action( 'restrict_manage_users', array($this,'add_grupo_filter' ));
 
-		add_filter( 'pre_get_users', array($this,'filter_users_by_setor' ));
+		add_filter( 'pre_get_users', array($this,'filter_users_by_grupo' ));
 
 
 	}
@@ -45,22 +40,22 @@ class CamposAdicionais
 
 	}
 
-	public function getUsersSetorUnique($users){
+	public function getUsersgrupoUnique($users){
 
-		$setor_unico = [];
+		$grupo_unico = [];
 		foreach ($users as $user_id){
-			$setor_unico[] = get_user_meta($user_id, 'setor', true);
+			$grupo_unico[] = get_user_meta($user_id, 'grupo', true);
 		}
 
-		return array_unique($setor_unico, SORT_REGULAR);
+		return array_unique($grupo_unico, SORT_REGULAR);
 
 
 	}
 
-	function add_setor_filter() {
+	function add_grupo_filter() {
 
-		if ( isset( $_GET[ 'setor' ]) && $_GET[ 'setor' ][0] !== '0') {
-			$section = $_GET[ 'setor' ];
+		if ( isset( $_GET[ 'grupo' ]) && $_GET[ 'grupo' ][0] !== '0') {
+			$section = $_GET[ 'grupo' ];
 			$section = !empty( $section[ 0 ] ) ? $section[ 0 ] : $section[ 1 ];
 		} else {
 			$section = -1;
@@ -68,17 +63,17 @@ class CamposAdicionais
 
 		$users = $this->exibeTodosUsuarios();
 
-		$setores_unicos = $this->getUsersSetorUnique($users);
+		$grupos_unicos = $this->getUsersgrupoUnique($users);
 
-		echo ' <select name="setor[]" style="float:none;">';
-		echo'<option value="0" selected="selected">Todos os setores</option>';
+		echo ' <select name="grupo[]" style="float:none;">';
+		echo'<option value="0" selected="selected">Todos os grupos</option>';
 
-		foreach ($setores_unicos as $setor){
+		foreach ($grupos_unicos as $grupo){
 
-			$selected = $setor == $section ? ' selected="selected"' : '';
+			$selected = $grupo == $section ? ' selected="selected"' : '';
 
-			if ($setor) {
-				echo '<option value="' . $setor . '"' . $selected . '>' . $setor . '</option>';
+			if ($grupo) {
+				echo '<option value="' . $grupo . '"' . $selected . '>' . $grupo . '</option>';
 			}
 		}
 		echo '</select>';
@@ -86,28 +81,26 @@ class CamposAdicionais
 	}
 
 
-	function filter_users_by_setor( $query ) {
+	function filter_users_by_grupo( $query ) {
 		global $pagenow;
-
-		if ( is_admin() &&
-			'users.php' == $pagenow &&
-			isset( $_GET[ 'setor' ] ) &&
-			is_array( $_GET[ 'setor' ] )
+    
+		if ( is_admin() && 
+			'users.php' == $pagenow && 
+			isset( $_GET[ 'grupo_id' ] ) && 
+			!empty( $_GET[ 'grupo_id' ] ) 
 		) {
-			$section = $_GET[ 'setor' ];
-
-			if ($section[ 0 ] !== "0") {
-
-				$section = !empty($section[0]) ? $section[0] : $section[1];
-				$meta_query = array(
-					array(
-						'key' => 'setor',
-						'value' => $section
-					)
-				);
-				$query->set('meta_key', 'setor');
-				$query->set('meta_query', $meta_query);
-			}
+			$section = $_GET[ 'grupo_id' ];
+			$meta_query = array(
+				array(
+					'key' => 'grupo', // name of custom field
+					'value' => '"' . $section . '"', // matches exaclty "123", not just 123. This prevents a match for "1234"
+					'compare' => 'LIKE'
+				)
+			);
+			
+			$query->set( 'meta_key', 'grupo' );
+			$query->set( 'meta_query', $meta_query );
+			
 		}
 	}
 
@@ -134,72 +127,41 @@ class CamposAdicionais
 		//}
 	}
 
-	function orderby($vars)
-	{
-		if (is_admin()) {
-			if (isset($vars['orderby']) && $vars['orderby'] == 'setor') {
-				$vars['orderby'] = 'setor';
-			}
-
-
-		}
-		return $vars;
-	}
-
-	public function cols_sort($cols)
-	{
-		$cols['setor'] = 'setor';
-		return $cols;
-	}
-
-
-	public function fb_add_custom_user_profile_fields($user)
-	{
-		?>
-        <h3><?php _e('Informações adicionais dos usuários', 'your_textdomain'); ?></h3>
-
-        <table class="form-table">
-            <tr>
-                <th>
-                    <label for="setor"><?php _e('Setor', 'your_textdomain'); ?>
-                    </label></th>
-                <td>
-                    <input type="text" name="setor" id="setor"
-                           value="<?php echo esc_attr(get_the_author_meta('setor', $user->ID)); ?>"
-                           class="regular-text"/><br/>
-                    <span class="description"><?php _e('Por favor entre com o setor do usuário.', 'your_textdomain'); ?></span>
-                </td>
-            </tr>
-        </table>
-	<?php }
-
-	public function fb_save_custom_user_profile_fields($user_id)
-	{
-
-		if (!current_user_can('edit_user', $user_id))
-			return FALSE;
-
-		update_user_meta($user_id, 'setor', $_POST['setor']);
-	}
-
 	//Exibindo as colunas no Dashboard
 	public function exibe_cols($cols)
 	{
-		$cols['setor'] = 'Setor';
+		$cols['grupo'] = 'Grupos';
 		return $cols;
 	}
 
 	//Exibindo as informações correspondentes de cada coluna
 	public function cols_content($val, $column_name, $user_id)
 	{
-		$user_setor = get_user_meta($user_id, 'setor', true);
+		$user_grupo = get_user_meta($user_id, 'grupo', true);
 
 		switch ($column_name) {
-			case 'setor' :
-				if ($user_setor){
-					return "<p><strong>$user_setor</strong></p>";
+			case 'grupo' :
+				
+				// pega o grupo que o usuario pertence
+				$usergrupos = get_field('grupo', 'user_' . $user_id);
+				
+				$returngrupos = '';
+				
+				if($usergrupos && $usergrupos != ''){
+					$b = 0;
+					foreach($usergrupos as $usergrupo){
+						if($b == 0){
+							$returngrupos .= "<a href='" . admin_url('users.php?grupo_id=' . $usergrupo) . "'>" . get_the_title($usergrupo) . "</a>";
+						} else {
+							$returngrupos .= ", <a href='" . admin_url('users.php?grupo_id=' . $usergrupo) . "'>" . get_the_title($usergrupo) . "</a>";
+						}
+						$b++;				
+					}
+		
+					//print_r($variable);
+					return $returngrupos;
 				}else{
-					return "<p>Nenhum Setor Cadastrado</p>";
+					return "<p>Sem grupo atribuído</p>";
 				}
 			default:
 		}
