@@ -39,9 +39,10 @@ $s('#attachment-details-two-column-alt-text').each(function() {
     $s(this).replaceWith(textbox);
 });
 
-window.onload = function() {
+window.onload = function() {    
+
     var $div = $s("#__wp-uploader-id-0");
-    console.log($div);
+    
     var observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if (mutation.attributeName === "class") {
@@ -54,7 +55,7 @@ window.onload = function() {
                     //console.log(this.attributes);
                     $s.each(this.attributes, function() {
                         if (this.specified) {
-                            textbox.attr('id', 'attachment-details-two-column-alt-text');
+                            textbox.attr( 'id', 'attachment-details-two-column-alt-text');
                         }
                     });
                     $s(this).replaceWith(textbox);
@@ -62,7 +63,25 @@ window.onload = function() {
             }
         });
     });
-    observer.observe($div[0], {
-        attributes: true
+
+    if ($div.length){
+        observer.observe($div[0], {
+            attributes: true
+        });
+    }    
+
+    var $divPop = $s(".wp-admin");
+    var observerPop = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+           
+            if (mutation.attributeName === "class") {              
+                $s('.media-frame-toolbar .media-toolbar-secondary').append("<div class='notice notice-warning'><p><strong>ALERTA: Não se esqueça de recortar a imagem!</strong></p></div>");               
+            }
+        });        
     });
+    if ($divPop.length){
+        observerPop.observe($divPop[0], {
+            attributes: true
+        });
+    }    
 }
