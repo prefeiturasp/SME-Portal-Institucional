@@ -4,12 +4,16 @@
 ?>
 
 <div class="container" id="publicacoes">
+    <div class="send-button">   
+        <a href="#form-quebrada" class="btn btn-send-form d-block d-sm-none">Compartilhar</a>
+    </div>
+    
     <?php if($titulo): ?>
         <div class="quebrada-title"><?php echo $titulo; ?></div>
     <?php endif; ?>
 
     
-    <div class="cuida-filters">
+    <div class="cuida-filters d-none d-md-block">
         
         <div class="filter-list">
             <?php
@@ -36,6 +40,64 @@
 
         </div>
     </div>
+    
+    <div class="btn-filter-quebra">
+        <button type="button" class="btn btn-outline-primary btn-avanc-f btn-avanc btn-avanc-m d-block d-md-none b-0 btn-liga" data-toggle="modal" data-target="#filtroBusca">
+            <i class="fa fa-filter" aria-hidden="true"></i> Filtrar 
+            <?php if($countBusca > 0): ?>
+                <span class="badge badge-primary"><?php echo $countBusca; ?></span>
+            <?php endif; ?>
+        </button>
+        <?php if($_GET['filter'] && $_GET['filter'] != ''): ?>
+            <span class="badge badge-primary">1</span>
+        <?php endif; ?>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal right fade filter-quebra" id="filtroBusca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <p class="modal-title" id="myModalLabel2">Filtrar por:</p>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>				
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="cuida-filters">
+                        
+                        <div class="filter-list quebra-filter">
+                            <?php
+                                $terms = get_terms( array(
+                                    'taxonomy' => 'categoria-quebrada',
+                                    'hide_empty' => true,
+                                ) );
+
+                                if($_GET['filter'] && $_GET['filter'] != ''){
+                                    $active = $_GET['filter'];
+                                }
+
+                                $current = get_the_permalink(get_the_ID());
+                                foreach($terms as $term):
+                                    if($active == $term->term_id):
+                                    ?>        
+                                        <a href="<?php echo $current;?>" class="filter-link filter-active"><i class="fa fa-check" aria-hidden="true"></i> <?php echo $term->name; ?></a>                       
+                                    
+                                    <?php else: ?>
+                                        <a href="<?php echo $current . '?filter=' . $term->term_id;?>" class="filter-link"><?php echo $term->name; ?></a> 
+                                    <?php
+                                    endif;
+                                endforeach; ?>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
         
     
     <?php

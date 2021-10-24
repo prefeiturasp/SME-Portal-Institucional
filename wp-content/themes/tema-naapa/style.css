@@ -2135,6 +2135,11 @@ a.nextpostslink {
 	float: left;
 }
 
+.column.size-1of2{
+    width: 50%;
+	float: left;
+}
+
 #more_quebrada {
     width: 70%;
     margin-left: 15%;
@@ -2294,6 +2299,23 @@ p.comment-form-cookies-consent{
     transition: all 0.2s ease-in-out;
 }
 
+.tabs li picture{
+    transition: 0.2s;
+}
+
+.tabs li.current picture:before,
+.tabs li:hover picture:before {
+    background: rgba(0, 0, 0, 0.3);
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    max-width: 132px;
+    padding: 0 3px;
+    transition: 0.2s;
+}
+
 .tabs img {
     border-radius: 50%;
 }
@@ -2431,4 +2453,489 @@ a.filter-link.filter-active.type-page{
     border-top: 1px solid #000000;
     margin-top: 30px;
     padding-top: 20px;
+}
+
+
+/*** Carrocel Noticias ***/
+
+.swiper-slide {
+    width: auto !important;
+}
+
+.swiper-slide .noticias,
+.swiper-slide .quebrada-curtidas {
+    max-width: 250px;
+}
+
+.mobile-tabs{
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding-bottom: 15px;
+}
+
+.mobile-tabs li{
+    display: inline-block;
+    float: none;
+    max-width: 100px;
+}
+
+@media (max-width: 768px) {
+    .btn-menu .fa {
+        background: #E7600C;
+        color: #FFFFFF;
+        margin: 0;
+        font-size: 18px;
+        padding: 9px 12px;
+    }
+
+    .btn-menu{
+        font-size: 20px;
+    }
+
+    .search-top{
+        display: none;
+        margin-bottom: 20px;
+    }
+
+    div#menu,
+    div#filtroBusca {
+        z-index: 99999;
+    }
+
+    #menu .modal-dialog{
+        margin-top: 0;
+        padding-bottom: 0;
+    }
+
+    #menu button.close {
+        width: auto;
+        float: right;
+        position: relative;
+        background: #F3F3F3;
+        opacity: 1;
+        padding: 1rem 1.2rem !important;
+    }
+
+    #menu .modal-header {
+        background: #FFFFFF;
+        border-radius: 0;
+        font-weight: bold;
+    }
+
+    #menu ul li{
+        padding-left: 0;
+    }
+
+    li.list-inline-item {
+        margin-bottom: 13px;
+    }
+}
+
+/**** Mobile ****/
+@media (max-width: 575px) {
+    
+
+    .bg-destaque .dest-title {
+        font-size: 50px;
+    }
+
+    .img-banner {
+        position: absolute;
+    }
+
+    .bg-destaque .img-banner picture{
+        background: #FFFFFF;
+        float: left;
+    }
+
+    .bg-destaque .img-banner img{
+        opacity: 0.4;
+        width: 100%;
+        margin: 0;
+    }
+
+    .title-special h1,
+    .title-special h2{
+        font-size: 40px;
+    }
+
+    .title-special a{
+        font-size: 22px;
+    }
+
+
+
+    /*** Banner Quebrada ***/
+
+    .banner-quebrada {
+        background-image: url(../../img/bg-quebrada-mobile.png);
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: cover;        
+        border-radius: 6px;
+    }
+
+    .banner-quebrada img{
+        padding: 0;
+        margin-top: -8px;
+        width: 175%;
+        max-width: 175%;
+    }
+
+    .banner-quebrada h2 {
+        font-size: 26px;
+        margin-right: 20px;
+        margin-top: 0px;
+        padding-top: 20px;
+        display: inline-block;
+    }
+
+    .banner-quebrada p {
+        color: #DADADA;
+        margin-right: 20px;
+        font-size: 14px;
+        margin-top: 0;
+        padding-left: 0;
+    }
+
+    .banner-quebrada .btn-quebrada {
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+
+
+    /*** Se Liga / Quem Cuida ***/
+    .news-dest.dest-one .dest-title p{
+        font-size: 16px;
+    }
+
+    .dest-title a.categ{
+        font-size: 13px;
+    }
+
+    .cuida-list-item .col-4{
+        padding: 0;
+    }
+
+    .liga-categs a,
+    .cuida-categs a{
+        font-size: 16px;
+    }
+
+    .cuida-date{
+        font-size: 12px;
+    }
+
+    .single-cuida-title .cuida-date{
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .cuida-infos{
+        margin-bottom: 10px;
+    }
+
+    .cuida-list-item h2 {
+        font-size: 16px;
+        line-height: 1.3;
+    }
+
+    .cuida-list-item p,
+    .cuida-list-item .excerpt{
+        display: none;
+    }
+
+    .single-cuida-title .primary-titile h1{
+        font-size: 20px;
+    }
+
+    .single-cuida-title .primary-titile h3 {
+        font-weight: normal;
+    }
+
+    .single-cuida h3{
+        font-size: 20px;
+    }
+
+    .lidas-widget {
+        border: 0;
+        border-radius: 0;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .cuida-categs{
+        margin-right: 10px;
+    }
+
+    .filter-liga button.close,
+    .filter-cuida button.close {
+        width: initial;
+        text-align: right;
+        position: relative;
+        padding: 1rem 1rem !important;
+    }
+
+    .modal.filter-liga .modal-content,
+    .modal.filter-cuida .modal-content {
+        background: #FFFFFF;
+    }
+
+    .modal.filter-liga .modal-header,
+    .modal.filter-cuida .modal-header {
+        margin-left: 20px;
+        margin-right: 20px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .modal.filter-liga .modal-title,
+    .modal.filter-liga button.close {
+        color: #E7600C;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+    .modal.filter-cuida .modal-title,
+    .modal.filter-cuida button.close {
+        color: #CF443C;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+    .modal.filter-liga .filter-list .filter-link,
+    .modal.filter-cuida .filter-list .filter-link{
+        display: table;
+        padding: 3px 10px;
+    }
+
+    .modal.right .modal-body{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .btn-filter .btn-liga,
+    .btn-filter-cuida .btn-cuida {
+        float: left;
+        margin-bottom: 30px;
+        color: #E7600C;
+        border-color: #E7600C;
+        margin-right: 10px;
+    }
+
+    .btn-filter-cuida .btn-cuida{
+        color: #CF443C;
+        border-color: #CF443C;
+    }
+
+    .btn-filter span.badge,
+    .btn-filter-cuida span.badge {
+        background: #E7600C;
+        margin-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 10px;
+    }
+
+    .btn-filter-cuida span.badge{
+        background: #CF443C;
+    }
+
+    .btn-filter .btn-outline-primary:not(:disabled):not(.disabled):active,
+    .btn-filter .btn-outline-primary:hover{
+        background: #E7600C;
+        border-color: #E7600C;
+    }
+
+    .btn-filter-cuida .btn-outline-primary:not(:disabled):not(.disabled):active,
+    .btn-filter-cuida .btn-outline-primary:hover{
+        background: #CF443C;;
+        border-color: #CF443C;;
+    }
+
+    .hr-divisor{
+        display: none;
+    }
+
+
+    /*** Na Quebrada ***/
+    .form-bg{
+        margin-top: 30px;
+    }
+
+    .send-button {
+        display: block;
+        width: 100%;
+        float: left;
+    }
+
+    .btn-send-form {
+        color: #15608A;
+        border: 2px solid #15608A;
+        width: auto;
+        float: left;
+        margin-bottom: 30px;
+    }
+
+    #more_quebrada{
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .content-quebrada {
+        border: 0;
+        box-shadow: initial;
+        padding: 0;
+    }
+
+    .content-quebrada img {
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .cuida-infos .cuida-date {
+        font-size: 14px;
+    }
+
+    .single-categ .quebrada-categ {
+        font-size: 22px;
+    }
+
+    .single-quebrada-infos h1 {
+        font-size: 24px;
+        color: #000000;
+        font-family: 'Poppins', sans-serif;
+        font-weight: bold;
+    }
+
+    .align-mobile{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .form-coments h3 {
+        font-size: 24px;
+        color: #000000;
+    }
+
+    .align-mobile .w-100{
+        width: auto !important;
+    }
+
+    .comment-form label {
+        font-weight: bold;
+    }
+
+    .comment-block.col-12 {
+        margin-top: 15px;
+        font-size: 18px;
+    }
+
+    .btn-filter-quebra {
+        display: block;
+        width: 100%;
+        float: left;
+    }
+
+    .btn-filter-quebra .btn-liga {
+        float: left;
+        margin-bottom: 30px;
+        color: #15608A;
+        border-color: #15608A;
+        margin-right: 10px;
+    }
+
+    .btn-filter-quebra span.badge {
+        background: #15608A;
+        margin-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 10px;
+    }
+
+    .btn-filter-quebra .btn-outline-primary:not(:disabled):not(.disabled):active,
+    .btn-filter-quebra .btn-outline-primary:hover{
+        background: #15608A;
+        border-color: #15608A;
+    }
+
+    .filter-quebra button.close {
+        width: initial;
+        text-align: right;
+        position: relative;
+        padding: 1rem 1rem !important;
+    }
+
+    .modal.filter-quebra .modal-content {
+        background: #FFFFFF;
+    }
+
+    .modal.filter-quebra .modal-header {
+        margin-left: 20px;
+        margin-right: 20px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .modal.filter-quebra .modal-title,
+    .modal.filter-quebra button.close {
+        color: #15608A;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+    .modal.filter-quebra .filter-list .filter-link{
+        display: table;
+        padding: 3px 10px;
+    }
+
+    .modal.filter-quebra a.filter-link.filter-active,
+    .modal.filter-quebra .filter-list .filter-link:hover{
+        color: #15608A;
+        border-color: #15608A;
+    }
+
+
+
+    /*** Turma do NAAPA ***/
+    .tabs li.current picture:before, .tabs li:hover picture:before {        
+        max-width: 93px;
+    }
+
+    .tabs_item .turma-descri {
+        font-size: 13px;
+        margin-right: 10px;
+        margin-left: 5px;
+    }
+
+    .tabs_item .turma-title{
+        margin-left: 5px;
+    }
+
+
+    /*** Footer ***/
+    #irrodape,
+    .rodape-api-col {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    #irrodape .logo-footer{
+        max-width: 75%;
+        display: block;
+        margin: 0 auto;
+    }
+
+    footer{
+        font-size: 14px;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    footer h2{
+        font-size: 18px;
+    }
 }

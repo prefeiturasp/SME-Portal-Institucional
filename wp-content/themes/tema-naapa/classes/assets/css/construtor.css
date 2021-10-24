@@ -461,9 +461,10 @@ iframe {
     border: 1px solid #000000;
     border-radius: 8px;
     color: #000000;
-    padding: 0 10px;
+    padding: 0 8px;
 	margin-bottom: 5px;
     transition: 0.2s;
+    margin-bottom: 10px;
 }
 
 .filter-list .filter-link:hover,

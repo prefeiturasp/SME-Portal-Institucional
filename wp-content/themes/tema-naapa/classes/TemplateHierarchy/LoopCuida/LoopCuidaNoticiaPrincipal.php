@@ -42,7 +42,7 @@ class LoopCuidaNoticiaPrincipal extends LoopCuida
 										}
 									?>
 								</div>
-								<div class="d-flex justify-content-between cuida-infos">									
+								<div class="d-block d-sm-flex justify-content-between cuida-infos">									
 									<div class="cuida-date">
 										Publicado em: <?php echo get_the_date( 'd/m/Y \à\s H\hi' ); ?>
 									</div>
@@ -92,11 +92,11 @@ class LoopCuidaNoticiaPrincipal extends LoopCuida
 
 											while ($second_query->have_posts() ) : $second_query->the_post(); ?>
 											<div class="row mx-0 cuida-list-item">
-												<div class="col-12 col-md-4">
+												<div class="col-4">
 													<?php $thumbs = get_thumb(get_the_ID(), 'cuida-news'); ?>
 													<a href="<?php echo get_the_permalink(); ?>"><img src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>" class="img-fluid"></a>
 												</div>
-												<div class="col-12 col-md-8">
+												<div class="col-8">
 													<?php
 														$categories = get_the_terms(get_the_ID(), 'categoria-cuida');
 														$separator = ' / ';
@@ -118,14 +118,16 @@ class LoopCuidaNoticiaPrincipal extends LoopCuida
 														</div>
 													</div>
 													<h2><a href="<?php echo get_the_permalink(); ?>"><?php the_title(); ?></a></h2>
-													<?php
-														$sub = get_field( "insira_o_subtitulo", get_the_ID() );
-														if($sub){
-															echo "<p>" . $sub . "</p>";
-														} else {
-															echo "<p>" . get_the_excerpt() . "</p>";
-														}
-													?>													
+													<div class="excerpt">
+														<?php
+															$sub = get_field( "insira_o_subtitulo", get_the_ID() );
+															if($sub){
+																echo "<p>" . $sub . "</p>";
+															} else {
+																echo "<p>" . get_the_excerpt() . "</p>";
+															}
+														?>
+													</div>												
 												</div>                    
 											</div>
 											<?php endwhile; wp_reset_query();

@@ -47,15 +47,15 @@ if (post_password_required()) { ?>
 	// Customizando os campos do comment_form()
 	$comment_args = array('title_reply' => '',
 		'fields' => apply_filters('comment_form_default_fields', array(
-				'author' => '<div class="row"><div class="form-group col"><label for="author">' . __('Name'). '*' . ($req ? ' <span class="required">*</span>' : '') . '</label> ' .
+				'author' => '<div class="row"><div class="form-group col-12 col-md-6"><label for="author">' . __('Name'). '*' . ($req ? ' <span class="required">*</span>' : '') . '</label> ' .
 					'<input placeholder="Digite seu nome e  sobrenome" class="form-control" id="author" name="author" type="text" value="' . esc_attr($commenter['comment_author']) . '" ' . $aria_req . $html_req . ' />' . 
 					'<div class="invalid-tooltip">Nome e Sobrenome são inválidos.</div></div>',
-				'url' => '<div class="form-group col"><label for="url">' . __('Apelido (Opcional)') . '</label> ' .
+				'url' => '<div class="form-group col-12 col-md-6"><label for="url">' . __('Apelido (Opcional)') . '</label> ' .
 					'<input placeholder="Digite seu apelido" class="form-control" id="url" name="url" ' . ($html5 ? 'type="url"' : 'type="text"') . ' value="' . esc_attr($commenter['comment_author_url']) . '" /></div></div>',
 				
 			)
 		),
-		'comment_field' => '<div class="form-group" style="position-relative"><label for="comment">' . _x('Comment', 'noun') . '*</label> <textarea placeholder="Adicione seu comentário para esse conteúdo" class="form-control" rows="3" id="comment" name="comment" maxlength="500" aria-required="true" required="required"></textarea>' .
+		'comment_field' => '<div class="form-group" style="position: relative;"><label for="comment">' . _x('Comment', 'noun') . '*</label> <textarea placeholder="Adicione seu comentário para esse conteúdo" class="form-control" rows="3" id="comment" name="comment" maxlength="500" aria-required="true" required="required"></textarea>' .
 		'<div class="invalid-tooltip">No mínimo 10 e no máximo 500 caracteres.</div></div>',
 					wp_nonce_field( 'user_check', 'hdn_hash' ),
 		'class_submit' => 'btn btn-primary btn-comment',

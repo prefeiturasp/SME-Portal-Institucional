@@ -84,6 +84,8 @@ use Classes\Header\Header;
         }
     ?>
 
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+
 </head>
 
 <body>
@@ -92,7 +94,7 @@ use Classes\Header\Header;
 
             <section class="row cabecalho-cinza-escuro cabecalho-acessibilidade" style="display: none;">
                 <section class="container">
-                    <section class="row">
+                    <section class="row d-none d-md-flex">
                         <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
                             <ul class="list-inline mt-3 mb-0">
                                 <?php
@@ -113,6 +115,20 @@ use Classes\Header\Header;
                         </article>
 
                     </section>
+                    <section class="row d-flex d-md-none">
+                        <article class="col-12 d-flex justify-content-start">
+                            <ul class="list-inline mt-3 mb-0">
+                                <?php
+                                $slug_titulo = new Header();
+                                ?>
+                                <li class="list-inline-item"><a accesskey="1" id="1" href="#<?= $slug_titulo->getSlugTitulo() ?>" class="text-white">Ir ao Conteúdo <span class="span-accesskey">1</a></li>
+                                <li class="list-inline-item"><a accesskey="2" id="2" href="#irmenu"  class="text-white">Ir para menu principal <span class="span-accesskey">2</span></a></li>
+                                <li class="list-inline-item"><a accesskey="3" id="3" href="#search-front-end"  class="text-white">Ir para busca <span class="span-accesskey">3</span></a></li>
+                                <li class="list-inline-item"><a accesskey="4" id="4" href="#irrodape"  class="text-white">Ir para rodapé <span class="span-accesskey">4</span></a></li>
+                                <li class="list-inline-item"><a href="<?= STM_URL ?>/acessibilidade/" accesskey="5" class="text-white">Acessibilidade <span class="span-accesskey">5</span> </a></li>
+                            </ul>
+                        </article>
+                    </section>
                 </section>
 
             </section>
@@ -124,7 +140,7 @@ use Classes\Header\Header;
         <div class="line-top">
             <div class="container">
                 <div class="row d-flex align-items-center">
-                    <div class="col-md-3">
+                    <div class="col-3">
 
                         <button type="button" class="btn btn-menu" data-toggle="modal" data-target="#menu">
                             <i class="fa fa-bars" aria-hidden="true"></i> MENU
@@ -134,6 +150,11 @@ use Classes\Header\Header;
                         <div class="modal left fade" id="menu" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
+
+                                    <div class="modal-header d-block d-md-none">
+                                        NAAPA
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    </div>
 
                                     <div class="modal-body">
                                         <?php
@@ -158,7 +179,7 @@ use Classes\Header\Header;
 
                     </div>
 
-                    <div class="col-md-6 text-center logo">
+                    <div class="col-6 text-center logo">
                         <?php
                         // Traz o Logotipo cadastrado no Admin
                         $custom_logo_id = get_theme_mod('custom_logo');
@@ -171,7 +192,13 @@ use Classes\Header\Header;
                         </p>                        
                     </div>
 
-                    <div class="col-md-3 search-top">
+                    <div class="col-3 d-block d-md-none">
+                        <button type="button" class="btn btn-menu btn-busca">
+                            <i class="fa fa-search" aria-hidden="true"></i> BUSCA
+                        </button>
+                    </div>
+
+                    <div class="col-12 col-md-3 search-top">
                         <form action="<?php echo get_home_url(); ?>" method="GET">
                             <div class="row no-gutters">
                                 <div class="col">

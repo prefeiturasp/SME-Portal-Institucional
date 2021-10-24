@@ -63,7 +63,7 @@ if( have_rows('fx_flex_layout') ):
 						echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
 						echo '<div class="container-fluid p-0">';//bootstrap container
 						echo '<div class="row">';//bootstrap row
-						echo '<div class="col-sm-12 tx_fx_'.$color['value'].' mb-3">';//bootstrap col
+						echo '<div class="col-sm-12 d-flex flex-column tx_fx_'.$color['value'].' mb-3">';//bootstrap col
 							while( have_rows('fx_coluna_1_1') ): the_row();
 								//titulo
 								if( get_row_layout() == 'fx_cl1_titulo_1_1' ):
@@ -111,7 +111,7 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_cl1_noticias_1_1' ):
 									?>
 									<div class="container">
-										<div class="noticias mt-4 mb-3">
+										<div class="noticias mt-4 mb-3 d-none d-md-block">
 
 											<?php 
 												query_posts(array(
@@ -140,7 +140,7 @@ if( have_rows('fx_flex_layout') ):
 																<img src="<?php echo get_the_post_thumbnail_url(get_the_id(), 'home-news'); ?>" alt="<?php echo $image_alt; ?>" class='img-fluid'>
 
 															<?php else: ?>
-																<img src="<?php echo get_template_directory_uri(); ?>/img/logo-NAAPA-news.jpg" alt="<?php echo $image_alt; ?>" class='img-fluid'>
+																<img src="<?php echo wp_get_attachment_image_url(391, 'home-news'); ?>" alt="<?php echo $image_alt; ?>" class='img-fluid'>
 															<?php endif; ?>
 														</a>
 														<?php
@@ -158,14 +158,71 @@ if( have_rows('fx_flex_layout') ):
 												
 											</div>
 
-										</div>										
+										</div>
+										
+										<div class="swiper d-block d-md-none">
+											<!-- Additional required wrapper -->
+											<div class="swiper-wrapper">
+											<!-- Slides -->
+
+											<?php 
+												query_posts(array(
+													'cat' => get_sub_field('fx_noticias_categ_1_1'),
+													'posts_per_page' => get_sub_field('fx_news_qtd_1_1'),
+												));
+
+												$colunas = get_sub_field('fx_news_colunas_1_1');
+											?>
+
+											<?php 
+												if ( have_posts() ) : while ( have_posts() ) : the_post();
+												$categories = get_the_category();
+												$separator = ' / ';
+												$output = '';													
+											?>
+												
+												<div class="swiper-slide">
+													<div class="noticias mt-4 mb-3">
+														
+														<div class="">
+															<a href="<?php echo get_permalink(); ?>">	
+																<?php
+																$image_id = get_post_thumbnail_id();
+																$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
+																if($image_id):
+																?>
+																	<img src="<?php echo get_the_post_thumbnail_url(get_the_id(), 'home-news'); ?>" alt="<?php echo $image_alt; ?>" class='img-fluid'>
+
+																<?php else: ?>
+																	<img src="<?php echo wp_get_attachment_image_url(391, 'home-news'); ?>" alt="<?php echo $image_alt; ?>" class='img-fluid'>
+																<?php endif; ?>
+															</a>
+															<?php
+																if ( ! empty( $categories ) ) {
+																	foreach( $categories as $category ) {
+																		$output .= '<a class="categ" href="' . esc_url( get_category_link( $category->term_id ) ) . '" alt="' . esc_attr( sprintf( __( 'View all posts in %s', 'textdomain' ), $category->name ) ) . '">' . esc_html( $category->name ) . '</a>' . $separator;
+																	}
+																	echo trim( $output, $separator );
+																}
+															?>														
+															<p><a href="<?php echo get_permalink(); ?>" class="news-title"><?php the_title(); ?></a></p>
+														</div>        
+															
+													</div>
+												</div>
+												
+											<?php endwhile; endif; ?>
+											<?php wp_reset_query(); ?>
+
+										</div>
+
 									</div>
 									<?php
 									//Loops noticias Quem Cuida
 									elseif( get_row_layout() == 'fx_cl1_cuida_1_1' ):
 									?>
 									<div class="container">
-										<div class="noticias mt-4 mb-3">
+										<div class="noticias mt-4 mb-3 d-none d-md-block">
 
 											<?php query_posts(array(
 												'cat' => get_sub_field('fx_noticias_categ_1_1'),
@@ -209,7 +266,60 @@ if( have_rows('fx_flex_layout') ):
 												
 											</div>
 
-										</div>										
+										</div>
+										
+										<div class="swiper d-block d-md-none">
+											<!-- Additional required wrapper -->
+											<div class="swiper-wrapper">
+											<!-- Slides -->
+
+											<?php query_posts(array(
+												'cat' => get_sub_field('fx_noticias_categ_1_1'),
+												'posts_per_page' => get_sub_field('fx_news_qtd_1_1'),
+												'post_type' => 'quem-cuida'
+											)); ?>
+
+											<?php 
+												if ( have_posts() ) : while ( have_posts() ) : the_post();
+												$categories = get_the_terms(get_the_ID(), 'categoria-cuida');
+												$separator = ' / ';
+												$output = '';													
+											?>
+												
+												<div class="swiper-slide">
+													<div class="noticias mt-4 mb-3">
+														
+														<div class="">
+															<a href="<?php echo get_permalink(); ?>">	
+																<?php
+																$image_id = get_post_thumbnail_id();
+																$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
+																if($image_id):
+																?>
+																	<img src="<?php echo get_the_post_thumbnail_url(get_the_id(), 'home-news'); ?>" alt="<?php echo $image_alt; ?>" class='img-fluid'>
+
+																<?php else: ?>
+																	<img src="<?php echo wp_get_attachment_image_url(391, 'home-news'); ?>" alt="<?php echo $image_alt; ?>" class='img-fluid'>
+																<?php endif; ?>
+															</a>
+															<?php
+																if ( ! empty( $categories ) ) {
+																	foreach( $categories as $category ) {
+																		$output .= '<a class="categ" href="' . esc_url( get_category_link( $category->term_id ) ) . '" alt="' . esc_attr( sprintf( __( 'View all posts in %s', 'textdomain' ), $category->name ) ) . '">' . esc_html( $category->name ) . '</a>' . $separator;
+																	}
+																	echo trim( $output, $separator );
+																}
+															?>														
+															<p><a href="<?php echo get_permalink(); ?>" class="news-title"><?php the_title(); ?></a></p>
+														</div>        
+															
+													</div>
+												</div>
+												
+											<?php endwhile; endif; ?>
+											<?php wp_reset_query(); ?>
+
+										</div>
 									</div>
 									<?php
 								//Video Responsivo
@@ -342,7 +452,7 @@ if( have_rows('fx_flex_layout') ):
 												</div>
 												<div class="col-sm-6 img-banner">
 													<?php if($dtbanner): ?>
-														<img src="<?php echo $dtbanner ?>" class="img-fluid" alt="Imagem destaque banner">
+														<picture><img src="<?php echo $dtbanner ?>" class="img-fluid" alt="Imagem destaque banner"></picture>
 													<?php endif; ?>
 												</div>
 											</div>
@@ -357,6 +467,7 @@ if( have_rows('fx_flex_layout') ):
 								elseif( get_row_layout() == 'fx_banner_quebrada_1_1' ):
 									$dtbanner = get_sub_field('fx_imagem_destaque_1_1'); // Destaque
 									$bgbanner = get_sub_field('fx_imagem_fundo_1_1'); // Background
+									$bgbannerm = get_sub_field('fx_imagem_fundo_mobile'); // Background mobile
 									$tlbanner =  get_sub_field('fx_titulo_1_1'); // titulo
 									$txbanner = get_sub_field('fx_texto_1_1'); // Texto
 									$btbanner = get_sub_field('fx_texto_botao_1_1'); // texto botao
@@ -364,14 +475,33 @@ if( have_rows('fx_flex_layout') ):
 								?>
 
 									<div class="container mb-4">
-										<div class="banner-quebrada" style="background-image: url(<?php echo $bgbanner; ?>);">
+										<div class="banner-quebrada d-none d-sm-block" style="background-image: url(<?php echo $bgbanner; ?>);">
 											<div class="row d-flex align-items-center">
-												<div class="offset-md-1 col-md-5">
+												<div class="offset-md-1 col-md-5 col-4">
 													<?php if($dtbanner): ?>
 														<img src="<?php echo $dtbanner ?>" class="img-fluid" alt="Imagem destaque banner">
 													<?php endif; ?>
 												</div>
-												<div class="col-md-6 text-right">
+												<div class="col-md-6 text-right col-8">
+													<h2><?php echo $tlbanner; ?></h2>
+													<?php if($txbanner && $txbanner != '') : ?>
+														<p><?php echo $txbanner; ?></p>
+													<?php endif; ?>
+													<?php if($btbanner && $urbanner): ?>
+														<a href="<?php echo $urbanner; ?>" class="btn btn-quebrada"><i class="fa fa-arrow-right" aria-hidden="true"></i> <?php echo $btbanner; ?></a>
+													<?php endif; ?>													
+												</div>
+											</div>
+										</div>
+
+										<div class="banner-quebrada d-block d-sm-none" style="background-image: url(<?php echo $bgbannerm; ?>);">
+											<div class="row d-flex align-items-center">
+												<div class="offset-md-1 col-md-5 col-4">
+													<?php if($dtbanner): ?>
+														<img src="<?php echo $dtbanner ?>" class="img-fluid" alt="Imagem destaque banner">
+													<?php endif; ?>
+												</div>
+												<div class="col-md-6 text-right col-8">
 													<h2><?php echo $tlbanner; ?></h2>
 													<?php if($txbanner && $txbanner != '') : ?>
 														<p><?php echo $txbanner; ?></p>
@@ -1499,7 +1629,7 @@ if( have_rows('fx_flex_layout') ):
 		        	//conteudo flexivel 2 colunas esquerda
 					if( have_rows('fx_coluna_1_3b1') ):
 
-						echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-md-8 order-1 order-sm-0 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
 							while( have_rows('fx_coluna_1_3b1') ): the_row();
 								//titulo
 								if( get_row_layout() == 'fx_cl1_titulo_1_2' ):
@@ -1649,7 +1779,7 @@ if( have_rows('fx_flex_layout') ):
 		
 					//conteudo flexivel 2 colunas direita
 					if( have_rows('fx_coluna_2_3b1') ):
-						echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+						echo '<div class="col-md-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
 							while( have_rows('fx_coluna_2_3b1') ): the_row();
 								//titulo
 								if( get_row_layout() == 'fx_cl1_titulo_2_2' ):

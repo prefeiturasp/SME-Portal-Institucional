@@ -4,7 +4,7 @@
 <footer style="background: #363636;color: #fff;margin-left: -15px;margin-right: -15px;">
 	<div class="container pt-3 pb-3" id="irrodape">
 		<div class="row">
-			<div class="col-sm-3 align-middle d-flex align-items-center">
+			<div class="col-sm-3 align-middle d-flex align-items-center logo-footer">
                 <a href="https://www.capital.sp.gov.br/"><img src="<?php the_field('logo_prefeitura','conf-rodape'); ?>" alt="<?php bloginfo('name'); ?>"></a>
 			</div>
 			<div class="col-sm-3 align-middle bd-contact">
@@ -109,6 +109,15 @@
         $qtd = 10;
     }
  ?>
+    <script>
+        var screen = $s( window ).width();
+
+        if(screen <= 768){
+           //$s('.all-itens').data('gridify', '');
+           $s('.all-itens').removeAttr('data-gridify');
+           $s('.all-itens').attr('data-gridify', '2-columns');
+        }
+    </script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/js/gridify.min.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.mask.min.js"></script>
@@ -117,6 +126,11 @@
         
     <script>
 		var $s = jQuery.noConflict();
+        
+        // Busca mobile
+        $s( ".btn-busca" ).click(function() {
+            $s( ".search-top" ).toggle( "slow" );
+        });
 
         // Quem Cuida
         $s(function () {
@@ -218,6 +232,8 @@
                 load_quebrada();
                 $s(this).insertAfter('.all-itens'); // Move the 'Load More' button to the end of the the newly added posts.               
            });
+
+          
            
         });
 
@@ -385,12 +401,21 @@
                         tab.find('.tab_content').find('div.tabs_item:eq(' + index + ')').slideDown();
                     }
 
-
-
                     g.preventDefault();
                 });
             })(jQuery);
 
+        });
+    </script>
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <script>
+        var swiper = new Swiper(".swiper", {
+            slidesPerView: "auto",
+            spaceBetween: 30,
+            freeMode: true,
+            loop: true,        
         });
     </script>
 </body>

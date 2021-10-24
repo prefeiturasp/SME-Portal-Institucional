@@ -1,7 +1,7 @@
 <div class="container">
 
     <div class="row px-0">
-        <div class="cuida-filters">
+        <div class="cuida-filters d-none d-md-block">
             <p>filtrar por:</p>
             <div class="filter-list liga-filter">
                 <?php
@@ -28,6 +28,65 @@
 
             </div>
         </div>
+        
+        <div class="btn-filter">
+            <button type="button" class="btn btn-outline-primary btn-avanc-f btn-avanc btn-avanc-m d-block d-md-none b-0 btn-liga" data-toggle="modal" data-target="#filtroBusca">
+                <i class="fa fa-filter" aria-hidden="true"></i> Filtrar 
+                <?php if($countBusca > 0): ?>
+                    <span class="badge badge-primary"><?php echo $countBusca; ?></span>
+                <?php endif; ?>
+            </button>
+            <?php if($_GET['filter'] && $_GET['filter'] != ''): ?>
+                <span class="badge badge-primary">1</span>
+            <?php endif; ?>
+        </div>
+        
+
+        <!-- Modal -->
+        <div class="modal right fade filter-liga" id="filtroBusca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <p class="modal-title" id="myModalLabel2">Filtrar por:</p>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>				
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="cuida-filters">
+                            
+                            <div class="filter-list liga-filter">
+                                <?php
+                                    $terms = get_terms( array(
+                                        'taxonomy' => 'category',
+                                        'hide_empty' => true,
+                                    ) );
+
+                                    if($_GET['filter'] && $_GET['filter'] != ''){
+                                        $active = $_GET['filter'];
+                                    }
+
+                                    $current = get_the_permalink(get_the_ID());
+                                    foreach($terms as $term):
+                                        if($active == $term->term_id):
+                                        ?>        
+                                            <a href="<?php echo $current;?>" class="filter-link filter-active"><i class="fa fa-check" aria-hidden="true"></i> <?php echo $term->name; ?></a>                       
+                                        
+                                        <?php else: ?>
+                                            <a href="<?php echo $current . '?filter=' . $term->term_id;?>" class="filter-link"><?php echo $term->name; ?></a> 
+                                        <?php
+                                        endif;
+                                    endforeach; ?>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div><!-- modal-content -->
+            </div><!-- modal-dialog -->
+        </div><!-- modal -->
     </div>    
 
     <div id="ajax-posts" class="row">
@@ -52,11 +111,11 @@
         ?>
 
             <div class="row mx-0 cuida-list-item">
-                <div class="col-12 col-md-4">
+                <div class="col-4">
                     <?php $thumbs = get_thumb(get_the_ID(), 'cuida-news'); ?>
                     <a href="<?php echo get_the_permalink(); ?>"><img src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>" class="img-fluid"></a>
                 </div>
-                <div class="col-12 col-md-8">
+                <div class="col-8">
                     <?php
                         $categories = get_the_terms(get_the_ID(), 'category');
                         $separator = ' / ';
