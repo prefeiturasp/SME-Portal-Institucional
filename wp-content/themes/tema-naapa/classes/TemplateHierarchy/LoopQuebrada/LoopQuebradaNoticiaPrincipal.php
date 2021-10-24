@@ -88,29 +88,31 @@ class LoopQuebradaNoticiaPrincipal extends LoopQuebrada
 													echo 'por ' . $nome;
 												?>
 											</div>
+											
+											<div class="align-mobile">
+												<div class="w-100 quebrada-likes likes-post mb-4">												
+													<?php 
+														global $wpdb;
+														$l = 0;
+														$postid = get_the_id();
+														$clientip  = get_client_ip();
+														$row1 = $wpdb->get_results( "SELECT id FROM $wpdb->post_like_table WHERE postid = '$postid' AND clientip = '$clientip'");
+														if(!empty($row1)){
+															$l = 1;
+														}
+														$totalrow1 = $wpdb->get_results( "SELECT id FROM $wpdb->post_like_table WHERE postid = '$postid'");
+														$total_like1 = $wpdb->num_rows;
+													?>
 
-											<div class="w-100 quebrada-likes likes-post mb-4">												
-												<?php 
-													global $wpdb;
-													$l = 0;
-													$postid = get_the_id();
-													$clientip  = get_client_ip();
-													$row1 = $wpdb->get_results( "SELECT id FROM $wpdb->post_like_table WHERE postid = '$postid' AND clientip = '$clientip'");
-													if(!empty($row1)){
-														$l = 1;
-													}
-													$totalrow1 = $wpdb->get_results( "SELECT id FROM $wpdb->post_like_table WHERE postid = '$postid'");
-													$total_like1 = $wpdb->num_rows;
-												?>
-
-												<div class="post_like">
-													<a class="pp_like <?php if($l==1) {echo "likes"; } ?>" href="#" data-id="<?php echo get_the_id(); ?>"><i class="fa fa-heart-o" aria-hidden="true"></i></i> <span><?php echo $total_like1; ?> <?php echo $total_like1 == 1 ? 'like' : 'likes'; ?></span></a>	
+													<div class="post_like">
+														<a class="pp_like <?php if($l==1) {echo "likes"; } ?>" href="#" data-id="<?php echo get_the_id(); ?>"><i class="fa fa-heart-o" aria-hidden="true"></i></i> <span><?php echo $total_like1; ?> <?php echo $total_like1 == 1 ? 'like' : 'likes'; ?></span></a>	
+													</div>
 												</div>
-											</div>
 
-											<div class="cuida-share w-100">
-												<?php echo do_shortcode('[addthis tool="addthis_inline_share_toolbox_tkbt"]'); ?>
-											</div>											
+												<div class="cuida-share w-100">
+													<?php echo do_shortcode('[addthis tool="addthis_inline_share_toolbox_tkbt"]'); ?>
+												</div>
+											</div>																						
 
 										</div>
 

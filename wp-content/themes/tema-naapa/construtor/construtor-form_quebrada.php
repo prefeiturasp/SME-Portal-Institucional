@@ -14,7 +14,7 @@
     }
 ?>
 
-<div class="form-bg mb-4">
+<div class="form-bg mb-4 order-1 order-sm-0" id="form-quebrada">
     <div class="container">
 
             <?php if($titulo) : ?>

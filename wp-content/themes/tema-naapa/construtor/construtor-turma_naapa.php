@@ -13,43 +13,90 @@
                 <div class="title-special d-flex align-items-center justify-content-between">
                     <h2 style="border-color: #FFC701;"><?php echo $titulo ? $titulo : "A turma do NAAPA"; ?></h2>
                 </div>
+                <div class="d-none d-md-block">
+                    <div class="tab">
 
-                <div class="tab">
+                        <ul class="tabs row">
+                            <?php foreach($personagens as $personagen): ?>
+                                <li class="col">
+                                    <a href="#"><picture><img src="<?php echo wp_get_attachment_url( $personagen['imagem_do_personagem'] ); ?>" class="img-fluid"></picture></a>
+                                </li>
+                            <?php endforeach; ?>                        
+                        </ul>
+                        <!-- / tabs -->
 
-                    <ul class="tabs row">
-                        <?php foreach($personagens as $personagen): ?>
-                            <li class="col">
-                                <a href="#"><img src="<?php echo wp_get_attachment_url( $personagen['imagem_do_personagem'] ); ?>" class="img-fluid"></a>
-                            </li>
-                        <?php endforeach; ?>                        
-                    </ul>
-                    <!-- / tabs -->
-
-                    <div class="tab_content">
-                        
-                        <?php foreach($personagens as $personagen): ?>
-                            <div class="tabs_item">
-                                <div class="row">
-                                    <div class="col-md-7">
-                                    <img src="<?php echo wp_get_attachment_url( $personagen['imagem_do_texto'] ); ?>" class="img-fluid">
-                                    </div>
-                                    <div class="col-md-4 d-flex align-items-center">
-                                        <div class="turma-text">
-                                            <div class="turma-title"><?php echo $personagen['nome_do_personagem']; ?></div>
-                                            <div class="turma-descri">
-                                                <?php echo $personagen['descritivo_do_personagem']; ?>
+                        <div class="tab_content">
+                            
+                            <?php foreach($personagens as $personagen): ?>
+                                <div class="tabs_item">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                        <img src="<?php echo wp_get_attachment_url( $personagen['imagem_do_texto'] ); ?>" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-4 d-flex align-items-center">
+                                            <div class="turma-text">
+                                                <div class="turma-title"><?php echo $personagen['nome_do_personagem']; ?></div>
+                                                <div class="turma-descri">
+                                                    <?php echo $personagen['descritivo_do_personagem']; ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- / tabs_item -->
-                        <?php endforeach; ?>
+                                <!-- / tabs_item -->
+                            <?php endforeach; ?>
 
+                        </div>
+                        <!-- / tab_content -->
                     </div>
-                    <!-- / tab_content -->
+                    <!-- / tab -->
                 </div>
-                <!-- / tab -->
+
+                <div class="d-block d-md-none">
+
+                    
+											
+                            <div class="tab">
+
+                                <ul class="tabs mobile-tabs">
+                                   
+                                    <?php foreach($personagens as $personagen): ?>                                        
+                                            <li class="">                                                        
+                                                <a href="#"><picture><img src="<?php echo wp_get_attachment_url( $personagen['imagem_do_personagem'] ); ?>" class="img-fluid"></picture></a>                                                    
+                                            </li>
+                                    <?php endforeach; ?> 
+                                                             
+                                </ul>
+                                <!-- / tabs -->
+
+                                <div class="tab_content">
+                                    
+                                    <?php foreach($personagens as $personagen): ?>
+                                        <div class="tabs_item">
+                                            <div class="row">
+                                                <div class="col-6 pr-0">
+                                                <img src="<?php echo wp_get_attachment_url( $personagen['imagem_do_texto_mobile'] ); ?>" class="img-fluid">
+                                                </div>
+                                                <div class="col-6 pl-0 d-flex align-items-center">
+                                                    <div class="turma-text">
+                                                        <div class="turma-title"><?php echo $personagen['nome_do_personagem']; ?></div>
+                                                        <div class="turma-descri">
+                                                            <?php echo $personagen['descritivo_do_personagem']; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- / tabs_item -->
+                                    <?php endforeach; ?>
+
+                                </div>
+                                <!-- / tab_content -->
+                            </div>
+                            <!-- / tab -->
+                        
+
+                </div>
             </div>
         </div>
     </div>

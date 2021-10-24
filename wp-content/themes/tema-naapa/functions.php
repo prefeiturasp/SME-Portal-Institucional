@@ -1601,11 +1601,11 @@ function more_post_ajax(){
     if ($loop -> have_posts()) :  while ($loop -> have_posts()) : $loop -> the_post();
 	
 		$out .= '<div class="row mx-0 cuida-list-item">';
-			$out .= '<div class="col-12 col-md-4">';
+			$out .= '<div class="col-4">';
 				$thumbs = get_thumb(get_the_ID(), 'cuida-news');
 				$out .= '<a href="' . get_the_permalink() . '"><img src="' . $thumbs[0] . '" alt="' . $thumbs[1] . '" class="img-fluid"></a>';
 			$out .= '</div>';
-			$out .= '<div class="col-12 col-md-8">';
+			$out .= '<div class="col-8">';
 				
 				$categories = get_the_terms(get_the_ID(), $tax);
 				$separator = ' / ';
@@ -1737,7 +1737,11 @@ function more_post_busca(){
     $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 10;
     $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
 	$search = $_POST['search'];
-	$pt = (isset($_POST["filter"])) ? $_POST["filter"] : array('post', 'page', 'quem-cuida', 'na-quebrada');
+	$pt = (isset($_POST["filter"])) ? $_POST["filter"] : false;
+
+	if(!$pt){
+		$pt = array('post', 'page', 'quem-cuida', 'na-quebrada');
+	}
 
     header("Content-Type: text/html");
     
@@ -1755,11 +1759,11 @@ function more_post_busca(){
     if ($loop -> have_posts()) :  while ($loop -> have_posts()) : $loop -> the_post();
 		$type = get_post_type();
 		$out .= '<div class="row mx-0 cuida-list-item type-' . $type .'">';
-			$out .= '<div class="col-12 col-md-4">';
+			$out .= '<div class="col-4">';
 				$thumbs = get_thumb(get_the_ID(), 'cuida-news');
 				$out .= '<a href="' . get_the_permalink() . '"><img src="' . $thumbs[0] . '" alt="' . $thumbs[1] . '" class="img-fluid"></a>';
 			$out .= '</div>';
-			$out .= '<div class="col-12 col-md-8">';
+			$out .= '<div class="col-8">';
 				
 				if($type == 'post'){
 					$categories = get_the_terms(get_the_ID(), 'category');
@@ -1965,7 +1969,7 @@ class wpb_liga extends WP_Widget {
 		
 		// before and after widget arguments are defined by themes
 		echo $args['before_widget'];
-		echo "<div class='lidas-widget'>";
+		echo "<div class='lidas-widget d-none d-md-block'>";
 			if ( ! empty( $title ) )
 				echo $args['before_title'] . $title . $args['after_title'];
 			
@@ -2009,6 +2013,63 @@ class wpb_liga extends WP_Widget {
 			
 		
 		echo "</div>";
+
+		echo "<div class='lidas-widget d-block d-md-none'>";
+			if ( ! empty( $title ) )
+				echo $args['before_title'] . $title . $args['after_title'];
+			
+				global $wpdb;			
+
+				$resultados = $wpdb->get_results( "SELECT * FROM $wpdb->post_like_table" );
+				$curtidos = array();
+				foreach($resultados as $resultado){
+					$curtidos[] = $resultado->postid;
+				}
+				$contador = array_count_values($curtidos);
+				arsort($contador);
+				
+				$i = 1;
+				?>
+
+				<div class="swiper d-block d-md-none">
+					<!-- Additional required wrapper -->
+					<div class="swiper-wrapper">
+
+				<?php
+
+						foreach($contador as $key => $post):
+							if($i <= 5):
+								$img = get_the_post_thumbnail_url($key);
+								$nome = get_field('nome', $key);
+								if(!$nome || $nome == ''){
+									$nome = 'Turma do NAAPA';
+								}
+								$textLike = $post == 1 ? "like" : "likes";
+									
+						?>
+								<div class="swiper-slide">
+									<div class="quebrada-curtidas">
+										<a href="<?php echo get_the_permalink($key); ?>">
+											<p><?php echo $i . "º - ". $nome; ?></p>
+											<img src="<?php echo $img; ?>" alt="">
+											<p class="title"><?php echo get_the_title($key); ?></p>
+											<p class="d-flex justify-content-between">
+												<span class="likes"><i class="fa fa-heart" aria-hidden="true"></i> <?php echo $post . ' ' . $textLike;?></span>
+												<span class="date"><?php echo get_the_date( 'd/m/Y \à\s H\hi',  $key); ?></span>
+											</p>
+										</a>
+									</div>
+								</div>
+						<?php
+							endif;
+						$i++;
+						endforeach;
+					echo "</div>";
+				echo "</div>";
+			
+		
+		echo "</div>";
+
 		echo $args['after_widget'];
 	}
 			  

@@ -267,7 +267,7 @@ function validaNomeComent(){
 
 function validaComentario(){
     var content = $s('#comment').val().length;
-    if(content < 10 || content > 300){
+    if(content < 10 || content > 500){
         $s('#comment').removeClass('is-valid');
         $s('#comment').addClass('is-invalid');
         event.preventDefault();
