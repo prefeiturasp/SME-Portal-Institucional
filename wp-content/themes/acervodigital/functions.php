@@ -465,3 +465,30 @@ function update_user_option_admin_color( $color_scheme ) {
 
     return $color_scheme;
 }
+
+// Alterar email novo usuarios
+add_filter( 'wp_new_user_notification_email', 'custom_wp_new_user_notification_email', 10, 3 );
+
+function custom_wp_new_user_notification_email( $wp_new_user_notification_email, $user, $blogname ) {
+    
+	// Gerar uma chave de verificacao
+	$key = get_password_reset_key( $user );
+
+    // Assunto
+    $subject = '[Acervo Digital] Detalhes de acesso';
+    $wp_new_user_notification_email['subject'] = $subject;
+
+	// Editar conteudo do Email
+    $message = sprintf(__('Nome de usuário: ')) . rawurlencode($user->user_login) . "\r\n\r\n";
+    $message .= 'Para definir sua senha, visite o seguinte endereço:' . "\r\n\r\n";
+    $message .= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user->user_login), 'login') . "\r\n\r\n";
+    $message .= "Para acesso à página de login:" . "\r\n\r\n";
+    $message .= network_site_url("wp-login.php", 'login') . "\r\n\r\n";
+    $wp_new_user_notification_email['message'] = $message;
+
+    // Para alterar o cabecalho do email edite a linha abaixo
+	//$wp_new_user_notification_email['headers'] = 'From: MyName<example@domain.ext>'; // this just changes the sender name and email to whatever you want (instead of the default WordPress <wordpress@domain.ext>
+
+    // retorna o conteudo do email
+	return $wp_new_user_notification_email;
+}
