@@ -1426,11 +1426,12 @@ function my_acf_fields_relationship_query( $args, $field, $post_id ) {
         array(
             'key'     => 'localizacao',
             'value'   => 31675,
-        ),
+        ),		
 		array(
-            'key'     => 'localizacao',
-            'value'   => 31244,
-        ),
+			'key'		=> 'ceus_participantes_$_localizacao_serie',
+			'compare'	=> '=',
+			'value'		=> $post_id,
+		),
     );
 
     return $args;
@@ -1540,7 +1541,13 @@ add_filter( 'posts_where', 'wpza_replace_repeater_field' );
 add_filter('acf/fields/relationship/result', 'my_acf_fields_relationship_result', 10, 4);
 function my_acf_fields_relationship_result( $text, $post, $field, $post_id ) {
     $page_views = get_field( 'localizacao', $post->ID );
-	$title = get_the_title($page_views);
+    $tipo = get_field( 'tipo_de_evento_tipo', $post->ID );
+	if($tipo == 'serie'){
+		$title = 'Múltiplas Unidades';
+	} else {
+		$title = get_the_title($page_views);
+	}
+	
     if( $title ) {
         $text .= ' ' . sprintf( '(%s)', $title );
     }

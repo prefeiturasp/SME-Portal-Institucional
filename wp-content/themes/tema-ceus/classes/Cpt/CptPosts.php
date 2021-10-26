@@ -42,7 +42,17 @@ class CptPosts extends Cpt
 		switch ( $column ) {
 			case 'unidade':
 				$localizacao = get_field('localizacao');
-				echo get_the_title($localizacao);
+				$tipo = get_field('tipo_de_evento_tipo');
+				if($tipo == 'serie'){
+					$title = "Múltiplas Unidades";
+				} else {
+					$title = get_the_title($localizacao);
+				}
+
+				if($title == ''){
+					$title = '-';
+				}
+				echo $title;
 				break;
 
 			case 'featured_thumb':
