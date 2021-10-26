@@ -116,8 +116,27 @@ function wpse_user_can_edit( $user_id, $page_id ) {
 //
 add_filter( 'map_meta_cap', function ( $caps, $cap, $user_id, $args ) {
 
-    // capability atribuida
-    $to_filter = [ 'edit_post', 'delete_post', 'edit_page', 'delete_page', 'edit_concurso', 'edit_unidade' ];
+    global $pagenow;
+    
+    if (( $pagenow == 'post-new.php' ) || ($pagenow == 'post.php')) {       
+        // capability atribuida
+        $to_filter = [ 'delete_post', 'edit_page', 'delete_page', 'edit_concurso', 'edit_unidade' ];
+        
+    } else {
+        // capability atribuida
+        $to_filter = [ 'edit_post','delete_post', 'edit_page', 'delete_page', 'edit_concurso', 'edit_unidade' ];
+    
+    }
+
+    $user_meta = get_userdata($user_id); // Pega as informacoes do usuario
+    $user_roles = $user_meta->roles; // Pega o tipo do usuario    
+
+    if ( in_array( 'editor', $user_roles, true ) ) {
+        if($pagenow == 'upload.php' || 'admin-ajax.php' == $pagenow || $_REQUEST['action'] == 'query-attachments'){
+            $to_filter = [ 'edit_page', 'delete_page', 'edit_concurso', 'edit_unidade' ];
+        }
+    }
+    
     
     //echo "<pre>";
     //print_r($cap);
@@ -133,6 +152,12 @@ add_filter( 'map_meta_cap', function ( $caps, $cap, $user_id, $args ) {
     // First item in $args array should be page ID
     if ( ! $args || empty( $args[0] ) || ! wpse_user_can_edit( $user_id, $args[0] ) ) {
         // User is not allowed, let's tell that to WP
+        return [ 'do_not_allow' ];
+    }     
+    
+    $variable = get_field('grupo', 'user_' . $user_id);   
+    // se não for de nenhum grupo
+    if($variable == '' && !current_user_can( 'manage_options' )) {
         return [ 'do_not_allow' ];
     }
     // Otherwise just return current value
