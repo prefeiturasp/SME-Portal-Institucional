@@ -1272,6 +1272,10 @@ select#tipoData {
     font-weight: bold;
 }
 
+.evento-infos h2 {
+    color: #FFFFFF !important;
+}
+
 .evento-infos .evento-unidade {
     color: #FFFFFF;
     font-size: 22px;

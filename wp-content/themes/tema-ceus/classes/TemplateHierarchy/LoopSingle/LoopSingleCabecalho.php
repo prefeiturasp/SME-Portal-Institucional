@@ -79,6 +79,13 @@ class LoopSingleCabecalho extends LoopSingle
                         </p>
 
 						<h1 class="m-0 py-3 w-100"><?php echo get_the_title(); ?></h1>
+
+						<?php
+							$subtitulo = get_field('subtitulo', $post->ID);
+							if($subtitulo && $subtitulo != ''):						
+								echo '<h2>- ' . $subtitulo . '</h2>';
+							endif;
+						?>
 						
 						<?php
 							$post_categories = wp_get_post_categories( $post->ID );
