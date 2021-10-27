@@ -1717,3 +1717,17 @@ function custom_wp_new_user_notification_email( $wp_new_user_notification_email,
     // retorna o conteudo do email
 	return $wp_new_user_notification_email;
 }
+
+// Enviar eventos para revisao em caso de Colaborador
+add_filter('wp_insert_post_data', 'change_post_status', '99');
+
+function change_post_status($data)
+{
+    if( (current_user_can('contributor')) && ($data['post_type'] == 'post') )
+    {
+        if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+        //then set the fields you want to update
+        $data['post_status'] = 'pending';     
+    }
+    return $data;
+}
