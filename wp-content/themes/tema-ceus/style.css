@@ -1394,7 +1394,39 @@ select#tipoData {
 
 .info-contacts p {
     color: #42474A;
-    font-size: 17px;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.info-contacts .endereco {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.info-contacts .horarios {
+    background: #EEEEEE;
+    padding: 8px 12px;
+}
+
+.info-contacts span{
+    font-weight: bold;
+    color: #0048A9;
+}
+
+.color-norte .info-contacts span{
+    color: #599E00
+}
+
+.color-sul .info-contacts span{
+    color: #9B2FAE;
+}
+
+.color-leste .info-contacts span{
+    color: #E05317;
+}
+
+.color-oeste .info-contacts span{
+    color: #1697A6;
 }
 
 .unidade-tab ul {

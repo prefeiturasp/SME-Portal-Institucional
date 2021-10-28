@@ -53,9 +53,8 @@ class LoopUnidadesCabecalho extends LoopUnidades{
             </div>
 
             <div class="row info-contacts">            
-                <div class="col-sm-12 col-md-4">
-                    <p class="title-unidade">Endereço</p>
-                    <p class='mb-0'>
+                <div class="col-sm-12">                    
+                    <p class='endereco'>
                         <?php 
                             if($infoBasicas['endereco'] && $infoBasicas['endereco'] != ''){
                                 echo $infoBasicas['endereco'];
@@ -78,45 +77,51 @@ class LoopUnidadesCabecalho extends LoopUnidades{
                             }
                         ?>
                     </p>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                    <p class="title-unidade">Contato</p>
-                    <p class='mb-0'>
+
+                    <p class='contatos'>
+                        <span>Contatos: </span>
                         <?php 
+                            $contatos = array();
                             $tel_primary = $infoBasicas['telefone']['telefone_principal'];
                             $tel_second = $infoBasicas['telefone']['tel_second'];
+                            $email_primary = $infoBasicas['email']['email_principal'];
+                            $email_second = $infoBasicas['email']['email_second'];
+                            $i = 0;
 
                             if($tel_primary && $tel_primary != ''){
-                                echo $tel_primary;
+                                $contatos[] = $tel_primary;
                             }
                         
                             if($tel_second && $tel_second != ''){
                                 foreach($tel_second as $tel){
-                                    echo ' / ' . $tel['telefone_sec'];
+                                    $contatos[] = $tel['telefone_sec'];
                                 }
-                            }                        
-                        ?>
-                    </p>
-                    <p class='mb-0'>
-                        <?php 
-                            $email_primary = $infoBasicas['email']['email_principal'];
-                            $email_second = $infoBasicas['email']['email_second'];
+                            }
 
                             if($email_primary && $email_primary != ''){
-                                echo $email_primary;
+                                $contatos[] = $email_primary;
                             }
                         
                             if($email_second && $email_second != ''){
                                 foreach($email_second as $email){
-                                    echo '<br>' . $email['email'];
+                                    $contatos[] = $email['email'];
                                 }
-                            }                        
+                            }
+                            
+                            foreach($contatos as $contato){
+                                if($i == 0){
+                                    echo $contato;
+                                } else {
+                                    echo ' / '. $contato;
+                                }
+
+                                $i++;
+                            }
                         ?>
                     </p>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                    <p class="title-unidade">Horário de funcionamento</p>
-                    <p class='mb-0'>
+
+                    <p class="horarios">
+                        <span>Horário de funcionamento: </span>
                         <?php
                             $horario = $infoBasicas['horario'];
                             
@@ -138,16 +143,16 @@ class LoopUnidadesCabecalho extends LoopUnidades{
                                 echo ' às ' . $hora_fech;
                             }
                         ?>
-                    </p>
-                    <?php if($horario['horario_de_funcionamento'] && $horario['horario_de_funcionamento'] != '') : ?>
-                        <p class='mb-0'>
+
+                        <?php if($horario['horario_de_funcionamento'] && $horario['horario_de_funcionamento'] != '') : ?>
+                        
                             <?php 
                                 foreach($horario['horario_de_funcionamento'] as $horario){
                                     if($horario['data_inicial'] && $horario['data_inicial'] != ''){
-                                        echo $horario['data_inicial'];
+                                        echo ' / ' . $horario['data_inicial'];
                                     }
         
-                                    if($horario['data_final'] && $horario['data_final'] != ''){
+                                    if($horario['data_final'] && $horario['data_final'] != '' && $horario['data_final'] != 'Feriados'){
                                         echo ' e ' . $horario['data_final'];
                                     }
         
@@ -162,9 +167,10 @@ class LoopUnidadesCabecalho extends LoopUnidades{
                                     }
                                 }
                             ?>
-                        </p>
-                    <?php endif; ?>
-                </div>
+                        
+                        <?php endif; ?>
+                    </p>
+                </div> 
             </div>
         </div>
 
