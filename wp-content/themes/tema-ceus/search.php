@@ -176,6 +176,12 @@
 							
 			);
 
+			if( isset($_GET['s']) && $_GET['s'] != ''){
+				$s = $_GET['s'];
+				
+				$args['s'] = $s;
+			}
+
 			if( isset($_GET['atividades']) && $_GET['atividades'] != ''){
 				$atividades = $_GET['atividades'];
 				
