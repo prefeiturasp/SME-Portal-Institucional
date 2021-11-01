@@ -27,7 +27,7 @@ class PaginaProgramacaoCategoria
                     ?>
                         <div class="col-sm-2">
                             <div class="card-categ text-center">
-                                <a href="<?php echo home_url( '/' );?>?tipo=programacao&s=busca&atividades%5B%5D=<?php echo $categoria->term_id;?>">
+                                <a href="<?php echo home_url( '/' );?>?categ=1&tipo=programacao&s=&atividades%5B%5D=<?php echo $categoria->term_id;?>">
                                     
                                     <?php                                        
                                         $idImage = get_field('imagem_principal', 'term_' . $categoria->term_id);                                      

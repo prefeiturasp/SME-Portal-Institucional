@@ -56,7 +56,7 @@
                     </div>
                     <form action="<?php echo home_url( '/' ); ?>"  id="searchform" class="row col-sm-12">
                         <input id="prodId" name="tipo" type="hidden" value="programacao">
-                        <input name="s" type="hidden" value="busca">
+                        <input name="s" type="hidden" value="">
                         <div class="col-sm-3 mt-2 px-1">
                             <select name="atividades[]" multiple="multiple" class="ms-list-1" style="">
                                 <?php foreach($terms as $term): ?>
@@ -175,6 +175,12 @@
 				),
 							
 			);
+
+			if( isset($_GET['s']) && $_GET['s'] != ''){
+				$s = $_GET['s'];
+				
+				$args['s'] = $s;
+			}
 
 			if( isset($_GET['atividades']) && $_GET['atividades'] != ''){
 				$atividades = $_GET['atividades'];

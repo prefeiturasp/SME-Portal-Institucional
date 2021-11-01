@@ -241,8 +241,19 @@ class Breadcrumb
 
 			} else if ( is_search() ) {
 
-				// Search results page
+				echo '<li class="item-home breadcrumb-item">  <a href="' . get_the_permalink(30834) . '">Programação</a>  </li>'; 
+				echo '<li class="separator separator-home">  /  </li>';
+
+				if($_GET['categ'] && $_GET['categ'] != ''){
+					$atividade = $_GET['atividades'];					
+					echo '<li class="item-current item-current-' . get_term( $atividade[0] )->slug . '"><strong class="bread-current bread-current-' . get_term( $atividade[0] )->slug . '" >' . get_term( $atividade[0] )->name . '</strong></li>';
+				} elseif(!$_GET['categ'] && $_GET['s'] != ''){
+					// Search results page
 				echo '<li class="item-current item-current-' . get_search_query() . '"><strong class="bread-current bread-current-' . get_search_query() . '" >Resultados para: ' . get_search_query() . '</strong></li>';
+				} else {
+					// Search results page
+					echo '<li class="item-current"><strong class="bread-current" >Resultados de busca</strong></li>';
+				}
 
 			} elseif ( is_404() ) {
 
