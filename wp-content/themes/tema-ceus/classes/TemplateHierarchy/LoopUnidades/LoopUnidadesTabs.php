@@ -81,7 +81,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                 </div>
                                 <form action="<?php echo home_url( '/' ); ?>"  id="searchform" class="row col-sm-12 m-0 p-0">
                                     <input id="prodId" name="tipo" type="hidden" value="programacao">
-                                    <input name="s" type="hidden" value="busca">
+                                    <input name="s" type="hidden" value="">
                                     <div class="col-sm-3 mt-2 px-1">
                                         <label for="atividades" class='d-none'>Selecione as atividades</label>
                                         <select id="atividades" name="atividades[]" multiple="multiple" class="ms-list-1" style="">
