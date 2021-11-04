@@ -1313,14 +1313,26 @@ if ( function_exists( 'get_field' ) ) {
 
 /**** Ajax Busca ****/
 
+function cc_post_title_filter($where, &$wp_query) {
+    global $wpdb;
+    if ( $search_term = $wp_query->get( 'cc_search_post_title' ) ) {
+        $where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . $wpdb->esc_like( $search_term ) . '%\'';
+    }
+    return $where;
+}
+
 // the ajax function
 add_action('wp_ajax_data_fetch','data_fetch');
 add_action('wp_ajax_nopriv_data_fetch','data_fetch');
 function data_fetch(){
 
-    $the_query = new WP_Query( array( 'posts_per_page' => 5, 
-									  's' => esc_attr( $_POST['keyword'] ), 
+    add_filter( 'posts_where', 'cc_post_title_filter', 10, 2 );
+	$the_query = new WP_Query( array( 'posts_per_page' => 10,
+									  'post_status' => 'publish',
+									  'cc_search_post_title' => esc_attr( $_POST['keyword'] ), 
 									  'post_type' => 'unidade' ) );
+	remove_filter( 'posts_where', 'cc_post_title_filter', 10 );
+
     if( $the_query->have_posts() ) :
 		echo "<ul class='' id='unidade-list'>";
 		echo "<li class='disable-link'>Unidades</li>";
@@ -1350,6 +1362,7 @@ function fetchResults(){
 	var keyword = jQuery('.leaflet-locationiq-input').val();
 	if(keyword == ""){
 		jQuery('#datafetch').html("");
+		jQuery('#unidades-mapa').html("");
 	} else {
 		jQuery.ajax({
 			url: '<?php echo admin_url( 'admin-ajax.php' ) ?>',
@@ -1368,9 +1381,8 @@ function fetchResults(){
 					jQuery('.leaflet-locationiq-results').html( data );
 				}
 				*/
-
-				jQuery('#unidade-list').remove();
-				jQuery('.leaflet-locationiq-results').append( data );
+				
+				jQuery('.leaflet-locationiq-list').append( data );
 				//console.log(data);
 			},
 			//error : function(error){ console.log(error) }
