@@ -566,10 +566,6 @@
             }, 1000);
         }
 
-        jQuery( ".leaflet-locationiq-input" ).keyup(function() {
-            fetchResults();
-        });
-
         //adiciona link aos marcadores
         jQuery('.name .story').on('click', function(){
             // pega lat e lng das class ".story" por data attribute            
@@ -596,6 +592,20 @@
             // adiciona no mapa
             map.setView([lat, lng], zoom);
         }
+
+        var $div = jQuery(".leaflet-locationiq-search-icon");
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === "class") {
+                var attributeValue = jQuery(mutation.target).prop(mutation.attributeName);
+                //console.log("Class attribute changed to:", attributeValue);
+                fetchResults();
+                }
+            });
+        });
+        observer.observe($div[0], {
+            attributes: true
+        });
 
     </script>
     <?php  endif; ?>
