@@ -17,7 +17,13 @@ if($noticiasDest): // repetidor
                                 ?>
                                 <img src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>" class="img-fluid">
                                 <div class="dest-title">
-                                    <p><?php echo get_the_title($noticiasDest[0]); ?></p>
+                                    <?php
+                                        $titulo = get_field('titulo_destaque', $noticiasDest[0]);
+                                        if($titulo == ''){
+                                            $titulo = get_the_title($noticiasDest[0]);
+                                        }
+                                    ?>
+                                    <p><?php echo $titulo; ?></p>
                                 </div>
                             </a>
                         </div>
@@ -36,7 +42,13 @@ if($noticiasDest): // repetidor
                                 ?>
                                 <img src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>" class="img-fluid">
                                 <div class="dest-title">
-                                    <p><?php echo get_the_title($noticiasDest[1]); ?></p>
+                                    <?php
+                                        $titulo = get_field('titulo_destaque', $noticiasDest[1]);
+                                        if($titulo == ''){
+                                            $titulo = get_the_title($noticiasDest[1]);
+                                        }
+                                    ?>
+                                    <p><?php echo $titulo; ?></p>
                                 </div>
                             </a>
                         </div>
@@ -53,7 +65,13 @@ if($noticiasDest): // repetidor
                                 ?>
                                 <img src="<?php echo $thumbs[0]; ?>" alt="<?php echo $thumbs[1]; ?>" class="img-fluid">
                                 <div class="dest-title">
-                                    <p><?php echo get_the_title($noticiasDest[2]); ?></p>
+                                    <?php
+                                        $titulo = get_field('titulo_destaque', $noticiasDest[2]);
+                                        if($titulo == ''){
+                                            $titulo = get_the_title($noticiasDest[2]);
+                                        }
+                                    ?>
+                                    <p><?php echo $titulo; ?></p>
                                 </div>
                             </a>
                         </div>
