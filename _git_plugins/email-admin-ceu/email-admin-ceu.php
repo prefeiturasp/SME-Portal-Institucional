@@ -10,7 +10,8 @@ Author URI: https://www.amcom.com.br
 */
 
 function post_unpublished( $new_status, $old_status, $post ) {
-    if ( ($old_status == 'publish' || $old_status =='new')  &&  $new_status == 'pending' ) {
+    
+    if ( ($old_status == 'publish' &&  $new_status == 'pending') || ($old_status == 'pending' &&  $new_status == 'pending') || ($old_status == 'draft' &&  $new_status == 'pending') ) {
         
         if ( ! $post_type = get_post_type_object( $post->post_type ) )
         return;
@@ -99,6 +100,7 @@ function post_unpublished( $new_status, $old_status, $post ) {
         }
         
         // evia o email
+        //$emailto2 = 'felipe.almeida@amcom.com.br';
         wp_mail( $emailto, $subject, $message );
     }
 }
