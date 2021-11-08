@@ -1730,8 +1730,7 @@ function custom_wp_new_user_notification_email( $wp_new_user_notification_email,
 	return $wp_new_user_notification_email;
 }
 
-// Enviar eventos para revisao em caso de Colaborador
-add_filter('wp_insert_post_data', 'change_post_status', '99');
+add_filter('wp_insert_post_data', 'change_post_status', '100');
 
 function change_post_status($data)
 {
@@ -1739,7 +1738,20 @@ function change_post_status($data)
     {
         if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
         //then set the fields you want to update
-        $data['post_status'] = 'pending';     
+		if($data['post_status'] == 'publish'){
+			$data['post_status'] = 'pending';
+		}		
     }
     return $data;
 }
+
+
+// Permitir que colaboradores possam ver o preview dos posts
+function jv_change_post( $posts ) {
+    if(is_preview() && !empty($posts)){        
+        $posts[0]->post_status = 'publish';
+    }
+
+    return $posts;
+}
+add_filter( 'posts_results', 'jv_change_post', 10, 2 );
