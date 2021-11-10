@@ -616,7 +616,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                             <?php endif; ?>
 
                                             <?php if($servico['horario_serv'] && $servico['horario_serv'] != ''): ?>
-                                                <p class='mb-0'><strong>Horário de funcionamento</strong></p>
+                                                <p class='mb-0'><strong>Horário de Funcionamento</strong></p>
                                                 <p class='mb-0'><?php echo $servico['horario_serv']['dia_abertura'] . ' a ' . $servico['horario_serv']['dia_fechamento']; ?> - <?php echo convertHour($servico['horario_serv']['horario_abertura']) . ' às ' . convertHour($servico['horario_serv']['horario_fechamento']); ?></p>
 
                                                 <?php
