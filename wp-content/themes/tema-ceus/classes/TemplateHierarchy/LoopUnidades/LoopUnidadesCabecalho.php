@@ -121,7 +121,7 @@ class LoopUnidadesCabecalho extends LoopUnidades{
                     </p>
 
                     <p class="horarios">
-                        <span>Horário de funcionamento: </span>
+                        <span>Horário de Funcionamento: </span>
                         <?php
                             $horario = $infoBasicas['horario'];
                             
