@@ -67,7 +67,7 @@ class PaginaProgramacaoBusca
                             
                         ?>
                     </div>
-                    <form action="<?php echo home_url( '/' ); ?>"  id="searchform" class="row col-sm-12">
+                    <form action="<?php echo home_url( '/' ); ?>"  id="searchform" class="row col-sm-12 form-prog">
                         <input id="prodId" name="tipo" type="hidden" value="programacao">
                         <input name="s" type="hidden" value="">
                         <div class="col-sm-3 mt-2 px-1">

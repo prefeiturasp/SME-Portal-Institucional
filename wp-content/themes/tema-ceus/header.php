@@ -95,7 +95,8 @@ use Classes\Header\Header;
 
             <section class="row cabecalho-cinza-escuro">
                 <section class="container">
-                    <section class="row">
+
+                    <section class="row d-none d-md-flex">
                         <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
                             <ul class="list-inline mt-3 mb-0">
                                 <?php
@@ -116,6 +117,19 @@ use Classes\Header\Header;
                         </article>
 
                     </section>
+
+                    <section class="row d-flex d-md-none">
+                        <article class="col-12 d-flex justify-content-start">
+                            <ul class="list-inline list-inline-mob mt-3 mb-0">
+                                <li class="list-inline-item"><a accesskey="1" id="1" href="#<?= $slug_titulo->getSlugTitulo() ?>" class="text-white">Ir ao Conteúdo <span class="span-accesskey">1</span></a></li>
+                                <li class="list-inline-item"><a accesskey="2" id="2" href="#irmenu" class="text-white">Ir para menu principal <span class="span-accesskey">2</span></a></li>
+                                <li class="list-inline-item"><a accesskey="3" id="3" href="#search-front-end" class="text-white">Ir para busca <span class="span-accesskey">3</span></a></li>
+                                <li class="list-inline-item"><a accesskey="4" id="4" href="#irrodape" class="text-white">Ir para rodapé <span class="span-accesskey">4</span></a></li>
+                                <li class="list-inline-item"><a href="<?= STM_URL ?>/acessibilidade/" accesskey="5" class="text-white">Acessibilidade <span class="span-accesskey">5</span> </a></li>
+                            </ul>
+                        </article>
+                    </section>
+
                 </section>
 
             </section>
@@ -124,15 +138,15 @@ use Classes\Header\Header;
 
                 <section class="container">
                     <section class="row">
-                        <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
-                            <ul class="list-inline mt-2 mb-0">
+                        <article class="col-7 col-lg-6 col-xs-12 d-flex justify-content-start">
+                            <ul class="list-inline my-2 menu-list">
                                 <li class="list-inline-item"><a class="text-white" href="http://transparencia.prefeitura.sp.gov.br/acesso-a-informacao">Acesso à informação e-sic <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span> </a></li>
                                 <li class="list-inline-item"><a class="text-white" href="https://www.prefeitura.sp.gov.br/cidade/secretarias/ouvidoria/fale_com_a_ouvidoria/index.php?p=464">Ouvidoria <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
                                 <li class="list-inline-item"><a class="text-white" href="http://transparencia.prefeitura.sp.gov.br/Paginas/home.aspx">Portal da Transparência <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
                                 <li class="list-inline-item"><a class="text-white" href="https://sp156.prefeitura.sp.gov.br/portal/servicos">SP 156 <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
                             </ul>
                         </article>
-                        <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
+                        <article class="col-5 col-lg-6 col-xs-12 d-flex justify-content-end">
                             <?php 
                                 $facebook = get_field('url_facebook','conf-rodape');
                                 $instagram = get_field('url_instagram','conf-rodape');
@@ -161,10 +175,12 @@ use Classes\Header\Header;
 
 		<?php \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
 
+        <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+
     </header>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light menu-topo">
-        <section class="container">
+        <div class="container">
 			<?php
 			// Traz o Logotipo cadastrado no Admin
 			$custom_logo_id = get_theme_mod('custom_logo');
@@ -178,9 +194,13 @@ use Classes\Header\Header;
             <form>
                 <fieldset>
                     <legend>Mostra e Esconde Menu</legend>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#irmenu" aria-controls="irmenu" aria-expanded="false">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                    <nav class="navbar-dark">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#irmenu" aria-controls="irmenu" aria-expanded="false">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <br>
+                        <span class='text-btn d-block d-md-none'>MENU</span>
+                    </nav>
                 </fieldset>
             </form>
 
@@ -198,6 +218,6 @@ use Classes\Header\Header;
 				?>
 
             </nav>
-        </section>
+        </div>
     </nav>
 <?php new \Classes\Breadcrumb\Breadcrumb(); ?>
