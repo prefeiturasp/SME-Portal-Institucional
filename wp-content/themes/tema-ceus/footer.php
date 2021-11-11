@@ -610,7 +610,16 @@
     </script>
     <?php  endif; ?>
 
-    
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <script>
+        var swiper = new Swiper(".swiper", {
+            slidesPerView: "auto",
+            spaceBetween: 0,
+            freeMode: true,
+            loop: true,        
+        });
+    </script>
 
 </body>
 </html>

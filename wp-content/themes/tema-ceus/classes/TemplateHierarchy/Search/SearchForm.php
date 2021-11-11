@@ -25,7 +25,7 @@ class SearchForm
 
 	public static function searchFormHeader(){
 		?>
-        <section class="container">
+        <section class="container d-none d-md-block">
         <section class="row">
             <section class="col-12 d-flex flex-row-reverse mt-3">
                 <form action="<?php echo home_url( '/' ); ?>" method="get" class="navbar-form navbar-left">

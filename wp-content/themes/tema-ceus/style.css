@@ -1905,3 +1905,410 @@ a.nextpostslink {
         padding-left: 15px !important;
     }
 }
+
+/**** ****/
+.modal.left .modal-dialog,
+.modal.right .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 320px;
+    height: 100%;
+    -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+         -o-transform: translate3d(0%, 0, 0);
+            transform: translate3d(0%, 0, 0);
+    margin-top: 0 !important;
+}
+
+.modal.left .modal-content,
+.modal.right .modal-content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.modal.left .modal-body,
+.modal.right .modal-body {
+    padding: 15px 15px 80px;
+}
+
+    
+/*Right*/
+.modal.right.fade .modal-dialog {
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+       -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+         -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+            transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+    right: 0;
+}
+
+/*Left*/
+.modal.left.fade .modal-dialog {
+    -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+       -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+         -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+            transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.left.fade.in .modal-dialog {
+    left: 0;
+}
+
+#filtroBusca .modal-header {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    border-bottom: 1px solid #DADADA;
+}
+
+#filtroBusca .modal-title {
+    color: #196CBD;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#filtroBusca .modal-header .close {
+    color: #196CBD;
+    opacity: 1;
+    position: relative;
+    padding: 1rem !important;
+    width: initial;
+}
+
+.vertical-menu-mobile {
+    margin: 0;
+}
+
+.vertical-menu-mobile li a {
+    color: #000000;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: left;
+    display: block;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+}
+
+.vertical-menu-mobile li a.active {
+    background: #F3F3F3;
+}
+
+.btn-submenu {
+    color: #264270;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 0;
+    padding: 0;
+    background: #FFFFFF;
+}
+
+.mob-tab-title {
+    font-weight: bold;
+    font-size: 28px;
+    margin-top: 30px;
+}
+
+.color-norte .btn-submenu,
+.color-norte #filtroBusca .modal-title,
+.color-norte #filtroBusca .modal-header .close,
+.color-norte .mob-tab-title{
+    color: #599E00;
+}
+
+.color-leste .btn-submenu,
+.color-leste #filtroBusca .modal-title,
+.color-leste #filtroBusca .modal-header .close,
+.color-leste .mob-tab-title{
+    color: #E05317;
+}
+
+.color-sul .btn-submenu,
+.color-sul #filtroBusca .modal-title,
+.color-sul #filtroBusca .modal-header .close,
+.color-sul .mob-tab-title{
+    color: #9B2FAE;
+}
+
+.color-oeste .btn-submenu,
+.color-oeste #filtroBusca .modal-title,
+.color-oeste #filtroBusca .modal-header .close,
+.color-oeste .mob-tab-title{
+    color: #1697A6;
+}
+
+.btn-submenu .fa{
+    transform: initial !important;
+}
+
+.btn-submenu span{    
+    text-decoration: underline;
+}
+
+h2.submenu-title {
+    font-weight: bold;
+    font-size: 28px;
+    color: #196CBD;
+}
+
+#filtroBusca{
+    z-index: 999999;
+}
+
+.unidade-tab #filtroBusca ul.nav-tabs li a {
+    display: block;
+    text-align: left;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    font-weight: bold;
+    padding: 0 10px 15px;
+    text-transform: uppercase;
+    box-shadow: initial;
+}
+
+@media (max-width: 767px) {
+
+    .list-inline-mob li.list-inline-item {
+        margin-bottom: 13px;
+    }
+
+    span.text-btn {
+        color: #196CBD;
+        font-weight: bold;
+        text-align: center;
+        padding-left: 4px;
+    }
+
+    p {
+        font-size: 20px;
+    }
+    
+    .midias-sociais {
+        margin-right: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-topo {
+        margin: 0;
+        padding-bottom: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    .navbar-toggler {
+        background: #196CBD;
+        border-radius: 0;
+        border: 0;
+        padding: 0.75rem;
+    }
+
+    ul#menu-menu-principal {
+        border: 0;
+        border-bottom: 1px solid #DADADA;
+        margin-left: 0;
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .nav-tabs .nav-link.active{
+        border: 0;
+    }
+
+    .navbar-nav .nav-link{
+        font-size: 18px;
+    }
+
+    .banner-title{
+        font-size: 38px;
+    }
+
+    .bg-banner img {
+        display: block;
+        margin: 0 auto;
+    }
+
+    h1.const-title {
+        font-size: 52px !important;
+    }
+
+    h2.const-title {
+        font-size: 48px !important;
+        line-height: 1.2;
+    }
+
+    .fx_all .container ul li {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .fx_all .container ul li a{
+        font-weight: normal;
+    }
+    
+    .lista-unidades {
+        height: 400px;
+        margin-bottom: 20px;
+    }
+    #map {
+        height: 450px;
+    }
+    .p-list {
+        padding-right: 15px !important;
+    }
+    .p-map {
+        padding-left: 15px !important;
+    }
+
+    #servicos ul li{
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    #servicos ul li a{
+        font-weight: normal;
+    }
+
+    .evento-categ a{
+        font-size: 14px;
+    }
+
+    .about-redes {
+        margin-bottom: 25px;
+    }
+
+    .card-eventos-content p.unidade-title a,
+    .card-eventos-content p{
+        font-size: 16px;
+    }
+
+    #searchform {       
+        padding-right: 0;
+    }
+
+    .form-prog{
+        padding-left: 30px !important;
+    }
+
+    .search-home h1 {
+        font-size: 2.3rem !important;
+        font-weight: bold;
+    }
+
+    .slide-principal .carousel-item {
+        padding-bottom: 40px;
+    }
+
+    ol.carousel-indicators {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .evento-details {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .evento-details tr td,
+    .evento-details p{
+        font-size: 16px;
+    }
+
+    .search-event .container,
+    .search-event .container .row {
+        padding: 0;
+        margin: 0;
+    }
+
+    #ms-list-1 {
+        margin-bottom: 15px;
+    }
+
+    .card-eventos {
+        margin-bottom: 20px;
+    }
+
+    .card-eventos .card-eventos-content {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    .card-eventos .card-eventos-content h3 a,
+    .card-eventos-content p.unidade-title a{
+        font-size: 20px;
+    }
+
+    .evento-infos{
+        margin-top: 15px;
+    }
+
+    .tema-eventos {
+        padding-bottom: 25px;
+    }
+
+    .swiper-slide {
+        width: auto !important;
+    }
+    
+    .swiper-slide .categ-bloco,
+    .swiper-slide .card-eventos{
+        max-width: 270px;
+    }
+
+    .swiper-slide .card-eventos{
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .swiper-slide .card-eventos-content {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    .categ-bloco .card-categ img{
+        max-width: 60%;
+    }
+
+    .tema-eventos-title h3 {
+        color: #2071DE !important;
+        font-size: 26px;
+        margin-bottom: 30px;
+    }
+
+    .footer-logo img {
+        max-width: 70%;
+        display: block;
+        margin: 25px auto;
+    }
+
+    #irrodape {
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+
+    #irrodape p {
+        font-size: 16px;
+    }
+
+    .rede-rodape {
+        max-width: 38px !important;
+    }
+
+    .footer-title{
+        margin-bottom: 5px;
+    }
+
+    footer .redes-footer {
+        margin-bottom: 25px;
+    }
+
+    .subfooter p {
+        font-size: 14px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}

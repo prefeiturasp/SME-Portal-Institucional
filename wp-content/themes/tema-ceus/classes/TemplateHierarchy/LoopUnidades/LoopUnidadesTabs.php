@@ -16,9 +16,38 @@ class LoopUnidadesTabs extends LoopUnidades{
         //echo "</pre>";
     ?>
 
-        <div class="container unidade-tab color-<?php echo $infoBasicas['zona_sp']; ?>"> 
+        <div class="container unidade-tab color-<?php echo $infoBasicas['zona_sp']; ?>">
+        
+                <button type="button" class="btn-submenu d-lg-none d-xl-none b-0" data-toggle="modal" data-target="#filtroBusca">
+					<i class="fa fa-ellipsis-v" aria-hidden="true"></i> <span>Subpáginas</span>					
+				</button>
 
-            <ul class="nav nav-tabs d-flex">
+				<hr class='d-lg-none d-xl-none'>
+
+				<!-- Modal -->
+				<div class="modal left fade" id="filtroBusca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<p class="modal-title" id="myModalLabel2">Subpáginas</p>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>				
+							</div>
+
+							<div class="modal-body">
+                                <ul class="nav nav-tabs d-flex">
+                                    <li class="active"><a data-toggle="tab" href="#programacao-ceu" class="active tab-mobile">Programação</a></li>
+                                    <li><a data-toggle="tab" href="#servicos" class="tab-mobile">Serviços e Instalações</a></li>
+                                    <li><a data-toggle="tab" href="#sobre" class="tab-mobile">Sobre a Unidade </a></li>
+                                    <li><a data-toggle="tab" href="#chegar" class="tab-mobile">Como Chegar</a></li>
+                                </ul>
+							</div>
+
+						</div><!-- modal-content -->
+					</div><!-- modal-dialog -->
+				</div><!-- modal -->
+
+            <ul class="nav nav-tabs d-none d-lg-flex">
                 <li class="active"><a data-toggle="tab" href="#programacao-ceu" class="active">Programação</a></li>
                 <li><a data-toggle="tab" href="#servicos">Serviços e Instalações</a></li>
                 <li><a data-toggle="tab" href="#sobre">Sobre a Unidade </a></li>
@@ -28,6 +57,7 @@ class LoopUnidadesTabs extends LoopUnidades{
             <div class="tab-content">
 
                 <div id="programacao-ceu" class="tab-pane fade in active show">
+                    <p class="d-lg-none d-xl-none mob-tab-title">PROGRAMAÇÃO</p>
                     <p class='unidade-title'>Confira a programação no <?php echo get_the_title(); ?></p>
 
                     <div class="search-home py-4" id='programacao'>
@@ -226,7 +256,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                             
                         ?>
 
-                        <div class="atividades-found">
+                        <div class="atividades-found aaaa">
                             <p><?php echo $encontrados; ?></p>
                         </div>
                         
@@ -555,6 +585,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                 </div>
 
                 <div id="servicos" class="tab-pane fade">
+                    <p class="d-lg-none d-xl-none mob-tab-title">SERVIÇOS E INSTALAÇÕES</p>                
                     <p class='unidade-title'>Confira os serviços disponíveis e Instalações no <?php echo get_the_title(); ?></p>
 
                     <div class="row pt-4">
@@ -687,6 +718,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                 </div>
                
                 <div id="sobre" class="tab-pane fade">
+                    <p class="d-lg-none d-xl-none mob-tab-title">SOBRE A UNIDADE</p>
                     <p class='unidade-title'>Saiba mais sobre o <?php echo get_the_title(); ?></p>
                     <?php
                         $gestor = $infoBasicas['gestor'];
@@ -780,6 +812,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                 </div>
 
                 <div id="chegar" class="tab-pane fade">
+                    <p class="d-lg-none d-xl-none mob-tab-title">COMO CHEGAR</p>
                     <p class='unidade-title'>Como chegar ao <?php echo get_the_title(); ?></p>
                         
                         <div class="row pb-4">
