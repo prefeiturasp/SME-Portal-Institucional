@@ -85,7 +85,7 @@ class ArchiveAgendaAjaxCalendario extends Util
 
 		endwhile;
 		else:
-			echo '<p><strong>Não existem eventos cadastrados nesta data</strong></p>';
+			echo '<p class="agenda"><strong>Não existem eventos cadastrados nesta data</strong></p>';
 		endif;
 		wp_reset_postdata();
 
