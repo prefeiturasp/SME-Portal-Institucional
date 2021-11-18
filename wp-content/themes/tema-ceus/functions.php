@@ -1734,7 +1734,7 @@ add_filter('wp_insert_post_data', 'change_post_status', '100');
 
 function change_post_status($data)
 {
-    if( (current_user_can('contributor')) && ($data['post_type'] == 'post') )
+    if( current_user_can('contributor') && ($data['post_type'] == 'post' || $data['post_type'] == 'unidade') )
     {
         if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
         //then set the fields you want to update
