@@ -154,7 +154,7 @@
 	height: auto !important;
 }
 .bg-home-desc{
-	background: linear-gradient(to top, black, rgba(0,0,0,0.7));
+	background: linear-gradient(to top, rgba(38, 66, 112, 1), rgba(38, 66, 112, 0.75));
 }
 .b-home{
 	padding-bottom: 0.9rem!important;
