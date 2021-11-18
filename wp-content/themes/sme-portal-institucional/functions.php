@@ -1447,3 +1447,210 @@ add_action( 'wp_enqueue_scripts', 'load_dashicons_front_end' );
 function load_dashicons_front_end() {
    wp_enqueue_style( 'dashicons' );
 }
+
+// Desabilitar coluna Descricao para Comprimissos dentro da Agenda
+add_filter('manage_edit-compromisso_columns', function ( $columns ) 
+{
+    if( isset( $columns['description'] ) )
+        unset( $columns['description'] );   
+
+    return $columns;
+} );
+
+// Desabilitar campo Descricao para Comprimissos dentro da Agenda
+
+function hide_description_row() {
+    echo "<style> .term-description-wrap { display:none; } </style>";
+}
+
+add_action( "compromisso_edit_form", 'hide_description_row');
+add_action( "compromisso_add_form", 'hide_description_row');
+
+// Inserir as opções no campo Compromisso no cadastro da Agenda
+add_filter( 'acf/load_field/name=compromisso', function( $field ) {
+  
+	// Get all taxonomy terms
+	$compromissos = get_terms( array(
+	  'taxonomy' => 'compromisso',
+	  'hide_empty' => false
+	) );
+	
+	// Add each term to the choices array.
+	// Example: $field['choices']['review'] = Review
+	$field['choices']['outros'] = 'Outros';
+	foreach ( $compromissos as $type ) {
+	  $field['choices'][$type->term_id] = $type->name;
+	}
+  
+	return $field;
+} );
+
+// Inserir as opções no campo Endereço no cadastro da Agenda
+add_filter( 'acf/load_field/name=endereco_evento', function( $field ) {
+  
+	// Get all taxonomy terms
+	$compromissos = get_terms( array(
+	  'taxonomy' => 'endereco',
+	  'hide_empty' => false
+	) );
+	
+	// Add each term to the choices array.
+	// Example: $field['choices']['review'] = Review
+	$field['choices']['outros'] = 'Outros';
+	foreach ( $compromissos as $type ) {
+	  $field['choices'][$type->term_id] = $type->name;
+	}
+  
+	return $field;
+} );
+
+/// Incluir JS de preenchimento e Ajax no Admin
+function enqueue_scripts_back_end(){
+	wp_enqueue_script( 'ajax-script', get_template_directory_uri() . '/js/my_query.js', array('jquery'));
+	
+	wp_localize_script( 'ajax-script', 'ajax_object',
+            array( 'ajax_url' => admin_url( 'admin-ajax.php' )) );
+	
+}
+add_action('admin_enqueue_scripts','enqueue_scripts_back_end');
+
+// Recupera os valores dentro de Compromisso
+add_action( 'wp_ajax_my_action', 'my_action' );
+function my_action() {
+	
+
+	global $wpdb;
+	
+	$compromisso = intval( $_POST['compromisso'] );
+	
+	$pauta_assunto = get_field('pauta_assunto', 'term_' . $compromisso); 
+	$participantes_evento = get_field('participantes_evento', 'term_' . $compromisso);
+	$endereco_do_evento = get_field('endereco_do_evento', 'term_' . $compromisso);
+	
+	echo json_encode(array(
+		'pauta_assunto' => $pauta_assunto,
+		'participantes_evento' => $participantes_evento,
+		'endereco_do_evento' => $endereco_do_evento
+	));
+	
+	wp_die();
+	
+}
+
+// Ordenar Nova Agenda por data por padrão
+add_filter( 'parse_query', 'sort_posts_by_meta_value' );
+ 
+function sort_posts_by_meta_value($query) {
+    global $pagenow;
+    if (is_admin() && $pagenow == 'edit.php' &&
+        isset($_GET['post_type']) && $_GET['post_type']=='agendanew' &&
+        !isset($_GET['orderby']) )  {
+        $query->query_vars['orderby'] = 'meta_value_num date';
+        $query->query_vars['meta_key'] = 'data_do_evento';
+    }
+
+	return $query;
+}
+
+// Ordenar Nova Agenda por data ao clicar em ordenacao
+add_filter( 'parse_query', 'sort_agenda_by_date' );
+ 
+function sort_agenda_by_date($query) {
+    global $pagenow;
+    if (is_admin() && $pagenow == 'edit.php' &&
+        isset($_GET['post_type']) && $_GET['post_type']=='agendanew' &&
+        isset($_GET['orderby'])  && $_GET['orderby'] == 'data_evento')  {
+        $query->query_vars['orderby'] = 'meta_value_num date';
+        $query->query_vars['meta_key'] = 'data_do_evento';
+    }
+
+	return $query;
+}
+
+// Filtrar Nova Agenda por mes / ano
+add_filter( 'parse_query', 'filter_agenda_by_date' );
+ 
+function filter_agenda_by_date($query) {
+    global $pagenow;
+    if (is_admin() && $pagenow == 'edit.php' &&
+        isset($_GET['post_type']) && $_GET['post_type']=='agendanew' &&
+        isset($_GET['search_year']) )  {
+			
+			$mesBusca = $_GET['search_month'];
+			$anoBusca = $_GET['search_year'];
+
+			$start = $anoBusca . '-' . $mesBusca . '-01';
+			$end = $anoBusca . '-' . $mesBusca . '-31';
+
+			$query->query_vars['orderby'] = 'meta_value_num date';
+			$query->query_vars['meta_query'] = array(
+				'relation' => 'AND',
+				array(
+					'key' => 'data_do_evento',
+					'value' => $start,
+					'compare' => '>=',
+					'type' => 'DATE'
+				),
+
+				array(
+					'key' => 'data_do_evento',
+					'value' => $end,
+					'compare' => '<=',
+					'type' => 'DATE'
+				),
+			);
+    }
+
+	return $query;
+}
+
+// Inclusao do filtro por mes / ano
+add_action('restrict_manage_posts','filtering_month',10);
+function filtering_month($post_type){
+    
+	if('agendanew' !== $post_type){
+      return; //filter your post
+    }
+        
+    //Lista de Meses.
+    $meses = array(
+		'01' => 'Janeiro',
+		'02' => 'Fevereiro',
+		'03' => 'Março',
+		'04' => 'Abril',
+		'05' => 'Maio',
+		'06' => 'Junho',
+		'07' => 'Julho',
+		'08' => 'Agosto',
+		'09' => 'Setembro',
+		'10' => 'Outubro',
+		'11' => 'Novembro',
+		'22' => 'Dezembro',
+	);
+
+	// Mes Atual
+	$month = date('m');
+
+   //build a custom dropdown list of values to filter by
+    echo '<select id="my-loc" name="search_month">';    
+    foreach($meses as $key => $location){
+      $select = ($month == $key) ? ' selected="selected"':'';
+      echo '<option value="'.$key.'"'.$select.'>' . $location . ' </option>';
+    }
+    echo '</select>';
+
+
+	// Ano Atual
+	$year = date('Y');
+	$previousyear = $year -1;
+	$nextyear = $year +1;
+
+	//build a custom dropdown list of values to filter by
+    echo '<select id="my-loc" name="search_year">';        
+    echo '<option value="'.$previousyear.'">' . $previousyear . ' </option>';
+	echo '<option value="'.$year.'" selected="selected">' . $year . ' </option>';
+	echo '<option value="'.$nextyear.'">' . $nextyear . ' </option>'; 
+    echo '</select>';
+}
+
+add_filter('months_dropdown_results', '__return_empty_array');
