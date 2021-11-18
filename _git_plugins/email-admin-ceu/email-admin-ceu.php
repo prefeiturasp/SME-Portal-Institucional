@@ -11,53 +11,85 @@ Author URI: https://www.amcom.com.br
 
 function post_unpublished( $new_status, $old_status, $post ) {
     
-    if ( ($old_status == 'publish' &&  $new_status == 'pending') || ($old_status == 'pending' &&  $new_status == 'pending') || ($old_status == 'draft' &&  $new_status == 'pending') ) {
+    if ( ($old_status == 'publish' &&  $new_status == 'pending') || ($old_status == 'auto-draft' &&  $new_status == 'pending') || ($old_status == 'draft' &&  $new_status == 'pending') ) {
         
         if ( ! $post_type = get_post_type_object( $post->post_type ) )
         return;
+
+        $emailto = array_diff($emailto, $removeUser);
+
+        if($old_status == 'auto-draft' &&  $new_status == 'pending'){
+            $idUnidade = $_POST['acf']['field_5fc7ce0712c45'];
+        } elseif($post_type->labels->singular_name == 'Sobre o CEU') {
+            $idUnidade = $post->ID;
+        } else {
+            $idUnidade = get_field('localizacao', $post->ID);
+            if($idUnidade == ''){
+                $idUnidade = $_POST['acf']['field_5fc7ce0712c45'];
+            }
+        }
+        $unidade = get_the_title($idUnidade);
+
+        $gruposRel = array();
+        $cc_args = array(
+            'posts_per_page'   => -1,
+            'post_type'        => 'wporg_unidades',
+            'meta_key'         => 'unidades',
+            'meta_value'       => $idUnidade,
+            'meta_compare' => 'LIKE',
+        );
+        $cc_query = new WP_Query( $cc_args );
+
+        // The Loop
+        if ( $cc_query->have_posts() ) {            
+            while ( $cc_query->have_posts() ) {
+                $cc_query->the_post();
+                $gruposRel[] = get_the_ID();
+            }
+            
+        } 
+        /* Restore original Post Data */
+        wp_reset_postdata();
         
         $emailto = array();
         
-        $adminUsers = get_users('role=Administrator'); // Uuarios do tipo admin
+        $adminUsers = get_users('role=Administrator'); // Uuarios do tipo admin        
 
-        if ( $id = get_post_meta(get_the_id(), '_edit_last', true ) ){
-            $grupoUser = get_field('grupo', 'user_' . $id);  
-        }
+        $relation['relation'] = 'OR';
 
-        if($grupoUser && $grupoUser != ''){
-            foreach($grupoUser as $grupo){
+        if($gruposRel && $gruposRel != ''){
+            foreach($gruposRel as $grupo){
                 $relation[] = array(
                     'key' => 'grupo',
                     'value' => $grupo,
                     'compare' => 'LIKE'
-                );
-            }
+                );                
+            }  
+            
+            $args = array(
+                'role' => 'editor', 
+                'meta_query'=>array(
+                    'relation' => 'AND',         
+                        array(
+                            $relation
+                        ),       
+                    
+                )
+            );     
+            
+            $editorUsers = get_users( $args ); // Uuarios do tipo Editor
+        } else {
+            $editorUsers = '';
         }
 
-        $args = array(
-            'role' => 'editor',
-            'meta_query'=>array(
-    
-                array(
-    
-                    'relation' => 'AND',
-
-                    array(
-                        'relation' => 'OR',
-                        $relation
-                    ),
                 
-                )
-            )
-        );    
-        
-        $editorUsers = get_users( $args ); // Uuarios do tipo Editor        
         
         if($editorUsers && $editorUsers != ''){
             $portalusers = array_merge($adminUsers, $editorUsers); // todos os usuarios em um array
         } else {
             $portalusers = $adminUsers; 
-        }        
+        }
+        
        
         foreach ($portalusers as $user) {
             $emailto[] = $user->user_email;
@@ -66,11 +98,7 @@ function post_unpublished( $new_status, $old_status, $post ) {
         // usuarios que nao receberao email
         $removeUser = array('ollyver.ottoboni@amcom.com.br', 'ollyverottoboni@gmail.com', 'felipe.almeida@amcom.com.br');
 
-        $emailto = array_diff($emailto, $removeUser);
-
-        $idUnidade = get_field('localizacao', $post->ID);
-        $unidade = get_the_title($idUnidade);
-
+        
         //Link para editar
         $link = get_edit_post_link( $post->ID );
         $link = str_replace('&amp;' , '&', $link);
@@ -89,6 +117,7 @@ function post_unpublished( $new_status, $old_status, $post ) {
                 
                 // Corpo do email
                 $message = 'O ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . ' que pertence a unidade "' . $unidade . '"' . " foi editado no portal.\n\nPara visualizar as alterações acesse: " . get_permalink( $post->ID ) . "\nPara publicar acesse: " . $link;
+                //$message .= ' ' . $old_status . "  " . $new_status;                
             }   
 
         } else {
@@ -97,11 +126,12 @@ function post_unpublished( $new_status, $old_status, $post ) {
             $subject = 'O ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . ' foi editada no portal.';
             // Corpo do email
             $message = 'O ' . $post_type->labels->singular_name . ' "' . get_the_title($post->ID) . '"' . " foi editado no portal.\nPara visualizar as alterações acesse: " . get_permalink( $post->ID ) . "\nPara publicar acesse: " . $link;
+            //$message .= ' ' . $old_status . "  " . $new_status;            
         }
         
         // evia o email
-        //$emailto2 = 'felipe.almeida@amcom.com.br';
+        //$emailto2 = array('felipe.almeida@amcom.com.br', 'monica.tang@sme.prefeitura.sp.gov.br', 'jaqueline.sargi@amcom.com.br');
         wp_mail( $emailto, $subject, $message );
     }
 }
-add_action( 'transition_post_status', 'post_unpublished', 10, 3 );
+add_action( 'transition_post_status', 'post_unpublished', 200, 3 );
