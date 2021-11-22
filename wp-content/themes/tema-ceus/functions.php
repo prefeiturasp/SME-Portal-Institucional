@@ -1755,3 +1755,52 @@ function jv_change_post( $posts ) {
     return $posts;
 }
 add_filter( 'posts_results', 'jv_change_post', 10, 2 );
+
+// Salvar Custom Fields durante o Salvamento Automatico
+function hcf_save( $post_id ) {
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if ( $parent_id = wp_is_post_revision( $post_id ) ) {
+        $post_id = $parent_id;
+    }
+
+	
+	// Localizacao
+	if( isset($_POST['acf']["field_5fc7ce0712c45"]) && $_POST['acf']["field_5fc7ce0712c45"] != '' ){
+		update_post_meta(
+			$post_id,
+			'localizacao',
+			sanitize_text_field( $_POST['acf']["field_5fc7ce0712c45"] )
+		);
+	}
+
+	// Tipo do Evento
+	if( isset($_POST['acf']["field_6005f25ba8021"]["field_6005f287a8022"]) && $_POST['acf']["field_6005f25ba8021"]["field_6005f287a8022"] != '' ){
+		update_post_meta(
+			$post_id,
+			'tipo_de_evento_tipo',
+			sanitize_text_field( $_POST['acf']["field_6005f25ba8021"]["field_6005f287a8022"] )
+		);
+	}
+
+	// Inscricoes
+	if( isset($_POST['acf']["field_6086de280d929"]["field_6086de450d92a"]) && $_POST['acf']["field_6086de280d929"]["field_6086de450d92a"] != '' ){
+		update_post_meta(
+			$post_id,
+			'inscricoes_info_inscricoes',
+			sanitize_text_field( $_POST['acf']["field_6086de280d929"]["field_6086de450d92a"] )
+		);
+	}
+
+	// Descricao
+	if( isset($_POST['acf']["field_6005f383003ea"]) && $_POST['acf']["field_6005f383003ea"] != '' ){
+		update_post_meta(
+			$post_id,
+			'descricao',
+			sanitize_text_field( $_POST['acf']["field_6005f383003ea"] )
+		);
+	}
+	
+}
+add_action( 'save_post', 'hcf_save' );

@@ -45,7 +45,7 @@ class CptPosts extends Cpt
 				$tipo = get_field('tipo_de_evento_tipo');
 				if($tipo == 'serie'){
 					$title = "Múltiplas Unidades";
-				} else {
+				} elseif($localizacao) {
 					$title = get_the_title($localizacao);
 				}
 
