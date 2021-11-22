@@ -110,7 +110,7 @@
                 <button id="btn_ZoomOut"><i class="fa fa-minus" aria-hidden="true"></i></button>
             </div>
 
-            <div id="organograma">            
+            <div id="organograma-site">            
        
                 <ul id="tree-data" style="display:none">
                     <li id="root">
@@ -556,7 +556,7 @@
         $s(document).ready(function() {
             $s('#btn_ZoomIn').click(
                 function() {
-                    $s('#organograma').animate({
+                    $s('#organograma-site').animate({
                         'zoom': currentZoom += .2
                     }, 'fast');
 
@@ -588,11 +588,11 @@
                 function() {
                     if(currentZoom == 1){
                         currentZoom = 1.0
-                        $s('#organograma').animate({
+                        $s('#organograma-site').animate({
                             'zoom': 1
                         }, 'fast');
                     } else {
-                        $s('#organograma').animate({
+                        $s('#organograma-site').animate({
                             'zoom': currentZoom -= .2
                         }, 'fast');
                     }
