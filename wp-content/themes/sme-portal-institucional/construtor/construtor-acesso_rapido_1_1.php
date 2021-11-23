@@ -25,9 +25,11 @@ if(get_sub_field('fx_acessos_1_1')) :
 
                                 <a id="tab_<?php echo $acessos['menu']; ?>" data-toggle="tab" href="#menu_<?php echo $acessos['menu']; ?>" role="tab" aria-selected="false" class="a-icones-home ">
 
-                                    <div class="row w-100">
+                                <div class="row m-0 w-100">
 
-                                        <div class="col-sm-4 pr-0">
+                                    <?php if($acessos['icone']['sizes']['thumbnail']) : ?>
+
+                                        <div class="col-sm-4 pl-0">
                                             <div class="icon-card">
                                                 <img src="<?php echo $acessos['icone']['sizes']['thumbnail']; ?>" class="img-fluid" alt="<?php echo $acessos['icone']['alt']; ?>">
                                             </div>
@@ -39,7 +41,17 @@ if(get_sub_field('fx_acessos_1_1')) :
                                             </div>
                                         </div>
 
-                                    </div>
+                                    <?php else: ?>
+
+                                        <div class="col-sm-12">
+                                            <div class="card-body text-center px-0">
+                                                <p class="card-text"><?php echo $acessos['titulo']; ?></p>
+                                            </div>
+                                        </div>
+
+                                    <?php endif; ?>
+
+                                </div>
 
                                     
                                 </a>
