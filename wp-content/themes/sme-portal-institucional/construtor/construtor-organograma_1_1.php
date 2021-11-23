@@ -83,8 +83,8 @@
                     echo $texto;
                 }
 
-                if($lastEdit != ''){
-                    echo "<p class='font-italic text-date'>Atualizado em:" . $lastEdit->format('d/m/Y H:i:s') . "</p>";
+                if($dataShow != ''){
+                    echo "<p class='font-italic text-date'>Atualizado em:" . $dataShow->format('d/m/Y H:i:s') . "</p>";
                 }
             ?>
 
