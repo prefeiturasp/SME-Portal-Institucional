@@ -1654,3 +1654,11 @@ function filtering_month($post_type){
 }
 
 add_filter('months_dropdown_results', '__return_empty_array');
+
+// Adicionar busca em Atributos de Paginas > Ascendente 
+function custom_scripts_wpse_215576() {
+    //Chosen CSS file
+    wp_enqueue_style('chose-style', get_template_directory_uri().'/css/chosen.css');
+    //Chosen JS file
+    wp_enqueue_script( 'chosen-script', get_template_directory_uri() . '/js/chosen.jquery.min.js', array(), '1.4.2', true );
+}

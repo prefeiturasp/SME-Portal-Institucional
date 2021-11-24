@@ -1,3 +1,10 @@
+jQuery( document ).ready(function() {
+    jQuery("#parent_id").chosen({
+        search_contains: true,
+        no_results_text: "Nenhum resultado encontrado para "
+    });
+});
+
 var $s = jQuery.noConflict();
 
 $s('#attachment_alt').each(function() {
