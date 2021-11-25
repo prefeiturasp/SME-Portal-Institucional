@@ -17,7 +17,6 @@ class EnviarParaRevisao
 
 		add_filter('init', array($this, 'reAprovePages'), '99', 2);
 		add_filter( 'init', array($this, 'reAproveCards'), '99', 2 );
-		add_filter( 'init', array($this, 'reAproveAbas'), '99', 2 );
 		add_filter( 'init', array($this, 'reAproveContatos'), '99', 2 );
 
 		$user = wp_get_current_user();
@@ -57,18 +56,6 @@ class EnviarParaRevisao
 	public function reAproveCards() {
 
 		if ($this->getRoleUser() == 'contributor' && 'card' === $this->getPostType()){
-			if ($this->getPostStatus() == "publish"){
-				wp_update_post(array(
-					'ID'    =>  $this->page_id,
-					'post_status'   =>  'pending'
-				));
-			}
-		}
-	}
-
-	public function reAproveAbas() {
-
-    	if ($this->getRoleUser() == 'contributor' && 'aba' === $this->getPostType()){
 			if ($this->getPostStatus() == "publish"){
 				wp_update_post(array(
 					'ID'    =>  $this->page_id,
