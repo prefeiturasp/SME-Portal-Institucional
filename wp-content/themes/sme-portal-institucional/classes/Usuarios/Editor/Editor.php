@@ -47,22 +47,6 @@ class Editor
 			$this->role_object->add_cap( 'delete_cards' );
 			$this->role_object->add_cap( 'assign_cards' );
 
-			$this->role_object->add_cap( 'read_aba');
-			$this->role_object->add_cap( 'read_private_abas' );
-			$this->role_object->add_cap( 'edit_aba' );
-			$this->role_object->add_cap( 'edit_abas' );
-			$this->role_object->add_cap( 'edit_others_abas' );
-			$this->role_object->add_cap( 'edit_published_abas' );
-			$this->role_object->add_cap( 'publish_abas' );
-			$this->role_object->add_cap( 'delete_aba' );
-			$this->role_object->add_cap( 'delete_others_abas' );
-			$this->role_object->add_cap( 'delete_private_abas' );
-			$this->role_object->add_cap( 'delete_published_abas' );
-			$this->role_object->add_cap( 'manage_abas' );
-			$this->role_object->add_cap( 'edit_abas' );
-			$this->role_object->add_cap( 'delete_abas' );
-			$this->role_object->add_cap( 'assign_abas' );
-
 			$this->role_object->add_cap( 'read_contato');
 			$this->role_object->add_cap( 'read_private_contatos' );
 			$this->role_object->add_cap( 'edit_contato' );
