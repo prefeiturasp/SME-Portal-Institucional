@@ -117,6 +117,14 @@ class Colaborador
 			$this->role_object->add_cap( 'delete_abas' );
 			$this->role_object->add_cap( 'assign_abas' );
 
+			$this->role_object->add_cap( 'edit_unidade');
+			$this->role_object->add_cap( 'edit_unidades' );
+			$this->role_object->add_cap( 'edit_published_unidades');
+			$this->role_object->add_cap( 'read_unidade' );
+			$this->role_object->add_cap( 'read_private_unidades');			
+			$this->role_object->add_cap( 'edit_others_unidades' );
+			$this->role_object->add_cap( 'edit_private_unidades');
+
 			$this->role_object->add_cap( 'read_botao');
 			$this->role_object->add_cap( 'edit_botoes' );
 			$this->role_object->add_cap( 'delete_botoes' );
