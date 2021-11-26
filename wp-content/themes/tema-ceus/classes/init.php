@@ -27,6 +27,7 @@ require_once 'Cpt/CptAba.php';
 require_once 'Cpt/CptBotao.php';
 require_once 'Cpt/CptCurriculoDaCidade.php';
 require_once 'Cpt/cptProgramaProjeto.php';
+require_once 'Cpt/CptUnidades.php';
 
 require_once 'TemplateHierarchy/Page.php';
 require_once 'TemplateHierarchy/Tag.php';
@@ -132,7 +133,9 @@ require_once 'Cpt/CptMediaImages.php';
 /* Inicialização CPTs */
 $cptPostsExtend = new \Classes\Cpt\CptPosts();
 $cptPagessExtend = new \Classes\Cpt\CptPages();
-$cptAbas = new \Classes\Cpt\Cpt('unidade', 'unidade', 'Sobre o CEU', 'Minhas Unidades', 'Unidades', 'Cadastro de Unidades', '', '', '', 'dashicons-building' , true);
+$cptUnidades = new \Classes\Cpt\Cpt('unidade', 'unidade', 'Sobre o CEU', 'Minhas Unidades', 'Unidades', 'Cadastro de Unidades', '', '', '', 'dashicons-building' , true);
+$cptUnidadesExtend = new \Classes\Cpt\CptUnidades();
+
 //$cptCard = new \Classes\Cpt\Cpt('card', 'card', 'Card', 'Todos os Cards', 'Cards', 'Card', 'categorias-card', 'Categorias de Cards', 'Categoria de Card', 'dashicons-feedback', true);
 //$cptCardExtend = new \Classes\Cpt\CptCard();
 

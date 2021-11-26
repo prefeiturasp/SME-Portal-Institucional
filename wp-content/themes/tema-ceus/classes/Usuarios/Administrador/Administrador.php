@@ -61,6 +61,20 @@ class Administrador
 			$this->role_object->add_cap( 'delete_abas' );
 			$this->role_object->add_cap( 'assign_abas' );
 
+			$this->role_object->add_cap( 'publish_unidades');
+			$this->role_object->add_cap( 'edit_unidade');
+			$this->role_object->add_cap( 'edit_unidades' );
+			$this->role_object->add_cap( 'edit_published_unidades');
+			$this->role_object->add_cap( 'read_unidade' );
+			$this->role_object->add_cap( 'read_private_unidades');
+			$this->role_object->add_cap( 'delete_unidade' );
+			$this->role_object->add_cap( 'delete_unidades' );
+			$this->role_object->add_cap( 'delete_published_unidades');
+			$this->role_object->add_cap( 'delete_others_unidades' );
+			$this->role_object->add_cap( 'delete_private_unidades');
+			$this->role_object->add_cap( 'edit_others_unidades' );
+			$this->role_object->add_cap( 'edit_private_unidades');
+
 			$this->role_object->add_cap( 'read_contato');
 			$this->role_object->add_cap( 'read_private_contatos' );
 			$this->role_object->add_cap( 'edit_contato' );
