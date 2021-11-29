@@ -58,7 +58,7 @@ if(get_sub_field('contatos'))://repeater
                                 
                                 foreach( $rows as $row ) {
                                     // verifica se os campos estao vazios
-                                    if( $row['nome_campo'] && $row['nome_campo'] != '' && $row['informacao_campo'] && $row['informacao_campo'] != ''){
+                                    if( ($row['nome_campo'] && $row['nome_campo'] != '')  || ($row['informacao_campo'] && $row['informacao_campo'] != '') ){
                                         
                                         // verifica o tipo do campos
                                         if($row['tipo_de_campo'] == 'telefone'){
@@ -76,8 +76,27 @@ if(get_sub_field('contatos'))://repeater
 
                                             echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='" . $row['informacao_campo'] ."'>" . $row['informacao_campo'] . "</a></p>";
                                         
+                                        } elseif($row['tipo_de_campo'] == 'sub'){
+                                                
+                                            echo "<h3 class='mb-0 mt-2'><strong>" . $row['nome_campo'] . "</strong></h3>";
                                         } else {
-                                            echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: " . $row['informacao_campo'] . "</p>";
+                                            $nome = $row['nome_campo'];
+                                            $info = $row['informacao_campo'];
+
+                                            echo "<p class='mb-0'>";
+                                            if($nome){
+                                                echo "<strong>" . $row['nome_campo'] . "</strong>";
+                                            }
+
+                                            if($nome && $info){
+                                                echo ": ";
+                                            }
+
+                                            if($info){
+                                                echo $row['informacao_campo'];
+                                            }
+                                                
+                                            echo "</p>";
                                         }
                                     }
                                     
@@ -113,7 +132,7 @@ if(get_sub_field('contatos'))://repeater
                                             
                                             foreach( $rows as $row ) {
                                                 // verifica se os campos estao vazios
-                                                if( $row['nome_campo'] && $row['nome_campo'] != '' && $row['informacao_campo'] && $row['informacao_campo'] != ''){
+                                                if( ($row['nome_campo'] && $row['nome_campo'] != '')  || ($row['informacao_campo'] && $row['informacao_campo'] != '') ){
                                                     
                                                     // verifica o tipo do campos
                                                     if($row['tipo_de_campo'] == 'telefone'){
@@ -131,8 +150,27 @@ if(get_sub_field('contatos'))://repeater
 
                                                         echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: <a href='" . $row['informacao_campo'] ."'>" . $row['informacao_campo'] . "</a></p>";
                                                     
+                                                    } elseif($row['tipo_de_campo'] == 'sub'){
+                                                
+                                                        echo "<h3 class='mb-0 mt-2'><strong>" . $row['nome_campo'] . "</strong></h3>";
                                                     } else {
-                                                        echo "<p class='mb-0'><strong>" . $row['nome_campo'] . "</strong>: " . $row['informacao_campo'] . "</p>";
+                                                        $nome = $row['nome_campo'];
+                                                        $info = $row['informacao_campo'];
+        
+                                                        echo "<p class='mb-0'>";
+                                                        if($nome){
+                                                            echo "<strong>" . $row['nome_campo'] . "</strong>";
+                                                        }
+        
+                                                        if($nome && $info){
+                                                            echo ": ";
+                                                        }
+        
+                                                        if($info){
+                                                            echo $row['informacao_campo'];
+                                                        }
+                                                            
+                                                        echo "</p>";
                                                     }
                                                 }
                                                 
