@@ -50,6 +50,7 @@
                         );
                         while ( $query->have_posts() ) {
                             $query->next_post();
+                            $query->post->blog_id = $blog_id;
                             $posts[] = $query->post;
                         }
                         restore_current_blog();
@@ -76,40 +77,38 @@
 
                             if($count <= $blocoNoticias):
 
-                                # Get meta data depending on context i.e use switch_to_blog()
-                                foreach( $blog_ids as $blog ) :
-                                    switch_to_blog($blog);
-                                    setup_postdata($post);
+                                # Get meta data depending on context i.e use switch_to_blog()                                
+                                switch_to_blog($blog);
+                                setup_postdata($post);
 
-                                    if(get_post_thumbnail_id($id)):
-                                        $attachment_image     = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'featured_post_image' );
-                                        $attachment_image_url = $attachment_image[0];
-                                        $thumbnail_id = get_post_thumbnail_id( $post->ID );
-		                                $alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true); 
-                                        $postlink             = get_permalink();
-                                        $bloglink             = get_bloginfo('url');
-                                        $blogname             = get_bloginfo('name');
-                                        $blogname = str_replace("Diretoria Regional de Educação", "DRE", $blogname);
+                                if(get_post_thumbnail_id($id)):
+                                    $attachment_image     = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'featured_post_image' );
+                                    $attachment_image_url = $attachment_image[0];
+                                    $thumbnail_id = get_post_thumbnail_id( $post->ID );
+                                    $alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true); 
+                                    $postlink             = get_permalink();
+                                    $bloglink             = get_bloginfo('url');
+                                    $blogname             = get_bloginfo('name');
+                                    $blogname = str_replace("Diretoria Regional de Educação", "DRE", $blogname);
+                                    
+                                    echo "<div class='col-sm-12 col-md-6 col-lg-" . $blocoColunas . " lista-noticia'>";
+
+                                        echo "<a href='" . $postlink . "'>";
+                                            echo "<img src='" . $attachment_image_url .  "' alt='" . $alt . "'>";
+                                        echo "</a>";
+
+                                        echo "<a href='" . $bloglink . "' class='blog-link'>";
+                                            echo "<p>" . $blogname . "</p>";
+                                        echo "</a>";
+
+                                        echo "<a href='" . $postlink . "'>";
+                                            echo "<p>" . $post_title . "</p>";
+                                        echo "</a>";
                                         
-                                        echo "<div class='col-sm-12 col-md-6 col-lg-" . $blocoColunas . " lista-noticia'>";
-
-                                            echo "<a href='" . $postlink . "'>";
-                                                echo "<img src='" . $attachment_image_url .  "' alt='" . $alt . "'>";
-                                            echo "</a>";
-
-                                            echo "<a href='" . $bloglink . "' class='blog-link'>";
-                                                echo "<p>" . $blogname . "</p>";
-                                            echo "</a>";
-
-                                            echo "<a href='" . $postlink . "'>";
-                                                echo "<p>" . $post_title . "</p>";
-                                            echo "</a>";
-                                            
-                                        echo "</div>";
-                                        
-                                    endif;
-                                    restore_current_blog();
-                                endforeach;
+                                    echo "</div>";
+                                    
+                                endif;
+                                restore_current_blog();                                
                             
                                 $count++;
                                 # Do something wihth the data now here! ...
