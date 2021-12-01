@@ -60,7 +60,12 @@ class Util
             <article class="row">
                 <article class="col-lg-12 col-xs-12 mb-5">
 					<?php echo $this->getSubtitulo($this->page_id)?>
-					<?php the_content(); ?>
+					<?php
+						$conteudo = get_the_content();
+						$conteudo = apply_filters('the_content', $conteudo);
+						$conteudo = str_replace('http://educacao.sme.prefeitura.sp.gov.br', 'https://educacao.sme.prefeitura.sp.gov.br', $conteudo);
+						echo $conteudo;
+					?>
                 </article>
             </article>
 
