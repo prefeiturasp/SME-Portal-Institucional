@@ -1062,6 +1062,8 @@ function wp37_limit_posts_to_author($query) {
 			$pages = array_flatten($pages);
 			$pages = array_unique($pages);
 			$query->set('post__in', $pages);
+		} else {
+			$query->set('post_type', 'empty');
 		}
 		
 	} 
@@ -1099,8 +1101,14 @@ function wp37_limit_posts_to_author($query) {
 			}
 			
 			$result = array_unique($merge);
-	
-			$query->set('post__in', $result);
+			if($result){
+				$query->set('post__in', $result);
+			} else {
+				$query->set('post_type', 'empty');
+			}
+			
+		} else {
+			$query->set('post_type', 'empty');
 		}		
 		
 	}
