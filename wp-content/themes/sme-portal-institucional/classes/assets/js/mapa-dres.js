@@ -15,7 +15,11 @@ jQuery(document).ready(function($) {
 
         $('a#' + id_clicado).addClass('a-click-botao-clicado');
         $('#container-div-' + id_clicado + ' .container-titulo-botoes').addClass('container-titulo-botoes-on-click');
-        console.log('#' + id_clicado);
+        //console.log('#' + id_clicado);
+        
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $('#container-div-' + id_clicado).offset().top - 30
+        }, 300);
 
     });
 
