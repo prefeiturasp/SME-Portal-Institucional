@@ -890,6 +890,166 @@ function generateRandomString($length = 10) {
 												<?php endif; // Formacao	?>														
 										<?php endif; ?>
 
+										<?php // Publico Alvo
+											$publico = array();
+											$publicoBusca = array();
+											if($_GET['alvob'] && $_GET['alvob'] != ''){
+												$publicoBusca = $_GET['alvob'];
+											}
+											$args = array(
+												's' => $_GET['s'],
+												'posts_per_page' => -1,
+												'tax_query' => array(
+													'relation' => 'AND',										
+												)
+											);
+											if($_GET['avanc'] && $_GET['avanc'] != ''){
+												if($_GET['modalidadeb'] && $_GET['modalidadeb'] ){
+													$args['tax_query'][] = array(
+															'taxonomy' => 'modalidade',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['modalidadeb'],                  // term id, term slug or term name
+													);									
+												}
+												
+												if($_GET['componenteb'] && $_GET['componenteb'] ){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'componente',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['componenteb'],                  // term id, term slug or term name
+														
+													);
+												}
+				
+												if($_GET['idiomab'] && $_GET['idiomab'] != '' && $_GET['idiomab'][0] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'idioma',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['idiomab'],                  // term id, term slug or term name
+														
+													);
+												}
+												
+												if($_GET['setorb'] && $_GET['setorb'] != '' && $_GET['setorb'][0] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'setor',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['setorb'],                  // term id, term slug or term name
+														
+													);
+												}
+				
+												if($_GET['forma'] && $_GET['formab'] != '' && $_GET['formab'][0] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'formacao',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['formab'],                  // term id, term slug or term name
+														
+													);
+												}
+
+												if($_GET['area'] && $_GET['areab'] != '' && $_GET['areab'][0] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'promotora',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['areab'],                  // term id, term slug or term name
+														
+													);
+												}
+
+												if($_GET['alvo'] && $_GET['alvob'] != '' && $_GET['alvob'][0] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'publico',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['alvob'],                  // term id, term slug or term name
+														
+													);
+												}
+				
+												if($_GET['autorb'] && $_GET['autorb'] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'autor',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['autorb'],                  // term id, term slug or term name
+														
+													);
+												}
+				
+												if($_GET['anob'] && $_GET['anob'] != '' && $_GET['anob'][0] != '' ){
+													$args['ano_da_publicacao_acervo_digital'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['anob']; 
+												}
+				
+												if($_GET['categ_acervo'] && $_GET['categ_acervo'] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'categoria_acervo',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['categ_acervo'],                  // term id, term slug or term name
+														
+													);
+												}
+
+												if($_GET['palavrab'] && $_GET['palavrab'] != ''){
+													$args['tax_query'][] = 	array(
+															'taxonomy' => 'palavra',   // taxonomy name
+															'field' => 'term_id',           // term_id, slug or name
+															'terms' => $_GET['palavrab'],                  // term id, term slug or term name
+														
+													);
+												}
+
+												if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+													$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+													$args['meta_value'] = $_GET['despb']; 
+												}
+											}
+											$the_query = new WP_Query( $args );
+											if($the_query->have_posts()):
+
+												while($the_query->have_posts()): $the_query->the_post();
+													$term_list = wp_get_post_terms( get_the_ID(), 'publico', array( 'fields' => 'ids' ) );
+													foreach($term_list as $publi){
+														$publico[] = $publi;
+													}
+													
+												endwhile;
+
+												$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+												$publico = array_unique($publico);
+												if($publico && $publico !=''):
+												?>
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<p class="panel-title">
+																<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseAlvo">
+																Público Alvo
+																</a>
+															</p>
+														</div>
+														<div id="collapseAlvo" class="panel-collapse collapse in show">
+															<div class="panel-body">
+																<?php
+																	foreach($publico as $publi): 
+																		$check = '';
+																		if( in_array($publi, $publicoBusca) ){
+																			$check = 'checked';
+																		}
+																	?>
+																		<div class="form-check">
+																			<input class="form-check-input" name='alvob[]' type="checkbox" <?php echo $check; ?> value="<?php echo $publi; ?>" id="alvob" onchange="this.form.submit()">
+																			<label class="form-check-label" for="alvob">
+																				<?php echo get_term( $publi )->name; ?>
+																			</label>
+																		</div>
+																	<?php
+																	endforeach;
+																?>
+															</div>
+														</div>
+													</div>
+												<?php endif; // Publico Alvo 	?>														
+										<?php endif; ?>
+
 										<?php // Autor
 											$autores = array();
 											$autorBusca = array();
@@ -1404,6 +1564,10 @@ function generateRandomString($length = 10) {
 								if($_GET['setorb'] && $_GET['setorb'] != '' && $_GET['setorb'][0] != ''){
 									$nSet = count($_GET['setorb']);
 									$countBusca = $countBusca + $nSet;
+								}
+								if($_GET['alvob'] && $_GET['alvob'] != '' && $_GET['alvob'][0] != ''){
+									$nAlv = count($_GET['alvob']);
+									$countBusca = $countBusca + $nAlv;
 								}
 								if($_GET['idiomab'] && $_GET['idiomab'] != '' && $_GET['idiomab'][0] != ''){
 									$nIdi = count($_GET['idiomab']);
@@ -2675,6 +2839,166 @@ function generateRandomString($length = 10) {
 											</div>
 										</div>
 									<?php endif; // Formacao	?>														
+							<?php endif; ?>
+
+							<?php // Publico Alvo
+								$publico = array();
+								$publicoBusca = array();
+								if($_GET['alvob'] && $_GET['alvob'] != ''){
+									$publicoBusca = $_GET['alvob'];
+								}
+								$args = array(
+									's' => $_GET['s'],
+									'posts_per_page' => -1,
+									'tax_query' => array(
+										'relation' => 'AND',										
+									)
+								);
+								if($_GET['avanc'] && $_GET['avanc'] != ''){
+									if($_GET['modalidadeb'] && $_GET['modalidadeb'] ){
+										$args['tax_query'][] = array(
+												'taxonomy' => 'modalidade',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['modalidadeb'],                  // term id, term slug or term name
+										);									
+									}
+									
+									if($_GET['componenteb'] && $_GET['componenteb'] ){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'componente',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['componenteb'],                  // term id, term slug or term name
+											
+										);
+									}
+	
+									if($_GET['idiomab'] && $_GET['idiomab'] != '' && $_GET['idiomab'][0] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'idioma',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['idiomab'],                  // term id, term slug or term name
+											
+										);
+									}
+									
+									if($_GET['setorb'] && $_GET['setorb'] != '' && $_GET['setorb'][0] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'setor',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['setorb'],                  // term id, term slug or term name
+											
+										);
+									}
+	
+									if($_GET['forma'] && $_GET['formab'] != '' && $_GET['formab'][0] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'formacao',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['formab'],                  // term id, term slug or term name
+											
+										);
+									}
+
+									if($_GET['area'] && $_GET['areab'] != '' && $_GET['areab'][0] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'promotora',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['areab'],                  // term id, term slug or term name
+											
+										);
+									}
+
+									if($_GET['alvo'] && $_GET['alvob'] != '' && $_GET['alvob'][0] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'publico',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['alvob'],                  // term id, term slug or term name
+											
+										);
+									}
+	
+									if($_GET['autorb'] && $_GET['autorb'] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'autor',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['autorb'],                  // term id, term slug or term name
+											
+										);
+									}
+	
+									if($_GET['anob'] && $_GET['anob'] != '' && $_GET['anob'][0] != '' ){
+										$args['ano_da_publicacao_acervo_digital'] = '';           // term id, term slug or term name
+										$args['meta_value'] = $_GET['anob']; 
+									}
+	
+									if($_GET['categ_acervo'] && $_GET['categ_acervo'] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'categoria_acervo',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['categ_acervo'],                  // term id, term slug or term name
+											
+										);
+									}
+
+									if($_GET['palavrab'] && $_GET['palavrab'] != ''){
+										$args['tax_query'][] = 	array(
+												'taxonomy' => 'palavra',   // taxonomy name
+												'field' => 'term_id',           // term_id, slug or name
+												'terms' => $_GET['palavrab'],                  // term id, term slug or term name
+											
+										);
+									}
+
+									if($_GET['despb'] && $_GET['despb'] != '' && $_GET['despb'][0] != '' ){
+										$args['numero_de_despacho_de_homologacao'] = '';           // term id, term slug or term name
+										$args['meta_value'] = $_GET['despb']; 
+									}
+								}
+								$the_query = new WP_Query( $args );
+								if($the_query->have_posts()):
+
+									while($the_query->have_posts()): $the_query->the_post();
+										$term_list = wp_get_post_terms( get_the_ID(), 'publico', array( 'fields' => 'ids' ) );
+										foreach($term_list as $publi){
+											$publico[] = $publi;
+										}
+										
+									endwhile;
+
+									$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+									$publico = array_unique($publico);
+									if($publico && $publico !=''):
+									?>
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<p class="panel-title">
+													<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionMob" href="#collapseAlvoMob">
+													Público Alvo
+													</a>
+												</p>
+											</div>
+											<div id="collapseAlvoMob" class="panel-collapse collapse in show">
+												<div class="panel-body">
+													<?php
+														foreach($publico as $publi): 
+															$check = '';
+															if( in_array($publi, $publicoBusca) ){
+																$check = 'checked';
+															}
+														?>
+															<div class="form-check">
+																<input class="form-check-input" name='alvob[]' type="checkbox" <?php echo $check; ?> value="<?php echo $publi; ?>" id="alvob">
+																<label class="form-check-label" for="alvob">
+																	<?php echo get_term( $publi )->name; ?>
+																</label>
+															</div>
+														<?php
+														endforeach;
+													?>
+												</div>
+											</div>
+										</div>
+									<?php endif; // Publico Alvo 	?>														
 							<?php endif; ?>
 
 							<div class="panel panel-default">
