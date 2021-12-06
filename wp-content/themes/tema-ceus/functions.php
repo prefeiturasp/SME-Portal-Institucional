@@ -1812,3 +1812,18 @@ function hcf_save( $post_id ) {
 	
 }
 add_action( 'save_post', 'hcf_save' );
+
+add_action( 'admin_head-edit.php', 'hide_unidade_categ' );
+
+function hide_unidade_categ() 
+{
+    // Ocultar Filtro "Categorias" na listagem de unidades
+    global $current_screen;
+    if( 'unidade' != $current_screen->post_type)
+        return;
+    ?>
+        <style>
+            .postform { display:none }
+        </style>
+    <?php
+}

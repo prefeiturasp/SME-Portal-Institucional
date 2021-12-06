@@ -14,8 +14,25 @@ class CptUnidades extends Cpt
 		$this->dashborarIcon = self::getDashborarIconExtendExtend();
 
 		add_action('init', array($this, 'register'));
+		add_filter('manage_posts_columns', array($this, 'exibe_cols'), 10, 2);
 	}
 
+	// Colunas da listagem de unidades
+	public function exibe_cols($cols, $post_type) {
+		if ($post_type === 'unidade') {
+			$columns = array(
+				'cb' => '<input type="checkbox" />',
+				'title' => 'Title',
+				'author' => 'Author',				
+				'date' => 'Date',
+			);
+
+			return $columns;
+		}else{
+			return $cols;
+		}
+
+	}
 
 	/**
 	 * Alterando as configurações que vem por padrão na classe CPT (Adicionando suporte a thumbnail)
