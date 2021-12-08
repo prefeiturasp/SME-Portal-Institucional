@@ -1094,13 +1094,9 @@ function wp37_limit_posts_to_author($query) {
 				$showEventos[] = $wpdb->get_col( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'localizacao' AND meta_value = $unidade ORDER BY post_id" );
 			}
 			
-			if($showEventos[1]){
-				$merge = array_merge($showEventos[0], $showEventos[1]);
-			} else {
-				$merge = $showEventos[0];
-			}
-			
-			$result = array_unique($merge);
+			$arraySingle = call_user_func_array('array_merge', $showEventos);			
+						
+			$result = array_unique($arraySingle);
 			if($result){
 				$query->set('post__in', $result);
 			} else {
@@ -1826,4 +1822,131 @@ function hide_unidade_categ()
             .postform { display:none }
         </style>
     <?php
+}
+
+
+// Inclusao do filtro por unidade
+
+add_action('restrict_manage_posts','filtering_unidade',10);
+function filtering_unidade($post_type){
+    
+	if('post' !== $post_type){
+      return; //filter your post
+    }
+
+	$user = wp_get_current_user();
+
+	if($user->roles[0] == 'administrator'){		
+
+		$unidades = array();
+		$i = 0;
+		$allUnidades = new WP_Query( array(
+			'post_type' => 'unidade',
+			'posts_per_page' => -1,
+			'orderby'	=> 'title',
+			'order'	=> 'ASC',
+			'meta_key' => '',
+			'meta_value' => '',		
+		) );
+
+		
+		if ($allUnidades->have_posts()) {
+			while ($allUnidades->have_posts()) {
+				$allUnidades->the_post();
+				
+				$unidades[$i]['ID'] = get_the_ID();
+				$unidades[$i]['post_title'] =  get_the_title();
+				$unidades[$i] = (object) $unidades[$i];
+
+				$i++;
+			}
+		}
+
+		wp_reset_postdata();
+		
+	}
+	
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'editor'){		
+		
+		$grupos = get_user_meta($user->ID,'grupo',true);		
+		$allUnidades = array();
+		$unidades = array();
+		$i = 0;
+		
+		if($grupos && $grupos !=''){
+			foreach($grupos as $grupo){
+				$allUnidades[] = get_post_meta($grupo, 'unidades', true);
+			}		
+			$allUnidades = array_flatten($allUnidades);
+			$allUnidades = array_unique($allUnidades);
+
+			foreach($allUnidades as $unidade){				
+				$unidades[$i]['ID'] = $unidade;
+				$unidades[$i]['post_title'] =  get_the_title($unidade);
+				$unidades[$i] = (object) $unidades[$i];
+				$i++;
+			}
+		}
+	}
+      
+
+	// Unidade Selecionada
+	$unidadeSelect = $_GET['search_unidade'];
+
+   //build a custom dropdown list of values to filter by
+    echo '<select id="my-loc" name="search_unidade">';
+		if($user->roles[0] == 'contributor' || $user->roles[0] == 'editor'){
+			$selecionado = ($_GET['list'] == 'evento') ? ' selected="selected"':'';
+			echo '<option value="minhas-unidades" ' . $selecionado . '>Minhas Unidades</option>';
+		}
+		$selecionado = ($_GET['search_unidade'] == 'all') ? ' selected="selected"':'';
+		echo '<option value="all" ' . $selecionado . '>Todas as Unidades</option>';		
+		foreach($unidades as $unidade){
+			$select = ($unidadeSelect == $unidade->ID) ? ' selected="selected"':'';
+			echo '<option value="'.$unidade->ID.'"'.$select.'>' . $unidade->post_title . ' </option>';
+		}
+
+    echo '</select>';
+	
+}
+
+// Desativar select de categoria padrao do WP
+add_filter('wp_dropdown_cats', '__return_false');
+
+// Filtra as unidades que grupo pertence
+add_filter('pre_get_posts', 'limit_events_group');
+function limit_events_group($query) {
+
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	// 	filtra as unidades pelo grupo pertencente
+	if( $_GET['search_unidade'] && $_GET['search_unidade'] != '' && $_GET['search_unidade'] != 'all' )  {
+
+		if($_GET['search_unidade'] == 'minhas-unidades'){
+			wp_redirect( 'edit.php?list=evento&filter=grupo' ); 
+			exit;
+		}		
+		
+		if($query->is_main_query()){
+			$meta_query = array(
+				'relation' => 'OR',
+				array(
+					'key'     => 'localizacao',
+					'value'   => $_GET['search_unidade'],
+				),					
+				array(
+					'key'		=> 'ceus_participantes_$_localizacao_serie',
+					'compare'	=> '=',
+					'value'		=> $_GET['search_unidade'],
+				),
+			);
+			
+			$query->set( 'meta_query', $meta_query );			
+		}	
+
+	}
+
+	return $query;
+	wp_reset_postdata();
 }
