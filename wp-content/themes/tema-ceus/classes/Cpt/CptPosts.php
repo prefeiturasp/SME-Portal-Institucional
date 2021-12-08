@@ -46,7 +46,7 @@ class CptPosts extends Cpt
 				if($tipo == 'serie'){
 					$title = "Múltiplas Unidades";
 				} elseif($localizacao) {
-					$title = get_the_title($localizacao);
+					$title = '<a href="' . get_admin_url() . '/edit.php?s&post_status=all&post_type=post&action=-1&m=0&search_unidade=' . $localizacao . '&filter_action=Filtrar&paged=1&action2=-1">' . get_the_title($localizacao) . '</a>';
 				}
 
 				if($title == ''){
