@@ -17,7 +17,7 @@ class PaginaUnidadesMapa
                 <div class="col-sm-4 pr-0 p-list">
                     <div class="unidades-busca">
                         <div id="search-box"></div>
-                        <button class="btn-unidade" onclick="getLocation()"><i class="fa fa-crosshairs" aria-hidden="true"></i></button>
+                        <button class="btn-unidade" data-toggle="modal" data-target="#locationModal"><i class="fa fa-crosshairs" aria-hidden="true"></i></button>
                     </div>
                     
                     <?php
@@ -83,7 +83,22 @@ class PaginaUnidadesMapa
                     <!-- To display the result -->
                     <div id="result"></div>
                 </div>
-                <div class="col-sm-8 pl-0 p-map">
+                <div class="col-sm-8 px-0 p-map">
+
+                    <div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true" data-backdrop="false"> 
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">                            
+                                <div class="modal-body">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <p>Usar minha localização para encontrar os CEUs mais próximos.</p>
+                                    <button type="button" class="btn btn-location" data-dismiss="modal" onclick="getLocation()"><i class="fa fa-globe" aria-hidden="true"></i> Usar minha localização</button>
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="map"></div>
                 </div>
             </div>

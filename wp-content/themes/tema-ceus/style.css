@@ -1906,6 +1906,44 @@ a.nextpostslink {
     }
 }
 
+.p-map{
+    position: relative;
+    border-right: 15px solid #FFFFFF;
+}
+
+#locationModal{
+    position: absolute;
+    background:rgba(0, 0, 0, 0.6);
+}
+
+#locationModal p{
+    font-size: 18px;
+    color: #000000;
+}
+
+#locationModal .modal-dialog{
+    max-width: 620px;
+}
+
+#locationModal button.close {
+    width: auto;
+    position: relative;
+    margin: 0;
+    padding: 0 !important;
+}
+
+#locationModal .btn-location{
+    background: #0048A9;
+    color: #FFFFFF;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#locationModal .btn-location:hover{
+    background: #196CBD;
+}
+
 /**** ****/
 .modal.left .modal-dialog,
 .modal.right .modal-dialog {

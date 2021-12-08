@@ -1348,6 +1348,7 @@ function data_fetch(){
 		<li class=""><a href="#map" class="story" onclick="alerta(this)" data-point="<?php echo $campos['latitude']; ?>,<?php echo $campos['longitude']; ?>"><div class="name"><?php echo get_the_title(); ?></div><div class="address"><?php echo $campos['endereco']; ?>, <?php echo $campos['numero']; ?> - <?php echo $campos['bairro']; ?> - CEP: <?php echo $campos['cep']; ?></div></a></li>
 
         <?php endwhile;
+		echo "<li class='disable-link'>Endereços</li>";
 		echo '</ul>';
         wp_reset_postdata();  
     
@@ -1386,7 +1387,7 @@ function fetchResults(){
 				}
 				*/
 				
-				jQuery('.leaflet-locationiq-list').append( data );
+				jQuery('.leaflet-locationiq-list').prepend( data );
 				//console.log(data);
 			},
 			//error : function(error){ console.log(error) }
