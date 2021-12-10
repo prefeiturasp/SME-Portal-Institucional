@@ -621,5 +621,49 @@
         });
     </script>
 
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "100%";
+            document.getElementById("mySidebar").classList.add("sidebar-border");
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("mySidebar").classList.remove("sidebar-border");
+            jQuery("input[name=zona][value='all']").prop("checked",true);
+            map.setView([-23.5501, -46.6359], 11);            
+        }
+
+        jQuery("input[name='zona']").click(function(){
+            
+            var zona = jQuery('input:radio[name=zona]:checked').val();           
+            
+            if(zona == 'norte'){                
+                map.setView([-23.4768, -46.6457], 13);
+            }
+
+            if(zona == 'leste'){                
+                map.setView([-23.5791, -46.5046], 12);
+            }
+
+            if(zona == 'oeste'){                
+                map.setView([-23.5671, -46.7059], 13);
+            }
+
+            if(zona == 'central'){                
+                map.setView([-23.5425, -46.6340], 14);
+            }
+
+            if(zona == 'sul'){                
+                map.setView([-23.6867, -46.6900], 12);
+            }
+
+            if(zona == 'all'){                
+                map.setView([-23.5501, -46.6359], 11);
+            }
+            
+        });
+    </script>
+
 </body>
 </html>
