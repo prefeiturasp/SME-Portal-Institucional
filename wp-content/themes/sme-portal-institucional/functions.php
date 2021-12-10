@@ -1625,7 +1625,7 @@ function filtering_month($post_type){
 		'09' => 'Setembro',
 		'10' => 'Outubro',
 		'11' => 'Novembro',
-		'22' => 'Dezembro',
+		'12' => 'Dezembro',
 	);
 
 	// Mes Atual
