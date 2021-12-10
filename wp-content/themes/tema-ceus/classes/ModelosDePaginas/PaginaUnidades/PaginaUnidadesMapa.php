@@ -13,11 +13,71 @@ class PaginaUnidadesMapa
         
     ?>
         <div class="container mb-5">
-            <div class="row">
-                <div class="col-sm-4 pr-0 p-list">
+            <div class="row m-0">
+                <div class="col-sm-4 p-0 p-list">
+
                     <div class="unidades-busca">
                         <div id="search-box"></div>
                         <button class="btn-unidade" data-toggle="modal" data-target="#locationModal"><i class="fa fa-crosshairs" aria-hidden="true"></i></button>
+                        <div class="" id='unidades-mapa'></div>
+                    </div>
+
+                    <div class="filtro-zonas-button">
+                        <button class="openbtn" onclick="openNav()">Filtrar por zona <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                    </div>
+
+                    <div class="filtro-zonas">
+                        <div id="mySidebar" class="sidebar">
+                            
+                            <div class="filtro-zonas-button voltar">
+                                <button class="openbtn" onclick="closeNav()"><i class="fa fa-chevron-left" aria-hidden="true"></i> Voltar </button>
+                            </div>
+
+                            <form id="mainForm" name="mainForm">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="zona" id="todos" value="all" checked>
+                                    <label class="form-check-label" for="todos">
+                                        Todos
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="zona" id="central" value="central">
+                                    <label class="form-check-label" for="central">
+                                        Zona Central
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="zona" id="leste" value="leste">
+                                    <label class="form-check-label" for="leste">
+                                        Zona Leste
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="zona" id="norte" value="norte">
+                                    <label class="form-check-label" for="norte">
+                                        Zona Norte
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="zona" id="oeste" value="oeste">
+                                    <label class="form-check-label" for="oeste">
+                                        Zona Oeste
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="zona" id="sul" value="sul">
+                                    <label class="form-check-label" for="sul">
+                                        Zona Sul
+                                    </label>
+                                </div>
+                            </form>
+
+                        </div>
                     </div>
                     
                     <?php
@@ -26,6 +86,7 @@ class PaginaUnidadesMapa
                             'post__not_in' => array(31244, 31675),
                             'order' => 'ASC',
                             'orderby' => 'title',
+                            'posts_per_page' => -1
                         );
                         
                         // The Query
@@ -79,11 +140,9 @@ class PaginaUnidadesMapa
                         }
                         /* Restore original Post Data */
                         wp_reset_postdata();    
-                    ?>
-                    <!-- To display the result -->
-                    <div id="result"></div>
+                    ?>                    
                 </div>
-                <div class="col-sm-8 px-0 p-map">
+                <div class="col-sm-8 p-0 p-map">
 
                     <div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true" data-backdrop="false"> 
                         <div class="modal-dialog" role="document">
