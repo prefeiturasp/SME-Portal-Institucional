@@ -2193,6 +2193,32 @@ h2.submenu-title {
     box-shadow: initial;
 }
 
+#collpaseContent {
+    text-align: center;
+    background: #2F80ED;
+    padding: 0;
+}
+
+#collpaseContent .fa {
+    float: initial;
+    font-size: 18px;
+    transform: rotate(180deg);
+    padding-bottom: 6px;
+    padding-top: 0;
+    transition: 0.2s;
+}
+
+#collpaseContent.closeContent .fa{
+    transform: rotate(0);
+    padding-bottom: 0;
+    padding-top: 6px;
+    transition: 0.2s;
+}
+
+.filtro-zonas-button.open-close{
+    display: none;
+}
+
 @media (max-width: 767px) {
 
     .list-inline-mob li.list-inline-item {
@@ -2274,17 +2300,50 @@ h2.submenu-title {
     }
     
     .lista-unidades {
-        height: 400px;
+        height: 350px;
         margin-bottom: 20px;
+        transition: 0.5s;
+    }
+
+    .lista-unidades.hidemapa{
+        height: 0;
     }
     #map {
-        height: 450px;
+        height: 590px;
+    }
+    .filtro-zonas-button.open-close{
+        display: block;
     }
     .p-list {
-        padding-right: 15px !important;
+        position: absolute;
+        z-index: 99999;
+        background: #FFFFFF;
+        bottom: 0;
+        padding-left: 15px !important;
+        padding-right: 45px !important;
     }
     .p-map {
         padding-left: 15px !important;
+    }
+
+    .sidebar.sidebar-border {
+        border: 0;
+        padding-left: 15px;
+        border-right: 45px solid #FFFFFF;
+        overflow: hidden;
+        padding-top: 26px;     
+    }
+
+    #mySidebar #mainForm {
+        padding-top: 10px;
+        width: 100%;
+        height: 85%;
+        border: 1px solid #dadada;
+    }
+
+    .filtro-zonas-button.open-close{
+        position: relative;
+        z-index: 99999999;
     }
 
     #servicos ul li{
@@ -2330,6 +2389,10 @@ h2.submenu-title {
     ol.carousel-indicators {
         width: 100%;
         margin-bottom: 10px;
+    }
+
+    .unidade-tab #carouselAbout .carousel-indicators{
+        bottom: -30px;
     }
 
     .evento-details {

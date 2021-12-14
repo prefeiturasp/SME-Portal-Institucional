@@ -4,7 +4,7 @@
 <footer style="background: #363636;color: #fff;margin-left: -15px;margin-right: -15px;">
 	<div class="container pt-3 pb-3" id="irrodape">
 		<div class="row">
-			<div class="col-sm-3 align-middle d-flex align-items-center">
+			<div class="col-sm-3 align-middle d-flex align-items-center footer-logo">
                 <a href="https://www.capital.sp.gov.br/"><img src="<?php the_field('logo_prefeitura','conf-rodape'); ?>" alt="<?php bloginfo('name'); ?>"></a>
 			</div>
 			<div class="col-sm-3 align-middle bd-contact">
@@ -23,7 +23,7 @@
 				<p><i class="fa fa-comment" aria-hidden="true"></i> <a href="<?php the_field('link_adicional','conf-rodape'); ?>"><?php the_field('texto_link','conf-rodape'); ?></a></p>
 				<?php endif; ?>				
 			</div>
-			<div class="col-sm-3 align-middle text-center">				
+			<div class="col-sm-3 align-middle">				
             <p class='footer-title'>Redes sociais</p>
 				<?php 
 					$facebook = get_field('icone_facebook','conf-rodape');
@@ -387,6 +387,10 @@
         $s('.carousel').carousel({
             interval: 8000
         });
+
+        $s( ".tab-mobile" ).click(function() {
+            $s('#filtroBusca').modal('toggle');
+        });
 	</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
@@ -564,7 +568,7 @@
             jQuery([document.documentElement, document.body]).animate({
                 scrollTop: jQuery("#map").offset().top
             }, 1000);
-        }
+        }        
 
         //adiciona link aos marcadores
         jQuery('.name .story').on('click', function(){
@@ -581,7 +585,8 @@
             map.setView([lat, lng], zoom);
         })
 
-        function alerta(content){            
+        function alerta(content){
+
             var latlng2 = content;
             var latlng = jQuery(latlng2).data().point.split(',');
             var lat = latlng[0];
@@ -591,7 +596,11 @@
         
             // adiciona no mapa
             map.setView([lat, lng], zoom);
-        }
+
+            // Oculta a lista de Unidades
+            jQuery(".lista-unidades").addClass('hidemapa');
+            jQuery("#collpaseContent").addClass('closeContent');
+        }       
 
         var $div = jQuery(".leaflet-locationiq-search-icon");
         var observer = new MutationObserver(function(mutations) {
@@ -604,7 +613,7 @@
             });
         });
         observer.observe($div[0], {
-            attributes: true
+        attributes: true
         });
 
     </script>
@@ -620,11 +629,13 @@
             loop: true,        
         });
     </script>
-
+   
     <script>
         function openNav() {
             document.getElementById("mySidebar").style.width = "100%";
             document.getElementById("mySidebar").classList.add("sidebar-border");
+            jQuery(".lista-unidades").removeClass('hidemapa');
+            jQuery("#collpaseContent").removeClass('closeContent');
         }
 
         function closeNav() {
@@ -634,32 +645,49 @@
             map.setView([-23.5501, -46.6359], 11);            
         }
 
+        function openUnidades(){
+            jQuery(".lista-unidades").toggleClass('hidemapa');
+            jQuery("#collpaseContent").toggleClass('closeContent');
+        }
+
         jQuery("input[name='zona']").click(function(){
             
             var zona = jQuery('input:radio[name=zona]:checked').val();           
             
             if(zona == 'norte'){                
                 map.setView([-23.4768, -46.6457], 13);
+                jQuery(".lista-unidades").addClass('hidemapa');
+                jQuery("#collpaseContent").addClass('closeContent');
             }
 
             if(zona == 'leste'){                
                 map.setView([-23.5791, -46.5046], 12);
+                jQuery(".lista-unidades").addClass('hidemapa');
+                jQuery("#collpaseContent").addClass('closeContent');
             }
 
             if(zona == 'oeste'){                
                 map.setView([-23.5671, -46.7059], 13);
+                jQuery(".lista-unidades").addClass('hidemapa');
+                jQuery("#collpaseContent").addClass('closeContent');
             }
 
             if(zona == 'central'){                
                 map.setView([-23.5425, -46.6340], 14);
+                jQuery(".lista-unidades").addClass('hidemapa');
+                jQuery("#collpaseContent").addClass('closeContent');
             }
 
             if(zona == 'sul'){                
                 map.setView([-23.6867, -46.6900], 12);
+                jQuery(".lista-unidades").addClass('hidemapa');
+                jQuery("#collpaseContent").addClass('closeContent');
             }
 
             if(zona == 'all'){                
                 map.setView([-23.5501, -46.6359], 11);
+                jQuery(".lista-unidades").addClass('hidemapa');
+                jQuery("#collpaseContent").addClass('closeContent');
             }
             
         });
