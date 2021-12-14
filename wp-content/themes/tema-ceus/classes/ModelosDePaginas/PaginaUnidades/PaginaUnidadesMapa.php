@@ -16,6 +16,10 @@ class PaginaUnidadesMapa
             <div class="row m-0">
                 <div class="col-sm-4 p-0 p-list">
 
+                    <div class="filtro-zonas-button open-close">
+                        <button id="collpaseContent" class="openbtn closeContent" onclick="openUnidades()"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+                    </div>
+                
                     <div class="unidades-busca">
                         <div id="search-box"></div>
                         <button class="btn-unidade" data-toggle="modal" data-target="#locationModal"><i class="fa fa-crosshairs" aria-hidden="true"></i></button>
@@ -96,7 +100,7 @@ class PaginaUnidadesMapa
                         
                         // The Loop
                         if ( $the_query->have_posts() ) {
-                            echo '<ul class="lista-unidades">';
+                            echo '<ul class="lista-unidades hidemapa">';
                             while ( $the_query->have_posts() ) {
                                 $the_query->the_post();
                                 $zona = get_group_field( 'informacoes_basicas', 'zona_sp', get_the_id() );
