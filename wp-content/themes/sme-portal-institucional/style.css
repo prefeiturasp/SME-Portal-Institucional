@@ -1697,3 +1697,11 @@ ul.nav.nav-tabs {
     display: block;
     margin: 0 auto;
 }
+
+.btn-avanc-m {
+    margin-bottom: 25px;
+}
+
+.acord-busca {
+    text-align: left;
+}
