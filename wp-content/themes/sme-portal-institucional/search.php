@@ -474,6 +474,204 @@
 
 			<div class="row">
 
+				<div class="col-12">
+					<?php
+						$contador = 0;
+
+						// Filtro Categoria
+						if($_GET['category'] && $_GET['category'] != ''){
+							$contador++;
+						}
+
+						// Filtro Tipo Conteudo
+						if($_GET['tipoconteudo'] && $_GET['tipoconteudo'] != ''){
+							$contador++;
+						}
+
+						// Filtro Periodo
+						if($_GET['periodo'] && $_GET['periodo'] != ''){
+							$contador++;
+						}
+
+						// Filtro Ano
+						if($_GET['ano'] && $_GET['ano'] != ''){
+							$contador++;
+						}
+
+						// Filtro Site
+						if($_GET['site'] && $_GET['site'] != ''){
+							$contador++;
+						}
+					?>
+					<button type="button" class="btn btn-outline-primary btn-avanc-f btn-avanc btn-avanc-m d-lg-none d-xl-none b-0" data-toggle="modal" data-target="#filtroBusca">
+						<i class="fa fa-filter" aria-hidden="true"></i> Filtrar 
+						<?php if($contador > 0): ?>
+							<span class="badge badge-primary"><?php echo $contador; ?></span>
+						<?php endif; ?>
+					</button>
+
+					<div class="modal right fade show" id="filtroBusca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-modal="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+
+								<div class="modal-header">
+									<p class="modal-title" id="myModalLabel2">Refine a sua busca:</p>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>				
+								</div>
+
+								<div class="modal-body">
+									<div class="acord-busca my-3">
+										<span class="filtro-busca">
+											<form name="filtrosMobile" method="get" action="">
+
+												<div class="form-group">
+													<label for="usr"><strong>Busque por um termo</strong></label>
+													<input class='form-control' type='text' name="s" placeholder='Buscar' value="<?=$_GET['s']?>"></input>
+													
+													<input id="enviar-busca-home" name="enviar-busca-home" type="hidden" class="btn btn-outline-secondary bt-search-topo" value="Buscar"> </input>
+													
+												</div>												
+
+												<div class="form-group">
+
+													<label for="sel1"><strong>Filtre por tipo de conteúdo</strong></label>
+
+
+
+													<select name="tipoconteudo" onchange="jQuery('#sel3sites').val(event.target.value.slice(-1))" class="form-control" id="sel1cm">
+
+														<?php
+														$select = array();
+														$selectSaida = array();
+														$current = get_current_site();
+														echo  "<option value=''>Selecione o tipo</option>";
+														//pega todos tipos de post (inclusive indesejáveis, então precisa excluir, no array abaixo)
+													
+														$blogs = get_blog_list(0, 'all');
+													
+														//pega todos tipos de post (inclusive indesejáveis, então precisa excluir, no array $excluidos)
+														$excluidos = array('wp_block');	
+														foreach ($blogs as $blog) {
+															switch_to_blog($blog['blog_id']);
+															$args = array(
+																'hide_empty' => false
+															);
+															$categories = get_categories($args);
+															$variavelArrayPosttipo = get_post_types();
+															sort($variavelArrayPosttipo);
+															($name == $categoria ? $isselected = '' : $isselected = 'selected' );
+															
+															foreach ($variavelArrayPosttipo as $posttipo) {
+																if (!in_array($posttipo, $excluidos)) {
+																	$_GET['tipoconteudo'] == $posttipo."".$blog['blog_id'] ? $isselected = 'selected' : $isselected = '';
+																	
+																	if($posttipo == 'page' || $posttipo == 'post'){
+																		$select[] = "<option value='" . $posttipo."".$blog['blog_id'] . "' ".$isselected.">" . $posttipo."".$blog['blog_id'] . "</option>";
+																	}
+																	
+																}
+																// printf( '<a href="%s" title="%s">%s</a> ', $link, $name, $name );
+															}
+															
+														}
+														switch_to_blog($current->id);
+
+															
+
+															foreach( $select as $saida){
+																echo $saida;
+															}
+															
+														?>
+
+													</select>					
+													
+													<script>
+														jQuery('#sel1cm option[value="page1"]').insertBefore(jQuery('#sel1cm option:eq(1)'));
+														jQuery('#sel1cm option[value="post1"]').insertBefore(jQuery('#sel1cm option:eq(2)'));
+														jQuery('#sel1cm option[value="page6"]').insertBefore(jQuery('#sel1cm option:eq(3)'));
+														jQuery('#sel1cm option[value="post6"]').insertBefore(jQuery('#sel1cm option:eq(4)'));
+													</script>
+												</div>
+
+												<div class="form-group">
+
+													<label for="sel2"><strong>Filtre por um período</strong></label>
+
+													<select name="periodo" class="form-control" id="sel3">
+						
+														<option value="">Todos os períodos</option>
+														<option <?=$_GET['periodo'] == '1' ? 		"selected" : 'n' ?> value="1">Última hora</option>
+														<option <?=$_GET['periodo'] == '24' ? 		"selected" : 'n' ?> value="24">Últimas 24 horas</option>
+														<option <?=$_GET['periodo'] == '168' ? 		"selected" : 'n' ?> value="168">Última semana</option>
+														<option <?=$_GET['periodo'] == '5040' ? 	"selected" : 'n' ?> value="5040">Último mês</option>
+														<option <?=$_GET['periodo'] == '1839600' ?  "selected" : 'n' ?> value="1839600">Último ano</option>
+
+													</select>
+
+												</div>
+
+												<div class="form-group">
+
+													<label for="sel2"><strong>Filtre por ano</strong></label>
+
+													<select name="ano" class="form-control" id="sel3">
+
+													</select>
+
+												</div>
+
+												<div class="form-group">
+
+													<label for="sel2"><strong>Filtre por site</strong></label>
+													
+													<select name="site" class="form-control" id="sel3sitesm">
+
+														<option value="">Todos os sites</option>
+
+														<?php
+														foreach ($blogs as $blog) {
+															$blog['blog_id'] == $_GET['site'] ? $isselected = 'selected' : $isselected = '';
+															echo  '<option '.$isselected.' value="' . $blog['blog_id'] . '">' . $blog['path'] . '</option>';
+														}
+														?>
+													</select>
+													<script>
+														//coloca o id do site atual na variavel
+														var pageId = <?php echo $current->id; ?>;
+														//script para mudar a ordem dos sites
+														jQuery('#sel3sitesm option[value="'+pageId+'"]').insertBefore(jQuery('#sel3sitesm option:eq(1)'));//recebe o valor da variavel
+														jQuery('#sel3sitesm option[value="6"]').insertBefore(jQuery('#sel3sitesm option:eq(2)'));
+														jQuery('#sel3sitesm option[value="7"]').insertBefore(jQuery('#sel3sitesm option:eq(3)'));
+													</script>
+												
+												</div>
+
+												<div class="form-group">
+													<script>
+														function limpaFiltro() {
+															setTimeout(() => {
+																window.location = window.location.pathname + "?s=";
+															}, 100);
+														}
+													</script>
+													<button onclick="limpaFiltro()" type="button" class="btn btn-refinar btn-sm float-left">Limpar filtros</button>
+													<button type="submit" class="btn btn-primary btn-sm float-right">Refinar busca</button>
+
+												</div>
+
+											</form>
+
+										</span>
+									</div>	
+								</div>
+
+							</div><!-- modal-content -->
+						</div><!-- modal-dialog -->
+					</div>
+					
+				</div>
+
 				<div class="col-sm-8 mb-4">
 	<!--Busca Manual-->
 
@@ -556,7 +754,7 @@
 
 				</div>
 
-				<div class="col-sm-4 mb-4">
+				<div class="col-sm-4 mb-4 d-none d-lg-block d-xl-block">
 
 					<span class="filtro-busca">
 						<form name="filtrosX" method="get" action="">
