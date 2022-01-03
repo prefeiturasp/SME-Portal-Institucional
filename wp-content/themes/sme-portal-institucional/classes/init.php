@@ -80,8 +80,6 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialTwit
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNewsletter.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialFacebook.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaCards/PaginaCards.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaImagemVideo/PaginaImagemVideo.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaLayoutColunas/PaginaLayoutColunas.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbas.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasContato.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasBotoes.php';
