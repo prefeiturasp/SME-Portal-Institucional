@@ -1705,3 +1705,20 @@ ul.nav.nav-tabs {
 .acord-busca {
     text-align: left;
 }
+
+.no-results .azul-claro-acervo {
+    color: #0069D9;
+}
+
+.no-results img{
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.no-results p{
+    color: #0069D9;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 30px;
+}

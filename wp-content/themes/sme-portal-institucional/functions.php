@@ -1662,3 +1662,52 @@ function custom_scripts_wpse_215576() {
     //Chosen JS file
     wp_enqueue_script( 'chosen-script', get_template_directory_uri() . '/js/chosen.jquery.min.js', array(), '1.4.2', true );
 }
+
+// Incluir Meta Key nas buscas
+add_action('pre_get_posts', 'my_search_query'); // add the special search fonction on each get_posts query (this includes WP_Query())
+function my_search_query($query) {
+    if ($query->is_search() and $query->query_vars and $query->query_vars['s'] and $query->query_vars['s_meta_keys']) { // if we are searching using the 's' argument and added a 's_meta_keys' argument
+        global $wpdb;
+        $search = $query->query_vars['s']; // get the search string
+        $ids = array(); // initiate array of martching post ids per searched keyword
+        foreach (explode(' ',$search) as $term) { // explode keywords and look for matching results for each
+            $term = trim($term); // remove unnecessary spaces
+            if (!empty($term)) { // check the the keyword is not empty
+                $query_posts = $wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE post_status='publish' AND ((post_title LIKE '%%%s%%') OR (post_content LIKE '%%%s%%'))", $term, $term); // search in title and content like the normal function does
+                $ids_posts = [];
+                $results = $wpdb->get_results($query_posts);
+                if ($wpdb->last_error)
+                    die($wpdb->last_error);
+                foreach ($results as $result)
+                    $ids_posts[] = $result->ID; // gather matching post ids
+                $query_meta = [];
+                foreach($query->query_vars['s_meta_keys'] as $meta_key) // now construct a search query the search in each desired meta key
+					//$where = str_replace("meta_key = 'fx_flex_layout_$", "meta_key LIKE 'fx_flex_layout_%", $where);
+					//$where = str_replace("meta_key = 'fx_coluna_1_1_$", "meta_key LIKE 'fx_coluna_1_1_%", $where);
+					//$meta_key = str_replace('fx_flex_layout_$_fx_coluna_1_1_$_fx_editor_1_1', 'fx_flex_layout_%_fx_coluna_1_1_%_fx_editor_1_1', $meta_key);
+					$query_meta[] = $wpdb->prepare("meta_key='%s' AND meta_value LIKE '%%%s%%'", $meta_key, $term);
+                $query_metas = $wpdb->prepare("SELECT * FROM {$wpdb->postmeta} WHERE ((".implode(') OR (',$query_meta)."))");
+                $ids_metas = [];
+                $results = $wpdb->get_results($query_metas);
+                if ($wpdb->last_error)
+                    die($wpdb->last_error);
+                foreach ($results as $result)
+                    $ids_metas[] = $result->post_id; // gather matching post ids
+                $merged = array_merge($ids_posts,$ids_metas); // merge the title, content and meta ids resulting from both queries
+                $unique = array_unique($merged); // remove duplicates
+                if (!$unique)
+                    $unique = array(0); // if no result, add a "0" id otherwise all posts wil lbe returned
+                $ids[] = $unique; // add array of matching ids into the main array
+            }
+        }
+        if (count($ids)>1)
+            $intersected = call_user_func_array('array_intersect',$ids); // if several keywords keep only ids that are found in all keywords' matching arrays
+        else
+            $intersected = $ids[0]; // otherwise keep the single matching ids array
+        $unique = array_unique($intersected); // remove duplicates
+        if (!$unique)
+            $unique = array(0); // if no result, add a "0" id otherwise all posts wil lbe returned
+        unset($query->query_vars['s']); // unset normal search query
+        $query->set('post__in',$unique); // add a filter by post id instead
+    }
+}
