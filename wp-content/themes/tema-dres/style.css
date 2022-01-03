@@ -861,3 +861,31 @@ footer .redes-footer{
 .sab .st{top:90%}
 .sad .st{left:105%}
 .sae .st{right:105%}
+
+.btn-refinar {
+    color: #007bff;
+    border: solid 1px #007bff;
+}
+
+.btn-refinar a:hover {
+    color: #fff;
+    border: solid 1px #007bff;
+    background-color: #007bff;
+}
+
+.no-results .azul-claro-acervo {
+    color: #0069D9;
+}
+
+.no-results img{
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.no-results p{
+    color: #0069D9;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 30px;
+}
