@@ -238,6 +238,19 @@ a {
     margin-top: -3px;
 }
 
+@media (max-width: 767px){   
+    .midias-sociais {
+        margin-right: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    .menu-outros{
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+    }
+}
+
 .menu-topo {
     margin-bottom: 0;
     background-color: #F3F3F3 !important;
@@ -552,6 +565,14 @@ a {
     .cabecalho-acessibilidade{
         display: block !important;
     }
+
+    .list-inline-mob li.list-inline-item {
+        margin-bottom: 10px;
+    }
+
+    ul.list-inline.list-inline-mob {
+        margin-bottom: 0 !important;
+    }
 }
 
 /*Escondendo o <legend> do fieldset para acessibilidade*/
@@ -618,6 +639,11 @@ fieldset legend,
     color: #000;
 }
 
+@media (max-width: 769px){   
+    .a11y-toolbar-widget ul{
+        margin-top: 0 !important;
+    }
+}
 
 /*Selo de acessibilidade digital*/
 
@@ -1025,6 +1051,16 @@ footer .redes-footer {
     .bd-contact {
         border: 0;
     }
+
+    .logo-rodape img {
+        max-width: 60%;
+        display: block;
+        margin: 0 auto 20px;
+    }
+
+    .seloa img {
+        max-width: 100px !important;
+    }
 }
 
 .ultimos-convocados p {
@@ -1200,6 +1236,11 @@ ol.carousel-indicators {
     border-top: 1px solid transparent;
 }
 
+@media (max-width: 767px){
+    .carousel-title p a {
+        font-size: 1.5rem;
+    }
+}
 
 /**** Acesso Rapido ****/
 
@@ -1480,6 +1521,11 @@ ol.carousel-indicators {
 
     .news-dest.dest-one .dest-title p {
         font-size: 16px;
+    }
+
+    .news-dest .dest-title {
+        background: rgba(38, 66, 112, 0.9);
+        position: relative;
     }
 }
 
