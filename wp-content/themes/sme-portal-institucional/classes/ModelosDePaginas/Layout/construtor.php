@@ -238,7 +238,7 @@ class Construtor extends Util
 									echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
 									echo '<div class="container-fluid p-0">';//bootstrap container
 									echo '<div class="row">';//bootstrap row
-									echo '<div class="col-sm-12 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' p-0 ' . $contentClass . '">';//bootstrap col
+									echo '<div class="col-sm-12 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_1_1') ): the_row();
 											//titulo
 											if( get_row_layout() == 'fx_cl1_titulo_1_1' ):

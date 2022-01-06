@@ -548,6 +548,11 @@ a {
     margin-right: 1rem;
 }
 
+@media (max-width: 769px){
+    .cabecalho-acessibilidade{
+        display: block !important;
+    }
+}
 
 /*Escondendo o <legend> do fieldset para acessibilidade*/
 
@@ -1368,6 +1373,11 @@ ol.carousel-indicators {
         padding-left: 15px;
         padding-right: 15px;
     }
+
+    .acesso-rapido li{
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 
@@ -1460,6 +1470,17 @@ ol.carousel-indicators {
 
 .news-dest:hover .dest-title p {
     text-decoration: underline;
+}
+
+@media (max-width: 769px) {   
+
+    .news-dest.dest-one{
+        margin-bottom: 15px;
+    }
+
+    .news-dest.dest-one .dest-title p {
+        font-size: 16px;
+    }
 }
 
 .news-more {

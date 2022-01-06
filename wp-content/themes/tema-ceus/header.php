@@ -96,8 +96,8 @@ use Classes\Header\Header;
             <section class="row cabecalho-cinza-escuro">
                 <section class="container">
 
-                    <section class="row d-none d-md-flex">
-                        <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
+                    <section class="row">
+                        <article class="col-lg-6 col-xs-12 d-none d-md-flex d-lg-flex d-xl-flex justify-content-start">
                             <ul class="list-inline mt-3 mb-0">
                                 <?php
                                 $slug_titulo = new Header();
@@ -109,27 +109,26 @@ use Classes\Header\Header;
                             </ul>
                         </article>
 
-                        <article class="col-lg-6 col-xs-12 d-flex justify-content-end">
+                        <article class="col-lg-6 col-xs-12 d-none d-md-flex d-lg-flex d-xl-flex justify-content-end">
                             <ul class="list-inline mt-3">
                                 <li class="list-inline-item"><a href="<?= STM_URL ?>/acessibilidade/" accesskey="5" class="text-white">Acessibilidade <span class="span-accesskey">5</span> </a></li>
                             </ul>
                             <?php dynamic_sidebar('Rodape Esquerda') ?>
                         </article>
 
-                    </section>
+                        <section class="d-flex d-md-none">
+                            <article class="col-12 d-flex justify-content-start">
+                                <ul class="list-inline list-inline-mob mt-3 mb-0">
+                                    <li class="list-inline-item"><a accesskey="1" id="1" href="#<?= $slug_titulo->getSlugTitulo() ?>" class="text-white">Ir ao Conteúdo <span class="span-accesskey">1</span></a></li>
+                                    <li class="list-inline-item"><a accesskey="2" id="2" href="#irmenu" class="text-white">Ir para menu principal <span class="span-accesskey">2</span></a></li>
+                                    <li class="list-inline-item"><a accesskey="3" id="3" href="#search-front-end" class="text-white">Ir para busca <span class="span-accesskey">3</span></a></li>
+                                    <li class="list-inline-item"><a accesskey="4" id="4" href="#irrodape" class="text-white">Ir para rodapé <span class="span-accesskey">4</span></a></li>
+                                    <li class="list-inline-item"><a href="<?= STM_URL ?>/acessibilidade/" accesskey="5" class="text-white">Acessibilidade <span class="span-accesskey">5</span> </a></li>
+                                </ul>
+                            </article>
+                        </section>
 
-                    <section class="row d-flex d-md-none">
-                        <article class="col-12 d-flex justify-content-start">
-                            <ul class="list-inline list-inline-mob mt-3 mb-0">
-                                <li class="list-inline-item"><a accesskey="1" id="1" href="#<?= $slug_titulo->getSlugTitulo() ?>" class="text-white">Ir ao Conteúdo <span class="span-accesskey">1</span></a></li>
-                                <li class="list-inline-item"><a accesskey="2" id="2" href="#irmenu" class="text-white">Ir para menu principal <span class="span-accesskey">2</span></a></li>
-                                <li class="list-inline-item"><a accesskey="3" id="3" href="#search-front-end" class="text-white">Ir para busca <span class="span-accesskey">3</span></a></li>
-                                <li class="list-inline-item"><a accesskey="4" id="4" href="#irrodape" class="text-white">Ir para rodapé <span class="span-accesskey">4</span></a></li>
-                                <li class="list-inline-item"><a href="<?= STM_URL ?>/acessibilidade/" accesskey="5" class="text-white">Acessibilidade <span class="span-accesskey">5</span> </a></li>
-                            </ul>
-                        </article>
                     </section>
-
                 </section>
 
             </section>
