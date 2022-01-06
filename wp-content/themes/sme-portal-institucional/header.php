@@ -100,7 +100,7 @@ use Classes\Header\Header;
                 <section class="container">
                     <section class="row">
                         <article class="col-lg-8 col-xs-12 d-flex justify-content-start">
-                            <ul class="list-inline my-3">
+                            <ul class="list-inline list-inline-mob my-3">
                                 <?php
                                 $slug_titulo = new Header();
                                 ?>
@@ -112,7 +112,7 @@ use Classes\Header\Header;
                             </ul>
                         </article>
 
-                        <article class="col-lg-4 col-xs-12 d-flex justify-content-end">
+                        <article class="col-lg-4 col-xs-12 d-flex justify-content-md-end justify-content-start">
                             <?php dynamic_sidebar('Rodape Esquerda') ?>
                         </article>
 
@@ -125,15 +125,15 @@ use Classes\Header\Header;
 
                 <section class="container">
                     <section class="row">
-                        <article class="col-lg-6 col-xs-12 d-flex justify-content-start">
-                            <ul class="list-inline my-3">
+                        <article class="col-8 col-lg-6 col-xs-12 d-flex justify-content-start">
+                            <ul class="list-inline menu-outros my-3">
                                 <li class="list-inline-item"><a class="text-white" href="http://transparencia.prefeitura.sp.gov.br/acesso-a-informacao">Acesso à informação e-sic <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span> </a></li>
                                 <li class="list-inline-item"><a class="text-white" href="https://www.prefeitura.sp.gov.br/cidade/secretarias/ouvidoria/fale_com_a_ouvidoria/index.php?p=464">Ouvidoria <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
                                 <li class="list-inline-item"><a class="text-white" href="http://transparencia.prefeitura.sp.gov.br/Paginas/home.aspx">Portal da Transparência <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
                                 <li class="list-inline-item"><a class="text-white" href="https://sp156.prefeitura.sp.gov.br/portal/servicos">SP 156 <span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a></li>
                             </ul>
                         </article>
-                        <article class="col-lg-6 col-xs-12 d-flex justify-content-end align-items-center">
+                        <article class="col-4 col-lg-6 col-xs-12 d-flex justify-content-end">
                             <?php 
                                 if (function_exists('have_rows')){
                                     // Verifica se existe Redes Sociais

@@ -4,7 +4,7 @@
 <footer style="background: #363636; color: #fff;">
 	<div class="container pt-3 pb-3" id="irrodape">
 		<div class="row">
-			<div class="col-sm-3 align-middle d-flex align-items-center">
+			<div class="col-sm-3 align-middle d-flex align-items-center logo-rodape">
 				<a href="https://www.capital.sp.gov.br/"><img src="<?php the_field('logo_prefeitura','conf-rodape'); ?>" alt="<?php bloginfo('name'); ?>"></a>
 			</div>
 			<div class="col-sm-3 align-middle bd-contact">
