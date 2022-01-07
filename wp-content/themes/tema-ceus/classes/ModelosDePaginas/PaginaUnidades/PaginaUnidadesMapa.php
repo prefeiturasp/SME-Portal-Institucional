@@ -110,31 +110,17 @@ class PaginaUnidadesMapa
                                 $numero = get_group_field( 'informacoes_basicas', 'numero', get_the_id() );
                                 $bairro = get_group_field( 'informacoes_basicas', 'bairro', get_the_id() );
                                 $cep = get_group_field( 'informacoes_basicas', 'cep', get_the_id() );
-                                $emails = get_group_field( 'informacoes_basicas', 'email', get_the_id() );
-                                $emails2 = '';
+                                $emails = get_group_field( 'informacoes_basicas', 'email', get_the_id() );                                
                                 $tels = get_group_field( 'informacoes_basicas', 'telefone', get_the_id() );
-                                $tels2 = '';
-                            
-                                if($emails['email_second'] && $emails['email_second'] != ''){
-                                    foreach($emails['email_second'] as $email){
-                                        $emails2 .= ' / <a href="mailto:' . $email['email'] .'">' . $email['email'] . "</a>";
-                                    }
-                                }
-
-                                if($tels['tel_second'] && $tels['tel_second'] != ''){
-                                    foreach($tels['tel_second'] as $tel){
-                                        $tels2 .= ' / <a href="tel:' . clearPhone($tel['telefone_sec']) .'">' . $tel['telefone_sec'] . "</a>";
-                                    }
-                                }
-
+                                                            
                                 echo '<li>
                                         <a href="#map" class="story" onclick="alerta(this)" data-point="' . $latitude . ',' . $longitude . '">
                                         <p class="unidades-title">' . get_the_title() . '</p>
                                         </a>
                                         <p>' . nomeZona($zona) . ' • ' . $endereco . ', '. $numero .' - ' . $bairro . ' - CEP: ' . $cep . '</p>
                                         <p>
-                                            <a href="mailto:' . $emails['email_principal'] .'">' . $emails['email_principal'] .'</a>'. $emails2 . '<br>
-                                            <a href="tel:' . clearPhone($tels['telefone_principal']) . '">' . $tels['telefone_principal'] . $tels2 .'</a>
+                                            <a href="mailto:' . $emails['email_principal'] .'">' . $emails['email_principal'] .'</a><br>
+                                            <a href="tel:' . clearPhone($tels['telefone_principal']) . '">' . $tels['telefone_principal'] .'</a>
                                         </p>
                                       </li>';
                             }

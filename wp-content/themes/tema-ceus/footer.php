@@ -91,22 +91,8 @@
         $numero = get_group_field( 'informacoes_basicas', 'numero', $unidade );
         $bairro = get_group_field( 'informacoes_basicas', 'bairro', $unidade );
         $cep = get_group_field( 'informacoes_basicas', 'cep', $unidade );
-        $emails = get_group_field( 'informacoes_basicas', 'email', $unidade );
-        $emails2 = '';
-        $tels = get_group_field( 'informacoes_basicas', 'telefone', $unidade );
-        $tels2 = '';
-    
-        if($emails['email_second'] && $emails['email_second'] != ''){
-            foreach($emails['email_second'] as $email){
-                $emails2 .= ' / <a href="mailto:' . $email['email'] .'">' . $email['email'] . "</a>";
-            }
-        }
-
-        if($tels['tel_second'] && $tels['tel_second'] != ''){
-            foreach($tels['tel_second'] as $tel){
-                $tels2 .= ' / <a href="tel:' . clearPhone($tel['telefone_sec']) .'">' . $tel['telefone_sec'] . "</a>";
-            }
-        }
+        $emails = get_group_field( 'informacoes_basicas', 'email', $unidade );        
+        $tels = get_group_field( 'informacoes_basicas', 'telefone', $unidade ); 
 
         //print_r($emails);
 
@@ -114,8 +100,8 @@
                                 <p class='marcador-title'><a href='". get_the_permalink($unidade) ."'>" . get_the_title($unidade) . "</a></p>
                                 <p><i class='fa fa-map-marker' aria-hidden='true'></i> " . nomeZona($zona) . " • " . $endereco . ", ". $numero ." - " . $bairro . " - CEP: " . $cep . "</p>
                                 
-                                <p><i class='fa fa-phone' aria-hidden='true'></i> " . $tels['telefone_principal'] . $tels2 ."</p>
-                                <p><i class='fa fa-envelope' aria-hidden='true'></i> " . $emails['email_principal'] . $emails2 ."</p>
+                                <p><i class='fa fa-phone' aria-hidden='true'></i> " . $tels['telefone_principal'] ."</p>
+                                <p><i class='fa fa-envelope' aria-hidden='true'></i> " . $emails['email_principal'] ."</p>
                             </div>";
         $marcadores[$p][] = get_group_field( 'informacoes_basicas', 'latitude', $unidade );
         $marcadores[$p][] = get_group_field( 'informacoes_basicas', 'longitude', $unidade );
