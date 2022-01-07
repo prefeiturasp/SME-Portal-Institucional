@@ -1711,3 +1711,13 @@ function my_search_query($query) {
         $query->set('post__in',$unique); // add a filter by post id instead
     }
 }
+
+// Alterar placeholder cadastro/edicao Agenda do Secretario
+function wpb_change_title_text( $title ){
+	$screen = get_current_screen(); 
+	if  ( 'agendanew' == $screen->post_type ) {
+		 $title = 'Digite a data dos compromissos';
+	} 
+	return $title;}
+ 
+add_filter( 'enter_title_here', 'wpb_change_title_text' );
