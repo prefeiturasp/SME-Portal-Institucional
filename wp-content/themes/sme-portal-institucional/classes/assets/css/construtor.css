@@ -298,47 +298,17 @@ li.nav-item {
 
 /*video customizado*/
 
-video,
-iframe {
+video {
     width: 100% !important;
     height: auto !important;
 }
 
-.video-1 iframe {
-    height: 624px !important;
-}
-
-.video-2 iframe {
-    height: 305px !important;
-}
-
-.video-3 iframe {
-    height: 197px !important;
-}
-
-.video-4 iframe {
-    height: 144px !important;
-}
-
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
-    video,
-    iframe {
+    video {
         width: 100% !important;
         height: auto !important;
-    }
-    .video-1 iframe {
-        height: 185px !important;
-    }
-    .video-2 iframe {
-        height: 185px !important;
-    }
-    .video-3 iframe {
-        height: 185px !important;
-    }
-    .video-4 iframe {
-        height: 185px !important;
-    }
+    }    
 }
 
 .bg-branco .card-body {
