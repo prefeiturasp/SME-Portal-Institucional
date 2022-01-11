@@ -1721,3 +1721,10 @@ function wpb_change_title_text( $title ){
 	return $title;}
  
 add_filter( 'enter_title_here', 'wpb_change_title_text' );
+
+// Incluir div envolta do embed de video automatico do WordPress
+add_filter( 'embed_oembed_html', 'tdd_oembed_filter', 10, 4 ) ; 
+function tdd_oembed_filter($html, $url, $attr, $post_ID) {
+    $return = '<div class="video-container">'.$html.'</div>';
+    return $return;
+}
