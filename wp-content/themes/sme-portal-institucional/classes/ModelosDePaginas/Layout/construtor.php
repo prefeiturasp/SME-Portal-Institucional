@@ -32,6 +32,10 @@ class Construtor extends Util
 				jQuery(".card-header").on('click', function(){
 					jQuery(".card-header").removeClass('bg-sanfona-active');
 					jQuery(this).addClass('bg-sanfona-active');
+					
+					if(jQuery(this).find('.card-link').hasClass('collapsed')){
+						jQuery(window).scrollTop( jQuery(this).offset().top );						
+					}
 				});
 			});
 		</script>
