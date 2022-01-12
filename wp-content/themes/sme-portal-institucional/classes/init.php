@@ -79,11 +79,9 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoti
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialTwitter.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNewsletter.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialFacebook.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaCards/PaginaCards.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbas.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasContato.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaAbas/PaginaAbasBotoes.php';
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaBotoes/PaginaBotoes.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/LandingPages/Modelo_1.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/LandingPages/Modelo_2.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/Layout/construtor.php';
@@ -130,9 +128,6 @@ $cptAgendaSecretarioNewExtend = new \Classes\Cpt\CptAgendaSecretarioNew();
 $cptContatoSme = new \Classes\Cpt\Cpt('contato', 'contato', 'Contatos SME', 'Todos os Contatos', 'Contatos', 'Contato', null, null, null,'dashicons-email-alt', true);
 $cptContatoSmeExtend = new \Classes\Cpt\CptContato();
 $cptOrganograma = new \Classes\Cpt\Cpt('organograma', 'organograma', 'Organograma', 'Todos os Itens', 'Organogramas', 'Organograma', 'categorias-organograma', 'Categorias de Organograma', 'Categoria de Organograma', 'dashicons-networking', true );
-
-$cptBotao = new \Classes\Cpt\Cpt('botao', 'botao', 'Cadastro de Botões', 'Todos os Botões', 'Botões', 'Cadastro de Botões', 'categorias-botao', 'Categorias de Botões', 'Categoria de Botão', 'dashicons-external' , true);
-$cptBotaoExtend = new \Classes\Cpt\CptBotao();
 
 $taxonomiaMediaImages = new \Classes\Cpt\CptMediaImages();
 
