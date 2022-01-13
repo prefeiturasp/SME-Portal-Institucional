@@ -1795,3 +1795,13 @@ function wpdocs_my_custom_submenu_page_callback() {
 	<?php
     echo '</div>';
 }
+
+// Paginas em rascunho e pendendentes no seletor de subpaginas
+add_filter( 'page_attributes_dropdown_pages_args', 'so_3538267_enable_drafts_parents' );
+add_filter( 'quick_edit_dropdown_pages_args', 'so_3538267_enable_drafts_parents' );
+
+function so_3538267_enable_drafts_parents( $args )
+{
+    $args['post_status'] = 'draft,publish,pending';
+    return $args;
+}
