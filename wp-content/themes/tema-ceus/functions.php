@@ -637,6 +637,15 @@ if( function_exists('acf_add_options_page') ) {
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
     ));
+
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Analytics',
+        'menu_title'	=> 'Analytics',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+		'post_id' 		=> 'conf-analytics',
+    ));
+
 	if( is_super_admin() ){
 		acf_add_options_sub_page(array(
 			'page_title' 	=> 'Informações Rodapé',
