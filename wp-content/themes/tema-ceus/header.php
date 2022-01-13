@@ -79,13 +79,12 @@ use Classes\Header\Header;
 	</script>
 	<!-- End Inspectlet Asynchronous Code -->
 
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-149756375-1');
-    </script>
+    <?php
+        $analytics = get_field('codigo','conf-analytics');
+        if($analytics && $analytics != ''){
+            echo $analytics;
+        }
+    ?>
 
 </head>
 
