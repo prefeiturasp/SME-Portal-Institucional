@@ -14,3 +14,12 @@
     background: #01295c !important;
     color: #fff !important;
 }
+
+.pages-modal {
+    text-align: left;
+    padding: 0 25px;
+}
+
+.swal2-icon.swal2-question.swal2-icon-show {
+    font-size: 20px;
+}
