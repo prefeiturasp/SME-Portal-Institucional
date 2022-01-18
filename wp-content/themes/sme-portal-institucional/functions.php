@@ -1802,6 +1802,120 @@ add_filter( 'quick_edit_dropdown_pages_args', 'so_3538267_enable_drafts_parents'
 
 function so_3538267_enable_drafts_parents( $args )
 {
-    $args['post_status'] = 'draft,publish,pending';
+    $args['post_status'] = 'draft,publish,pending,private';
     return $args;
 }
+
+// Inclui o JS para alterar o tipo de campo no alt das imagens
+function custom_subpage_js() {
+	$url = get_bloginfo('template_directory') . '/js/subpages.js';	
+    echo '"<script type="text/javascript" src="'. $url . '"></script>"';
+	
+    echo '<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>';    
+	$pagina = $_GET['post'];
+	$pages = get_pages('child_of='.$pagina.'&sort_column=title&post_status=draft,publish,pending,private');
+	$paginas = '';
+	foreach($pages as $page){
+		$paginas .= '<input type="checkbox" class="checkboxAll" name="type" value="' . $page->ID . '" /> ' . $page->post_title . '<br>';
+	}
+	?>
+		<script>
+			jQuery(document).ready(function($) {				
+
+				function ajaxSubmit(pages) {
+
+					var data = {
+						action: 'subpages_private',
+						page: pages
+					};
+
+					jQuery.ajax({
+						type: "POST",
+						url: "/wp-admin/admin-ajax.php",
+						data: data,
+						success: function(data){
+							Swal.fire('Páginas alteradas com sucesso!', '', 'success');
+						},
+						error: function (request, status, error) {
+							//alert(request.responseText);
+						}
+					});
+
+					return false;
+				}
+
+				
+
+				jQuery("#visibility-radio-private").click(function(){
+					
+					Swal.fire({
+						title: 'Atenção',
+						icon: 'question',
+						html: '<h3>Esta página possui subpaginas, deseja transformar-las em Privadas?</h3>' +
+							  '<div class="pages-modal">' +							  
+							  '<?= $paginas; ?>' +
+							  '</div>',
+						showDenyButton: true,
+						showCloseButton: true,
+						confirmButtonText: 'Salvar',
+						denyButtonText: 'Não alterar',
+					}).then((result) => {
+						/* Read more about isConfirmed, isDenied below */
+						if (result.isConfirmed) {
+							var yourArray = []
+
+							jQuery("input:checkbox[name=type]:checked").each(function(){
+								yourArray.push($(this).val());
+							});
+
+							ajaxSubmit(yourArray);							
+							
+						} else if (result.isDenied) {
+							Swal.fire('Ação cancelada', '', 'error')
+						}
+					})
+					//ajaxSubmit(); 
+				});
+			});
+		</script>
+	<?php
+}
+
+// Alerta subpagina
+add_action( 'admin_init', 'alert_subpage' );
+ 
+function alert_subpage() {
+    global $pagenow;
+    if ( 'post.php' === $pagenow && isset($_GET['post']) && 'page' === get_post_type( $_GET['post'] ) ){
+		$pagina = $_GET['post'];
+		
+		$pages = get_pages('child_of='.$pagina.'&sort_column=menu_order&post_status=draft,publish,pending,private');
+		
+		//echo "<pre>";
+		//print_r($pages);
+		//echo "</pre>";
+
+		if($pages){
+			add_action('admin_footer', 'custom_subpage_js');
+		}
+
+    }
+}
+
+function subpages_private(){
+	$paginas = $_POST['page'];
+	
+	foreach($paginas as $pagina){
+		$post_data = array(
+			'ID' => $pagina,
+			'post_status' => 'private'
+		);	
+		wp_update_post( $post_data );
+	}
+	
+	print_r($data);
+	
+	wp_die();
+}
+add_action('wp_ajax_subpages_private', 'subpages_private');
+add_action('wp_ajax_nopriv_subpages_private', 'subpages_private');
