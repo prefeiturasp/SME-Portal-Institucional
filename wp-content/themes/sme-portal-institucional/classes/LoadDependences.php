@@ -4,7 +4,7 @@ namespace Classes;
 
 use Classes\ModelosDePaginas\PaginaContato\PaginaContatoMetabox;
 use Classes\TemplateHierarchy\ArchiveAgenda\ArchiveAgendaAjaxCalendario;
-use Classes\TemplateHierarchy\ArchiveAgenda\ArchiveAgendaAjaxCalendarioNew;
+use Classes\TemplateHierarchy\ArchiveAgendaNew\ArchiveAgendaAjaxCalendarioNew;
 use Classes\TemplateHierarchy\ArchiveAgenda\ArchiveAgendaGetDatasEventos;
 use Classes\TemplateHierarchy\ArchiveContato\ArchiveContatoMetabox;
 

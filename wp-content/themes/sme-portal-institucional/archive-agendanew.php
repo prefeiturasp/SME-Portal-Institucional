@@ -1,7 +1,7 @@
 <?php
 use Classes\ModelosDePaginas\PaginaAgendaSecretario\PaginaAgendaSecretario;
 
-use Classes\TemplateHierarchy\ArchiveAgenda\ArchiveAgenda;
+use Classes\TemplateHierarchy\ArchiveAgendaNew\ArchiveAgendaNew;
 
 get_header();
 ?>
@@ -15,6 +15,6 @@ get_header();
         }
     </style>
 <?php
-$pagina_agenda_secretario = new ArchiveAgenda();
+$pagina_agenda_secretario = new ArchiveAgendaNew();
 
 get_footer();

@@ -45,7 +45,9 @@ require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContato/ArchiveContato.
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContato/ExibirContatosTodasPaginas.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgenda.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaAjaxCalendario.php';
-require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaAjaxCalendarioNew.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaNew/ArchiveAgendaGetDatasEventosNew.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaNew/ArchiveAgendaNew.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaNew/ArchiveAgendaAjaxCalendarioNew.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaDetectMobile.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganograma.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveOrganograma/ArchiveOrganogramaConselhos.php';
