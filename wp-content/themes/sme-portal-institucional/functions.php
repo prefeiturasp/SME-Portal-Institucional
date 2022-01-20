@@ -1236,6 +1236,17 @@ function redirects_admin() {
 		$origem = $link['origem'];
 		$origem = str_replace('https://hom-educacao.sme.prefeitura.sp.gov.br', '', $origem);
 		$origem = convert_chars_url($origem);
+
+		if (strpos($origem, '/uploads/') == false) {
+			$lastChar = substr($origem, -1);
+			if($lastChar == '/'){
+				$origem = substr($origem, 0, -1);				
+				$origem = $origem . '(\/|)$';
+			} else {
+				$origem = $origem . '(\/|)$';
+			}
+		}
+
 		$destino = $link['destino'];
 		$links .= 'RedirectMatch 301 ' . $origem . ' ' . $destino . PHP_EOL;
 	}
