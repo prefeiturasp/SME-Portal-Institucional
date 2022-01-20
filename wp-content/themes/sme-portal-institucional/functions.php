@@ -1178,18 +1178,69 @@ add_action( 'wp_roles_init', static function ( \WP_Roles $roles ) {
     $roles->role_names['contributor'] = 'Colaborador';
 } );
 
+// redirecionar urls
+
+function str_replace_assoc(array $replace, $subject) {
+	return str_replace(array_keys($replace), array_values($replace), $subject);   
+}
+
+function convert_chars_url($string){
+	
+	$replace = array(
+		'a%CC%80' => '(.*)', // à
+		'a%CC%81' => '(.*)', // á
+		'a%CC%82' => '(.*)', // â
+		'a%CC%83' => '(.*)', // ã
+		'à' => '(.*)', // à
+		'á' => '(.*)', // á
+		'â' => '(.*)', // â
+		'ã' => '(.*)', // ã
+		'e%CC%80' => '(.*)', // è
+		'e%CC%81' => '(.*)', // é
+		'e%CC%82' => '(.*)', // ê
+		'è' => '(.*)', // è
+		'é' => '(.*)', // é
+		'ê' => '(.*)', // ê
+		'%C3%A9' => '(.*)',
+		'i%CC%80' => '(.*)', // ì
+		'i%CC%81' => '(.*)', // í
+		'i%CC%82' => '(.*)', // î
+		'ì' => '(.*)', // ì
+		'í' => '(.*)', // í
+		'î' => '(.*)', // î
+		'o%CC%80' => '(.*)', // ò
+		'o%CC%81' => '(.*)', // ó
+		'o%CC%82' => '(.*)', // ô
+		'o%CC%83' => '(.*)', // õ
+		'ò' => '(.*)', // ò
+		'ó' => '(.*)', // ó
+		'ô' => '(.*)', // ô
+		'õ' => '(.*)', // õ
+		'u%CC%80' => '(.*)', // ù
+		'u%CC%81' => '(.*)', // ú
+		'u%CC%82' => '(.*)', // û
+		'ù' => '(.*)', // ù
+		'ú' => '(.*)', // ú
+		'û' => '(.*)', // û
+		'ç' => '(.*)', // ç
+	);
+	$retorno = str_replace_assoc($replace,$string);
+	return $retorno;
+}
+
 function redirects_admin() {
 	$links = '';
 	$alllinks = get_field('redirecionar','option');
 
 	foreach($alllinks as $link){
 		$origem = $link['origem'];
-		$origem = str_replace('https://educacao.sme.prefeitura.sp.gov.br', '', $origem);
+		$origem = str_replace('https://hom-educacao.sme.prefeitura.sp.gov.br', '', $origem);
+		$origem = convert_chars_url($origem);
 		$destino = $link['destino'];
-		$links .= 'redirect 301 ' . $origem . ' ' . $destino . PHP_EOL;
+		$links .= 'RedirectMatch 301 ' . $origem . ' ' . $destino . PHP_EOL;
 	}
 	
-	$path = get_home_path();
+	$path = ABSPATH;
     $htaccess_content = file_get_contents( $path . '.htaccess' );
     $filtered_htaccess_content = trim( preg_replace( '/\# REDIRECTS[\s\S]+?# END REDIRECTS/si',
 	 '# REDIRECTS' . PHP_EOL 
