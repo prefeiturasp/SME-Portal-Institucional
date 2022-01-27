@@ -120,15 +120,30 @@ class Construtor extends Util
 																		$currentTitle = $page['nome_do_rotulo'];
 																		$classe = 'active';
 																	}
-																	echo '<li><a href="' . get_the_permalink($page['outros_pagina'][0]) . '" class="' . $classe . '">' . $page['nome_do_rotulo'] . '</a></li>';
+
+																	$url = get_the_permalink($page['outros_pagina'][0]);
+																	if($page['link_externo']){
+																		$url = $page['endereco_do_site'];
+																	}
+
+																	echo '<li><a href="' . $url . '" class="' . $classe . '">' . $page['nome_do_rotulo'] . '</a></li>';
 																	$classe = '';
+
 																} else {
 																	if($page['outros_pagina'][0] == get_the_ID()){
 																		$currentTitle = get_the_title($page['outros_pagina'][0]);
 																		$classe = 'active';
 																	}
-																	echo '<li><a href="' . get_the_permalink($page['outros_pagina'][0]) . '" class="' . $classe . '">' . get_the_title($page['outros_pagina'][0]) . '</a></li>';
+
+																	$title = get_the_title($page['outros_pagina'][0]);
+																	$url = get_the_permalink($page['outros_pagina'][0]);
+																	if($page['link_externo']){
+																		$title = $page['endereco_do_site'];
+																		$url = $page['endereco_do_site'];
+																	}
+																	echo '<li><a href="' . $url . '" class="' . $classe . '">' . $title . '</a></li>';
 																	$classe = '';
+																	
 																}
 															}
 														}	
