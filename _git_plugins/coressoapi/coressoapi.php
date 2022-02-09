@@ -27,7 +27,7 @@ function demo_auth( $user, $username, $password ){
     $response = wp_remote_post( $api_url ,
             array(
                 'headers' => array( 
-                    'x-api-eol-key' => '', // Chave da API
+                    'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99', // Chave da API
                     'Content-Type'=> 'application/json-patch+json'
                 ),
                 'body' => $body, // Body da requisicao
@@ -108,9 +108,9 @@ function demo_auth( $user, $username, $password ){
 
 #########################################################################################
 // Criacao do shortcode de login
-function intranet_add_login_shortcode() {
-	add_shortcode( 'intranet-login-form', 'intranet_login_form_shortcode' );
-}
+//function intranet_add_login_shortcode() {
+	//add_shortcode( 'intranet-login-form', 'intranet_login_form_shortcode' );
+//}
 
 // funcao callbacl do shortcode
 function intranet_login_form_shortcode() {
@@ -148,7 +148,7 @@ function intranet_login_form_shortcode() {
 }
 
 // Carrega a funcao do shortcode
-add_action( 'init', 'intranet_add_login_shortcode' );
+//add_action( 'init', 'intranet_add_login_shortcode' );
 
 
 #####################################################################################
@@ -156,7 +156,7 @@ add_action( 'init', 'intranet_add_login_shortcode' );
 // Direcionar o usuario da pagina de login do WordPress para uma pagina de login customizada
 function goto_login_page() {
 	global $page_id;
-	$login_page = home_url( 'index.php/login/' );
+	$login_page = home_url();
 	$page = basename($_SERVER['REQUEST_URI']);
 
 	if( $page == "wp-login.php" && $_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -171,7 +171,7 @@ function goto_login_page() {
 // icluindo o parametro GET na URL
 function login_failed() {
 	global $page_id;
-	$login_page = home_url( 'index.php/login/' );
+	$login_page = home_url();
 	wp_redirect( $login_page . '?login=failed' );
 	exit;
 }
@@ -184,7 +184,7 @@ if( $pagenow == 'wp-login.php' && isset($_POST['login_page']) ){
 // icluindo o parametro GET na URL
 function blank_username_password( $user, $username, $password ) {
 	global $page_id;
-	$login_page = home_url( 'index.php/login/' );
+	$login_page = home_url();
 	if( $username == "" || $password == "" ) {
 		wp_redirect( $login_page . "?login=blank" );
 		exit;
@@ -198,7 +198,7 @@ if( $pagenow == 'wp-login.php' && isset($_POST['login_page']) ){
 // Se for acionado a funcao de Logout (sair) redireciona o usuario para a pagina de login
 function logout_page() {
 	global $page_id;
-	$login_page = home_url( 'index.php/login/' );
+	$login_page = home_url();
 	wp_redirect( $login_page . "?login=false" );
 	exit;
 }
@@ -207,7 +207,7 @@ add_action('wp_logout', 'logout_page');
 // Inclui um input oculto no formulario de login personalizado
 // Para que seja validado o usuario via API e nao pelo WordPress
 add_filter('login_form_middle','my_added_login_field');
- function my_added_login_field(){
+function my_added_login_field(){
      //Output your HTML
      $additional_field = '<div class="login-custom-field-wrapper"">
         <input type="hidden" value="1" name="login_page"></label>
