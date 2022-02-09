@@ -116,7 +116,6 @@ function generateRandomString($length = 10) {
 					
 						<?php if($stringSeparada[$indice] == 'jpg' || $stringSeparada[$indice] == 'jpeg' || $stringSeparada[$indice] == 'png' || $stringSeparada[$indice] == 'gif' || $stringSeparada[$indice] == 'webp') : ?>
 
-												
 
 							<div class="modal <?php echo $class; ?>" tabindex="-1" role="dialog">
 								<div class="modal-dialog" role="document">
@@ -137,13 +136,35 @@ function generateRandomString($length = 10) {
 									</div>
 								</div>
 							</div>
+						
+						<?php elseif($stringSeparada[1] == 'pdf'): ?>
+
+							<div class="modal fade bd-example-modal-lg <?php echo $class; ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-xl">
+
+									<div class="modal-content">
+
+										<div class="modal-header">
+											<p class="modal-title"><?php the_title(); ?></p>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+											<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+
+										<div class="modal-body">
+											<div class="embed-responsive embed-responsive-16by9">
+												<?php echo do_shortcode('[wonderplugin_pdf src="' . $url . '" width="100%" height="600px" style="border:0;"]'); ?>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
 
 						<?php else : ?>
 
 							<div class="modal fade bd-example-modal-lg <?php echo $class; ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-xl">
-
-									
 
 									<div class="modal-content">
 
