@@ -19,17 +19,16 @@ require_once __ROOT__.'/classes/tutorial/tutorial.php';
 require_once __ROOT__.'/classes/Cpt/Cpt.php';
 require_once __ROOT__.'/classes/Cpt/CptPosts.php';
 require_once __ROOT__.'/classes/Cpt/CptPages.php';
-//require_once __ROOT__.'/classes/Cpt/CptCard.php';
+require_once __ROOT__.'/classes/Cpt/CptCard.php';
 require_once __ROOT__.'/classes/Cpt/CptAgendaSecretario.php';
 require_once __ROOT__.'/classes/Cpt/CptAgendaSecretarioNew.php';
-//require_once __ROOT__.'/classes/Cpt/CptContato.php';
-//require_once __ROOT__.'/classes/Cpt/CptOrganograma.php';
+require_once __ROOT__.'/classes/Cpt/CptContato.php';
+require_once __ROOT__.'/classes/Cpt/CptOrganograma.php';
 //require_once __ROOT__.'/classes/Cpt/CptAba.php';
-//require_once __ROOT__.'/classes/Cpt/CptBotao.php';
-//require_once __ROOT__.'/classes/Cpt/CptCurriculoDaCidade.php';
-//require_once __ROOT__.'/classes/Cpt/cptProgramaProjeto.php';
-//require_once __ROOT__.'/classes/Cpt/CptConcursos.php';
-require_once __ROOT__.'/classes/Cpt/CptDestaques.php';
+require_once __ROOT__.'/classes/Cpt/CptBotao.php';
+require_once __ROOT__.'/classes/Cpt/CptCurriculoDaCidade.php';
+require_once __ROOT__.'/classes/Cpt/cptProgramaProjeto.php';
+require_once __ROOT__.'/classes/Cpt/CptConcursos.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
@@ -137,6 +136,3 @@ $taxonomiaMediaImages = new \Classes\Cpt\CptMediaImages();
 
 //$cptProgramasEProjetos = new \Classes\Cpt\Cpt('programa-projeto', 'programa-projeto', 'Programas e Projetos', 'Todos os Programas e Projetos', 'Programas e Projetos', 'Programas e Projetos', 'categorias-programa-projeto', 'Categorias de Programas e Projetos', 'Categoria de Programas e Projetos', 'dashicons-format-image', true);
 //$cptProgramasEProjetosExtende = new \Classes\Cpt\CptProgramasEProjetos();
-
-$cptDestaques = new \Classes\Cpt\Cpt('destaque', 'destaque', 'Recado', 'Todos os Recados', 'Recados', 'Recados', null, null, null, 'dashicons-external', true);
-$cptDestaquesExtend = new \Classes\Cpt\CptDestaques();

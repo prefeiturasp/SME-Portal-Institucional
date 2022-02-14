@@ -157,7 +157,6 @@ body {
     color: #212529;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
-    background: #F5F6F8;
 }
 
 h1,
@@ -220,10 +219,6 @@ ol {
 
 a {
     color: #196CBD;
-}
-
-.logo-principal{
-    background-color: #FFFFFF;
 }
 
 .logo-principal .logo-topo {

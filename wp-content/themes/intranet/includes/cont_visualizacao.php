@@ -27,7 +27,7 @@ function setPostViews($postID) {
 // Adiciona uma coluna no Admin
 add_filter('manage_pages_columns', 'posts_column_views');
 add_action('manage_pages_custom_column', 'posts_custom_column_views',10,2);
-//add_filter('manage_posts_columns', 'posts_column_views');
+add_filter('manage_posts_columns', 'posts_column_views');
 add_action('manage_posts_custom_column', 'posts_custom_column_views',10,2);
 function posts_column_views($defaults){
 $defaults['post_views'] = __('<span class="dashicons dashicons-visibility"></span>');
