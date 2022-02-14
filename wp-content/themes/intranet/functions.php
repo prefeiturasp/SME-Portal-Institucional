@@ -1825,3 +1825,20 @@ function lost_pass(){
 
      return $additional_field;
 }
+
+// Retorna dia da semana
+function getDay($dia_num){
+    $diasMapa = array('Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado');
+    return $diasMapa[$dia_num];
+}
+
+// Retorna primeira letra das palavras
+function firstLetter($words){
+	$palavras = explode(" ", $words);
+	$acronym = "";
+
+	foreach ($palavras as $w) {
+		$acronym .= $w[0];
+	}
+	return $acronym;
+}
