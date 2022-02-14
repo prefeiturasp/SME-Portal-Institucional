@@ -232,7 +232,9 @@ class Construtor extends Util
 			//banner
 			if(get_field('fx_flex_habilitar_banner') != null){
 				$imagem_banner = get_field('fx_flex_banner');//Pega todos os valores da imagem no array
-				echo '<div class="bn_fx_banner"><img src="'.$imagem_banner['url'].'" width="100%" alt="'.$imagem_banner['alt'].'"></div>';
+				echo '<div class="bn_fx_banner" style="background-image: url(' . $imagem_banner['url'] . ');">
+					<div class="container"><h1>' . get_the_title() . '</h1></div>
+				</div>';
 			}
 			
 			if( have_rows('fx_flex_layout') ):
@@ -349,6 +351,10 @@ class Construtor extends Util
 											// Organograma DREs
 											elseif( get_row_layout() == 'fx_cl1_organograma' ):
 												get_template_part( 'construtor/construtor', 'organograma_1_1' );
+
+											// Mural de Recados
+											elseif( get_row_layout() == 'fx_cl1_mural_recados_1_1' ):
+												get_template_part( 'construtor/construtor', 'mural_recados_1_1' );
 
 											// Integracao Pagina
 											elseif( get_row_layout() == 'integrar_pagina' ):
