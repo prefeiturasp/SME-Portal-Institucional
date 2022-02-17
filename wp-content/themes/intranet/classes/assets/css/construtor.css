@@ -477,6 +477,74 @@ form.form-recados label {
 	height: 100%;
 }
 
+/**** Portais e Sistemas ****/
+.busca-portais {
+    display: table;
+    width: 100%;
+}
+
+.input-busca {
+    display: table-cell;
+    width: 100%;
+    padding-right: 20px;
+}
+
+.lista-portais{
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 15px;
+}
+
+.lista-portais h2{
+    color: #0F42B2;
+    font-size: 28px !important;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.lista-portais .portal {
+    background: #FFFFFF;
+    padding: 20px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border-bottom: 8px solid #2C8C99;
+}
+
+.lista-portais .portal img {
+    margin-bottom: 15px;
+}
+
+.lista-portais .portal h3 {
+    font-size: 20px !important;
+    font-weight: bold;
+}
+
+.lista-portais .portal h3 a{
+    color: #2C8C99;
+    display: block;
+    text-decoration: underline;
+}
+
+.lista-portais .portal p{
+    font-size: 14px;
+}
+
+.lista-portais .portal p:last-child {
+    margin-bottom: 0;
+}
+
+.form-recados .error{
+    outline: 1px solid red;
+}
+
+.form-recados .login-error,
+.form-recados .pass-error{
+    color: #FF0000;
+    font-size: 14px;
+    font-weight: bold;
+    display: none;
+}
+
 /*** Paginacao ***/
 .pagination-prog{
     margin-bottom: 30px;
