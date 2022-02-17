@@ -350,6 +350,14 @@ class Construtor extends Util
 											elseif( get_row_layout() == 'fx_cl1_organograma' ):
 												get_template_part( 'construtor/construtor', 'organograma_1_1' );
 
+											// Mural de Recados
+											elseif( get_row_layout() == 'fx_cl1_mural_recados_1_1' ):
+												get_template_part( 'construtor/construtor', 'mural_recados_1_1' );
+
+											// Portais e Sistemas
+											elseif( get_row_layout() == 'fx_cl1_portais_sistemas_1_1' ):
+												get_template_part( 'construtor/construtor', 'portais_sistemas_1_1' );
+
 											// Integracao Pagina
 											elseif( get_row_layout() == 'integrar_pagina' ):
 

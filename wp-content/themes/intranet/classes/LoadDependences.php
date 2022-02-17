@@ -103,8 +103,13 @@ class LoadDependences
 		wp_register_style('loop-single', STM_THEME_URL . 'classes/assets/css/loop-single.css', null, null, 'all');
 		wp_enqueue_style('loop-single');
 
+		// Mural de recados
 		wp_register_script('mural-recados-sme',  STM_THEME_URL . 'classes/assets/js/mural-recados-sme.js', array ('jquery'), false, false);
 		wp_enqueue_script('mural-recados-sme');
+		
+		// Portais e Sistemas
+		wp_register_script('portais-sistemas',  STM_THEME_URL . 'classes/assets/js/portais-sistemas.js', array ('jquery'), false, false);
+		wp_enqueue_script('portais-sistemas');
 
 	}
 
