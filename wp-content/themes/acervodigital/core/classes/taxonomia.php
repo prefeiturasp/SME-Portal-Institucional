@@ -59,7 +59,8 @@ class AcervoRegisterCustomTaxonomy
 			'public' => true,
 			'hierarchical' => true,			
 			'fields' => 'all', 
-			'show_ui' => true,			
+			'show_ui' => true,
+			'show_in_rest' => true,	
 			'search' => 'categoria',
 			'show_admin_column' => true,
 			'show_in_nav_menus' => true,
@@ -89,7 +90,7 @@ class AcervoRegisterCustomTaxonomy
 
 }
 
-$categorias = new AcervoRegisterCustomTaxonomy( 'categoria_acervo', 'Categoria', 'acervo' );
+$categorias = new AcervoRegisterCustomTaxonomy( 'categoria_acervo', 'Categoria',  'Adicionar uma nova', 'acervo' );
 $categorias->capabily = 'list_users';
 
 new AcervoRegisterCustomTaxonomy( 'autor', 'Autor', 'Adicionar um novo', 'acervo' );
@@ -136,6 +137,7 @@ function palavra_custom_taxonomy() {
 	'public' => true,
 	'hierarchical' => true,
 	'show_ui' => true,
+	'show_in_rest' => true,
 	'show_admin_column' => true,
 	'show_in_nav_menus' => true,
 	'show_tagcloud' => true, 
