@@ -358,6 +358,10 @@ class Construtor extends Util
 											elseif( get_row_layout() == 'fx_cl1_portais_sistemas_1_1' ):
 												get_template_part( 'construtor/construtor', 'portais_sistemas_1_1' );
 
+											// Cursos
+											elseif( get_row_layout() == 'fx_cl1_cursos_1_1' ):
+												get_template_part( 'construtor/construtor', 'cursos_1_1' );
+
 											// Integracao Pagina
 											elseif( get_row_layout() == 'integrar_pagina' ):
 
