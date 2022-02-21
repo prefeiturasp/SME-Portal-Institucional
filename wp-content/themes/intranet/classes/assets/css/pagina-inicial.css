@@ -396,11 +396,12 @@ button.close {
     height: auto;
 }
 button.close {
-    padding: 5px 10px 0px 0px !important;
-    width: 100%;
-    text-align: right;
-    position: absolute;
-	z-index: 9999999;
+  width: auto;
+  text-align: right;
+  position: absolute;
+  z-index: 9999999;
+  right: 17px;
+  top: 17px;
 }
 /************* fim Modal CSS *****************/
 .overlay-noticia-home{
