@@ -1072,6 +1072,10 @@ footer .redes-footer {
     box-sizing: border-box;
 }
 
+.bd-contact p{
+    line-height: 2.5;
+}
+
 @media (max-width: 575px) {
     .bd-contact {
         border: 0;
