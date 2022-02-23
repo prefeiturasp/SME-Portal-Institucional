@@ -44,6 +44,12 @@
     text-decoration: underline;
 }
 
+.core_login_form .lost-pass .pass-text {
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 6px;
+}
+
 .core_login_form #wp-submit {
     background: #0F42B2;
     color: #FFFFFF;
