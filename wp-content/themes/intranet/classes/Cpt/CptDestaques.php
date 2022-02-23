@@ -17,8 +17,9 @@ class CptDestaques extends Cpt
 		add_filter('manage_posts_columns', array($this, 'exibe_cols'), 10, 2);
 		add_action('manage_' . $this->cptSlug . '_posts_custom_column', array($this, 'cols_content'));
 		
-		// Filtro por categoria
+		// Filtro por categoria / tags
 		add_filter('pre_get_posts', array($this, 'filter_categ_destaques'), 10, 2);
+		add_filter('pre_get_posts', array($this, 'filter_tags_destaques'), 10, 2);
 	}
 
 	function filter_categ_destaques($query) {
@@ -29,6 +30,24 @@ class CptDestaques extends Cpt
 					'taxonomy' => 'categorias-destaque',
 					'field' => 'term_id',
 					'terms' => $_GET['categorias_destaque'],
+				)
+			);
+			
+			$query->set('tax_query', $tax);
+		}		
+		
+		return $query;
+		
+	}
+
+	function filter_tags_destaques($query) {
+
+		if($_GET['tags_destaque']){
+			$tax = array(
+				array(
+					'taxonomy' => 'tags-destaque',
+					'field' => 'term_id',
+					'terms' => $_GET['tags_destaque'],
 				)
 			);
 			
@@ -85,9 +104,9 @@ class CptDestaques extends Cpt
 				$i = 0;
 				foreach($tags as $tag){
 					if($i == 0){
-						echo '<a href="' . get_home_url() . '/wp-admin/edit.php?post_type=destaque&categorias_destaque=' . $tag->term_id . '">' . $tag->name . '</a>';
+						echo '<a href="' . get_home_url() . '/wp-admin/edit.php?post_type=destaque&tags_destaque=' . $tag->term_id . '">' . $tag->name . '</a>';
 					} else {
-						echo ', <a href="' . get_home_url() . '/wp-admin/edit.php?post_type=destaque&categorias_destaque=' . $tag->term_id . '">' . $tag->name . '</a>';
+						echo ', <a href="' . get_home_url() . '/wp-admin/edit.php?post_type=destaque&tags_destaque=' . $tag->term_id . '">' . $tag->name . '</a>';
 					}
 					$i++;
 				}
