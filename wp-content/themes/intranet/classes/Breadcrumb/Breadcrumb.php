@@ -7,7 +7,7 @@ class Breadcrumb
 	public static $numerosDeExibicoes;
 	protected $separator = ' / ';
 	protected $breadcrums_id = 'breadcrumb';
-	protected $breadcrums_class = 'breadcrumb bg-transparent pl-1';
+	protected $breadcrums_class = 'breadcrumb bg-transparent pl-1 pt-0';
 
 	protected $home_title;
 
@@ -251,7 +251,7 @@ class Breadcrumb
 			} else if ( is_search() ) {
 
 				// Search results page
-				echo '<li class="item-current item-current-' . get_search_query() . '"><strong class="bread-current bread-current-' . get_search_query() . '" >Resultados para: ' . get_search_query() . '</strong></li>';
+				echo '<li class="item-current item-current-' . get_search_query() . '">Resultados para: <span class="bread-current bread-current-' . get_search_query() . '" >' . get_search_query() . '</span></li>';
 
 			} elseif($post_type == 'concurso'){
 

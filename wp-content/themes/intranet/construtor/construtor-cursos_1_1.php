@@ -138,77 +138,7 @@
 <div class="container">
     <div class="row">
             <?php
-                $pagina = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1;
-
-                function converter_mes($mes){
-                    switch ($mes) {
-                        case '01':
-                            return "Jan";
-                            break;
-                        case '02':
-                            return "Fev";
-                            break;
-                        case '03':
-                            return "Mar";
-                            break;
-                        case '04':
-                            return "Abr";
-                            break;
-                        case '05':
-                            return "Mai";
-                            break;
-                        case '06':
-                            return "Jun";
-                            break;
-                        case '07':
-                            return "Jul";
-                            break;
-                        case '08':
-                            return "Ago";
-                            break;
-                        case '09':
-                            return "Set";
-                            break;
-                        case '10':
-                            return "Out";
-                            break;
-                        case '11':
-                            return "Nov";
-                            break;
-                        case '12':
-                            return "Dez";
-                            break;
-                    }
-                }
-
-                function get_tax_name($tax, $id){
-
-                    $url = 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/' . $tax . '/' . $id ;
-
-                    $cURLConnection = curl_init();
-                    curl_setopt($cURLConnection, CURLOPT_URL, $url);
-                    curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
-
-                    $taxList = curl_exec($cURLConnection);
-                    curl_close($cURLConnection);
-
-                    $taxResponse = json_decode($taxList);
-                    return $taxResponse->name;
-                }
-
-                function get_file_url($id){
-                    $url = 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/media/' . $id ;
-
-                    $cURLConnection = curl_init();
-                    curl_setopt($cURLConnection, CURLOPT_URL, $url);
-                    curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
-
-                    $mediaList = curl_exec($cURLConnection);
-                    curl_close($cURLConnection);
-
-                    $mediaResponse = json_decode($mediaList);
-                    return $mediaResponse->source_url;
-                }
+                $pagina = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1;                
 
                 $page_id = get_the_ID();
                 //$categorias = get_sub_field('categorias');

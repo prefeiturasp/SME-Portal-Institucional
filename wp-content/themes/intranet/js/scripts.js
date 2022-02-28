@@ -132,6 +132,22 @@ $s(document).ready(function () {
     $s(function () {
         $s('img').addClass('img-fluid');
     });
+
+    $s('#categoria').change(function() {
+        //Use $option (with the "$") to see that the variable is a jQuery object
+        var $option = $s(this).find('option:selected');
+        //Added with the EDIT
+        var value = $option.val();//to get content of "value" attrib
+        //var text = $option.text();//to get <option>Text</option> content
+        if(value == 'portais'){
+            $s("#data-ini").prop("disabled", true);
+            $s("#data-end").prop("disabled", true);
+        } else {
+            $s("#data-ini").removeAttr('disabled');
+            $s("#data-end").removeAttr('disabled');
+        }
+        //alert(value);
+    });
 });
 
 $s(".a-icones-home").click(function() {

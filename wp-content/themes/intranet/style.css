@@ -271,7 +271,7 @@ a {
 
 .menu-topo {
     margin-bottom: 0;
-    background-color: #F3F3F3 !important;
+    background-color: #0F42B2 !important;
     border: none;
     border-radius: 0;
     color: #000;
@@ -324,12 +324,12 @@ a {
 }
 
 .navbar-expand-lg .navbar-nav .nav-link {
-    padding-right: 0;
-    padding-left: 0;
     font-weight: 700;
-    color: #264270;
+    color: #FFFFFF;
     font-size: 13px;
     text-align: center;
+    padding: 14px 5px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .navbar-expand-lg .navbar-nav .dropdown-menu.show .nav-link {
@@ -362,19 +362,84 @@ a {
 }
 
 .menu-item:last-child {
-    border-right: 2px solid #f3f3f3;
+    border-right: 2px solid #0F42B2;
 }
 
-.menu-item:hover {
-    background-color: #E5E5E5;
-    box-shadow: 3px 2px 9px #888888;
-    border-right: 2px solid #E5E5E5;
+.menu-item:last-child:hover {
+    border-right: 2px solid #01117C;
+}
+
+.menu-item:hover,
+.menu-item.active {
+    background-color: #01117C;
+    border-right: 2px solid #FFFFFF;
 }
 
 .menu-item:hover a.nav-link {
-    color: #264270;
+    color: #FFFFFF;
 }
 
+form.navbar-form{
+    width: 100%;
+}
+
+.profile-menus{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.profile-menus .user-action {
+    font-size: 16px;
+    display: inline-block;
+    color: #000000;
+    border: 1px solid #DADADA;
+    padding: 13px 4px;
+    border-radius: 24px;
+}
+
+.profile-menus .user-action .fa{
+    color: #0F42B2;
+}
+
+.profile-menus .nav-link img {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    margin: -10px 0;
+    float: left;
+    margin-right: 10px;
+}
+
+.profile-menus .dropdown-menu {
+    top: 45px !important;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3);
+    padding-top: 20px;
+    padding-bottom: 15px;
+}
+
+.profile-menus .dropdown-toggle::after{
+    border: 0 !important;
+    margin: 0;
+}
+
+.profile-menus .dropdown-menu img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    max-width: 65px;
+}
+
+.profile-menus .dropdown-menu p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #0F42B2;
+}
+
+.profile-menus .dropdown-item {
+    font-size: 14px;
+    line-height: 1.5;
+}
 
 /*Configurações para Bootstrap 4*/
 
@@ -746,9 +811,6 @@ fieldset legend,
     }
     .menu-menu-superior-container ul li ul li a {
         border: none !important;
-    }
-    .menu-item {
-        margin-bottom: -1px;
     }
 }
 
@@ -1828,6 +1890,24 @@ ul.nav.nav-tabs{
     text-align: center;
     font-weight: bold;
     margin-top: 30px;
+}
+
+.recado-categ p,
+.cursos-categ p,
+.portais-categ p {
+    color: #A26201;
+    font-weight: bold;
+    font-size: 18px;
+    padding-left: 20px;
+    text-decoration: underline;
+}
+
+.cursos-categ p{
+    color: #B8002E;
+}
+
+.portais-categ p{
+    color: #2C8C99;
 }
 
 .video-container { 

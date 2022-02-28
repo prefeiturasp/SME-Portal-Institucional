@@ -1816,11 +1816,11 @@ add_filter( 'media_send_to_editor', 'filter_media_send_to_editor', 11, 3 );
 add_filter('login_form_middle','lost_pass');
 function lost_pass(){
      //Output your HTML
-	 $additional_field = '<div class="lost-pass">
-		<p class="m-0"><a href="#">Esqueceu sua senha?</a></p>
+     $additional_field = '<div class="lost-pass">
+        <p class="m-0"><a href="#">Esqueceu sua senha?</a></p>
 		<p class="pass-text">Na senha, digite a mesma senha do Sistema de Gestão Pedagógica (SGP) e Plateia. Caso esqueça sua senha e necessite redefinir, a mesma será aplicada
 		para os outros acessos (Portais e Sistemas) da SME.</p>
-	</div>';
+     </div>';
 	 $additional_field .= '<div class="login-custom-field-wrapper">
         <input type="hidden" value="1" name="login_page"></label>
      </div>';
@@ -1843,4 +1843,77 @@ function firstLetter($words){
 		$acronym .= $w[0];
 	}
 	return $acronym;
+}
+
+// Converto o mês para portugues
+function converter_mes($mes){
+	switch ($mes) {
+		case '01':
+			return "Jan";
+			break;
+		case '02':
+			return "Fev";
+			break;
+		case '03':
+			return "Mar";
+			break;
+		case '04':
+			return "Abr";
+			break;
+		case '05':
+			return "Mai";
+			break;
+		case '06':
+			return "Jun";
+			break;
+		case '07':
+			return "Jul";
+			break;
+		case '08':
+			return "Ago";
+			break;
+		case '09':
+			return "Set";
+			break;
+		case '10':
+			return "Out";
+			break;
+		case '11':
+			return "Nov";
+			break;
+		case '12':
+			return "Dez";
+			break;
+	}
+}
+
+// Pega o nome da categoria no Acervo Digital
+function get_tax_name($tax, $id){
+
+	$url = 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/' . $tax . '/' . $id ;
+
+	$cURLConnection = curl_init();
+	curl_setopt($cURLConnection, CURLOPT_URL, $url);
+	curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+
+	$taxList = curl_exec($cURLConnection);
+	curl_close($cURLConnection);
+
+	$taxResponse = json_decode($taxList);
+	return $taxResponse->name;
+}
+
+// Pega o a url do arquivo no Acervo Digital
+function get_file_url($id){
+	$url = 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/media/' . $id ;
+
+	$cURLConnection = curl_init();
+	curl_setopt($cURLConnection, CURLOPT_URL, $url);
+	curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+
+	$mediaList = curl_exec($cURLConnection);
+	curl_close($cURLConnection);
+
+	$mediaResponse = json_decode($mediaList);
+	return $mediaResponse->source_url;
 }
