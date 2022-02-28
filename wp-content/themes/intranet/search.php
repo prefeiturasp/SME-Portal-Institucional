@@ -3,169 +3,224 @@
         <div class="row">
 			<?php if($_GET['s'] && $_GET['s'] != ''): ?>
 
-				<div class="col-md-8 mb-4">
+				<div class="col-md-12 mb-4">
+					<form class="form-recados" action="<?= get_home_url(); ?>">
+						<div class="row">
+
+							<div class="col-12">
+								<div class="form-group">
+									<label for="busca">Buscar por termo</label>
+									<input type="text" value="<?= $_GET['s']; ?>" class="form-control" id="busca" name="s" placeholder="Busque por termo ou palavra-chave">
+								</div>
+							</div>
+
+							<div class="col-12 col-md-6">
+								<div class="form-group">
+									<label for="categoria">Filtrar por categoria</label>
+									<select class="form-control" id="categoria" name="categoria">
+										<option value="" selected>Selecione uma categoria</option>
+										<option value="destaque" <?= $_GET['categoria'] == 'destaque' ? 'selected' : ''; ?>>Recados</option>
+										<option value="cursos" <?= $_GET['categoria'] == 'cursos' ? 'selected' : ''; ?>>Cursos</option>
+										<option value="portais" <?= $_GET['categoria'] == 'portais' ? 'selected' : ''; ?>>Portais e Sistemas</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-12 col-md-3">
+								<div class="form-group">
+									<label for="data-ini">Filtrar por intervalo de datas</label>
+									<input type="date" id="data-ini" name="date-ini" value="<?= $_GET['date-ini']; ?>" max="<?= date("Y-m-d"); ?>" <?= $_GET['categoria'] == 'portais' ? 'disabled' : ''; ?>>
+								</div>
+							</div>
+
+							<div class="col-12 col-md-3">
+								<div class="form-group">
+									<label for="data-end">&nbsp;</label>
+									<input type="date" id="data-end" name="date-end" value="<?= $_GET['date-end']; ?>" max="<?= date("Y-m-d"); ?>" <?= $_GET['categoria'] == 'portais' ? 'disabled' : ''; ?>>
+								</div>
+							</div>
+
+							<div class="col-12">
+								<div class="form-group d-flex justify-content-end">
+									<button type="button" class="btn btn-outline-primary mr-3" id="limpar" onclick="window.location.href='<?= get_home_url() . '/?s=' . $_GET['s']; ?>'">Limpar filtros</button>
+									<button type="submit" class="btn btn-primary">Filtrar</button>
+								</div>
+							</div>
+
+						</div>
+					</form>
+				</div>
+
+				<div class="col-md-12 mb-4">
 
 					<?php
-						$sites = array();
+						
 						$allResults = array();
 						$i = 0;
+						
+						$types = array('destaque', 'cursos', 'portais');
+						if($_GET['categoria'] && $_GET['categoria'] != '')						
+							$types = array($_GET['categoria']);
 
-						// Pega o site atual
-						$siteAtual[] = get_current_blog_id();
-
-						$allSites = array();
-						$allSites[] = 1; // Portal
-						$allSites[] = 8; // DRE Butanta
-						$allSites[] = 20; // DRE Campo Limpo
-						$allSites[] = 9; // DRE Capela Socorro
-						$allSites[] = 10; // DRE Freguesia
-						$allSites[] = 11; // DRE Guainases
-						$allSites[] = 12; // DRE Ipiranga
-						$allSites[] = 13; // DRE Itaquera
-						$allSites[] = 14; // DRE Jacana
-						$allSites[] = 15; // DRE Penha
-						$allSites[] = 16; // DRE Pirituba
-						$allSites[] = 17; // DRE Santo Amaro
-						$allSites[] = 18; // DRE Sao Mateus
-						$allSites[] = 19; // DRE Sao Miguel
-						$allSites[] = 5; // CME
-						$allSites[] = 4; // CAE
-						$allSites[] = 6; // CACSFUNDEB
-						$allSites[] = 7; // CRECE
-
-						// remove o site atual da listagem
-						$diff = array_diff( $allSites, $siteAtual );
-											
-						// Inclui o site atual como primeiro da lista
-						$sites[] = (object) array('blog_id' => $siteAtual[0]);
-
-						// Nova ordenacao de sites
-						foreach($diff as $site){
-							$sites[] = (object) array('blog_id' => $site);
-						}
-
-						//echo "<pre>";
-						//print_r($sites);
-						//echo "</pre>";
-
-						$types = array('page', 'programa-projeto', 'card', 'post');
-
-						if($_GET['tipoconteudo'] && $_GET['tipoconteudo'] != ''){
-							$arr = preg_split('/(?<=[a-z])(?=[0-9]+)/i', $_GET['tipoconteudo']);
-							if($arr[0] == 'page'){
-								$types = array('page', 'programa-projeto', 'card');
-							} else {
-								$types = array($arr[0]);
-							}
-							$sites = array();                      
-							$sites[] = (object) array('blog_id' => $arr[1]);
-						}
-
-						if($_GET['site'] && $_GET['site'] != ''){
-							$sites = array();                      
-							$sites[] = (object) array('blog_id' => $_GET['site']);
-						}
-
-						foreach ( $sites as $site ) {
-							
-							switch_to_blog( $site->blog_id );
+							//switch_to_blog( $site->blog_id );
 
 							if(isset($_GET['s'])):
 									$query = $_GET['s'];
-
 									
 									foreach($types as $type){
-										
-										$args = array( 
-											's' => $query,
-											'posts_per_page' => -1,
-											'post_type' => $type,
-											'post_status' => 'publish',
-											'orderby' => 'relevance',
-											//'order'   => 'DESC',
-											//'sentence' => true,
-											//'exact'     => true,
-										);
 
-										if($_GET['periodo'] && $_GET['periodo'] != ''){
-											$periodo = $_GET['periodo'];
-											if($periodo === '1'){
-												$args['date_query'] = array(
-													'after'     => '1 hour ago'
-												);
-											} elseif($periodo === '24'){
-												$args['date_query'] = array(
-													'after'     => '1 day ago'
-												);
-											} elseif($periodo === '168'){
-												$args['date_query'] = array(
-													'after'     => '1 week ago'
-												);
-											} elseif($periodo === '5040'){
-												$args['date_query'] = array(
-													'after'     => '1 month ago'
-												);
-											} elseif($periodo === '1839600'){
-												$args['date_query'] = array(
-													'after'     => '1 year ago'
-												);
-											}
-										}
+										if($type == 'cursos'){
 
-										if($_GET['ano'] && $_GET['ano'] != ''){
-											$args['date_query'] = array(
-												'year'     => $_GET['ano'],
-											);
-										}
+											$qtd = 99;
+											$url = 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/acervo/?per_page=' . $qtd . '&filter[categoria_acervo]=acesso-a-informacao';
+											
+											if($_GET['s'] && $_GET['s'] != ''){
+												$busca = str_replace(' ', '+', $_GET['s']);
+												$url .= '&search=' . $busca; 
+											} 
 
-										// Incluir subtitulo da busca de noticias
-										
-										if($type == 'post'){
-											$args['s_meta_keys'] = array('insira_o_subtitulo');
-										}
-							
-										$the_query = new WP_Query( $args );
-										
+											if($_GET['date-ini'] && $_GET['date-ini'] != '')
+												$url .= '&after=' . $_GET['date-ini'] . 'T00:00:01';
 
-										// The Loop
-										if ( $the_query->have_posts() ) {
-											//echo '<ul>';
-											//echo '<h3>Site: ' . $site->path . '</h3>';
-											while ( $the_query->have_posts() ) {
-												$the_query->the_post();
-												//echo '<li>' . get_the_title() . ' - ' . $site->path . '( ' . get_post_type() . ' )' . '</li>';
-												$allResults[$i]['titulo'] = get_the_title();
+											if($_GET['date-end'] && $_GET['date-end'] != '')
+												$url .= '&before=' . $_GET['date-end'] . 'T23:59:59';  
 												
-												if( get_field('insira_o_subtitulo') ){
-													$allResults[$i]['resumo'] = get_field('insira_o_subtitulo');
-												} else {
-													$allResults[$i]['resumo'] = get_the_excerpt();
+											//echo $url;
+										
+											$headers = [];
+											$ch = curl_init();
+											curl_setopt($ch, CURLOPT_URL, $url);
+											curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+											curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+												function ($curl, $header) use (&$headers) {
+													$len = strlen($header);
+													$header = explode(':', $header, 2);
+													if (count($header) < 2) // ignore invalid headers
+														return $len;
+
+													$headers[strtolower(trim($header[0]))][] = trim($header[1]);
+
+													return $len;
 												}
-												
-												$allResults[$i]['url'] = get_the_permalink();
-												$allResults[$i]['type'] = get_post_type();
-												$allResults[$i]['image'] = get_the_post_thumbnail_url(get_the_ID(), 'medium');
-												$thumbnail_id = get_post_thumbnail_id( get_the_ID() );
-												$allResults[$i]['alt']  = get_post_meta ( $thumbnail_id, '_wp_attachment_image_alt', true );
-												$allResults[$i]['data']  = get_the_time('d/m/Y G\hi');
-												$allResults[$i]['site_url'] = get_site_url();
-												$allResults[$i]['site_nome'] = get_bloginfo('title');
+											);
+											$response = curl_exec($ch);                
+											
+											$jsonArrayResponse = json_decode($response);
 
-												$i++;
+											//echo "<pre>";
+											//print_r($jsonArrayResponse);
+											//echo "</pre>";
+
+											if($jsonArrayResponse && $jsonArrayResponse[0] != ''){
+												foreach($jsonArrayResponse as $curso){
+													$allResults[$i]['id'] = $curso->id;
+													$allResults[$i]['titulo'] = $curso->title->rendered;
+													$allResults[$i]['url'] = $curso->link;
+													$allResults[$i]['num_hom'] = $curso->numero_de_despacho_de_homologacao;
+													$allResults[$i]['pg_do'] = $curso->pagina_do_diario_oficial;
+													$allResults[$i]['type'] = 'cursos';
+													$old_date_timestamp = strtotime($curso->date);        
+													$data = getDay(date('w', $old_date_timestamp)) . ', ' . converter_mes(date('m', $old_date_timestamp)) . ' ' . date('d', $old_date_timestamp) . ' às ' . date('H\hi\m\i\n', $old_date_timestamp);
+													$allResults[$i]['data_curso'] = $data;
+													$allResults[$i]['area_promotora'] = $curso->area_promotora;
+													$arquivo = '';
+													if($curso->arquivo_acervo_digital && $curso->arquivo_acervo_digital != '')
+														$arquivo = get_file_url($curso->arquivo_acervo_digital);
+													
+													if($curso->arquivos_particionados_0_arquivo && $curso->arquivos_particionados_0_arquivo != '')
+														$arquivo = get_file_url($curso->arquivos_particionados_0_arquivo);
+													
+													$allResults[$i]['arquivo'] = $arquivo;
+
+													$i++;
+												}
 											}
-											//echo '</ul>';
+
 										} else {
-											// no posts found
+											$after = '';
+											$before = '';
+											if($_GET['date-ini'] && $_GET['date-ini'] != '' && $type != 'portais')
+												$after = $_GET['date-ini'];
+
+											if($_GET['date-end'] && $_GET['date-end'] != '' && $type != 'portais')
+												$before = $_GET['date-end'];
+
+											$args = array( 
+												's' => $query,
+												'posts_per_page' => -1,
+												'post_type' => $type,
+												'post_status' => 'publish',
+												'orderby' => 'relevance',
+												'date_query' => array(
+													array(
+														'after'     => $after,
+														'before'    => $before,
+														'inclusive' => true,
+													),
+												),
+											);
+
+											// Incluir subtitulo da busca de noticias
+											
+											if($type == 'post'){
+												$args['s_meta_keys'] = array('insira_o_subtitulo');
+											}
+								
+											$the_query = new WP_Query( $args );
+											
+
+											// The Loop
+											if ( $the_query->have_posts() ) {
+												//echo '<ul>';
+												//echo '<h3>Site: ' . $site->path . '</h3>';
+												while ( $the_query->have_posts() ) {
+													$the_query->the_post();
+													//echo '<li>' . get_the_title() . ' - ' . $site->path . '( ' . get_post_type() . ' )' . '</li>';
+													$allResults[$i]['id'] = get_the_id();
+													$allResults[$i]['titulo'] = get_the_title();												
+													$allResults[$i]['resumo'] = get_field('insira_o_subtitulo');												
+
+													if($type == 'destaque'){
+														$categorias = get_the_terms(get_the_ID(), 'categorias-destaque');
+														$tags = get_the_terms(get_the_ID(), 'tags-destaque');
+														$image = get_template_directory_uri() . '/img/categ-destaques.jpg';
+														if($categorias)
+															$image = get_field('imagem_principal', 'categorias-destaque_' . $categorias[0]->term_id);
+															
+													}
+
+													$allResults[$i]['conteudo'] = get_the_content();
+													$allResults[$i]['categorias'] = $categorias;
+													$allResults[$i]['tags'] = $tags;												
+													$allResults[$i]['url'] = get_field('insira_link');
+													if($type == 'destaque')
+														$allResults[$i]['url'] = get_field('insira_o_link');
+													$allResults[$i]['url_video'] = get_field('url_do_video');
+													$allResults[$i]['image_anexo'] = get_field('selecione_imagem');												
+													$allResults[$i]['type'] = get_post_type();
+													$allResults[$i]['image'] = $image;
+													$thumbnail_id = get_post_thumbnail_id( get_the_ID() );
+													$allResults[$i]['alt']  = get_post_meta ( $thumbnail_id, '_wp_attachment_image_alt', true );
+													$allResults[$i]['data_semana']  = getDay(get_the_date('w'));
+													$allResults[$i]['data_dia_mes'] = get_the_date('M d');
+													$allResults[$i]['data_hora']  = get_the_date('H\hi\m\i\n');												
+
+													$i++;
+												}
+												//echo '</ul>';
+											} else {
+												// no posts found
+											}
+											/* Restore original Post Data */
+											wp_reset_postdata();
+
 										}
-										/* Restore original Post Data */
-										wp_reset_postdata();
 
 									}
 
 							endif;
 									
-							restore_current_blog();
-						}
+						
 
 						//$type = array_column($allResults, 'type');
 						//array_multisort($type, SORT_DESC, $allResults);
@@ -176,7 +231,7 @@
 
 						$pagina = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1;
 						$total = count( $allResults ); //total items in array    
-						$limit = 10; //per page    
+						$limit = 5; //per page    
 						$totalPages = ceil( $total/ $limit ); //calculate total pages
 						$pagina = max($pagina, 1); //get 1 page when $_GET['page'] <= 0
 						$pagina = min($pagina, $totalPages); //get last page when $_GET['page'] > $totalPages
@@ -187,48 +242,241 @@
 						if($allResults):
 							foreach($allResults as $result):
 							?>
-								<div class="row">
-									<div class="col-sm-4">
-										
-										<?php if($result['image'] && $result['image'] != ''): ?>
-											<figure>
-												<?php $alt = $result['alt'] != '' ? $result['alt'] : $result['titulo']; ?>
-												<img class="img-fluid rounded float-left" src="<?=$result['image'];?>" alt="<?=$alt;?>" width="100%">
-											</figure>
-										<?php else: ?>
-											<figure>
-												<img class="img-fluid rounded float-left" src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/06/placeholder-sme.jpg" width="100%">
-											</figure>
-										<?php endif; // Imagem ?>
-										
+								<?php if($result['type'] == 'destaque'): ?>
+
+									<div class="recado-categ">
+										<p>Categoria: Recados</p>
 									</div>
-									<div class="col-sm-8">
-										<h2><a href="<?=$result['url'];?>"> <?=$result['titulo'];?></a></h2>								
-										<p><?=$result['resumo'];?></p>   <!--Mostra resumo-->
-																		
-										<?php if($result['type'] != ''): ?>
-											<strong>Tipo:</strong> 
-											<span class="tagcolor">
-												<?php $tipopost = $result['type'];
-												if( $tipopost == "post" ) echo  'Notícia';
-												if( $tipopost == "programa-projeto" ) echo  'Página';
-												if( $tipopost == "card" ) echo  'página';
-												if( $tipopost == "page" ) echo  'Página'; ?>
-											</span><br>
-										<?php endif; ?>
-										
-										<span><strong>Publicado em:</strong> <?=$result['data'];?> </span> -
+									<div class="recado">
+										<div class="row">
+											<div class="col-sm-2">
+													<img src="<?= $result['image']; ?>" class="img-fluid rounded" alt="Imagem de ilustração categoria">
+											</div>
 
-										<span><strong>Site:</strong>
-											<a href="<?=$result['site_url'];?>">
-												<?=$result['site_nome'];?>
-											</a>
-										</span><br>
+											<div class="col-sm-10">
+
+												<?php if($result['tags']): ?>
+													<div class="tags-recados">
+														<?php 
+															foreach($result['tags'] as $tag){
+																$cor = get_field('cor_principal', 'tags-destaque_' . $tag->term_id);
+																echo '<a href="' . get_home_url() . '/index.php/mural-de-recados/?tag=' . $tag->term_id . '" target="_blank" style="background: ' . $cor . '">' . firstLetter($tag->name) . '</a> ';
+															}
+														?>
+													</div>
+												<?php endif; ?>
+												<p class="data"><?= $result['data_semana']; ?>, <?= $result['data_dia_mes']; ?> às <?= $result['data_hora']; ?></p>
+												<?php if($result['categorias']): ?>
+													<p class="categs">
+														<?php
+															$j = 0;
+															foreach($result['categorias'] as $term){
+																if($j == 0){
+																	echo '<a href="' . get_home_url() . '/index.php/mural-de-recados/?categoria=' . $term->term_id . '">' . $term->name . '</a>';
+																} else {
+																	echo ', <a href="' . get_home_url() . '/index.php/mural-de-recados/?categoria=' . $term->term_id . '">' . $term->name . '</a>';
+																}
+																$j++;
+															}                                        
+														?>
+													</p>
+												<?php endif; ?>
+												<h2><?= $result['titulo']; ?></h2>
+												<?php
+													$subtitulo = $result['resumo'];
+													if($subtitulo && $subtitulo != '')
+														echo '<p>' . $subtitulo . '</p>';
+												?> 
+												<hr>
+												<a class="btn-collapse collapsed" data-toggle="collapse" href="#collapse<?= $result['id']; ?>" role="button" aria-expanded="false" aria-controls="collapse<?= $result['id']; ?>">
+													<span class="button-more">ver mais <i class="fa fa-chevron-down" aria-hidden="true"></i></span><span class="button-less">ver menos <i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+												</a> 
+												
+											</div>
+										</div>
+
+										<div class="collapse" id="collapse<?=$result['id']; ?>">
+											<div class="recado-content">
+												<?php 
+													$content = apply_filters('the_content', $result['conteudo']);
+												?>
+												<?= $content; ?>
+												<?php if( $result['url'] ): ?>
+													<p class="link-externo"><a href="<?= $result['url']; ?>">Ver link externo</a></p>
+												<?php endif; ?>
+											</div>
+											<?php if($result['url_video']): ?>
+												<div class="recado-video">
+													<div class="embed-container">
+														<?php the_field('url_do_video', $result['id']); ?>
+													</div>                                    
+												</div>
+											<?php endif; ?>
+
+											<?php if($result['image_anexo']): ?>
+												<div class="recado-video">                                    
+													<?php $imagem = $result['image_anexo']; ?>
+													<img src="<?= $imagem['url']; ?>" alt="<?= $imagem['alt']; ?>">
+												</div>
+											<?php endif; ?>
+										</div>
+
+									</div>
+								
+								<?php elseif($result['type'] == 'portais'): ?>
+
+									<div class="portais-categ">
+										<p>Categoria: Portais e Sistemas</p>
+									</div>
+
+									<div class="lista-portais">
+										<div class="portal">
+											<div class="row">
+												<div class="col-sm-2 d-flex justify-content-center">
+													<?php
+														$imagem = get_field('imagem_destacada', $result['id']);
+														$imagemPadrao = get_template_directory_uri() . '/img/categ-portais.jpg';
+														if($imagem['sizes']['admin-list-thumb'])
+															$imagemPadrao = $imagem['sizes']['admin-list-thumb'];
+													?>
+
+													<a href="<?= get_field('insira_link', $result['id']); ?>" target="_blank"><img src="<?= $imagemPadrao; ?>" alt="Imagem de ilustração categoria" srcset=""></a>
+														
+												</div>
+
+												<div class="col-sm-10">                                        
+													<h3><a href="<?= get_field('insira_link', $result['id']); ?>" target="_blank"><?= get_the_title(); ?></a></h3>
+													<hr>
+													<?php 
+														$content = apply_filters('the_content', $result['conteudo']);
+														echo $content;
+													?>
+												</div>                          
+										</div>
+									</div>
+								<?php else: ?>
+									
+									<div class="cursos-categ">
+										<p>Categoria: Cursos</p>
+									</div>
+									<div class="curso">
+										<p class="date">
+										
+											<?php if($result['num_hom'] && $result['num_hom'] != ''): ?>
+												Homologação <?= $result['num_hom']; ?> -                                 
+											<?php endif; ?>
+											<?= $result['data_curso']; ?>
+
+											<?php if($result['pg_do'] && $result['pg_do'] != ''): ?>
+												- página <?= $result['pg_do']; ?>                              
+											<?php endif; ?>
+										</p>
+										<h2><a target="_blank" href="<?= $result['url']; ?>"><?= $result['titulo']; ?></a></h2>
+										<?php if($result['area_promotora'] && $result['area_promotora'][0] != ''): ?>
+											<p class="promotora"><strong>Área promotora: </strong>
+												<?php
+													$i = 0;
+													foreach($result['area_promotora'] as $area){
+														if($i == 0){
+															echo get_tax_name('promotora', $area);
+														} else {
+															echo '/ ' . get_tax_name('promotora', $area);
+														}
+														$i++;
+													}
+												?>
+											</p>
+										<?php endif; ?>                        
+										<hr>                        
+									
+										<?php
+											$arquivo = $result['arquivo'];
+											
+											if($arquivo && $arquivo != ''){ 
+																				
+											?>                           
+
+											<i class="fa fa-search" aria-hidden="true"></i> <a href="#modal-<?=$result['id']; ?>" class="link" data-toggle="modal" data-target="#modal-<?=$result['id']; ?>">Visualizar</a> / 
+
+												<?php if(substr($arquivo, -3) == 'jpg' || substr($arquivo, -3) == 'jpeg' || substr($arquivo, -3) == 'png' || substr($arquivo, -3) == 'gif' || substr($arquivo, -3) == 'webp') : ?>
+										
+													<!-- Modal -->
+													<div class="modal fade" id="modal-<?=$result['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<p class="modal-title"><?= $result['titulo']; ?></p>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+																	<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	<?php if($arquivo) : ?>
+																		<img src="<?php echo $arquivo; ?>" class="img-fluid d-block mx-auto py-2">
+																	<?php else: ?>
+																		<p>Visualização não disponível.</p>
+																	<?php endif; ?>
+																</div>															
+															</div>
+														</div>
+													</div>
+
+												<?php elseif(substr($arquivo, -3) == 'pdf'): ?>
+
+													<div class="modal fade" id="modal-<?=$result['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+														<div class="modal-dialog modal-xl">
+															<div class="modal-content">
+
+																<div class="modal-header">
+																	<p class="modal-title"><?= $result['titulo']; ?></p>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+																	<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+
+																<div class="modal-body">
+																	<div class="embed-responsive embed-responsive-16by9">                                                        
+																		<iframe style="largura: 718px; altura: 700px;" src="<?= $arquivo; ?>" frameborder="0"></iframe>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+													</div>
+
+												<?php else : ?>
+													
+													<div class="modal fade" id="modal-<?=$result['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+														<div class="modal-dialog modal-xl">
+															<div class="modal-content">
+
+																<div class="modal-header">
+																	<p class="modal-title"><?= $result['titulo']; ?></p>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+																	<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+
+																<div class="modal-body">
+																	<div class="embed-responsive embed-responsive-16by9">
+																		<iframe title="doc" type="application/pdf" src="https://docs.google.com/gview?url=<?php echo $arquivo; ?>&amp;embedded=true" class="jsx-690872788 eafe-embed-file-iframe"></iframe>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+													</div>
+
+												<?php endif;                              
+											}
+												
+										?> 
+									
+										<a href="<?= $result['url']; ?>" class="link" target="_blank" rel="noopener noreferrer">Ver detalhes no Acervo Digital</a>
 
 									</div>
 
-								</div>
-								<hr>
+								<?php endif; ?>
 							<?php
 							endforeach;
 						else:
@@ -268,172 +516,25 @@
 					?>
 					
 					<?php if($allResults && $totalPages > 1):?>
-						<div style="width:100%;text-align: center;">
-							<div class="pagination <?=ceil($GLOBALS['i']/$GLOBALS['paginacao']) > 1 && $GLOBALS['i'] !== $GLOBALS['paginacao'] ? 'ok' : 'dddnone';?>">
-								<a href="<?php echo $new_url . '&pagina=' . ($pagina - 1);?>" class="anterior <?=$pagina > 1 ? 'ok' : 'dnone';?>">Anterior</a><!--Ir para o anterior-->
-								<a class="aaa paginationA " href="<?php echo $new_url . '&pagina=1'?>">&laquo;</a><!--Ir para o primeiro-->                       
-								
-								
-								<a class="1bbb paginationB <?=$pagina >= 4 ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . ($pagina - 3);?>"><?=$pagina - 3;?></a>
-								<a class="2bbb paginationB <?=$pagina >= 3 ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . ($pagina - 2);?>"><?=$pagina - 2;?></a>
-								<a class="3ccc paginationB <?=$pagina >= 2 ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . ($pagina - 1);?>"><?=$pagina - 1;?></a>
-
-								
-								<a class="eee paginationA active" href="<?php echo $new_url . '&pagina=' . $pagina;?>"><?=$pagina;?></a>
-
-								<a class="4bbb paginationB <?=$totalPages > $pagina + 1 ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . ($pagina + 1);?>"><?=$pagina + 1;?></a>
-								<a class="5bbb paginationB <?=$totalPages > $pagina + 2  ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . ($pagina + 2);?>"><?=$pagina + 2;?></a>
-								<a class="6ccc paginationB <?=$totalPages > $pagina + 3 ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . ($pagina + 3);?>"><?=$pagina + 3;?></a>
-
-								<a class="paginationB <?=$totalPages > 1 && $pagina != $totalPages ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . $totalPages;?>"><?=$totalPages;?></a>
-													
-								<a class="d paginationA" href="<?php echo $new_url . '&pagina=' . $totalPages;?>">»</a><!--Ir para o ultimo-->
-								<a href="<?php echo $new_url . '&pagina=' . ($pagina + 1);?>" class="proximo <?=$pagina != $totalPages  ? 'ok' : 'dnone';?>">Próximo</a><!--Ir para o próximo-->
+						<div class="pagination-prog">
+							<div class="wp-pagenavi">
+								<div style="text-align: center;display: flex;align-items: center;justify-content: center; margin-top: 10px;">
+									<a class="aaa paginationA " href="<?php echo $new_url . '&pagina=1'?>"><i class="fa fa-chevron-left" aria-hidden="true"></i></a><!--Ir para o primeiro-->
+									<a class="1bbb paginationB <?=$pagina >= 4 ? 'ok' : 'd-none';?>" href="<?php echo $new_url . '&pagina=' . ($pagina - 3);?>"><?=$pagina - 3;?></a>
+									<a class="2bbb paginationB <?=$pagina >= 3 ? 'ok' : 'd-none';?>" href="<?php echo $new_url . '&pagina=' . ($pagina - 2);?>"><?=$pagina - 2;?></a>
+									<a class="3ccc paginationB <?=$pagina >= 2 ? 'ok' : 'd-none';?>" href="<?php echo $new_url . '&pagina=' . ($pagina - 1);?>"><?=$pagina - 1;?></a>
+									<a class="eee paginationA active" href="<?php echo $new_url . '&pagina=' . $pagina;?>"><?=$pagina;?></a>
+									<a class="4bbb paginationB <?=$totalPages > $pagina + 1 ? 'ok' : 'd-none';?>" href="<?php echo $new_url . '&pagina=' . ($pagina + 1);?>"><?=$pagina + 1;?></a>
+									<a class="5bbb paginationB <?=$totalPages > $pagina + 2  ? 'ok' : 'd-none';?>" href="<?php echo $new_url . '&pagina=' . ($pagina + 2);?>"><?=$pagina + 2;?></a>
+									<a class="6ccc paginationB <?=$totalPages > $pagina + 3 ? 'ok' : 'd-none';?>" href="<?php echo $new_url . '&pagina=' . ($pagina + 3);?>"><?=$pagina + 3;?></a>
+									<a class="paginationB <?=$totalPages > 1 && $pagina != $totalPages ? 'ok' : 'd-none';?>" href="<?php echo $new_url . '&pagina=' . $totalPages;?>"><?=$totalPages;?></a>					
+									<a class="d paginationA" href="<?php echo $new_url . '&pagina=' . $totalPages;?>"><i class="fa fa-chevron-right" aria-hidden="true"></i></a><!--Ir para o ultimo-->
+								</div>
 							</div>
 						</div>
 					<?php endif; ?>
 					
 
-				</div>
-
-				<div class="col-md-4 mb-5">
-					<form action="<?php echo get_home_url(); ?>">                    
-
-						<div class="form-group border-filtro">
-							<label for="usr"><strong>
-									<h2>Refine a sua busca</h2>
-								</strong></label>
-						</div>
-
-						<div class="form-group">
-							<label for="usr"><strong>Busque por um termo</strong></label>
-							<input class='form-control' type='text' name="s" placeholder='Buscar' value="<?=$_GET['s']?>"></input>
-							
-							<input id="enviar-busca-home" name="enviar-busca-home" type="hidden" class="btn btn-outline-secondary bt-search-topo" value="Buscar"> </input>
-							
-						</div>
-
-						<div class="form-group">
-							<label for="sel1"><strong>Filtre por tipo de conteúdo</strong></label>
-							<select name="tipoconteudo" onCha class="form-control" id="sel1c">
-								<option value="">Selecione o tipo</option>
-								<option <?=$_GET['tipoconteudo'] == 'page1' ? "selected" : '' ?> value="page1">Página em SME Portal Educação</option>
-								<option <?=$_GET['tipoconteudo'] == 'post1' ? "selected" : '' ?> value="post1">Notícia em SME Portal Educação</option>
-								<option <?=$_GET['tipoconteudo'] == 'page8' ? "selected" : '' ?> value="page8">Página em DRE Butantã</option>
-								<option <?=$_GET['tipoconteudo'] == 'post8' ? "selected" : '' ?> value="post8">Notícia em DRE Butantã</option>
-								<option <?=$_GET['tipoconteudo'] == 'page20' ? "selected" : '' ?> value="page20">Página em DRE Campo Limpo</option>
-								<option <?=$_GET['tipoconteudo'] == 'post20' ? "selected" : '' ?> value="post20">Notícia em DRE Campo Limpo</option>
-								<option <?=$_GET['tipoconteudo'] == 'page9' ? "selected" : '' ?> value="page9">Página em DRE Capela do Socorro</option>
-								<option <?=$_GET['tipoconteudo'] == 'post9' ? "selected" : '' ?> value="post9">Notícia em DRE Capela do Socorro</option>
-								<option <?=$_GET['tipoconteudo'] == 'page10' ? "selected" : '' ?> value="page10">Página em DRE Freguesia/Brasilândia</option>
-								<option <?=$_GET['tipoconteudo'] == 'post10' ? "selected" : '' ?> value="post10">Notícia em DRE Freguesia/Brasilândia</option>
-								<option <?=$_GET['tipoconteudo'] == 'page11' ? "selected" : '' ?> value="page11">Página em DRE Guaianases</option>
-								<option <?=$_GET['tipoconteudo'] == 'post11' ? "selected" : '' ?> value="post11">Notícia em DRE Guaianases</option>
-								<option <?=$_GET['tipoconteudo'] == 'page12' ? "selected" : '' ?> value="page12">Página em DRE Ipiranga</option>
-								<option <?=$_GET['tipoconteudo'] == 'post12' ? "selected" : '' ?> value="post12">Notícia em DRE Ipiranga</option>
-								<option <?=$_GET['tipoconteudo'] == 'page13' ? "selected" : '' ?> value="page13">Página em DRE Itaquera</option>
-								<option <?=$_GET['tipoconteudo'] == 'post13' ? "selected" : '' ?> value="post13">Notícia em DRE Itaquera</option>
-								<option <?=$_GET['tipoconteudo'] == 'page14' ? "selected" : '' ?> value="page14">Página em DRE Jaçanã/Tremembé</option>
-								<option <?=$_GET['tipoconteudo'] == 'post14' ? "selected" : '' ?> value="post14">Notícia em DRE Jaçanã/Tremembé</option>
-								<option <?=$_GET['tipoconteudo'] == 'page15' ? "selected" : '' ?> value="page15">Página em DRE Penha</option>
-								<option <?=$_GET['tipoconteudo'] == 'post15' ? "selected" : '' ?> value="post15">Notícia em DRE Penha</option>
-								<option <?=$_GET['tipoconteudo'] == 'page16' ? "selected" : '' ?> value="page16">Página em DRE Pirituba</option>
-								<option <?=$_GET['tipoconteudo'] == 'post16' ? "selected" : '' ?> value="post16">Notícia em DRE Pirituba</option>
-								<option <?=$_GET['tipoconteudo'] == 'page17' ? "selected" : '' ?> value="page17">Página em DRE Santo Amaro</option>
-								<option <?=$_GET['tipoconteudo'] == 'post17' ? "selected" : '' ?> value="post17">Notícia em DRE Santo Amaro</option>
-								<option <?=$_GET['tipoconteudo'] == 'page18' ? "selected" : '' ?> value="page18">Página em DRE São Mateus</option>
-								<option <?=$_GET['tipoconteudo'] == 'post18' ? "selected" : '' ?> value="post18">Notícia em DRE São Mateus</option>
-								<option <?=$_GET['tipoconteudo'] == 'page19' ? "selected" : '' ?> value="page19">Página em DRE São Miguel</option>
-								<option <?=$_GET['tipoconteudo'] == 'post19' ? "selected" : '' ?> value="post19">Notícia em DRE São Miguel</option>
-								<option <?=$_GET['tipoconteudo'] == 'page5' ? "selected" : '' ?> value="page5">Página em CME Conselho</option>
-								<option <?=$_GET['tipoconteudo'] == 'page4' ? "selected" : '' ?> value="page4">Página em CAE Conselho</option>
-								<option <?=$_GET['tipoconteudo'] == 'page6' ? "selected" : '' ?> value="page6">Página em CACSFUNDEB Conselho</option>
-								<option <?=$_GET['tipoconteudo'] == 'page7' ? "selected" : '' ?> value="page7">Página em CRECE Conselho</option>
-							</select>
-							<script>
-								jQuery('#sel1c').on('change', function() {                                
-									var site = this.value.replace(/[^0-9]/g,'');
-									//console.log( site );
-
-									//jQuery("#sel3sites option:selected").removeAttr("selected");
-									jQuery("#sel3sites").val(site);
-								});
-							</script>
-						</div>
-
-						<div class="form-group">
-							<label for="sel2"><strong>Filtre por um período</strong></label>
-							<select name="periodo" class="form-control" id="sel2">	
-								<option value="">Todos os períodos</option>
-								<option <?=$_GET['periodo'] == '1' ? 		"selected" : 'n' ?> value="1">Última hora</option>
-								<option <?=$_GET['periodo'] == '24' ? 		"selected" : 'n' ?> value="24">Últimas 24 horas</option>
-								<option <?=$_GET['periodo'] == '168' ? 		"selected" : 'n' ?> value="168">Última semana</option>
-								<option <?=$_GET['periodo'] == '5040' ? 	"selected" : 'n' ?> value="5040">Último mês</option>
-								<option <?=$_GET['periodo'] == '1839600' ?  "selected" : 'n' ?> value="1839600">Último ano</option>
-							</select>
-						</div>
-
-						<div class="form-group">
-							<label for="sel3"><strong>Filtre por ano</strong></label>
-							<select name="ano" class="form-control" id="sel3">                               
-								<?php 
-									$ano_agora = date('Y');
-									$date_range = range(2013, $ano_agora);
-									$anosArray = $date_range;
-
-									echo '<div class="transportX" style="display:none;"><option value="">Todos os anos</option>';				
-										(sort($anosArray));
-										
-										foreach ((array_unique($anosArray)) as $ano) {
-											$ano == $_GET['ano'] ? $isselected = 'selected' : $isselected = '';
-											echo '<option '.$isselected.' value="'.$ano.'">'.$ano.'</option>';			
-										}
-									echo '</div>';
-								?>
-							</select>
-						</div>
-
-						<div class="form-group">
-
-							<label for="sel3sites"><strong>Filtre por site</strong></label>
-							<select name="site" class="form-control" id="sel3sites">
-
-								<option value="">Todos os sites</option>
-								<option <?=$_GET['site'] == '1' ? "selected" : '' ?> value="1">SME Portal Educação</option>
-								<option <?=$_GET['site'] == '8' ? "selected" : '' ?> value="8">DRE Butantã</option>
-								<option <?=$_GET['site'] == '20' ? "selected" : '' ?> value="20">DRE Campo Limpo</option>
-								<option <?=$_GET['site'] == '9' ? "selected" : '' ?> value="9">DRE Capela do Socorro</option>
-								<option <?=$_GET['site'] == '10' ? "selected" : '' ?> value="10">DRE Freguesia/Brasilândia</option>
-								<option <?=$_GET['site'] == '11' ? "selected" : '' ?> value="11">DRE Guaianases</option>
-								<option <?=$_GET['site'] == '12' ? "selected" : '' ?> value="12">DRE Ipiranga</option>
-								<option <?=$_GET['site'] == '13' ? "selected" : '' ?> value="13">DRE Itaquera</option>
-								<option <?=$_GET['site'] == '14' ? "selected" : '' ?> value="14">DRE Jaçanã/Tremembé</option>
-								<option <?=$_GET['site'] == '15' ? "selected" : '' ?> value="15">DRE Penha</option>
-								<option <?=$_GET['site'] == '16' ? "selected" : '' ?> value="16">DRE Pirituba</option>
-								<option <?=$_GET['site'] == '17' ? "selected" : '' ?> value="17">DRE Santo Amaro</option>
-								<option <?=$_GET['site'] == '18' ? "selected" : '' ?> value="18">DRE São Mateus</option>
-								<option <?=$_GET['site'] == '19' ? "selected" : '' ?> value="19">DRE São Miguel</option>
-								<option <?=$_GET['site'] == '5' ? "selected" : '' ?> value="5">CME Conselho</option>
-								<option <?=$_GET['site'] == '4' ? "selected" : '' ?> value="4">CAE Conselho</option>
-								<option <?=$_GET['site'] == '6' ? "selected" : '' ?> value="6">CACSFUNDEB Conselho</option>
-								<option <?=$_GET['site'] == '7' ? "selected" : '' ?> value="7">CRECE Conselho</option>
-							</select>
-						</div>
-
-						<div class="form-group mb-3">
-							<script>
-								function limpaFiltro() {
-									setTimeout(() => {
-										window.location = window.location.pathname + "?s=<?=$_GET['s'];?>";
-									}, 100);
-								}
-							</script>
-							<button onclick="limpaFiltro()" type="button" class="btn btn-refinar btn-sm float-left">Limpar filtros</button>
-							<button type="submit" class="btn btn-primary btn-sm float-right">Refinar busca</button>
-
-						</div>
-
-					</form>
 				</div>
 
 			<?php else: ?>

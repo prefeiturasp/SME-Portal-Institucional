@@ -62,7 +62,7 @@ use Classes\Header\Header;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="author" content="Secretaria Municipal de Educa��o de S�o Paulo">
+    <meta name="author" content="Secretaria Municipal de Educação de São Paulo">
 
 	<?php wp_head() ?>
 
@@ -169,7 +169,7 @@ use Classes\Header\Header;
                 <div class="container">
                     <div class="row py-3">
 
-                        <div class="col-sm-12 col-md-6">
+                        <div class="col-sm-12 col-md-3">
                             <?php
                             // Traz o Logotipo cadastrado no Admin
                             $custom_logo_id = get_theme_mod('custom_logo');
@@ -184,6 +184,44 @@ use Classes\Header\Header;
 
                         <div class="col-sm-12 col-md-6 d-flex align-items-center">
                             <?php \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
+                        </div>
+
+                        <div class="col-sm-12 col-md-3  d-flex align-items-center">
+                            <?php 
+                                $user = wp_get_current_user();
+                                $profileLink = '#';
+                                if(current_user_can('administrator'))
+                                    $profileLink = get_home_url() . '/wp-admin/profile.php';
+                                
+                                $name = explode(" ", $user->data->display_name);
+                                $displayName = $name[0];
+                                if($name[1] && $name[1] != '')
+                                    $displayName .= ' ' . substr($name[1], 0, 1) . '.';
+
+
+                                //echo "<pre>";
+                                //print_r($name);
+                                //echo "</pre>";
+
+                            ?>
+                            <div class="navbar-nav ml-auto">                                
+                                <div class="nav-item dropdown profile-menus">
+                                    <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
+                                        <img src="<?= get_template_directory_uri() . '/img/user-image.jpg'; ?>" class="avatar" alt="Avatar"> 
+                                        <?= $displayName; ?> <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <img src="<?= get_template_directory_uri() . '/img/user-image.jpg'; ?>" class="avatar" alt="Avatar">
+                                        <p><?= $displayName; ?></p>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="<?= $profileLink; ?>" class="dropdown-item">Perfil</a>
+                                        <!--<a href="#" class="dropdown-item">Acesse seu e-mail <strong>@SME</strong></a>
+                                        <a href="#" class="dropdown-item">Acesse seu e-mail <strong>@EDU</strong></a> -->                                        
+                                        <a href="<?= wp_logout_url(); ?>" class="dropdown-item">Sair</a>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
@@ -224,4 +262,7 @@ use Classes\Header\Header;
             </nav>
         </section>
     </nav>
-<?php new \Classes\Breadcrumb\Breadcrumb(); ?>
+<?php
+    if(is_search())
+    new \Classes\Breadcrumb\Breadcrumb();
+?>
