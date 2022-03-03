@@ -200,16 +200,16 @@ li.nav-item{
 {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(212,212,212,0.5);
-    background-color: #196CBD;
+    background-color: #0F42B2;
 }
 
 /*botão customizado*/
 .col-bt-branco .btn-{
 	background: #fff !important;
-	color: #196CBD !important;
+	color: #0F42B2 !important;
 }
 .col-bt-azul .btn-{
-	background: #196CBD !important;
+	background: #0F42B2 !important;
 	color: #fff !important;
 }
 .col-bt-azul-escuro .btn-{
@@ -308,7 +308,7 @@ video {
 }
 
 .btn-azul .card-header {
-    background-color: #196CBD !important;
+    background-color: #0F42B2 !important;
 }
 
 .btn-azul .card-header.bg-sanfona-active {
@@ -340,7 +340,7 @@ video {
 }
 
 .btn-branco .card-header a {
-    color: #196CBD;
+    color: #0F42B2;
 }
 
 .align-left{
@@ -477,6 +477,105 @@ form.form-recados label {
 	height: 100%;
 }
 
+/*** Mural de Recados / Cursos - Destaques ***/
+.recados-destaques,
+.cursos-destaques,
+.portais-destaques {
+    background: #FFFFFF;
+    border: 1px solid #F3F3F3;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+}
+
+.recados-destaques .recados-title,
+.cursos-destaques .cursos-title,
+.portais-destaques .portais-title{
+    background: #A26201;    
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.cursos-destaques .cursos-title{
+    background: #B8002E;
+}
+
+.portais-destaques .portais-title{
+    background: #2C8C99;
+}
+
+.recados-destaques .recados-title h3,
+.cursos-destaques .cursos-title h3,
+.portais-destaques .portais-title h3 {
+    color: #FFFFFF;
+    padding: 10px 15px;
+    font-size: 22px;    
+    margin: 0;
+}
+
+.recados-destaques .recados-title p,
+.cursos-destaques .cursos-title p,
+.portais-destaques .portais-title p {
+    margin-top: 10px;
+    margin-bottom: 0;
+    margin-right: 15px;
+}
+
+.recados-destaques .recados-title a,
+.cursos-destaques .cursos-title a,
+.portais-destaques .portais-title a {
+    color: #FFFFFF;
+    text-decoration: underline;
+    margin-top: 10px;
+}
+
+.recados-destaques .recado,
+.cursos-destaques .curso{
+    padding: 0;
+    margin: 10px;
+    box-shadow: initial;
+    border: 0;
+}
+
+.recados-destaques .recado .data{
+    font-size: 12px;
+}
+
+.recados-destaques .recado h2{
+    font-size: 16px !important;
+    text-decoration: underline;
+}
+
+.recados-destaques .recado .categs a{
+    font-size: 14px;
+}
+
+.recados-destaques .recado .tags-recados a{
+    min-width: 30px;
+    padding: 3px;
+}
+
+.recados-destaques .recado:last-child{
+    padding-bottom: 10px;
+}
+
+.recados-destaques .recado:last-child hr,
+.cursos-destaques .col-12:last-child .curso hr {
+    display: none;
+}
+
+.modal-recados .modal-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.modal-recados .modal-body {
+    text-align: inherit;
+}
+
+.modal-recados .modal-body .subtitulo {
+    font-weight: bold;
+}
+
 /**** Portais e Sistemas ****/
 .busca-portais {
     display: table;
@@ -545,6 +644,59 @@ form.form-recados label {
     display: none;
 }
 
+/*** Portais e Sistemas - Carrossel ***/
+
+.slick-slide {
+    display: none;
+    float: left;
+    height: 100%;
+    min-height: 1px;
+}
+
+.portais{
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.portais .slick-arrow {
+    font-size: 60px;
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    padding: 0;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    cursor: pointer;
+    color: #2C8C99;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.portais .slick-arrow.arrow-left{
+    left: -75px;
+}
+
+.portais .slick-arrow.arrow-right{
+    right: -75px;
+}
+
+.portais .portais-sistemas{
+    text-align: center;
+}
+
+.portais .portais-sistemas img {
+    display: block;
+    margin: 15px auto;
+}
+
+.portais .portais-sistemas h3 a{
+    color: #2C8C99;
+    text-decoration: underline;
+}
+
 /*** Cursos ***/
 .curso {
     background: #FFFFFF;
@@ -576,6 +728,218 @@ form.form-recados label {
     font-weight: bold;
 }
 
+/*** Calendario Escolar ***/
+.calendario-construtor {
+    background: #FFFFFF;
+    border: 1px solid #F3f3f3;
+    box-shadow: 0px 0px 4px 0px #00000040;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 4px;
+}
+
+.calendario-construtor .ic__container{
+    border: 0;
+    box-shadow: initial;
+}
+
+.calendario-construtor .agenda-lista {
+    box-shadow: 0px 0px 4px 0px #00000040;
+    border-radius: 4px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+.calendario-construtor h3 {
+    background: #4E1F84;
+    color: #FFFFFF;
+    padding: 10px 15px;
+    font-size: 22px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin: 0;
+}
+
+.calendario-construtor .destaque-evento-agenda,
+.calendario-construtor .destaque-evento-agenda-menor-que-10 {
+    background: #FFFFFF;
+    padding: 0 3px;
+    border-radius: initial;
+    position: relative;
+}
+
+.calendario-construtor .destaque-evento-agenda::before,
+.calendario-construtor .destaque-evento-agenda-menor-que-10::before {
+    content: ' ';
+    width: 25px;
+    height: 4px;
+    background: #4E1F84;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.calendario-construtor .destaque-evento-agenda-menor-que-10::before{
+    left: -4px;
+}
+
+.calendario-construtor .ic__container .ic__header .ic__month .ic__month-select{
+    background: #4E1F84;
+}
+
+.calendario-construtor .ic__container .ic__header .ic__year .ic__year-select,
+.calendario-construtor .data_agenda {
+    color: #4E1F84;
+}
+
+.calendario-construtor .ic__days.table-responsive{
+    overflow: hidden;
+}
+
+.calendario-construtor .ic__days tbody tr td,
+.calendario-construtor .ic__day_state_selected{
+    border: 0 !important;
+}
+
+.calendario-construtor .ic__day_state_selected .destaque-evento-agenda,
+.calendario-construtor .ic__day_state_current .destaque-evento-agenda,
+.calendario-construtor .ic__day_state_selected .destaque-evento-agenda-menor-que-10,
+.calendario-construtor .ic__day_state_current .destaque-evento-agenda-menor-que-10,
+.calendario-construtor .ic__day_state_selected span,
+.calendario-construtor .ic__day.ic__day_state_current span{
+    color: #FFFFFF;
+    background: #6C2BB6;
+    border-radius: 50%;
+    padding: 9px 13px;
+    width: 44px;
+    display: block;
+    margin: 0 auto;
+}
+
+.calendario-construtor .ic__day_state_selected span::before,
+.calendario-construtor .ic__day_state_current span::before{
+    background-color: #FFFFFF;
+    bottom: 6px;
+}
+
+.calendario-construtor .ic__days tbody tr td.ic__day-empty{
+    background: #FFFFFF;
+}
+
+.calendario-construtor .agenda .horario{
+    color: #4E1F84;
+}
+.calendario-construtor .agenda .evento{
+    font-weight: bold;
+}
+
+.calendario-construtor .agenda-ordenada {
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+/* width */
+.calendario-construtor .agenda-ordenada::-webkit-scrollbar {
+width: 10px;
+}
+
+/* Track */
+.calendario-construtor .agenda-ordenada::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 5px;
+}
+
+/* Handle */
+.calendario-construtor .agenda-ordenada::-webkit-scrollbar-thumb {
+background: #826E87; 
+border-radius: 5px;
+}
+
+/* Handle on hover */
+.calendario-construtor .agenda-ordenada::-webkit-scrollbar-thumb:hover {
+background: #5c4961; 
+}
+
+
+/*** WhatsApp ***/
+.form-what {
+    background: #FFFFFF;
+    border: 1px solid #F3F3F3;
+    box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.form-what label {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.whatsapp-banner {
+    background: #01C74B;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.whatsapp-banner h3 {
+    color: #FFFFFF;
+    font-size: 28px;
+}
+
+.whatsapp-banner .btn-whats {
+    background: #FFFFFF;
+    color: #01C74B;
+    border: 0;
+    margin-left: 15px;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.whats-content{
+    display: table;
+}
+
+.img-field{
+    display: table-cell;
+    width: 15%;
+}
+
+.tel-field{
+    display: table-cell;
+    width: 100%;
+}
+
+.tel-field > input {
+    width: 100%;
+    border: 1px solid #A4A4A4;
+    padding: 3px 5px;
+    border-radius: 4px;
+}
+
+/*** Newsletter ***/
+.banner-news {
+    background: #0F42B2;
+    padding: 20px 20px 35px;
+    border-radius: 4px;
+}
+
+.banner-news h3 {
+    color: #FFFFFF;
+    font-size: 28px;
+}
+
+.banner-news .btn {
+    background: #FFFFFF;
+    color: #0F42B2;    
+}
+
+.banner-news .wpcf7-response-output {
+    color: #FFFFFF;
+}
+
 /*** Paginacao ***/
 .pagination-prog{
     margin-bottom: 30px;
@@ -585,21 +949,25 @@ form.form-recados label {
 .pagination-prog .wp-pagenavi a {
     padding: 7px;
     min-width: 40px;
-    display: inline-block;
+    display: flex;
     margin: 0;
     border: 1px solid #DADADA;
     border-left: 0;
     font-weight: bold;
     color: #000000;
     background: #FFFFFF;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
 }
 
 .pagination-prog .wp-pagenavi a.active,
-.pagination-prog .wp-pagenavi a:hover {
+.pagination-prog .wp-pagenavi a:hover,
+.pagination-prog .wp-pagenavi span.current {
     font-weight: bold;
     color: #FFFFFF;
     background: #0F42B2;
-    border-color: #0F42B2;
+    border-color: #0F42B2 !important;
 }
 
 .wp-pagenavi span:last-child, .wp-pagenavi a:last-child {

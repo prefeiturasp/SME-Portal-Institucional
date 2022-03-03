@@ -52,6 +52,9 @@ class LoadDependences
 			wp_enqueue_style('construtor');
 		}
 		
+		// Portais e Sistemas
+		wp_register_script('jquery-mask',  'https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.min.js', array ('jquery'), false, false);
+		wp_enqueue_script('jquery-mask');
 
 		// Agenda do Secretário
 		wp_register_style('agenda-secretario', STM_THEME_URL . 'classes/assets/css/agenda-secretario.css', null, null, 'all');

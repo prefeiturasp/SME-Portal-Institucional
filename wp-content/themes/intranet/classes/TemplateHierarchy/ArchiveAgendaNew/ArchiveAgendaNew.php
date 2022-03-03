@@ -11,7 +11,7 @@ class ArchiveAgendaNew extends Util
 	public function __construct()
 	{
 	    $container_calendario_tags = array('section', 'section');
-	    $container_calendario_css = array('container mb-5', 'row');
+	    $container_calendario_css = array('container', 'row');
 	    $this->abreContainer($container_calendario_tags, $container_calendario_css);
 		$this->montaHtmlCalendario();
 		$this->insereDivRecebeData();
@@ -20,12 +20,8 @@ class ArchiveAgendaNew extends Util
 
 	public function montaHtmlCalendario(){
 		?>
-		<section class="col-lg-6 col-xs-12">
-			<h1 class="mb-5" id="agenda">Agenda do Secretário de Educação</h1>
-            <!--<div class="container-loading-agenda-secretario">
-                <img src="<?/*= STM_URL*/?>/wp-content/uploads/2019/10/loading.gif" alt="Carregando Agenda do Secretário">
-            </div>-->
-			<section class="calendario-agenda-sec d-block mb-5 border-bottom pb-5"></section>
+		<section class="col-lg-6 col-xs-12">			
+			<section class="calendario-agenda-sec d-block"></section>
 		</section>
 
 
@@ -34,8 +30,8 @@ class ArchiveAgendaNew extends Util
 
 	public function insereDivRecebeData(){
 		?>
-		<section class="col-lg-6 col-xs-12">
-			<h2 class="data_agenda mb-4 pb-2 border-bottom">Dia do Evento</h2>
+		<section class="col-lg-6 col-xs-12 agenda-lista">
+			<h2 class="data_agenda pb-2">Dia do Evento</h2>
 			<section id="mostra_data"></section>
 			<!-- Monta a lista ordenada por horário -->
 			<section class="agenda-ordenada"></section>

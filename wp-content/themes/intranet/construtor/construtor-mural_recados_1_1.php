@@ -124,13 +124,12 @@
                                         $i = 0;
                                 ?>
                                 <?php if($image): ?>
-                                    <img src="<?= $image; ?>" class="img-fluid rounded" alt="Imagem de ilustração categoria">
+                                    <img src="<?= $image['url']; ?>" class="img-fluid rounded" alt="Imagem de ilustração categoria">
                                 <?php else: ?>
                                     <img src="<?= get_template_directory_uri(); ?>/img/categ-destaques.jpg" class="img-fluid rounded" alt="Imagem de ilustração categoria">
                                 <?php endif; ?>
                             </div>
-                            <div class="col-sm-10">
-
+                            <div class="col-sm-10">                                
                                 <?php if($tags): ?>
                                     <div class="tags-recados">
                                         <?php 
