@@ -232,7 +232,9 @@ class Construtor extends Util
 			//banner
 			if(get_field('fx_flex_habilitar_banner') != null){
 				$imagem_banner = get_field('fx_flex_banner');//Pega todos os valores da imagem no array
-				echo '<div class="bn_fx_banner"><img src="'.$imagem_banner['url'].'" width="100%" alt="'.$imagem_banner['alt'].'"></div>';
+				echo '<div class="bn_fx_banner" style="background-image: url(' . $imagem_banner['url'] . ');">
+					<div class="container"><h1>' . get_the_title() . '</h1></div>
+				</div>';
 			}
 			
 			if( have_rows('fx_flex_layout') ):
@@ -352,15 +354,23 @@ class Construtor extends Util
 
 											// Mural de Recados
 											elseif( get_row_layout() == 'fx_cl1_mural_recados_1_1' ):
-												get_template_part( 'construtor/construtor', 'mural_recados_1_1' );
+												get_template_part( 'construtor/construtor', 'mural_recados_1_1' );											
 
 											// Portais e Sistemas
 											elseif( get_row_layout() == 'fx_cl1_portais_sistemas_1_1' ):
 												get_template_part( 'construtor/construtor', 'portais_sistemas_1_1' );
 
+											// Portais e Sistemas - Carrossel
+											elseif( get_row_layout() == 'fx_cl1_portais_sistemas_carrossel_1_1' ):
+												get_template_part( 'construtor/construtor', 'portais_sistemas_carrossel_1_1' );
+
 											// Cursos
 											elseif( get_row_layout() == 'fx_cl1_cursos_1_1' ):
 												get_template_part( 'construtor/construtor', 'cursos_1_1' );
+
+											// Calendario Escolar
+											elseif( get_row_layout() == 'fx_cl1_calendario_1_1' ):
+												get_template_part( 'construtor/construtor', 'calendario_1_1' );
 
 											// Integracao Pagina
 											elseif( get_row_layout() == 'integrar_pagina' ):
@@ -2007,6 +2017,14 @@ class Construtor extends Util
 											elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 												get_template_part( 'construtor/construtor', 'noticias_dres' );
 
+											// Mural de Recados - Destaques
+											elseif( get_row_layout() == 'fx_cl1_mural_recados_destaques_1_2' ):
+												get_template_part( 'construtor/construtor', 'mural_recados_destaques_1_2' );
+
+											// Newsletter
+											elseif( get_row_layout() == 'fx_cl1_form_news_1_2' ):
+												get_template_part( 'construtor/construtor', 'form_news_1_2' );
+											
 											endif;
 
 										endwhile;
@@ -2106,6 +2124,14 @@ class Construtor extends Util
 											// Noticias DREs
 											elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 												get_template_part( 'construtor/construtor', 'noticias_dres' );
+
+											// Cursos - Destaques
+											elseif( get_row_layout() == 'fx_cl1_cursos_destaques_2_2' ):
+												get_template_part( 'construtor/construtor', 'cursos_destaques_2_2' );
+											
+											// Banner WhatsApp
+											elseif( get_row_layout() == 'fx_cl1_banner_whatsapp_2_2' ):
+												get_template_part( 'construtor/construtor', 'banner_whatsapp_2_2' );
 
 											endif;
 

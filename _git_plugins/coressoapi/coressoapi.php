@@ -87,9 +87,10 @@ function demo_auth( $user, $username, $password ){
             $userdata = array( 'user_email' => $user->email,
                                 'user_login' => $user->email,
                                 'first_name' => $firstname,
-                                'last_name' => $lastname
-                                );
+                                'last_name' => $lastname,                                
+                            );
             $new_user_id = wp_insert_user( $userdata ); // Um novo usuario sera criado
+            update_user_meta($new_user_id, "rf", $username);
             
             // Carregar as novas informações do usuário
             $user_wp = new WP_User ($new_user_id);

@@ -49,8 +49,9 @@ require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContato/ExibirContatosT
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgenda.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaAjaxCalendario.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaAjaxCalendarioNew.php';
-
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaNew/ArchiveAgendaGetDatasEventosNew.php';
+
+
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaNew/ArchiveAgendaNew.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaNew/ArchiveAgendaAjaxCalendarioNew.php';
 
@@ -114,8 +115,8 @@ $cptPagessExtend = new \Classes\Cpt\CptPages();
 //$cptAgendaSecretario = new \Classes\Cpt\Cpt('agenda', 'agenda', 'Agenda do Secretário', 'Todos os Eventos', 'Eventos', 'Eventos', null, null, null, 'dashicons-calendar-alt', true);
 //$cptAgendaSecretarioExtend = new \Classes\Cpt\CptAgendaSecretario();
 
-//$cptAgendaSecretarioNew = new \Classes\Cpt\Cpt('agendanew', 'agendanew', 'Nova Agenda do Secretário', 'Todos os Eventos', 'Eventos', 'Eventos', null, null, null, 'dashicons-calendar-alt', true);
-//$cptAgendaSecretarioNewExtend = new \Classes\Cpt\CptAgendaSecretarioNew();
+$cptAgendaSecretarioNew = new \Classes\Cpt\Cpt('agendanew', 'agendanew', 'Calendário Escolar', 'Todos os Eventos', 'Eventos', 'Eventos', null, null, null, 'dashicons-calendar-alt', true);
+$cptAgendaSecretarioNewExtend = new \Classes\Cpt\CptAgendaSecretarioNew();
 
 //$cptContatoSme = new \Classes\Cpt\Cpt('contato', 'contato', 'Contatos SME', 'Todos os Contatos', 'Contatos', 'Contato', null, null, null ,'dashicons-email-alt', true);
 //$cptContatoSmeExtend = new \Classes\Cpt\CptContato();

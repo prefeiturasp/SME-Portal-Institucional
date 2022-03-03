@@ -14,10 +14,12 @@ class ArchiveAgendaGetDatasEventosNew
 	public function init(){
 		$current_url = $_SERVER['REQUEST_URI'];
 		$partes = explode("/", $current_url);
-		if ($partes[1] === 'agendanew' || $partes[2] === 'agendanew') {
+		//if ($partes[1] === 'agendanew' || $partes[2] === 'agendanew') {
+		if( !is_admin() || !is_page(1340) ){
 			$this->getTodosIdCtpAgenda();
 			$this->getDatasCptAgenda();
 		}
+		//}
 	}
 	public function getTodosIdCtpAgenda(){
 		$this->args_ids = array(
@@ -48,8 +50,16 @@ class ArchiveAgendaGetDatasEventosNew
 		}
 		$this->array_datas = json_encode($this->array_datas);
 
-		//echo '<div name="array_datas_agenda" id="array_datas_agenda">'.$this->array_datas.'</div>';
-		echo '<input type="hidden" name="array_datas_agenda" id="array_datas_agenda" value='.$this->array_datas.'>';
+		$current_url = $_SERVER['REQUEST_URI'];
+		$partes = explode("/", $current_url);		
+		//print_r($partes);
+		if($partes[2] == 'home'){
+			echo '<input type="hidden" name="array_datas_agenda" id="array_datas_agenda" value='.$this->array_datas.'>';
+		}
+
+		//echo '<div name="array_datas_agenda" id="array_datas_agenda">'.$this->array_datas.'</div>';	
+					
 	}
 }
+
 new ArchiveAgendaGetDatasEventosNew;

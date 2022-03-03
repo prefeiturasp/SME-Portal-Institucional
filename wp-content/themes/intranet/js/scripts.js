@@ -162,3 +162,5 @@ $s(".a-icones-home").click(function() {
 
 /* Ativacao Wow*/
 new WOW().init();
+
+$s('#telefone').mask('(00) 00000-0000');

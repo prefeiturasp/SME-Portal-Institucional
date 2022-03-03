@@ -25,7 +25,7 @@ class ArchiveAgenda extends Util
             <!--<div class="container-loading-agenda-secretario">
                 <img src="<?/*= STM_URL*/?>/wp-content/uploads/2019/10/loading.gif" alt="Carregando Agenda do Secretário">
             </div>-->
-			<section class="calendario-agenda-sec d-block mb-5 border-bottom pb-5"></section>
+			<section class="calendario-agenda-sec d-block"></section>
 		</section>
 
 
