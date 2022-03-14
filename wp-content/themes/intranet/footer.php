@@ -78,14 +78,73 @@
 		<p>Voltar ao topo</p>
 		<img src="https://via.placeholder.com/40x80" alt="" srcset="">
 	</a>
-</div>	
+</div>
+<?php
+	$user = get_current_user_id();
+	if($_GET['feedback'] && $user){
+		update_user_meta( $user, 'feed_resp', 1 );
+	}
+	$modal = get_field('ativar_modal');
+	$exibi = get_field('tempo_de_exibicao');
 	
+	$count = get_user_meta( $user, 'wp_login_count', true );
+	$feed =  get_user_meta( $user, 'feed_resp', true );
+	$img = get_field('imagem_modal');
+	$titulo = get_field('titulo_modal');
+	$mensagem = get_field('mensagem_modal');
+	$botao_url = get_field('botao_modal');
+	$botao_nome = get_field('nome_botao_modal');
+	print_r($feed);
+?>
+<?php if(!$feed): ?>
+	<?php if( ($modal && $exibi == 'all') || ($modal && $exibi != 'all' && $count >= $exibi) ): ?>	
+		<!-- Bootstrap Modal -->
+		<div class="modal fade" id="popup" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<!-- Modal header -->  
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4>&nbsp;</h4>
+					</div>
+
+					<!-- Modal body -->  
+					<div class="modal-body">
+
+						<?php if($img): ?>
+							<img src="<?= $img['url']; ?>" alt="<?= $img['alt']; ?>">
+						<?php endif; ?>
+
+						<?php if($titulo): ?>
+							<h2><?= $titulo; ?></h2>
+						<?php endif; ?>
+
+						<?php if($mensagem): ?>
+							<p><?= $mensagem; ?></p>
+						<?php endif; ?>
+
+					</div>
+					<!-- Modal footer -->  
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-primary" data-dismiss="modal"> Ver depois </button>
+						<?php if($botao_url): ?>
+							<a href="<?= $botao_url; ?>?feedback=1" class="btn btn-primary"><?= $botao_nome; ?></a>
+						<?php endif; ?>
+					</div>
+				</div> <!-- // .modal-content -->
+			</div> <!-- // .modal-dialog -->
+		</div> <!-- // #myModal -->
+	<?php endif; ?>
+<?php endif; ?>
+
 <?php wp_footer() ?>
 <script src="//api.handtalk.me/plugin/latest/handtalk.min.js"></script>
 <script>
-    var ht = new HT({
-        token: "aa1f4871439ba18dabef482aae5fd934"
-    });
+	
+	//var ht = new HT({
+        //token: "aa1f4871439ba18dabef482aae5fd934"
+    //});
 
 	document.onkeyup = PresTab;
  
@@ -126,6 +185,26 @@
 		} );
 		
 	} );
+
+	jQuery(document).ready(function($){
+
+		// Start
+		// sessionStorage.getItem('key');
+		if (sessionStorage.getItem("story") !== 'true') {
+			// sessionStorage.setItem('key', 'value'); pair
+			sessionStorage.setItem("story", "true");
+			// Calling the bootstrap modal
+			$("#popup").modal();
+		}
+		// End
+
+		// Do not include the code below, it is just for the 'Reset Session' button in the viewport.
+		// This is same as closing the browser tab.
+		//$('#reset-session').on('click',function(){
+			//sessionStorage.setItem('story','');
+		//});
+
+	});
 </script>
 </body>
 </html>

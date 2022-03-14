@@ -1979,3 +1979,53 @@ ul.nav.nav-tabs{
     display: block;
     border-bottom: 2px solid #FFFFFF;
 }
+
+/*** Feedback ***/
+
+div.rating-cancel, div.star-rating {   
+    width: 34px;
+    height: 32px;
+}
+
+div.rating-cancel a, div.star-rating a {
+    width: 34px;
+    height: 32px;
+}
+
+div.star-rating-on a {
+    background-position: 0 -64px!important;
+}
+
+.form-feedback .star-rating-control,
+.starrating-414{
+    width: 100%;
+}
+
+.form-feedback .star-rating-control .star-rating {
+    margin-right: 10%;
+}
+
+.form-feedback h2 {
+    font-size: 24px !important;
+    font-weight: normal;
+    margin-bottom: 30px;
+}
+
+.form-feedback label {
+    font-weight: bold;
+}
+
+.form-feedback span {
+    font-size: 14px;
+    font-style: italic;
+}
+
+.form-feedback .wpcf7-submit {
+    background: #14457C;
+    border: 0;
+    color: #FFFFFF;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 30px;
+}

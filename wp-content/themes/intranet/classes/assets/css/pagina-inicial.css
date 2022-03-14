@@ -280,7 +280,8 @@ button.close {
   filter: alpha(opacity=50);
 }
 .modal-header {
-  padding: 10px;
+  padding: 10px;  
+  border: 0 !important;
 }
 .modal-header .close {
   margin-top: -2px;
@@ -292,12 +293,31 @@ button.close {
 .modal-body {
   position: relative;
   padding: 15px;
-  text-align: center;
+}
+
+.modal-body h2{
+  color: #14457C;
+  font-weight: bold;
+  font-size: 40px !important;
+  padding: 0 15px;
+}
+
+.modal-body p{
+  font-size: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.modal-body img {
+  display: block;
+  margin: 0px auto;
 }
 .modal-footer {
   padding: 15px;
   text-align: right;
   border-top: 1px solid #e5e5e5;
+  padding-top: 0 !important;
+  border: 0 !important;
 }
 .modal-footer .btn + .btn {
   margin-left: 5px;
