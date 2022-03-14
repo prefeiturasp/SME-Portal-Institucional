@@ -940,6 +940,49 @@ background: #5c4961;
     color: #FFFFFF;
 }
 
+/*** FAQ ***/
+
+.chamada-faq h2 {
+    font-size: 24px !important;
+    font-weight: normal;
+}
+
+.faq-accord .card {
+    box-shadow: 0px 1px 4px 0px rgb(8 35 48 / 10%);
+    margin-bottom: 20px;
+    border: 1px solid rgba(191, 191, 191, 1) !important;
+    border-radius: 4px !important;
+}
+
+.faq-accord .card .card-header {
+    border-left: 8px solid #14457C;
+    background: #FFFFFF !important;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding: 7px 5px;
+    box-shadow: 0px 1px 4px 0px rgba(8, 35, 48, 0.1);
+}
+
+.faq-accord .card .card-header h2 button {
+    font-size: 18px !important;
+    font-weight: bold;
+    color: #000000;
+    transition: 0.2;
+}
+
+.faq-accord .card .card-header .btn-chevron.collapsed {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+    transition: 0.2s;
+}
+
+.faq-accord .card .card-body{
+    color: #000000;
+}
+
 /*** Paginacao ***/
 .pagination-prog{
     margin-bottom: 30px;
