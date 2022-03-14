@@ -31,6 +31,7 @@ require_once __ROOT__.'/classes/Cpt/CptAgendaSecretarioNew.php';
 //require_once __ROOT__.'/classes/Cpt/CptConcursos.php';
 require_once __ROOT__.'/classes/Cpt/CptDestaques.php';
 require_once __ROOT__.'/classes/Cpt/CptPortais.php';
+require_once __ROOT__.'/classes/Cpt/CptFaqs.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
@@ -145,3 +146,6 @@ $cptDestaquesExtend = new \Classes\Cpt\CptDestaques();
 
 $cptPortais = new \Classes\Cpt\Cpt('portais', 'portais', 'Portais e Sistemas', 'Todos os Portais', 'Portais e Sitema', 'Portais e Sitema', null, null, null, 'dashicons-external', true);
 $cptPortaisExtend = new \Classes\Cpt\CptPortais();
+
+$cptFaq = new \Classes\Cpt\Cpt('intranet-faq', 'intranet-faq', 'FAQs', 'Todos as FAQs', 'FAQ', 'FAQ', null, null, null, 'dashicons-external', true);
+$cptFaqExtend = new \Classes\Cpt\CptFaqs();

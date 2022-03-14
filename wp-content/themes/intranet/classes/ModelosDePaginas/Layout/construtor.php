@@ -372,6 +372,10 @@ class Construtor extends Util
 											elseif( get_row_layout() == 'fx_cl1_calendario_1_1' ):
 												get_template_part( 'construtor/construtor', 'calendario_1_1' );
 
+											// FAQ
+											elseif( get_row_layout() == 'fx_cl1_faq_1_1' ):
+												get_template_part( 'construtor/construtor', 'faq_1_1' );
+											
 											// Integracao Pagina
 											elseif( get_row_layout() == 'integrar_pagina' ):
 
