@@ -1917,3 +1917,24 @@ function get_file_url($id){
 	$mediaResponse = json_decode($mediaList);
 	return $mediaResponse->source_url;
 }
+
+
+
+// Incluir a opacao de Limpar o contador dos usuarios
+add_filter('bulk_actions-users', function($bulk_actions) {
+	$bulk_actions['limpar-contator'] = __('Limpar Contator', 'txtdomain');
+	return $bulk_actions;
+});
+
+// Acao para limpar o contador e a resposta de feedback
+add_filter('handle_bulk_actions-users', function($redirect_url, $action, $users) {
+	if ($action == 'limpar-contator') {
+		//print_r($users);
+		foreach ($users as $user_id) {
+			update_user_meta($user_id, 'wp_login_count', '');
+			update_user_meta($user_id, 'feed_resp', '');
+		}
+		$redirect_url = add_query_arg('activate-user', count($users), $redirect_url);
+	}
+	return $redirect_url;
+}, 10, 3);

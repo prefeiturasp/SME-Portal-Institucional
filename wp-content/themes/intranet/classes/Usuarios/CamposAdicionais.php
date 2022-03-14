@@ -190,9 +190,9 @@ class CamposAdicionais
 	//Exibindo as colunas no Dashboard
 	public function exibe_cols($columns)
 	{
-		$columns['posts'] = 'Notícias';
-		$columns['pages'] = 'Páginas';
-		$columns['setor'] = 'Setor';
+		//$columns['posts'] = 'Notícias';
+		//$columns['pages'] = 'Páginas';
+		//$columns['setor'] = 'Setor';
 		$columns['grupos'] = 'Grupos';
 		return $columns;
 	}
@@ -209,7 +209,7 @@ class CamposAdicionais
 				}else{
 					return "<p>Nenhum Setor Cadastrado</p>";
 				}
-				case 'pages' :
+			case 'pages' :
 
 					global $wpdb;
 	
@@ -222,7 +222,7 @@ class CamposAdicionais
 					}
 					return $number;
 	
-				case 'grupos' :
+			case 'grupos' :
 					// pega o grupo que o usuario pertence
 					$usergrupos = get_field('grupo', 'user_' . $user_id);
 	
@@ -244,6 +244,29 @@ class CamposAdicionais
 					} else {
 						return "-";
 					}
+			case 'login_count' :				
+			
+				if ( get_user_meta( $user_id, 'wp_login_count', true ) !== '' ) {
+					$login_count = get_user_meta( $user_id, 'wp_login_count', true );
+	
+					return "<strong>$login_count</strong>";
+				}
+				else {
+					return __( 'Nenhum login registrado.' );
+				}
+				
+			case 'last_login' :
+				if ( get_user_meta( $user_id, 'wp_last_login', true ) !== '' ) {
+					//$the_login_date = human_time_diff($last_login);
+					$last_login = get_user_meta( $user_id, 'wp_last_login', true );
+					$the_login_date = date('M j, Y h:i a', $last_login);
+	
+	
+					return "<strong>$the_login_date</strong>";
+				}
+				else {
+					return __( 'Nenhum registro' );
+				}
 			default:
 		}
 
