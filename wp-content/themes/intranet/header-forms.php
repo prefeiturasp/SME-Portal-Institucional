@@ -80,7 +80,7 @@ if ( is_user_logged_in() ) {
 
         gtag('config', 'UA-149756375-1');
     </script>
-
+    <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/5a2df64151ea7e12d55494267/c9466a177cfa11afee4e2e22b.js");</script>
 </head>
 
 <body>
@@ -174,7 +174,7 @@ if ( is_user_logged_in() ) {
                 <div class="container">
                     <div class="row py-3">
 
-                        <div class="col-sm-12 col-md-6">
+                        <div class="col-6">
                             <?php
                             // Traz o Logotipo cadastrado no Admin
                             $custom_logo_id = get_theme_mod('custom_logo');
@@ -187,7 +187,7 @@ if ( is_user_logged_in() ) {
                             </p>
                         </div>
 
-                        <div class="col-sm-12 col-md-6 d-flex align-items-center justify-content-end">
+                        <div class="col-6 d-flex align-items-center justify-content-end">
                             <button type="button" class="btn btn-primary">Criar cadastro</button>
                         </div>
 
@@ -196,5 +196,3 @@ if ( is_user_logged_in() ) {
 
             </section>
     </header>
-
-    

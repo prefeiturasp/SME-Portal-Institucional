@@ -422,7 +422,8 @@ form.form-recados label {
 
 .recado .tags-recados {
     position: absolute;
-    right: 15px;	
+    right: 15px;
+    top: 0;
 }
 
 .recado .tags-recados a{

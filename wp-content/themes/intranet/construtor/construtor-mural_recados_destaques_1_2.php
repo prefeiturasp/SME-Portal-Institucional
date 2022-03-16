@@ -56,7 +56,10 @@
                             //echo "<pre>";
                             //print_r($image);
                             //echo "</pre>";
-                        ?>
+                        ?>                        
+
+                        <p class="data"><?= getDay(get_the_date('w')); ?>, <?= get_the_date('M d') ?> às <?= get_the_date('H\hi\m\i\n') ?></p>
+                        
                         <?php if($tags): ?>
                             <div class="tags-recados">
                                 <?php 
@@ -68,7 +71,6 @@
                             </div>
                         <?php endif; ?>
 
-                        <p class="data"><?= getDay(get_the_date('w')); ?>, <?= get_the_date('M d') ?> às <?= get_the_date('H\hi\m\i\n') ?></p>
                         <?php if($categorias): ?>
                             <p class="categs">
                                 <?php 

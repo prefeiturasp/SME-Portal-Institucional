@@ -21,8 +21,8 @@
                     <div class="col-12">
                         <div class="form-group d-flex justify-content-end">
                             <input type="hidden" name="filter" value="1">
-                            <button type="button" class="btn btn-outline-primary mr-3" id="limpar" onclick="window.location.href='<?= get_the_permalink($page_id); ?>'">Limpar filtros</button>
-                            <button type="submit" class="btn btn-primary">Filtrar</button>
+                            <button type="button" class="btn btn-outline-primary mr-md-3" id="limpar" onclick="window.location.href='<?= get_the_permalink($page_id); ?>'">Limpar filtros</button>
+                            <button type="submit" class="btn btn-primary" id="filtrar">Filtrar</button>
                         </div>
                     </div>
 

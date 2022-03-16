@@ -3,7 +3,24 @@
         <div class="row">
 			<?php if($_GET['s'] && $_GET['s'] != ''): ?>
 
-				<div class="col-md-12 mb-4">
+				<?php
+					$countBusca = 0;
+
+					if($_GET['s'] && $_GET['s'] != '')
+						$countBusca++;
+
+					if($_GET['categoria'] && $_GET['categoria'] != '')
+						$countBusca++;
+
+					if($_GET['date-ini'] && $_GET['date-ini'] != '')
+						$countBusca++;
+
+					if($_GET['date-end'] && $_GET['date-end'] != '')
+						$countBusca++;
+
+				?>
+
+				<div class="col-md-12 mb-4 d-none d-md-block">
 					<form class="form-recados" action="<?= get_home_url(); ?>">
 						<div class="row">
 
@@ -49,6 +66,15 @@
 
 						</div>
 					</form>
+				</div>
+
+				<div class="col-12 d-md-none">
+					<button type="button" class="btn btn-outline-primary btn-avanc-f btn-avanc btn-avanc-m mb-4" data-toggle="modal" data-target="#filtroBusca">
+						<i class="fa fa-filter" aria-hidden="true"></i> Filtrar 
+						<?php if($countBusca > 0): ?>
+							<span class="badge badge-primary"><?php echo $countBusca; ?></span>
+						<?php endif; ?>
+					</button>
 				</div>
 
 				<div class="col-md-12 mb-4">
@@ -231,7 +257,7 @@
 
 						$pagina = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1;
 						$total = count( $allResults ); //total items in array    
-						$limit = 5; //per page    
+						$limit = 10; //per page    
 						$totalPages = ceil( $total/ $limit ); //calculate total pages
 						$pagina = max($pagina, 1); //get 1 page when $_GET['page'] <= 0
 						$pagina = min($pagina, $totalPages); //get last page when $_GET['page'] > $totalPages
@@ -249,12 +275,28 @@
 									</div>
 									<div class="recado">
 										<div class="row">
-											<div class="col-sm-2">
-													<img src="<?= $result['image']; ?>" class="img-fluid rounded" alt="Imagem de ilustração categoria">
+											<div class="col-3 col-md-2 img-column">
+												
+												<?php
+													$categorias = get_the_terms($result['id'], 'categorias-destaque');
+													
+													if($categorias)
+														$image = get_field('imagem_principal', 'categorias-destaque_' . $categorias[0]->term_id);
+														$i = 0;
+												?>
+												<?php if($image): ?>
+													<img src="<?= $image['url']; ?>" class="img-fluid rounded d-none d-sm-none d-md-block" alt="Imagem de ilustração categoria">
+                                    				<img src="<?= $image['sizes']['thumbnail']; ?>" class="img-fluid rounded d-md-none" alt="Imagem de ilustração categoria">
+												<?php else: ?>
+													<img src="<?= get_template_directory_uri(); ?>/img/categ-destaques.jpg" class="img-fluid rounded" alt="Imagem de ilustração categoria">
+												<?php endif; ?>
+
 											</div>
 
-											<div class="col-sm-10">
-
+											<div class="col-9 col-md-10">
+												
+												<p class="data"><?= $result['data_semana']; ?>, <?= $result['data_dia_mes']; ?> às <?= $result['data_hora']; ?></p>
+												
 												<?php if($result['tags']): ?>
 													<div class="tags-recados">
 														<?php 
@@ -265,7 +307,7 @@
 														?>
 													</div>
 												<?php endif; ?>
-												<p class="data"><?= $result['data_semana']; ?>, <?= $result['data_dia_mes']; ?> às <?= $result['data_hora']; ?></p>
+
 												<?php if($result['categorias']): ?>
 													<p class="categs">
 														<?php
@@ -345,7 +387,7 @@
 												</div>
 
 												<div class="col-sm-10">                                        
-													<h3><a href="<?= get_field('insira_link', $result['id']); ?>" target="_blank"><?= get_the_title(); ?></a></h3>
+													<h3><a href="<?= get_field('insira_link', $result['id']); ?>" target="_blank"><?= $result['titulo']; ?></a></h3>
 													<hr>
 													<?php 
 														$content = apply_filters('the_content', $result['conteudo']);
@@ -546,4 +588,70 @@
 
         </div>
     </div>
+
+<!-- Modal -->
+<div class="modal right fade" id="filtroBusca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<p class="modal-title" id="myModalLabel2">Filtrar por:</p>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>				
+			</div>
+
+			<div class="modal-body">
+				<div class="acord-busca my-2">
+					<form method="get" class="text-left" action="<?= get_home_url(); ?>">
+						
+                        <div class="row">
+                            <div class="col-12">
+								<div class="form-group">
+									<label for="busca">Buscar por termo</label>
+									<input type="text" value="<?= $_GET['s']; ?>" class="form-control" id="busca" name="s" placeholder="Busque por termo ou palavra-chave">
+								</div>
+							</div>
+
+							<div class="col-12 col-md-6">
+								<div class="form-group">
+									<label for="categoria">Filtrar por categoria</label>
+									<select class="form-control" id="categoria" name="categoria">
+										<option value="" selected>Selecione uma categoria</option>
+										<option value="destaque" <?= $_GET['categoria'] == 'destaque' ? 'selected' : ''; ?>>Recados</option>
+										<option value="cursos" <?= $_GET['categoria'] == 'cursos' ? 'selected' : ''; ?>>Cursos</option>
+										<option value="portais" <?= $_GET['categoria'] == 'portais' ? 'selected' : ''; ?>>Portais e Sistemas</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-12 col-md-3">
+								<div class="form-group">
+									<label for="data-ini">Filtrar por intervalo de datas</label>
+									<input type="date" id="data-ini" name="date-ini" value="<?= $_GET['date-ini']; ?>" max="<?= date("Y-m-d"); ?>" <?= $_GET['categoria'] == 'portais' ? 'disabled' : ''; ?>>
+								</div>
+							</div>
+
+							<div class="col-12 col-md-3">
+								<div class="form-group">
+									<label for="data-end">&nbsp;</label>
+									<input type="date" id="data-end" name="date-end" value="<?= $_GET['date-end']; ?>" max="<?= date("Y-m-d"); ?>" <?= $_GET['categoria'] == 'portais' ? 'disabled' : ''; ?>>
+								</div>
+							</div>
+
+                            <div class="col-12 btn-filtro">
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-outline-primary mr-3" id="limpar" onclick="window.location.href='<?= get_home_url() . '/?s=' . $_GET['s']; ?>'">Limpar filtros</button>
+                                    <button type="submit" class="btn btn-primary" id="filtrar">Filtrar</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+					</form>
+				</div>	
+			</div>
+
+		</div><!-- modal-content -->
+	</div><!-- modal-dialog -->
+</div><!-- modal -->
+
 <?php get_footer(); ?>
