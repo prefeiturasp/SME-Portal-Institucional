@@ -75,6 +75,8 @@ use Classes\Header\Header;
 
         gtag('config', 'UA-149756375-1');
     </script>
+    
+    <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/5a2df64151ea7e12d55494267/c9466a177cfa11afee4e2e22b.js");</script>
 
 </head>
 
@@ -169,7 +171,45 @@ use Classes\Header\Header;
                 <div class="container">
                     <div class="row py-3">
 
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-3 d-flex d-sm-flex d-md-none mobile-menu">
+                            <button type="button" class="btn btn-menu" data-toggle="modal" data-target="#menu">
+                                <i class="fa fa-bars" aria-hidden="true"></i> MENU
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal left fade" id="menu" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header d-block d-md-none">
+                                            <?= STM_SITE_NAME; ?>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <?php
+                                                wp_nav_menu(array(
+                                                    'menu' => 'primary',
+                                                    'theme_location' => 'primary',
+                                                    'depth' => 2,
+                                                    'container_id' => 'bs-example-navbar-collapse-1',
+                                                    'menu_class' => 'navbar-nav mr-auto nav nav-tabs',
+                                                    'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
+                                                    'walker'            => new WP_Bootstrap_Navwalker(),
+                                                ));
+                                            ?>
+                                        </div>
+
+                                    </div>
+                                    <!-- modal-content -->
+                                </div>
+                                <!-- modal-dialog -->
+                            </div>
+                            <!-- modal -->
+                            
+                        </div>
+
+                        <div class="col-6 col-md-3 order-1 order-md-1">
                             <?php
                             // Traz o Logotipo cadastrado no Admin
                             $custom_logo_id = get_theme_mod('custom_logo');
@@ -182,11 +222,11 @@ use Classes\Header\Header;
                             </p>
                         </div>
 
-                        <div class="col-sm-12 col-md-6 d-flex align-items-center">
+                        <div class="col-sm-12 col-md-6 d-flex align-items-center order-3 order-md-2">
                             <?php \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
                         </div>
 
-                        <div class="col-sm-12 col-md-3  d-flex align-items-center">
+                        <div class="col-3 col-md-3  d-flex align-items-center order-2 order-md-3 profile-menu">
                             <?php 
                                 $user = wp_get_current_user();
                                 $profileLink = '#';
@@ -208,15 +248,15 @@ use Classes\Header\Header;
                                 <div class="nav-item dropdown profile-menus">
                                     <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
                                         <img src="<?= get_template_directory_uri() . '/img/user-image.jpg'; ?>" class="avatar" alt="Avatar"> 
-                                        <?= $displayName; ?> <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                        <span><?= $displayName; ?></span> <i class="fa fa-chevron-down" aria-hidden="true"></i>
                                     </a>
                                     <div class="dropdown-menu">
                                         <img src="<?= get_template_directory_uri() . '/img/user-image.jpg'; ?>" class="avatar" alt="Avatar">
                                         <p><?= $displayName; ?></p>
                                         <div class="dropdown-divider"></div>
                                         <a href="<?= $profileLink; ?>" class="dropdown-item">Perfil</a>
-                                        <!--<a href="#" class="dropdown-item">Acesse seu e-mail <strong>@SME</strong></a>
-                                        <a href="#" class="dropdown-item">Acesse seu e-mail <strong>@EDU</strong></a> -->                                        
+                                        <!-- <a href="#" class="dropdown-item">Acesse seu e-mail <strong>@SME</strong></a>
+                                        <a href="#" class="dropdown-item">Acesse seu e-mail <strong>@EDU</strong></a>-->                                     
                                         <a href="<?= wp_logout_url(); ?>" class="dropdown-item">Sair</a>
                                     </div>
                                 </div>
@@ -232,8 +272,8 @@ use Classes\Header\Header;
 		
 
     </header>
-
-    <nav class="navbar navbar-expand-lg menu-topo mb-5">
+    
+    <nav class="navbar navbar-expand-lg menu-topo mb-5 d-none d-md-block">
         <section class="container">
 			
             <form>
@@ -262,6 +302,7 @@ use Classes\Header\Header;
             </nav>
         </section>
     </nav>
+    
 <?php
     if(is_search())
     new \Classes\Breadcrumb\Breadcrumb();

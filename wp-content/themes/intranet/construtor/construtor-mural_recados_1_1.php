@@ -1,10 +1,26 @@
 <?php 
     $page_id = get_the_ID();
-    $categorias = get_terms('categorias-destaque', array('hide_empty' => '1'));    
+    $categoriasDest = get_terms('categorias-destaque', array('hide_empty' => '1'));
+    $countBusca = 0;
+
+    if($_GET['busca'] && $_GET['busca'] != '')
+        $countBusca++;                
+
+    if($_GET['categoria'] && $_GET['categoria'] != '')
+        $countBusca++;
+        
+    if($_GET['tag'] && $_GET['tag'] != '')
+        $countBusca++;
+
+    if($_GET['date-ini'] && $_GET['date-ini'] != '')
+        $countBusca++;
+
+    if($_GET['date-end'] && $_GET['date-end'] != '')
+        $countBusca++;
 ?>
 <div class="container">
 
-    <form class="form-recados">
+    <form class="form-recados d-none d-md-block">
         <div class="row">
 
             <div class="col-12">
@@ -20,8 +36,8 @@
                     <select class="form-control" id="categoria" name="categoria">
                         <option value="" disabled selected>Selecione uma categoria</option>
                         <?php
-                            if($categorias){
-                                foreach($categorias as $categoria){
+                            if($categoriasDest){
+                                foreach($categoriasDest as $categoria){
                                     $selected = '';
                                     if($_GET['categoria'] == $categoria->term_id)
                                         $selected = 'selected';
@@ -56,6 +72,19 @@
 
         </div>
     </form>
+
+    <div class="row">
+
+        <div class="col-12 d-md-none">
+            <button type="button" class="btn btn-outline-primary btn-avanc-f btn-avanc btn-avanc-m mb-4" data-toggle="modal" data-target="#filtroBusca">
+                <i class="fa fa-filter" aria-hidden="true"></i> Filtrar 
+                <?php if($countBusca > 0): ?>
+                    <span class="badge badge-primary"><?php echo $countBusca; ?></span>
+                <?php endif; ?>
+            </button>
+        </div>
+
+    </div>
 
     <div class="row">
         <div class="col-12">
@@ -117,19 +146,28 @@
                     ?>
                     <div class="recado">
                         <div class="row">
-                            <div class="col-sm-2">
+                            <div class="col-3 col-md-2 img-column">
                                 <?php 
                                     if($categorias)
                                         $image = get_field('imagem_principal', 'categorias-destaque_' . $categorias[0]->term_id);
                                         $i = 0;
                                 ?>
                                 <?php if($image): ?>
-                                    <img src="<?= $image['url']; ?>" class="img-fluid rounded" alt="Imagem de ilustração categoria">
+                                    <img src="<?= $image['url']; ?>" class="img-fluid rounded d-none d-sm-none d-md-block" alt="Imagem de ilustração categoria">
+                                    <img src="<?= $image['sizes']['thumbnail']; ?>" class="img-fluid rounded d-md-none" alt="Imagem de ilustração categoria">
                                 <?php else: ?>
                                     <img src="<?= get_template_directory_uri(); ?>/img/categ-destaques.jpg" class="img-fluid rounded" alt="Imagem de ilustração categoria">
                                 <?php endif; ?>
                             </div>
-                            <div class="col-sm-10">                                
+                            <?php 
+                                //echo "<pre>";
+                                //print_r($image);
+                                //echo "</pre>";
+                            ?>
+                            <div class="col-9 col-md-10">
+
+                                <p class="data"><?= getDay(get_the_date('w')); ?>, <?= get_the_date('M d') ?> às <?= get_the_date('H\hi\m\i\n') ?></p>
+                                
                                 <?php if($tags): ?>
                                     <div class="tags-recados">
                                         <?php 
@@ -141,7 +179,6 @@
                                     </div>
                                 <?php endif; ?>
 
-                                <p class="data"><?= getDay(get_the_date('w')); ?>, <?= get_the_date('M d') ?> às <?= get_the_date('H\hi\m\i\n') ?></p>
                                 <?php if($categorias): ?>
                                     <p class="categs">
                                         <?php 
@@ -213,3 +250,77 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal right fade" id="filtroBusca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<p class="modal-title" id="myModalLabel2">Filtrar por:</p>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>				
+			</div>
+
+			<div class="modal-body">
+				<div class="acord-busca my-2">
+					<form method="get" class="text-left" action="<?= get_the_permalink(); ?>">
+						
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="busca">Filtrar por termo</label>
+                                    <input type="text" value="<?= $_GET['busca']; ?>" class="form-control" id="busca" name="busca" placeholder="Busque por título ou palavra-chave">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                
+                                <div class="form-group">
+                                    <label for="categoria">Filtrar por categoria de destaque</label>
+                                    <select class="form-control" id="categoria" name="categoria">
+                                        <option value="" disabled selected>Selecione uma categoria</option>
+                                        <?php
+                                            
+                                            if($categoriasDest){
+                                                foreach($categoriasDest as $categoria){
+                                                    $selected = '';
+                                                    if($_GET['categoria'] == $categoria->term_id)
+                                                        $selected = 'selected';
+                                                    echo '<option value="' . $categoria->term_id . '" ' . $selected . '>' . $categoria->name . '</option>';
+                                                }
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-3">
+                                <div class="form-group">
+                                    <label for="data-ini">Filtrar por intervalo de datas</label>
+                                    <input type="date" id="data-ini" name="date-ini" value="<?= $_GET['date-ini']; ?>" max="<?= date("Y-m-d"); ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-3">
+                                <div class="form-group">
+                                    <label for="data-end">até</label>
+                                    <input type="date" id="data-end" name="date-end" value="<?= $_GET['date-end']; ?>" max="<?= date("Y-m-d"); ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-12 btn-filtro">
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-outline-primary mr-3" id="limpar" onclick="window.location.href='<?= get_the_permalink($page_id); ?>'">Limpar filtros</button>
+                                    <button type="submit" class="btn btn-primary" id="filtrar">Filtrar</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+					</form>
+				</div>	
+			</div>
+
+		</div><!-- modal-content -->
+	</div><!-- modal-dialog -->
+</div><!-- modal -->

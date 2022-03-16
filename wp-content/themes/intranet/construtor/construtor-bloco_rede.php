@@ -17,39 +17,39 @@ if($args['key'] == '1_1' || $args['key'] == '1_2' || $args['key'] == '2_2'){
 if(get_sub_field($chave) == 'insta'):
     ?>
 
-        <div class="container">	
-            <div class="row social-block">
-                <div class="<?php echo $column1; ?>">
-                    <?php if(get_sub_field($titulo)): ?>
-                        <p><?php echo get_sub_field($titulo); ?></p>
-                    <?php endif; ?>
+        	
+        <div class="row social-block">
+            <div class="<?php echo $column1; ?>">
+                <?php if(get_sub_field($titulo)): ?>
+                    <p><?php echo get_sub_field($titulo); ?></p>
+                <?php endif; ?>
 
-                    <?php if(get_sub_field($descri)): ?>
-                        <p class='social-descri'><?php echo get_sub_field($descri); ?></p>
-                    <?php endif; ?>
+                <?php if(get_sub_field($descri)): ?>
+                    <p class='social-descri'><?php echo get_sub_field($descri); ?></p>
+                <?php endif; ?>
 
-                    <hr>
+                <hr>
 
-                    <?php if(get_sub_field($pagina)): ?>
-                        <a href="<?php echo get_sub_field($pagina); ?>"><button type="button" class="btn btn-primary btn-sm px-3"><i class="fa fa-instagram" aria-hidden="true"></i> | Instagram</button><span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a>
-                    <?php endif; ?>
-                    
-                </div>
-                <div class="<?php echo $column2; ?>">
-                    <?php if(get_sub_field($shortCode)):
-                        $short = get_sub_field($shortCode);
-                        echo do_shortcode($short);
-                    endif; ?>
-                    
-                </div>
+                <?php if(get_sub_field($pagina)): ?>
+                    <a href="<?php echo get_sub_field($pagina); ?>"><button type="button" class="btn btn-primary btn-sm px-3"><i class="fa fa-instagram" aria-hidden="true"></i> | Instagram</button><span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></a>
+                <?php endif; ?>
+                
+            </div>
+            <div class="<?php echo $column2; ?>">
+                <?php if(get_sub_field($shortCode)):
+                    $short = get_sub_field($shortCode);
+                    echo do_shortcode($short);
+                endif; ?>
+                
             </div>
         </div>
+        
 
     <?php
         elseif(get_sub_field($chave) == 'face'):
     ?>
         <div class="row social-block">
-            <div class="<?php echo $column1; ?>">
+            <div class="<?php echo $column1; ?> mb-2">
 
                 <?php if(get_sub_field($titulo)): ?>
                     <p><?php echo get_sub_field($titulo); ?></p>

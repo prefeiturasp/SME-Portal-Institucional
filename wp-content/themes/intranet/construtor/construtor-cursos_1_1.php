@@ -34,10 +34,30 @@
     curl_close($cURLConnection);
 
     $publicoResponse = json_decode($publicoList);
+
+    $countBusca = 0;
+
+    if($_GET['promotora'] && $_GET['promotora'] != '')
+        $countBusca++;
+
+    if($_GET['busca'] && $_GET['busca'] != '')
+        $countBusca++;
+
+    if($_GET['formacao'] && $_GET['formacao'] != '')
+        $countBusca++;
+
+    if($_GET['publico'] && $_GET['publico'] != '')
+        $countBusca++;
+
+    if($_GET['date-ini'] && $_GET['date-ini'] != '')
+        $countBusca++;
+
+    if($_GET['date-end'] && $_GET['date-end'] != '')
+        $countBusca++;
     
 ?>
 
-<div class="container">
+<div class="container d-none d-md-block">
     <div class="row">
         <div class="col-12">
             <form class="form-recados">
@@ -134,6 +154,20 @@
         </div>
     </div>
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 d-md-none">
+            <button type="button" class="btn btn-outline-primary btn-avanc-f btn-avanc btn-avanc-m mb-4" data-toggle="modal" data-target="#filtroBusca">
+                <i class="fa fa-filter" aria-hidden="true"></i> Filtrar 
+                <?php if($countBusca > 0): ?>
+                    <span class="badge badge-primary"><?php echo $countBusca; ?></span>
+                <?php endif; ?>
+            </button>
+        </div>
+    </div>
+</div>
+    
 
 <div class="container">
     <div class="row">
@@ -365,3 +399,113 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal right fade" id="filtroBusca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<p class="modal-title" id="myModalLabel2">Filtrar por:</p>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>				
+			</div>
+
+			<div class="modal-body">
+				<div class="acord-busca my-2">
+					<form method="get" class="text-left" action="<?= get_the_permalink(); ?>">
+						
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="busca">Filtrar por termo</label>
+                                    <input type="text" value="<?= $_GET['busca']; ?>" class="form-control" id="busca" name="busca" placeholder="Busque por título ou palavra-chave">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="formacao">Filtrar por tipo de formação</label>
+                                    <select class="form-control" id="formacao" name="formacao">
+                                        <option value="" selected>Selecione uma formação</option>
+                                        <?php
+                                            if($formaResponse){
+                                                foreach($formaResponse as $formacao){
+                                                    $selected = '';
+                                                    if($_GET['formacao'] == $formacao->slug)
+                                                        $selected = 'selected';
+                                                    echo '<option value="' . $formacao->slug . '" ' . $selected . '>' . $formacao->name . '</option>';
+                                                }
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="publico">Filtrar por público alvo</label>
+                                    <select class="form-control" id="publico" name="publico">
+                                        <option value="" selected>Selecione um público</option>
+                                        <?php
+                                            if($publicoResponse){
+                                                foreach($publicoResponse as $publico){
+                                                    $selected = '';
+                                                    if($_GET['publico'] == $publico->slug)
+                                                        $selected = 'selected';
+                                                    echo '<option value="' . $publico->slug . '" ' . $selected . '>' . $publico->name . '</option>';
+                                                }
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="promotora">Filtrar por área promotora</label>
+                                    <select class="form-control" id="promotora" name="promotora">
+                                        <option value="" selected>Selecione uma área</option>
+                                        <?php
+                                            if($promoResponse){
+                                                foreach($promoResponse as $promotora){
+                                                    $selected = '';
+                                                    if($_GET['promotora'] == $promotora->slug)
+                                                        $selected = 'selected';
+                                                    echo '<option value="' . $promotora->slug . '" ' . $selected . '>' . $promotora->name . '</option>';
+                                                }
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-3">
+                                <div class="form-group">
+                                    <label for="data-ini">Filtrar por intervalo de datas</label>
+                                    <input type="date" id="data-ini" name="date-ini" value="<?= $_GET['date-ini']; ?>" max="<?= date("Y-m-d"); ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-3">
+                                <div class="form-group">
+                                    <label for="data-end">&nbsp;</label>
+                                    <input type="date" id="data-end" name="date-end" value="<?= $_GET['date-end']; ?>" max="<?= date("Y-m-d"); ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-12 btn-filtro">
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-outline-primary mr-3" id="limpar" onclick="window.location.href='<?= get_the_permalink($page_id); ?>'">Limpar filtros</button>
+                                    <button type="submit" class="btn btn-primary" id="filtrar">Filtrar</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+					</form>
+				</div>	
+			</div>
+
+		</div><!-- modal-content -->
+	</div><!-- modal-dialog -->
+</div><!-- modal -->

@@ -92,6 +92,27 @@ wp_enqueue_script('slick');
             autoplaySpeed: 5000,
             prevArrow:'<span class="slick-arrow arrow-left"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>',
             nextArrow:'<span class="slick-arrow arrow-right"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>',
+            responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        infinite: true,
+        dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]
         });
     });
 </script>

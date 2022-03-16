@@ -247,8 +247,7 @@ button.close {
 .modal-dialog {
   position: relative;
   width: auto;
-  margin: 10px;
-  margin-top: 6rem !important;
+  margin: 10px;  
 }
 .modal-content {
   position: relative;
@@ -415,7 +414,7 @@ button.close {
     max-width: 100%;
     height: auto;
 }
-button.close {
+button.close {      
   width: auto;
   text-align: right;
   position: absolute;
@@ -442,4 +441,19 @@ button.close {
 		padding: 10px;
 	  	margin: 0;
 	}
+
+  .modal-body h2 {
+    font-size: 44px !important;
+    line-height: 1.1;
+  }
+
+  #popup .modal-footer button,
+  #popup .modal-footer .btn {
+    width: 48%;
+    margin: 0;
+  }
+
+  #popup .modal-footer .btn-outline-primary{
+    margin-right: 3%;
+  }
 }

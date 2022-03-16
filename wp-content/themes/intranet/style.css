@@ -267,6 +267,157 @@ a {
         margin-top: 10px !important;
         margin-bottom: 10px !important;
     }
+
+    .container-forms {
+        background-repeat: no-repeat;
+        background-size: contain;
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 230px;
+    }
+
+    .container-forms .container{
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .container-forms .core_login_form{
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .mobile-menu {
+        padding-left: 30px;
+    }
+
+    .profile-menu {
+        padding-right: 30px;
+        padding-left: 0;
+    }
+
+    .profile-menus span{
+        display: none;
+    }
+
+    .profile-menus .dropdown-menu{
+        left: -84px !important;
+    }
+
+    .portais .slick-arrow {
+        font-size: 30px;
+        top: 35%;
+    }
+
+    .portais .slick-arrow.arrow-right {
+        right: -30px;
+    }
+
+    .portais .slick-arrow.arrow-left {
+        left: -30px;
+    }
+    .banner-news{
+        text-align: center;
+    }
+
+    .banner-news h3 {
+        font-size: 30px;
+    }
+
+    .banner-news .rf-news, .email-news {
+        margin-bottom: 15px;
+    }
+
+    .banner-news .btn-news,
+    .whatsapp-banner .btn-whats{
+        width: 100%;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .whatsapp-banner{
+        text-align: center;
+    }
+
+    .whats-content{
+        display: block;
+    }
+
+    .whats-content .img-field,
+    .whats-content .tel-field {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .bn_fx_banner{
+        background-size: cover;
+    }
+
+    .bn_fx_banner h1 {
+        font-size: 28px !important;
+        font-weight: bold;
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+
+    .form-recados{
+        border-radius: 4px;
+    }
+
+    .recado .img-column {
+        padding: 0;
+    }
+
+    .recado h2{
+        font-size: 20px !important;
+        color: #000000;
+    }
+
+    .recado .tags-recados {
+        position: relative;
+        right: 0;
+        margin-top: -10px;
+        margin-bottom: 10px;
+    }
+
+    .recado .tags-recados a {
+        font-size: 12px;
+        min-width: 30px;
+    }
+
+    .recados-destaques .recado .tags-recados a{
+        min-width: 24px;
+    }
+
+    .input-busca {
+        display: block;
+        padding: 0;
+        margin-bottom: 15px;
+    }
+
+    #portais-submit {
+        width: 100%;
+        font-weight: bold;
+    }
+
+    #limpar {
+        width: 48%;
+        margin-right: 4%;
+    }
+
+    #filtrar{
+        width: 48%;
+    }
+
+    .ic__week-head tr td{
+        font-size: 10px;
+    }
+
+    .calendario-construtor .agenda-lista{
+        box-shadow: initial;
+    }
+    
 }
 
 .menu-topo {
@@ -377,6 +528,152 @@ a {
 
 .menu-item:hover a.nav-link {
     color: #FFFFFF;
+}
+
+/**** Menu ****/
+
+.btn-menu {
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 28px;
+    font-weight: normal;
+    z-index: 9999;
+    position: relative;
+}
+
+.btn-menu .fa {
+    color: #E7600C;
+    margin-right: 20px;
+}
+
+#menu ul {
+    border: 0;
+    margin-left: 10px;
+}
+
+#menu ul li {
+    width: 100%;
+    display: block;
+    font-size: 22px;
+    padding-left: 60px;
+    text-align: left;
+    margin-bottom: 17px;
+}
+
+#menu ul li:hover{
+    background: initial;
+}
+
+#menu ul li.active{
+    background: #FFFFFF;
+}
+
+#menu ul li:last-child{
+    border: 0;
+}
+
+#menu ul li a {
+    transition: 0.3s;
+    background: initial;
+    border: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+}
+
+#menu ul li a:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+#menu .modal-dialog {
+    margin-top: 165px;
+    padding-bottom: 165px;
+}
+
+
+.modal.left .modal-content,
+.modal.right .modal-content {
+    height: 100%;
+    overflow-y: auto;
+    border: 0;
+    border-radius: inherit;
+}
+
+.modal.left .modal-body,
+.modal.right .modal-body {
+    padding: 15px 15px 80px;
+}
+
+
+/*Left*/
+
+.modal.left.fade .modal-dialog {
+    -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+    transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.left.fade.in .modal-dialog {
+    left: 0;
+}
+
+@media (max-width: 768px) {
+    .btn-menu .fa {
+        background: #0F42B2;
+        color: #FFFFFF;
+        margin: 0;
+        font-size: 18px;
+        padding: 4px 12px;
+        border-radius: 4px;
+    }
+
+    .btn-menu {
+        font-size: 14px;
+        font-weight: bold;
+        color: #0F42B2;
+        padding-left: 0;
+    }
+
+    div#menu,
+    div#filtroBusca {
+        z-index: 99999;
+    }
+
+    #menu .modal-dialog{
+        margin-top: 0;
+        padding-bottom: 0;
+    }
+
+    #menu button.close {
+        width: auto;
+        float: right;
+        position: initial;
+        background: #033095;
+        opacity: 1;
+        padding: 0.8rem 1.2rem !important;
+        color: #FFFFFF;
+    }
+    
+
+    #menu .modal-header {
+        background: #0F42B2;
+        border-radius: 0;
+        font-weight: bold;
+        color: #FFF;
+        font-size: 20px;
+        line-height: 20px;
+        padding-left: 25px;
+    }
+
+    #menu ul li{
+        padding-left: 0;
+    }
+
+    li.list-inline-item {
+        margin-bottom: 13px;
+    }
 }
 
 form.navbar-form{
@@ -604,10 +901,6 @@ form.navbar-form{
 	.acesso-rapido .icon-card img {
 		display: block;
 		margin: 0 auto;
-	}
-
-	.collapse:not(.show){
-		display: block;
 	}
 
 	#irmenu{
@@ -1750,7 +2043,7 @@ a.blog-link p {
 .modal.right .modal-dialog {
     position: fixed;
     margin: auto;
-    width: 320px;
+    width: 270px;
     height: 100%;
     -webkit-transform: translate3d(0%, 0, 0);
     -ms-transform: translate3d(0%, 0, 0);
@@ -1771,13 +2064,78 @@ a.blog-link p {
 }
 
 
-/*Right*/
+#filtroBusca .modal-title{
+    color: #0F42B2;
+    font-size: 16px;
+    font-weight: bold;
+}
 
+#filtroBusca .modal-header {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-bottom: 1px solid #DADADA !important;
+}
+
+#filtroBusca .modal-header .close{
+    color: #0F42B2;
+    opacity: 1;
+}
+
+#filtroBusca .modal-header .close:hover{
+    opacity: 0.6;
+}
+
+#filtroBusca #limpar,
+#filtroBusca #filtrar{
+    border-radius: 0;
+}
+
+#filtroBusca label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.btn-filtro {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-radius: 0;
+    padding: 0;
+}
+
+.modal.left .modal-dialog,
+.modal.right .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 320px;
+    height: 100%;
+    right: 0;
+    -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+         -o-transform: translate3d(0%, 0, 0);
+            transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content,
+.modal.right .modal-content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.modal.left .modal-body,
+.modal.right .modal-body {
+    padding: 15px 15px 80px;
+}
+
+    
+/*Right*/
 .modal.right.fade .modal-dialog {
     -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-    transition: opacity 0.3s linear, right 0.3s ease-out;
+       -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+         -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+            transition: opacity 0.3s linear, right 0.3s ease-out;
 }
 
 .modal.right.fade.in .modal-dialog {
@@ -1796,29 +2154,6 @@ a.blog-link p {
 
 .modal.left.fade.in .modal-dialog {
     left: 0;
-}
-
-#filtroBusca .modal-header {
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-    border-bottom: 1px solid #DADADA;
-}
-
-#filtroBusca .modal-title {
-    color: #196CBD;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-#filtroBusca .modal-header .close {
-    color: #196CBD;
-    opacity: 1;
-    position: relative;
-    padding: 1rem !important;
-    width: initial;
 }
 
 .vertical-menu-mobile {
@@ -2028,4 +2363,30 @@ div.star-rating-on a {
     border-radius: 4px;
     cursor: pointer;
     margin-top: 30px;
+}
+
+@media (max-width: 767px){
+    .form-feedback .star-rating-control{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .form-feedback .wpcf7-submit {
+        padding: 10px;
+        width: 100%;
+        font-weight: bold;
+    }
+}
+
+.btn-outline-primary {
+    border-color: #0F42B2 !important;
+    color: #0F42B2 !important;
+}
+
+.badge-primary{
+    background: #0F42B2;
+}
+
+.modal{
+    z-index: 99999;
 }
