@@ -1981,3 +1981,14 @@ function subpages_private(){
 }
 add_action('wp_ajax_subpages_private', 'subpages_private');
 add_action('wp_ajax_nopriv_subpages_private', 'subpages_private');
+
+// Ocultar categorias de Contato
+add_action('admin_menu','hide_submenu_contact');
+function hide_submenu_contact() {
+	global $submenu;	
+
+	// This needs to be set to the URL for the admin menu section (aka "Menu Page")
+	$menu_page = 'edit.php?post_type=contato';
+	unset($submenu[$menu_page][15]);
+	
+}
