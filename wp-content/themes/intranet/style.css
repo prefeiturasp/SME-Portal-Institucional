@@ -2383,6 +2383,12 @@ div.star-rating-on a {
     color: #0F42B2 !important;
 }
 
+.btn-outline-primary:hover {
+    border-color: #0F42B2 !important;
+    color: #FFFFFF !important;
+    background: #0F42B2;
+}
+
 .badge-primary{
     background: #0F42B2;
 }

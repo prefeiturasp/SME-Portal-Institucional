@@ -1815,17 +1815,23 @@ add_filter( 'media_send_to_editor', 'filter_media_send_to_editor', 11, 3 );
 // Inclui link esqueceu a senha
 add_filter('login_form_middle','lost_pass');
 function lost_pass(){
-     //Output your HTML
-     $additional_field = '<div class="lost-pass">
-        <p class="m-0"><a href="#">Esqueceu sua senha?</a></p>
+    
+	//Output your HTML
+	$link = get_field('link', $post_id);
+	$additional_field = '';
+	if($link){
+     	$additional_field .= '<div class="lost-pass">
+        <p class="m-0"><a href="' . $link . '">Esqueceu sua senha?</a></p>
 		<p class="pass-text">Na senha, digite a mesma senha do Sistema de Gestão Pedagógica (SGP) e Plateia. Caso esqueça sua senha e necessite redefinir, a mesma será aplicada
 		para os outros acessos (Portais e Sistemas) da SME.</p>
      </div>';
-	 $additional_field .= '<div class="login-custom-field-wrapper">
+	}
+	
+	$additional_field .= '<div class="login-custom-field-wrapper">
         <input type="hidden" value="1" name="login_page"></label>
-     </div>';
+    </div>';
 
-     return $additional_field;
+    return $additional_field;
 }
 
 // Retorna dia da semana

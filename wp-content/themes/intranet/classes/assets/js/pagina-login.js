@@ -10,27 +10,18 @@ jQuery(document).ready(function ($) {
 
     // Inclui placeholder nos inputs de login
     $("#user").attr("placeholder", "Informe o RF do usuário");
+    
     $("#pass").attr("placeholder", "Informe sua senha");
-
     // Inclui botao hide/show no campo de senha
     $(".login-password").append('<i class="fa fa-eye-slash" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>');
 
     // Inclui campo de erro
-    $(".login-username").append('<span class="login-error">Campo obrigatório</span>');
+    $(".login-username").append('<span class="login-error">Insira o seu usuário ou RF</span>');
     $(".login-password").append('<span class="pass-error">Campo obrigatório</span>');
 
     const togglePassword = document.querySelector('#togglePassword');
-    const password = document.querySelector('#pass');
+    const password = document.querySelector('#pass');    
     
-    togglePassword.addEventListener('click', function (e) {
-        // toggle the type attribute
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
-        // toggle the eye slash icon
-        this.classList.toggle('fa-eye-slash');
-        this.classList.toggle('fa-eye');
-    });
-
     $('#user').blur(function(){
         if(!$(this).val()){
             $(this).addClass("error");
@@ -48,6 +39,19 @@ jQuery(document).ready(function ($) {
         } else{
             $(this).removeClass("error");
             $('.pass-error').hide();
+        }
+    });
+
+    $('#lost-pass').on('submit', function() {
+        // do validation here
+        if(!$('#user').val()){
+            $('#user').addClass("error");
+            $('.login-error').css('display', 'block');
+            return false;
+        } else{
+            $('#user').removeClass("error");
+            $('.login-error').hide();
+            return true;
         }
     });
 
@@ -71,5 +75,14 @@ jQuery(document).ready(function ($) {
             $('.pass-error').hide();
         }
         
+    });
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+        this.classList.toggle('fa-eye');
     });
 });
