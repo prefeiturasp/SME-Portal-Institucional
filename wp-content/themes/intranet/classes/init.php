@@ -92,6 +92,7 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialFace
 
 require_once __ROOT__.'/classes/ModelosDePaginas/Login/Login.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/Login/LoginForm.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/Login/LoginRecuperar.php';
 
 require_once __ROOT__.'/classes/ModelosDePaginas/LandingPages/Modelo_1.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/LandingPages/Modelo_2.php';
