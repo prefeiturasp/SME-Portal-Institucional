@@ -229,7 +229,7 @@ use Classes\Header\Header;
                         <div class="col-3 col-md-3  d-flex align-items-center order-2 order-md-3 profile-menu">
                             <?php 
                                 $user = wp_get_current_user();
-                                $profileLink = '#';
+                                $profileLink = get_home_url() . '/index.php/perfil';
                                 if(current_user_can('administrator'))
                                     $profileLink = get_home_url() . '/wp-admin/profile.php';
                                 
@@ -247,11 +247,29 @@ use Classes\Header\Header;
                             <div class="navbar-nav ml-auto">                                
                                 <div class="nav-item dropdown profile-menus">
                                     <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
-                                        <img src="<?= get_template_directory_uri() . '/img/user-image.jpg'; ?>" class="avatar" alt="Avatar"> 
+                                        <?php
+                                            $image_id = get_field('imagem', 'user_' . get_current_user_id());
+                                            $image_profile = $img_atts = wp_get_attachment_image_src($image_id, 'thumbnail');
+                                                                        
+                                            if($image_profile[0]):
+                                        ?>
+                                            <img src="<?= $image_profile[0]; ?>" alt="Imagem de perfil">
+                                        <?php else: ?>
+                                            <img src="<?= get_template_directory_uri() . '/img/user-image.jpg'; ?>" class="avatar" alt="Avatar"> 
+                                        <?php endif; ?>
                                         <span><?= $displayName; ?></span> <i class="fa fa-chevron-down" aria-hidden="true"></i>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <img src="<?= get_template_directory_uri() . '/img/user-image.jpg'; ?>" class="avatar" alt="Avatar">
+                                        <?php
+                                            $image_id = get_field('imagem', 'user_' . get_current_user_id());
+                                            $image_profile = $img_atts = wp_get_attachment_image_src($image_id, 'thumbnail');
+                                                                        
+                                            if($image_profile[0]):
+                                        ?>
+                                            <img src="<?= $image_profile[0]; ?>" alt="Imagem de perfil">
+                                        <?php else: ?>
+                                            <img src="<?= get_template_directory_uri() . '/img/user-image.jpg'; ?>" class="avatar" alt="Avatar"> 
+                                        <?php endif; ?>
                                         <p><?= $displayName; ?></p>
                                         <div class="dropdown-divider"></div>
                                         <a href="<?= $profileLink; ?>" class="dropdown-item">Perfil</a>
