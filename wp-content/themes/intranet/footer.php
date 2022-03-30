@@ -71,7 +71,6 @@
 		</div>
 	</div>
 </div>
-
 <div class="voltar-topo">
 	<a href="#" id="toTop" style="display: none;">
 		<i class="fa fa-arrow-up" aria-hidden="true"></i>
@@ -140,6 +139,7 @@
 
 <?php wp_footer() ?>
 <script src="//api.handtalk.me/plugin/latest/handtalk.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 	
 	//var ht = new HT({
@@ -200,11 +200,181 @@
 
 		// Do not include the code below, it is just for the 'Reset Session' button in the viewport.
 		// This is same as closing the browser tab.
-		//$('#reset-session').on('click',function(){
-			//sessionStorage.setItem('story','');
-		//});
+		$('#reset-session').on('click',function(){
+			sessionStorage.setItem('story','');
+		});
 
+		$('#acf-field_62420050a8eb3').mask('(00) 00000-0000');
+		$('#user-cpf').mask('000.000.000-00');
+
+		$('#acf-field_6241ffb3bf190').change(function() {
+			//Use $option (with the "$") to see that the variable is a jQuery object
+			var $option = $(this).find('option:selected');
+			//Added with the EDIT
+			var value = $option.val();//to get content of "value" attrib
+			//var text = $option.text();//to get <option>Text</option> content
+			if(value == 'Outro'){
+				$('.hide-input').show();
+			} else {
+				$('.hide-input').hide();
+			}
+		});
+
+		$(".password-type").append('<i class="fa fa-eye-slash" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>');
+
+		function alterar_senha(rf, senha1, senha2){
+			$.ajax({
+				url: '<?php echo admin_url( 'admin-ajax.php' ) ?>',
+				type:"post",
+				data: { action: 'altera_senha', user: rf, nova1: senha1, nova2: senha2 },
+				success: function(data) {
+				
+					
+					//jQuery('.leaflet-locationiq-list').prepend( data );
+					var obj = JSON.parse(data);
+
+					console.log(obj);
+
+					if(obj.code == 200){
+						$("#senha-atual").val("");
+						$("#senha-nova").val("");
+						$("#senha-repita").val("");
+						$('#modalPass').modal('hide');
+
+						Swal.fire({
+							icon: 'success',
+							title: 'Senha alterada com sucesso',
+							text: 'A sua senha foi alterada com sucesso!',
+						})
+					} else if(obj.code == 401){
+						Swal.fire({
+							icon: 'error',
+							title: 'Senha não alterada',
+							text: obj.body,
+						})
+					} else {
+						Swal.fire({
+							icon: 'error',
+							title: 'Erro',
+							text: 'Não foi possível alterar sua senha! Tente novamente.',
+						})
+					}
+				},
+				error : function(error){ console.log(error) }
+			});
+		}
+
+		function validar_usuario(rf, atual, nova1, nova2){
+			$.ajax({
+				url: '<?php echo admin_url( 'admin-ajax.php' ) ?>',
+				type:"post",
+				data: { action: 'valida_user', user: rf, atual: atual },
+				success: function(data) {
+				
+					
+					//jQuery('.leaflet-locationiq-list').prepend( data );
+					//var obj = JSON.parse(data);
+					var obj = data;
+
+					if(obj == 200){
+						alterar_senha(rf, nova1, nova2);
+					} else {
+						Swal.fire({
+							icon: 'error',
+							title: 'Erro',
+							text: 'Sua senha atual está incorreta!',
+						})
+					}
+				},
+				error : function(error){ console.log(error) }
+			});
+		}
+
+
+		$("#alterPass").click(function(){
+			var rf = $("#user-rf").html();
+			var atual = $("#senha-atual").val();
+			var nova1 = $("#senha-nova").val();
+			var nova2 = $("#senha-repita").val();
+			var ciente = $('#ciencia-senha:checked').length;
+
+			if($('#ciencia-senha:checked').length < 1){
+				Swal.fire({
+					icon: 'error',
+					title: 'Erro',
+					text: 'Você precisa confirmar o termo de ciencia para troca da senha.',
+				});
+			} else if(!atual || !nova1 || !nova2){
+				Swal.fire({
+					icon: 'error',
+					title: 'Senhas obrigatórias',
+					text: 'Preencha todos os campos de senha.',
+				});
+			} else if(nova1 == nova2){				
+				validar_usuario(rf, atual, nova1, nova2);
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Senhas diferentes',
+					text: 'As novas senhas não conferem, por gentileza revise e tente novamente.',
+				});
+			}
+		});
+
+		// Inclui botao hide/show no campo de senha
+		$(".senha-atual").append('<i class="fa fa-eye-slash" id="senha-atual-show" style="margin-left: -30px; cursor: pointer;"></i>');
+
+		const senhaAtualShow = document.querySelector('#senha-atual-show');
+		const senhaAtual = document.querySelector('#senha-atual'); 
+		
+		senhaAtualShow.addEventListener('click', function (e) {
+			// toggle the type attribute
+			const type = senhaAtual.getAttribute('type') === 'password' ? 'text' : 'password';
+			senhaAtual.setAttribute('type', type);
+			// toggle the eye slash icon
+			this.classList.toggle('fa-eye-slash');
+			this.classList.toggle('fa-eye');
+		});
+
+		// Inclui botao hide/show no campo de nova senha
+		$(".senha-nova").append('<i class="fa fa-eye-slash" id="senha-nova-show" style="margin-left: -30px; cursor: pointer;"></i>');
+
+		const senhaNovaShow = document.querySelector('#senha-nova-show');
+		const senhaNova = document.querySelector('#senha-nova'); 
+		
+		senhaNovaShow.addEventListener('click', function (e) {
+			// toggle the type attribute
+			const type = senhaNova.getAttribute('type') === 'password' ? 'text' : 'password';
+			senhaNova.setAttribute('type', type);
+			// toggle the eye slash icon
+			this.classList.toggle('fa-eye-slash');
+			this.classList.toggle('fa-eye');
+		});
+
+		// Inclui botao hide/show no campo de repita senha
+		$(".senha-repita").append('<i class="fa fa-eye-slash" id="senha-repita-show" style="margin-left: -30px; cursor: pointer;"></i>');
+
+		const senhaRepitaShow = document.querySelector('#senha-repita-show');
+		const senhaRepita = document.querySelector('#senha-repita'); 
+		
+		senhaRepitaShow.addEventListener('click', function (e) {
+			// toggle the type attribute
+			const type = senhaRepita.getAttribute('type') === 'password' ? 'text' : 'password';
+			senhaRepita.setAttribute('type', type);
+			// toggle the eye slash icon
+			this.classList.toggle('fa-eye-slash');
+			this.classList.toggle('fa-eye');
+		});
 	});
 </script>
+<?php if($_GET['updated']): ?>
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: 'Dados atualizados',
+			text: 'Seus dados foram atualizados com sucesso!',
+		});
+	</script>
+<?php endif; ?>
 </body>
 </html>

@@ -1944,3 +1944,91 @@ add_filter('handle_bulk_actions-users', function($redirect_url, $action, $users)
 	}
 	return $redirect_url;
 }, 10, 3);
+
+// Validar Senha
+add_action('wp_ajax_valida_user','valida_user');
+add_action('wp_ajax_nopriv_valida_user','valida_user');
+function valida_user(){
+	$curl = curl_init();
+
+	curl_setopt_array($curl, array(
+			CURLOPT_URL => 'https://hom-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/v1/autenticacao',
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => '',
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'POST',
+			CURLOPT_POSTFIELDS =>'{
+				"login": "' . $_POST['user'] . '",
+				"senha": "' . $_POST['atual'] . '"
+			}',
+			CURLOPT_HTTPHEADER => array(
+					'x-api-eol-key: fe8c65abfac596a39c40b8d88302cb7341c8ec99',
+					'Content-Type: application/json-patch+json'
+			),
+	));
+
+	$response = curl_exec($curl);
+	$info = curl_getinfo($curl);
+
+	curl_close($curl);
+	//print_r($info);
+	echo $info['http_code'];
+	die();
+}
+
+// Alterar Senha
+add_action('wp_ajax_altera_senha','altera_senha');
+add_action('wp_ajax_nopriv_altera_senha','altera_senha');
+function altera_senha(){
+	$curl = curl_init();
+
+	$retorno = array();
+	$campos = array('Usuario' => $_POST['user'],'Senha' => $_POST['nova1']);
+
+	// Given password
+	$password = $_POST['nova1'];
+
+	// Validate password strength
+	$uppercase = preg_match('@[A-Z]@', $password);
+	$lowercase = preg_match('@[a-z]@', $password);
+	$number    = preg_match('@[0-9]@', $password);
+	$specialChars = preg_match('@[^\w]@', $password);
+
+	if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8 || strlen($password) > 12) {
+		$retorno['code'] = 401;
+		$retorno['body'] = 'A senha deve ter entre 8 e 12 caracteres e deve incluir pelo menos uma letra maiúscula, um número e um caractere especial.';
+	}else{
+		curl_setopt_array($curl, array(
+				CURLOPT_URL => 'https://hom-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/AutenticacaoSgp/AlterarSenha',
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => '',
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 0,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => 'POST',
+				CURLOPT_POSTFIELDS => $campos,
+				CURLOPT_HTTPHEADER => array(
+						'x-api-eol-key: fe8c65abfac596a39c40b8d88302cb7341c8ec99',
+						'Content-Type: multipart/form-data'
+				),
+		));
+		
+		$response = curl_exec($curl);
+		$info = curl_getinfo($curl);
+
+		curl_close($curl);
+		//print_r($info);
+		//echo $info['http_code'];
+		
+		$retorno['code'] = $info['http_code'];
+		$retorno['body'] = $response;
+	}
+
+	
+	echo json_encode($retorno);
+	die();
+}
