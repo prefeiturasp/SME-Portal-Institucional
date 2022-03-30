@@ -74,6 +74,9 @@ function demo_auth( $user, $username, $password ){
             // Recebe o nome completo do usuario            
             $name = $user->nome;
 
+            // Recebe o CPF
+            $cpf = $user->cpf;
+
             // Divide o nome em Nome e Sobrenome
             $parts = explode(" ", $name);
             if(count($parts) > 1) {
@@ -91,6 +94,7 @@ function demo_auth( $user, $username, $password ){
                             );
             $new_user_id = wp_insert_user( $userdata ); // Um novo usuario sera criado
             update_user_meta($new_user_id, "rf", $username);
+            update_user_meta($new_user_id, "cpf", $cpf);
             
             // Carregar as novas informações do usuário
             $user_wp = new WP_User ($new_user_id);
