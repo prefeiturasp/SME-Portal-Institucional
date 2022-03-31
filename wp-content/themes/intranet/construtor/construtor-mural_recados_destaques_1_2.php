@@ -71,6 +71,8 @@
                             </div>
                         <?php endif; ?>
 
+                        <a href="#" class="link-modal" data-toggle="modal" data-target="#modal-<?= get_the_ID(); ?>"><h2><?= get_the_title(); ?></h2></a>
+
                         <?php if($categorias): ?>
                             <p class="categs">
                                 <?php 
@@ -85,7 +87,6 @@
                                 ?>
                             </p>
                         <?php endif; ?>
-                        <a href="#" data-toggle="modal" data-target="#modal-<?= get_the_ID(); ?>"><h2><?= get_the_title(); ?></h2></a>
                                               
                     </div>                    
                 </div>

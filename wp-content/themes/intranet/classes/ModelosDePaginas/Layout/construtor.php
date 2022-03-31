@@ -254,7 +254,7 @@ class Construtor extends Util
 									echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
 									echo '<div class="container-fluid p-0">';//bootstrap container
 									echo '<div class="row">';//bootstrap row
-									echo '<div class="col-sm-12 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+									echo '<div class="col-sm-12 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_1_1') ): the_row();
 											//titulo
 											if( get_row_layout() == 'fx_cl1_titulo_1_1' ):
@@ -375,7 +375,7 @@ class Construtor extends Util
 											// FAQ
 											elseif( get_row_layout() == 'fx_cl1_faq_1_1' ):
 												get_template_part( 'construtor/construtor', 'faq_1_1' );
-											
+
 											// Integracao Pagina
 											elseif( get_row_layout() == 'integrar_pagina' ):
 
@@ -415,7 +415,7 @@ class Construtor extends Util
 																	echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
 																	echo '<div class="container">';//bootstrap container
 																	echo '<div class="row">';//bootstrap row
-																	echo '<div class="col-sm-12 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' p-0 ' . $contentClass . '">';//bootstrap col
+																	echo '<div class="col-sm-12 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' p-0 ' . $contentClass . '">';//bootstrap col
 																		while( have_rows('fx_coluna_1_1', $post) ): the_row();
 																			
 																			//titulo
@@ -526,7 +526,7 @@ class Construtor extends Util
 																
 																	//conteudo flexivel 2 colunas esquerda
 																	if( have_rows('fx_coluna_1_2') ):
-																		echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_1_2') ): the_row();
 																				
 																				//titulo
@@ -626,7 +626,7 @@ class Construtor extends Util
 
 																	//conteudo flexivel 2 colunas direita
 																	if( have_rows('fx_coluna_2_2') ):
-																		echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_2_2') ): the_row();
 																				//titulo
 																				if( get_row_layout() == 'fx_cl1_titulo_2_2' ):
@@ -738,7 +738,7 @@ class Construtor extends Util
 																
 																	//conteudo flexivel 3 colunas (primeira coluna)
 																	if( have_rows('fx_coluna_1_3') ):
-																		echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_1_3') ): the_row();
 																				//titulo
 																				if( get_row_layout() == 'fx_cl1_titulo_1_3' ):
@@ -835,7 +835,7 @@ class Construtor extends Util
 
 																	//conteudo flexivel 3 colunas (segunda coluna)
 																	if( have_rows('fx_coluna_2_3') ):
-																		echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_2_3') ): the_row();
 
 																				//titulo
@@ -934,7 +934,7 @@ class Construtor extends Util
 
 																	//conteudo flexivel 3 colunas (terceira coluna)
 																	if( have_rows('fx_coluna_3_3') ):
-																		echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_3_3') ): the_row();
 																				
 																				//titulo
@@ -1050,7 +1050,7 @@ class Construtor extends Util
 																	
 																	//conteudo flexivel 4 colunas (primeira coluna)
 																	if( have_rows('fx_coluna_1_4') ):
-																		echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_1_4') ): the_row();
 
 																				//titulo
@@ -1149,7 +1149,7 @@ class Construtor extends Util
 
 																	//conteudo flexivel 4 colunas (segunda coluna)
 																	if( have_rows('fx_coluna_2_4') ):
-																		echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_2_4') ): the_row();
 																				//titulo
 																				if( get_row_layout() == 'fx_cl1_titulo_2_4' ):
@@ -1246,7 +1246,7 @@ class Construtor extends Util
 
 																	//conteudo flexivel 4 colunas (terceira coluna)
 																	if( have_rows('fx_coluna_3_4') ):
-																		echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_3_4') ): the_row();
 																				//titulo
 																				if( get_row_layout() == 'fx_cl1_titulo_3_4' ):
@@ -1343,7 +1343,7 @@ class Construtor extends Util
 
 																	//conteudo flexivel 4 colunas (quarta coluna)
 																	if( have_rows('fx_coluna_4_4') ):
-																		echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_4_4') ): the_row();
 																				//titulo
 																				if( get_row_layout() == 'fx_cl1_titulo_4_4' ):
@@ -1456,7 +1456,7 @@ class Construtor extends Util
 																	//conteudo flexivel 2 colunas esquerda
 																	if( have_rows('fx_coluna_1_1b3') ):
 												
-																		echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_1_1b3') ): the_row();
 																				
 																				//titulo
@@ -1556,7 +1556,7 @@ class Construtor extends Util
 
 																	//conteudo flexivel 2 colunas direita
 																	if( have_rows('fx_coluna_2_1b3') ):
-																		echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_2_1b3') ): the_row();
 																				//titulo
 																				if( get_row_layout() == 'fx_cl1_titulo_2_2' ):
@@ -1669,7 +1669,7 @@ class Construtor extends Util
 																	//conteudo flexivel 2 colunas esquerda
 																	if( have_rows('fx_coluna_1_3b1') ):
 												
-																		echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_1_3b1') ): the_row();
 																				//titulo
 																				if( get_row_layout() == 'fx_cl1_titulo_1_2' ):
@@ -1767,7 +1767,7 @@ class Construtor extends Util
 
 																	//conteudo flexivel 2 colunas direita
 																	if( have_rows('fx_coluna_2_3b1') ):
-																		echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
+																		echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 																			while( have_rows('fx_coluna_2_3b1') ): the_row();
 																				
 																				//titulo
@@ -1899,7 +1899,7 @@ class Construtor extends Util
 									echo '<div class="col-sm-8">';
 									echo '<img src="https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/08/Mapa.png" width="100%">';
 									echo '</div>';
-									echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3">';//bootstrap col
+									echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3">';//bootstrap col
 											
 											//sanfona DRE										
 											get_template_part( 'construtor/construtor', 'sanfona_dre' );
@@ -1930,7 +1930,7 @@ class Construtor extends Util
 								
 								//conteudo flexivel 2 colunas esquerda
 								if( have_rows('fx_coluna_1_2') ):
-									echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+									echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_1_2') ): the_row();
 											
 											//titulo
@@ -2038,7 +2038,7 @@ class Construtor extends Util
 					
 								//conteudo flexivel 2 colunas direita
 								if( have_rows('fx_coluna_2_2') ):
-									echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+									echo '<div class="col-sm-6 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_2_2') ): the_row();
 											
 											//titulo
@@ -2167,7 +2167,7 @@ class Construtor extends Util
 								
 									//conteudo flexivel 3 colunas (primeira coluna)
 									if( have_rows('fx_coluna_1_3') ):
-										echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+										echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 											while( have_rows('fx_coluna_1_3') ): the_row();
 												
 												//titulo
@@ -2267,7 +2267,7 @@ class Construtor extends Util
 						
 									//conteudo flexivel 3 colunas (segunda coluna)
 									if( have_rows('fx_coluna_2_3') ):
-										echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+										echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 											while( have_rows('fx_coluna_2_3') ): the_row();
 												
 												//titulo
@@ -2368,7 +2368,7 @@ class Construtor extends Util
 						
 									//conteudo flexivel 3 colunas (terceira coluna)
 									if( have_rows('fx_coluna_3_3') ):
-										echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+										echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 											while( have_rows('fx_coluna_3_3') ): the_row();
 												
 												//titulo
@@ -2490,7 +2490,7 @@ class Construtor extends Util
 								
 								//conteudo flexivel 4 colunas (primeira coluna)
 								if( have_rows('fx_coluna_1_4') ):
-									echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+									echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_1_4') ): the_row();
 											
 											//titulo
@@ -2590,7 +2590,7 @@ class Construtor extends Util
 					
 								//conteudo flexivel 4 colunas (segunda coluna)
 								if( have_rows('fx_coluna_2_4') ):
-									echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+									echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_2_4') ): the_row();
 											
 											//titulo
@@ -2691,7 +2691,7 @@ class Construtor extends Util
 					
 								//conteudo flexivel 4 colunas (terceira coluna)
 								if( have_rows('fx_coluna_3_4') ):
-									echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+									echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_3_4') ): the_row();
 											
 											//titulo
@@ -2791,7 +2791,7 @@ class Construtor extends Util
 					
 								//conteudo flexivel 4 colunas (quarta coluna)
 								if( have_rows('fx_coluna_4_4') ):
-									echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+									echo '<div class="col-sm-3 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_4_4') ): the_row();
 											
 											//titulo
@@ -2912,7 +2912,7 @@ class Construtor extends Util
 								//conteudo flexivel 2 colunas esquerda
 								if( have_rows('fx_coluna_1_1b3') ):
 
-									echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+									echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_1_1b3') ): the_row();
 											
 											//titulo
@@ -3012,7 +3012,7 @@ class Construtor extends Util
 					
 								//conteudo flexivel 2 colunas direita
 								if( have_rows('fx_coluna_2_1b3') ):
-									echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+									echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_2_1b3') ): the_row();
 											
 											//titulo
@@ -3133,7 +3133,7 @@ class Construtor extends Util
 								//conteudo flexivel 2 colunas esquerda
 								if( have_rows('fx_coluna_1_3b1') ):
 
-									echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+									echo '<div class="col-sm-8 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_1_3b1') ): the_row();
 											
 											//titulo
@@ -3233,7 +3233,7 @@ class Construtor extends Util
 					
 								//conteudo flexivel 2 colunas direita
 								if( have_rows('fx_coluna_2_3b1') ):
-									echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
+									echo '<div class="col-sm-4 tx_fx_'.$color['value'].'  mt-3 col-bt-'.$colorbtn['value']. ' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_2_3b1') ): the_row();
 											
 											//titulo

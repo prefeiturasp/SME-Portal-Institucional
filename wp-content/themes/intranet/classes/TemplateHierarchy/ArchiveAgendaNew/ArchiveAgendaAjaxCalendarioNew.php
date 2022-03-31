@@ -65,7 +65,7 @@ class ArchiveAgendaAjaxCalendarioNew extends Util
 							<?php endif; ?>
 
 							<?php if($evento['pauta_assunto'] != ''): ?>
-								<div class="local"><strong>Pauta/Assunto:</strong> <?= $evento['pauta_assunto']; ?></div>
+								<div class="local"><strong>Descrição:</strong> <?= $evento['pauta_assunto']; ?></div>
 							<?php endif; ?>
 
 							<?php if( $evento['endereco_evento'] == 'outros' && $evento['digite_o_endereco_do_evento'] != '') :?>
@@ -95,7 +95,7 @@ class ArchiveAgendaAjaxCalendarioNew extends Util
 					<div class="local"><?php 					
 						if ($this->getCamposPersonalizados('pauta_assunto') !== null && $this->getCamposPersonalizados('pauta_assunto') !== ''){
 					?>
-						<div class="local"><strong>Pauta/Assunto:</strong> <?= $this->getCamposPersonalizados('pauta_assunto') ?></div>
+						<div class="local"><strong>Descrição:</strong> <?= $this->getCamposPersonalizados('pauta_assunto') ?></div>
 					<?php } ?></div>
 					<div class="local"><?php 					
 						if ($this->getCamposPersonalizados('endereco_do_evento') !== null && $this->getCamposPersonalizados('endereco_do_evento') !== ''){

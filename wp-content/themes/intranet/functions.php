@@ -2032,3 +2032,12 @@ function altera_senha(){
 	echo json_encode($retorno);
 	die();
 }
+
+// Alterar cor padrao do admin
+add_filter( 'get_user_option_admin_color', 'update_user_option_admin_color', 5 );
+
+function update_user_option_admin_color( $color_scheme ) {
+    $color_scheme = 'sunrise';
+
+    return $color_scheme;
+}
