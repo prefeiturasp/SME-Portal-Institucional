@@ -62,7 +62,7 @@ use Classes\Header\Header;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="author" content="Secretaria Municipal de Educação de São Paulo">
+    <meta name="author" content="Secretaria Municipal de Educação de São Paulo">    
 
 	<?php wp_head() ?>
 
@@ -165,6 +165,16 @@ use Classes\Header\Header;
                     </section>
                 </section>
             </section>
+
+            <?php if(get_field('texto_de_cabecalho','conf-rodape')): ?>
+                <section class="row cabecalho-texto">
+                    <div class="container">
+                        <div class="col-12">
+                            <p><?= get_field('texto_de_cabecalho','conf-rodape'); ?></p>
+                        </div>
+                    </div>                
+                </section>
+            <?php endif; ?>
 
             <section class='row logo-principal'>
 
@@ -291,7 +301,7 @@ use Classes\Header\Header;
 
     </header>
     
-    <nav class="navbar navbar-expand-lg menu-topo mb-5 d-none d-md-block">
+    <nav class="navbar navbar-expand-lg menu-topo d-none d-md-block">
         <section class="container">
 			
             <form>

@@ -308,6 +308,14 @@
 													</div>
 												<?php endif; ?>
 
+												
+												<h2><?= $result['titulo']; ?></h2>
+												<?php
+													$subtitulo = $result['resumo'];
+													if($subtitulo && $subtitulo != '')
+														echo '<p>' . $subtitulo . '</p>';
+												?>
+
 												<?php if($result['categorias']): ?>
 													<p class="categs">
 														<?php
@@ -323,12 +331,7 @@
 														?>
 													</p>
 												<?php endif; ?>
-												<h2><?= $result['titulo']; ?></h2>
-												<?php
-													$subtitulo = $result['resumo'];
-													if($subtitulo && $subtitulo != '')
-														echo '<p>' . $subtitulo . '</p>';
-												?> 
+												
 												<hr>
 												<a class="btn-collapse collapsed" data-toggle="collapse" href="#collapse<?= $result['id']; ?>" role="button" aria-expanded="false" aria-controls="collapse<?= $result['id']; ?>">
 													<span class="button-more">ver mais <i class="fa fa-chevron-down" aria-hidden="true"></i></span><span class="button-less">ver menos <i class="fa fa-chevron-up" aria-hidden="true"></i></span>

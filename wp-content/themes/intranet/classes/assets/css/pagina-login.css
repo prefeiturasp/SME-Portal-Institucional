@@ -14,7 +14,7 @@
 }
 
 .core_login_form h2{
-    color: #0F42B2;
+    color: #14457C;
     font-size: 32px !important;
     font-family: 'Open Sans', sans-serif;
 }
@@ -52,9 +52,9 @@
 }
 
 .core_login_form #wp-submit {
-    background: #0F42B2;
+    background: #14457C;
     color: #FFFFFF;
-    border-color: #0F42B2;
+    border-color: #14457C;
     cursor: pointer;
     transition: 0.2s;
 }

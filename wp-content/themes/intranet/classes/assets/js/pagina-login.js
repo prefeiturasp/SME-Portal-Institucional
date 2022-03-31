@@ -4,7 +4,7 @@ jQuery(document).ready(function ($) {
     
     // Ativa o tooltipo
     $(".fa-question-circle-o").tooltip({
-        title: "Digite, sem ponto nem traço, os 7 dígitos do RF para Servidor, ou 11 do CPF para usuário não servidor. Caso não possua, procure sua chefia ou a SME",
+        title: "Para Servidor: Digite, sem ponto nem traço, os 7 dígitos do RF. Para Unidade Parceira ou não servidor: Digite o usuário informado. Caso não possua, procure sua chefia ou a SME",
         //template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width: none;"></div></div>',
     });
 

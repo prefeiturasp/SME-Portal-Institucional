@@ -1,7 +1,7 @@
 </section>
 <!--main-->
 
-<footer style="background: #363636; color: #fff;">
+<footer style="background: #363636; color: #fff;" class="mt-3">
 	<div class="container pt-3 pb-3" id="irrodape">
 		<div class="row">
 			<div class="col-sm-3 align-middle d-flex align-items-center logo-rodape">
@@ -188,6 +188,25 @@
 
 	jQuery(document).ready(function($){
 
+		var fileInput = $('#avatar_user');
+		var maxSize = fileInput.data('max-size');
+		$('#adduser').submit(function(e){
+			
+			if(fileInput.get(0).files.length){
+				var fileSize = fileInput.get(0).files[0].size; // in bytes
+				console.log(fileSize);
+				if(fileSize>maxSize){
+					Swal.fire({
+						icon: 'error',
+						title: 'Atenção',
+						text: 'A imagem não pode ter mais que 2mb.',
+					});
+					return false;
+				}
+			}
+			
+		});
+
 		// Start
 		// sessionStorage.getItem('key');
 		if (sessionStorage.getItem("story") !== 'true') {
@@ -296,7 +315,7 @@
 			var atual = $("#senha-atual").val();
 			var nova1 = $("#senha-nova").val();
 			var nova2 = $("#senha-repita").val();
-			var ciente = $('#ciencia-senha:checked').length;
+			var ciente = $('#ciencia-senha:checked').length;            
 
 			if($('#ciencia-senha:checked').length < 1){
 				Swal.fire({

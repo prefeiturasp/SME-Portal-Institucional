@@ -128,7 +128,7 @@ get_header(); // Loads the header.php template. ?>
                                             $sobrenome = get_the_author_meta( 'last_name', $current_user->ID );
                                         ?>
                                         <h3><?= strtolower($nome); ?> <?= strtolower($sobrenome); ?></h3>
-                                        <input class="text-input" name="avatar_user" type="file" id="avatar_user" multiple="false"/>
+                                        <input class="text-input" name="avatar_user" type="file" data-max-size="2048000" accept="image/png, image/gif, image/jpeg" id="avatar_user"/>
                                     </div>
                                 </div>
 

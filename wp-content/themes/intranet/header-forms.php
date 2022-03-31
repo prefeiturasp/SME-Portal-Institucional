@@ -1,7 +1,7 @@
 <?php
 use Classes\Header\Header;
 if ( is_user_logged_in() ) {
-    wp_redirect( home_url('index.php/home') ); exit;
+    wp_redirect( home_url('index.php/inicial') ); exit;
 } else {
     //wp_redirect( home_url() ); exit;
 }
@@ -186,10 +186,11 @@ if ( is_user_logged_in() ) {
                                 </a>
                             </p>
                         </div>
-
+                        <?php /*
                         <div class="col-6 d-flex align-items-center justify-content-end">
                             <button type="button" class="btn btn-primary">Criar cadastro</button>
                         </div>
+                        */ ?>
 
                     </div>
                 </div>

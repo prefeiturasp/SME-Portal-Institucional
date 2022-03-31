@@ -179,6 +179,14 @@
                                     </div>
                                 <?php endif; ?>
 
+                                
+                                <h2><?= get_the_title(); ?></h2>
+                                <?php
+                                    $subtitulo = get_field('insira_o_subtitulo');
+                                    if($subtitulo && $subtitulo != '')
+                                        echo '<p>' . $subtitulo . '</p>';
+                                ?> 
+                                
                                 <?php if($categorias): ?>
                                     <p class="categs">
                                         <?php 
@@ -193,12 +201,7 @@
                                         ?>
                                     </p>
                                 <?php endif; ?>
-                                <h2><?= get_the_title(); ?></h2>
-                                <?php
-                                    $subtitulo = get_field('insira_o_subtitulo');
-                                    if($subtitulo && $subtitulo != '')
-                                        echo '<p>' . $subtitulo . '</p>';
-                                ?>                                
+                                                              
                                 <hr>
                                 <a class="btn-collapse collapsed" data-toggle="collapse" href="#collapse<?= get_the_ID(); ?>" role="button" aria-expanded="false" aria-controls="collapse<?= get_the_ID(); ?>">
                                     <span class="button-more">ver mais <i class="fa fa-chevron-down" aria-hidden="true"></i></span><span class="button-less">ver menos <i class="fa fa-chevron-up" aria-hidden="true"></i></span>

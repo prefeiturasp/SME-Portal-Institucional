@@ -18,7 +18,7 @@ if( have_rows($chave) ):
                 //loop de botões responsivos
                 $align = get_sub_field('alinhamento');
                 echo '<div class="col-12 align-' . $align .'">';
-                    echo '<a href="'.get_sub_field($url).'"><button type="button" class="btn mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg">'.get_sub_field($texto).'</button></a>';
+                    echo '<a href="'.get_sub_field($url).'"><button type="button" class="btn bt_fx btn-'.$colorbtn['value'].' btn-lg">'.get_sub_field($texto).'</button></a>';
                 echo '</div>';
             endif;
 
@@ -27,9 +27,9 @@ if( have_rows($chave) ):
                 //loop de botões bloco
                 echo '<div class="col-12 text-center">';
                     if(get_sub_field('icone')){
-                        echo '<a href="'.get_sub_field($url).'" target="_blank"><button type="button" class="btn mb-3 bt_fx py-1 btn-'.$colorbtn['value'].' btn-lg btn-block"><img src="' . get_sub_field('icone') . '"> '.get_sub_field($texto).'</button></a>';
+                        echo '<a href="'.get_sub_field($url).'" target="_blank"><button type="button" class="btn bt_fx py-1 btn-'.$colorbtn['value'].' btn-lg btn-block"><img src="' . get_sub_field('icone') . '"> '.get_sub_field($texto).'</button></a>';
                     } else {
-                        echo '<a href="'.get_sub_field($url).'"><button type="button" class="btn mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field($texto).'</button></a>';
+                        echo '<a href="'.get_sub_field($url).'"><button type="button" class="btn bt_fx btn-'.$colorbtn['value'].' btn-lg btn-block">'.get_sub_field($texto).'</button></a>';
                     }
                 echo '</div>';
             endif;
@@ -39,7 +39,7 @@ if( have_rows($chave) ):
                 //loop de botões fixo
                 $align = get_sub_field('alinhamento');
                 echo '<div class="col-12 align-' . $align .'">';
-                    echo '<a href="'.get_sub_field($url).'"><button type="button" class="btn mb-3 bt_fx btn-'.$colorbtn['value'].' btn-lg" style="width: ' . get_sub_field($tamanho) . 'px;">'.get_sub_field($texto).'</button></a>';
+                    echo '<a href="'.get_sub_field($url).'"><button type="button" class="btn bt_fx btn-'.$colorbtn['value'].' btn-lg" style="width: ' . get_sub_field($tamanho) . 'px;">'.get_sub_field($texto).'</button></a>';
                 echo '</div>';
             endif;
 

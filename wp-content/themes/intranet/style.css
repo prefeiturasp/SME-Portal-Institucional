@@ -422,7 +422,7 @@ a {
 
 .menu-topo {
     margin-bottom: 0;
-    background-color: #0F42B2 !important;
+    background-color: #14457C !important;
     border: none;
     border-radius: 0;
     color: #000;
@@ -513,16 +513,16 @@ a {
 }
 
 .menu-item:last-child {
-    border-right: 2px solid #0F42B2;
+    border-right: 2px solid #14457C;
 }
 
 .menu-item:last-child:hover {
-    border-right: 2px solid #01117C;
+    border-right: 2px solid #011257;
 }
 
 .menu-item:hover,
 .menu-item.active {
-    background-color: #01117C;
+    background-color: #011257;
     border-right: 2px solid #FFFFFF;
 }
 
@@ -621,7 +621,7 @@ a {
 
 @media (max-width: 768px) {
     .btn-menu .fa {
-        background: #0F42B2;
+        background: #14457C;
         color: #FFFFFF;
         margin: 0;
         font-size: 18px;
@@ -632,7 +632,7 @@ a {
     .btn-menu {
         font-size: 14px;
         font-weight: bold;
-        color: #0F42B2;
+        color: #14457C;
         padding-left: 0;
     }
 
@@ -658,7 +658,7 @@ a {
     
 
     #menu .modal-header {
-        background: #0F42B2;
+        background: #14457C;
         border-radius: 0;
         font-weight: bold;
         color: #FFF;
@@ -694,7 +694,7 @@ form.navbar-form{
 }
 
 .profile-menus .user-action .fa{
-    color: #0F42B2;
+    color: #14457C;
 }
 
 .profile-menus .nav-link img {
@@ -730,7 +730,7 @@ form.navbar-form{
     margin-top: 20px;
     font-size: 18px;
     font-weight: bold;
-    color: #0F42B2;
+    color: #14457C;
 }
 
 .profile-menus .dropdown-item {
@@ -943,6 +943,21 @@ form.navbar-form{
     margin-right: 1rem;
 }
 
+.cabecalho-texto{
+    background: #F3F3F3;
+}
+
+.cabecalho-texto p {
+    margin: 0;
+    padding: 12px 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: underline;
+    color: #1F1A17;
+    line-height: 1.1;
+}
+
 @media (max-width: 769px){
     .cabecalho-acessibilidade{
         display: block !important;
@@ -954,6 +969,10 @@ form.navbar-form{
 
     ul.list-inline.list-inline-mob {
         margin-bottom: 0 !important;
+    }
+
+    .cabecalho-texto p{
+        font-size: 14px;
     }
 }
 
@@ -2065,7 +2084,7 @@ a.blog-link p {
 
 
 #filtroBusca .modal-title{
-    color: #0F42B2;
+    color: #14457C;
     font-size: 16px;
     font-weight: bold;
 }
@@ -2079,7 +2098,7 @@ a.blog-link p {
 }
 
 #filtroBusca .modal-header .close{
-    color: #0F42B2;
+    color: #14457C;
     opacity: 1;
 }
 
@@ -2230,7 +2249,7 @@ ul.nav.nav-tabs{
 .recado-categ p,
 .cursos-categ p,
 .portais-categ p {
-    color: #A26201;
+    color: #427F39;
     font-weight: bold;
     font-size: 18px;
     padding-left: 20px;
@@ -2286,7 +2305,7 @@ ul.nav.nav-tabs{
 .voltar-topo i {
     display: block;
     text-align: center;
-    background-color: #0F42B2;
+    background-color: #14457C;
     min-width: 40px;
     color: #FFFFFF;
     font-size: 20px;
@@ -2308,7 +2327,7 @@ ul.nav.nav-tabs{
     padding-right: 8px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background: #0F42B2;
+    background: #14457C;
     font-weight: bold;
     color: #FFFFFF;
     display: block;
@@ -2379,20 +2398,155 @@ div.star-rating-on a {
 }
 
 .btn-outline-primary {
-    border-color: #0F42B2 !important;
-    color: #0F42B2 !important;
+    border-color: #14457C !important;
+    color: #14457C !important;
 }
 
 .btn-outline-primary:hover {
-    border-color: #0F42B2 !important;
+    border-color: #14457C !important;
     color: #FFFFFF !important;
-    background: #0F42B2;
+    background: #14457C;
 }
 
 .badge-primary{
-    background: #0F42B2;
+    background: #14457C;
 }
 
 .modal{
     z-index: 99999;
+}
+
+/**** Perfil ****/
+.profile-title {
+    color: #000000;
+    margin-left: 15px;
+    margin: 25px 0;
+}
+
+.name-profile h3 {
+    color: #14457C;
+    font-weight: bold;
+    font-size: 26px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+.profile-form {
+    border: 1px solid #F3F3F3;
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 25%);
+    margin-bottom: 40px;
+}
+
+.profile-form .updated{
+    display: none !important;
+}
+
+.profile-avatar {
+    display: flex;
+    align-items: center;
+}
+
+.profile-avatar .img-profile{
+    margin-right: 20px;
+}
+
+.profile-avatar .img-profile img{
+    border-radius: 50%;
+}
+
+.profile-form .input-disable,
+.profile-form input[type=text] {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000000;
+    background-color: #FFFFFF;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-bottom: 20px;
+}
+
+.profile-form .input-disable{
+    background-color: #DADADA;
+}
+
+.profile-form select {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    height: calc(2.25rem + 2px);
+    margin-bottom: 20px;
+}
+
+.profile-form select:focus,
+.profile-form input[type=text]:focus{
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.profile-form label {
+    font-weight: bold;
+}
+
+#modalPass .modal-header {
+    border: 1px solid #e9ecef !important;
+}
+
+.requisitos .requisitos-texto {
+    font-size: 14px;
+}
+
+.requisitos label {
+    font-weight: bold;
+}
+
+.requisitos label span {
+    color: #FF0000;
+}
+
+.swal2-container {
+    z-index: 99999 !important;
+}
+
+.requisitos .form-group {
+    position: relative;
+}
+
+.requisitos .form-check{
+    margin-bottom: 15px;
+}
+
+.requisitos .form-check label {
+    font-weight: normal;
+    font-style: italic;
+}
+
+#senha-atual-show,
+#senha-nova-show,
+#senha-repita-show {
+    margin-top: 9px;
+    color: #A4A4A4;
+    position: absolute;
+    right: 10px;
+    top: 33px;
 }
