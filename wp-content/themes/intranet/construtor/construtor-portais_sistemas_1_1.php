@@ -7,14 +7,25 @@
 <div class="container">
 
     <form class="form-recados">
-        <div class="busca-portais">
-            <div class="input-busca">
-                <input type="text" value="<?= $_GET['busca']; ?>" class="form-control" id="busca" name="busca" placeholder="Busque por título ou palavra-chave">
-                <span class="login-error">Campo obrigatório</span>
-            </div>            
-            <button type="submit" id="portais-submit" class="btn btn-primary">Pesquisar</button>
+        <div class="row">
+
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="busca">Filtrar por termo</label>
+                    <input type="text" value="<?= $_GET['busca']; ?>" class="form-control" id="busca" name="busca" placeholder="Busque por título ou palavra-chave">
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-group d-flex justify-content-end">
+                    <input type="hidden" name="filter" value="1">
+                    <button type="button" class="btn btn-outline-primary mr-md-3" id="limpar" onclick="window.location.href='<?= get_the_permalink($page_id); ?>'">Limpar filtros</button>
+                    <button type="submit" class="btn btn-primary" id="filtrar">Filtrar</button>
+                </div>
+            </div>
+
         </div>
-    </form>
+    </form>    
     <?php if($ativarCategorias): ?>
         <?php
             //echo "<pre>";
