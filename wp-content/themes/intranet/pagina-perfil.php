@@ -56,6 +56,10 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
     // Celular
     if ( !empty( $_POST['acf']['field_62420050a8eb3'] ) )
         update_user_meta( $current_user->ID, 'celular', esc_attr( $_POST['acf']['field_62420050a8eb3'] ) );
+
+    // RG
+    if ( !empty( $_POST['acf']['field_624ae351630a7'] ) )
+        update_user_meta( $current_user->ID, 'rg', esc_attr( $_POST['acf']['field_624ae351630a7'] ) );
     
     
     // These files need to be included as dependencies when on the front end.
@@ -159,17 +163,49 @@ get_header(); // Loads the header.php template. ?>
                         </div>
 
                         <div class="row">
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-3">
                                 <label for="user-rf"><?php _e('Número do RF', 'profile'); ?></label>                               
                                 <div class="input-disable" id="user-rf"><?= get_field('rf', 'user_' . $current_user->ID); ?></div>
                             </div>
 
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-3">
                                 <label for="user-cpf"><?php _e('Número do CPF', 'profile'); ?></label>                               
                                 <div class="input-disable" id="user-cpf"><?= get_field('cpf', 'user_' . $current_user->ID); ?></div>
                             </div>
 
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-3">
+                                <?php
+                                    $options = array(
+                                        'post_id' => 'user_'.$current_user->ID,
+                                        'field_groups' => array(1342),
+                                        'form' => false,
+                                        'fields' => array('celular'),
+                                        'return' => false,
+                                        'html_before_fields' => '',
+                                        'html_after_fields' => '',
+                                        'submit_value' => 'Update' 
+                                    );
+                                    acf_form( $options );
+                                ?>
+                            </div>
+
+                            <div class="col-12 col-md-3">
+                                <?php
+                                    $options = array(
+                                        'post_id' => 'user_'.$current_user->ID,
+                                        'field_groups' => array(1342),
+                                        'form' => false,
+                                        'fields' => array('rg'),
+                                        'return' => false,
+                                        'html_before_fields' => '',
+                                        'html_after_fields' => '',
+                                        'submit_value' => 'Update' 
+                                    );
+                                    acf_form( $options );
+                                ?>
+                            </div>
+
+                            <div class="col-12 col-md-6">
                                 <?php
                                     $options = array(
                                         'post_id' => 'user_'.$current_user->ID,
@@ -185,7 +221,7 @@ get_header(); // Loads the header.php template. ?>
                                 ?>
                             </div>
 
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-6">
                                 <?php
                                     $options = array(
                                         'post_id' => 'user_'.$current_user->ID,
@@ -218,27 +254,12 @@ get_header(); // Loads the header.php template. ?>
                                     }
                                     acf_form( $options );
                                 ?>
-                            </div>
-
-                            <div class="col-12 col-md-4">
-                                <?php
-                                    $options = array(
-                                        'post_id' => 'user_'.$current_user->ID,
-                                        'field_groups' => array(1342),
-                                        'form' => false,
-                                        'fields' => array('celular'),
-                                        'return' => false,
-                                        'html_before_fields' => '',
-                                        'html_after_fields' => '',
-                                        'submit_value' => 'Update' 
-                                    );
-                                    acf_form( $options );
-                                ?>
-                            </div>
+                            </div>                            
                             
                             <div class="col-12 col-md-4">
                                 <label for="pass"><?php _e('Senha', 'profile'); ?></label>                               
                                 <div class="input-disable m-0" id="pass">********</div>
+                                <span class="pass-text">Utilizar a mesma senha do SGP</span>
                                 <a href="#modalPass" class="d-block mb-3" data-toggle="modal" data-target="#modalPass">Alterar senha</a>
                             </div>
 
