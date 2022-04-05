@@ -181,7 +181,7 @@ use Classes\Header\Header;
                 <div class="container">
                     <div class="row py-3">
 
-                        <div class="col-3 d-flex d-sm-flex d-md-none mobile-menu">
+                    <div class="col-2 d-flex d-sm-flex d-md-none mobile-menu">
                             <button type="button" class="btn btn-menu" data-toggle="modal" data-target="#menu">
                                 <i class="fa fa-bars" aria-hidden="true"></i> MENU
                             </button>
@@ -219,7 +219,7 @@ use Classes\Header\Header;
                             
                         </div>
 
-                        <div class="col-6 col-md-3 order-1 order-md-1">
+                        <div class="col-5 col-md-3 order-1 order-md-1">
                             <?php
                             // Traz o Logotipo cadastrado no Admin
                             $custom_logo_id = get_theme_mod('custom_logo');
@@ -236,7 +236,22 @@ use Classes\Header\Header;
                             <?php \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
                         </div>
 
-                        <div class="col-3 col-md-3  d-flex align-items-center order-2 order-md-3 profile-menu">
+                        <div class="col-5 col-md-3  d-flex align-items-center justify-content-between order-2 order-md-3 profile-menu">
+                            
+                            <div class="simple-menu">
+                                <?php $faq_fb = get_field('faq_feedback', 'conf-rodape'); ?>
+
+                                <?php if($faq_fb['icone_faq'] && $faq_fb['endereco_faq']): ?>
+                                    <a href="<?= $faq_fb['endereco_faq']; ?>" data-toggle="tooltip" title="FAQ" data-placement="bottom"><img src="<?= $faq_fb['icone_faq']; ?>" alt="Ir para a página de FAQ"></a>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <div class="simple-menu">
+                                <?php if($faq_fb['icone_feedback'] && $faq_fb['endereco_feedback']): ?>
+                                    <a href="<?= $faq_fb['endereco_feedback']; ?>" data-toggle="tooltip" title="Feedback" data-placement="bottom"><img src="<?= $faq_fb['icone_feedback']; ?>" alt="Ir para a página de Feedback"></a>
+                                <?php endif; ?>
+                            </div>
+                            
                             <?php 
                                 $user = wp_get_current_user();
                                 $profileLink = get_home_url() . '/index.php/perfil';
