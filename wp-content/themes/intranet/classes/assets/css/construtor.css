@@ -334,6 +334,8 @@ video {
 
 .btn-branco .card-header {
     background-color: #FFFFFF !important;
+    border-left: 4px solid #14457C;
+    border-radius: 4px !important;
 }
 
 .btn-branco .card-header.bg-sanfona-active {
@@ -384,6 +386,11 @@ form.form-recados label {
 	border-radius: 4px;
 	font-family: 'Open Sans', sans-serif;
 	margin-bottom: 15px;
+    color: #000000;
+}
+
+.recado.parceiro p a{
+    color: #000000;
 }
 
 .recado .data {
@@ -483,6 +490,21 @@ form.form-recados label {
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+
+/**** Beneficios / Parceiro ****/
+.parceiro{
+    margin-bottom: 20px;
+}
+
+.parceiro h2 {
+    color: #2C8C99;
+    font-size: 20px !important;
+}
+
+.parceiro h2 a{
+    text-decoration: underline;
+    color: #2C8C99;
 }
 
 /*** Mural de Recados / Cursos - Destaques ***/
@@ -998,6 +1020,95 @@ background: #5c4961;
     color: #000000;
 }
 
+/*** Cartao Educador ***/
+.user-card{
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40vw;
+    height: 25.2vw;
+    position: relative;
+}
+
+.user-card .user-card-info{
+    position: absolute;
+    bottom: 11%;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 7%;
+    font-size: 1.2vw;
+    color: #24B5BC;
+    text-transform: uppercase;
+}
+
+.user-card .user-card-info span {
+    color: #767882;
+    font-weight: bold;
+    background: #F1F4FE;
+    padding: 1px 2px;
+}
+
+#profileModal p{
+    font-style: italic;
+}
+
+#profileModal p a{
+    color: #FFFFFF;
+    font-style: normal;
+}
+
+@media only screen and (min-width: 1200px){
+    .user-card{
+        max-width: 540px;
+        max-height: 459px;
+    }
+
+    .user-card .user-card-info{
+        top: 236px;
+        font-size: 14px;
+        bottom: initial;
+    }
+}
+
+@media only screen and (max-width: 575px){
+    .user-card{
+        width: 95vw;
+        height: 60vw;
+    }
+
+    .user-card .user-card-info{
+        font-size: 2.6vw;
+    }
+}
+
+/*** Cards Subpaginas ***/
+
+.card-subpagina:hover {
+    transition: 0.2s;
+}
+
+.card-subpagina:hover {
+    opacity: 0.7;
+    transform: scale(1.05);
+}
+
+.card-subpagina h2 {
+    background: #196CBD;
+    padding: 10px;
+    color: #FFFFFF;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.card-subpagina.opacity {
+    opacity: 0.7;
+}
+
+@media only screen and (max-width: 767px){
+    .card-subpagina h2{
+        font-size: 16px !important;
+    }
+}
+
 /*** Paginacao ***/
 .pagination-prog{
     margin-bottom: 30px;
@@ -1007,7 +1118,7 @@ background: #5c4961;
 .pagination-prog .wp-pagenavi a {
     padding: 7px;
     min-width: 40px;
-    display: flex;
+    display: inline-block;
     margin: 0;
     border: 1px solid #DADADA;
     border-left: 0;
@@ -1018,6 +1129,7 @@ background: #5c4961;
     align-items: center;
     justify-content: center;
 }
+
 
 .pagination-prog .wp-pagenavi a.active,
 .pagination-prog .wp-pagenavi a:hover,

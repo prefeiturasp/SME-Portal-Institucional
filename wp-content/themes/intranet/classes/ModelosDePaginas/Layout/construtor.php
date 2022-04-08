@@ -376,6 +376,18 @@ class Construtor extends Util
 											elseif( get_row_layout() == 'fx_cl1_faq_1_1' ):
 												get_template_part( 'construtor/construtor', 'faq_1_1' );
 
+											// Empresas Parceiras
+											elseif( get_row_layout() == 'fx_cl1_empresas_parceiras_1_1' ):
+												get_template_part( 'construtor/construtor', 'empresas-parceiras' );
+
+											// Card Subpaginas
+											elseif( get_row_layout() == 'fx_cl1_card_subpaginas_1_1' ):
+												get_template_part( 'construtor/construtor', 'card_subpaginas_1_1' );
+
+											// Card Subpaginas  Internas
+											elseif( get_row_layout() == 'fx_cl1_card_subpaginas_internas_1_1' ):
+												get_template_part( 'construtor/construtor', 'card_subpaginas_internas_1_1' );
+
 											// Integracao Pagina
 											elseif( get_row_layout() == 'integrar_pagina' ):
 
@@ -2028,6 +2040,10 @@ class Construtor extends Util
 											// Newsletter
 											elseif( get_row_layout() == 'fx_cl1_form_news_1_2' ):
 												get_template_part( 'construtor/construtor', 'form_news_1_2' );
+
+											// Cartao Educador
+											elseif( get_row_layout() == 'fx_cl1_cartao_educador_1_2' ):
+												get_template_part( 'construtor/construtor', 'cartao_educador', array( 'key' => '1_2' ) );
 											
 											endif;
 
@@ -2132,10 +2148,14 @@ class Construtor extends Util
 											// Cursos - Destaques
 											elseif( get_row_layout() == 'fx_cl1_cursos_destaques_2_2' ):
 												get_template_part( 'construtor/construtor', 'cursos_destaques_2_2' );
-											
+
 											// Banner WhatsApp
 											elseif( get_row_layout() == 'fx_cl1_banner_whatsapp_2_2' ):
 												get_template_part( 'construtor/construtor', 'banner_whatsapp_2_2' );
+											
+											// Cartao Educador
+											elseif( get_row_layout() == 'fx_cl1_cartao_educador_2_2' ):
+												get_template_part( 'construtor/construtor', 'cartao_educador', array( 'key' => '2_2' ) );
 
 											endif;
 
