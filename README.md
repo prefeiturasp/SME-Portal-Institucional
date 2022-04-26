@@ -96,35 +96,17 @@ Onosso produto  **tem comunicação clara, eficiente e direcionada, com foco em 
 
 - Agenda do secretário
 
-## Roadmap
-
--  Migração de dados do antigo Portal
-    
--  Nova Home
-        
--  Novo Organograma
-    
--  Melhorias na área de noticias e criação de área com notícias das DREs
-    
--  Rodapé e cabeçalho do portal customizáveis para inserção de redes sociais da SME
-        
--  Escola Aberta
-    
--  Pátio Digital
-    
-- Impresa Jovem
-
-- Chatbot
+- Novo Organograma
 
 # Sobre o Time:
 
 | Papel | Titular | Suplente  
 |--|--|--|  
-| Product Owner | Diego Lima| Monica Tang |  
-| Agente de Governança | Fernando Gonsalez |  |  
+| Product Owner | Monica Tang | Ana Karla Muner  |  
+| Agente de Governança | Fernando Gonsales |  |  
 | Gerente de Projeto | Aline Freitas |  |  
-| Scrum Master | Augusto Silva |  |   
-| Analista UX/UI | Giovanna Zanettin |  |  
+| Scrum Master | |  |   
+| Analista UX/UI | Caroline Casassola |  |  
 | Analista Programador | Felipe Viana de Almeida | |
 
 # Como surgiu
