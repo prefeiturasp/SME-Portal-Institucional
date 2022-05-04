@@ -1922,7 +1922,10 @@ function filtering_unidade($post_type){
 }
 
 // Desativar select de categoria padrao do WP
-add_filter('wp_dropdown_cats', '__return_false');
+global $pagenow;
+if(is_admin() && $pagenow == 'edit.php'){
+	add_filter('wp_dropdown_cats', '__return_false');
+}
 
 // Filtra as unidades que grupo pertence
 add_filter('pre_get_posts', 'limit_events_group');
