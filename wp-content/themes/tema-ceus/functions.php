@@ -1638,6 +1638,7 @@ function hide_event_css () {
             echo 'div.dest-home{display: none;}'; 
             echo 'div.sub-admin{width: 100% !important;}';
 			echo '.tipo-evento .acf-radio-list li:nth-child(3){display: none;}';
+			echo '.sobre-evento .acf-radio-list li:nth-child(1){display: none;}';
 			echo '.cptImageSize-thumbnail{display: none;} ';
 			echo '.cptImageSize-categoria-eventos{display: none;}';
         echo '</style>';
