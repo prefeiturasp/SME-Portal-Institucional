@@ -355,6 +355,10 @@ class Construtor extends Util
 															// Organograma DREs
 															elseif( get_row_layout() == 'fx_cl1_organograma' ):
 																get_template_part( 'construtor/construtor', 'organograma_1_1' );
+															
+															// Concursos
+															elseif( get_row_layout() == 'concursos_sme' ):
+																get_template_part( 'construtor/construtor', 'concursos_sme' );	
 
 															// Integracao Pagina
 															elseif( get_row_layout() == 'integrar_pagina' ):

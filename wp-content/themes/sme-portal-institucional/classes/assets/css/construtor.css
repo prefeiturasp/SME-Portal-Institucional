@@ -42,9 +42,12 @@ h2 {
 
 
 /*Link customizado*/
-
-.lk_fx_branco a {
-    color: #fff;
+.lk_fx_branco a{
+	color: #fff;
+	text-decoration: underline;
+}
+.lk_fx_branco a:hover{
+	color: #cccccc;
 }
 
 .lk_fx_azul a {
@@ -401,4 +404,34 @@ video {
 
 .align-center{
 	text-align: center;
+}
+
+/*** Concursos ***/
+.form-concursos {
+    background: #FFFFFF;
+    border: 1px solid #A4A4A4;
+    padding: 20px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.form-concursos label {
+	font-size: 14px;
+}
+
+.ver-todos {
+    background: #F3f3f3;
+    text-align: center;
+    padding: 25px;
+}
+
+.ver-todos p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.ver-todos p a{
+    color: #0048A9;
 }
