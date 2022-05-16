@@ -435,3 +435,17 @@ video {
 .ver-todos p a{
     color: #0048A9;
 }
+
+.table-concursos thead tr {
+    background: #264270;
+    color: #FFFFFF;
+}
+
+.table-concursos tbody tr{
+	background: #F3F3F3;
+}
+
+.table-concursos tbody tr:nth-child(4n+1),
+.table-concursos tbody tr:nth-child(4n+2) {
+    background: #FFFFFF;
+}
