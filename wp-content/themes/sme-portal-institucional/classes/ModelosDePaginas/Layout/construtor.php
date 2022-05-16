@@ -24,6 +24,7 @@ class Construtor extends Util
 		<script>
 			jQuery(document).ready(function(){
 				jQuery("table").addClass('table-responsive'); //ativa tabela responsiva
+				jQuery(".table-default").removeClass('table-responsive'); //remove tabela responsiva
 				jQuery(".nav-tabs li:first-child a").addClass('active'); //ativa a primeira aba
 				jQuery(".tab-content div:first-child").addClass('active'); //ativa a primeira aba
 				//jQuery("#collapse1").addClass('show'); //ativa sanfona 1
