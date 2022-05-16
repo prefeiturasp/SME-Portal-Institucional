@@ -1,5 +1,8 @@
 <?php
     $titulo = get_sub_field('titulo');
+    if($_GET['view'] == 'all' && get_sub_field('titulo_ver_todos') != ''){
+        $titulo = get_sub_field('titulo_ver_todos');
+    }
     $legenda = get_sub_field('legenda');
     $verTodos = get_sub_field('ativar_ver_todos');
     $cargos = array();
@@ -65,7 +68,7 @@
     //echo "</pre>";
 ?>
 
-<?php if(isset($_GET['view'])): ?>
+<?php if(isset($_GET['view']) && $_GET['view'] == 'all'): ?>
     <div class="container-fluid p-0 mt-4 mb-5">
         <div class="ver-todos">
             <p><a href="<?= get_the_permalink(); ?>">Voltar para a busca</a></p>
@@ -171,10 +174,11 @@
 
             <div class="col-12">
                 <div class="d-flex justify-content-end">
-                    <?php if($_GET['view']): ?>
+                    <?php if($_GET['view'] == 'all'): ?>
                         <input type="hidden" name="view" value="all">
                         <button type="button" class="btn btn-outline-primary mr-md-3" id="limpar" onclick="window.location.href='<?= get_the_permalink()?>?view=all'">Limpar filtros</button>
                     <?php else: ?>
+                        <input type="hidden" name="view" value="search">
                         <button type="button" class="btn btn-outline-primary mr-md-3" id="limpar" onclick="window.location.href='<?= get_the_permalink()?>'">Limpar filtros</button>
                     <?php endif; ?>                    
                     <button type="submit" class="btn btn-primary" id="filtrar">Filtrar</button>
@@ -183,7 +187,7 @@
         </div>
     </form>
 
-    <?php if($_GET['view'] == 'all'): ?>
+    <?php if($_GET['view'] == 'all' || $_GET['view'] == 'search'): ?>
 
         <table class="table table-default table-bordered table-concursos">
         <thead>
@@ -340,6 +344,7 @@
                             <?php
                                 // Verifica Ultimos Convocados
                                 $ultimos_convocados = get_field("ultimos_convocados");
+                                $informacoes = get_field('mais_informacoes');
                         
                                 if($ultimos_convocados):
                             ?>
@@ -347,12 +352,26 @@
                                 <td colspan='5' class='align-middle'>
                                     <p class="m-0"><strong>Últimos convocados</strong></p>
                                     <?php echo $ultimos_convocados; ?>
+                                    <?php 
+                                        if($informacoes){
+                                            echo "<hr>";
+                                            echo '<p class="m-0"><strong>Mais informações</strong></p>';
+                                            echo $informacoes;
+                                        }                                    
+                                    ?>
                                 </td>
                             
                             <?php else: ?>
                                 <td colspan='5' class='align-middle'>
                                     <p class="m-0"><strong>Últimos convocados</strong></p>
                                     -
+                                    <?php 
+                                        if($informacoes){
+                                            echo "<hr>";
+                                            echo '<p class="m-0"><strong>Mais informações</strong></p>';
+                                            echo $informacoes;
+                                        }                                    
+                                    ?>
                                 </td>
                             <?php endif; ?>    
                             
