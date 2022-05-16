@@ -449,3 +449,7 @@ video {
 .table-concursos tbody tr:nth-child(4n+2) {
     background: #FFFFFF;
 }
+
+.table-concursos td a {
+    font-weight: bold;
+}
