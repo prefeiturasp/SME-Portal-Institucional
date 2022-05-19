@@ -388,6 +388,10 @@ class Construtor extends Util
 											elseif( get_row_layout() == 'fx_cl1_card_subpaginas_internas_1_1' ):
 												get_template_part( 'construtor/construtor', 'card_subpaginas_internas_1_1' );
 
+											// Ingressos Plateia
+											elseif( get_row_layout() == 'fx_cl1_ingressos_plateia_1_1' ):
+												get_template_part( 'construtor/construtor', 'ingressos_plateia_1_1' );
+
 											// Integracao Pagina
 											elseif( get_row_layout() == 'integrar_pagina' ):
 
