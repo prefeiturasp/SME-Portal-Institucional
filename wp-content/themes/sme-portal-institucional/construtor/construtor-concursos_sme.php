@@ -189,81 +189,84 @@
 
     <?php if($_GET['view'] == 'all' || $_GET['view'] == 'search'): ?>
 
-        <table class="table table-default table-bordered table-concursos">
-        <thead>
-            <tr>
-                <th scope="col">Cargo</th>
-                <th scope="col">Homologação</th>
-                <th scope="col">Validade</th>
-                <th scope="col">Última Chamada</th>
-                <th scope="col">Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-                // Filtro / Busca Palavra Chave
-                if(isset($_GET['search']) && $_GET['search'] != ''){
-                    $args['s'] = $_GET['search'];
-                }
+        
 
-                // Filtro / Busca Cargo ou Funcao
-                if($_GET['cargo'] && $_GET['cargo'] != ''){
-                    $args['p'] = $_GET['cargo'];
-                }
-                
-                // Filtro / Busca Status
-                if($_GET['status'] && $_GET['status'] != ''){
-                    $args['meta_key'] = 'status';
-                    $args['meta_value']	= $_GET['status'];
-                }
+        <table class="table table-default table-bordered table-concursos d-none d-md-table">
+            <thead>
+                <tr>
+                    <th scope="col">Cargo</th>
+                    <th scope="col">Homologação</th>
+                    <th scope="col">Validade</th>
+                    <th scope="col">Última Chamada</th>
+                    <th scope="col">Status</th>
+                </tr>            
+            </thead>
 
-                // Filtro / Busca Homologacao
-                if(isset($_GET['ano-hom']) && $_GET['ano-hom'] != ''){
-                    $ano_hom = $_GET['ano-hom'];
-                    
-                    $args['meta_query'][] = array (
-                        'key' => 'homologacao',
-                        'value'     => $ano_hom . '-01-01',
-                        'compare'   => '>=',
-                        'type'      => 'DATE',
-                    );
-                    
-                    $args['meta_query'][] = array (
-                        'key' => 'homologacao',
-                        'value'     => $ano_hom . '-12-31',
-                        'compare'   => '<=',
-                        'type'      => 'DATE',
-                    );
-                }
+            <tbody>
+                <?php
+                    // Filtro / Busca Palavra Chave
+                    if(isset($_GET['search']) && $_GET['search'] != ''){
+                        $args['s'] = $_GET['search'];
+                    }
 
-                // Filtro / Busca Validade
-                if(isset($_GET['ano-val']) && $_GET['ano-val'] != ''){
-                    $ano_val = $_GET['ano-val'];
+                    // Filtro / Busca Cargo ou Funcao
+                    if($_GET['cargo'] && $_GET['cargo'] != ''){
+                        $args['p'] = $_GET['cargo'];
+                    }
                     
-                    $args['meta_query'][] = array (
-                        'key' => 'validade',
-                        'value'     => $ano_val . '-01-01',
-                        'compare'   => '>=',
-                        'type'      => 'DATE',
-                    );
-                    
-                    $args['meta_query'][] = array (
-                        'key' => 'validade',
-                        'value'     => $ano_val . '-12-31',
-                        'compare'   => '<=',
-                        'type'      => 'DATE',
-                    );
-                }
+                    // Filtro / Busca Status
+                    if($_GET['status'] && $_GET['status'] != ''){
+                        $args['meta_key'] = 'status';
+                        $args['meta_value']	= $_GET['status'];
+                    }
 
-                // The Query
-                $the_query = new WP_Query( $args );
-                
-                // The Loop
-                if ( $the_query->have_posts() ) :
-                   
-                    while ( $the_query->have_posts() ) :
-                        $the_query->the_post();
-            ?>
+                    // Filtro / Busca Homologacao
+                    if(isset($_GET['ano-hom']) && $_GET['ano-hom'] != ''){
+                        $ano_hom = $_GET['ano-hom'];
+                        
+                        $args['meta_query'][] = array (
+                            'key' => 'homologacao',
+                            'value'     => $ano_hom . '-01-01',
+                            'compare'   => '>=',
+                            'type'      => 'DATE',
+                        );
+                        
+                        $args['meta_query'][] = array (
+                            'key' => 'homologacao',
+                            'value'     => $ano_hom . '-12-31',
+                            'compare'   => '<=',
+                            'type'      => 'DATE',
+                        );
+                    }
+
+                    // Filtro / Busca Validade
+                    if(isset($_GET['ano-val']) && $_GET['ano-val'] != ''){
+                        $ano_val = $_GET['ano-val'];
+                        
+                        $args['meta_query'][] = array (
+                            'key' => 'validade',
+                            'value'     => $ano_val . '-01-01',
+                            'compare'   => '>=',
+                            'type'      => 'DATE',
+                        );
+                        
+                        $args['meta_query'][] = array (
+                            'key' => 'validade',
+                            'value'     => $ano_val . '-12-31',
+                            'compare'   => '<=',
+                            'type'      => 'DATE',
+                        );
+                    }
+
+                    // The Query
+                    $the_query = new WP_Query( $args );
+                    
+                    // The Loop
+                    if ( $the_query->have_posts() ) :
+                    
+                        while ( $the_query->have_posts() ) :
+                            $the_query->the_post();
+                ?>
                         <tr>
                             <!-- Link Noticia / Titulo -->
                                 <?php
@@ -375,18 +378,196 @@
                                 </td>
                             <?php endif; ?>    
                             
-                        </tr>
-            <?php
+                        </tr>                        
+                <?php
+                            
+                        endwhile;
                         
-                    endwhile;
+                    endif; 
+                    wp_reset_postdata();
+                ?>
+            <tbody>
+
+        </table>
+
+        <table class="table d-table table-default table-bordered d-sm-table d-md-none table-concursos-mobile">
+            <thead>                
+                <tr>
+                    <th scope="col" colspan="2">Cargo</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php
+                    // The Query
+                    $the_query = new WP_Query( $args );
                     
-                endif; 
-                wp_reset_postdata();
-            ?>
-        <tbody>
-    </table>
+                    // The Loop
+                    if ( $the_query->have_posts() ) :
+                    
+                        while ( $the_query->have_posts() ) :
+                            $the_query->the_post();
+                ?>
+                            <!-- Mobile -->
+                            <tr>
+                                <?php
+                                    $titleurl = get_field( "link_noticias");
+                                    if($titleurl) :
+                                ?>                                    
+                                    <th scope="row" class='align-middle'><a href="<?= $titleurl; ?>"><strong><?= get_the_title(); ?></strong></a></th>
+                                <?php else: ?>
+                                    <th scope="row" class='align-middle'><strong><?= get_the_title(); ?></strong></th>
+                                <?php endif; ?>
+                                
+                                <td width="40">
+                                    <a class="" data-toggle="collapse" href="#collapse-<?= get_the_ID(); ?>" role="button" aria-expanded="false" aria-controls="collapse-<?= get_the_ID(); ?>">
+                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="p-0" style="border-top: 0;">
+                                    <div class="collapse collapse-mobile" id="collapse-<?= get_the_ID(); ?>">
+                                        <div class="card card-body">
+                                            <p class="m-0"><strong>Data Homologação</strong></p>
+                                            <!-- Homologacao -->
+                                                <?php
+                                                    // Verifica data de hologacao
+                                                    $datahom = get_field("homologacao");
+                                                    if($datahom):
+                                                    
+                                                    $dtHomolog = convertDate($datahom);
+                                                ?>                                                        
+                                                    <?php
+                                                        // Verifica se tem DOC
+                                                        $dochom = get_field("doc_homologacao");
+                                                        if($dochom):
+                                                    ?>
+                                                        <p><strong><a href="<?php echo $dochom; ?>">DOC - <?php echo $dtHomolog; ?></a></strong></p>
+                                                    <?php else: ?>
+                                                        <p><?php echo $dtHomolog; ?></p>
+                                                    <?php endif; ?>
+                                                
+                                                <?php else: ?>
+                                                    <p>-</p>
+                                                <?php endif; ?>
+                                            <!-- Fim Homologacao -->
+
+                                            <p class="m-0"><strong>Validade</strong></p>
+                                            <!-- Validade -->
+                                                <?php
+                                                    // Verifica data de Validade
+                                                    $validade = get_field("validade");                
+                                                    if($validade):                        
+                                                        $dtValidade = convertDate($validade);
+                                                ?>
+                                                    <p><?php echo $dtValidade; ?></p>                    
+                                                <?php else: ?>
+                                                    <p>-</p>
+                                                <?php endif; ?>
+                                            <!-- Fim Validade -->
+                                            
+                                            <p class="m-0"><strong>Última Chamada</strong></p>
+                                            <!-- Ultima Chamada -->
+                                                <?php
+                                                    // Verifica data de hologacao
+                                                    $datahom = get_field("ultima_chamada");
+                                                    if($datahom):
+                                                    
+                                                    $dtHomolog = convertDate($datahom);
+                                                ?>
+                                                        
+                                                    <?php
+                                                        // Verifica se tem DOC
+                                                        $dochom = get_field( "doc_ultima_chamada");
+                                                        if($dochom):
+                                                    ?>
+                                                        <p><strong><a href="<?php echo $dochom; ?>">DOC - <?php echo $dtHomolog; ?></a></strong></p>
+                                                    <?php else: ?>
+                                                        <p><?php echo $dtHomolog; ?></p>
+                                                    <?php endif; ?>
+                                                
+                                                <?php else: ?>
+                                                    <p>-</p>
+                                                <?php endif; ?>
+                                            <!-- Fim Ultima Chamada -->
+
+                                            <p class="m-0"><strong>Status</strong></p>
+                                            <p><?= get_field("status"); ?></p>
+
+                                            <?php
+                                                // Verifica Ultimos Convocados
+                                                $ultimos_convocados = get_field("ultimos_convocados");
+                                                $informacoes = get_field('mais_informacoes');
+                                        
+                                                if($ultimos_convocados):
+                                            ?>
+                                                <p class="m-0"><strong>Últimos convocados</strong></p>
+                                                <?php echo $ultimos_convocados; ?>
+                                                <?php 
+                                                    if($informacoes){
+                                                        echo '<div class="mais-info">';
+                                                            echo '<p class="m-0"><strong>Mais informações</strong></p>';
+                                                            echo $informacoes;
+                                                        echo '</div>';
+                                                    }                                    
+                                                ?>                                            
+                                            <?php else: ?>                                                
+                                                <p class="m-0"><strong>Últimos convocados</strong></p>
+                                                -
+                                                <?php 
+                                                    if($informacoes){
+                                                        echo '<div class="mais-info">';
+                                                            echo '<p class="m-0"><strong>Mais informações</strong></p>';
+                                                            echo $informacoes;
+                                                        echo '</div>';
+                                                    }                                    
+                                                ?>                                                
+                                            <?php endif; ?>
+                                            
+                                        </div>
+                                    </div>
+                                </td>                    
+                            </tr>
+                
+                <?php
+                            
+                        endwhile;
+                        
+                    endif; 
+                    wp_reset_postdata();
+                ?>
+                
+            </tbody>
+        </table>
+
+        <?php
+
+            $lastEdit = new WP_Query( array(
+                'post_type'   => 'concurso',
+                'posts_per_page' => 1,
+                'orderby'     => 'modified',
+            ));
+
+            $date = $lastEdit->post->post_modified;
+            $lastEdit = new DateTime($date);
+
+            $pageDate = get_the_modified_time('Y-m-d H:i:s');
+            $pageDate = new DateTime($pageDate);
+
+            if($lastEdit > $pageDate){
+                $dataShow = $lastEdit;
+            } else {
+                $dataShow = $pageDate;
+            }
+
+            if($dataShow && $dataShow != ''){
+                echo "<p class='font-italic text-date-concursos'>Última Atualização: " . $dataShow->format('d/m/Y') . "</p>";
+            }
+        ?>
 
     <?php endif; ?>
+
 
     <div class="row">
         <?php if($legenda && $legenda != ''): ?>
