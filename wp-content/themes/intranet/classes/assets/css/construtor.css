@@ -507,6 +507,39 @@ form.form-recados label {
     color: #2C8C99;
 }
 
+/**** Beneficios / Ingressos ****/
+.ingresso {
+    background: #FFFFFF;
+    border: 1px solid #f3f3f3;
+    box-shadow: 0px 0px 4px 0px #00000040;
+    padding: 15px 25px;
+    border-radius: 4px;
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 15px;
+    color: #000000;
+}
+
+.ingresso .categ {
+    font-size: 13px;
+    font-style: italic;
+}
+
+.ingresso h3 {
+    color: #196CBD;
+    border-bottom: 1px solid #DADADA;
+    padding-bottom: 3px;
+}
+
+.modal-ingressos .modal-header {
+    border-bottom: 1px solid #CCCCCC !important;
+}
+
+.modal-ingressos .modal-title {
+    color: #196CBD;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 /*** Mural de Recados / Cursos - Destaques ***/
 .recados-destaques,
 .cursos-destaques,
