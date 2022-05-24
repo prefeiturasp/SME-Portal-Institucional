@@ -1395,7 +1395,7 @@ function fetchResults(){
 					jQuery('.leaflet-locationiq-results').html( data );
 				}
 				*/
-				
+				jQuery('#unidade-list').remove();
 				jQuery('.leaflet-locationiq-list').prepend( data );
 				//console.log(data);
 			},
