@@ -62,7 +62,7 @@ class PaginaProgramacaoSlide
                                                     $listaAtividades = array();
                                                     foreach($atividades as $atividade){
                                                         if($atividade->parent != 0){
-                                                            $listaAtividades[] = $atividade->name;
+                                                            $listaAtividades[] = $atividade->term_id;
                                                         }
                                                     }
 
@@ -72,17 +72,15 @@ class PaginaProgramacaoSlide
 
                                                     foreach($listaAtividades as $atividade){
                                                         $k++;
-                                                        if($total - $k == 1 || $total - $k == 0){
-                                                            $showAtividades .= $atividade . " ";
-                                                        } elseif($total != $k){
-                                                            $showAtividades .= $atividade . ", ";
+                                                        if($k == 1){
+                                                            $showAtividades .= '<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
                                                         } else {
-                                                            $showAtividades .= "e " . $atividade;
+                                                            $showAtividades .= ' ,<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
                                                         }
                                                     }
                                                 ?>
                                             
-                                                <p><a href="#"><?php echo $showAtividades; ?></a></p> 
+                                                <p><?php echo $showAtividades; ?></p> 
                                             </div>
 
                                             <div class="carousel-title">

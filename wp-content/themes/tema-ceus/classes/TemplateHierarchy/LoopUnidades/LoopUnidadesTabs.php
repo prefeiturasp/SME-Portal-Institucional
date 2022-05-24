@@ -82,7 +82,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                         // Faixa Etaria
                                         $faixas = get_terms( array( 
                                             'taxonomy' => 'faixa_categories',
-                                            'parent'   => 0,                                
+                                            //'parent'   => 0,                                
                                             'hide_empty' => false
                                         ) );
 
@@ -342,11 +342,11 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                                 if($atividadesTotal > 1){
                                                                     foreach($atividades as $atividade){
                                                                         if($atividade->parent != 0){
-                                                                            $listaAtividades[] = $atividade->name;
+                                                                            $listaAtividades[] = $atividade->term_id;
                                                                         } 
                                                                     }
                                                                 } else {
-                                                                    $listaAtividades[] = $atividades[0]->name;
+                                                                    $listaAtividades[] = $atividades[0]->term_id;
                                                                 }
 
                                                                 $total = count($listaAtividades); 
@@ -355,16 +355,14 @@ class LoopUnidadesTabs extends LoopUnidades{
 
                                                                 foreach($listaAtividades as $atividade){
                                                                     $k++;
-                                                                    if($total - $k == 1 || $total - $k == 0){
-                                                                        $showAtividades .= $atividade . " ";
-                                                                    } elseif($total != $k){
-                                                                        $showAtividades .= $atividade . ", ";
+                                                                    if($k == 1){
+                                                                        $showAtividades .= '<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
                                                                     } else {
-                                                                        $showAtividades .= "e " . $atividade;
+                                                                        $showAtividades .= ' ,<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
                                                                     }
                                                                 }
                                                             ?>
-                                                        <a href="#"><?php echo $showAtividades; ?></a>
+                                                        <?php echo $showAtividades; ?>
                                                         
                                                     </div>
                                                     <p class='unidade-title'><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></p>
@@ -436,7 +434,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                                 $dataFinal = $dias;  
             
                                                                 $dias = '';
-                                                                $show = '';
+                                                                $show = array();
                                                                 
                                                             } elseif($campos['tipo_de_data'] == 'periodo'){
                                                                 

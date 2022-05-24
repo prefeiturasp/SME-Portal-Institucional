@@ -82,11 +82,11 @@ class PaginaProgramacaoEventos
                                                 if($atividadesTotal > 1){
                                                     foreach($atividades as $atividade){
                                                         if($atividade->parent != 0){
-                                                            $listaAtividades[] = $atividade->name;
+                                                            $listaAtividades[] = $atividade->term_id;
                                                         } 
                                                     }
                                                 } else {
-                                                    $listaAtividades[] = $atividades[0]->name;
+                                                    $listaAtividades[] = $atividades[0]->term_id;
                                                 }
 
                                                 $total = count($listaAtividades); 
@@ -95,16 +95,14 @@ class PaginaProgramacaoEventos
 
                                                 foreach($listaAtividades as $atividade){
                                                     $k++;
-                                                    if($total - $k == 1 || $total - $k == 0){
-                                                        $showAtividades .= $atividade . " ";
-                                                    } elseif($total != $k){
-                                                        $showAtividades .= $atividade . ", ";
+                                                    if($k == 1){
+                                                        $showAtividades .= '<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
                                                     } else {
-                                                        $showAtividades .= "e " . $atividade;
+                                                        $showAtividades .= ' ,<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
                                                     }
                                                 }
                                             ?>
-                                            <a href="#"><?php echo $showAtividades; ?></a>
+                                            <?php echo $showAtividades; ?>
                                         </div>
                                         <h3><a href="<?php echo get_the_permalink($eventoInterno->ID); ?>"><?php echo $eventoInterno->post_title; ?></a></h3>
                                         <?php
@@ -130,6 +128,7 @@ class PaginaProgramacaoEventos
                                                     
                                                     $semana = $campos['dia_da_semana'];
                                                     $diasSemana = array();
+                                                    $show = array();
 
                                                     foreach($semana as $dias){
 
@@ -365,11 +364,11 @@ class PaginaProgramacaoEventos
                                                 if($atividadesTotal > 1){
                                                     foreach($atividades as $atividade){
                                                         if($atividade->parent != 0){
-                                                            $listaAtividades[] = $atividade->name;
+                                                            $listaAtividades[] = $atividade->term_id;
                                                         } 
                                                     }
                                                 } else {
-                                                    $listaAtividades[] = $atividades[0]->name;
+                                                    $listaAtividades[] = $atividades[0]->term_id;
                                                 }
 
                                                 $total = count($listaAtividades); 
@@ -378,16 +377,14 @@ class PaginaProgramacaoEventos
 
                                                 foreach($listaAtividades as $atividade){
                                                     $k++;
-                                                    if($total - $k == 1 || $total - $k == 0){
-                                                        $showAtividades .= $atividade . " ";
-                                                    } elseif($total != $k){
-                                                        $showAtividades .= $atividade . ", ";
+                                                    if($k == 1){
+                                                        $showAtividades .= '<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
                                                     } else {
-                                                        $showAtividades .= "e " . $atividade;
+                                                        $showAtividades .= ' ,<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
                                                     }
                                                 }
                                             ?>
-                                            <a href="#"><?php echo $showAtividades; ?></a>
+                                            <?php echo $showAtividades; ?>
                                         </div>
                                         <h3><a href="<?php echo get_the_permalink($eventoInterno->ID); ?>"><?php echo $eventoInterno->post_title; ?></a></h3>
                                         <?php
@@ -413,6 +410,7 @@ class PaginaProgramacaoEventos
                                                     
                                                     $semana = $campos['dia_da_semana'];
                                                     $diasSemana = array();
+                                                    $show = array();
 
                                                     foreach($semana as $dias){
 
