@@ -50,11 +50,11 @@ class LoopSingleCabecalho extends LoopSingle
 						if($atividadesTotal > 1){
 							foreach($atividades as $atividade){
 								if($atividade->parent != 0){
-									$listaAtividades[] = $atividade->name;
+									$listaAtividades[] = $atividade->term_id;
 								} 
 							}
 						} else {
-							$listaAtividades[] = $atividades[0]->name;
+							$listaAtividades[] = $atividades[0]->term_id;
 						}
 
 						$total = count($listaAtividades); 
@@ -63,12 +63,10 @@ class LoopSingleCabecalho extends LoopSingle
 
 						foreach($listaAtividades as $atividade){
 							$k++;
-							if($total - $k == 1 || $total - $k == 0){
-								$showAtividades .= $atividade . " ";
-							} elseif($total != $k){
-								$showAtividades .= $atividade . ", ";
+							if($k == 1){
+								$showAtividades .= '<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
 							} else {
-								$showAtividades .= "e " . $atividade;
+								$showAtividades .= ' ,<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
 							}
 						}
 					?>
@@ -90,7 +88,6 @@ class LoopSingleCabecalho extends LoopSingle
 						<?php
 							$post_categories = wp_get_post_categories( $post->ID );
 							$local = get_field('localizacao', $post->ID); 
-							$tipo = get_field('tipo_de_evento_tipo', $post->ID);
 						?>
 
 						<p class="evento-unidade m-0 w-100">
@@ -104,7 +101,6 @@ class LoopSingleCabecalho extends LoopSingle
 							<?php else: ?>
 								<a href="<?php echo get_the_permalink($local); ?>"><?php echo get_the_title($local); ?></a>
 							<?php endif; ?>
-							
 						</p>
                     </div>
                 </div>

@@ -1265,6 +1265,13 @@ select#tipoData {
     font-size: 18px;
 }
 
+.evento-infos .categ-dest a{
+    text-transform: uppercase;
+    color: #DADADA;
+    font-weight: bold;
+    font-size: 18px;
+}
+
 .evento-infos h1 {
     color: #FFFFFF !important;
     font-size: 34px;

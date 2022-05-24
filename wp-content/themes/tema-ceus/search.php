@@ -27,7 +27,7 @@
                             // Faixa Etaria
                             $faixas = get_terms( array( 
                                 'taxonomy' => 'faixa_categories',
-                                'parent'   => 0,                                
+                                //'parent'   => 0,                                
                                 'hide_empty' => false
                             ) );
 
@@ -178,7 +178,7 @@
 
 			if( isset($_GET['s']) && $_GET['s'] != ''){
 				$s = $_GET['s'];
-				
+
 				$args['s'] = $s;
 			}
 
@@ -488,11 +488,11 @@
 					?>
 						<div class="col-sm-3">
 							<div class="card-eventos mb-4">
-								<div class="card-eventos-img">
+								<div class="card-eventos-img aaaa">
 									<?php 
-										$imgSelect = get_field('capa_do_evento', $eventoInterno->ID);
-										$tipo = get_field('tipo_de_evento_selecione_o_evento', $eventoInterno->ID);
-										$online = get_field('tipo_de_evento_online', $eventoInterno->ID);
+										$imgSelect = get_field('capa_do_evento');
+										$tipo = get_field('tipo_de_evento_selecione_o_evento');
+										$online = get_field('tipo_de_evento_online');
 
 										$featured_img_url = wp_get_attachment_image_src($imgSelect, 'recorte-eventos');
 										if($featured_img_url){
@@ -501,10 +501,10 @@
 											$alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
 										} else {
 											$imgEvento = 'https://via.placeholder.com/820x380';
-											$alt = get_the_title($eventoInterno->ID);
+											$alt = get_the_title();
 										}
 									?>
-									<a href="<?php get_the_permalink($eventoInterno->ID);?>"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
+									<a href="<?php echo get_the_permalink(); ?>"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
 									<?php if($tipo && $tipo != '') : 
 										echo '<span class="flag-pdf-full">';
 											echo get_the_title($tipo);
@@ -530,30 +530,29 @@
 
 											if($atividadesTotal > 1){
 												foreach($atividades as $atividade){
-													if($atividade->parent != 0){
-														$listaAtividades[] = $atividade->name;
+													if($atividade->parent != 0){														
+														$listaAtividades[] = $atividade->term_id;
 													} 
 												}
-											} else {
-												$listaAtividades[] = $atividades[0]->name;
+											} else {												
+												$listaAtividades[] = $atividades[0]->term_id;
 											}
 
-											$total = count($listaAtividades); 
+											$total = count($listaAtividades);
+											
 											$k = 0;
-											$showAtividades = '';
+											$showAtividades = '';											
 
 											foreach($listaAtividades as $atividade){
 												$k++;
-												if($total - $k == 1 || $total - $k == 0){
-													$showAtividades .= $atividade . " ";
-												} elseif($total != $k){
-													$showAtividades .= $atividade . ", ";
+												if($k == 1){
+													$showAtividades .= '<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
 												} else {
-													$showAtividades .= "e " . $atividade;
+													$showAtividades .= ' ,<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
 												}
 											}
 										?>
-										<a href="#"><?php echo $showAtividades; ?></a>									
+										<?php echo $showAtividades; ?>									
 									</div>
 										<h3><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></h3>
 										<?php
@@ -588,6 +587,8 @@
 														$total = count($dias['selecione_os_dias']); 
 														$i = 0;
 														$diasShow = '';
+
+														$show = array();
 														
 														foreach($dias['selecione_os_dias'] as $diaS){
 															$i++;
@@ -675,7 +676,7 @@
 
 												} else {
 													$dataFinal = 'Múltiplas Datas';
-												}											
+												}												
 											}
 										?>
 										<p class="mb-0">
