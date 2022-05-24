@@ -1162,7 +1162,8 @@ select#tipoData {
     text-transform: uppercase;
 }
 
-.evento-categ a {
+.evento-categ a,
+.evento-categ{
     color: #0048A9;
     font-weight: bold;
     font-size: 10px;
