@@ -1997,3 +1997,28 @@ function wpdocs_my_custom_submenu_page_callback() {
 	<?php
     echo '</div>';
 }
+
+// Pega as informacoes do usuario logado
+$user = wp_get_current_user();
+
+//remove o botao de edicao rapida
+function remove_quick_edit( $actions ) {
+    unset($actions['inline hide-if-no-js']);
+    return $actions;
+}
+
+// Se o usuarios nao por admin remove os botoes de edicao rapida
+if ( !current_user_can('edit_plugins') ) {
+    add_filter('page_row_actions','remove_quick_edit',10,1);
+    add_filter('post_row_actions','remove_quick_edit',10,1);
+}
+
+// remove o editor de link permanente
+function hide_permalink() {
+    return '';
+}
+
+// Se usuario nao for admin remove o botao de editar o link permanente
+if ( !current_user_can('edit_plugins') ) {
+	add_filter( 'get_sample_permalink_html', 'hide_permalink' );
+}
