@@ -69,10 +69,10 @@ class Construtor extends Util
 							</div>
 							
 							
-							<div class="col-md-4">
+							<div class="col-md-3">
 
 								<button type="button" class="btn-submenu d-lg-none d-xl-none b-0" data-toggle="modal" data-target="#filtroBusca">
-									<i class="fa fa-ellipsis-v" aria-hidden="true"></i> <span>Submenu</span>					
+									<i class="fa fa-ellipsis-v" aria-hidden="true"></i> <span>Subpáginas</span>					
 								</button>
 
 								<hr class='d-lg-none d-xl-none'>
@@ -83,11 +83,77 @@ class Construtor extends Util
 										<div class="modal-content">
 
 											<div class="modal-header">
-												<p class="modal-title" id="myModalLabel2">Submenu</p>
+												<p class="modal-title" id="myModalLabel2">Subpáginas</p>
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>				
 											</div>
 
 											<div class="modal-body">
+												<?php if( have_rows('menu_lateral', $parent) ): ?>
+													<ul class="nav flex-column vertical-menu-mobile">
+														<?php while( have_rows('menu_lateral', $parent) ): the_row();
+																// Case: Paragraph layout.
+																if( get_row_layout() == 'item_principal' ):
+
+																	$rotulo = get_sub_field('rotulo');
+																	$pagina = get_sub_field('pagina');													
+																	
+																	if($rotulo != '' && $pagina[0]->ID != ''){
+																		$page = $pagina[0]->ID;
+																		if($page == get_the_ID()){
+																			$classe = 'active';
+																		}
+																		echo '<li><a href="' . get_the_permalink($page) . '" class="' . $classe . '">' . $rotulo . '</a></li>';
+																		$classe = '';
+																	} elseif(!$rotulo && $pagina[0]->ID != ''){
+																		$page = $pagina[0]->ID;
+																		if($page == get_the_ID()){
+																			$classe = 'active';
+																		}
+																		echo '<li><a href="' . get_the_permalink($page) . '" class="' . $classe . '">' . get_the_title($page) . '</a></li>';
+																		$classe = '';
+																	}
+																endif;
+																
+																if( get_row_layout() == 'outros_itens' ):
+																	$outros_itens = get_sub_field('outros_itens');
+																	foreach($outros_itens as $item){
+																		//echo $item['outros_pagina'][0];
+																		if($item['nome_do_rotulo'] != ''){
+																			if($item['outros_pagina'][0] == get_the_ID()){
+																				$currentTitle = $item['nome_do_rotulo'];
+																				$classe = 'active';
+																			}
+																			
+																			$url = get_the_permalink($item['outros_pagina'][0]);
+																			if($item['link_externo']){
+																				$url = $item['endereco_do_site'];
+																			}
+						
+																			echo '<li><a href="' . $url . '" class="' . $classe . '">' . $item['nome_do_rotulo'] . '</a></li>';
+																			$classe = '';
+																		} else {
+																			if($item['outros_pagina'][0] == get_the_ID()){
+																				$currentTitle = get_the_title($item['outros_pagina'][0]);
+																				$classe = 'active';
+																			}
+						
+																			$title = get_the_title($item['outros_pagina'][0]);
+																			$url = get_the_permalink($item['outros_pagina'][0]);
+																			if($item['link_externo']){
+																				$title = $item['endereco_do_site'];
+																				$url = $item['endereco_do_site'];
+																			}
+																			echo '<li><a href="' . $url . '" class="' . $classe . '">' . $title . '</a></li>';
+																			$classe = '';
+																		}
+																	}
+																endif;
+																
+															?>
+															
+														<?php endwhile; ?>
+													</ul>
+												<?php endif; ?>
 												<ul class="nav flex-column vertical-menu-mobile">					
 								
 													<?php
@@ -121,30 +187,15 @@ class Construtor extends Util
 																		$currentTitle = $page['nome_do_rotulo'];
 																		$classe = 'active';
 																	}
-
-																	$url = get_the_permalink($page['outros_pagina'][0]);
-																	if($page['link_externo']){
-																		$url = $page['endereco_do_site'];
-																	}
-
-																	echo '<li><a href="' . $url . '" class="' . $classe . '">' . $page['nome_do_rotulo'] . '</a></li>';
+																	echo '<li><a href="' . get_the_permalink($page['outros_pagina'][0]) . '" class="' . $classe . '">' . $page['nome_do_rotulo'] . '</a></li>';
 																	$classe = '';
-
 																} else {
 																	if($page['outros_pagina'][0] == get_the_ID()){
 																		$currentTitle = get_the_title($page['outros_pagina'][0]);
 																		$classe = 'active';
 																	}
-
-																	$title = get_the_title($page['outros_pagina'][0]);
-																	$url = get_the_permalink($page['outros_pagina'][0]);
-																	if($page['link_externo']){
-																		$title = $page['endereco_do_site'];
-																		$url = $page['endereco_do_site'];
-																	}
-																	echo '<li><a href="' . $url . '" class="' . $classe . '">' . $title . '</a></li>';
+																	echo '<li><a href="' . get_the_permalink($page['outros_pagina'][0]) . '" class="' . $classe . '">' . get_the_title($page['outros_pagina'][0]) . '</a></li>';
 																	$classe = '';
-																	
 																}
 															}
 														}	
@@ -159,6 +210,74 @@ class Construtor extends Util
 										</div><!-- modal-content -->
 									</div><!-- modal-dialog -->
 								</div><!-- modal -->
+
+								
+								<?php if( have_rows('menu_lateral', $parent) ): ?>
+									<ul class="nav flex-column vertical-menu d-none d-lg-block d-xl-block">
+										<?php while( have_rows('menu_lateral', $parent) ): the_row();
+												// Case: Paragraph layout.
+												if( get_row_layout() == 'item_principal' ):
+
+													$rotulo = get_sub_field('rotulo');
+													$pagina = get_sub_field('pagina');													
+													
+													if($rotulo != '' && $pagina[0]->ID != ''){
+														$page = $pagina[0]->ID;
+														if($page == get_the_ID()){
+															$classe = 'active';
+														}
+														echo '<li><a href="' . get_the_permalink($page) . '" class="' . $classe . '">' . $rotulo . '</a></li>';
+														$classe = '';
+													} elseif(!$rotulo && $pagina[0]->ID != ''){
+														$page = $pagina[0]->ID;
+														if($page == get_the_ID()){
+															$classe = 'active';
+														}
+														echo '<li><a href="' . get_the_permalink($page) . '" class="' . $classe . '">' . get_the_title($page) . '</a></li>';
+														$classe = '';
+													}
+												endif;
+												
+												if( get_row_layout() == 'outros_itens' ):
+													$outros_itens = get_sub_field('outros_itens');
+													foreach($outros_itens as $item){
+														//echo $item['outros_pagina'][0];
+														if($item['nome_do_rotulo'] != ''){
+															if($item['outros_pagina'][0] == get_the_ID()){
+																$currentTitle = $item['nome_do_rotulo'];
+																$classe = 'active';
+															}
+															
+															$url = get_the_permalink($item['outros_pagina'][0]);
+															if($item['link_externo']){
+																$url = $item['endereco_do_site'];
+															}
+		
+															echo '<li><a href="' . $url . '" class="' . $classe . '">' . $item['nome_do_rotulo'] . '</a></li>';
+															$classe = '';
+														} else {
+															if($item['outros_pagina'][0] == get_the_ID()){
+																$currentTitle = get_the_title($item['outros_pagina'][0]);
+																$classe = 'active';
+															}
+		
+															$title = get_the_title($item['outros_pagina'][0]);
+															$url = get_the_permalink($item['outros_pagina'][0]);
+															if($item['link_externo']){
+																$title = $item['endereco_do_site'];
+																$url = $item['endereco_do_site'];
+															}
+															echo '<li><a href="' . $url . '" class="' . $classe . '">' . $title . '</a></li>';
+															$classe = '';
+														}
+													}
+												endif;
+												
+											?>
+											
+										<?php endwhile; ?>
+									</ul>
+								<?php endif; ?>
 
 								<ul class="nav flex-column vertical-menu d-none d-lg-block d-xl-block">					
 								
@@ -191,19 +310,33 @@ class Construtor extends Util
 										if($outrasPages){
 											
 											foreach($outrasPages as $page){
+												
 												if($page['nome_do_rotulo'] != ''){
 													if($page['outros_pagina'][0] == get_the_ID()){
 														$currentTitle = $page['nome_do_rotulo'];
 														$classe = 'active';
 													}
-													echo '<li><a href="' . get_the_permalink($page['outros_pagina'][0]) . '" class="' . $classe . '">' . $page['nome_do_rotulo'] . '</a></li>';
+													
+													$url = get_the_permalink($page['outros_pagina'][0]);
+													if($page['link_externo']){
+														$url = $page['endereco_do_site'];
+													}
+
+													echo '<li><a href="' . $url . '" class="' . $classe . '">' . $page['nome_do_rotulo'] . '</a></li>';
 													$classe = '';
 												} else {
 													if($page['outros_pagina'][0] == get_the_ID()){
 														$currentTitle = get_the_title($page['outros_pagina'][0]);
 														$classe = 'active';
 													}
-													echo '<li><a href="' . get_the_permalink($page['outros_pagina'][0]) . '" class="' . $classe . '">' . get_the_title($page['outros_pagina'][0]) . '</a></li>';
+
+													$title = get_the_title($page['outros_pagina'][0]);
+													$url = get_the_permalink($page['outros_pagina'][0]);
+													if($page['link_externo']){
+														$title = $page['endereco_do_site'];
+														$url = $page['endereco_do_site'];
+													}
+													echo '<li><a href="' . $url . '" class="' . $classe . '">' . $title . '</a></li>';
 													$classe = '';
 												}
 											}
@@ -221,11 +354,11 @@ class Construtor extends Util
 						<?php endif; ?>
 						
 						<?php
-							$coluna = 'col-md-12';
+							$coluna = 'col-md-12 p-0';
 							$contentClass = '';
 							if(get_field('fx_flex_habilitar_menu') != null || get_field('fx_flex_habilitar_menu', $parent) != null){
 								$contentClass = 'content-margin';
-								$coluna = 'col-md-8';
+								$coluna = 'col-md-9';
 							}	
 						?>
 						
