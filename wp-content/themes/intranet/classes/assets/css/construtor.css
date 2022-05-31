@@ -495,6 +495,9 @@ form.form-recados label {
 /**** Beneficios / Parceiro ****/
 .parceiro{
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .parceiro h2 {
@@ -505,6 +508,10 @@ form.form-recados label {
 .parceiro h2 a{
     text-decoration: underline;
     color: #2C8C99;
+}
+
+.parceiro p{
+    word-break: break-word;
 }
 
 /**** Beneficios / Ingressos ****/
