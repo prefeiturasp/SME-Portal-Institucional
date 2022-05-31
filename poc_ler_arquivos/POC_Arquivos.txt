@@ -1,0 +1,42 @@
+Tabela SQL SERVER
+tb_arquivo_certificado
+
+id iqueidentifier
+nome_arquivo
+assunto_email
+email_destinatario
+anexo
+data_leitura
+
+
+
+RF do usuário:
+Campo assunto: 006.113.19
+Padrão: Curso realizado na SME - 006.113.19_C1HOM21182_I324380
+
+
+
+Numero da homologação do curso:
+- campo assunto --> C1HOM21182_I324380
+Curso realizado na SME - 006.113.19_C1HOM21182_I324380
+
+
+
+Nome do curso:
+Dentro do arquivo anexo (certificado), no texto após a string: "participou do Curso" até a string "promovido pelo"
+- Certificamos para os devidos fins que o(a) servidor(a), MARISA
+MATTOS, participou do Curso CONTRIBUIÇÕES DO DESENHO UNIVERSAL PARA A
+APRENDIZAGEM: CONSTRUINDO PRÁTICAS INCLUSIVAS DE ALFABETIZAÇÃO
+POPULAR NO MOVA promovido pelo(a) SME / COPED / DIEJA no período de
+13/08/2021 a 17/12/2021, com carga horária de 20 horas.
+
+
+
+Data de conclusão do curso:
+Dentro do arquivo anexo (certificado), no texto após a string: "no período de" pegar a data de início e término.
+Considerar a segunda data exibida (término)
+
+
+
+Certificado em PDF:
+Salvar o arquivo em PFD na base - Base64
