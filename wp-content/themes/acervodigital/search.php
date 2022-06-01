@@ -694,6 +694,7 @@ function generateRandomString($length = 10) {
 
 												$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 												$anos = array_unique($anos);
+												arsort($anos);
 												if($anos && $anos !=''):
 												?>
 													<div class="panel panel-default">
@@ -2647,6 +2648,7 @@ function generateRandomString($length = 10) {
 
 									$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 									$anos = array_unique($anos);
+									arsort($anos);
 									if($anos && $anos !=''):
 									?>
 										<div class="panel panel-default">
