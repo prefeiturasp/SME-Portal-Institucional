@@ -830,9 +830,9 @@ function wpse_27518_pre_user_query($user_search) {
 
     $vars = $user_search->query_vars;
 
-    if('setor' == $vars['orderby']) 
+    if('setor_novo' == $vars['orderby']) 
     {
-        $user_search->query_from .= " INNER JOIN {$wpdb->usermeta} m1 ON {$wpdb->users}.ID=m1.user_id AND (m1.meta_key='setor')"; 
+        $user_search->query_from .= " INNER JOIN {$wpdb->usermeta} m1 ON {$wpdb->users}.ID=m1.user_id AND (m1.meta_key='setor_novo')"; 
         $user_search->query_orderby = ' ORDER BY UPPER(m1.meta_value) '. $vars['order'];
     } 
     
@@ -2131,3 +2131,43 @@ function hide_submenu_contact() {
 	unset($submenu[$menu_page][15]);
 	
 }
+
+add_filter( 'profile_update', function( $user_id, $old_user_data ) {
+	//if( true !== $update ) return $meta; // if not an update (b/c it is a create) do nothing
+  	
+	if(is_admin()) { // check if we are in admin not front end
+
+		$setor = get_field('setor_old', 'user_'.$user_id);
+		$campos = get_field('campos', 'user_'.$user_id);
+		$current_user = wp_get_current_user();
+		$date = date('d/m/Y H:i:s');
+
+		if( $setor != $_POST['acf']['field_628fca507d189'] && $setor != '' ) {			
+			update_user_meta( $user_id, 'campos', "De: " . get_the_title($setor) . ' Para: ' . get_the_title($_POST['acf']['field_628fca507d189']) . " Por: " . $current_user->user_login . ' Em: ' . $date . "\n" . $campos);	
+		} else {
+			//update_user_meta( $user_id, 'campos', 'Manteve: ' . $setor);	
+		}
+	}
+	return $meta;
+}, 99, 2 );
+
+function custom_menu_order($menu_ord) {
+    if (!$menu_ord) return true;
+    return array(
+	 'index.php',	 
+	 'tutorial_slug',
+	 'acf-options-alerta-da-pagina-inicial',
+	 'edit.php',
+	 'upload.php',
+	 'edit.php?post_type=agenda',
+	 'edit.php?post_type=agendanew',
+	 'edit.php?post_type=contato',
+	 'edit.php?post_type=curriculo-da-cidade',
+	 'edit.php?post_type=concurso',
+	 'edit.php?post_type=programa-projeto',
+     'edit.php?post_type=editores_portal',
+     'edit.php?post_type=setor',
+ );
+}
+add_filter('custom_menu_order', 'custom_menu_order');
+add_filter('menu_order', 'custom_menu_order');

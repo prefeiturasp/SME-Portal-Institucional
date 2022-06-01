@@ -5,6 +5,13 @@ jQuery( document ).ready(function() {
     });
 });
 
+jQuery(document).ready(function(){
+    var valorLoad = jQuery('#acf-field_628fca507d189').val();
+    //jQuery('#acf-field_628e4080d3c88').get(0).type = 'hidden';
+    jQuery('#acf-field_628e4080d3c88').val(valorLoad);
+    jQuery('#acf-field_628d3c7dbd459').attr('disabled', 'disabled');
+});
+
 var $s = jQuery.noConflict();
 
 $s('#attachment_alt').each(function() {
