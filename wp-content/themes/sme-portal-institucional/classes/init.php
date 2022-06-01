@@ -124,3 +124,5 @@ $cptConcursosExtend = new \Classes\Cpt\CptConcursos();
 
 $cptProgramasEProjetos = new \Classes\Cpt\Cpt('programa-projeto', 'programa-projeto', 'Programas e Projetos', 'Todos os Programas e Projetos', 'Programas e Projetos', 'Programas e Projetos', 'categorias-programa-projeto', 'Categorias de Programas e Projetos', 'Categoria de Programas e Projetos', 'dashicons-format-image', true);
 $cptProgramasEProjetosExtende = new \Classes\Cpt\CptProgramasEProjetos();
+
+$cptSetor = new \Classes\Cpt\Cpt('setor', 'setor', 'Cadastro Setor', 'Todos os Setores', 'Setores', 'Setores', '', '', '', 'dashicons-format-image', true);

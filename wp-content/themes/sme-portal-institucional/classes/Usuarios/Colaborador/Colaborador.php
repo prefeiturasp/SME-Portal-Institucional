@@ -157,6 +157,7 @@ class Colaborador
 			//remove_menu_page('edit.php?post_type=contato');
 			remove_menu_page('edit.php?post_type=organograma'); // Organograma
 			remove_menu_page('edit.php?post_type=curriculo-da-cidade'); // Curriculo
+			remove_menu_page('edit.php?post_type=setor'); // Setor
 			//remove_menu_page('edit.php?post_type=aba'); // Cadastro Abas
 			//remove_menu_page('edit.php?post_type=botao'); // Cadastro Botoes
 			//remove_menu_page('admin.php');

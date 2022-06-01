@@ -47,7 +47,7 @@ function convertFunc($funcao){
 foreach($blogusers as $user){
 	$user_meta = get_userdata($user->id);
 	$user_roles = $user_meta->roles;
-	$setor = get_field('setor', 'user_'. $user->id );
+	$setor = get_field('setor_novo', 'user_'. $user->id );
 	$grupos = get_field('grupo', 'user_'. $user->id );
 	$grupoTitle = '';
 	$i = 0;
@@ -69,7 +69,7 @@ foreach($blogusers as $user){
 		'email' => $user->user_email,
 		'funcao' => convertFunc($user_roles[0]),
 		'grupo' => $grupoTitle,
-		'setor' => $setor
+		'setor' => get_the_title($setor)
 	);
 
 }

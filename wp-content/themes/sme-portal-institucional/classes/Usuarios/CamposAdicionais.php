@@ -49,7 +49,7 @@ class CamposAdicionais
 
 		$setor_unico = [];
 		foreach ($users as $user_id){
-			$setor_unico[] = get_user_meta($user_id, 'setor', true);
+			$setor_unico[] = get_user_meta($user_id, 'setor_novo', true);
 		}
 
 		return array_unique($setor_unico, SORT_REGULAR);
@@ -70,15 +70,23 @@ class CamposAdicionais
 
 		$setores_unicos = $this->getUsersSetorUnique($users);
 
+		$setores = array();
+		foreach ($setores_unicos as $setor){
+			$setores[$setor] = get_the_title($setor);
+		}
+
+		$setores = array_filter($setores, 'strlen');
+		asort($setores);
+		
 		echo ' <select name="setor[]" style="float:none;">';
 		echo'<option value="0" selected="selected">Todos os setores</option>';
 
-		foreach ($setores_unicos as $setor){
+		foreach ($setores as $key => $setor){
 
-			$selected = $setor == $section ? ' selected="selected"' : '';
+			$selected = $key == $section ? ' selected="selected"' : '';
 
-			if ($setor) {
-				echo '<option value="' . $setor . '"' . $selected . '>' . $setor . '</option>';
+			if ($key) {
+				echo '<option value="' . $key . '"' . $selected . '>' . $setor . '</option>';
 			}
 		}
 		echo '</select>';
@@ -101,11 +109,11 @@ class CamposAdicionais
 				$section = !empty($section[0]) ? $section[0] : $section[1];
 				$meta_query = array(
 					array(
-						'key' => 'setor',
+						'key' => 'setor_novo',
 						'value' => $section
 					)
 				);
-				$query->set('meta_key', 'setor');
+				$query->set('meta_key', 'setor_novo');
 				$query->set('meta_query', $meta_query);
 			}
 		}
@@ -137,7 +145,7 @@ class CamposAdicionais
 	function orderby($vars)
 	{
 		if (is_admin()) {
-			if (isset($vars['orderby']) && $vars['orderby'] == 'setor') {
+			if (isset($vars['orderby']) && $vars['orderby'] == 'setor_novo') {
 				$vars = array_merge( $vars, array(
 					'meta_key' => 'setor',
 					'orderby' => 'meta_value'
@@ -151,7 +159,7 @@ class CamposAdicionais
 
 	public function cols_sort($cols)
 	{
-		$cols['setor'] = 'setor';
+		$cols['setor'] = 'setor_novo';
 		return $cols;
 	}
 
@@ -168,7 +176,7 @@ class CamposAdicionais
                     </label></th>
                 <td>
                     <input type="text" name="setor" id="setor"
-                           value="<?php echo esc_attr(get_the_author_meta('setor', $user->ID)); ?>"
+                           value="<?php echo esc_attr(get_the_author_meta('setor_novo', $user->ID)); ?>"
                            class="regular-text"/><br/>
                     <span class="description"><?php _e('Por favor entre com o setor do usuário.', 'your_textdomain'); ?></span>
                 </td>
@@ -198,12 +206,12 @@ class CamposAdicionais
 	//Exibindo as informações correspondentes de cada coluna
 	public function cols_content($val, $column_name, $user_id)
 	{
-		$user_setor = get_user_meta($user_id, 'setor', true);
+		$user_setor = get_user_meta($user_id, 'setor_novo', true);
 
 		switch ($column_name) {
 			case 'setor' :
 				if ($user_setor){
-					return "<p><strong>$user_setor</strong></p>";
+					return "<p><strong>" . get_the_title($user_setor) . "</strong></p>";
 				}else{
 					return "<p>Nenhum Setor Cadastrado</p>";
 				}
