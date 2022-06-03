@@ -1807,3 +1807,21 @@ ul.nav.nav-tabs {
     width: 100%;
     height: 100%;
 }
+
+@media screen and (min-width: 1280px) {
+    .container{
+        max-width: 1280px;
+    }
+}
+
+@media screen and (min-width: 1360px) {
+    .container{
+        max-width: 1360px;
+    }
+}
+
+@media screen and (min-width: 1630px) {
+    .container{
+        max-width: 1420px;
+    }
+}
