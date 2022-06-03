@@ -72,8 +72,6 @@ require_once __ROOT__.'/classes/ModelosDePaginas/LandingPages/Modelo_1.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/LandingPages/Modelo_2.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/Layout/construtor.php';
 
-// concursos
-require_once __ROOT__.'/classes/ModelosDePaginas/PaginaConcursos/PaginaConcursos.php';
 
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticias.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasArrayIdNoticias.php';
