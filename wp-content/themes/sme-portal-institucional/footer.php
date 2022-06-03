@@ -78,7 +78,14 @@
 			</div>
 		</div>
 	</div>
-</div>		
+</div>
+<div class="voltar-topo d-block d-sm-block d-md-none">
+	<a href="#" id="toTop" style="display: none;">
+		<i class="fa fa-arrow-up" aria-hidden="true"></i>
+		<p>Voltar ao topo</p>
+		<img src="https://via.placeholder.com/40x80" alt="" srcset="">
+	</a>
+</div>	
 <?php wp_footer() ?>
 <script src="//api.handtalk.me/plugin/latest/handtalk.min.js"></script>
 <script>
