@@ -485,6 +485,20 @@ video {
     text-align: right;
 }
 
+.concursos-no-results img{
+	display: block;
+	margin: 0 auto;
+}
+
+.concursos-no-results .azul-claro{
+	color: #0069D9;
+}
+
+.concursos-no-results p{
+	font-weight: bold;
+	text-align: center;
+}
+
 @media only screen and (max-width: 768px) {
 	.form-concursos #limpar {
 		margin-right: 15px;
