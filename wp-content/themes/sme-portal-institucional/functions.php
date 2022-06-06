@@ -2171,3 +2171,16 @@ function custom_menu_order($menu_ord) {
 }
 add_filter('custom_menu_order', 'custom_menu_order');
 add_filter('menu_order', 'custom_menu_order');
+
+function media_admin_notice(){
+    global $pagenow;
+    if ( $pagenow == 'upload.php' ) { ?>
+			<style>
+				.alert-info{
+					display: block;
+				}
+			</style>
+	<?php			
+	}
+}
+add_action('admin_notices', 'media_admin_notice');
