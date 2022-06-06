@@ -25,7 +25,6 @@ require_once __ROOT__.'/classes/Cpt/CptAgendaSecretarioNew.php';
 require_once __ROOT__.'/classes/Cpt/CptContato.php';
 require_once __ROOT__.'/classes/Cpt/CptBotao.php';
 require_once __ROOT__.'/classes/Cpt/CptCurriculoDaCidade.php';
-require_once __ROOT__.'/classes/Cpt/cptProgramaProjeto.php';
 require_once __ROOT__.'/classes/Cpt/CptConcursos.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
@@ -48,7 +47,6 @@ require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaNew/ArchiveAgenda
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaNew/ArchiveAgendaNew.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaNew/ArchiveAgendaAjaxCalendarioNew.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveCurriculoDaCidade/ArchiveCurriculoDaCidade.php';
-require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveProgramaProjeto/ArchiveProgramaProjeto.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/GetTipoDePost.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/SearchForm.php';
@@ -119,8 +117,5 @@ $cptCurriculoDaCidadeExtende = new \Classes\Cpt\CptCurriculoDaCidade();
 // Concursos
 $cptConcursos = new \Classes\Cpt\Cpt('concurso', 'concurso', 'Cadastro de Concurso', 'Todos os Concursos', 'Concursos', 'Cadastro de Concurso', '', '', '', 'dashicons-external' , true);
 $cptConcursosExtend = new \Classes\Cpt\CptConcursos();
-
-$cptProgramasEProjetos = new \Classes\Cpt\Cpt('programa-projeto', 'programa-projeto', 'Programas e Projetos', 'Todos os Programas e Projetos', 'Programas e Projetos', 'Programas e Projetos', 'categorias-programa-projeto', 'Categorias de Programas e Projetos', 'Categoria de Programas e Projetos', 'dashicons-format-image', true);
-$cptProgramasEProjetosExtende = new \Classes\Cpt\CptProgramasEProjetos();
 
 $cptSetor = new \Classes\Cpt\Cpt('setor', 'setor', 'Cadastro Setor', 'Todos os Setores', 'Setores', 'Setores', '', '', '', 'dashicons-format-image', true);
