@@ -188,21 +188,7 @@
     </form>
 
     <?php if($_GET['view'] == 'all' || $_GET['view'] == 'search'): ?>
-
         
-
-        <table class="table table-default table-bordered table-concursos d-none d-md-table">
-            <thead>
-                <tr>
-                    <th scope="col">Cargo</th>
-                    <th scope="col">Homologação</th>
-                    <th scope="col">Validade</th>
-                    <th scope="col">Última Chamada</th>
-                    <th scope="col">Status</th>
-                </tr>            
-            </thead>
-
-            <tbody>
                 <?php
                     // Filtro / Busca Palavra Chave
                     if(isset($_GET['search']) && $_GET['search'] != ''){
@@ -263,283 +249,306 @@
                     
                     // The Loop
                     if ( $the_query->have_posts() ) :
-                    
-                        while ( $the_query->have_posts() ) :
-                            $the_query->the_post();
                 ?>
-                        <tr>
-                            <!-- Link Noticia / Titulo -->
+                        <table class="table table-default table-bordered table-concursos d-none d-md-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Cargo</th>
+                                    <th scope="col">Homologação</th>
+                                    <th scope="col">Validade</th>
+                                    <th scope="col">Última Chamada</th>
+                                    <th scope="col">Status</th>
+                                </tr>            
+                            </thead>
+
+                            <tbody>
+
                                 <?php
-                                    $titleurl = get_field( "link_noticias");
-                                    if($titleurl) :
-                                ?>                                    
-                                    <th scope="row" class='align-middle'><a href="<?= $titleurl; ?>"><strong><?= get_the_title($cargo); ?></strong></a></th>
-                                <?php else: ?>
-                                    <th scope="row" class='align-middle'><strong><?= get_the_title($cargo); ?></strong></th>
-                                <?php endif; ?>
                                 
-                            <!-- Fim Link Noticia / Titulo -->
-                            
-                            <!-- Homologacao -->
-                                <?php
-                                    // Verifica data de hologacao
-                                    $datahom = get_field("homologacao");
-                                    if($datahom):
-                                    
-                                    $dtHomolog = convertDate($datahom);
+                                    while ( $the_query->have_posts() ) :
+                                        $the_query->the_post();
                                 ?>
+                                    <tr>
+                                        <!-- Link Noticia / Titulo -->
+                                            <?php
+                                                $titleurl = get_field( "link_noticias");
+                                                if($titleurl) :
+                                            ?>                                    
+                                                <th scope="row" class='align-middle'><a href="<?= $titleurl; ?>"><strong><?= get_the_title($cargo); ?></strong></a></th>
+                                            <?php else: ?>
+                                                <th scope="row" class='align-middle'><strong><?= get_the_title($cargo); ?></strong></th>
+                                            <?php endif; ?>
+                                            
+                                        <!-- Fim Link Noticia / Titulo -->
                                         
-                                    <?php
-                                        // Verifica se tem DOC
-                                        $dochom = get_field("doc_homologacao");
-                                        if($dochom):
-                                    ?>
-                                        <td class='align-middle'><strong><a href="<?php echo $dochom; ?>">DOC - <?php echo $dtHomolog; ?></a></strong></td>
-                                    <?php else: ?>
-                                        <td class='align-middle'><?php echo $dtHomolog; ?></td>
-                                    <?php endif; ?>
-                                
-                                <?php else: ?>
-                                    <td class='align-middle'>-</td>
-                                <?php endif; ?>
-                            <!-- Fim Homologacao -->
+                                        <!-- Homologacao -->
+                                            <?php
+                                                // Verifica data de hologacao
+                                                $datahom = get_field("homologacao");
+                                                if($datahom):
+                                                
+                                                $dtHomolog = convertDate($datahom);
+                                            ?>
+                                                    
+                                                <?php
+                                                    // Verifica se tem DOC
+                                                    $dochom = get_field("doc_homologacao");
+                                                    if($dochom):
+                                                ?>
+                                                    <td class='align-middle'><strong><a href="<?php echo $dochom; ?>">DOC - <?php echo $dtHomolog; ?></a></strong></td>
+                                                <?php else: ?>
+                                                    <td class='align-middle'><?php echo $dtHomolog; ?></td>
+                                                <?php endif; ?>
+                                            
+                                            <?php else: ?>
+                                                <td class='align-middle'>-</td>
+                                            <?php endif; ?>
+                                        <!-- Fim Homologacao -->
 
-                            <!-- Validade -->
-                                <?php
-                                    // Verifica data de Validade
-                                    $validade = get_field("validade");                
-                                    if($validade):                        
-                                        $dtValidade = convertDate($validade);
-                                ?>
-                                    <td class='align-middle'><?php echo $dtValidade; ?></td>                    
-                                <?php else: ?>
-                                    <td class='align-middle'>-</td>
-                                <?php endif; ?>
-                            <!-- Fim Validade -->
-                            
-                            <!-- Ultima Chamada -->
-                                <?php
-                                    // Verifica data de hologacao
-                                    $datahom = get_field("ultima_chamada");
-                                    if($datahom):
-                                    
-                                    $dtHomolog = convertDate($datahom);
-                                ?>
+                                        <!-- Validade -->
+                                            <?php
+                                                // Verifica data de Validade
+                                                $validade = get_field("validade");                
+                                                if($validade):                        
+                                                    $dtValidade = convertDate($validade);
+                                            ?>
+                                                <td class='align-middle'><?php echo $dtValidade; ?></td>                    
+                                            <?php else: ?>
+                                                <td class='align-middle'>-</td>
+                                            <?php endif; ?>
+                                        <!-- Fim Validade -->
                                         
-                                    <?php
-                                        // Verifica se tem DOC
-                                        $dochom = get_field( "doc_ultima_chamada");
-                                        if($dochom):
-                                    ?>
-                                        <td class='align-middle'><strong><a href="<?php echo $dochom; ?>">DOC - <?php echo $dtHomolog; ?></a></strong></td>
-                                    <?php else: ?>
-                                        <td class='align-middle'><?php echo $dtHomolog; ?></td>
-                                    <?php endif; ?>
-                                
-                                <?php else: ?>
-                                    <td class='align-middle'>-</td>
-                                <?php endif; ?>
-                            <!-- Fim Ultima Chamada -->
+                                        <!-- Ultima Chamada -->
+                                            <?php
+                                                // Verifica data de hologacao
+                                                $datahom = get_field("ultima_chamada");
+                                                if($datahom):
+                                                
+                                                $dtHomolog = convertDate($datahom);
+                                            ?>
+                                                    
+                                                <?php
+                                                    // Verifica se tem DOC
+                                                    $dochom = get_field( "doc_ultima_chamada");
+                                                    if($dochom):
+                                                ?>
+                                                    <td class='align-middle'><strong><a href="<?php echo $dochom; ?>">DOC - <?php echo $dtHomolog; ?></a></strong></td>
+                                                <?php else: ?>
+                                                    <td class='align-middle'><?php echo $dtHomolog; ?></td>
+                                                <?php endif; ?>
+                                            
+                                            <?php else: ?>
+                                                <td class='align-middle'>-</td>
+                                            <?php endif; ?>
+                                        <!-- Fim Ultima Chamada -->
 
-                            <td><?= get_field("status"); ?></td>
-                        </tr>
-                        <tr>
-                            <?php
-                                // Verifica Ultimos Convocados
-                                $ultimos_convocados = get_field("ultimos_convocados");
-                                $informacoes = get_field('mais_informacoes');
-                        
-                                if($ultimos_convocados):
-                            ?>
+                                        <td><?= get_field("status"); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <?php
+                                            // Verifica Ultimos Convocados
+                                            $ultimos_convocados = get_field("ultimos_convocados");
+                                            $informacoes = get_field('mais_informacoes');
+                                    
+                                            if($ultimos_convocados):
+                                        ?>
 
-                                <td colspan='5' class='align-middle'>
-                                    <p class="m-0"><strong>Últimos convocados</strong></p>
-                                    <?php echo $ultimos_convocados; ?>
-                                    <?php 
-                                        if($informacoes){
-                                            echo "<hr>";
-                                            echo '<p class="m-0"><strong>Mais informações</strong></p>';
-                                            echo $informacoes;
-                                        }                                    
-                                    ?>
-                                </td>
-                            
-                            <?php else: ?>
-                                <td colspan='5' class='align-middle'>
-                                    <p class="m-0"><strong>Últimos convocados</strong></p>
-                                    -
-                                    <?php 
-                                        if($informacoes){
-                                            echo "<hr>";
-                                            echo '<p class="m-0"><strong>Mais informações</strong></p>';
-                                            echo $informacoes;
-                                        }                                    
-                                    ?>
-                                </td>
-                            <?php endif; ?>    
-                            
-                        </tr>                        
-                <?php
-                            
-                        endwhile;
+                                            <td colspan='5' class='align-middle'>
+                                                <p class="m-0"><strong>Últimos convocados</strong></p>
+                                                <?php echo $ultimos_convocados; ?>
+                                                <?php 
+                                                    if($informacoes){
+                                                        echo "<hr>";
+                                                        echo '<p class="m-0"><strong>Mais informações</strong></p>';
+                                                        echo $informacoes;
+                                                    }                                    
+                                                ?>
+                                            </td>
+                                        
+                                        <?php else: ?>
+                                            <td colspan='5' class='align-middle'>
+                                                <p class="m-0"><strong>Últimos convocados</strong></p>
+                                                -
+                                                <?php 
+                                                    if($informacoes){
+                                                        echo "<hr>";
+                                                        echo '<p class="m-0"><strong>Mais informações</strong></p>';
+                                                        echo $informacoes;
+                                                    }                                    
+                                                ?>
+                                            </td>
+                                        <?php endif; ?>    
+                                        
+                                    </tr>                        
+                                <?php  endwhile; ?>
+                            <tbody>
+
+                        </table>
+                    <?php else: ?>
                         
-                    endif; 
+                        <div class="concursos-no-results">
+                            <h2 class="search-title">
+                                <span class="azul-claro"><strong>0</strong></span><strong> 
+                                    resultados</strong>
+                            </h2>
+                            <img src="<?php echo get_bloginfo('template_directory') ?>/img/search-empty.png" alt="Nenhum conteuúdo encontrado" class='empty-search responsive-img'>
+                            <p class="azul-claro">Não há conteúdo disponível para o termo buscado. Por favor faça uma nova busca.</p>
+                        </div>
+                        
+                    <?php endif; 
                     wp_reset_postdata();
-                ?>
-            <tbody>
+                    ?>
+            
 
-        </table>
-
-        <table class="table d-table table-default table-bordered d-sm-table d-md-none table-concursos-mobile">
-            <thead>                
-                <tr>
-                    <th scope="col" colspan="2">Cargo</th>
-                </tr>
-            </thead>
-
-            <tbody>
+        
                 <?php
                     // The Query
                     $the_query = new WP_Query( $args );
                     
                     // The Loop
                     if ( $the_query->have_posts() ) :
-                    
-                        while ( $the_query->have_posts() ) :
-                            $the_query->the_post();
                 ?>
-                            <!-- Mobile -->
-                            <tr>
-                                <?php
-                                    $titleurl = get_field( "link_noticias");
-                                    if($titleurl) :
-                                ?>                                    
-                                    <th scope="row" class='align-middle'><a href="<?= $titleurl; ?>"><strong><?= get_the_title(); ?></strong></a></th>
-                                <?php else: ?>
-                                    <th scope="row" class='align-middle'><strong><?= get_the_title(); ?></strong></th>
-                                <?php endif; ?>
-                                
-                                <td width="40">
-                                    <a class="" data-toggle="collapse" href="#collapse-<?= get_the_ID(); ?>" role="button" aria-expanded="false" aria-controls="collapse-<?= get_the_ID(); ?>">
-                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="p-0" style="border-top: 0;">
-                                    <div class="collapse collapse-mobile" id="collapse-<?= get_the_ID(); ?>">
-                                        <div class="card card-body">
-                                            <p class="m-0"><strong>Data Homologação</strong></p>
-                                            <!-- Homologacao -->
-                                                <?php
-                                                    // Verifica data de hologacao
-                                                    $datahom = get_field("homologacao");
-                                                    if($datahom):
-                                                    
-                                                    $dtHomolog = convertDate($datahom);
-                                                ?>                                                        
-                                                    <?php
-                                                        // Verifica se tem DOC
-                                                        $dochom = get_field("doc_homologacao");
-                                                        if($dochom):
-                                                    ?>
-                                                        <p><strong><a href="<?php echo $dochom; ?>">DOC - <?php echo $dtHomolog; ?></a></strong></p>
-                                                    <?php else: ?>
-                                                        <p><?php echo $dtHomolog; ?></p>
-                                                    <?php endif; ?>
-                                                
-                                                <?php else: ?>
-                                                    <p>-</p>
-                                                <?php endif; ?>
-                                            <!-- Fim Homologacao -->
+                        <table class="table d-table table-default table-bordered d-sm-table d-md-none table-concursos-mobile">
+                            <thead>                
+                                <tr>
+                                    <th scope="col" colspan="2">Cargo</th>
+                                </tr>
+                            </thead>
 
-                                            <p class="m-0"><strong>Validade</strong></p>
-                                            <!-- Validade -->
-                                                <?php
-                                                    // Verifica data de Validade
-                                                    $validade = get_field("validade");                
-                                                    if($validade):                        
-                                                        $dtValidade = convertDate($validade);
-                                                ?>
-                                                    <p><?php echo $dtValidade; ?></p>                    
-                                                <?php else: ?>
-                                                    <p>-</p>
-                                                <?php endif; ?>
-                                            <!-- Fim Validade -->
-                                            
-                                            <p class="m-0"><strong>Última Chamada</strong></p>
-                                            <!-- Ultima Chamada -->
-                                                <?php
-                                                    // Verifica data de hologacao
-                                                    $datahom = get_field("ultima_chamada");
-                                                    if($datahom):
-                                                    
-                                                    $dtHomolog = convertDate($datahom);
-                                                ?>
-                                                        
-                                                    <?php
-                                                        // Verifica se tem DOC
-                                                        $dochom = get_field( "doc_ultima_chamada");
-                                                        if($dochom):
-                                                    ?>
-                                                        <p><strong><a href="<?php echo $dochom; ?>">DOC - <?php echo $dtHomolog; ?></a></strong></p>
-                                                    <?php else: ?>
-                                                        <p><?php echo $dtHomolog; ?></p>
-                                                    <?php endif; ?>
-                                                
-                                                <?php else: ?>
-                                                    <p>-</p>
-                                                <?php endif; ?>
-                                            <!-- Fim Ultima Chamada -->
-
-                                            <p class="m-0"><strong>Status</strong></p>
-                                            <p><?= get_field("status"); ?></p>
-
-                                            <?php
-                                                // Verifica Ultimos Convocados
-                                                $ultimos_convocados = get_field("ultimos_convocados");
-                                                $informacoes = get_field('mais_informacoes');
+                            <tbody>
+                    
+                                <?php while ( $the_query->have_posts() ) :
+                                    $the_query->the_post();
+                                ?>
+                                    <!-- Mobile -->
+                                    <tr>
+                                        <?php
+                                            $titleurl = get_field( "link_noticias");
+                                            if($titleurl) :
+                                        ?>                                    
+                                            <th scope="row" class='align-middle'><a href="<?= $titleurl; ?>"><strong><?= get_the_title(); ?></strong></a></th>
+                                        <?php else: ?>
+                                            <th scope="row" class='align-middle'><strong><?= get_the_title(); ?></strong></th>
+                                        <?php endif; ?>
                                         
-                                                if($ultimos_convocados):
-                                            ?>
-                                                <p class="m-0"><strong>Últimos convocados</strong></p>
-                                                <?php echo $ultimos_convocados; ?>
-                                                <?php 
-                                                    if($informacoes){
-                                                        echo '<div class="mais-info">';
-                                                            echo '<p class="m-0"><strong>Mais informações</strong></p>';
-                                                            echo $informacoes;
-                                                        echo '</div>';
-                                                    }                                    
-                                                ?>                                            
-                                            <?php else: ?>                                                
-                                                <p class="m-0"><strong>Últimos convocados</strong></p>
-                                                -
-                                                <?php 
-                                                    if($informacoes){
-                                                        echo '<div class="mais-info">';
-                                                            echo '<p class="m-0"><strong>Mais informações</strong></p>';
-                                                            echo $informacoes;
-                                                        echo '</div>';
-                                                    }                                    
-                                                ?>                                                
-                                            <?php endif; ?>
-                                            
-                                        </div>
-                                    </div>
-                                </td>                    
-                            </tr>
+                                        <td width="40">
+                                            <a class="" data-toggle="collapse" href="#collapse-<?= get_the_ID(); ?>" role="button" aria-expanded="false" aria-controls="collapse-<?= get_the_ID(); ?>">
+                                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="p-0" style="border-top: 0;">
+                                            <div class="collapse collapse-mobile" id="collapse-<?= get_the_ID(); ?>">
+                                                <div class="card card-body">
+                                                    <p class="m-0"><strong>Data Homologação</strong></p>
+                                                    <!-- Homologacao -->
+                                                        <?php
+                                                            // Verifica data de hologacao
+                                                            $datahom = get_field("homologacao");
+                                                            if($datahom):
+                                                            
+                                                            $dtHomolog = convertDate($datahom);
+                                                        ?>                                                        
+                                                            <?php
+                                                                // Verifica se tem DOC
+                                                                $dochom = get_field("doc_homologacao");
+                                                                if($dochom):
+                                                            ?>
+                                                                <p><strong><a href="<?php echo $dochom; ?>">DOC - <?php echo $dtHomolog; ?></a></strong></p>
+                                                            <?php else: ?>
+                                                                <p><?php echo $dtHomolog; ?></p>
+                                                            <?php endif; ?>
+                                                        
+                                                        <?php else: ?>
+                                                            <p>-</p>
+                                                        <?php endif; ?>
+                                                    <!-- Fim Homologacao -->
+
+                                                    <p class="m-0"><strong>Validade</strong></p>
+                                                    <!-- Validade -->
+                                                        <?php
+                                                            // Verifica data de Validade
+                                                            $validade = get_field("validade");                
+                                                            if($validade):                        
+                                                                $dtValidade = convertDate($validade);
+                                                        ?>
+                                                            <p><?php echo $dtValidade; ?></p>                    
+                                                        <?php else: ?>
+                                                            <p>-</p>
+                                                        <?php endif; ?>
+                                                    <!-- Fim Validade -->
+                                                    
+                                                    <p class="m-0"><strong>Última Chamada</strong></p>
+                                                    <!-- Ultima Chamada -->
+                                                        <?php
+                                                            // Verifica data de hologacao
+                                                            $datahom = get_field("ultima_chamada");
+                                                            if($datahom):
+                                                            
+                                                            $dtHomolog = convertDate($datahom);
+                                                        ?>
+                                                                
+                                                            <?php
+                                                                // Verifica se tem DOC
+                                                                $dochom = get_field( "doc_ultima_chamada");
+                                                                if($dochom):
+                                                            ?>
+                                                                <p><strong><a href="<?php echo $dochom; ?>">DOC - <?php echo $dtHomolog; ?></a></strong></p>
+                                                            <?php else: ?>
+                                                                <p><?php echo $dtHomolog; ?></p>
+                                                            <?php endif; ?>
+                                                        
+                                                        <?php else: ?>
+                                                            <p>-</p>
+                                                        <?php endif; ?>
+                                                    <!-- Fim Ultima Chamada -->
+
+                                                    <p class="m-0"><strong>Status</strong></p>
+                                                    <p><?= get_field("status"); ?></p>
+
+                                                    <?php
+                                                        // Verifica Ultimos Convocados
+                                                        $ultimos_convocados = get_field("ultimos_convocados");
+                                                        $informacoes = get_field('mais_informacoes');
+                                                
+                                                        if($ultimos_convocados):
+                                                    ?>
+                                                        <p class="m-0"><strong>Últimos convocados</strong></p>
+                                                        <?php echo $ultimos_convocados; ?>
+                                                        <?php 
+                                                            if($informacoes){
+                                                                echo '<div class="mais-info">';
+                                                                    echo '<p class="m-0"><strong>Mais informações</strong></p>';
+                                                                    echo $informacoes;
+                                                                echo '</div>';
+                                                            }                                    
+                                                        ?>                                            
+                                                    <?php else: ?>                                                
+                                                        <p class="m-0"><strong>Últimos convocados</strong></p>
+                                                        -
+                                                        <?php 
+                                                            if($informacoes){
+                                                                echo '<div class="mais-info">';
+                                                                    echo '<p class="m-0"><strong>Mais informações</strong></p>';
+                                                                    echo $informacoes;
+                                                                echo '</div>';
+                                                            }                                    
+                                                        ?>                                                
+                                                    <?php endif; ?>
+                                                    
+                                                </div>
+                                            </div>
+                                        </td>                    
+                                    </tr>
                 
-                <?php
-                            
-                        endwhile;
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
                         
-                    endif; 
+                    <?php endif; 
                     wp_reset_postdata();
                 ?>
-                
-            </tbody>
-        </table>
 
         <?php
 
