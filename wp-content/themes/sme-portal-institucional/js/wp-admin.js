@@ -12,6 +12,10 @@ jQuery(document).ready(function(){
     jQuery('#acf-field_628d3c7dbd459').attr('disabled', 'disabled');
 });
 
+// Incluir mensagem no Upload de Arquivos
+jQuery("#plupload-upload-ui").prepend( '<div class="alert-info media-new"><strong>Atenção:</strong> "Caso a mídia seja uma publicação institucional da Secretaria, enviar o arquivo do documento para o e-mail <a href="mailto:smecopedbibliotecadigital@sme.prefeitura.sp.gov.br">smecopedbibliotecadigital@sme.prefeitura.sp.gov.br</a> para que seja feito o upload no Acervo Digital, a fim de mantermos a padronização na catalogação, e evitar que versões desatualizadas fiquem disponíveis".</div>' );
+jQuery(".wp-header-end").after( '<div class="alert-info media-new d-none"><strong>Atenção:</strong> "Caso a mídia seja uma publicação institucional da Secretaria, enviar o arquivo do documento para o e-mail <a href="mailto:smecopedbibliotecadigital@sme.prefeitura.sp.gov.br">smecopedbibliotecadigital@sme.prefeitura.sp.gov.br</a> para que seja feito o upload no Acervo Digital, a fim de mantermos a padronização na catalogação, e evitar que versões desatualizadas fiquem disponíveis".</div>' );
+
 var $s = jQuery.noConflict();
 
 $s('#attachment_alt').each(function() {
