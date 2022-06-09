@@ -35,8 +35,8 @@
     color: #fff !important;
 }
 
-.a-click-botao, .a-click-botao:hover{
-    color: #5A5A5A;
+.a-click-botao{
+    color: #5A5A5A !important;
 }
 
 .a-click-botao-clicado{
