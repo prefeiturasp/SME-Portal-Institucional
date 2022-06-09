@@ -122,7 +122,7 @@
 			var href = $(this).attr('href');
 			var valor = $(this).html();
 
-			if( href && !href.startsWith('#') && !valor.includes('<button') && !href.includes('tel:') && !href.includes('mailto:') && href != ''){
+			if( href && !href.startsWith('#') && !valor.includes('<button') && !valor.includes('<img') && !href.includes('tel:') && !href.includes('mailto:') && !$(this).hasClass( "scroll" ) && href != ''){
 				if(!href.includes("https://educacao.sme.prefeitura.sp.gov.br") && !href.includes("http://educacao.sme.prefeitura.sp.gov.br")){
 					$(this).html(valor + ' <span class="screen-reader-text">(Link para um novo sítio)</span><span aria-hidden="true" class="dashicons dashicons-external"></span>');
 				}
