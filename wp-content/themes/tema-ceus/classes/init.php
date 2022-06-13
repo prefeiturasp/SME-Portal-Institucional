@@ -3,6 +3,7 @@
 
 require_once 'LoadDependences.php';
 require_once 'Lib/Util.php';
+require_once 'Lib/SimpleXLSXGen.php';
 
 require_once 'Header/Header.php';
 
