@@ -1,19 +1,8 @@
 <?php
 require_once("../../../wp-load.php");
 $date = date('d_m_y_h_i_s');
-$fileName = $date . '_usuarios_acervo.csv';
+$fileName = $date . '_usuarios_acervo.xlsx';
  
-header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-header('Content-Description: File Transfer');
-header("Content-type: text/csv");
-header("Content-Disposition: attachment; filename={$fileName}");
-header("Expires: 0");
-header("Pragma: public");
-
-$fh = @fopen( 'php://output', 'w' );
-
-$headerDisplayed = false;
-
 if($_GET['funcao'] == 'all'){
 	$blogusers = get_users( array( 'fields' => array( 'id', 'user_login', 'user_email' ) ) );
 } else {
@@ -25,8 +14,14 @@ if($_GET['funcao'] == 'all'){
 	);
 }
 
-
 $usuarios = array();
+$usuarios[] = array(
+	'<style bgcolor="#8EA9DB">ID</style>',
+	'<style bgcolor="#8EA9DB">Login</style>',
+	'<style bgcolor="#8EA9DB">E-mail</style>',
+	'<style bgcolor="#8EA9DB">Função</style>',
+	'<style bgcolor="#8EA9DB">Setor</style>'
+);
 
 function convertFunc($funcao){
 	switch ($funcao):
@@ -48,29 +43,25 @@ foreach($blogusers as $user){
 	$user_meta = get_userdata($user->id);
 	$user_roles = $user_meta->roles;
 	$setor = get_field('setor', 'user_'. $user->id );	
+	$func = $user_roles[0];
+
+	if($setor == '')
+		$setor = '<center>-</center>';
+
+	if($func == '')
+		$func = '<center>-</center>';
 
 	$usuarios[] = array(
-		'id' => $user->id,
-		'login' => $user->user_login,
-		'email' => $user->user_email,
-		'funcao' => convertFunc($user_roles[0]),
-		'setor' => $setor
+		$user->id,
+		$user->user_login,
+		$user->user_email,
+		convertFunc($func),
+		$setor
 	);
 
 }
 
-foreach ( $usuarios as $data ) {
-    // Add a header row if it hasn't been added yet
-    if ( !$headerDisplayed ) {
-        // Use the keys from $data as the titles
-        fputcsv($fh, array_keys($data));
-        $headerDisplayed = true;
-    }
- 
-    // Put the data into the stream
-    fputcsv($fh, $data);
-}
-// Close the file
-fclose($fh);
-// Make sure nothing else is sent, our file is done
-exit;
+$xlsx = Classes\Lib\SimpleXLSXGen::fromArray( $usuarios );
+$xlsx->downloadAs($fileName); // or downloadAs('books.xlsx') or $xlsx_content = (string) $xlsx 
+
+exit();
