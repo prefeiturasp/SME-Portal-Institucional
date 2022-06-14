@@ -42,7 +42,7 @@ class ArchiveAgendaAjaxCalendario extends Util
 			?>
 			<article class="col-lg-12 col-xs-12">
 				<div class="agenda mb-4">
-					<div class="order_hri"><?php
+					<div class="order_hri" style="display: none;">><?php
 					//converte campo hora por extenso para ordenar
 					 $hri = $this->getCamposPersonalizados('hora_do_evento');
 					 echo $hri=date('His',$hri);?></div>

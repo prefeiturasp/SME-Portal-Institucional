@@ -13,10 +13,8 @@ class ArchiveAgendaGetDatasEventos
 	}
 	public function init(){
 		$current_url = $_SERVER['REQUEST_URI'];
-		$partes = explode("/", $current_url);
-		if ($partes[1] === 'agenda' || $partes[2] === 'agenda') {
+		$partes = explode("/", $current_url);		
 			$this->getTodosIdCtpAgenda();
-		}
 		console.log($this->getTodosIdCtpAgenda());
 	}
 	public function getTodosIdCtpAgenda(){
