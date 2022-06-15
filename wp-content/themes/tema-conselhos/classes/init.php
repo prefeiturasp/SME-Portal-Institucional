@@ -37,6 +37,9 @@ require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMenuInter
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleNoticiaPrincipal.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMaisRecentes.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleRelacionadas.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopAgenda/LoopAgenda.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopAgenda/LoopAgendaPrincipal.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopAgenda/LoopAgendaEventos.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/GetTipoDePost.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/SearchForm.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/LoopSearch.php';
