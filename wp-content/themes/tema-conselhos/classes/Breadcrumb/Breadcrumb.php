@@ -61,11 +61,19 @@ class Breadcrumb
 				// If it is a custom post type display name and link
 				if($post_type != 'post') {
 
-					$post_type_object = get_post_type_object($post_type);
-					$post_type_archive = get_post_type_archive_link($post_type);
+					if($post_type != 'card'){
+						$post_type_object = get_post_type_object($post_type);
+						$post_type_archive = get_post_type_archive_link($post_type);
 
-					echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $post_type_object->labels->name . '</a></li>';
-					echo '<li class="separator"> ' . $this->separator . ' </li>';
+						echo '<li class="item-cat bb item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_the_permalink(157) . '">' . $post_type_object->labels->name . '</a></li>';
+						echo '<li class="separator"> ' . $this->separator . ' </li>';
+					} else {
+						$post_type_object = get_post_type_object($post_type);
+						$post_type_archive = get_post_type_archive_link($post_type);
+
+						echo '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $post_type_object->labels->name . '</a></li>';
+						echo '<li class="separator"> ' . $this->separator . ' </li>';
+					}
 
 				}
 
