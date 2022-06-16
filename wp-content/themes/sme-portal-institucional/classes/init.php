@@ -27,6 +27,7 @@ require_once __ROOT__.'/classes/Cpt/CptContato.php';
 require_once __ROOT__.'/classes/Cpt/CptBotao.php';
 require_once __ROOT__.'/classes/Cpt/CptCurriculoDaCidade.php';
 require_once __ROOT__.'/classes/Cpt/CptConcursos.php';
+require_once __ROOT__.'/classes/Cpt/CptSetor.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
@@ -120,3 +121,4 @@ $cptConcursos = new \Classes\Cpt\Cpt('concurso', 'concurso', 'Cadastro de Concur
 $cptConcursosExtend = new \Classes\Cpt\CptConcursos();
 
 $cptSetor = new \Classes\Cpt\Cpt('setor', 'setor', 'Cadastro Setor', 'Todos os Setores', 'Setores', 'Setores', '', '', '', 'dashicons-format-image', true);
+$cptSetorExtende = new \Classes\Cpt\CptSetor();
