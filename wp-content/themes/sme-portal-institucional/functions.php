@@ -1854,7 +1854,40 @@ function filtering_month($post_type){
     echo '</select>';
 }
 
-add_filter('months_dropdown_results', '__return_empty_array');
+function remove_date_categ_drop(){
+	$screen = get_current_screen();
+
+	if ( 'editores_portal' == $screen->post_type || 'setor' == $screen->post_type || 'agendanew' == $screen->post_type || 'agenda' == $screen->post_type){
+		add_filter('months_dropdown_results', '__return_empty_array');	
+	}
+
+	if ( 'editores_portal' == $screen->post_type || 'setor' == $screen->post_type || 'agenda' == $screen->post_type){		
+	?>
+		<style>
+			.alignleft.actions{
+				display: none;
+			}
+
+			.alignleft.actions.bulkactions{
+				display: block;
+			}
+		</style>
+	<?php
+	}
+
+	if ( 'concurso' == $screen->post_type || 'contato' == $screen->post_type || 'agendanew' == $screen->post_type){		
+		?>
+			<style>
+				.postform{
+					display: none;
+				}
+			</style>
+		<?php
+		}
+
+
+}
+add_action('admin_head', 'remove_date_categ_drop');
 
 // Adicionar busca em Atributos de Paginas > Ascendente 
 function custom_scripts_wpse_215576() {
