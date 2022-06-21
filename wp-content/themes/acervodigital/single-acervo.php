@@ -329,6 +329,7 @@ function generateRandomString($length = 10) {
 					$allItens['setor'] = get_field('setor_acervo_digital'); // Setor
 					$allItens['idioma'] = get_field('idioma_acervo_digital'); //Idioma
 					$allItens['pagina'] = get_field('pagina_do_diario_oficial'); //Pagina Diario Oficial
+					$allItens['data'] = get_field('data_diario_oficial'); //Data Diario Oficial
 					
 					// Tipo
 					if($partional && !$file){
@@ -647,6 +648,11 @@ function generateRandomString($length = 10) {
 														<strong>Nº de despacho de homologação</strong><br>
 														<?php echo "<a href='" . get_home_url() . "/?avanc=1&desp=1&s=&despb=" . $item . "'>" . $item . "</a>"; ?>
 													</div>
+												<?php elseif($chave == 'data'): ?>
+														<div class="col-6 espec-element">
+															<strong>Data da publicação do Diário Oficial</strong><br>
+															<?php echo $item; ?>
+														</div>
 												<?php elseif($chave == 'pagina'): ?>
 													<div class="col-6 espec-element">
 														<strong>Página do Diário Oficial</strong><br>
