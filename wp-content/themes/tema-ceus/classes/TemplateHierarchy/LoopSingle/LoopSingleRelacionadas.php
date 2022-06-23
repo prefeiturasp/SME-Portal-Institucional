@@ -381,7 +381,7 @@ class LoopSingleRelacionadas extends LoopSingle
 													$imgEvento = $featured_img_url[0];													
 													$alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
 												} else {
-													$imgEvento = 'https://via.placeholder.com/820x380';
+													$imgEvento = 'https://via.placeholder.com/640x350';
 													$alt = get_the_title(get_the_ID());
 												}
 											?>

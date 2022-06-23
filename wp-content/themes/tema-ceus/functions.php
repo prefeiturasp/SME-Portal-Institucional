@@ -915,10 +915,28 @@ function template_chooser($template){
 }
 add_filter('template_include', 'template_chooser');
 
-// Thumbnail Customozadas
-add_image_size( 'recorte-eventos', 820, 380, true ); // Slide
-add_image_size( 'categoria-eventos', 300, 300, true ); // Categorias
-add_image_size( 'recorte-unidades', 575, 297, true ); // Eventos
+// Thumbnail Customizadas
+add_image_size( 'recorte-eventos', 640, 350, true ); // Slide
+add_image_size( 'categoria-eventos', 350, 350, true ); // Categorias
+
+// Inserir tamanho minimo para upload de imagens
+add_filter('wp_handle_upload_prefilter','tc_handle_upload_prefilter');
+function tc_handle_upload_prefilter($file) {
+    // Debugging...
+    //return array("error"=> print_r( $_POST, true ) );
+    //return array("error"=> print_r( $file, true ) );
+    //return array("error"=> print_r( $GLOBALS, true ) );
+    
+    $img = getimagesize( $file['tmp_name'] );
+    $minimum = array( 'width' => '640', 'height' => '350' );
+    $width = $img[0];
+    $height = $img[1];
+
+    if ( $width < $minimum['width'] || $height < $minimum['height'])
+        return array( "error"=>"As dimensões da imagem são muito pequenas. A tamanho mínimo é {$minimum['width']}px de largura e {$minimum['height']}px de altura. Sua imagem tem o tamanho de {$width}x{$height}px.");
+    else
+        return $file; 
+}
 
 add_action( 'init',  function() {
     add_rewrite_rule( 'page/([a-z0-9-]+)[/]?$', 'index.php?page=$matches[1]', 'top' );

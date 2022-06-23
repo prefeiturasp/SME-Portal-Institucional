@@ -39,7 +39,7 @@ class LoopUnidadesSlide extends LoopUnidades{
                         <?php foreach($slides as $slide): ?>
                             <div class="carousel-item <?php if($l == 0){echo 'active';} ?>">
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-7">
                                         <?php 
                                             //$featured_img_url = get_the_post_thumbnail_url($slide, 'recorte-eventos');
                                             $imgSelect = get_field('capa_do_evento', $slide);
@@ -48,12 +48,12 @@ class LoopUnidadesSlide extends LoopUnidades{
                                             if($featured_img_url){
                                                 $imgSlide = $featured_img_url[0];
                                             } else {
-                                                $imgSlide = 'http://via.placeholder.com/820x380';
+                                                $imgSlide = 'http://via.placeholder.com/640x350';
                                             }
                                         ?>
                                         <img class="d-block w-100" src="<?php echo  $imgSlide; ?>" alt="Slide ">
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-5">
                                         <div class="carousel-categ">
                                             <?php
                                                 $tipoEvento = get_field('tipo_de_evento_tipo', $slide);

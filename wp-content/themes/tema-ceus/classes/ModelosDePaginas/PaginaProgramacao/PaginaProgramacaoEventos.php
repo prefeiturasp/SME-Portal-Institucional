@@ -51,7 +51,7 @@ class PaginaProgramacaoEventos
                                                 //$thumbnail_id = get_post_thumbnail_id( $eventoInterno->ID );
                                                 $alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
                                             } else {
-                                                $imgEvento = 'https://via.placeholder.com/820x380';
+                                                $imgEvento = 'https://via.placeholder.com/640x350';
                                                 $alt = get_the_title($eventoInterno->ID);
                                             }
                                         ?>
@@ -333,7 +333,7 @@ class PaginaProgramacaoEventos
                                                 //$thumbnail_id = get_post_thumbnail_id( $eventoInterno->ID );
                                                 $alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
                                             } else {
-                                                $imgEvento = 'https://via.placeholder.com/820x380';
+                                                $imgEvento = 'https://via.placeholder.com/640x350';
                                                 $alt = get_the_title($eventoInterno->ID);
                                             }
                                         ?>
