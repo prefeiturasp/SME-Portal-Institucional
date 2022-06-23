@@ -310,7 +310,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                             //$thumbnail_id = get_post_thumbnail_id( $eventoID );
                                                             $alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
                                                         } else {
-                                                            $imgEvento = 'https://via.placeholder.com/820x380';
+                                                            $imgEvento = 'https://via.placeholder.com/640x350';
                                                             $alt = get_the_title($eventoID);
                                                         }
                                                     ?>
@@ -630,7 +630,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                             <?php endif; ?>
 
                                             <?php if($servico['foto_descricao'] && $servico['foto_descricao'] != ''): 
-                                                    $imgurl = wp_get_attachment_image_url( $servico['foto_descricao'], 'recorte-unidades' );
+                                                    $imgurl = wp_get_attachment_image_url( $servico['foto_descricao'], 'recorte-eventos' );
                                                     $image_alt = get_post_meta($servico['foto_descricao'], '_wp_attachment_image_alt', TRUE);
                                                 ?>
                                                 <p><img src="<?php echo  $imgurl; ?>" alt='<?php echo $image_alt; ?>'></p>
@@ -782,7 +782,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                     <div class="carousel-inner">
 
                                         <?php foreach($todasFotos as $foto):
-                                                $featured_img_url = wp_get_attachment_image_src($foto, 'recorte-unidades');
+                                                $featured_img_url = wp_get_attachment_image_src($foto, 'recorte-eventos');
                                                 if($featured_img_url){
                                                     $imgEvento = $featured_img_url[0];
                                                     //$thumbnail_id = get_post_thumbnail_id( $eventoID );
