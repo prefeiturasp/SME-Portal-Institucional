@@ -1,0 +1,61 @@
+#pages {
+    text-align: center;
+}
+
+.pages-count {
+    display: block;
+    text-align: center;
+}
+
+body {
+    background: #fff;
+}
+
+/*Cabeçalho do acf*/
+
+.acf-fc-layout-handle {
+    background: #01295c !important;
+    color: #fff !important;
+}
+
+div#categorias-contatodiv{
+    display: none;
+}
+
+.pages-modal {
+    text-align: left;
+    padding: 0 25px;
+}
+
+.swal2-icon.swal2-question.swal2-icon-show {
+    font-size: 20px;
+}
+
+.acf-field-628e4080d3c88 {
+    display: none;
+}
+
+/*Aviso Midia*/
+.alert-info{
+    background: #0073aa;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.alert-info.media-new{
+    margin-bottom: 15px;
+}
+
+.alert-info.grid-mode {
+    margin: 20px 50px 0 20px;
+}
+
+.alert-info a{
+    color: #FFFFFF;
+}
+
+.d-none{
+    display: none;
+}
