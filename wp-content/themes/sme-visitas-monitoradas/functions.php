@@ -992,6 +992,14 @@ function admin_color_scheme() {
 }
 add_action('admin_head', 'admin_color_scheme');
 
+// Alterar a cor do admin para ambiente de homolog
+add_filter( 'get_user_option_admin_color', 'update_user_option_admin_color', 5 );
+function update_user_option_admin_color( $color_scheme ) {
+    $color_scheme = 'sunrise';
+
+    return $color_scheme;
+}
+
 //remove avisos de atualizações do wordpress, temas e plugins
 add_filter( 'pre_site_transient_update_core','remove_core_updates' );
 add_filter( 'pre_site_transient_update_plugins','remove_core_updates' );

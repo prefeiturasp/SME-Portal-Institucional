@@ -68,6 +68,3 @@ class WPDocs_Options_Page {
 }
  
 new WPDocs_Options_Page;
-
-?>
-	
