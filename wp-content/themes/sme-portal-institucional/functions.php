@@ -2217,3 +2217,282 @@ function media_admin_notice(){
 	}
 }
 add_action('admin_notices', 'media_admin_notice');
+
+/** Acervo embed
+*  example : https://hom-acervodigital.sme.prefeitura.sp.gov.br/?avanc=1&categ=1&s=&categoria_acervo=57
+*/
+
+// Pega as informacoes da midia via API
+function get_media_api($id){
+	$url = 'https://acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/media/' . $id;
+	$headers = [];
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	
+	$response = curl_exec($ch);                
+	
+	$jsonArrayResponse = json_decode($response);
+
+	return $jsonArrayResponse;
+}
+
+// Pega as informacoes de categoria via API
+function get_categ_api($id){
+	$url = 'https://acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/categoria_acervo/' . $id;
+	$headers = [];
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	
+	$response = curl_exec($ch);                
+	
+	$jsonArrayResponse = json_decode($response);
+
+	return $jsonArrayResponse;
+}
+
+add_action(
+    'init',
+    function () {
+        wp_embed_register_handler(
+            'acervo',
+            '#https://acervodigital\.sme\.prefeitura\.sp\.gov\.br/\?(.*)$#i',
+            'embed_handler_acervo'
+        );
+    }
+);
+
+function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
+    
+	// Versao com Iframe (sem uso no momento)
+	/*
+	$embed = sprintf(
+        '<iframe src="%s&incorporar=1" width="500" frameborder="0" height="1000" class="w-100 block__acervo"></iframe>',
+        esc_attr( $matches[0] )
+    );*/
+
+	// URL Atual da pagina
+	$pagina = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1; 
+	
+	// URL padrao da API
+	$url = 'https://acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/acervo/?per_page=12&page=' . $pagina;
+	
+	// Recebe a URL e divide os valores de GET em variaveis
+	$parts = parse_url($matches[0]);
+	parse_str($parts['query'], $query);
+	
+	// Debbug -> Visualizar todas os valores de GET recebido
+	//print_r($query);
+	
+	// Se tiver os valores de Busca incluir na URL da API
+	if($query['s'] != ''){
+		$busca = $query['s'];
+		$busca = str_replace(' ', '+', $busca);		
+		$url = $url . '&search=' . $busca;
+	}
+
+	// Se tiver os valores de Categoria (Prod) incluir na URL da API
+	if($query['categ_acervo'] != ''){
+		$url = $url . '&categoria_acervo=' . $query['categ_acervo'];
+	}
+
+	// Se tiver os valores de Categoria (Homolog) incluir na URL da API
+	if($query['categoria_acervo'] != ''){
+		$url = $url . '&categoria_acervo=' . $query['categoria_acervo'];
+	}
+
+	// Se tiver os valores de Modalidade incluir na URL da API
+	if($query['modalidadeb'] != ''){
+		$modalidades = implode(",", $query['modalidadeb']);
+		$url = $url . '&modalidade=' . $modalidades;
+	}
+
+	// Se tiver os valores de Componente incluir na URL da API
+	if($query['componenteb'] != ''){
+		$componentes = implode(",", $query['componenteb']);
+		$url = $url . '&componente=' . $componentes;
+	}
+
+	// Se tiver os valores de Ano incluir na URL da API
+	if($query['anob'] != ''){
+		$anos = implode(",", $query['anob']);
+		$url = $url . '&ano_da_publicacao_acervo_digital=' . $anos;
+	}
+
+	// Se tiver os valores de Setor incluir na URL da API
+	if($query['setorb'] != ''){
+		$setores = implode(",", $query['setorb']);
+		$url = $url . '&setor=' . $setores;
+	}
+
+	// Se tiver os valores de Autor incluir na URL da API
+	if($query['autor'] != ''){		
+		$url = $url . '&autor=' . $query['autor'];
+	}
+
+	// Se tiver os valores de Idioma incluir na URL da API
+	if($query['idiomab'] != ''){
+		$idiomas = implode(",", $query['idiomab']);
+		$url = $url . '&idioma=' . $idiomas;
+	}
+
+	// Se tiver os valores de Palavra Chave incluir na URL da API
+	if($query['palavrab'] != ''){		
+		$url = $url . '&palavra=' . $query['palavrab'];
+	}
+	
+	// Consulta Via API no Acervo
+	$headers = [];
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+		function ($curl, $header) use (&$headers) {
+			$len = strlen($header);
+			$header = explode(':', $header, 2);
+			if (count($header) < 2) // ignore invalid headers
+				return $len;
+
+			$headers[strtolower(trim($header[0]))][] = trim($header[1]);
+
+			return $len;
+		}
+	);
+	$response = curl_exec($ch);                
+	
+	$jsonArrayResponse = json_decode($response);
+
+	$embed = '';
+	$embed .= '<div class="row m-0">';
+
+	foreach($jsonArrayResponse as $acervo){
+		$imagem = get_media_api($acervo->arquivo_acervo_digital);
+		if($imagem->id == ''){			
+			$imagem = get_media_api($acervo->arquivos_particionados_0_arquivo);
+		}
+		$imagemShow = $imagem->media_details->sizes->full->source_url;
+		if(!$imagemShow){
+			$imagemShow = 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
+		}
+		
+		$formato = explode("/", $imagem->mime_type);
+		if($formato[1] == 'VND.OPENXMLFORMATS-OFFICEDOCUMENT.SPREADSHEETML.SHEET' || $formato[1] == 'vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+			$formato[1] = 'XLS';
+		}
+
+		if($formato[1] == 'vnd.openxmlformats-officedocument.wordprocessingml.document'){
+			$formato[1] = 'DOC';
+		}
+		
+		if(!$formato[1]){
+			$formato[1] = 'INDEFINIDO';
+		}
+
+		
+
+		if($acervo->categoria_acervo != ''){
+			$categName = array();
+			foreach($acervo->categoria_acervo as $categoria){
+				$categName[] = get_categ_api($categoria)->name;
+			}			
+		}		
+
+		// Monta o HTML para ser retornado na pagina
+		$embed .= '<div class="col-md-3 col-sm-6 p-3 acervo-display">
+			<div class="row m-0">
+				<div class="col-sm-12 view-tag flag">
+					<div class="img-mask shadow-sm">
+						<img src="' . $imagemShow . '">
+						<span class="flag-pdf-full">' . $formato[1] . '</span>
+					</div>					
+				</div>
+				<div class="col-sm-12 mt-3 mb-3 p-0">
+					<h3 class="azul-claro-acervo"><a class="no-external" target="_blank" href="' . $acervo->link . '">' . $acervo->title->rendered . '</a></h3>
+					
+					<div class="links-flag">
+						<div class="cat-flag mb-2">' . implode(' / ', $categName) . '</div>
+						<div class="btn-acervo d-flex justify-content-between">							
+							<a href="' . $acervo->link . '" class="btn btn-outline-primary no-external">Ver detalhes</a>
+							<a href="' . $imagem->source_url . '" class="p3-4 no-external">Baixar</a>													
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>';
+	}
+
+	$embed .= '</div>';
+	
+	$embed .= '<div class="container">';
+		$embed .= '<div class="row">';
+			$embed .= '<div class="col-12">';
+				
+				
+				$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+				$actual_link = str_replace('/?', '/', $actual_link);
+				$new_url = preg_replace('/&?pagina=[^&]*/', '', $actual_link);             
+				$totalPages = $headers['x-wp-totalpages'][0];
+				$param = '?pagina=';
+				$pageOne = '?pagina=1';
+				if($_GET['filter']){
+					$param = '&pagina=';
+					$pageOne = '&pagina=1';
+				}
+				
+				//$pagina = $_GET['pagina'];
+
+				if($totalPages > 1):
+					$embed .= '<div class="pagination-prog">';
+						$embed .= '<div class="wp-pagenavi">';
+							$embed .= '<div style="text-align: center;display: flex;align-items: center;justify-content: center; margin-top: 10px;">';                             
+								// Primeira Pagina
+								$embed .= '<a class="pagination paginationA " href="' . $new_url . $pageOne . '"><i class="fa fa-chevron-left" aria-hidden="true"></i></a><!--Ir para o primeiro-->';
+								
+								// 3 Antes da pagina atual
+								if($pagina >= 4){
+									$embed .= '<a class="pagination paginationB" href="' . $new_url . $param . ($pagina - 3) . '">' . ($pagina - 3) . '</a>';
+								}
+								if($pagina >= 3){
+									$embed .= '<a class="pagination paginationB" href="' . $new_url . $param . ($pagina - 2) . '">' . ($pagina - 2) . '</a>';
+								}
+								if($pagina >= 2){
+									$embed .= '<a class="pagination paginationB" href="' . $new_url . $param . ($pagina - 1) . '">' . ($pagina - 1) . '</a>';
+								}
+
+								// Atual
+								$embed .= '<a class="pagination paginationA active" href="' . $new_url . $param . $pagina . '">' . $pagina . '</a>';
+
+								// 3 apos a atual
+								if($totalPages > $pagina + 1){
+									$embed .= '<a class="pagination paginationC" href="' . $new_url . $param . ($pagina + 1) . '">' . ($pagina + 1) . '</a>';
+								}
+
+								if($totalPages > $pagina + 2){
+									$embed .= '<a class="pagination paginationC" href="' . $new_url . $param . ($pagina + 2) . '">' . ($pagina + 2) . '</a>';
+								}
+								if($totalPages > $pagina + 3){
+									$embed .= '<a class="pagination paginationC" href="' . $new_url . $param . ($pagina + 3) . '">' . ($pagina + 3) . '</a>';
+								}
+
+								// Total Paginas
+								if($totalPages > 1 && $pagina != $totalPages){
+									$embed .= '<a class="pagination paginationD" href="' . $new_url . $param . $totalPages . '">' . $totalPages . '</a>';
+								}
+
+								// Ultima Pagina
+								$embed .= '<a class="pagination paginationD" href="' . $new_url . $param . $totalPages . '"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>';	
+								
+									
+							$embed .= '</div>';
+						$embed .= '</div>';
+					$embed .= '</div>';
+				endif;
+
+			$embed .= '</div>';
+		$embed .= '</div>';
+	$embed .= '</div>';
+
+	
+
+    return apply_filters( 'embed_acervo', $embed, $matches, $attr, $url, $rawattr );
+}
