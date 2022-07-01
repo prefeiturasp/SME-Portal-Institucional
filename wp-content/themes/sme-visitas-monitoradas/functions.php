@@ -2216,3 +2216,18 @@ function my_acf_fields_relationship_query( $args, $field, $post_id ) {
 
     return $args;
 }
+
+add_filter(  'gettext',  'wps_translate_words_array'  );
+add_filter(  'ngettext',  'wps_translate_words_array'  );
+function wps_translate_words_array( $translated ) {
+
+$words = array(
+				// 'word to translate' = > 'translation'
+				'Lixo' => 'Inativo',
+				'Mover para lixeira' => 'Mover para inativos',
+				'Nenhum registro encontrado na lixeira' => 'Nenhum registro encontrado nos inativos'
+			);
+
+$translated = str_ireplace(  array_keys($words),  $words,  $translated );
+return $translated;
+}
