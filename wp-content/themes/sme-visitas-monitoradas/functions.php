@@ -2231,3 +2231,16 @@ $words = array(
 $translated = str_ireplace(  array_keys($words),  $words,  $translated );
 return $translated;
 }
+
+//atualiza o placeholder do title do CPT parceiros
+function placeholder_input_parceiros( $title ){
+    $screen = get_current_screen();
+
+    if  ( 'parceiros' == $screen->post_type ) {
+        $title = 'Insira o nome do parceiro';
+    }
+
+    return $title;
+}
+
+add_filter( 'enter_title_here', 'placeholder_input_parceiros' );
