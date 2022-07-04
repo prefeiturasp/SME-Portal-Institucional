@@ -20,6 +20,7 @@ require_once __ROOT__.'/classes/Cpt/Cpt.php';
 require_once __ROOT__.'/classes/Cpt/CptPosts.php';
 require_once __ROOT__.'/classes/Cpt/CptPages.php';
 require_once __ROOT__.'/classes/Cpt/CptEventos.php';
+require_once _ROOT_.'/classes/Cpt/CptCadastroParceiros.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
@@ -60,3 +61,7 @@ $taxonomiaMediaImages = new \Classes\Cpt\CptMediaImages();
 // Eventos
 $cptEventos = new \Classes\Cpt\Cpt('evento', 'evento', 'Eventos', 'Todos os Eventos', 'Eventos', 'Eventos', null, null, null, 'dashicons-calendar-alt', true);
 $cptEventosExtend = new \Classes\Cpt\CptEventos();
+
+// Cadastro Parceiros
+$cptCadastroParceiros = new \Classes\Cpt\Cpt('parceiros', 'parceiros', 'Parceiros', 'Todos os Cadastro', 'Parceiros', 'Parceiros', null, null, null, 'dashicons-businessman', true);
+$cptCadastroParceirosExtend = new \Classes\Cpt\CptCadastroParceiros();
