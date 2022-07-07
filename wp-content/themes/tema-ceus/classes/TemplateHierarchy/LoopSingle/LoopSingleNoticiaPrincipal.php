@@ -28,6 +28,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 					$horario = get_field('horario');
 					$tipo_evento = get_field('tipo_de_evento_tipo');
 					$turmas = get_field('turmas');
+					$sobre = get_field('tipo_de_evento');
 					
 					$tipo = get_field('tipo_de_evento_selecione_o_evento', get_the_ID());
 				?>
@@ -36,7 +37,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 					<table class="table border-right border-left border-bottom">                            
 						<tbody>
 
-							<?php if($tipo && $tipo != '') : ?>
+							<?php if( $tipo && $tipo != '' && $sobre['evento_principal'] == 'parte' ): ?>
 								<tr>
 									<th scope="row" class="align-middle bg-tipo"><i class="fa fa-globe" aria-hidden="true"></i></th>
 									<td class="py-4 bg-tipo">
@@ -642,7 +643,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 								<table class="table border-right border-left border-bottom">                            
 									<tbody>
 
-										<?php if($tipo && $tipo != '') : ?>
+										<?php if($tipo && $tipo != '' && $sobre['evento_principal'] == 'parte' && $sobre['tipo'] != 'singular') : ?>
 											<tr>
 												<th scope="row" class="align-middle bg-tipo"><i class="fa fa-globe" aria-hidden="true"></i></th>
 												<td class="py-4 bg-tipo">
@@ -678,10 +679,22 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
                                                     if($dataFinal){ // Verifica se possui a data final
                                                         $dataInicial = explode("-", $dataInicial);
                                                         $dataFinal = explode("-", $dataFinal);
-                                                        $mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
-														$mes = translateMonth($mes);
+														
+														if($dataInicial[1] != $dataFinal[1]){
+															$mesIni = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
+															$mesIni = translateMonth($mesIni);
 
-                                                        $data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+															$mesFinal = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+															$mesFinal = translateMonth($mesFinal);
+
+                                                        	$data = $dataInicial[2] . ' '. $mesIni . " a " .  $dataFinal[2] . " " . $mesFinal . " " . $dataFinal[0];
+														} else {
+															$mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+															$mes = translateMonth($mes);
+
+                                                        	$data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+														}
+                                                        
 
                                                         $dataFinal = $data;
                                                     } else { // Se nao tiver a final mostra apenas a inicial
