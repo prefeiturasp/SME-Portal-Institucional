@@ -27,6 +27,15 @@ class LoadDependences
 			wp_register_style('pagina-inicial', STM_THEME_URL . 'classes/assets/css/pagina-inicial.css', null, null, 'all');
 			wp_enqueue_style('pagina-inicial');
 		}
+
+		// Página Login
+		if(!is_admin()){
+			wp_register_style('pagina-login', STM_THEME_URL . 'classes/assets/css/pagina-login.css', null, null, 'all');
+			wp_enqueue_style('pagina-login');
+
+			wp_register_script('pagina-login',  STM_THEME_URL . 'classes/assets/js/pagina-login.js', array ('jquery'), false, false);
+			wp_enqueue_script('pagina-login');
+		}
 				
 		//construtor
 		if(!is_admin()){
