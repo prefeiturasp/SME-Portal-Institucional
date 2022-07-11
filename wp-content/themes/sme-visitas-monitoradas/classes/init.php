@@ -48,6 +48,9 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNews
 require_once __ROOT__.'/classes/ModelosDePaginas/PaginaInicial/PaginaInicialFacebook.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/Layout/construtor.php';
 
+require_once __ROOT__.'/classes/ModelosDePaginas/Login/Login.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/Login/LoginForm.php';
+
 require_once __ROOT__.'/classes/Breadcrumb/Breadcrumb.php';
 
 require_once __ROOT__.'/classes/Cpt/CptMediaImages.php';
