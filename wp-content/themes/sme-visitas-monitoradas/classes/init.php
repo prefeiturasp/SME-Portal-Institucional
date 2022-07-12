@@ -50,6 +50,7 @@ require_once __ROOT__.'/classes/ModelosDePaginas/Layout/construtor.php';
 
 require_once __ROOT__.'/classes/ModelosDePaginas/Login/Login.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/Login/LoginForm.php';
+require_once __ROOT__.'/classes/ModelosDePaginas/Login/LoginRecuperar.php';
 
 require_once __ROOT__.'/classes/Breadcrumb/Breadcrumb.php';
 

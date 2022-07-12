@@ -110,14 +110,23 @@
   width: auto;
 }
 
-@media (max-width: 767px){
-  .buttons-form{
-      display: flex;
-      justify-content: space-between;
-  }
 
-  .buttons-form #cancel,
-  .buttons-form #continue {
-      width: 48%;
-  }
+.buttons-form{
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons-form #cancel,
+.buttons-form #continue {
+  width: 47%;
+  border-radius: 20px;
+}
+
+.buttons-form #continue{
+  background: #0F42B2;
+  color: #FFFFFF;
+}
+
+.buttons-form #continue:hover{
+  color: #CCCCCC;
 }
