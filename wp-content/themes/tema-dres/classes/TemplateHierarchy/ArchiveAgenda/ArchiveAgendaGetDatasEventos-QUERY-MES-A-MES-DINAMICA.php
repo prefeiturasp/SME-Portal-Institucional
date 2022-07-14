@@ -65,7 +65,9 @@ class ArchiveAgendaGetDatasEventos
 
 		$this->array_datas = json_encode($this->array_datas);
 
-		echo '<input class="imprime-dados-ajax" type="text" name="array_datas_agenda" id="array_datas_agenda" value='.$this->array_datas.'>';
+		if(!is_admin()){
+			echo '<input type="hidden" name="array_datas_agenda" id="array_datas_agenda" value='.$this->array_datas.'>';
+		}
 
 	}
 
