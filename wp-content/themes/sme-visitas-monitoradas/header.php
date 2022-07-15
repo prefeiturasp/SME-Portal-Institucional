@@ -164,64 +164,44 @@ use Classes\Header\Header;
                 </section>
             </section>
 
-            <section class='row logo-principal'>
-
-                <div class="container">
-                    <div class="row py-3">
-
-                        <div class="col-sm-12 col-md-6">
+        <section class='row logo-principal'>
+            <div class="container mt-3">
+                <div class="row">
+                    <?php
+                    // Traz o Logotipo cadastrado no Admin
+                    $custom_logo_id = get_theme_mod('custom_logo');
+                    $image = wp_get_attachment_image_src($custom_logo_id, 'full');
+                    ?>
+                    <div class="col-sm-2">
+                        <a class="brand" href="<?php echo STM_URL ?>">
+                            <img class="logo-visitas" src="<?php echo $image[0] ?>" alt="Visitas monitoradas">
+                        </a>
+                    </div>
+                    <div class="col-sm-9 text-right d-flex justify-content-end align-items-center">
+                        <div class="menu-line">
+                            <span class="link-menu active"><a href="/">Home</a></span>
                             <?php
-                            // Traz o Logotipo cadastrado no Admin
-                            $custom_logo_id = get_theme_mod('custom_logo');
-                            $image = wp_get_attachment_image_src($custom_logo_id, 'full');
+                            $menuLocations = get_nav_menu_locations();
+                            $menuID = $menuLocations['primary'];
+                            $primaryNav = wp_get_nav_menu_items($menuID);
+                            foreach ( $primaryNav as $navItem ) {
+                                ?>
+                                <span class="link-menu"><a href="<?php echo $navItem->url ?>"><?php echo $navItem->title ?></a></span>
+                                <?php
+                            }
                             ?>
-                            <p class="logo-topo">
-                                <a class="brand" href="<?php echo STM_URL ?>">
-                                    <img class="img-fluid" src="<?php echo $image[0] ?>" alt="Logotipo da Secretaria Municipal de Educação - Ir para a página principal"/>
-                                </a>
-                            </p>
                         </div>
-
-                        <div class="col-sm-12 col-md-6 d-flex align-items-center">
-                            <?php \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
-                        </div>
-
+                    </div>
+                    <div class="col-sm-1 text-right d-flex justify-content-end align-items-center">
+                        <span class="link-menu active link-login"><a href="/login/"><img src="/wp-content/uploads/2022/07/login.png" alt="login"> Login</a></span>
                     </div>
                 </div>
-
-            </section>
-
+            </div>
+        </section>
 		
 
     </header>
 
-    <nav class="navbar navbar-expand-lg menu-topo mb-5">
-        <section class="container">
-			
-            <form>
-                <fieldset>
-                    <legend>Mostra e Esconde Menu</legend>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#irmenu" aria-controls="irmenu" aria-expanded="false">
-                        <i class="fa fa-bars" aria-hidden="true"></i>
-                    </button>
-                </fieldset>
-            </form>
 
-            <nav class="collapse navbar-collapse justify-content-between w-100" id="irmenu" aria-label="Menu Principal">
-                <?php
-				wp_nav_menu(array(
-					'menu' => 'primary',
-					'theme_location' => 'primary',
-					'depth' => 2,
-					'container_id' => 'bs-example-navbar-collapse-1',
-					'menu_class' => 'navbar-nav mr-auto nav d-flex justify-content-between',
-					'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
-					'walker'            => new WP_Bootstrap_Navwalker(),
-                    'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
-				));
-				?>
 
-            </nav>
-        </section>
-    </nav>
 <?php new \Classes\Breadcrumb\Breadcrumb(); ?>
