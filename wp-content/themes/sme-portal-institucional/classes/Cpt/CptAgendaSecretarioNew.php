@@ -52,7 +52,8 @@ class CptAgendaSecretarioNew extends Cpt
 			case 'qtd_evento':
 				$qtd_evento = get_field('eventos_do_dia', $post->ID);
 				//print_r($qtd_evento);
-				$qtd = count($qtd_evento);
+				//$qtd = count($qtd_evento);
+				$qtd = $qtd_evento;
 				if( !isset($_GET['orderby']) || $_GET['orderby'] == 'data_evento'){
 					$qtd = $qtd_evento;
 				}
@@ -116,7 +117,8 @@ class CptAgendaSecretarioNew extends Cpt
 			'not_found' => __('Nenhum registro encontrado'),
 			'not_found_in_trash' => __('Nenhum registro encontrado na lixeira'),
 			'parent_item_colon' => '',
-			'menu_name' => $this->name
+			//'menu_name' => $this->name
+			'menu_name' => 'Nova Agenda do Secretário'
 		);
 
 		$args = array(
