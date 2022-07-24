@@ -35,7 +35,8 @@ class Construtor extends Util
 					jQuery(this).addClass('bg-sanfona-active');
 					
 					if(jQuery(this).find('.card-link').hasClass('collapsed')){
-						jQuery(window).scrollTop( jQuery(this).offset().top );						
+						//jQuery(window).scrollTop( jQuery(this).offset().top );
+                        jQuery( 'html, body' ).animate({scrollTop: jQuery('#accordion').offset().top - 25 }, 'slow' );
 					}
 				});
 			});
