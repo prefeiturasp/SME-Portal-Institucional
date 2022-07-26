@@ -2040,3 +2040,40 @@ function hide_permalink() {
 if ( !current_user_can('edit_plugins') ) {
 	add_filter( 'get_sample_permalink_html', 'hide_permalink' );
 }
+
+
+//Filtra por tipo de evento grande ou serie
+function wpse45436_admin_posts_filter_restrict_manage_posts(){
+    $type = 'post';
+    if (isset($_GET['post_type'])) {
+        $type = $_GET['post_type'];
+    }
+
+    if ('post' == $type){
+        $values = array(
+            'Grande evento' => 'outro',
+            'Eventos em série' => 'serie',
+        );
+        ?>
+        <select name="ADMIN_FILTER_FIELD_VALUE">
+            <option value=""><?php _e('Todos os tipos de eventos ', 'wose45436'); ?></option>
+            <?php $current_v = isset($_GET['tipo'])? $_GET['tipo']:''; foreach ($values as $label => $value) {
+                printf
+                (
+                    '<option value="%s"%s>%s</option>',
+                    $value,
+                    $value == $current_v? ' selected="selected"':'',
+                    $label
+                );
+            }
+            ?>
+        </select>
+    <?php } } /** if submitted filter by post meta */
+add_filter( 'parse_query', 'wpse45436_posts_filter' );
+function wpse45436_posts_filter( $query ){
+    global $pagenow; $type = 'post';
+    if (isset($_GET['post_type'])) { $type = $_GET['post_type'];
+    }
+    $query->query_vars['meta_value'] = $_GET['ADMIN_FILTER_FIELD_VALUE'];
+}
+add_action( 'restrict_manage_posts', 'wpse45436_admin_posts_filter_restrict_manage_posts' );
