@@ -29,6 +29,19 @@ class LoadDependences
             wp_enqueue_style('pagina-home');
         }
 
+        // Página Busca Home
+        if(!is_admin()){
+            wp_enqueue_script( 'js_busca_home', STM_THEME_URL . 'classes/assets/js/busca.js', array( 'jquery' ), 1, true );
+            wp_enqueue_script( 'js_query_ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js', array( 'jquery' ), 1, true );
+            wp_enqueue_script( 'js_multiselect', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js', array( 'jquery' ), 1, true );
+            wp_register_style('css_query_ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css', null, null, 'all');
+            wp_enqueue_style('css_query_ui');
+            wp_register_style('css_multiselec', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css', null, null, 'all');
+            wp_enqueue_style('css_multiselec');
+            wp_register_style('pagina-busca-home', STM_THEME_URL . 'classes/assets/css/busca.css', null, null, 'all');
+            wp_enqueue_style('pagina-busca-home');
+        }
+
 		// Página Inicial
 		if(!is_admin()){
 			wp_register_style('pagina-inicial', STM_THEME_URL . 'classes/assets/css/pagina-inicial.css', null, null, 'all');
