@@ -314,7 +314,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                             $alt = get_the_title($eventoID);
                                                         }
                                                     ?>
-                                                    <a href="#"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
+                                                    <a href="<?= get_the_permalink(); ?>"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
                                                     
                                                     <?php if($tipo && $tipo != '') : 
                                                         echo '<span class="flag-pdf-full">';
