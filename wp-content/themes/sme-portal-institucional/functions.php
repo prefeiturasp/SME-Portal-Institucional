@@ -2496,3 +2496,11 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 
     return apply_filters( 'embed_acervo', $embed, $matches, $attr, $url, $rawattr );
 }
+
+
+/*Remove page template*/
+function remove_page_template( $page_templates) {
+    unset( $page_templates['pagina-mapa-dres.php'] );
+    return $page_templates;
+}
+add_filter( 'theme_page_templates', 'remove_page_template', 20, 3 );
