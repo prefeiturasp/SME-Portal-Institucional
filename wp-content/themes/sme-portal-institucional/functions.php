@@ -2504,3 +2504,75 @@ function remove_page_template( $page_templates) {
     return $page_templates;
 }
 add_filter( 'theme_page_templates', 'remove_page_template', 20, 3 );
+
+// Adicionar o menu Agenda DREs
+add_action( 'admin_menu', 'menu_agenda_dres' );
+function menu_agenda_dres() {
+	$menu_slug = 'agenda-das-dres';	
+
+	$current_user = get_current_user_id();
+	$grupos = get_field('grupo', 'user_'. $current_user );
+	$AgendaDre = array();
+
+	foreach($grupos as $grupo){
+		$agenda = get_field('agendas', $grupo );
+		if($agenda != ''){
+			array_push( $AgendaDre, get_field('agendas', $grupo ) );
+		}
+	}
+
+	$arraySingle = call_user_func_array('array_merge', $AgendaDre);
+	$arraySingle = array_unique($arraySingle);
+
+	if ( current_user_can( 'manage_options' ) || ( $arraySingle[0] != '' && count($arraySingle) > 1 ) ) {
+		add_menu_page( 'Agenda das DREs', 'Agenda das DREs', 'read', $menu_slug, false, '', 19 );
+	} elseif( $arraySingle[0] != '' ){
+		add_menu_page( 'Agenda', 'Agenda', 'read', $menu_slug, false, '', 19 );
+	}
+
+}
+
+// Adicionar DREs no submenu da Agenda das DREs
+function add_external_link_admin_submenu() {
+    global $submenu;    
+	
+	$current_user = get_current_user_id();
+	$grupos = get_field('grupo', 'user_'. $current_user );
+	$AgendaDre = array();
+
+	foreach($grupos as $grupo){
+		$agenda = get_field('agendas', $grupo );
+		if($agenda != ''){
+			array_push( $AgendaDre, get_field('agendas', $grupo ) );
+		}
+	}
+
+	$arraySingle = call_user_func_array('array_merge', $AgendaDre);
+	$arraySingle = array_unique($arraySingle);
+
+	if (in_array("dre-bt", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_bt = admin_url( 'edit.php' ).'?post_type=agenda-dre-bt';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Butantã', 'edit_concursos', $permalink_bt );
+	}
+
+	if (in_array("dre-cs", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_cs = admin_url( 'edit.php' ).'?post_type=agenda-dre-cs';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Capela do Socorro', 'edit_concursos', $permalink_cs );
+	}
+
+	if (in_array("dre-fb", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_fb = admin_url( 'edit.php' ).'?post_type=agenda-dre-fb';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Freg/Brasilândia', 'edit_concursos', $permalink_fb );
+	}
+
+}
+add_action('admin_menu', 'add_external_link_admin_submenu');
+
+// Ocultar o link direto da DRE no admin
+add_action( 'admin_init', 'wpse_136058_remove_menu_pages' );
+
+function wpse_136058_remove_menu_pages() {
+    remove_menu_page('edit.php?post_type=agenda-dre-bt'); // DRE Butanta
+	remove_menu_page('edit.php?post_type=agenda-dre-cs'); // DRE Capela do Socorro
+	remove_menu_page('edit.php?post_type=agenda-dre-fb'); // DRE Freg/Brasilandia
+}
