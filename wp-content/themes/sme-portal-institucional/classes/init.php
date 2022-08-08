@@ -29,6 +29,11 @@ require_once __ROOT__.'/classes/Cpt/CptCurriculoDaCidade.php';
 require_once __ROOT__.'/classes/Cpt/CptConcursos.php';
 require_once __ROOT__.'/classes/Cpt/CptSetor.php';
 
+// Agenda DREs
+require_once __ROOT__.'/classes/Cpt/CptAgendaDreBt.php'; // DRE Butanta
+require_once __ROOT__.'/classes/Cpt/CptAgendaDreCs.php'; // DRE Capela do Socorro
+require_once __ROOT__.'/classes/Cpt/CptAgendaDreFb.php'; // DRE Freguesia/Brasilandia
+
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingleCard.php';
@@ -124,3 +129,15 @@ $cptConcursosExtend = new \Classes\Cpt\CptConcursos();
 
 $cptSetor = new \Classes\Cpt\Cpt('setor', 'setor', 'Cadastro Setor', 'Todos os Setores', 'Setores', 'Setores', '', '', '', 'dashicons-format-image', true);
 $cptSetorExtende = new \Classes\Cpt\CptSetor();
+
+// DRE Butanta
+$cptDreBt = new \Classes\Cpt\Cpt('agenda-dre-bt', 'agenda-dre-bt', 'DRE Butantã', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptDreBtExtende = new \Classes\Cpt\CptAgendaDreBt();
+
+// DRE Capela do Socorro
+$cptDreCs = new \Classes\Cpt\Cpt('agenda-dre-cs', 'agenda-dre-cs', 'DRE Capela do Socorro', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptDreCsExtende = new \Classes\Cpt\CptAgendaDreCs();
+
+// DRE Freguesia/Brasilandia
+$cptDreFb = new \Classes\Cpt\Cpt('agenda-dre-fb', 'agenda-dre-fb', 'DRE Freg/Brasilandia', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptDreFbExtende = new \Classes\Cpt\CptAgendaDreFb();
