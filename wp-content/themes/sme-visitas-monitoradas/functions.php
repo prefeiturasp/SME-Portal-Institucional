@@ -645,6 +645,16 @@ if( function_exists('acf_add_options_page') ) {
 		'updated_message' => __("Tutoriais atualizado com sucesso", 'acf'),
     ));
 
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Informações Rodapé e Topo',
+        'menu_title'	=> 'Rodapé e Topo',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+		'post_id' => 'conf-rodape',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Informações do Rodapé e Topo atualizados com sucesso", 'acf'),
+    ));
+
     acf_add_options_sub_page(array(
         'page_title' 	=> 'Informações Rodapé e Topo',
         'menu_title'	=> 'Rodapé e Topo',
