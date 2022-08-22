@@ -2077,3 +2077,34 @@ function wpse45436_posts_filter( $query ){
     $query->query_vars['meta_value'] = $_GET['ADMIN_FILTER_FIELD_VALUE'];
 }
 add_action( 'restrict_manage_posts', 'wpse45436_admin_posts_filter_restrict_manage_posts' );
+
+// Nao permitir a edicao de eventos para usuarios que nao sejam do mesmo grupo
+global $pagenow;
+global $current_user;
+if (( $pagenow == 'post.php' ) || (get_post_type() == 'post')) {
+
+    $evento = $_GET['post']; // Pegar ID do evento (post)
+    $unidade = get_field('localizacao', $evento); // Pegar a localizacao atribuida 
+        
+    $user = get_currentuserinfo(); // Pegar informacoes do usuario logado
+
+	if($user->roles[0] != 'administrator'){
+		$grupos = get_field('grupo', 'user_' . $user->ID); // Pega o Grupo do usuario
+	
+		$unidades = array();
+
+		if($grupos && $grupos != ''){
+			foreach($grupos as $grupo){
+				$unidades[] = get_field('unidades', $grupo); // Busca as unidades do grupo
+			}
+		}
+
+		$unidades = call_user_func_array('array_merge', $unidades); 
+		$unidades = array_unique($unidades);
+		
+		if( !in_array($unidade, $unidades) ){ // Verifica se a unidade atribuida esta dentro do grupo
+			wp_redirect( admin_url() );
+		}
+	}
+	
+}
