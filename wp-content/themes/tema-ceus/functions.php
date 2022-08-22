@@ -2055,7 +2055,7 @@ function wpse45436_admin_posts_filter_restrict_manage_posts(){
             'Eventos em série' => 'serie',
         );
         ?>
-        <select name="ADMIN_FILTER_FIELD_VALUE">
+        <select name="tipo">
             <option value=""><?php _e('Todos os tipos de eventos ', 'wose45436'); ?></option>
             <?php $current_v = isset($_GET['tipo'])? $_GET['tipo']:''; foreach ($values as $label => $value) {
                 printf
@@ -2068,13 +2068,17 @@ function wpse45436_admin_posts_filter_restrict_manage_posts(){
             }
             ?>
         </select>
-    <?php } } /** if submitted filter by post meta */
+    <?php } //if submitted filter by post meta
+}
+
 add_filter( 'parse_query', 'wpse45436_posts_filter' );
 function wpse45436_posts_filter( $query ){
-    global $pagenow; $type = 'post';
-    if (isset($_GET['post_type'])) { $type = $_GET['post_type'];
+	global $pagenow;
+
+	if ( is_admin() && 'edit.php' == $pagenow && $_GET['tipo'] != '' )  {
+        $query->query_vars['meta_value'] = $_GET['tipo'];
     }
-    $query->query_vars['meta_value'] = $_GET['ADMIN_FILTER_FIELD_VALUE'];
+    
 }
 add_action( 'restrict_manage_posts', 'wpse45436_admin_posts_filter_restrict_manage_posts' );
 
