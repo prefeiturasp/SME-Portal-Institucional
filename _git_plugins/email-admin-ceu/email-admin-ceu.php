@@ -78,6 +78,24 @@ function post_unpublished( $new_status, $old_status, $post ) {
             );     
             
             $editorUsers = get_users( $args ); // Uuarios do tipo Editor
+            
+            foreach($editorUsers as $key => $user){
+                $grupos = get_field('grupo', 'user_' . $user->ID); // Grupo do usuario
+                $unidades = array();
+                
+                foreach($grupos as $grupo){
+                    $unidades[] = get_field('unidades', $grupo);
+                }
+    
+                $unidades = call_user_func_array('array_merge', $unidades);
+                $unidades = array_unique($unidades);
+    
+                if( !in_array($idUnidade, $unidades) ){
+                    unset($editorUsers[$key]);
+                }
+            }
+            
+            
         } else {
             $editorUsers = '';
         }
@@ -96,8 +114,9 @@ function post_unpublished( $new_status, $old_status, $post ) {
         }
 
         // usuarios que nao receberao email
-        $removeUser = array('ollyver.ottoboni@amcom.com.br', 'ollyverottoboni@gmail.com', 'felipe.almeida@amcom.com.br');
+        $removeUser = array('ollyver.ottoboni@amcom.com.br', 'ollyverottoboni@gmail.com', 'ascom.conteudo@sme.prefeitura.sp.gov.br');
 
+        $emailto = array_diff($emailto, $removeUser);
         
         //Link para editar
         $link = get_edit_post_link( $post->ID );
