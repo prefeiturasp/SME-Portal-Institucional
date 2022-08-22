@@ -2103,7 +2103,7 @@ if (( $pagenow == 'post.php' ) || (get_post_type() == 'post')) {
 		$unidades = array_unique($unidades);
 		
 		if( !in_array($unidade, $unidades) ){ // Verifica se a unidade atribuida esta dentro do grupo
-			wp_redirect( admin_url() );
+			wp_redirect( admin_url('edit.php?list=evento&filter=grupo') );
 		}
 	}
 	
