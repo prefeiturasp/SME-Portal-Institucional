@@ -310,7 +310,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                             //$thumbnail_id = get_post_thumbnail_id( $eventoID );
                                                             $alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
                                                         } else {
-                                                            $imgEvento = 'https://via.placeholder.com/640x350';
+                                                            $imgEvento = get_template_directory_uri().'/img/placeholder_portal_ceus.jpg';
                                                             $alt = get_the_title($eventoID);
                                                         }
                                                     ?>
@@ -788,7 +788,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                     //$thumbnail_id = get_post_thumbnail_id( $eventoID );
                                                     $alt = get_post_meta($foto, '_wp_attachment_image_alt', true);  
                                                 } else {
-                                                    $imgEvento = 'https://via.placeholder.com/575x297';
+                                                    $imgEvento = get_template_directory_uri().'/img/placeholder_portal_ceus.jpg';
                                                     $alt = get_the_title($eventoID);
                                                 }
                                         ?>
