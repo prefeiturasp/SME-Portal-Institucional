@@ -500,7 +500,7 @@
 											//$thumbnail_id = get_post_thumbnail_id( $eventoInterno->ID );
 											$alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
 										} else {
-											$imgEvento = 'https://via.placeholder.com/640x350';
+											$imgEvento = get_template_directory_uri().'/img/placeholder_portal_ceus.jpg';
 											$alt = get_the_title();
 										}
 									?>
