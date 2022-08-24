@@ -1098,6 +1098,11 @@ footer .redes-footer {
     color: #42474A !important;
 }
 
+.content-article img,
+.editor-content img {
+    width: 100%;
+}
+
 
 /*Selo de acessibilidade digital*/
 
