@@ -31,8 +31,18 @@ require_once __ROOT__.'/classes/Cpt/CptSetor.php';
 
 // Agenda DREs
 require_once __ROOT__.'/classes/Cpt/CptAgendaDreBt.php'; // DRE Butanta
+require_once __ROOT__.'/classes/Cpt/CptAgendaDreCl.php'; // DRE Campo Limpo
 require_once __ROOT__.'/classes/Cpt/CptAgendaDreCs.php'; // DRE Capela do Socorro
 require_once __ROOT__.'/classes/Cpt/CptAgendaDreFb.php'; // DRE Freguesia/Brasilandia
+require_once __ROOT__.'/classes/Cpt/CptAgendaDreGn.php'; // DRE Guaianases
+require_once __ROOT__.'/classes/Cpt/CptAgendaDreIp.php'; // DRE Ipiranga
+require_once __ROOT__.'/classes/Cpt/CptAgendaDreIt.php'; // DRE Itaquera
+require_once __ROOT__.'/classes/Cpt/CptAgendaDreJt.php'; // DRE Jacana/Tremembe
+require_once __ROOT__.'/classes/Cpt/CptAgendaDrePe.php'; // DRE Penha
+require_once __ROOT__.'/classes/Cpt/CptAgendaDrePi.php'; // DRE Pirituba
+require_once __ROOT__.'/classes/Cpt/CptAgendaDreSa.php'; // DRE Santo Amaro
+require_once __ROOT__.'/classes/Cpt/CptAgendaDreSma.php'; // DRE São Mateus
+require_once __ROOT__.'/classes/Cpt/CptAgendaDreSmi.php'; // DRE São Miguel
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
@@ -134,6 +144,10 @@ $cptSetorExtende = new \Classes\Cpt\CptSetor();
 $cptDreBt = new \Classes\Cpt\Cpt('agenda-dre-bt', 'agenda-dre-bt', 'DRE Butantã', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
 $cptDreBtExtende = new \Classes\Cpt\CptAgendaDreBt();
 
+// DRE Campo Limpo
+$cptDreCl = new \Classes\Cpt\Cpt('agenda-dre-cl', 'agenda-dre-cl', 'DRE Campo Limpo', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptDreClExtende = new \Classes\Cpt\CptAgendaDreCl();
+
 // DRE Capela do Socorro
 $cptDreCs = new \Classes\Cpt\Cpt('agenda-dre-cs', 'agenda-dre-cs', 'DRE Capela do Socorro', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
 $cptDreCsExtende = new \Classes\Cpt\CptAgendaDreCs();
@@ -141,3 +155,39 @@ $cptDreCsExtende = new \Classes\Cpt\CptAgendaDreCs();
 // DRE Freguesia/Brasilandia
 $cptDreFb = new \Classes\Cpt\Cpt('agenda-dre-fb', 'agenda-dre-fb', 'DRE Freg/Brasilandia', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
 $cptDreFbExtende = new \Classes\Cpt\CptAgendaDreFb();
+
+// DRE Guaianases
+$cptDreGn = new \Classes\Cpt\Cpt('agenda-dre-gn', 'agenda-dre-gn', 'DRE Guaianases', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptDreGnExtende = new \Classes\Cpt\CptAgendaDreGn();
+
+// DRE Ipiranga
+$cptDreIp = new \Classes\Cpt\Cpt('agenda-dre-ip', 'agenda-dre-ip', 'DRE Ipiranga', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptDreIpExtende = new \Classes\Cpt\CptAgendaDreIp();
+
+// DRE Itaquera
+$cptDreIt = new \Classes\Cpt\Cpt('agenda-dre-It', 'agenda-dre-It', 'DRE Itaquera', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptDreItExtende = new \Classes\Cpt\CptAgendaDreIt();
+
+// DRE Jacana/Tremembe
+$cptDreJt = new \Classes\Cpt\Cpt('agenda-dre-jt', 'agenda-dre-jt', 'DRE Jaçana/Tremembé', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptDreJtExtende = new \Classes\Cpt\CptAgendaDreJt();
+
+// DRE Penha
+$cptPe = new \Classes\Cpt\Cpt('agenda-dre-pe', 'agenda-dre-pe', 'DRE Penha', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptPeExtende = new \Classes\Cpt\CptAgendaDrePe();
+
+// DRE Pirituba
+$cptDrePi = new \Classes\Cpt\Cpt('agenda-dre-pi', 'agenda-dre-pi', 'DRE Pirituba', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptDrePiExtende = new \Classes\Cpt\CptAgendaDrePi();
+
+// DRE Santo Amaro
+$cptDreSa = new \Classes\Cpt\Cpt('agenda-dre-sa', 'agenda-dre-sa', 'DRE Santo Amaro', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptDreSaExtende = new \Classes\Cpt\CptAgendaDreSa();
+
+// DRE São Mateus
+$cptDreSma = new \Classes\Cpt\Cpt('agenda-dre-sma', 'agenda-dre-sma', 'DRE São Mateus', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptDreSmaExtende = new \Classes\Cpt\CptAgendaDreSma();
+
+// DRE São Miguel
+$cptDreSmi = new \Classes\Cpt\Cpt('agenda-dre-smi', 'agenda-dre-smi', 'DRE São Miguel', 'Todos os Eventos', 'Eventos', 'Eventos', '', '', '', 'dashicons-format-image', true);
+$cptDreSmiExtende = new \Classes\Cpt\CptAgendaDreSmi();

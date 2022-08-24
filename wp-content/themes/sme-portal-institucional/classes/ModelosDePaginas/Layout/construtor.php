@@ -497,7 +497,15 @@ class Construtor extends Util
 
 															// Mapa DREs
 															elseif( get_row_layout() == 'mapa_dres' ):
-																get_template_part( 'construtor/construtor', 'mapa_dres' );	
+																get_template_part( 'construtor/construtor', 'mapa_dres' );
+
+															// Agenda DREs
+															elseif( get_row_layout() == 'agenda_dres' ):
+																get_template_part( 'construtor/construtor', 'agenda_dres' );
+
+															// Mapa
+															elseif( get_row_layout() == 'fx_cl1_mapa' ):
+																get_template_part( 'construtor/construtor', 'mapa' );
 															
 															// Integracao Pagina
 															elseif( get_row_layout() == 'integrar_pagina' ):
@@ -3222,6 +3230,10 @@ class Construtor extends Util
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres' );
 
+															// Mapa
+															elseif( get_row_layout() == 'fx_cl1_mapa' ):
+																get_template_part( 'construtor/construtor', 'mapa' );
+
 															endif;
 
 														endwhile;
@@ -3442,6 +3454,10 @@ class Construtor extends Util
 															// Noticias DREs
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres' );
+															
+															// Mapa
+															elseif( get_row_layout() == 'fx_cl1_mapa' ):
+																get_template_part( 'construtor/construtor', 'mapa' );
 
 															endif;
 

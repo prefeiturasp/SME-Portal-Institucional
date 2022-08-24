@@ -41,11 +41,11 @@ class CptAgendaDreCs extends Cpt
 		switch ($col) {
 			case 'data_evento':
 				$data_do_evento = get_field('data_do_evento', $post->ID);
-				if( !isset($_GET['orderby']) || $_GET['orderby'] == 'data_evento' ){
-					echo date("d/m/Y", strtotime($data_do_evento));
-				} else {
+				//if( !isset($_GET['orderby']) || $_GET['orderby'] == 'data_evento' ){
+					//echo date("d/m/Y", strtotime($data_do_evento));
+				//} else {
 					echo $data_do_evento;
-				}				
+				//}				
 				
 				break;
 
@@ -54,7 +54,7 @@ class CptAgendaDreCs extends Cpt
 				//print_r($qtd_evento);
 				$qtd = count($qtd_evento);
 				if( !isset($_GET['orderby']) || $_GET['orderby'] == 'data_evento'){
-					$qtd = $qtd_evento;
+					$qtd = count($qtd_evento);
 				}
 				if($qtd == 1){
 					echo $qtd . ' evento';

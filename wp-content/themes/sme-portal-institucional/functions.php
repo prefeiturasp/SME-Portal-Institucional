@@ -2535,7 +2535,7 @@ function menu_agenda_dres() {
 // Adicionar DREs no submenu da Agenda das DREs
 function add_external_link_admin_submenu() {
     global $submenu;    
-	
+
 	$current_user = get_current_user_id();
 	$grupos = get_field('grupo', 'user_'. $current_user );
 	$AgendaDre = array();
@@ -2555,6 +2555,11 @@ function add_external_link_admin_submenu() {
     	$submenu['agenda-das-dres'][] = array( 'DRE Butantã', 'edit_concursos', $permalink_bt );
 	}
 
+	if (in_array("dre-cl", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_cs = admin_url( 'edit.php' ).'?post_type=agenda-dre-cl';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Campo Limpo', 'edit_concursos', $permalink_cs );
+	}
+
 	if (in_array("dre-cs", $arraySingle) || current_user_can( 'manage_options' )) { 
 		$permalink_cs = admin_url( 'edit.php' ).'?post_type=agenda-dre-cs';
     	$submenu['agenda-das-dres'][] = array( 'DRE Capela do Socorro', 'edit_concursos', $permalink_cs );
@@ -2565,6 +2570,51 @@ function add_external_link_admin_submenu() {
     	$submenu['agenda-das-dres'][] = array( 'DRE Freg/Brasilândia', 'edit_concursos', $permalink_fb );
 	}
 
+	if (in_array("dre-gn", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_fb = admin_url( 'edit.php' ).'?post_type=agenda-dre-gn';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Guaianases', 'edit_concursos', $permalink_fb );
+	}
+
+	if (in_array("dre-ip", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_ip = admin_url( 'edit.php' ).'?post_type=agenda-dre-ip';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Ipiranga', 'edit_concursos', $permalink_ip );
+	}
+
+	if (in_array("dre-it", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_it = admin_url( 'edit.php' ).'?post_type=agenda-dre-it';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Itaquera', 'edit_concursos', $permalink_it );
+	}
+
+	if (in_array("dre-jt", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_jt = admin_url( 'edit.php' ).'?post_type=agenda-dre-jt';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Jaçanã/Tremembé', 'edit_concursos', $permalink_jt );
+	}
+
+	if (in_array("dre-pe", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_pe = admin_url( 'edit.php' ).'?post_type=agenda-dre-pe';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Penha', 'edit_concursos', $permalink_pe );
+	}
+
+	if (in_array("dre-pi", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_pi = admin_url( 'edit.php' ).'?post_type=agenda-dre-pi';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Pirituba', 'edit_concursos', $permalink_pi );
+	}
+
+	if (in_array("dre-sa", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_sa = admin_url( 'edit.php' ).'?post_type=agenda-dre-sa';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Santo Amaro', 'edit_concursos', $permalink_sa );
+	}
+
+	if (in_array("dre-sma", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_sa = admin_url( 'edit.php' ).'?post_type=agenda-dre-sma';
+    	$submenu['agenda-das-dres'][] = array( 'DRE São Mateus', 'edit_concursos', $permalink_sa );
+	}
+
+	if (in_array("dre-smi", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_sa = admin_url( 'edit.php' ).'?post_type=agenda-dre-smi';
+    	$submenu['agenda-das-dres'][] = array( 'DRE São Miguel', 'edit_concursos', $permalink_sa );
+	}
+
 }
 add_action('admin_menu', 'add_external_link_admin_submenu');
 
@@ -2573,6 +2623,117 @@ add_action( 'admin_init', 'wpse_136058_remove_menu_pages' );
 
 function wpse_136058_remove_menu_pages() {
     remove_menu_page('edit.php?post_type=agenda-dre-bt'); // DRE Butanta
+	remove_menu_page('edit.php?post_type=agenda-dre-cl'); // DRE Campo Limpo
 	remove_menu_page('edit.php?post_type=agenda-dre-cs'); // DRE Capela do Socorro
 	remove_menu_page('edit.php?post_type=agenda-dre-fb'); // DRE Freg/Brasilandia
+	remove_menu_page('edit.php?post_type=agenda-dre-gn'); // DRE Guaianases
+	remove_menu_page('edit.php?post_type=agenda-dre-ip'); // DRE Ipiranga
+	remove_menu_page('edit.php?post_type=agenda-dre-it'); // DRE Itaquera
+	remove_menu_page('edit.php?post_type=agenda-dre-jt'); // DRE Jacana/Tremembe
+	remove_menu_page('edit.php?post_type=agenda-dre-pe'); // DRE Penha
+	remove_menu_page('edit.php?post_type=agenda-dre-pi'); // DRE Pirituba
+	remove_menu_page('edit.php?post_type=agenda-dre-sa'); // DRE Santo Amaro
+	remove_menu_page('edit.php?post_type=agenda-dre-sma'); // DRE São Mateus
+	remove_menu_page('edit.php?post_type=agenda-dre-smi'); // DRE São Miguel
+}
+
+// Filtra as eventos que grupo pertence
+function wp38_limit_posts_to_author($query) {
+
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+		
+	// 	filtra os noticias pelo grupo pertencente
+	if( $_GET['filter'] == 'grupo' && $_GET['list'] == 'noticias' && ($user->roles[0] == 'dre') ){
+
+		global $wpdb;
+		
+		// pega as categorias permitidas para edicao do grupo
+        $noticias = get_user_meta($user->ID,'grupo',true);
+		$noticias2 = array();
+		
+		if($noticias && $noticias !=''){
+			if($noticias && $noticias != ''){
+				foreach($noticias as $noticia){
+					$noticias2[] = get_post_meta($noticia, 'noticias', true);
+				}
+			}
+	
+			$noticias2 = array_flatten($noticias2);
+			$noticias2 = array_unique($noticias2);			
+						
+			$result = array_unique($noticias2);
+			$result = array_filter($result);
+			
+			if($result){
+				$query->set('cat', $result);
+			} else {
+				$query->set('post_type', 'empty');
+			}
+			
+		} else {
+			$query->set('post_type', 'empty');
+		}
+		
+	}
+	
+	return $query;
+	
+}
+add_filter('pre_get_posts', 'wp38_limit_posts_to_author');
+
+// Altera a URL de Eventos e Unidades para colaboladores
+add_action('admin_menu', 'alter_link_news');
+function alter_link_news() {
+	global $submenu;
+	
+    // pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+	
+	if($user->roles[0] == 'dre'){		
+		$submenu['edit.php'][5][2] = 'edit.php?list=noticias&filter=grupo';
+		$submenu['edit.php?post_type=page'][5][2] = 'edit.php?post_type=page&filter=grupo';
+		$submenu['edit.php?post_type=contato'][5][2] = 'edit.php?post_type=contato&filter=grupo';
+	}
+}
+
+add_filter( 'list_terms_exclusions', 'nsf_exclude_cats', 20 );
+function nsf_exclude_cats( $exclusions ) {
+
+    global $pagenow;
+    global $result; // array from another function, with all the cat_ID's to be excluded
+
+	$user = wp_get_current_user();
+    	
+	$nsf_exclude = array(473,1028); 
+    if (current_user_can( 'dre' ) && is_admin() ) {
+		$noticias = get_user_meta($user->ID,'grupo',true);
+		$noticias2 = array();
+		
+		if($noticias && $noticias !=''){
+			if($noticias && $noticias != ''){
+				foreach($noticias as $noticia){
+					$noticias2[] = get_post_meta($noticia, 'noticias', true);
+				}
+			}
+	
+			$noticias2 = array_flatten($noticias2);
+			$noticias2 = array_unique($noticias2);
+						
+			$result = array_unique($noticias2);
+			$result = array_filter($result);
+
+		}
+
+        if(!empty($result)){
+            $exclusions .= ' AND t.term_id IN (';
+            foreach($result as $exclude) {
+                $exclusions .= $exclude.',';
+            }
+            $exclusions = substr($exclusions, 0, -1); // Removing the last comma
+            $exclusions .= ')';
+        }
+    }
+    return $exclusions;
 }

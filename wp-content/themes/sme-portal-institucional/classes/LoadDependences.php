@@ -5,7 +5,10 @@ namespace Classes;
 use Classes\ModelosDePaginas\PaginaContato\PaginaContatoMetabox;
 use Classes\TemplateHierarchy\ArchiveAgenda\ArchiveAgendaAjaxCalendario;
 use Classes\TemplateHierarchy\ArchiveAgendaNew\ArchiveAgendaAjaxCalendarioNew;
+use Classes\TemplateHierarchy\ArchiveAgendaDre\ArchiveAgendaAjaxCalendarioDre;
 use Classes\TemplateHierarchy\ArchiveAgenda\ArchiveAgendaGetDatasEventos;
+use Classes\TemplateHierarchy\ArchiveAgendaNew\ArchiveAgendaGetDatasEventosNew;
+use Classes\TemplateHierarchy\ArchiveAgendaDre\ArchiveAgendaGetDatasEventosDre;
 use Classes\TemplateHierarchy\ArchiveContato\ArchiveContatoMetabox;
 
 class LoadDependences
@@ -64,9 +67,19 @@ class LoadDependences
 		wp_register_script('ajax-agenda-secretario',  STM_THEME_URL . 'classes/assets/js/ajax-agenda-secretario.js', array ('jquery'), false, false);
 		wp_enqueue_script('ajax-agenda-secretario');
 		wp_localize_script('ajax-agenda-secretario', 'bloginfo', array('ajaxurl' => admin_url('admin-ajax.php')));
+		
+		wp_register_script('ajax-agenda-dre',  STM_THEME_URL . 'classes/assets/js/ajax-agenda-dre.js', array ('jquery'), false, false);
+		wp_enqueue_script('ajax-agenda-dre');
+		wp_localize_script('ajax-agenda-dre', 'bloginfo', array('ajaxurl' => admin_url('admin-ajax.php')));
+		
 		add_action('wp_ajax_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendario(), 'montaHtmlListaEventos' ));
-	   	add_action('wp_ajax_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendarioNew(), 'montaHtmlListaEventos' ));		
+		add_action('wp_ajax_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendarioNew(), 'montaHtmlListaEventos' ));
+		
 		add_action('wp_ajax_nopriv_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendario(), 'montaHtmlListaEventos'));
+		add_action('wp_ajax_nopriv_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendarioNew(), 'montaHtmlListaEventos'));
+
+		add_action('wp_ajax_montaHtmlListaEventosDre', array(new ArchiveAgendaAjaxCalendarioDre(), 'montaHtmlListaEventosDre' ));				
+		add_action('wp_ajax_nopriv_montaHtmlListaEventosDre', array(new ArchiveAgendaAjaxCalendarioDre(), 'montaHtmlListaEventosDre'));
 
 		add_action('wp_ajax_recebeDadosAjax', array(new ArchiveAgendaGetDatasEventos(), 'recebeDadosAjax' ));
 		add_action('wp_ajax_nopriv_recebeDadosAjax', array(new ArchiveAgendaGetDatasEventos(), 'recebeDadosAjax'));

@@ -504,3 +504,12 @@ video {
 		margin-right: 15px;
 	}
 }
+
+.bd-content{
+	border: solid 1px #ddd;
+    padding: 1rem;
+}
+
+.bg-home-desc {
+    background: linear-gradient(to top, rgba(38, 66, 112, 1), rgba(38, 66, 112, 0.75));
+}
