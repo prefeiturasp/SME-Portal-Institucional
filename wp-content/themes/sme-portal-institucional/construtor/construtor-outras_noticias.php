@@ -1,23 +1,35 @@
 <div id="outrasNoticias">
     
         
-        <div class="row w-100 my-4">
-            <div class="col-sm-12">
-                <p class="outrasTitle">
-                    Outras notícias
-                </p>
-            </div>
-        </div>
+        <?php
+            $titulo = get_sub_field('titulo');
+            if($titulo):
+        ?>
+                <div class="row w-100 mt-4">
+                    <div class="col-sm-12">
+                        <p class="outrasTitle">
+                            <?= $titulo; ?>
+                        </p>
+                    </div>
+                </div>
+
+        <?php endif; ?>
         
         <?php
 
             $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
+            $qtd = get_sub_field('quantidade');
+            $categ = get_sub_field('categorias');
             $args = array(
                 'post_type' => 'post',
-                'posts_per_page'=> 5,
+                'posts_per_page'=> $qtd,
                 'paged'=> $paged,
             );
+
+            if($categ){
+                $args['cat'] =  $categ;
+            }
 
             // The Query
             $the_query = new WP_Query( $args );
@@ -28,7 +40,7 @@
                 while ( $the_query->have_posts() ) :
                     $the_query->the_post();
                 ?>
-                    <section class="row mb-5">
+                    <section class="row my-5">
                         <article class="col-lg-10 col-sm-12">
                             <?php
 

@@ -3,7 +3,7 @@
 namespace Classes\Cpt;
 
 
-class CptAgendaDreFb extends Cpt
+class CptAgendaDreSa extends Cpt
 {
 	public function __construct(){
 		$this->cptSlug = self::getCptSlugExtend();
