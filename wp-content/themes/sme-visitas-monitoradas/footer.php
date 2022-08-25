@@ -142,13 +142,13 @@
 			
 							
 				if( href && !href.startsWith('#') && !valor.includes('<button') && !valor.includes('<img') && !href.includes('tel:') && !href.includes('mailto:') && !$(this).hasClass( "scroll" ) && href != ''){
-					if(!href.includes("https://educacao.sme.prefeitura.sp.gov.br") && !href.includes("http://educacao.sme.prefeitura.sp.gov.br")){
+					if(!href.includes("https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br") && !href.includes("http://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br")){
 						$(this).html(valor + ' <span class="screen-reader-text">(Link para um novo sítio)</span><span aria-hidden="true" class="dashicons dashicons-external"></span>');
 					}
 				}
 
 				if(valor.includes('<img')){
-					if(!href.includes("https://educacao.sme.prefeitura.sp.gov.br") && !href.includes("http://educacao.sme.prefeitura.sp.gov.br")){
+					if(!href.includes("https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br") && !href.includes("http://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br")){
 						$(this).html(valor + ' <span class="screen-reader-text">(Link para um novo sítio)</span>');
 					}
 				}
@@ -157,6 +157,31 @@
 		});
 
 		//console.log('To aqui');
+		<?php
+			$parceiros = '';
+			$the_query = new WP_Query( 
+				array( 
+				  'posts_per_page' => -1,
+				  'post_type' => 'parceiros' 
+				) 
+			  );
+			
+			  if( $the_query->have_posts() ) :
+				$i = 0;
+				  while( $the_query->have_posts() ): $the_query->the_post();
+				  	if($i == 0){
+						$parceiros .= '"' . get_the_title() . '"';
+					} else {
+						$parceiros .= ',"' . get_the_title() . '"';
+					}
+				  	$i++;
+				  endwhile;
+				  wp_reset_postdata();  
+			  endif;
+		?>
+		//valores para o campo de parceiros
+		var TipoParceiros = [<?=$parceiros; ?>];
+		autocomplete(document.getElementById("TipoParceiros"), TipoParceiros);
 	} );
 </script>
 </body>

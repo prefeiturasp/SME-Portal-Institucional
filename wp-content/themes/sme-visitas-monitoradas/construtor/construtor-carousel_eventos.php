@@ -73,31 +73,104 @@ $term = get_term( $idTaxEvento );
                     while ( $new_query->have_posts() ) : $new_query->the_post();
                         ?>
                         <div class="carousel-item col-sm-6 col-md-4 col-lg-3 <?php if($count_evento === 0){echo 'active';} ?>">
-                            <div class="content-carousel">
-                                <div class="content-carousel-img">
-                                    <img class="img-capa" src="https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br/wp-content/uploads/2022/07/homemaranha.jpg" alt="<?php echo the_title(); ?>">
-                                </div>
-                                <div class="inner-content-carousel">
-                                    <div class="data-content-carousel mt-2 mb-2">20,21 - Junho</div>
-                                    <div class="title-content-carousel mt-2 mb-2"><?php the_title(); ?></div>
-                                    <div class="desc-content-carousel mt-2 mb-2">Shopping Iguatemi, Jardim Paulistano</div>
-                                    <div class="pills mt-3 mb-3">
-                                    <span class="pill-out pill-green">
-                                        <img src="/wp-content/uploads/2022/07/livre.png" alt="Livre">
-                                        Livre
-                                    </span>
-                                    <span class="pill-out">
-                                        <img src="/wp-content/uploads/2022/07/teatro.png" alt="Cinemas">
-                                        Cinemas
-                                    </span>
-                                    <span class="pill-out">
-                                        <img src="/wp-content/uploads/2022/07/busque-por-parceiro.png" alt="Parceiros">
-                                        Parceiro
-                                    </span>
-                                    </div>
-                                    <button type="button" class="btn visitas-btn btn-block">inscreva-se</button>
-                                </div>
-                            </div>
+                        <div class="content-carousel">
+									<div class="content-carousel-img">
+										<?php
+											$imagem = get_field('foto_do_evento');
+											$showImage = $imagem['sizes']['home-thumb'];
+											if(!$showImage){
+												$showImage = 'http://via.placeholder.com/250x241';
+											}
+										?>
+										<img class="img-capa" src="<?= $showImage; ?>" alt="<?php echo the_title(); ?>">
+									</div>
+									<div class="inner-content-carousel">
+										<?php
+											$datas = get_field('agenda');
+											$dataNum = '';
+											$i = 0;
+											foreach($datas as $data){
+												if($i == 0){
+													$dataNum .= substr($data['data_hora'], 0, 2);
+												} else {
+													$dataNum .= ', ' . substr($data['data_hora'], 0, 2);
+												}
+												$i++;
+											}
+
+											$last = end($datas);
+											$lastMont = substr($data['data_hora'], 3, 2);
+											$mes = convertMonth($lastMont);											
+										?>
+										<div class="data-content-carousel mt-2 mb-2"><?= $dataNum; ?> - <?= $mes; ?></div>
+										<div class="title-content-carousel mt-2 mb-2"><?php the_title(); ?></div>
+										<?php
+											$parceiro = get_field('parceiro');
+											$nomeParceiro = get_the_title($parceiro);
+											$bairroParceiro = get_field('bairro_parceiro', $parceiro);
+										?>
+										<?php if($parceiro): ?>
+											<div class="desc-content-carousel mt-2 mb-2"><?= $nomeParceiro . ', ' . $bairroParceiro; ?></div>
+										<?php endif; ?>
+										
+										<div class="pills mt-3 mb-3">
+											<?php
+												// Faixa Etaria
+												$faixa = get_field('faixa_etaria');
+												$cor = get_field('cor', 'faixa-etaria_'.$faixa->term_id);
+												$corTexto = get_field('cor_texto', 'faixa-etaria_'.$faixa->term_id);
+                                                $icone = get_field('icone_tax', 'faixa-etaria_'.$faixa->term_id);
+												if(!$icone){
+													$icone = "/wp-content/uploads/2022/07/livre.png";
+												}
+											?>
+											<?php if($faixa): ?>
+												<span class="pill-out" style="background: <?= $cor; ?>; color: <?= $corTexto; ?>;">
+													<img src="<?= $icone; ?>" alt="<?= $faixa->name; ?>">
+													<?= $faixa->name; ?>
+												</span>
+											<?php endif; ?>
+
+											<?php
+												// Faixa Etaria
+												$espacos = get_field('tipo_de_espaco');												
+												
+											?>
+											<?php
+												if($espacos):
+													foreach($espacos as $espaco):
+														$icone = get_field('icone_tax', 'tipo-espaco_'.$espaco->term_id);														
+														if(!$icone){
+															$icone = "/wp-content/uploads/2022/07/teatro.png";
+														}
+													?>
+														<span class="pill-out">
+															<img src="<?= $icone; ?>" alt="<?= $espaco->name; ?>">
+															<?= $espaco->name; ?>
+														</span>
+													<?php
+													endforeach;
+												endif;
+											?>
+											
+											<?php
+												// Tipo Transporte
+												$transporte = get_field('tipo_de_transporte');
+												//print_r($transporte);										
+												
+											?>
+
+											<?php if($transporte): ?>
+												<span class="pill-out">
+													<img src="/wp-content/uploads/2022/07/busque-por-parceiro.png" alt="<?= $transporte->name; ?>">
+													<?= $transporte->name; ?>
+												</span>
+											<?php endif; ?>
+										</div>
+										
+										<a href="<?= get_the_permalink(); ?>" class="btn visitas-btn btn-block">inscreva-se</a>
+									</div>
+								</div>
                         </div>
                         <?php
                         $count_evento++;

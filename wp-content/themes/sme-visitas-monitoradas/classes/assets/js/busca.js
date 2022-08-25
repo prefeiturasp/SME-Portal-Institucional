@@ -27,6 +27,12 @@ jQuery(function() {
     jQuery(".pill-one").click(function(){
         jQuery(".pill-all").removeClass('active-pill');
         jQuery(this).toggleClass('active-pill');
+        var local = jQuery(this).data('local');
+        if( jQuery('#' + local).val() == '' ){
+            jQuery('#' + local).val(local);
+        } else {
+            jQuery('#' + local).val('');
+        }
     });
 
     var activePill = true;
@@ -68,9 +74,9 @@ jQuery(function() {
 
 
     /*coloca pill no form*/
-    /*jQuery("[data-local=cinema]").click(function(){
+    jQuery("[data-local=cinema]").click(function(){
       jQuery(this).toggleClass('active-pill');
-    });*/
+    });
 
 
     /*Limpar filtros*/
@@ -205,8 +211,3 @@ function autocomplete(inp, arr) {
         closeAllLists(e.target);
     });
 }
-
-//valores para o campo de parceiros
-var TipoParceiros = ["SP Transportes SA","SP Transportes escolar municipal"];
-autocomplete(document.getElementById("TipoParceiros"), TipoParceiros);
-

@@ -646,13 +646,13 @@ if( function_exists('acf_add_options_page') ) {
     ));
 
 	acf_add_options_sub_page(array(
-        'page_title' 	=> 'Informações Rodapé e Topo',
-        'menu_title'	=> 'Rodapé e Topo',
+        'page_title' 	=> 'Informações Google Analytics',
+        'menu_title'	=> 'Analytics',
         'parent_slug'	=> 'conf-geral',
         'capability'	=> 'publish_pages',
-		'post_id' => 'conf-rodape',
+		'post_id' => 'conf-analytics',
 		'update_button' => __('Atualizar', 'acf'),
-		'updated_message' => __("Informações do Rodapé e Topo atualizados com sucesso", 'acf'),
+		'updated_message' => __("Informações do Analytics atualizados com sucesso", 'acf'),
     ));
 
     acf_add_options_sub_page(array(
@@ -2242,6 +2242,11 @@ $translated = str_ireplace(  array_keys($words),  $words,  $translated );
 return $translated;
 }
 
+function remove_default_event_category_metabox() {
+	remove_meta_box( 'segmentosdiv', 'event', 'side' );
+}
+add_action( 'admin_menu' , 'remove_default_event_category_metabox' );
+
 //atualiza o placeholder do title do CPT parceiros
 function placeholder_input_parceiros( $title ){
     $screen = get_current_screen();
@@ -2275,4 +2280,48 @@ function lost_pass(){
     </div>';
 
     return $additional_field;
+}
+
+function convertMonth($mes){
+		
+	switch ($mes) {
+		case '01':
+			$mes = 'Janeiro';
+			break;
+		case '02':
+			$mes = 'Fevereiro';
+			break;
+		case '03':
+			$mes = 'Março';
+			break;
+		case '04':
+			$mes = 'Abril';
+			break;
+		case '05':
+			$mes = 'Maio';
+			break;
+		case '06':
+			$mes = 'Junho';
+			break;
+		case '07':
+			$mes = 'Julho';
+			break;
+		case '08':
+			$mes = 'Agosto';
+			break;
+		case '09':
+			$mes = 'Setembro';
+			break;
+		case '10':
+			$mes = 'Outubro';
+			break;
+		case '11':
+			$mes = 'Novembro';
+			break;
+		case '12':
+			$mes = 'Dezembro';
+			break;
+	}
+
+	return $mes;
 }

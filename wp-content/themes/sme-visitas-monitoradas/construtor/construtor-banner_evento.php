@@ -30,28 +30,25 @@ $eventoDestaques= get_sub_field('evento_em_destaque');
                                     <div class="col-sm-12">
                                         <div class="infoline-ajust">
                                             <span class="info-date-banner">
-                                            <?php
-                                            if( have_rows('agenda', $eventID) ):
-                                                $countData = 0;
-                                                while( have_rows('agenda', $eventID) ) : the_row();
-                                                    $date_variable = get_sub_field('data_hora');
-                                                    $date_format_in = 'd/m/Y g:i a';
-                                                    $date_format_out = 'd';
-                                                    $date = DateTime::createFromFormat( $date_format_in, $date_variable );
-                                                    ?>
-                                                    <?php echo $date->format( $date_format_out ); ?>
-                                                    <?php
-                                                    if($countData === 0){
-                                                        echo ' a ';
+                                                <?php
+                                                    $datas = get_field('agenda', $eventID);
+                                                    $dataNum = '';
+                                                    $i = 0;
+                                                    foreach($datas as $data){
+                                                        if($i == 0){
+                                                            $dataNum .= substr($data['data_hora'], 0, 2);
+                                                        } else {
+                                                            $dataNum .= ', ' . substr($data['data_hora'], 0, 2);
+                                                        }
+                                                        $i++;
                                                     }
-                                                    ?>
-                                                    <?php
-                                                    $countData++;
-                                                endwhile;
-                                            else :
-                                            endif;
-                                            ?> de Junho
-                                                </span>
+
+                                                    $last = end($datas);
+                                                    $lastMont = substr($data['data_hora'], 3, 2);
+                                                    $mes = convertMonth($lastMont);
+                                                    echo $dataNum . ' - ' . $mes;										
+                                                ?> 
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -60,33 +57,75 @@ $eventoDestaques= get_sub_field('evento_em_destaque');
                                         <div class="bannerhome-title"><?php echo $eventoDestaque->post_title; ?></div>
                                     </div>
                                     <div class="col-sm-3 text-right">
-                                        <button type="button" class="btn visitas-btn">Fazer inscrição</button>
+                                        <a href="<?= get_the_permalink($eventID); ?>" class="btn visitas-btn">Fazer inscrição</a>
                                     </div>
                                 </div>
                                 <div class="row bannerhome-infoline">
                                     <div class="col-sm-12">
+                                        <?php
+											$parceiro = get_field('parceiro', $eventID);
+											$nomeParceiro = get_the_title($parceiro);
+											$bairroParceiro = get_field('bairro_parceiro', $parceiro);
+										?>
                                         <div class="infoline-ajust">
-                                            <span class="info-local-banner">Shopping Iguatemi, Jardim Paulistano</span>
+                                            <span class="info-local-banner"><?= $nomeParceiro . ', ' . $bairroParceiro; ?></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-3 mb-3">
                                 <div class="col-sm-12">
-                                    <span class="pill pill-verde">
-                                        <img src="/wp-content/uploads/2022/07/livre.png" alt="<?php echo $eventoDestaque->post_title; ?>">
-                                        <?php
-                                        $faixas = get_field('faixa_etaria', $eventID);
-                                        echo $faixas->name;
-                                        ?>
-                                    </span>
-                                    <span class="pill pill-azul">
-                                        <img src="/wp-content/uploads/2022/07/cinemas.png" alt="<?php echo $eventoDestaque->post_title; ?>">
-                                        Cinemas
-                                    </span>
-                                    <span class="pill pill-cinza">
-                                        <img src="/wp-content/uploads/2022/07/parceiros.png" alt="<?php echo $eventoDestaque->post_title; ?>">
-                                        Parceiro
-                                    </span>
+                                    <?php
+                                        // Faixa Etaria
+                                        $faixa = get_field('faixa_etaria', $eventID);
+                                        $cor = get_field('cor', 'faixa-etaria_'.$faixa->term_id);
+                                        $corTexto = get_field('cor_texto', 'faixa-etaria_'.$faixa->term_id);
+                                        $icone = get_field('icone_tax', 'faixa-etaria_'.$faixa->term_id);
+                                        if(!$icone){
+                                            $icone = "/wp-content/uploads/2022/07/livre.png";
+                                        }
+                                    ?>
+                                    <?php if($faixa): ?>
+                                        <span class="pill" style="background: <?= $cor; ?>; color: <?= $corTexto; ?>;">
+                                            <img src="<?= $icone; ?>" alt="<?= $faixa->name; ?>">
+                                            <?= $faixa->name; ?>
+                                        </span>
+                                    <?php endif; ?>
+
+                                    <?php
+                                        // Espacos
+                                        $espacos = get_field('tipo_de_espaco', $eventID);												
+                                        
+                                    ?>
+                                    <?php
+                                        if($espacos):
+                                            foreach($espacos as $espaco):
+                                                $icone = get_field('icone_tax', 'tipo-espaco_'.$espaco->term_id);														
+                                                if(!$icone){
+                                                    $icone = "/wp-content/uploads/2022/07/teatro.png";
+                                                }
+                                            ?>
+                                                <span class="pill pill-azul">
+                                                    <img src="<?= $icone; ?>" alt="<?= $espaco->name; ?>">
+                                                    <?= $espaco->name; ?>
+                                                </span>
+                                            <?php
+                                            endforeach;
+                                        endif;
+                                    ?>
+                                    <?php
+                                        // Tipo Transporte
+                                        $transporte = get_field('tipo_de_transporte', $eventID);
+                                        //print_r($transporte);										
+                                        
+                                    ?>
+
+                                    <?php if($transporte): ?>
+                                        <span class="pill pill-cinza">
+                                            <img src="/wp-content/uploads/2022/07/parceiros.png" alt="<?= $transporte->name; ?>">
+                                            <?= $transporte->name; ?>
+                                        </span>
+                                    <?php endif; ?>                                 
+                                    
                                 </div>
                                 </div>
                             </div>
