@@ -121,7 +121,8 @@
 .desc-news{
     color: #fff;
 }
-.form-news input {
+.form-news input,
+.form-news select {
     width: 335px;
     margin: 5px 0;
     padding: 12px;
@@ -129,18 +130,21 @@
     border: none;
     font-size: 14px;
 }
-.form-news button {
+.form-news button,
+.form-news .wpcf7-submit {
     color: #fff;
     background: #1C2833;
     font-size: 16px;
 }
-.form-news button {
+.form-news button,
+.form-news .wpcf7-submit {
     color: #fff;
     background: #1C2833;
     font-size: 14px;
     border-radius: 20px;
     padding: 8px 20px;
     margin: 10px 0;
+    width: auto;
 }
 /*Bloco Parceiros do Projeto*/
 .bg-bloco-parceiros{
