@@ -1900,3 +1900,31 @@ ul.nav.nav-tabs{
     display: block;
     border-bottom: 2px solid #FFFFFF;
 }
+
+.event-detail .info-local-banner, .event-detail .info-date-banner {
+    color: #3A454F;
+    font-weight: 500;
+}
+
+.event-detail .info-end {
+    background: #F4F4F5;
+    padding: 10px 20px;
+    color: #58616A;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.event-detail .info-end p {
+    margin: 0;
+}
+
+.event-detail .pill-out{
+    padding: 7px 12px;
+}
+
+.event-detail .pill-out.transporte {
+    background: #3A454F;
+    color: #FFFFFF;
+}

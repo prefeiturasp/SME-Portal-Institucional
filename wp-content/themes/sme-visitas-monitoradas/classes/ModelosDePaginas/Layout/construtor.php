@@ -385,7 +385,39 @@ class Construtor extends Util
 			
 			if( have_rows('fx_flex_layout') ):
 				while( have_rows('fx_flex_layout') ): the_row();
-					
+
+                    ////////////////////////////// Inicio Carousel Eventos ///////////////////////////////
+                    if( get_row_layout() == 'carousel_eventos' ):
+                        $idTaxEvento = get_sub_field('escolha_evento');
+                        if($idTaxEvento != ''){
+                            get_template_part( 'construtor/construtor', 'carousel_eventos' );
+                        }
+                    endif;
+                    ////////////////////////////// Final Carousel Eventos ///////////////////////////////
+
+                    ////////////////////////////// Inicio Newsletter Eventos ///////////////////////////////
+                    if( get_row_layout() == 'newsletter_eventos' ):
+                        get_template_part( 'construtor/construtor', 'newsletter_eventos' );
+                    endif;
+                    ////////////////////////////// Final Newsletter Eventos ///////////////////////////////
+
+                    ////////////////////////////// Inicio Parceiros do Projeto ///////////////////////////////
+                    if( get_row_layout() == 'parceiros_do_projeto' ):
+                        get_template_part( 'construtor/construtor', 'parceiros_do_projeto' );
+                    endif;
+                    ////////////////////////////// Final Parceiros do Projeto ///////////////////////////////
+
+                    ////////////////////////////// Inicio Busca ///////////////////////////////
+                    if( get_row_layout() == 'bloco_de_busca' ):
+                        get_template_part( 'construtor/construtor', 'bloco_de_busca' );
+                    endif;
+                    ////////////////////////////// Final Busca ///////////////////////////////
+
+                    ////////////////////////////// Inicio Banner Evento ///////////////////////////////
+                    if( get_row_layout() == 'banner_evento' ):
+                        get_template_part( 'construtor/construtor', 'banner_evento' );
+                    endif;
+                    ////////////////////////////// Final Banner Evento ///////////////////////////////
 					
 					////////////////////////////// Inicio 1 Coluna ///////////////////////////////
 					if( get_row_layout() == 'fx_linha_coluna_1' ):

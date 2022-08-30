@@ -20,7 +20,7 @@ require_once __ROOT__.'/classes/Cpt/Cpt.php';
 require_once __ROOT__.'/classes/Cpt/CptPosts.php';
 require_once __ROOT__.'/classes/Cpt/CptPages.php';
 require_once __ROOT__.'/classes/Cpt/CptEventos.php';
-require_once _ROOT_.'/classes/Cpt/CptCadastroParceiros.php';
+require_once __ROOT__.'/classes/Cpt/CptCadastroParceiros.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
@@ -30,6 +30,16 @@ require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMenuInter
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleNoticiaPrincipal.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMaisRecentes.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleRelacionadas.php';
+
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopEvento/LoopEvento.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopEvento/LoopEventoCabecalho.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopEvento/LoopEventoPrincipal.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopEvento/LoopEventoAgenda.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopEvento/LoopEventoParceiro.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopEvento/LoopEventoRelacionados.php';
+
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaDre/ArchiveAgendaDre.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaDre/ArchiveAgendaAjaxCalendarioDre.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/GetTipoDePost.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/SearchForm.php';
