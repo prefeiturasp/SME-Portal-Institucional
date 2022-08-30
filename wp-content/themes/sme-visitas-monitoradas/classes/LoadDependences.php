@@ -2,6 +2,10 @@
 
 namespace Classes;
 
+
+use Classes\TemplateHierarchy\ArchiveAgendaDre\ArchiveAgendaAjaxCalendarioDre;
+use Classes\TemplateHierarchy\ArchiveAgendaDre\ArchiveAgendaGetDatasEventosDre;
+
 class LoadDependences
 {
 	public function __construct()
@@ -82,6 +86,20 @@ class LoadDependences
 		// Loop Single
 		wp_register_style('loop-single', STM_THEME_URL . 'classes/assets/css/loop-single.css', null, null, 'all');
 		wp_enqueue_style('loop-single');
+
+		//add_action('wp_ajax_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendario(), 'montaHtmlListaEventos' ));
+	   	//add_action('wp_ajax_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendarioNew(), 'montaHtmlListaEventos' ));
+				
+		//add_action('wp_ajax_nopriv_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendario(), 'montaHtmlListaEventos'));
+
+		add_action('wp_ajax_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendarioDre(), 'montaHtmlListaEventos' ));				
+		add_action('wp_ajax_nopriv_montaHtmlListaEventos', array(new ArchiveAgendaAjaxCalendarioDre(), 'montaHtmlListaEventos'));
+
+		//add_action('wp_ajax_recebeDadosAjax', array(new ArchiveAgendaGetDatasEventos(), 'recebeDadosAjax' ));
+		//add_action('wp_ajax_nopriv_recebeDadosAjax', array(new ArchiveAgendaGetDatasEventos(), 'recebeDadosAjax'));
+
+		//add_action('wp_ajax_recebeDadosAjax', array(new ArchiveAgendaGetDatasEventosNew(), 'recebeDadosAjax' ));
+		//add_action('wp_ajax_nopriv_recebeDadosAjax', array(new ArchiveAgendaGetDatasEventosNew(), 'recebeDadosAjax'));
 
 	}
 

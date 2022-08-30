@@ -72,7 +72,7 @@ class CptCadastroParceiros extends Cpt
         );
 
         register_post_type($this->cptSlug, $args);
-
+        
         remove_post_type_support( $this->cptSlug, 'editor' );
 
         flush_rewrite_rules();

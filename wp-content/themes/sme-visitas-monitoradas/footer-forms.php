@@ -66,6 +66,7 @@
 			
 		});
 
+		console.log('To aqui');
 	} );
 </script>
 </body>

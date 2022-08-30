@@ -93,7 +93,8 @@ jQuery(document).ready(function ($) {
 
     function redebe_data(data_recebida) {
         var conteudo_a_ser_exibido = $('#mostra_data');
-
+        var event_select = $('#event-select').text();
+        //console.log(event_select);
         jQuery.ajax({
             url: bloginfo.ajaxurl,
             type: 'post',
@@ -101,6 +102,7 @@ jQuery(document).ready(function ($) {
                 // você sempre deve passar o parâmetro 'action' com o nome da função que você criou no seu functions.php ou outro que você esteja incluindo nele
                 action: 'montaHtmlListaEventos',
                 data_pt_br: data_recebida,
+                data_event_select: event_select,
             },
 
             success: function (data) {
@@ -108,7 +110,7 @@ jQuery(document).ready(function ($) {
                 conteudo_a_ser_exibido.html($data);
 				var atual = new Date();
 				var data_atual = moment(atual).format('YYYYMMDD');
-            },
+            }
         });
     }
 });

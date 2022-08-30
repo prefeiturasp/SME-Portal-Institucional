@@ -1,7 +1,7 @@
 <?php
-use Classes\TemplateHierarchy\LoopSingle\LoopSingle;
+use Classes\TemplateHierarchy\LoopEvento\LoopEvento;
 get_header();
-$loop_single = new LoopSingle();
+$loop_single = new LoopEvento();
 //contabiliza visualizações de noticias
 setPostViews(get_the_ID()); /*echo getPostViews(get_the_ID());*/
 get_footer();

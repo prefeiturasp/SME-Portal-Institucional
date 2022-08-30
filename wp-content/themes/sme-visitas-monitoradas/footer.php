@@ -180,8 +180,8 @@
 			  endif;
 		?>
 		//valores para o campo de parceiros
-		var TipoParceiros = [<?=$parceiros; ?>];
-		autocomplete(document.getElementById("TipoParceiros"), TipoParceiros);
+		//var TipoParceiros = [<?=$parceiros; ?>];
+		//autocomplete(document.getElementById("TipoParceiros"), TipoParceiros);
 	} );
 </script>
 </body>

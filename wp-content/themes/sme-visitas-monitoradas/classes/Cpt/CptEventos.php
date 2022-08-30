@@ -121,7 +121,7 @@ class CptEventos extends Cpt
 			'exclude_from_search' => true,
 			'show_in_rest' => true,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'supports' => array('revisions'),
+			'supports' => array('revisions', 'editor'),
 		);        
 
 		register_post_type($this->cptSlug, $args);
@@ -238,7 +238,7 @@ class CptEventos extends Cpt
             )
         );
 
-		remove_post_type_support( $this->cptSlug, 'editor' );
+		//remove_post_type_support( $this->cptSlug, 'editor' );
 		//remove_post_type_support( $this->cptSlug, 'title' );
 
 		flush_rewrite_rules();
