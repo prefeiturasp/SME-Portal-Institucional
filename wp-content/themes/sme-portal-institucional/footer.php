@@ -62,9 +62,12 @@
 				<p><figure>
 					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR">
 						<img src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Logotipo Creative Commons. Ir para um link externo da Página Inicial da Creative Commons que é uma organização mundial sem fins lucrativos que permite o compartilhamento e a reutilização da criatividade e do conhecimento por meio do fornecimento de ferramentas gratuitas."/>
+					</a>					
+				</figure></p>
+				<p><figure>
+					<a href="https://www.prefeitura.sp.gov.br/cidade/secretarias/controladoria_geral/a_cgm/index.php?p=329588">
+						<img src="<?= get_template_directory_uri(); ?>/classes/assets/img/selo_transparencia.png" alt="Selo Transparência e boas práticas de gestão">
 					</a>
-					<p class="mt-2">Esta obra está licenciada com uma Licença Creative Commons
-						Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional </p>
 				</figure></p>
 			</div>
 		</div>
