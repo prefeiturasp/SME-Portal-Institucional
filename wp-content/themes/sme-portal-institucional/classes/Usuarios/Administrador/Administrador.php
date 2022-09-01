@@ -97,6 +97,7 @@ class Administrador
 			$this->role_object->add_cap( 'manage_concursos' );
 			$this->role_object->add_cap( 'delete_concursos' );
 			$this->role_object->add_cap( 'assign_concursos' );
+			$this->role_object->add_cap( 'read_tutoriais');
 		}
 	}
 

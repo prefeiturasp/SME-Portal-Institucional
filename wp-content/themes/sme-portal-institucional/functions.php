@@ -1949,10 +1949,28 @@ function my_search_query($query) {
 // Alterar placeholder cadastro/edicao Agenda do Secretario
 function wpb_change_title_text( $title ){
 	$screen = get_current_screen(); 
-	if  ( 'agendanew' == $screen->post_type ) {
+	$cpt_titles = array(
+		'agendanew',
+		'agenda-dre-bt',
+		'agenda-dre-cs',
+		'agenda-dre-fb',
+		'agenda-dre-gn',
+		'agenda-dre-ip',
+		'agenda-dre-it',
+		'agenda-dre-jt',
+		'agenda-dre-pe',
+		'agenda-dre-pi',
+		'agenda-dre-sa',
+		'agenda-dre-sma',
+		'agenda-dre-smi',
+	);
+
+	if  ( in_array($screen->post_type, $cpt_titles) ) {
 		 $title = 'Digite a data dos compromissos';
-	} 
-	return $title;}
+	}
+	
+	return $title;
+}
  
 add_filter( 'enter_title_here', 'wpb_change_title_text' );
 
