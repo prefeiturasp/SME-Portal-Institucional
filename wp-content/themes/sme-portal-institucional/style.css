@@ -1098,8 +1098,8 @@ footer .redes-footer {
     color: #42474A !important;
 }
 
-.content-article img,
-.editor-content img {
+.content-article img.size-default-image,
+.editor-content img.size-default-image {
     width: 100%;
 }
 
