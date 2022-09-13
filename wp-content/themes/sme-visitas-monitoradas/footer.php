@@ -184,5 +184,103 @@
 		//autocomplete(document.getElementById("TipoParceiros"), TipoParceiros);
 	} );
 </script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+	//console.log('oi1');
+	//jQuery('#transporte').on('change', function(){
+		//alert(this.value); //or alert($(this).val());
+	//});
+	//console.log('oi2');
+
+	
+
+	var form = jQuery("#example-form");
+	/*form.validate({
+		errorPlacement: function errorPlacement(error, element) { element.before(error); },
+		rules: {
+			confirm: {
+				equalTo: "#password"
+			}
+		}
+	});*/
+	form.children("div").steps({
+		headerTag: "h3",
+		bodyTag: "section",
+		transitionEffect: "slideLeft",
+		titleTemplate: '<span class="number">#index#</span><img src="<?= get_template_directory_uri(); ?>/img/check-inscri.png"> #title#',
+		onStepChanging: function (event, currentIndex, newIndex)
+		{
+			form.validate().settings.ignore = ":disabled,:hidden";
+
+			if(form.valid() == false){
+				Swal.fire(
+				'Faltam informações para finalizar sua inscrição.',
+				'Por favor, preencha os campos em destaque',
+				'error'
+				)
+			}
+			
+			return form.valid();		
+		},
+		onFinishing: function (event, currentIndex) { 
+			//alert('Inscrição feita com sucesso!');
+			form.validate().settings.ignore = ":disabled";
+			console.log(form.valid());
+			return form.valid();
+			
+		}, 		
+		onFinished: function (event, currentIndex)
+		{
+			jQuery("#sucesso").val('1');
+			form.submit();
+			return true; 
+		},
+		labels: {			
+			finish: "Solicitar inscrição",
+			next: "Continuar",
+			previous: "< Voltar",
+		}
+	});
+
+	jQuery('#transporte').on('change', function() {
+		var value = jQuery(this).val();
+		if(value == 0){
+			jQuery('#info-transporte').hide();
+			jQuery('#saida_oni').removeClass('required');
+			jQuery('#retorno_oni').removeClass('required');
+			jQuery('#end_ue').removeClass('required');
+			jQuery('#ponto_ue').removeClass('required');
+		} else {
+			jQuery('#info-transporte').show();
+			jQuery('#saida_oni').addClass('required');
+			jQuery('#retorno_oni').addClass('required');
+			jQuery('#end_ue').addClass('required');
+			jQuery('#ponto_ue').addClass('required');
+		}
+	});
+
+	jQuery('#pcd').on('change', function() {
+		var value = jQuery(this).val();
+		if(value == 0){
+			jQuery('#info-pcd').hide();
+			jQuery('#tipo_pcd').removeClass('required');
+		} else {
+			jQuery('#info-pcd').show();
+			jQuery('#tipo_pcd').addClass('required');
+		}
+	});
+</script>
+
+<?php if($_GET['cadastro'] == '1'): ?>
+
+	<script>
+		Swal.fire(
+			'Inscrição solicitada!',
+			'Aguarde confirmação da sua DRE',
+			'success'
+		);
+	</script>
+
+<?php endif; ?>
 </body>
 </html>
