@@ -49,8 +49,9 @@ jQuery(function() {
     });
 
 
-
+    
     /*Validação de form*/
+    /*
     jQuery("input").blur(function(){
         if(jQuery(this).val() != ""){
             jQuery(this).css({"background" : "#FFF1D5"});
@@ -60,7 +61,7 @@ jQuery(function() {
         if(jQuery(this).val() == ""){
             jQuery(this).css({"border-color" : "#FFB441"});
         }
-    });
+    }); */
 
 
     /*Abre Filtro*/
@@ -133,6 +134,24 @@ jQuery(function() {
     jQuery('#tipogenero').multiselect({
         buttonWidth: '100%',
         nonSelectedText: "Selecione",
+        allSelectedText: "Todos selecionados",
+        includeSelectAllOption: false,
+    });
+    jQuery('#ciclo').multiselect({
+        buttonWidth: '100%',
+        nonSelectedText: "Selecione",
+        allSelectedText: "Todos selecionados",
+        includeSelectAllOption: false,
+    });
+    jQuery('#faixa').multiselect({
+        buttonWidth: '100%',
+        nonSelectedText: "Selecione",
+        allSelectedText: "Todos selecionados",
+        includeSelectAllOption: false,
+    });
+    jQuery('#tipo_pcd').multiselect({
+        buttonWidth: '100%',
+        nonSelectedText: "Informe",
         allSelectedText: "Todos selecionados",
         includeSelectAllOption: false,
     });

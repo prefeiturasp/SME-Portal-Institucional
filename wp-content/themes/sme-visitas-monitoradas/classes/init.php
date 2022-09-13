@@ -62,6 +62,8 @@ require_once __ROOT__.'/classes/ModelosDePaginas/Login/Login.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/Login/LoginForm.php';
 require_once __ROOT__.'/classes/ModelosDePaginas/Login/LoginRecuperar.php';
 
+require_once __ROOT__.'/classes/ModelosDePaginas/Inscricoes/Inscricoes.php';
+
 require_once __ROOT__.'/classes/Breadcrumb/Breadcrumb.php';
 
 require_once __ROOT__.'/classes/Cpt/CptMediaImages.php';
@@ -79,3 +81,7 @@ $cptEventosExtend = new \Classes\Cpt\CptEventos();
 // Cadastro Parceiros
 $cptCadastroParceiros = new \Classes\Cpt\Cpt('parceiros', 'parceiros', 'Parceiros', 'Todos os Cadastro', 'Parceiros', 'Parceiros', null, null, null, 'dashicons-businessman', true);
 $cptCadastroParceirosExtend = new \Classes\Cpt\CptCadastroParceiros();
+
+// Inscrições
+$cptCadastroInscricoes = new \Classes\Cpt\Cpt('agendamento', 'agendamento', 'Inscrições', 'Todos as Incrições', 'Inscrições', 'Inscrições', null, null, null, 'dashicons-businessman', true);
+//$cptCadastroParceirosExtend = new \Classes\Cpt\CptCadastroParceiros();

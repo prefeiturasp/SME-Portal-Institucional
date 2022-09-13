@@ -36,7 +36,7 @@ class LoopEventoAgenda extends LoopEvento
 						?>
 						<input type="hidden" name="array_datas_agenda" id="array_datas_agenda" value="[<?= $datas; ?>]">
 						<?php new ArchiveAgendaDre('aaa'); ?>
-						<a href="#" class="btn visitas-btn mt-4">Fazer inscrição</a>
+						<a href="<?= get_home_url(); ?>/inscricoes/?eventoid=<?= get_the_id(); ?>" class="btn visitas-btn mt-4">Fazer inscrição</a>
 					</div>
 				</div>				
 			<?php

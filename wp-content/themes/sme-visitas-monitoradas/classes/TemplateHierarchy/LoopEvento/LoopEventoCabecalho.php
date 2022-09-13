@@ -128,7 +128,7 @@ class LoopEventoCabecalho extends LoopEvento
 					endif;
 				?>
 				
-				<a href="#" class="btn visitas-btn mt-4">Fazer inscrição</a>
+				<a href="<?= get_home_url(); ?>/inscricoes/?eventoid=<?= get_the_id(); ?>" class="btn visitas-btn mt-4">Fazer inscrição</a>
 
 			</div>
 
