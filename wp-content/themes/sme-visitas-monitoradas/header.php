@@ -174,7 +174,7 @@ use Classes\Header\Header;
                             <img class="logo-visitas" src="<?php echo $image[0] ?>" alt="Visitas monitoradas">
                         </a>
                     </div>
-                    <div class="col-sm-9 text-right d-flex justify-content-end align-items-center">
+                    <div class="col-sm-10 text-right d-flex justify-content-end align-items-center">
                         <div class="menu-line">
                             <span class="link-menu active"><a href="/">Home</a></span>
                             <?php
@@ -188,10 +188,17 @@ use Classes\Header\Header;
                             }
                             ?>
                         </div>
+                        <?php
+                            if(is_user_logged_in()){
+                                $current_user = wp_get_current_user();
+                                echo '<span class="link-menu active link-login"><img src="/wp-content/uploads/2022/07/login.png" alt="login"><a href="#"> ' . $current_user->user_firstname . '</a></span>';
+                            } else {
+                                echo '<span class="link-menu active link-login"><a href="/login/"><img src="/wp-content/uploads/2022/07/login.png" alt="login"> Login</a></span>';
+                            }
+                            
+                        ?>
                     </div>
-                    <div class="col-sm-1 text-right d-flex justify-content-end align-items-center">
-                        <span class="link-menu active link-login"><a href="/login/"><img src="/wp-content/uploads/2022/07/login.png" alt="login"> Login</a></span>
-                    </div>
+                    
                 </div>
             </div>
         </section>

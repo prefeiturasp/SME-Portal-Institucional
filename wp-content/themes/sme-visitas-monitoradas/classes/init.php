@@ -21,6 +21,7 @@ require_once __ROOT__.'/classes/Cpt/CptPosts.php';
 require_once __ROOT__.'/classes/Cpt/CptPages.php';
 require_once __ROOT__.'/classes/Cpt/CptEventos.php';
 require_once __ROOT__.'/classes/Cpt/CptCadastroParceiros.php';
+require_once __ROOT__.'/classes/Cpt/CptCadastroInscricoes.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
@@ -84,4 +85,4 @@ $cptCadastroParceirosExtend = new \Classes\Cpt\CptCadastroParceiros();
 
 // Inscrições
 $cptCadastroInscricoes = new \Classes\Cpt\Cpt('agendamento', 'agendamento', 'Inscrições', 'Todos as Incrições', 'Inscrições', 'Inscrições', null, null, null, 'dashicons-businessman', true);
-//$cptCadastroParceirosExtend = new \Classes\Cpt\CptCadastroParceiros();
+$cptCadastroInscricoesExtend = new \Classes\Cpt\CptCadastroInscricoes();

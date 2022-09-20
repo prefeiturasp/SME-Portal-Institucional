@@ -601,7 +601,7 @@ require_once 'classes/init.php';
 require_once('classes/wp_bootstrap_navwalker.php');
 
 // Carrega contador de visualizações de noticias
-require 'includes/cont_visualizacao.php';
+//require 'includes/cont_visualizacao.php';
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////habilita carregar SVG no wordpress////////////////////////
@@ -871,60 +871,7 @@ function array_flatten($array) {
 	return $result; 
 }
 
-// Filtra as paginas que grupo pertence
 
-function wp37_limit_posts_to_author($query) {
-
-	// pega as informacoes do usuario logado
-	$user = wp_get_current_user();
-
-	// 	filtra as paginas pelo grupo pertencente
-	if( $_GET['filter'] == 'grupo' && $user->roles[0] == 'contributor')  {
-		
-		$variable = get_user_meta($user->ID, 'grupo', true);
-		$variable = array_flatten($variable);
-        $variable = array_unique($variable);
-		
-		$pages = array();
-
-		if($variable && $variable != ''){
-            foreach($variable as $grupo){
-				$pages[] = get_post_meta($grupo, 'selecionar_paginas', true);
-				$pages[] = get_post_meta($grupo, 'contatos_sme', true);
-			}
-        }
-
-		$pages = array_flatten($pages);
-        $pages = array_unique($pages);
-		
-		//print_r($variable);
-		$query->set('post__in', $pages);
-	} 
-
-	// 	filtra as paginas por grupos
-	if( $_GET['grupo_id'] != '')  {
-		
-		$grupo = $_GET['grupo_id'];
-
-		if($grupo && $grupo != ''){   
-			if($_GET['post_type'] == 'contato'){
-				$pages = get_post_meta($grupo, 'contatos_sme', true);
-			} else {
-				$pages = get_post_meta($grupo, 'selecionar_paginas', true);
-			}
-        }
-
-		$pages = array_flatten($pages);
-        $pages = array_unique($pages);
-		
-		//print_r($variable);
-		$query->set('post__in', $pages);
-	}	
-	
-	return $query;
-	
-}
-add_filter('pre_get_posts', 'wp37_limit_posts_to_author');
 
 // Adiciona o filtro Minhas Paginas
 function wp38_add_movies_filter($views){
@@ -1121,7 +1068,7 @@ function wcag_nav_menu_link_attributes( $atts, $item, $depth ) {
 add_filter( 'nav_menu_link_attributes', 'wcag_nav_menu_link_attributes', 10, 4 );
 
 // Desabilitar funcoes de usuarios
-remove_role( 'subscriber' ); // Assinante
+//remove_role( 'subscriber' ); // Assinante
 remove_role( 'author' ); // Autor
 
 // Renomear tipo de usuario Contribuidor para Colaborador
@@ -2324,4 +2271,327 @@ function convertMonth($mes){
 	}
 
 	return $mes;
+}
+
+// Inclusao do filtro por unidade
+
+add_action('restrict_manage_posts','filtering_unidade',10);
+function filtering_unidade($post_type){
+    
+	if('agendamento' !== $post_type){
+      return; //filter your post
+    }
+
+	$user = wp_get_current_user();
+
+	if($user->roles[0] == 'administrator'){		
+
+		$unidades = array();
+		$i = 0;
+		$allUnidades = new WP_Query( array(
+			'post_type' => 'unidade',
+			'posts_per_page' => -1,
+			'orderby'	=> 'title',
+			'order'	=> 'ASC',
+			'meta_key' => '',
+			'meta_value' => '',		
+		) );
+
+		
+		if ($allUnidades->have_posts()) {
+			while ($allUnidades->have_posts()) {
+				$allUnidades->the_post();
+				
+				$unidades[$i]['ID'] = get_the_ID();
+				$unidades[$i]['post_title'] =  get_the_title();
+				$unidades[$i] = (object) $unidades[$i];
+
+				$i++;
+			}
+		}
+
+		wp_reset_postdata();
+		
+	}
+	
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'editor'){		
+		
+		$grupos = get_user_meta($user->ID,'grupo',true);		
+		$allUnidades = array();
+		$unidades = array();
+		$i = 0;
+		
+		if($grupos && $grupos !=''){
+			foreach($grupos as $grupo){
+				$allUnidades[] = get_post_meta($grupo, 'unidades', true);
+			}		
+			$allUnidades = array_flatten($allUnidades);
+			$allUnidades = array_unique($allUnidades);
+
+			foreach($allUnidades as $unidade){				
+				$unidades[$i]['ID'] = $unidade;
+				$unidades[$i]['post_title'] =  get_the_title($unidade);
+				$unidades[$i] = (object) $unidades[$i];
+				$i++;
+			}
+		}
+	}
+
+	$allDres = array(
+		'dre-bt' => 'DRE Butantã',
+		'dre-cs' => 'DRE Capela do Socorro',
+		'dre-cl' => 'DRE Campo Limpo',
+		'dre-fb' => 'DRE Freguesia/Brasilândia',
+		'dre-gn' => 'DRE Guaianases',
+		'dre-ip' => 'DRE Ipiranga',
+		'dre-it' => 'DRE Itaquera',
+		'dre-jt' => 'DRE Jaçanã/Tremembé',
+		'dre-pe' => 'DRE Penha',
+		'dre-pi' => 'DRE Pirituba',
+		'dre-sa' => 'DRE Santo Amaro',
+		'dre-sma' => 'DRE São Mateus',
+		'dre-smi' => 'DRE São Miguel',
+	);
+      
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'editor'){
+		// pega o grupo que o usuario pertence
+		$grupos = get_user_meta($user->ID, 'grupo');
+		//$grupos = get_field('grupo', 'user_' . $user->ID);
+
+		//$dres_open = array();
+        foreach($grupos[0] as $dre){
+            $dres_open[] = get_post_meta($dre, 'dre');			
+        }
+
+		$dres_open = array_flatten($dres_open);
+        $dres_open = array_unique($dres_open);
+
+		$dres = array();
+		foreach($dres_open as $dre){
+			$dres[$dre] = $allDres[$dre];
+		}
+
+	} else {
+		$dres = $allDres;
+	}
+
+
+	echo '<select id="my-loc" name="search_dre">';
+		echo '<option value="all">Todas as DREs</option>';	
+		foreach($dres as $key => $dre){
+			if($_GET['search_dre'] == $key){
+				echo '<option value="' . $key . '" selected>' . $dre . '</option>';
+			} else {
+				echo '<option value="' . $key . '">' . $dre . '</option>';
+			}
+		}
+	echo '</select>';
+
+	echo '<select name="transporte">';
+	echo '<option value="">Transporte</option>';
+		if($_GET['transporte'] == 'sim'){
+			echo '<option value="sim" selected>Sim</option>';
+		} else {
+			echo '<option value="sim">Sim</option>';
+		}
+
+		if($_GET['transporte'] == 'nao'){
+			echo '<option value="nao" selected>Não</option>';
+		} else {
+			echo '<option value="nao">Não</option>';
+		}	
+	echo '</select>';
+
+	$ciclos = get_terms( array(
+		'taxonomy' => 'ano-serie',
+		'hide_empty' => false,
+	) );
+
+	echo '<select name="ciclo">';
+	echo '<option value="">Ciclo/Ano</option>';
+	foreach($ciclos as $ciclo){
+		if($_GET['ciclo'] == $ciclo->term_id){
+			echo '<option value="' . $ciclo->term_id . '" selected>' . $ciclo->name . '</option>';
+		} else {
+			echo '<option value="' . $ciclo->term_id . '">' . $ciclo->name . '</option>';
+		}		
+	}
+	echo '</select>';
+
+	$faixas = get_terms( array(
+		'taxonomy' => 'faixa-etaria',
+		'hide_empty' => false,
+	) );
+
+	echo '<select name="faixa">';
+	echo '<option value="">Faixa Etária</option>';
+	foreach($faixas as $faixa){
+		if($_GET['faixa'] == $faixa->term_id){
+			echo '<option value="' . $faixa->term_id . '" selected>' . $faixa->name . '</option>';
+		} else {
+			echo '<option value="' . $faixa->term_id . '">' . $faixa->name . '</option>';
+		}		
+	}
+	echo '</select>';
+}
+
+// Desativar select de categoria padrao do WP
+global $pagenow;
+if(is_admin() && $pagenow == 'edit.php'){
+	add_filter('wp_dropdown_cats', '__return_false');
+}
+
+// Filtra as unidades que grupo pertence
+add_filter('pre_get_posts', 'limit_events_group');
+function limit_events_group($query) {
+	if(is_admin()){
+		// pega as informacoes do usuario logado
+		$user = wp_get_current_user();
+		//$screen = get_current_screen();
+
+		
+		if( $_GET['search_dre'] && $_GET['search_dre'] != '' &&  $_GET['search_dre'] != 'all')  {
+			$meta_query[] = array(					
+				'key'     => 'dre',
+				'value' => $_GET['search_dre'],
+				'compare' => 'LIKE'
+			);
+		} else {
+			$user = wp_get_current_user();
+			
+			if($user->roles[0] != 'administrator' && $_GET['post_type'] == 'agendamento'){		
+				// pega o grupo que o usuario pertence
+				$grupos = get_user_meta($user->ID, 'grupo');
+				//$grupos = get_field('grupo', 'user_' . $user->ID);
+
+				//$dres_open = array();
+				foreach($grupos[0] as $dre){
+					$dres_open[] = get_post_meta($dre, 'dre');			
+				}
+
+				$dres_open = array_flatten($dres_open);
+				$dres_open = array_unique($dres_open);
+
+				$meta_query = array(
+					'relation' => 'OR',			
+				);
+
+				$meta_query[] = array(					
+					'key'     => 'dre',
+					'value'   => $dres_open,
+				);
+			}
+		}
+
+		if( $_GET['transporte'] && $_GET['transporte'] != '' )  {
+			
+			if($_GET['transporte'] == 'sim'){
+				$meta_query[] = array(					
+					'key'     => 'transporte',
+					'value' => '1',
+				);
+			} else {
+				$meta_query[] = array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'transporte',
+						'value'   => 0,
+						'compare' => '='
+					),
+					array(
+						'key'     => 'transporte',
+						'compare' => 'NOT EXISTS',
+					)
+				);
+				
+			}
+			
+		}
+
+		if( $_GET['ciclo'] && $_GET['ciclo'] != '' )  {
+			$meta_query[] = array(					
+				'key'     => 'ciclo_ano',
+				'value' => $_GET['ciclo'],
+				'compare' => 'LIKE'
+			);
+		}
+
+		if( $_GET['faixa'] && $_GET['faixa'] != '' )  {
+			$meta_query[] = array(					
+				'key'     => 'faixa_etaria',
+				'value' => $_GET['faixa'],
+				'compare' => 'LIKE'
+			);
+		}
+
+		$query->set( 'meta_query', $meta_query );
+	}
+
+	return $query;
+	//wp_reset_postdata();
+}
+
+// Filtrar inscricoes por titulo ou Nome da UE
+if (!function_exists('extend_admin_search')) {
+    add_action('admin_init', 'extend_admin_search');
+
+    /**
+     * hook the posts search if we're on the admin page for our type
+     */
+    function extend_admin_search() {
+        global $typenow;
+
+        if ($typenow === 'agendamento') {
+            add_filter('posts_search', 'posts_search_custom_post_type', 10, 2);
+        }
+    }
+
+    /**
+     * add query condition for custom meta
+     * @param string $search the search string so far
+     * @param WP_Query $query
+     * @return string
+     */
+    function posts_search_custom_post_type($search, $query) {
+        global $wpdb;
+
+        if ($query->is_main_query() && !empty($query->query['s'])) {
+            $sql    = "
+            or exists (
+                select * from {$wpdb->postmeta} where post_id={$wpdb->posts}.ID
+                and meta_key in ('nome_ue')
+                and meta_value like %s
+            )
+        ";
+            $like   = '%' . $wpdb->esc_like($query->query['s']) . '%';
+            $search = preg_replace("#\({$wpdb->posts}.post_title LIKE [^)]+\)\K#",
+                $wpdb->prepare($sql, $like), $search);
+        }
+
+        return $search;
+    }
+}
+
+add_action( 'template_redirect', 'redirect_to_specific_page' );
+
+function redirect_to_specific_page() {
+
+if ( is_page('inscricoes') && ! is_user_logged_in() ) {
+
+wp_redirect( 'https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br/login/?eventoid=' . $_GET['eventoid'], 301 ); 
+  exit;
+    }
+}
+
+add_action('admin_head', 'my_custom_fonts');
+
+function my_custom_fonts() {
+	if($_GET['post_type'] == 'agendamento'){
+		echo '<style>
+			select.postform {
+			display: none;
+			} 
+		</style>';
+	}
+  
 }
