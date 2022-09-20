@@ -40,9 +40,15 @@ class LoginForm
   							</button>
 						</div>';
 					}
+
+					if($_GET['eventoid'] && $_GET['eventoid'] != ''){
+						$url = home_url() . '/inscricoes/?eventoid=' . $_GET['eventoid'];
+					} else {
+						$url = home_url();
+					}
 				
 					$args = array(
-					'redirect' => home_url(), // Apos login redireciona para a home
+					'redirect' => $url, // Apos login redireciona para a home
 					'id_username' => 'user', // ID no input de usuario
 					'id_password' => 'pass', // ID no input da senha
 					'label_username' => __( 'Usuário' ),

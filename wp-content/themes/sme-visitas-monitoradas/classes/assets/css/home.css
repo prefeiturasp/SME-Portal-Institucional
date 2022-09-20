@@ -550,5 +550,5 @@
 ul.multiselect-container.dropdown-menu.show {
     overflow: scroll;
     overflow-x: hidden;
-    max-height: 300px;
+    max-height: 125px;
 }

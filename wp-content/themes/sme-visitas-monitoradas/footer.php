@@ -186,23 +186,13 @@
 </script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-	//console.log('oi1');
-	//jQuery('#transporte').on('change', function(){
-		//alert(this.value); //or alert($(this).val());
-	//});
-	//console.log('oi2');
 
+	jQuery.extend(jQuery.validator.messages, {
+		required: "Campo Obrigatório.",		
+	});
 	
-
 	var form = jQuery("#example-form");
-	/*form.validate({
-		errorPlacement: function errorPlacement(error, element) { element.before(error); },
-		rules: {
-			confirm: {
-				equalTo: "#password"
-			}
-		}
-	});*/
+	
 	form.children("div").steps({
 		headerTag: "h3",
 		bodyTag: "section",

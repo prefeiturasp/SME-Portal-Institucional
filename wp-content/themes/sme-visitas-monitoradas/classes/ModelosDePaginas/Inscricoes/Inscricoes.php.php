@@ -82,7 +82,7 @@ class Inscricoes extends Util{
                                 <h3>Agendamento <br>e transporte</h3>
                                 <section>
                                     <label for="nome_ue">Nome da UE:</label>
-                                    <input id="nome_ue" name="nome_ue" value="<?= $infos['nome_da_ue']; ?>" type="text" class="required form-control">
+                                    <input id="nome_ue" name="nome_ue" value="<?= $user_meta['endereco_nome_da_ue'][0]; ?>" type="text" class="required form-control">
                                     
                                     <label for="dre">DRE:</label>
                                     <select id="dre" name="dre" class="form-control">
@@ -103,7 +103,7 @@ class Inscricoes extends Util{
                                     </select>
 
                                     <label for="telefone_ue">Telefone da UE:</label>
-                                    <input id="telefone_ue" name="telefone_ue" value="<?= $infos['telefone']; ?>" type="text" class="required form-control">
+                                    <input id="telefone_ue" name="telefone_ue" value="<?= $user_meta['endereco_telefone'][0]; ?>" type="text" class="required form-control">
 
                                     <?php
                                         $agenda = get_field('agenda', $_GET['eventoid']);
@@ -160,7 +160,7 @@ class Inscricoes extends Util{
                                         </div>
 
                                         <label for="end_ue">Endereço da UE:</label>
-                                        <input id="end_ue" name="end_ue" type="text" value="<?= $infos['logradouro']; ?>, <?= $infos['numero']; ?> - <?= $infos['bairro']; ?>" class="required form-control">
+                                        <input id="end_ue" name="end_ue" type="text" value="<?= $user_meta['endereco_logradouro'][0]; ?>, <?= $user_meta['endereco_numero'][0]; ?> - <?= $user_meta['endereco_bairro'][0]; ?>" class="required form-control">
 
                                         <label for="ponto_ue">Ponto de referência da UE:</label>
                                         <input id="ponto_ue" name="ponto_ue" type="text" class="required form-control">
@@ -408,9 +408,9 @@ class Inscricoes extends Util{
                     $pcd_obs = $_POST['pcd_obs'];                    
                     update_post_meta($pid, 'observacoes', $pcd_obs);
                 }
-            }
 
-            echo $_POST['sucesso'];
+                update_post_meta($pid, 'status', 'nova');
+            }
 
             if($_POST['sucesso'] == 1){
                 
