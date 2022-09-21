@@ -505,6 +505,14 @@ if( function_exists('acf_add_options_page') ) {
 		'updated_message' => __("Tutoriais atualizado com sucesso", 'acf'),
     ));
 
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Analytics',
+        'menu_title'	=> 'Analytics',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+		'post_id' 		=> 'conf-analytics',
+    ));
+
     acf_add_options_sub_page(array(
         'page_title' 	=> 'Informações Rodapé e Topo',
         'menu_title'	=> 'Rodapé e Topo',
