@@ -1767,6 +1767,10 @@ class Construtor extends Util
 											elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
 												get_template_part( 'construtor/construtor', 'outras_noticias' );
 
+											// Card de Destaque
+											elseif( get_row_layout() == 'fx_cl1_card_2_2' ):
+												get_template_part( 'construtor/construtor', 'card_destaque' );
+
 											endif;
 
 										endwhile;

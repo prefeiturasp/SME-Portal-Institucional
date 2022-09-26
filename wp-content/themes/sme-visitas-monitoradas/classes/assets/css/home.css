@@ -137,7 +137,8 @@
     font-size: 16px;
 }
 .form-news button,
-.form-news .wpcf7-submit {
+.form-news .wpcf7-submit,
+.btn.btn-card {
     color: #fff;
     background: #1C2833;
     font-size: 14px;
