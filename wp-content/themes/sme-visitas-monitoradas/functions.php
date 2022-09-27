@@ -2595,3 +2595,19 @@ function my_custom_fonts() {
 	}
   
 }
+
+function title_filter( $where, &$wp_query ){
+    global $wpdb;
+    if ( $search_term = $wp_query->get( 'search_prod_title' ) ) {
+        $where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . esc_sql( like_escape( $search_term ) ) . '%\'';
+    }
+    return $where;
+}
+
+function content_filter( $where, &$wp_query ){
+    global $wpdb;
+    if ( $search_term = $wp_query->get( 'search_prod_content' ) ) {
+        $where .= ' AND ' . $wpdb->posts . '.post_content LIKE \'%' . esc_sql( like_escape( $search_term ) ) . '%\'';
+    }
+    return $where;
+}

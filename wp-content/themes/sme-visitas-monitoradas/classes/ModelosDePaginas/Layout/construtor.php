@@ -513,6 +513,10 @@ class Construtor extends Util
 											// Outras Noticias
 											elseif( get_row_layout() == 'fx_cl1_outras_noticias' ):
 												get_template_part( 'construtor/construtor', 'outras_noticias_1_1' );
+
+											// FAQ
+											elseif( get_row_layout() == 'fx_cl1_faq_1_1' ):
+												get_template_part( 'construtor/construtor', 'faq' );
 											
 											endif; //fx_fl1_bloco_rede_1_1
 
