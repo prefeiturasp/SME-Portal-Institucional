@@ -3,7 +3,7 @@
   Plugin Name: SME Novo Usuario
   Plugin URI: http://www.mooveagency.com
   Description: Criar usuario sem enviar email padrao
-  Version: 1.0.1.
+  Version: 1.0.2
   Author: AMCOM
   Author URI: http://www.mooveagency.com
   License: GPLv2
@@ -84,7 +84,7 @@ function wnet_auto_activate_users($user, $user_email, $key, $meta){
 
 	if (!empty($_POST['noconfirmation']) && $_POST['noconfirmation'] == 1) {
         wpmu_activate_signup($key);
-        $redirect = add_query_arg(array('update' => 'add'), 'user-new.php');
+        $redirect = add_query_arg(array('update' => 'add'), 'user-new.php?false=4');
         
 		//return false;
     }
