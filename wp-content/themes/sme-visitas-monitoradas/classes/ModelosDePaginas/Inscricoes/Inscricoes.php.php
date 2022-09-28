@@ -273,6 +273,9 @@ class Inscricoes extends Util{
                                     </div>
 
                                     <input type="hidden" name="sucesso" id="sucesso" value="0">
+                                    <?php $current_user = wp_get_current_user(); ?>
+                                
+                                    <input type="hidden" name="user_inscri" value="<?= $current_user->user_firstname . ' '. $current_user->user_lastname; ?>">
 
                                 </section>
                                 
