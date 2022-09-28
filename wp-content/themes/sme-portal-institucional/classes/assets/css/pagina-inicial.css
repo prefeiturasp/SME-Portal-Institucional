@@ -173,11 +173,13 @@
     color: #0a0a0a;
 }
 .tab-pane {
-    background-color: rgb(236, 236, 236);
-    max-width: 1136px !important;
+  background-color: rgb(236, 236, 236);
+}
+.tab-content > .active{
+display: inline-block !important;
 }
 .bg-cinza-ativo {
-    background: none !important;
+  background: none !important;
 }
 
 /************* inicio Modal CSS *****************/
