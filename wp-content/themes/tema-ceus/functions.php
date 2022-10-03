@@ -2088,26 +2088,32 @@ global $current_user;
 if (( $pagenow == 'post.php' ) || (get_post_type() == 'post')) {
 
     $evento = $_GET['post']; // Pegar ID do evento (post)
-    $unidade = get_field('localizacao', $evento); // Pegar a localizacao atribuida 
-        
+	if(get_post_type($_GET['post']) == 'unidade'){
+		$unidade = $_GET['post'];
+		$redirect = admin_url('edit.php?post_type=unidade&filter=grupo');
+	} else {
+		$unidade = get_field('localizacao', $evento); // Pegar a localizacao atribuida
+		$redirect = admin_url('edit.php?list=evento&filter=grupo');
+	}
+    
     $user = get_currentuserinfo(); // Pegar informacoes do usuario logado
 
 	if($user->roles[0] != 'administrator'){
-		$grupos = get_field('grupo', 'user_' . $user->ID); // Pega o Grupo do usuario
+		$grupos = get_field('grupo', 'user_' . $user->ID); // Grupo do usuario
 	
 		$unidades = array();
 
 		if($grupos && $grupos != ''){
 			foreach($grupos as $grupo){
-				$unidades[] = get_field('unidades', $grupo); // Busca as unidades do grupo
+				$unidades[] = get_field('unidades', $grupo);
 			}
 		}
 
-		$unidades = call_user_func_array('array_merge', $unidades); 
+		$unidades = call_user_func_array('array_merge', $unidades);
 		$unidades = array_unique($unidades);
 		
-		if( !in_array($unidade, $unidades) ){ // Verifica se a unidade atribuida esta dentro do grupo
-			wp_redirect( admin_url('edit.php?list=evento&filter=grupo') );
+		if( !in_array($unidade, $unidades) ){
+			wp_redirect( $redirect );
 		}
 	}
 	
