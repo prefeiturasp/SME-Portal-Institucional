@@ -118,7 +118,7 @@ class CptAgendaSecretarioNew extends Cpt
 			'not_found_in_trash' => __('Nenhum registro encontrado na lixeira'),
 			'parent_item_colon' => '',
 			//'menu_name' => $this->name
-			'menu_name' => 'Nova Agenda do Secretário'
+			'menu_name' => 'Agenda do Secretário'
 		);
 
 		$args = array(

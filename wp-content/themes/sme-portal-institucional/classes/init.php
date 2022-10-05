@@ -120,9 +120,6 @@ $cptPagessExtend = new \Classes\Cpt\CptPages();
 //$cptCard = new \Classes\Cpt\Cpt('card', 'card', 'Card', 'Todos os Cards', 'Cards', 'Card', 'categorias-card', 'Categorias de Cards', 'Categoria de Card', 'dashicons-feedback', true);
 //$cptCardExtend = new \Classes\Cpt\CptCard();
 
-$cptAgendaSecretario = new \Classes\Cpt\Cpt('agenda', 'agenda', 'Agenda do Secretário', 'Todos os Eventos', 'Eventos', 'Eventos', null, null, null, 'dashicons-calendar-alt', true);
-$cptAgendaSecretarioExtend = new \Classes\Cpt\CptAgendaSecretario();
-
 $cptAgendaSecretario = new \Classes\Cpt\Cpt('agendanew', 'agendanew', 'Agenda do Secretário', 'Todos os Eventos', 'Eventos', 'Eventos', null, null, null, 'dashicons-calendar-alt', true);
 $cptAgendaSecretarioNewExtend = new \Classes\Cpt\CptAgendaSecretarioNew();
 
