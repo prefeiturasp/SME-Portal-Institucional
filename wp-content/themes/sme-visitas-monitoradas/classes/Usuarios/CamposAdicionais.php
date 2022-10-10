@@ -190,9 +190,9 @@ class CamposAdicionais
 	//Exibindo as colunas no Dashboard
 	public function exibe_cols($columns)
 	{
-		$columns['posts'] = 'Notícias';
-		$columns['pages'] = 'Páginas';
-		$columns['setor'] = 'Setor';
+		//$columns['posts'] = 'Notícias';
+		//$columns['pages'] = 'Páginas';
+		$columns['dre'] = 'DRE';
 		$columns['grupos'] = 'Grupos';
 		return $columns;
 	}
@@ -200,14 +200,18 @@ class CamposAdicionais
 	//Exibindo as informações correspondentes de cada coluna
 	public function cols_content($val, $column_name, $user_id)
 	{
-		$user_setor = get_user_meta($user_id, 'setor', true);
+		$user_dre = get_user_meta($user_id, 'dre', true);
 
 		switch ($column_name) {
-			case 'setor' :
-				if ($user_setor){
-					return "<p><strong>$user_setor</strong></p>";
+			case 'dre' :
+				
+				$user = get_userdata( $user_id );
+				$user_roles = $user->roles;
+
+				if ($user_dre && in_array( 'subscriber', $user_roles, true )){
+					return "<p><strong>" . convert_dre_name($user_dre) . "</strong></p>";
 				}else{
-					return "<p>Nenhum Setor Cadastrado</p>";
+					return "<p>-</p>";
 				}
 				case 'pages' :
 
