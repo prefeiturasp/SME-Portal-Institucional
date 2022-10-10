@@ -87,22 +87,27 @@ $term = get_term( $idTaxEvento );
 									<div class="inner-content-carousel">
 										<?php
 											$datas = get_field('agenda');
-											$dataNum = '';
-											$i = 0;
-											foreach($datas as $data){
-												if($i == 0){
-													$dataNum .= substr($data['data_hora'], 0, 2);
-												} else {
-													$dataNum .= ', ' . substr($data['data_hora'], 0, 2);
-												}
-												$i++;
-											}
 
-											$last = end($datas);
-											$lastMont = substr($data['data_hora'], 3, 2);
-											$mes = convertMonth($lastMont);											
+                                            $dataNum = '';
+                                            $dataNumCompare = array();
+                                            $i = 0;
+                                            foreach($datas as $data){
+                                                if($i == 0 && !in_array(substr($data['data_hora'], 0, 2), $dataNumCompare) ){
+                                                    $dataNum .= substr($data['data_hora'], 0, 2);
+                                                } elseif( !in_array(substr($data['data_hora'], 0, 2), $dataNumCompare) ) {
+                                                    $dataNum .= ', ' . substr($data['data_hora'], 0, 2);
+                                                }
+                                                $dataNumCompare[] = substr($data['data_hora'], 0, 2);
+                                                $i++;
+                                            }
+                                            $dataNumCompare = array();
+                
+                                            $last = end($datas);
+                                            $lastMont = substr($data['data_hora'], 3, 2);
+                                            $mes = convertMonth($lastMont);
+                                            									
 										?>
-										<div class="data-content-carousel mt-2 mb-2"><?= $dataNum; ?> - <?= $mes; ?></div>
+										<div class="data-content-carousel mt-2 mb-2"><?= $dataNum . ' - ' . $mes;	; ?></div>
 										<div class="title-content-carousel mt-2 mb-2"><?php the_title(); ?></div>
 										<?php
 											$parceiro = get_field('parceiro');

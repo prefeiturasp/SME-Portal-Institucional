@@ -138,7 +138,7 @@
 }
 .form-news button,
 .form-news .wpcf7-submit,
-.btn.btn-card {
+.btn.btn-card{
     color: #fff;
     background: #1C2833;
     font-size: 14px;
@@ -147,6 +147,22 @@
     margin: 10px 0;
     width: auto;
 }
+
+.form-news div.wpcf7-validation-errors,
+.form-news div.wpcf7-acceptance-missing {
+    color: #FFFFFF;
+    border: 2px solid #ffbd59;
+}
+
+.form-news span.wpcf7-not-valid-tip{
+    color: #ffb441;
+}
+
+.form-news div.wpcf7-mail-sent-ok {
+    color: #FFFFFF;
+    border: 2px solid #00ff43;
+}
+
 /*Bloco Parceiros do Projeto*/
 .bg-bloco-parceiros{
     background: #F4F4F5;

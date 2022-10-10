@@ -2611,3 +2611,49 @@ function content_filter( $where, &$wp_query ){
     }
     return $where;
 }
+
+function convert_dre_name($dre){
+    switch ($dre) {
+        case 'dre-bt':
+            return "DRE Butantã";
+            break;
+        case 'dre-cs':
+            return "DRE Capela do Socorro";
+            break;
+        case 'dre-cl':
+            return "DRE Campo Limpo";
+            break;
+        case 'dre-fb':
+            return "DRE Freguesia/Brasilândia";
+            break;
+        case 'dre-gn':
+            return "DRE Guaianases";
+            break;
+        case 'dre-ip':
+            return "DRE Ipiranga";
+            break;
+        case 'dre-it':
+            return "DRE Itaquera";
+            break;
+        case 'dre-jt':
+            return "DRE Jaçanã/Tremembé";
+            break;
+        case 'dre-pe':
+            return "DRE Penha";
+            break;
+        case 'dre-pi':
+            return "DRE Pirituba";
+            break;
+        case 'dre-sa':
+            return "DRE Santo Amaro";
+            break;
+        case 'dre-sma':
+            return "DRE São Mateus";
+            break;
+        case 'dre-smi':
+            return "DRE São Miguel";
+            break;
+        default:
+            return $dre;
+    }
+}

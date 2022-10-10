@@ -1,11 +1,12 @@
 jQuery(document).ready(function ($) {
 
     var primeiro_clique = false;
-
-    var date = moment().locale('pt-br'); //Get the current date
+    var date_default = $('#data_principal').val();
+    var date = moment(date_default).locale('pt-br'); //Get the current date
     var data_formatada = date.format('dddd[,] D [de] MMMM [de] YYYY'); //2014-07-10
+    console.log(date);
     $('.data_agenda').html(data_formatada);
-    var data_para_funcao = moment(date).format('YYYYMMDD');
+    var data_para_funcao = date_default
 
     var div_com_array_datas = $('#array_datas_agenda');
 
@@ -22,10 +23,12 @@ jQuery(document).ready(function ($) {
 
     redebe_data(data_para_funcao);
 
-    $('.calendario-agenda-sec').ionCalendar({
+        var newDate_default = date_default.replace('-', '');
+
+        $('.calendario-agenda-sec').ionCalendar({
         lang: "pt-br",
         years: "1",
-
+        startDate : date_default,
         onReady: function(){
             getAnoMesCalendario()
         },

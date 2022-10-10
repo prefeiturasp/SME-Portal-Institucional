@@ -32,17 +32,21 @@ $eventoDestaques= get_sub_field('evento_em_destaque');
                                             <span class="info-date-banner">
                                                 <?php
                                                     $datas = get_field('agenda', $eventID);
+
                                                     $dataNum = '';
+                                                    $dataNumCompare = array();
                                                     $i = 0;
                                                     foreach($datas as $data){
-                                                        if($i == 0){
+                                                        if($i == 0 && !in_array(substr($data['data_hora'], 0, 2), $dataNumCompare) ){
                                                             $dataNum .= substr($data['data_hora'], 0, 2);
-                                                        } else {
+                                                        } elseif( !in_array(substr($data['data_hora'], 0, 2), $dataNumCompare) ) {
                                                             $dataNum .= ', ' . substr($data['data_hora'], 0, 2);
                                                         }
+                                                        $dataNumCompare[] = substr($data['data_hora'], 0, 2);
                                                         $i++;
                                                     }
-
+                                                    $dataNumCompare = array();
+                        
                                                     $last = end($datas);
                                                     $lastMont = substr($data['data_hora'], 3, 2);
                                                     $mes = convertMonth($lastMont);

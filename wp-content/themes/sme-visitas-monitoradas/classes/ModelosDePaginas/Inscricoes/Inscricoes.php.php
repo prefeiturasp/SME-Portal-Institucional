@@ -138,34 +138,39 @@ class Inscricoes extends Util{
 
                                     </div>
                                     
-                                    <hr>
+                                    <?php
+                                        $tipo_evento = get_field('tipo_do_evento', $_GET['eventoid']);
+                                        if($tipo_evento != 'escola'):
+                                    ?>
+                                        <hr>
+                                        
+                                        <label for="transporte">UE precisa de transporte da DRE ou Parceiro?:</label>
+                                        <select id="transporte" name="transporte" class="form-control">
+                                            <option value="1">Sim</option>
+                                            <option value="0">Não</option>
+                                        </select>
 
-                                    <label for="transporte">UE precisa de transporte da DRE ou Parceiro?:</label>
-                                    <select id="transporte" name="transporte" class="form-control">
-                                        <option value="1">Sim</option>
-                                        <option value="0">Não</option>
-                                    </select>
+                                        <div id="info-transporte">
+                                            <p><strong>Horários:</strong></p>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label for="saida_oni">Saída do ônibus para a Visita:</label>
+                                                    <input type="time" id="saida_oni" name="saida_oni" class="required form-control">
+                                                </div>
+                                                <div class="col">
+                                                    <label for="retorno_oni">Retorno à UE:</label>
+                                                    <input type="time" id="retorno_oni" name="retorno_oni" class="required form-control">
+                                                </div>
+                                            </div>
 
-                                    <div id="info-transporte">
-                                        <p><strong>Horários:</strong></p>
-                                        <div class="row">
-                                            <div class="col">
-                                                <label for="saida_oni">Saída do ônibus para a Visita:</label>
-                                                <input type="time" id="saida_oni" name="saida_oni" class="required form-control">
-                                            </div>
-                                            <div class="col">
-                                                <label for="retorno_oni">Retorno à UE:</label>
-                                                <input type="time" id="retorno_oni" name="retorno_oni" class="required form-control">
-                                            </div>
+                                            <label for="end_ue">Endereço da UE:</label>
+                                            <input id="end_ue" name="end_ue" type="text" value="<?= $user_meta['endereco_logradouro'][0]; ?>, <?= $user_meta['endereco_numero'][0]; ?> - <?= $user_meta['endereco_bairro'][0]; ?>" class="required form-control">
+
+                                            <label for="ponto_ue">Ponto de referência da UE:</label>
+                                            <input id="ponto_ue" name="ponto_ue" type="text" class="required form-control">
+                                        
                                         </div>
-
-                                        <label for="end_ue">Endereço da UE:</label>
-                                        <input id="end_ue" name="end_ue" type="text" value="<?= $user_meta['endereco_logradouro'][0]; ?>, <?= $user_meta['endereco_numero'][0]; ?> - <?= $user_meta['endereco_bairro'][0]; ?>" class="required form-control">
-
-                                        <label for="ponto_ue">Ponto de referência da UE:</label>
-                                        <input id="ponto_ue" name="ponto_ue" type="text" class="required form-control">
-                                    </div>
-                                    
+                                    <?php endif; ?>
 
                                 </section>
 
@@ -273,6 +278,9 @@ class Inscricoes extends Util{
                                     </div>
 
                                     <input type="hidden" name="sucesso" id="sucesso" value="0">
+                                    <?php $current_user = wp_get_current_user(); ?>
+                                
+                                    <input type="hidden" name="user_inscri" value="<?= $current_user->user_firstname . ' '. $current_user->user_lastname; ?>">
 
                                 </section>
                                 

@@ -19,6 +19,9 @@ class LoopEventoAgenda extends LoopEvento
 				<div class="row m-0 w-100">
 					<div class="event-content col-md-5 my-4">						
 						<?php
+							$dataPrincipal = get_field('data');
+							$dataPrincipal = explode('/', $dataPrincipal);
+							
 							$agenda = get_field('agenda');
 							$datas = '';
 							$i = 0;
@@ -35,6 +38,7 @@ class LoopEventoAgenda extends LoopEvento
 							}							
 						?>
 						<input type="hidden" name="array_datas_agenda" id="array_datas_agenda" value="[<?= $datas; ?>]">
+						<input type="hidden" name="data_principal" id="data_principal" value="<?= $dataPrincipal[2] . $dataPrincipal[1] . $dataPrincipal[0]; ?>">
 						<?php new ArchiveAgendaDre('aaa'); ?>
 						<a href="<?= get_home_url(); ?>/inscricoes/?eventoid=<?= get_the_id(); ?>" class="btn visitas-btn mt-4">Fazer inscrição</a>
 					</div>
