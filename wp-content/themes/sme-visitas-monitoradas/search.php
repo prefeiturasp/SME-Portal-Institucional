@@ -54,6 +54,15 @@
 						</select>
 					</div>
 					<div class="col-12 mt-3 mb-2">
+						<h4 class="title-ad-filter">Tipo de evento</h4>
+						<select class="form-control" id="tipoevento"  multiple="multiple" name="tipoevento[]">
+							
+							<option value="escola" <?php if(in_array('escola', $_GET['tipoevento'])){ echo 'selected';} ?>>Cultura Visita</option>
+							<option value="externo" <?php if(in_array('externo', $_GET['tipoevento'])){ echo 'selected';} ?>>Visitas Monitoradas</option>
+								
+						</select>
+					</div>					
+					<div class="col-12 mt-3 mb-2">
 						<h4 class="title-ad-filter">Acessibilidade</h4>
 						<div class="custom-control custom-checkbox">
 							<?php if($_GET['acessivel']): ?>
@@ -281,6 +290,12 @@
 						$args['meta_query'][] = array(
 							'key'   => 'evento_acessivel',
 							'value' => '1',
+						);
+
+					if($_GET['tipoevento'] && $_GET['tipoevento'] != '')
+						$args['meta_query'][] = array(
+							'key'   => 'tipo_do_evento',
+							'value' => $_GET['tipoevento'],
 						);
 						
 

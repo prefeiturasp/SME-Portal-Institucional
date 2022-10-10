@@ -93,6 +93,12 @@ jQuery(function() {
             jQuery('.btn-limpar-filtros').show();
         }
     });
+    jQuery('#tipoevento').change(function () {
+        let tipoevento = jQuery('#tipoevento').val();
+        if(tipoevento != "Selecionado"){
+            jQuery('.btn-limpar-filtros').show();
+        }
+    });
     jQuery("#eventosacessiveis").change(function() {
         if(this.checked) {
             jQuery('.btn-limpar-filtros').show();
@@ -114,6 +120,11 @@ jQuery(function() {
         });
         jQuery("#tipogenero").multiselect('refresh');
 
+        jQuery('option', jQuery('#tipoevento')).each(function(element) {
+            jQuery(this).removeAttr('selected').prop('selected', false);
+        });
+        jQuery("#tipoevento").multiselect('refresh');
+
         jQuery( "#eventosacessiveis" ).prop( "checked", false );
     });
 
@@ -132,6 +143,12 @@ jQuery(function() {
         includeSelectAllOption: false,
     });
     jQuery('#tipogenero').multiselect({
+        buttonWidth: '100%',
+        nonSelectedText: "Selecione",
+        allSelectedText: "Todos selecionados",
+        includeSelectAllOption: false,
+    });
+    jQuery('#tipoevento').multiselect({
         buttonWidth: '100%',
         nonSelectedText: "Selecione",
         allSelectedText: "Todos selecionados",
