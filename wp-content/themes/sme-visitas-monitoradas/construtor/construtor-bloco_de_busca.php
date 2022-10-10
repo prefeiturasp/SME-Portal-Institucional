@@ -42,6 +42,15 @@
                     </select>
                 </div>
                 <div class="col-12 mt-3 mb-2">
+                    <h4 class="title-ad-filter">Tipo de evento</h4>
+                    <select class="form-control" id="tipoevento"  multiple="multiple" name="tipoevento[]">
+                        
+                        <option value="escola">Cultura Visita</option>
+                        <option value="externo">Visitas Monitoradas</option>
+                            
+                    </select>
+                </div>
+                <div class="col-12 mt-3 mb-2">
                     <h4 class="title-ad-filter">Acessibilidade</h4>
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" id="eventosacessiveis" name="acessivel" class="custom-control-input">
@@ -134,4 +143,3 @@
     </div>
     </div>
 </form>
-
