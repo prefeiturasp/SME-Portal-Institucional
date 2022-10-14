@@ -82,7 +82,14 @@ class Inscricoes extends Util{
                                 <h3>Agendamento <br>e transporte</h3>
                                 <section>
                                     <label for="nome_ue">Nome da UE:</label>
-                                    <input id="nome_ue" name="nome_ue" value="<?= $user_meta['endereco_nome_da_ue'][0]; ?>" type="text" class="required form-control">
+                                    <?php 
+                                        if( $_POST['nome_ue'] != '' && isset($_POST['nome_ue']) ){
+                                            $ue = $_POST['nome_ue'];
+                                        } else {
+                                            $ue = $user_meta['endereco_nome_da_ue'][0];
+                                        }
+                                    ?>
+                                    <input id="nome_ue" name="nome_ue" value="<?= $ue; ?>" type="text" class="required form-control">
                                     
                                     <label for="dre">DRE:</label>
                                     <select id="dre" name="dre" class="form-control">
@@ -109,7 +116,7 @@ class Inscricoes extends Util{
                                         $agenda = get_field('agenda', $_GET['eventoid']);
                                         //echo "<pre>";
                                         //print_r($agenda);
-                                        //echo "</pre>";
+                                        //echo "</pre>"; 
                                     ?>
                                     
                                     <div class="row">
@@ -118,9 +125,9 @@ class Inscricoes extends Util{
                                             <select id="data_hora" name="data_hora" class="required form-control">
                                                 <option value="">Selecione</option>
                                                 <?php
-                                                    foreach($agenda as $horario){
+                                                    foreach($agenda as $key => $horario){
                                                         if($horario['status'] == 'Disponível'){
-                                                            echo "<option value='" . $horario['data_hora'] . "'>" . $horario['data_hora'] . "</option>";
+                                                            echo "<option value='" . $horario['data_hora'] . " [$key] (" . $horario['convites_disponiveis'] . ")'>" . $horario['data_hora'] . "</option>";
                                                         }
                                                     }
                                                 ?>
@@ -209,6 +216,7 @@ class Inscricoes extends Util{
                                         <div class="col">
                                             <label for="estudantes">Número de estudantes:</label>
                                             <input type="number" name="estudantes" id="estudantes" class="required form-control">
+                                            <input type="hidden" name="QtdEstoqueHidden" id="QtdEstoqueHidden" value="40">
                                         </div>
                                         <div class="col">
                                             <label for="ciclo">Ciclo/ano:</label>
@@ -293,6 +301,14 @@ class Inscricoes extends Util{
 
         <?php
             if($_POST['nome_ue']){
+                print_r($_POST['data_hora']);
+            }
+
+            $dh_select = explode(']', (explode('[', $_POST['data_hora'])[1]))[0];
+            $dispo = get_post_meta($_GET['eventoid'], 'agenda_' . $dh_select . '_status', true);
+
+            
+            if($_POST['nome_ue'] && $dispo == 'Disponível'){
                 $new_post = array(
                     'post_title'    => get_the_title($_GET['eventoid']),
                     'post_status'   => 'pending',           // Choose: publish, preview, future, draft, etc.
@@ -320,6 +336,9 @@ class Inscricoes extends Util{
                     $data_hora = $_POST['data_hora'];
                     //$datetime1 = new \DateTime($data_hora);
                     update_post_meta($pid, 'data_horario', $data_hora);
+
+                    $dh_select = explode(']', (explode('[', $_POST['data_hora'])[1]))[0];
+                    update_post_meta($_GET['eventoid'], 'agenda_' . $dh_select . '_status', 'Esgotado');
                 }
 
                 if($_POST['transporte'] && $_POST['transporte'] != ''){
@@ -418,6 +437,8 @@ class Inscricoes extends Util{
                 }
 
                 update_post_meta($pid, 'status', 'nova');
+                update_post_meta($pid, 'evento', $_GET['eventoid']);
+                
             }
 
             if($_POST['sucesso'] == 1){
@@ -426,6 +447,7 @@ class Inscricoes extends Util{
                     window.location = "' . get_permalink( $_GET['eventoid'] ) . '?cadastro=1"
                 </script>';
             }
+            
 
 	}
 }
