@@ -186,11 +186,10 @@
 </script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-
 	jQuery.extend(jQuery.validator.messages, {
 		required: "Campo Obrigatório.",		
-	});
-	
+	});	
+
 	var form = jQuery("#example-form");
 	
 	form.children("div").steps({
@@ -200,7 +199,31 @@
 		titleTemplate: '<span class="number">#index#</span><img src="<?= get_template_directory_uri(); ?>/img/check-inscri.png"> #title#',
 		onStepChanging: function (event, currentIndex, newIndex)
 		{
-			form.validate().settings.ignore = ":disabled,:hidden";
+			form.validate({
+				rules: {
+					estudantes: {
+						required: true,
+						max: function() {
+							var selectValue = jQuery('#data_hora').val();
+							var maxValue = selectValue.match(/\((.*)\)/).pop();
+							var secondEdu = jQuery('#nome_edu_2').val();
+							
+							if(secondEdu){
+								return parseInt(maxValue - 3);
+							} else {
+								return parseInt(maxValue - 2);
+							}						
+
+						}
+					}
+				},
+				messages: {
+					estudantes: {
+						required: "Campo Obrigatório.",
+						max: "Número de estudantes excede a quantidade de vagas disponíveis. O número de educadores e de estudantes deve ser limitado a {0} vagas."
+					}
+				}
+			}).settings.ignore = ":disabled,:hidden";
 
 			if(form.valid() == false){
 				Swal.fire(
@@ -220,7 +243,7 @@
 			
 		}, 		
 		onFinished: function (event, currentIndex)
-		{
+		{			
 			jQuery("#sucesso").val('1');
 			form.submit();
 			return true; 

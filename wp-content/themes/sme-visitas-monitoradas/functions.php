@@ -2657,3 +2657,15 @@ function convert_dre_name($dre){
             return $dre;
     }
 }
+
+add_action('acf/save_post', 'liberar_inscricoes');
+function liberar_inscricoes( $post_id ) {
+    // verifica o status do evento
+    $status = get_field('status', $post_id);
+    if( $status ==  'negado' || $status['value'] == 'negado') {
+        $evento = get_field('evento', $post_id);
+		$dt_liberar = get_field('data_horario', $post_id);
+		$dh_select = explode(']', (explode('[', $dt_liberar)[1]))[0];
+		update_post_meta($evento, 'agenda_' . $dh_select . '_status', 'Disponível');
+    }
+}
