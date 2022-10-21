@@ -55,7 +55,7 @@ class EnviarParaRevisao
 
 	public function reAproveCards() {
 
-		if ($this->getRoleUser() == 'contributor' && 'card' === $this->getPostType()){
+		if (($this->getRoleUser() == 'contributor' || $this->getRoleUser() == 'dre') && 'card' === $this->getPostType()){
 			if ($this->getPostStatus() == "publish"){
 				wp_update_post(array(
 					'ID'    =>  $this->page_id,
@@ -65,9 +65,10 @@ class EnviarParaRevisao
 		}
 	}
 
+	
 	public function reAproveContatos() {
 
-    	if ($this->getRoleUser() == 'contributor' && 'contato' === $this->getPostType()){
+    	if ( ($this->getRoleUser() == 'contributor' || $this->getRoleUser() == 'dre') && 'contato' === $this->getPostType()){
 			if ($this->getPostStatus() == "publish"){
 				wp_update_post(array(
 					'ID'    =>  $this->page_id,
@@ -79,7 +80,7 @@ class EnviarParaRevisao
 
 	public function reAprovePages(){
 
-		if ($this->getRoleUser() == 'contributor') {
+		if ($this->getRoleUser() == 'contributor' || $this->getRoleUser() == 'dre') {
 			if ($this->getPostStatus() == "publish"){
 				echo'
 				<script>

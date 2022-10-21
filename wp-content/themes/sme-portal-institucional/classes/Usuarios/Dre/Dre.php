@@ -54,13 +54,7 @@ class Dre
 				'delete_cards',
 				'delete_card',
 				'manage_cards',
-				'assign_cards',
-				//
-				'publish_concursos',
-				'delete_concurso',
-				'delete_others_concursos',
-				'delete_private_concursos',
-				'delete_concursos',
+				'assign_cards',				
 			);
 
 			foreach ($caps as $cap){
@@ -146,7 +140,6 @@ class Dre
 			$this->role_object->add_cap( 'edit_concursos' );
 			$this->role_object->add_cap( 'assign_concursos' );
 
-
 		}
 	}
 
@@ -166,6 +159,7 @@ class Dre
 			//remove_menu_page('edit.php?post_type=aba');
 			//remove_menu_page('edit.php?post_type=botao');
 			remove_menu_page('admin.php?page=wpseo_workouts');
+			remove_menu_page('tutorial_slug');
 			remove_menu_page( 'wpcf7' );
 			remove_menu_page('edit-comments.php'); // Comentarios
 			remove_menu_page('tools.php'); // Ferramentas
