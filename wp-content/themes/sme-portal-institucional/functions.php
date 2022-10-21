@@ -2764,13 +2764,13 @@ function alter_link_news() {
 add_filter( 'list_terms_exclusions', 'nsf_exclude_cats', 20 );
 function nsf_exclude_cats( $exclusions ) {
 
-    global $pagenow;
+    global $typenow;
     global $result; // array from another function, with all the cat_ID's to be excluded
 
 	$user = wp_get_current_user();
     	
 	$nsf_exclude = array(473,1028); 
-    if (current_user_can( 'dre' ) && is_admin() ) {
+    if (current_user_can( 'dre' ) && is_admin() && $typenow != 'attachment' ) {
 		$noticias = get_user_meta($user->ID,'grupo',true);
 		$noticias2 = array();
 		
