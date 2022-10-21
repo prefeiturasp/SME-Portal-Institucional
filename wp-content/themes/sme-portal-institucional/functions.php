@@ -1152,21 +1152,66 @@ function wcag_nav_menu_link_attributes( $atts, $item, $depth ) {
 }
 add_filter( 'nav_menu_link_attributes', 'wcag_nav_menu_link_attributes', 10, 4 );
 
-// Envia Concursos para revisao caso seja Editor
+// Envia Noticias/Concursos para revisao caso seja Contribuidor
 add_filter( 'wp_insert_post_data', 're_aprove', 50, 2 );
 function re_aprove( $data, $postarr ) {
 	
 	$user = wp_get_current_user();
-	$type = get_post_type();
+	$type = get_post_type($postarr["ID"]);
+	$cptAgendas = array(
+		'agenda-dre-bt',
+		'agenda-dre-cl',
+		'agenda-dre-cs',
+		'agenda-dre-fb',
+		'agenda-dre-gn',
+		'agenda-dre-ip',
+		'agenda-dre-it',
+		'agenda-dre-jt',
+		'agenda-dre-pe',
+		'agenda-dre-pi',
+		'agenda-dre-sa',
+		'agenda-dre-sma',
+		'agenda-dre-smi',
+	);
 
-	if ( in_array( 'contributor', (array) $user->roles ) ) {
-		if ( 'publish' === $data['post_status']) {
+	if ( in_array( 'contributor', (array) $user->roles ) || in_array( 'dre', (array) $user->roles ) ) {
+		if ( 'publish' === $data['post_status'] && !in_array( $postarr['post_type'], $cptAgendas) ) {
             $data['post_status'] = 'pending';
         }
 	}
     
     return $data;
 }
+
+// Define a categoria padrao para usuarios DRE
+function default_category_save($post_ID) {
+	$user = wp_get_current_user();
+	
+
+	if ($user->roles[0] == 'dre'){
+		$grupos = get_user_meta($user->ID,'grupo',true);	
+		$categorias = array();
+		
+		if($grupos && $grupos !=''){
+			if($grupos && $grupos != ''){
+				foreach($grupos as $grupo){
+					$categorias[] = get_post_meta($grupo, 'noticias', true);
+				}
+			}
+
+			$categorias = array_flatten($categorias);
+			$categorias = array_unique($categorias);
+						
+			$result = array_unique($categorias);
+			$result = array_filter($result);
+
+		}
+		if($result != ''){
+			wp_set_post_categories( $post_ID, $result );
+		}		 
+	}
+}
+add_action( 'save_post', 'default_category_save' );
 
 // Desabilitar funcoes de usuarios
 remove_role( 'subscriber' ); // Assinante
