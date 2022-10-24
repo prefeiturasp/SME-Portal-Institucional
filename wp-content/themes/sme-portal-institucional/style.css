@@ -249,6 +249,13 @@ a {
         margin-top: 10px !important;
         margin-bottom: 10px !important;
     }
+
+    .title-home {
+        padding: 0 15px;
+        line-height: 1.1;
+        text-align: center;
+        font-weight: bold;
+    }
 }
 
 .menu-topo {

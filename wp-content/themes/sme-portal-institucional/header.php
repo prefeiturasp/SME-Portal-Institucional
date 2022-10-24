@@ -181,7 +181,7 @@ use Classes\Header\Header;
                 <div class="container">
                     <div class="row py-3">
 
-                        <div class="col-sm-12 col-md-6">
+                        <div class="col-sm-12 col-md-3">
                             <?php
                             // Traz o Logotipo cadastrado no Admin
                             $custom_logo_id = get_theme_mod('custom_logo');
@@ -194,7 +194,14 @@ use Classes\Header\Header;
                             </p>
                         </div>
 
-                        <div class="col-sm-12 col-md-6 d-flex align-items-center">
+                        <div class="col-sm-12 col-md-6 d-flex justify-content-center align-items-center order-3 order-md-2">
+                            <?php if(is_front_page()): ?>
+                                <h1 class="title-home"><?= get_the_title();?></h1>
+                            <?php endif; ?>
+                        </div>
+
+
+                        <div class="col-sm-12 col-md-3 d-flex align-items-center order-2 order-md-3">
                             <?php \Classes\TemplateHierarchy\Search\SearchForm::searchFormHeader() ?>
                         </div>
 
