@@ -2575,12 +2575,14 @@ if (!function_exists('extend_admin_search')) {
 add_action( 'template_redirect', 'redirect_to_specific_page' );
 
 function redirect_to_specific_page() {
-
-if ( is_page('inscricoes') && ! is_user_logged_in() ) {
-
-wp_redirect( 'https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br/login/?eventoid=' . $_GET['eventoid'], 301 ); 
-  exit;
-    }
+	$current_user = wp_get_current_user();
+	if ( is_page('inscricoes') && ! is_user_logged_in() ) {
+		wp_redirect( 'https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br/login/?eventoid=' . $_GET['eventoid'], 301 ); 
+  		exit;
+    } elseif( is_page('inscricoes') && !$current_user->roles){		
+		wp_redirect( get_permalink($_GET['eventoid']) . '?permissao=0', 301 ); 
+  		exit;
+	}
 }
 
 add_action('admin_head', 'my_custom_fonts');
@@ -2668,4 +2670,64 @@ function liberar_inscricoes( $post_id ) {
 		$dh_select = explode(']', (explode('[', $dt_liberar)[1]))[0];
 		update_post_meta($evento, 'agenda_' . $dh_select . '_status', 'Disponível');
     }
+}
+
+add_action( 'admin_notices', 'export_btn' );
+function export_btn() {
+    global $typenow;
+    if ($typenow == 'agendamento') {
+
+        global $_GET;        
+
+        ?>
+
+        <div class="alignright">
+            <form method='get' action="<?= get_template_directory_uri(); ?>/export-inscricoes.php">
+				<?php if($_GET['s'] && $_GET['s'] != ''): ?>
+					<input type="hidden" name="s" value="<?= $_GET['s']; ?>">
+				<?php endif; ?>
+				<?php if($_GET['m'] && $_GET['m'] != ''): ?>
+					<input type="hidden" name="m" value="<?= $_GET['m']; ?>">
+				<?php endif; ?>
+				<?php if($_GET['search_dre'] && $_GET['search_dre'] != ''): ?>
+					<input type="hidden" name="search_dre" value="<?= $_GET['search_dre']; ?>">
+				<?php endif; ?> 
+				<?php if($_GET['transporte'] && $_GET['transporte'] != ''): ?>
+					<input type="hidden" name="transporte" value="<?= $_GET['transporte']; ?>">
+				<?php endif; ?>
+				<?php if($_GET['ciclo'] && $_GET['ciclo'] != ''): ?>
+					<input type="hidden" name="ciclo" value="<?= $_GET['ciclo']; ?>">
+				<?php endif; ?>
+				<?php if($_GET['faixa'] && $_GET['faixa'] != ''): ?>
+					<input type="hidden" name="faixa" value="<?= $_GET['faixa']; ?>">
+				<?php endif; ?>
+                <input type="submit" name='export' class="button button-primary button-large button-export" id="xlsxExport" value="Exportar"/>
+            </form>
+        </div>
+
+        <?php
+    }
+}
+
+function getEventDate($input) {
+    $regex = '/([0-9]+(\/[0-9]+)+)/i';
+    preg_match($regex, $input, $matches);
+	return $matches;
+}
+
+function getEventHour($input) {
+    $regex = '/[0-9]+:[0-9]+/i';
+    preg_match($regex, $input, $matches);
+	return $matches;
+}
+
+function diaSemana($data){
+	$diasdasemana = array (1 => "Segunda-Feira",2 => "Terça-Feira",3 => "Quarta-Feira",4 => "Quinta-Feira",5 => "Sexta-Feira",6 => "Sábado",0 => "Domingo");
+
+	$variavel = str_replace('/','-',$data);
+	$hoje = getdate(strtotime($variavel));	
+	$diadasemana = $hoje["wday"];
+	$nomediadasemana = $diasdasemana[$diadasemana];
+
+	return $nomediadasemana;
 }
