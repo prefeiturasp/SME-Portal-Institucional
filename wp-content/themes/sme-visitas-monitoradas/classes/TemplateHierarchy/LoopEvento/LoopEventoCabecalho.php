@@ -104,6 +104,27 @@ class LoopEventoCabecalho extends LoopEvento
 					</span>
 				</div>
 
+				<div class="row bannerhome-infoline mt-2">					
+					<div class="col-12">
+						<img src="<?= get_template_directory_uri(); ?>/classes/assets/img/timer-icon.png" alt="icone mapa"> 						
+						<span class="info-date-banner">Duração: <?= get_field('duracao_visita', $eventID); ?> horas</span>
+					</div>
+				</div>
+
+				<div class="row bannerhome-infoline mt-2">
+					<?php
+						$vagas = 0;
+						foreach($datas as $data){
+							if($data['status'] == 'Disponível')
+								$vagas = $vagas + $data['convites_disponiveis'];
+						}
+					?>
+					<div class="col-12">
+						<img src="<?= get_template_directory_uri(); ?>/classes/assets/img/users-icon.png" alt="icone mapa"> 						
+						<span class="info-date-banner"><?= $vagas; ?> vagas disponíveis</span>
+					</div>
+				</div>
+
 				<div class="row bannerhome-infoline mt-2">
 					<div class="col-sm-12">						
 						<?php

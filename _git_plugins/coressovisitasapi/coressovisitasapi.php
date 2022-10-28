@@ -216,8 +216,10 @@ function demo_auth( $user, $username, $password ){
                 } else {
                     $role = 'editor';
                 }
-            } else {
+            } elseif($escola->grupos[0] == 'A57D7239-8CFC-48C1-80AE-BAC162E43B36') {
                 $role = 'subscriber';
+            } else {
+                $role = '';
             }
 
             $userdata = array( 'user_email' => $user->email,
