@@ -188,15 +188,26 @@ use Classes\Header\Header;
                             }
                             ?>
                         </div>
-                        <?php
-                            if(is_user_logged_in()){
-                                $current_user = wp_get_current_user();
-                                echo '<span class="link-menu active link-login"><img src="/wp-content/uploads/2022/07/login.png" alt="login"><a href="#"> ' . $current_user->user_firstname . '</a></span>';
-                            } else {
-                                echo '<span class="link-menu active link-login"><a href="/login/"><img src="/wp-content/uploads/2022/07/login.png" alt="login"> Login</a></span>';
-                            }
-                            
-                        ?>
+                        
+                        <?php $current_user = wp_get_current_user(); ?>
+                        <div class="navbar-nav">                                
+                            <div class="nav-item dropdown profile-menus">
+                                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
+                                    <img src="/wp-content/uploads/2022/07/login.png" alt="login">
+                                    <span><?= $current_user->user_firstname; ?></span> <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <img src="/wp-content/uploads/2022/07/login.png" alt="login">
+                                    <p><?= $current_user->user_firstname; ?></p>
+                                    <div class="dropdown-divider"></div>
+                                    <?php if(current_user_can('administrator') || current_user_can('editor')): ?>
+                                        <a href="<?= $profileLink; ?>" class="dropdown-item">Perfil</a>
+                                    <?php endif; ?>                               
+                                    <a href="<?= wp_logout_url(); ?>" class="dropdown-item">Sair</a>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                     
                 </div>

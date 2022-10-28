@@ -16,9 +16,6 @@ class Inscricoes extends Util{
             $infos = get_field('endereco', 'user_' . $user_id);
             $user_meta = get_user_meta( $user_id );
             $current_user = wp_get_current_user();
-            //echo "<pre>";
-            //print_r($current_user->data->user_email);
-            //echo "</pre>";
         ?>
 
             <div class="title-bg py-5 mb-4">
@@ -90,7 +87,7 @@ class Inscricoes extends Util{
                                         }
                                     ?>
                                     <input id="nome_ue" name="nome_ue" value="<?= $ue; ?>" type="text" class="required form-control">
-                                    
+                                    <?php $dre = $_POST['dre']; ?>
                                     <label for="dre">DRE:</label>
                                     <select id="dre" name="dre" class="form-control">
                                         <option value="">Selecione</option>
@@ -109,14 +106,19 @@ class Inscricoes extends Util{
                                         <option value="dre-smi" <?= $dre == 'dre-smi' ? "selected" : ''; ?>>DRE São Miguel</option>
                                     </select>
 
+                                    <?php 
+                                        if( $_POST['telefone_ue'] != '' && isset($_POST['telefone_ue']) ){
+                                            $tel = $_POST['telefone_ue'];
+                                        } else {
+                                            $tel = $user_meta['endereco_telefone'][0];
+                                        }
+                                    ?>
+
                                     <label for="telefone_ue">Telefone da UE:</label>
-                                    <input id="telefone_ue" name="telefone_ue" value="<?= $user_meta['endereco_telefone'][0]; ?>" type="text" class="required form-control">
+                                    <input id="telefone_ue" name="telefone_ue" value="<?= $tel; ?>" type="text" class="required form-control">
 
                                     <?php
-                                        $agenda = get_field('agenda', $_GET['eventoid']);
-                                        //echo "<pre>";
-                                        //print_r($agenda);
-                                        //echo "</pre>"; 
+                                        $agenda = get_field('agenda', $_GET['eventoid']);                                        
                                     ?>
                                     
                                     <div class="row">
@@ -134,15 +136,6 @@ class Inscricoes extends Util{
                                             </select>
                                         </div>
 
-                                        <?php /*
-                                        <div class="col">
-                                            <label for="nome_ue">Horário da visita:</label>
-                                            <select id="dre" name="dre" class="form-control">
-                                                <option>Default select</option>
-                                            </select>
-                                        </div>
-                                        */ ?>
-
                                     </div>
                                     
                                     <?php
@@ -151,30 +144,39 @@ class Inscricoes extends Util{
                                     ?>
                                         <hr>
                                         
+                                        <?php $transporte = $_POST['transporte']; ?>
                                         <label for="transporte">UE precisa de transporte da DRE ou Parceiro?:</label>
                                         <select id="transporte" name="transporte" class="form-control">
-                                            <option value="1">Sim</option>
-                                            <option value="0">Não</option>
+                                            <option value="1" <?= $transporte == '1' ? "selected" : ''; ?>>Sim</option>
+                                            <option value="0" <?= $transporte == '0' ? "selected" : ''; ?>>Não</option>
                                         </select>
 
-                                        <div id="info-transporte">
+                                        <div id="info-transporte" <?= $transporte == '0' ? "style='display: none;'" : ''; ?>>
                                             <p><strong>Horários:</strong></p>
                                             <div class="row">
                                                 <div class="col">
                                                     <label for="saida_oni">Saída do ônibus para a Visita:</label>
-                                                    <input type="time" id="saida_oni" name="saida_oni" class="required form-control">
+                                                    <input type="time" id="saida_oni" name="saida_oni" class="required form-control" value="<?= $_POST['saida_oni']; ?>">
                                                 </div>
                                                 <div class="col">
                                                     <label for="retorno_oni">Retorno à UE:</label>
-                                                    <input type="time" id="retorno_oni" name="retorno_oni" class="required form-control">
+                                                    <input type="time" id="retorno_oni" name="retorno_oni" class="required form-control" value="<?= $_POST['retorno_oni']; ?>">
                                                 </div>
                                             </div>
 
+                                            <?php 
+                                                if( $_POST['end_ue'] != '' && isset($_POST['end_ue']) ){
+                                                    $end_ue = $_POST['end_ue'];
+                                                } else {
+                                                    $end_ue = $user_meta['endereco_logradouro'][0] . ', ' . $user_meta['endereco_numero'][0] . ' - ' . $user_meta['endereco_bairro'][0];
+                                                }
+                                            ?>
+
                                             <label for="end_ue">Endereço da UE:</label>
-                                            <input id="end_ue" name="end_ue" type="text" value="<?= $user_meta['endereco_logradouro'][0]; ?>, <?= $user_meta['endereco_numero'][0]; ?> - <?= $user_meta['endereco_bairro'][0]; ?>" class="required form-control">
+                                            <input id="end_ue" name="end_ue" type="text" value="<?= $end_ue; ?>" class="required form-control">
 
                                             <label for="ponto_ue">Ponto de referência da UE:</label>
-                                            <input id="ponto_ue" name="ponto_ue" type="text" class="required form-control">
+                                            <input id="ponto_ue" name="ponto_ue" type="text" class="required form-control" value="<?= $_POST['ponto_ue']; ?>">
                                         
                                         </div>
                                     <?php endif; ?>
@@ -183,29 +185,45 @@ class Inscricoes extends Util{
 
                                 <h3>Dados dos <br>educadores</h3>
                                 <section>
+                                    
+                                    <?php 
+                                        if( $_POST['nome_resp'] != '' && isset($_POST['nome_resp']) ){
+                                            $nome_resp = $_POST['nome_resp'];
+                                        } else {
+                                            $nome_resp = $user_meta['first_name'][0] . ' ' . $user_meta['last_name'][0];
+                                        }
+                                    ?>
 
                                     <label for="nome_resp">Nome do responsável:</label>
-                                    <input id="nome_resp" name="nome_resp" type="text" value="<?= $user_meta['first_name'][0] . ' ' . $user_meta['last_name'][0]; ?>" class="required form-control">
+                                    <input id="nome_resp" name="nome_resp" type="text" value="<?= $nome_resp; ?>" class="required form-control">
 
                                     <label for="contato_resp">Contato do responsável:</label>
-                                    <input id="contato_resp" name="contato_resp" type="text" class="required form-control">
+                                    <input id="contato_resp" name="contato_resp" type="text" class="required form-control" value="<?= $_POST['contato_resp']; ?>">
+                                    
+                                    <?php 
+                                        if( $_POST['email_resp'] != '' && isset($_POST['email_resp']) ){
+                                            $email_resp = $_POST['email_resp'];
+                                        } else {
+                                            $email_resp = $current_user->data->user_email;
+                                        }
+                                    ?>
 
                                     <label for="email_resp">E-mail do responsável:</label>
-                                    <input id="email_resp" name="email_resp" type="text" value="<?= $current_user->data->user_email; ?>" class="required form-control">
+                                    <input id="email_resp" name="email_resp" type="text" value="<?= $email_resp; ?>" class="required form-control">
 
                                     <hr>
 
                                     <label for="nome_edu">Nome do educador 1:</label>
-                                    <input id="nome_edu" name="nome_edu" type="text" class="required form-control">
+                                    <input id="nome_edu" name="nome_edu" type="text" class="required form-control" value="<?= $_POST['nome_edu']; ?>">
 
                                     <label for="contato_edu">Contato do educador 1:</label>
-                                    <input id="contato_edu" name="contato_edu" type="text" class="required form-control">
+                                    <input id="contato_edu" name="contato_edu" type="text" class="required form-control" value="<?= $_POST['contato_edu']; ?>">
 
                                     <label for="nome_edu_2">Nome do educador 2 (opcional):</label>
-                                    <input id="nome_edu_2" name="nome_edu_2" type="text" class="form-control">
+                                    <input id="nome_edu_2" name="nome_edu_2" type="text" class="form-control" value="<?= $_POST['nome_edu_2']; ?>">
 
                                     <label for="contato_edu_2">Contato do educador 2 (opcional):</label>
-                                    <input id="contato_edu_2" name="contato_edu_2" type="text" class="form-control">
+                                    <input id="contato_edu_2" name="contato_edu_2" type="text" class="form-control" value="<?= $_POST['contato_edu_2']; ?>">
                                     
                                 </section>
 
@@ -215,10 +233,15 @@ class Inscricoes extends Util{
                                     <div class="row">
                                         <div class="col">
                                             <label for="estudantes">Número de estudantes:</label>
-                                            <input type="number" name="estudantes" id="estudantes" class="required form-control">
-                                            <input type="hidden" name="QtdEstoqueHidden" id="QtdEstoqueHidden" value="40">
+                                            <input type="number" name="estudantes" id="estudantes" class="required form-control" value="<?= $_POST['estudantes']; ?>">
+                                            
                                         </div>
                                         <div class="col">
+                                            <?php
+                                                //echo "<pre>";
+                                                //print_r($_POST['ciclo']);
+                                                //echo "</pre>";
+                                            ?>
                                             <label for="ciclo">Ciclo/ano:</label>
                                             <select class="required form-control" required id="ciclo" multiple="multiple" name="ciclo[]">
                                                 
@@ -227,11 +250,19 @@ class Inscricoes extends Util{
                                                     'taxonomy' => 'ano-serie',
                                                     'hide_empty' => false,
                                                 ) );
+                                               
                                                 foreach ($ano_series as $ano_serie){
-                                                    ?>
-                                                        <option value="<?php echo $ano_serie->term_id; ?>"><?php echo $ano_serie->name; ?></option>
-                                                    <?php
-                                                }
+                                                    
+                                                        if( in_array($ano_serie->term_id, $_POST['ciclo']) ):
+                                                        ?>
+                                                            <option value="<?php echo $ano_serie->term_id; ?>" selected><?php echo $ano_serie->name; ?></option>
+                                                        <?php
+                                                        else:
+                                                        ?>
+                                                            <option value="<?php echo $ano_serie->term_id; ?>"><?php echo $ano_serie->name; ?></option>
+                                                        <?php
+                                                        endif;
+                                                }       
                                                 ?>
                                             </select>
                                         </div>
@@ -245,23 +276,31 @@ class Inscricoes extends Util{
                                             'hide_empty' => false,
                                         ) );
                                         foreach ($faixa_etarias as $faixa_etaria){
-                                            ?>
-                                                <option value="<?php echo $faixa_etaria->term_id; ?>"><?php echo $faixa_etaria->name; ?></option>
-                                            <?php
+                                                    
+                                                if( in_array($faixa_etaria->term_id, $_POST['faixa']) ):
+                                                ?>
+                                                    <option value="<?php echo $faixa_etaria->term_id; ?>" selected><?php echo $faixa_etaria->name; ?></option>
+                                                <?php
+                                                else:
+                                                ?>
+                                                    <option value="<?php echo $faixa_etaria->term_id; ?>"><?php echo $faixa_etaria->name; ?></option>
+                                                <?php
+                                                endif;
                                         }
+                                        
                                         ?>
                                     </select>
                                     
                                     <hr>
-
+                                    <?php $pcd = $_POST['pcd']; ?>
                                     <label for="pcd">Existem pessoas com deficiência?</label>
                                     <select id="pcd" name="pcd" class="required form-control">
                                         <option value="" disabled selected>Informar</option>
-                                        <option value="1">Sim</option>
-                                        <option value="0">Não</option>
+                                        <option value="1" <?= $pcd == '1' ? "selected" : ''; ?>>Sim</option>
+                                        <option value="0" <?= $pcd == '0' ? "selected" : ''; ?>>Não</option>
                                     </select>
 
-                                    <div id="info-pcd" style="display: none;">
+                                    <div id="info-pcd" <?= $transporte == '0' ? "style='display: none;'" : "style='display: block;'"; ?>>
 
                                         <label for="tipo_pcd">Deficiências listadas:</label>
                                         <select class="required form-control" id="tipo_pcd" multiple="multiple" name="tipo_pcd[]">
@@ -271,18 +310,25 @@ class Inscricoes extends Util{
                                                 'hide_empty' => false,
                                             ) );
                                             foreach ($tipo_pcds as $tipo_pcd){
+                                                    
+                                                if( in_array($tipo_pcd->term_id, $_POST['tipo_pcd']) ):
+                                                ?>
+                                                    <option value="<?php echo $tipo_pcd->term_id; ?>" selected><?php echo $tipo_pcd->name; ?></option>
+                                                <?php
+                                                else:
                                                 ?>
                                                     <option value="<?php echo $tipo_pcd->term_id; ?>"><?php echo $tipo_pcd->name; ?></option>
                                                 <?php
-                                            }
+                                                endif;
+                                            }                                            
                                             ?>
                                         </select>
 
                                         <label for="pcd_outras">Outras deficiências:</label>
-                                        <input id="pcd_outras" name="pcd_outras" type="text" class="form-control">
+                                        <input id="pcd_outras" name="pcd_outras" type="text" class="form-control" value="<?= $_POST['pcd_outras']; ?>">
 
                                         <label for="pcd_obs">Observações:</label>
-                                        <textarea id="pcd_obs" name="pcd_obs" class="form-control"></textarea>
+                                        <textarea id="pcd_obs" name="pcd_obs" class="form-control"><?= $_POST['pcd_obs']; ?></textarea>
                                     </div>
 
                                     <input type="hidden" name="sucesso" id="sucesso" value="0">
@@ -300,9 +346,6 @@ class Inscricoes extends Util{
             </div>
 
         <?php
-            if($_POST['nome_ue']){
-                print_r($_POST['data_hora']);
-            }
 
             $dh_select = explode(']', (explode('[', $_POST['data_hora'])[1]))[0];
             $dispo = get_post_meta($_GET['eventoid'], 'agenda_' . $dh_select . '_status', true);
@@ -341,9 +384,19 @@ class Inscricoes extends Util{
                     update_post_meta($_GET['eventoid'], 'agenda_' . $dh_select . '_status', 'Esgotado');
                 }
 
+                $duracao_visita = get_field('duracao_visita', $_GET['eventoid']);
+                if($duracao_visita && $duracao_visita != ''){
+                    update_post_meta($pid, 'duracao', $duracao_visita);
+                }
+
                 if($_POST['transporte'] && $_POST['transporte'] != ''){
                     $transporte = $_POST['transporte'];                    
                     update_post_meta($pid, 'transporte', $transporte);
+                }
+
+                $tipo_transporte = get_field('tipo_de_transporte', $_GET['eventoid']);
+                if($tipo_transporte && $tipo_transporte != ''){
+                    update_post_meta($pid, 'tipo_transporte', $tipo_transporte->slug);
                 }
 
                 if($_POST['saida_oni'] && $_POST['saida_oni'] != ''){
@@ -438,15 +491,26 @@ class Inscricoes extends Util{
 
                 update_post_meta($pid, 'status', 'nova');
                 update_post_meta($pid, 'evento', $_GET['eventoid']);
-                
-            }
 
-            if($_POST['sucesso'] == 1){
+                if($_POST['sucesso'] == 1){
                 
-                echo '<script type="text/javascript">
-                    window.location = "' . get_permalink( $_GET['eventoid'] ) . '?cadastro=1"
-                </script>';
-            }
+                    echo '<script type="text/javascript">
+                        window.location = "' . get_permalink( $_GET['eventoid'] ) . '?cadastro=1"
+                    </script>';
+                }
+                
+            } elseif($_POST['nome_ue'] && $dispo != 'Disponível') { ?>
+                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                    Swal.fire(
+                        'Horário Indisponível',
+                        'Desculpe, o dia e horário escolhido não estão mais disponíveis, por gentileza escolha um novo horário.',
+                        'error'
+                    );
+                </script>
+            <?php }
+
+            
             
 
 	}
