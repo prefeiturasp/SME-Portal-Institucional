@@ -82,7 +82,7 @@ $term = get_term( $idTaxEvento );
 												$showImage = 'http://via.placeholder.com/250x241';
 											}
 										?>
-										<img class="img-capa" src="<?= $showImage; ?>" alt="<?php echo the_title(); ?>">
+										<img class="img-capa" src="<?= $showImage; ?>" alt="<?php echo the_title(); ?>"  width="250" height="241">
 									</div>
 									<div class="inner-content-carousel">
 										<?php
@@ -131,7 +131,7 @@ $term = get_term( $idTaxEvento );
 											?>
 											<?php if($faixa): ?>
 												<span class="pill-out" style="background: <?= $cor; ?>; color: <?= $corTexto; ?>;">
-													<img src="<?= $icone; ?>" alt="<?= $faixa->name; ?>">
+													<img src="<?= $icone; ?>" alt="<?= $faixa->name; ?>" width="15" height="15">
 													<?= $faixa->name; ?>
 												</span>
 											<?php endif; ?>
@@ -150,7 +150,7 @@ $term = get_term( $idTaxEvento );
 														}
 													?>
 														<span class="pill-out">
-															<img src="<?= $icone; ?>" alt="<?= $espaco->name; ?>">
+															<img src="<?= $icone; ?>" alt="<?= $espaco->name; ?>" width="15" height="15">
 															<?= $espaco->name; ?>
 														</span>
 													<?php
@@ -167,7 +167,7 @@ $term = get_term( $idTaxEvento );
 
 											<?php if($transporte): ?>
 												<span class="pill-out">
-													<img src="/wp-content/uploads/2022/07/busque-por-parceiro.png" alt="<?= $transporte->name; ?>">
+													<img src="/wp-content/uploads/2022/07/busque-por-parceiro.png" alt="<?= $transporte->name; ?>" width="15" height="15">
 													<?= $transporte->name; ?>
 												</span>
 											<?php endif; ?>
@@ -207,4 +207,3 @@ $term = get_term( $idTaxEvento );
         });
     });
 </script>
-

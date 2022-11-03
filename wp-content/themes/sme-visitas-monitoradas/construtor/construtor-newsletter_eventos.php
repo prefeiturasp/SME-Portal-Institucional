@@ -17,7 +17,7 @@ $shortcode = get_sub_field('shortcode');
                             <?= do_shortcode("$shortcode"); ?>                            
                         </div>
                     </div>
-                    <div class="col-sm-5"><img src="<?php echo $imgNews; ?>" alt="<?php echo $titleNews; ?>"></div>
+                    <div class="col-sm-5"><img src="<?php echo $imgNews; ?>" alt="<?php echo $titleNews; ?>" width="405" height="308"></div>
                 </div>
             </div>
         </div>

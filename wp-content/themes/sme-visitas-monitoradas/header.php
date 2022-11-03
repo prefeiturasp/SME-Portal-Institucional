@@ -76,8 +76,7 @@ use Classes\Header\Header;
 </head>
 
 <body>
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v13.0&appId=772835849918326&autoLogAppEvents=1" nonce="CLhCj455"></script>
+
 <section id="main" role="main">
     <header class="pref-menu fonte-dez">
 
@@ -139,7 +138,7 @@ use Classes\Header\Header;
                                                 <li class="list-inline-item">
                                                     <a class="text-white" href="<?php echo $rede_url; ?>">
                                                         <?php if($rede_topo == 'imagem' && $rede_t_imagem != '') : ?>
-                                                            <img src="<?php echo $rede_t_imagem; ?>" alt="<?php echo $rede_texto; ?>">
+                                                            <img src="<?php echo $rede_t_imagem; ?>" alt="<?php echo $rede_texto; ?>" width="16" height="16">
                                                         <?php elseif($rede_topo == 'icone' && $rede_t_icone != ''): ?>
                                                             <i class="fa <?php echo $rede_t_icone; ?>" aria-hidden="true" title="<?php echo $rede_texto; ?>"><span class="esconde-item-acessibilidade">(Link para um novo sítio)</span></i>
                                                         <?php endif; ?>
@@ -168,10 +167,11 @@ use Classes\Header\Header;
                     // Traz o Logotipo cadastrado no Admin
                     $custom_logo_id = get_theme_mod('custom_logo');
                     $image = wp_get_attachment_image_src($custom_logo_id, 'full');
+                    
                     ?>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2">                        
                         <a class="brand" href="<?php echo STM_URL ?>">
-                            <img class="logo-visitas" src="<?php echo $image[0] ?>" alt="Visitas monitoradas">
+                            <img class="logo-visitas" src="<?php echo $image[0] ?>" width="<?php echo $image[1] ?>" height="<?php echo $image[2] ?>" alt="Visitas monitoradas">
                         </a>
                     </div>
                     <div class="col-sm-10 text-right d-flex justify-content-end align-items-center">
@@ -193,11 +193,11 @@ use Classes\Header\Header;
                         <div class="navbar-nav">                                
                             <div class="nav-item dropdown profile-menus">
                                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
-                                    <img src="/wp-content/uploads/2022/07/login.png" alt="login">
+                                    <img src="/wp-content/uploads/2022/07/login.png" alt="login" width="24" height="24">
                                     <span><?= $current_user->user_firstname; ?></span> <i class="fa fa-chevron-down" aria-hidden="true"></i>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <img src="/wp-content/uploads/2022/07/login.png" alt="login">
+                                    <img src="/wp-content/uploads/2022/07/login.png" alt="login" width="24" height="24">
                                     <p><?= $current_user->user_firstname; ?></p>
                                     <div class="dropdown-divider"></div>
                                     <?php if(current_user_can('administrator') || current_user_can('editor')): ?>
