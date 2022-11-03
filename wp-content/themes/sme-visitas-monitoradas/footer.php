@@ -5,7 +5,7 @@
 	<div class="container pt-3 pb-3" id="irrodape">
 		<div class="row">
 			<div class="col-sm-3 align-middle d-flex align-items-center logo-rodape">
-			<a href="https://www.capital.sp.gov.br/"><img src="<?php the_field('logo_prefeitura','conf-rodape'); ?>" alt="<?php bloginfo('name'); ?>"></a>
+			<a href="https://www.capital.sp.gov.br/"><img src="<?php the_field('logo_prefeitura','conf-rodape'); ?>" alt="<?php bloginfo('name'); ?>" width="255" height="85"></a>
 			</div>
 			<div class="col-sm-3 align-middle bd-contact">
 				<p class='footer-title'><?php the_field('nome_da_secretaria','conf-rodape'); ?></p>
@@ -20,7 +20,10 @@
 				<?php if(get_field('texto_link','conf-rodape') && get_field('link_adicional','conf-rodape')) :?>
 				<p><i class="fa fa-comment" aria-hidden="true"></i> <a href="<?php the_field('link_adicional','conf-rodape'); ?>"><?php the_field('texto_link','conf-rodape'); ?></a></p>
 				<?php endif; ?>
-				<p class='footer-title'>Redes sociais</p>				
+				
+			</div>
+			<div class="col-sm-3 align-middle text-center">				
+			<p class='footer-title'>Redes sociais</p>				
 				<?php 
 					// Verifica se existe Redes Sociais
 					if( have_rows('redes_sociais', 'conf-rodape') ):
@@ -39,7 +42,7 @@
 								<div class="col rede-rodape">
 									<a href="<?php echo $rede_url; ?>">
 										<?php if($rede_rodape == 'imagem' && $rede_r_imagem != '') : ?>
-											<img src="<?php echo $rede_r_imagem; ?>" alt="<?php echo $rede_texto; ?>">
+											<img src="<?php echo $rede_r_imagem; ?>" alt="<?php echo $rede_texto; ?>"  width="24" height="24">
 										<?php elseif($rede_rodape == 'icone' && $rede_r_icone != ''): ?>
 											<i class="fa <?php echo $rede_r_icone; ?>" aria-hidden="true" title="<?php echo $rede_texto; ?>"></i>
 										<?php endif; ?>
@@ -55,20 +58,6 @@
 					
 					endif;
 				?>
-			</div>
-			<div class="col-sm-3 align-middle text-center">				
-				<a class="sa sat seloa mt-1" href="http://selodigital.imprensaoficial.com.br/validacao/SMPED/0118119073598c7823" target="_blank">
-					<img src="<?= STM_THEME_URL ?>/img/sa2.svg" alt="Este sitio possui um selo de acessibilidade digital.">
-					<div class="st"><div>Selo de Acessibilidade Digital</div>Nº do Selo: 2020-AD/102<br>Validade: 18/12/2022<br>Clique para mais informações
-					</div>
-				</a>
-				<p><figure>
-					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt_BR">
-						<img src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2019/07/by-nc-sa-2.png" alt="Logotipo Creative Commons. Ir para um link externo da Página Inicial da Creative Commons que é uma organização mundial sem fins lucrativos que permite o compartilhamento e a reutilização da criatividade e do conhecimento por meio do fornecimento de ferramentas gratuitas."/>
-					</a>
-					<p class="mt-2">Esta obra está licenciada com uma Licença Creative Commons
-						Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional </p>
-				</figure></p>
 			</div>
 		</div>
 	</div>
@@ -188,7 +177,7 @@
 <script>
 	jQuery.extend(jQuery.validator.messages, {
 		required: "Campo Obrigatório.",		
-	});	
+	});
 
 	var form = jQuery("#example-form");
 	
@@ -238,12 +227,12 @@
 		onFinishing: function (event, currentIndex) { 
 			//alert('Inscrição feita com sucesso!');
 			form.validate().settings.ignore = ":disabled";
-			console.log(form.valid());
-			return form.valid();
+			//console.log(form.valid());			
+			return form.valid();			
 			
 		}, 		
 		onFinished: function (event, currentIndex)
-		{			
+		{
 			jQuery("#sucesso").val('1');
 			form.submit();
 			return true; 
@@ -293,6 +282,18 @@
 			'success'
 		);
 	</script>
+
+<?php endif; ?>
+
+<?php if($_GET['permissao'] == '0'): ?>
+
+<script>
+	Swal.fire(
+		'Não permitido!',
+		'Desculpe, seu usuário não tem permissão para fazer inscrições nos eventos. Os usuários permitidos são Direção, Assistente de Direção e Coordenação',
+		'error'
+	);
+</script>
 
 <?php endif; ?>
 </body>

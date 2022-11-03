@@ -3,7 +3,7 @@
     <div class="filter-sidebar">
         <div class="container">
             <div class="row mt-3 mb-3">
-                <div class="col-12 text-left"><span class="btn-filtros-close"><img src="https://visitas.rafaelhsouza.com.br/img/fechar.png" alt="Fechar"> Fechar</span></div>
+                <div class="col-12 text-left"><span class="btn-filtros-close"><img src="https://visitas.rafaelhsouza.com.br/img/fechar.png" alt="Fechar" width="24" height="24"> Fechar</span></div>
             </div>
             <div class="row mt-4 mb-3">
                 <div class="col-12 mt-3 mb-2"><h3 class="title-top-filter">Filtro Avançado</h3></div>
@@ -116,7 +116,7 @@
                             $imageTax = get_field('icone_tax', $termoidimage);
                             ?>
                             <span class="pill-one pill-icon" data-local="<?php echo $tipo_espaco->slug; ?>">
-                                <img src="<?php echo $imageTax; ?>" alt="<?php echo $tipo_espaco->slug; ?>">
+                                <img src="<?php echo $imageTax; ?>" alt="<?php echo $tipo_espaco->slug; ?>"  width="18" height="18">
                                 <?php echo $tipo_espaco->name; ?>
                                 <input type="hidden" name="espaco[]" value='' id="<?php echo $tipo_espaco->slug; ?>">
                             </span>
@@ -134,7 +134,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12 text-right pr-0 pl-0">
-                        <span class="btn-filtros"><img src="https://visitas.rafaelhsouza.com.br/img/filtro.png" alt="Filtros">Filtros</span>
+                        <span class="btn-filtros"><img src="https://visitas.rafaelhsouza.com.br/img/filtro.png" alt="Filtros" width="16" height="16">Filtros</span>
                     </div>
                 </div>
             </div>
