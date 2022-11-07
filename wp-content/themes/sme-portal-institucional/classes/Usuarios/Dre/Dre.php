@@ -155,7 +155,7 @@ class Dre
 			remove_menu_page('edit.php?post_type=organograma'); // Organograma
 			remove_menu_page('edit.php?post_type=curriculo-da-cidade'); // Curriculo
 			remove_menu_page('edit.php?post_type=setor'); // Setor
-			remove_menu_page('edit.php?post_type=concurso'); // Concursos
+			//remove_menu_page('edit.php?post_type=concurso'); // Concursos
 			//remove_menu_page('edit.php?post_type=aba');
 			//remove_menu_page('edit.php?post_type=botao');
 			remove_menu_page('admin.php?page=wpseo_workouts');

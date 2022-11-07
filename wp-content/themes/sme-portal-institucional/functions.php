@@ -2830,3 +2830,69 @@ function filter_by_user_group( $args, $field, $post_id ) {
 
     return $args;
 }
+
+function wp_admin_post_type () {
+    global $post, $parent_file, $typenow, $current_screen, $pagenow;
+
+    $post_type = NULL;
+
+    if($post && (property_exists($post, 'post_type') || method_exists($post, 'post_type')))
+        $post_type = $post->post_type;
+
+    if(empty($post_type) && !empty($current_screen) && (property_exists($current_screen, 'post_type') || method_exists($current_screen, 'post_type')) && !empty($current_screen->post_type))
+        $post_type = $current_screen->post_type;
+
+    if(empty($post_type) && !empty($typenow))
+        $post_type = $typenow;
+
+    if(empty($post_type) && function_exists('get_current_screen'))
+        $post_type = get_current_screen();
+
+    if(empty($post_type) && isset($_REQUEST['post']) && !empty($_REQUEST['post']) && function_exists('get_post_type') && $get_post_type = get_post_type((int)$_REQUEST['post']))
+        $post_type = $get_post_type;
+
+    if(empty($post_type) && isset($_REQUEST['post_type']) && !empty($_REQUEST['post_type']))
+        $post_type = sanitize_key($_REQUEST['post_type']);
+
+    if(empty($post_type) && 'edit.php' == $pagenow)
+        $post_type = 'post';
+
+    return $post_type;
+}
+
+function editar_concursos(){
+
+	global $typenow;
+	$post_type = wp_admin_post_type();
+	
+	$user = wp_get_current_user();
+
+	if(!current_user_can('administrator')){
+		$grupos = get_user_meta($user->ID,'grupo',true);
+		$concursos = array();
+
+		if($grupos && $grupos !=''){
+			foreach($grupos as $grupo){
+				$concursos[] = get_post_meta($grupo, 'concursos', true);
+				$concursos = array_flatten($concursos);
+				$concursos = array_unique($concursos);
+							
+				$result = array_unique($concursos);
+				$result = array_filter($result);
+			}
+		}
+
+		if(!in_array('1', $result)){
+			remove_menu_page('edit.php?post_type=concurso'); // Concursos
+			
+    		if ($typenow == 'concurso' || $post_type == 'concurso') {
+				$admin_url = get_admin_url();
+				wp_redirect($admin_url);
+				exit();
+				
+			}
+		}
+		
+	}
+}
+add_action( 'admin_init', 'editar_concursos' );
