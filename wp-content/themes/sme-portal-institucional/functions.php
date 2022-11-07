@@ -2800,3 +2800,33 @@ function nsf_exclude_cats( $exclusions ) {
     }
     return $exclusions;
 }
+
+add_filter('acf/fields/relationship/query/key=field_63640d0347c62', 'filter_by_user_group', 10, 3);
+function filter_by_user_group( $args, $field, $post_id ) {
+
+	$user = wp_get_current_user();
+
+	if ( in_array( 'dre', (array) $user->roles ) ) {
+		
+		$grupos = get_user_meta($user->ID,'grupo',true);
+		$categorias = array();
+		
+		if($grupos && $grupos !=''){
+			//if($grupos && $grupos != ''){
+				foreach($grupos as $grupo){
+					$categorias[] = get_post_meta($grupo, 'noticias', true);
+				}
+			//}
+	
+			$categorias = array_flatten($categorias);
+			$categorias = array_unique($categorias);
+						
+			$result = array_unique($categorias);
+			$result = array_filter($result);
+
+		}
+		$args['cat'] = $result;
+	}
+
+    return $args;
+}
