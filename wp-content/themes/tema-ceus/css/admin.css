@@ -24,3 +24,7 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.user-language-wrap{
+    display: none;
+}
