@@ -2041,6 +2041,106 @@ if ( !current_user_can('edit_plugins') ) {
 	add_filter( 'get_sample_permalink_html', 'hide_permalink' );
 }
 
+// Filtrar os usuarios por grupo do usuarios que estiver logado
+function modify_user_list($query){
+    $user = wp_get_current_user();
+
+    //if( ! current_user_can( 'edit_user' ) ) return $query;
+	if ( !current_user_can( 'manage_options' ) ) {
+		$user_id = $user->ID; 
+		$user_group = get_user_meta($user_id, 'grupo', true);
+		
+		$meta_query = array(
+			'relation' => 'OR',
+		);
+		if($user_group){
+			foreach($user_group as $group){
+				$meta_query[] = array(
+					'key' => 'grupo', // name of custom field
+					'value' => $group, // matches exaclty "123", not just 123. This prevents a match for "1234"
+					'compare' => 'LIKE'
+				);
+			}
+		}
+		$query->set( 'meta_query', $meta_query );
+	}
+
+}
+add_action('pre_get_users', 'modify_user_list');
+
+// Mostrar os grupos que o usuario pertence no seletor de grupos de usuarios
+add_filter('acf/fields/relationship/query/key=field_5f9843469209b', 'filter_groups_by_user', 10, 3);
+function filter_groups_by_user() {
+    $user = wp_get_current_user(); 
+	$user_id = $user->ID; 
+	$args['post_type'] = 'wporg_unidades';
+
+	if( in_array('editor', $user->roles) ){
+		$user_group = get_user_meta($user_id, 'grupo', true);		
+		$args['post__in'] = $user_group;
+	}	
+	
+    return $args;
+}
+
+// Ocultar contador de usuario na pagina users.php
+add_action('admin_head', 'hide_counter_users');
+function hide_counter_users() {
+	global $pagenow;
+	$user = wp_get_current_user();  
+
+	if($pagenow == 'users.php' && !in_array('administrator', $user->roles)){
+		echo '<style>
+		.subsubsub .count {
+			display: none;
+		}
+		</style>';
+	}
+	
+}
+
+// Ocultar seletor de cor
+function admin_color_scheme() {
+	global $_wp_admin_css_colors;
+	$_wp_admin_css_colors = 0;
+}
+add_action('admin_head', 'admin_color_scheme');
+add_filter( 'login_display_language_dropdown', '__return_false' );
+
+#####
+// ocultar campos na edicao do perfil do usuario
+if ( ! function_exists( 'cor_remove_personal_options' ) ) {
+	function cor_remove_personal_options( $subject ) {
+		
+		global $_wp_admin_css_colors;
+		$_wp_admin_css_colors = 0;
+
+		$subject = preg_replace('#<h2>'.__("Personal Options").'</h2>#s', '', $subject, 1); // Remover titulo "Opções pessoais"
+		$subject = preg_replace('#<tr class="user-rich-editing-wrap(.*?)</tr>#s', '', $subject, 1); // Remover "Editor visual"
+		$subject = preg_replace('#<tr class="user-comment-shortcuts-wrap(.*?)</tr>#s', '', $subject, 1); // Remover "Atalhos do teclado"
+		$subject = preg_replace('#<tr class="show-admin-bar(.*?)</tr>#s', '', $subject, 1); // Remover "Barra de ferramentas"
+		$subject = preg_replace('#<tr class="user-language-wrap(.*?)</tr>#s', '', $subject, 1); // Remover "Idioma"
+		$subject = preg_replace('#<tr class="user-syntax-highlighting-wrap(.*?)</tr>#s', '', $subject, 1); // Remover "Destaque de sintaxe"
+		
+		return $subject;
+	}
+
+	function cor_profile_subject_start() {
+		if ( ! current_user_can('manage_options') ) {
+			ob_start( 'cor_remove_personal_options' );
+		}
+	}
+
+	function cor_profile_subject_end() {
+		if ( ! current_user_can('manage_options') ) {
+			ob_end_flush();
+		}
+	}
+}
+add_action( 'admin_head', 'cor_profile_subject_start' );
+add_action( 'admin_footer', 'cor_profile_subject_end' );
+#####
+
 
 //Filtra por tipo de evento grande ou serie
 function wpse45436_admin_posts_filter_restrict_manage_posts(){
