@@ -70,3 +70,5 @@ window.onload = function() {
         attributes: true
     });
 }
+
+$s("#acf-field_636be867c3e08").prop('disabled', true);

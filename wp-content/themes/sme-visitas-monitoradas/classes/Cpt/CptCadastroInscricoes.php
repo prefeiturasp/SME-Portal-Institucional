@@ -79,14 +79,36 @@ class CptCadastroInscricoes extends Cpt
         add_action('init', array($this, 'register'));
 
         //Alterando e Exibindo as colunas no Dashboard que vem por padrão na classe CPT
-        add_filter('manage_posts_columns', array($this, 'exibe_cols'), 10, 2);
+        //add_filter('manage_' . $this->cptSlug . '_posts_columns', array($this, 'exibe_cols_inscri'), 5, 2);
+        
+
+        add_filter('manage_' . $this->cptSlug . '_posts_columns', function($columns) {
+            if ($post_type == $this->cptSlug) {
+                unset($cols['tags'], $cols['author'],$cols['categories'],$cols['comments'], $cols['categoria'], $cols['featured_thumb']);
+            }
+            $columns = array(
+                'cb' => '<input type="checkbox" />',
+                'title' => 'Evento',
+                'dre' => 'DRE',
+                'ue' => 'Unidade Escolar',            
+                'date' => 'Data',
+                'transporte' => 'UE precisa de transporte?',
+                'status' => 'Status',
+            );
+    
+            return $columns;
+        });
+
         add_action('manage_' . $this->cptSlug . '_posts_custom_column', array($this, 'cols_content'));
         add_filter('manage_edit-' . $this->cptSlug . '_sortable_columns', array($this, 'cols_sort'));
         add_filter('request', array($this, 'orderby'));
+        
     }
 
+    
+
     //Exibindo as colunas no Dashboard
-    public function exibe_cols($cols, $post_type)
+    public function exibe_cols_inscri($cols, $post_type)
     {
 
         if ($post_type == $this->cptSlug) {
@@ -117,12 +139,11 @@ class CptCadastroInscricoes extends Cpt
 				break;
 
 			case 'dre':
-				$dre = get_field('dre', $post->ID);                
-                if(is_array($dre)){
-                    echo $dre['label'];
-                } else {
-                    echo convert_dre($dre);
-                }
+				$dre = get_field('dre_selected', $post->ID);
+                if($dre){
+                    echo get_the_title($dre);
+                }              
+                
 				break;
 
 			case 'transporte':
