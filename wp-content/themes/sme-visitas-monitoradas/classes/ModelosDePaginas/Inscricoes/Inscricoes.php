@@ -13,9 +13,29 @@ class Inscricoes extends Util{
     public function montaHtmlIncricoes(){
             $user_id = get_current_user_id();
             $dre = get_field('dre', 'user_' . $user_id);
+
+            $posts = get_posts(array(
+                'numberposts'   => 1,
+                'post_type'     => 'editores_portal',
+                'meta_query'    => array(        
+                    array(
+                        'key'       => 'dre',
+                        'value'     => $dre,
+                        'compare'   => 'LIKE'
+                    ),
+                ),
+            ));
+
+            if($posts){
+                $dre = $posts[0]->ID;
+            }
+
             $infos = get_field('endereco', 'user_' . $user_id);
             $user_meta = get_user_meta( $user_id );
             $current_user = wp_get_current_user();
+            //echo "<pre>";
+            //print_r($current_user->data->user_email);
+            //echo "</pre>";
         ?>
 
             <div class="title-bg py-5 mb-4">
@@ -87,23 +107,37 @@ class Inscricoes extends Util{
                                         }
                                     ?>
                                     <input id="nome_ue" name="nome_ue" value="<?= $ue; ?>" type="text" class="required form-control">
-                                    <?php $dre = $_POST['dre']; ?>
+                                    <?php 
+                                        if($_POST['dre'] && $_POST['dre'] != ''){
+                                            $dre = $_POST['dre'];
+                                        }
+                                    ?>
                                     <label for="dre">DRE:</label>
                                     <select id="dre" name="dre" class="form-control">
                                         <option value="">Selecione</option>
-                                        <option value="dre-bt" <?= $dre == 'dre-bt' ? "selected" : ''; ?>>DRE Butantã</option>
-                                        <option value="dre-cs" <?= $dre == 'dre-cs' ? "selected" : ''; ?>>DRE Capela do Socorro</option>
-                                        <option value="dre-cl" <?= $dre == 'dre-cl' ? "selected" : ''; ?>>DRE Campo Limpo</option>
-                                        <option value="dre-fb" <?= $dre == 'dre-fb' ? "selected" : ''; ?>>DRE Freguesia/Brasilândia</option>
-                                        <option value="dre-gn" <?= $dre == 'dre-gn' ? "selected" : ''; ?>>DRE Guaianases</option>
-                                        <option value="dre-ip" <?= $dre == 'dre-ip' ? "selected" : ''; ?>>DRE Ipiranga</option>
-                                        <option value="dre-it" <?= $dre == 'dre-it' ? "selected" : ''; ?>>DRE Itaquera</option>
-                                        <option value="dre-jt" <?= $dre == 'dre-jt' ? "selected" : ''; ?>>DRE Jaçanã/Tremembé</option>
-                                        <option value="dre-pe" <?= $dre == 'dre-pe' ? "selected" : ''; ?>>DRE Penha</option>
-                                        <option value="dre-pi" <?= $dre == 'dre-pi' ? "selected" : ''; ?>>DRE Pirituba</option>
-                                        <option value="dre-sa" <?= $dre == 'dre-sa' ? "selected" : ''; ?>>DRE Santo Amaro</option>
-                                        <option value="dre-sma" <?= $dre == 'dre-sma' ? "selected" : ''; ?>>DRE São Mateus</option>
-                                        <option value="dre-smi" <?= $dre == 'dre-smi' ? "selected" : ''; ?>>DRE São Miguel</option>
+                                        <?php
+                                        $params = array(
+                                            'post_type' => 'editores_portal',
+                                            'posts_per_page' => -1,
+                                            'orderby' => 'title',
+	                                        'order'   => 'ASC',
+                                        );
+                                        $grupos_dres = new \WP_Query( $params );
+
+                                        // The Loop
+                                        if ( $grupos_dres->have_posts() ) {
+                                            
+                                            while ( $grupos_dres->have_posts() ) {
+                                                $grupos_dres->the_post();
+                                            ?>
+                                                <option value="<?= get_the_ID(); ?>" <?= $dre == get_the_ID() ? "selected" : ''; ?>><?= get_the_title(); ?></option>                                            
+                                            <?php
+                                            }
+                                            
+                                        } 
+                                        /* Restore original Post Data */
+                                        wp_reset_postdata();
+                                        ?>                                        
                                     </select>
 
                                     <?php 
@@ -367,7 +401,7 @@ class Inscricoes extends Util{
                 
                 if($_POST['dre'] && $_POST['dre'] != ''){
                     $dre = $_POST['dre'];
-                    update_post_meta($pid, 'dre', $dre);
+                    update_post_meta($pid, 'dre_selected', $dre);
                 }
 
                 if($_POST['telefone_ue'] && $_POST['telefone_ue'] != ''){

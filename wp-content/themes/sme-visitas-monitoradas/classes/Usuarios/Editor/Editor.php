@@ -99,6 +99,7 @@ class Editor
 			$this->role_object->add_cap( 'edit_imagens' );
 			$this->role_object->add_cap( 'delete_imagens' );
 			$this->role_object->add_cap( 'assign_imagens' );
+			$this->role_object->add_cap( 'add_grupo' );
 
 		}
 	}

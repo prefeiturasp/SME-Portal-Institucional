@@ -2531,6 +2531,23 @@ function limit_events_group($query) {
 	//wp_reset_postdata();
 }
 
+// Filtra as unidades que grupo pertence
+add_filter('pre_get_posts', 'limit_groups');
+function limit_groups($query) {
+	if(is_admin() && in_array ( $query->get('post_type'), array('editores_portal') )){
+		
+		$user = wp_get_current_user();
+			
+		if($user->roles[0] != 'administrator'){		
+			// pega o grupo que o usuario pertence
+			$grupos = get_user_meta($user->ID, 'grupo');
+			$query->set( 'post__in', $grupos[0] );
+		}
+	}
+
+	return $query;
+}
+
 // Filtrar inscricoes por titulo ou Nome da UE
 if (!function_exists('extend_admin_search')) {
     add_action('admin_init', 'extend_admin_search');
@@ -2730,4 +2747,41 @@ function diaSemana($data){
 	$nomediadasemana = $diasdasemana[$diadasemana];
 
 	return $nomediadasemana;
+}
+
+add_action('acf/save_post', 'contador_onibus');
+function contador_onibus( $post_id ) {
+
+    // Get newly saved values.
+    $qtd = get_field( 'qtd_onibus', $post_id );
+	if($qtd && $qtd != ''){
+		update_field('qtd_disponivel', $qtd, $post_id);
+	}
+    
+}
+
+add_action('acf/save_post', 'subtrair_onibus', 5);
+function subtrair_onibus( $post_id ) {
+
+    $dre_selecionada = get_field( 'dre_selected', $post_id );
+	$transporte = $_POST['acf']['field_631b8e0d5a10c'];
+	$tipo_transporte = $_POST['acf']['field_6356d16b4c6d2'];
+	$old_status = get_field( 'status', $post_id );
+	$new_status = $_POST['acf']['field_63209d17c6acf'];
+
+	if(isset($old_status['value'])){
+		$old_status = $old_status['value'];
+	}
+
+    // Check if a specific value was updated.
+    if( $new_status == 'confirmada' && $old_status != 'confirmada' && $transporte && $tipo_transporte == 'dre') {
+        // Get the current value.
+		$count = (int) get_field('field_636be867c3e08', $dre_selecionada);
+
+		// Increase it.
+		$count--;
+
+		// Update with new value.
+		update_field('field_636be867c3e08', $count, $dre_selecionada);
+    }
 }

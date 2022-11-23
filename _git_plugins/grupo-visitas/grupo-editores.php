@@ -19,26 +19,29 @@ function wporg_custom_post_type() {
             'has_archive' => true,
 			'rewrite'     => array( 'slug' => 'editores_portal' ), // my custom slug
 			'capabilities' => array(
-				'edit_post'          => 'add_grupo',
-				'read_post'          => 'add_grupo',
-				'delete_post'        => 'add_grupo',
+				'edit_post'          => 'activate_plugins',
+				'read_post'          => 'activate_plugins',
+				'delete_post'        => 'activate_plugins',
 				'edit_posts'         => 'add_grupo',
-				'edit_others_posts'  => 'add_grupo',
-				'delete_posts'       => 'add_grupo',
-				'publish_posts'      => 'add_grupo',
-				'read_private_posts' => 'add_grupo'
+				'edit_others_posts'  => 'activate_plugins',
+				'delete_posts'       => 'activate_plugins',
+				'publish_posts'      => 'activate_plugins',
+				'read_private_posts' => 'activate_plugins',
+				'create_posts' => 'activate_plugins'
 			),
         )
     );
 }
-
 add_action('init', 'wporg_custom_post_type');
+
+
 
 // Controle de paginas permitidas
 function wpse_user_can_edit( $user_id, $page_id ) {
 
     // ID da pagina corrente da lista
     $page = get_post( $page_id );
+    $todasPaginas = array();
  	
     // pega as informacoes do usuario logado
     $user = wp_get_current_user($user_id);
@@ -55,7 +58,7 @@ function wpse_user_can_edit( $user_id, $page_id ) {
         // se estiverem na lista todas as paginas sao permitidas para edicao
         return true;
     }
-
+    $variable = array();
     // pega o grupo que o usuario pertence
     $variable = get_field('grupo', 'user_' . $user_id);
 
@@ -70,16 +73,20 @@ function wpse_user_can_edit( $user_id, $page_id ) {
 
     $liberar = 1;
 
-	if(in_array($liberar, $todasPaginas)){
+	if(in_array($liberar, $todasPaginas) && $todasPaginas != ''){
 		return true;
 	} else {	
         
         $permitidas = array();
+        
 
         $dres_open = array();
-        foreach($variable as $dre){
-            $dres_open[] = get_field('dre', $dre);
+        if($variable){
+            foreach($variable as $dre){
+                $dres_open[] = get_field('dre', $dre);
+            }
         }
+        
 
         $dres_open = array_flatten($dres_open);
         $dres_open = array_unique($dres_open);
@@ -91,7 +98,7 @@ function wpse_user_can_edit( $user_id, $page_id ) {
         //print_r($dre_publi);
         //echo "</pre>";
 
-        $result = array_merge($unidades, $id_pot);
+        //$result = array_merge($unidades, $id_pot);
 
         // se a pagina corrente esta na lista de paginas do grupo libera para edicao
         if( in_array($dre_publi, $dres_open) ||  in_array($dre_publi['value'], $dres_open)){
@@ -131,3 +138,43 @@ function wpse_user_can_edit( $user_id, $page_id ) {
     return $caps;
 
 }, 10, 4 );
+
+add_filter('manage_editores_portal_posts_columns', function($columns) {
+	$columns = array_merge($columns, ['qtd_total' => __('Total de ônibus', 'textdomain')]);
+	$columns = array_merge($columns, ['qtd_dispo' => __('Ônibus disponíveis', 'textdomain')]);    
+    return $columns;
+});
+ 
+add_action('manage_editores_portal_posts_custom_column', function($column_key, $post_id) {
+	if ($column_key == 'qtd_total') {
+		$qtd_total = get_post_meta($post_id, 'qtd_onibus', true);
+		echo $qtd_total;
+	}
+
+    if ($column_key == 'qtd_dispo') {
+		$qtd_disponivel = get_post_meta($post_id, 'qtd_disponivel', true);
+		echo $qtd_disponivel;
+	}
+}, 10, 2);
+
+add_action( 'admin_notices', 'export_bus' );
+function export_bus() {
+    global $typenow;
+    if ($typenow == 'editores_portal') {
+
+        global $_GET;        
+
+        ?>
+
+        <div class="alignright">
+            <form method='get' action="<?= get_template_directory_uri(); ?>/export-grupos.php">
+				<?php if($_GET['s'] && $_GET['s'] != ''): ?>
+					<input type="hidden" name="s" value="<?= $_GET['s']; ?>">
+				<?php endif; ?>				
+                <input type="submit" name='export' class="button button-primary button-large button-export" id="xlsxExport" value="Exportar"/>
+            </form>
+        </div>
+
+        <?php
+    }
+}
