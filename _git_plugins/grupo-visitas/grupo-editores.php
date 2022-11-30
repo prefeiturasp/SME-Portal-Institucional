@@ -119,6 +119,10 @@ function wpse_user_can_edit( $user_id, $page_id ) {
         if ($post->post_type == 'attachment'){
             return $caps;
         }
+
+        if ($post->post_type == 'transporte'){
+            return $caps;
+        }
     } 
 
     // capability atribuida
