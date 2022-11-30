@@ -2785,3 +2785,17 @@ function subtrair_onibus( $post_id ) {
 		update_field('field_636be867c3e08', $count, $dre_selecionada);
     }
 }
+
+// Duplicar conteudo de campos das Abas
+add_action('acf/save_post', 'duplicar_infos');
+function duplicar_infos($post_id) {
+	$endereco = $_POST['acf']['field_631b9732b6324'];
+    if($endereco){
+		update_field('endereco_ue_copia', $endereco, $post_id);
+	}
+
+	$data_hora = $_POST['acf']['field_631b8b3898ec4'];
+    if($data_hora){
+		update_field('data_horario_copia', $data_hora, $post_id);
+	}
+}
