@@ -66,3 +66,11 @@ div#categorias-contatodiv{
     min-height: 30px;
     line-height: 0.307692;
 }
+
+input#acf-field_63876e7de650f,
+#acf-field_6387c2be8a6c8{
+    pointer-events: none;
+    pointer-events: none;
+    color: #AAA;
+    background: #F5F5F5;
+}

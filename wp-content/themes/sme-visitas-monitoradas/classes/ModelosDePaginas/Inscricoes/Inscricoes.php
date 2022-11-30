@@ -413,6 +413,7 @@ class Inscricoes extends Util{
                     $data_hora = $_POST['data_hora'];
                     //$datetime1 = new \DateTime($data_hora);
                     update_post_meta($pid, 'data_horario', $data_hora);
+                    update_post_meta($pid, 'data_horario_copia', $data_hora);
 
                     $dh_select = explode(']', (explode('[', $_POST['data_hora'])[1]))[0];
                     update_post_meta($_GET['eventoid'], 'agenda_' . $dh_select . '_status', 'Esgotado');
@@ -446,6 +447,28 @@ class Inscricoes extends Util{
                 if($_POST['end_ue'] && $_POST['end_ue'] != ''){
                     $end_ue = $_POST['end_ue'];                    
                     update_post_meta($pid, 'endereco_ue', $end_ue);
+                    update_post_meta($pid, 'endereco_ue_copia', $end_ue);
+                }
+
+                $parceiro = get_field('parceiro', $_GET['eventoid']);                               
+
+                if($parceiro){
+                    $nomeParceiro = get_the_title($parceiro);
+                    $endParceiro = get_field('logradouro_parceiro', $parceiro);
+                    $numParceiro = get_field('numero_parceiro', $parceiro);
+                    $bairroParceiro = get_field('bairro_parceiro', $parceiro);
+
+                    $endereco = '';
+                    if($endParceiro)
+                        $endereco .= $endParceiro;
+
+                    if($numParceiro)
+                        $endereco .= ', ' . $numParceiro;
+
+                    if($bairroParceiro)
+                        $endereco .= ' - ' . $bairroParceiro;        
+                    
+                    update_post_meta($pid, 'end_destino', $endereco);
                 }
 
                 if($_POST['ponto_ue'] && $_POST['ponto_ue'] != ''){
