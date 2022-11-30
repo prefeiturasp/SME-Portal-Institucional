@@ -2798,4 +2798,9 @@ function duplicar_infos($post_id) {
     if($data_hora){
 		update_field('data_horario_copia', $data_hora, $post_id);
 	}
+
+	$responsavel = $_POST['acf']['field_631f2592a8d06'];
+    if($responsavel){
+		update_field('nome_responsavel_copia', $responsavel, $post_id);
+	}
 }
