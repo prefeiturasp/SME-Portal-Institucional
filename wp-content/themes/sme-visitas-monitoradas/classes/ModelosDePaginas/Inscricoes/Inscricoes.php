@@ -479,6 +479,7 @@ class Inscricoes extends Util{
                 if($_POST['nome_resp'] && $_POST['nome_resp'] != ''){
                     $nome_resp = $_POST['nome_resp'];                    
                     update_post_meta($pid, 'nome_responsavel', $nome_resp);
+                    update_post_meta($pid, 'nome_responsavel_copia', $nome_resp);
                 }
 
                 if($_POST['contato_resp'] && $_POST['contato_resp'] != ''){
