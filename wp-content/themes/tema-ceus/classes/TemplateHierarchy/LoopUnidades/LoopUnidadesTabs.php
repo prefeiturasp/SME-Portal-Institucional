@@ -154,6 +154,9 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                 $argsUnidades = array(
                                                     'post_type' => 'unidade',
                                                     'posts_per_page' => -1,
+                                                    'post__not_in' => array(31244, 31675),
+                                                    'orderby' => 'title',
+	                                                'order'   => 'ASC',
                                                 );
                 
                                                 $todasUnidades = new \WP_Query( $argsUnidades );
@@ -163,10 +166,15 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                     
                                                     while ( $todasUnidades->have_posts() ) {
                                                         $todasUnidades->the_post();
+                                                        
+                                                      
+                                                        $titulo = htmlentities(get_the_title());
+                                                        $seletor = explode (" &amp;", $titulo);
+
                                                         if($currentID == get_the_id() ) {
-                                                            echo '<option selected value="' . get_the_id() .'">' . get_the_title() .'</option>';
+                                                            echo '<option selected value="' . get_the_id() .'">' . $seletor[0] .'</option>';
                                                         } else {
-                                                            echo '<option value="' . get_the_id() .'">' . get_the_title() .'</option>';
+                                                            echo '<option value="' . get_the_id() .'">' . $seletor[0] .'</option>';
                                                         }
                                                         
                                                     }
