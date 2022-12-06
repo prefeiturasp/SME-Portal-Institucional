@@ -22,7 +22,7 @@ Template Name: Construtor
 global $post;
 $post_slug = $post->post_name;
 ?>
-<div id="<?php echo $post_slug; ?>" class="container-fluid corpo-construtor">
+<div id="<?php echo $post_slug; ?>" class="container-fluid corpo-construtor teste-bbb">
 	<div class="row">
 <?php
 //banner
@@ -161,7 +161,7 @@ if( have_rows('fx_flex_layout') ):
 								//botão centralizado
 								elseif( get_row_layout() == 'fx_fl1_botao_1_1' ): 
 									//conteudo flexivel Botão
-									echo "<div class='container'>";
+									echo "<div class='container AAAA'>";
 									if( have_rows('fx_botao_1_1') ):
 										echo '<div class="row mt-3 mb-3">';
 											while ( have_rows('fx_botao_1_1') ) : the_row();
@@ -224,7 +224,7 @@ if( have_rows('fx_flex_layout') ):
 										$categorias = get_sub_field('fx_categorias_1_1');
 									
 										foreach( $categorias as $categoria ):
-											$termo = get_term( $categoria, 'categoria_acervo' );
+											$termo = get_term( $categoria, 'categoria_acervo' );											
 											
 											$image = get_field('imagem_cat_acervo', $termo->taxonomy . '_' . $categoria);
 											if($image){
@@ -237,7 +237,7 @@ if( have_rows('fx_flex_layout') ):
 								?>
 											<div class="col-sm-4 cat-home cat-const mb-4">
 																					
-												<a href="<?php echo get_home_url() . '/?avanc=1&categ=1&s=&categoria_acervo=' .  $termo->term_id;?>">
+												<a href="<?php echo get_home_url() . '/?avanc=1&categ=1&s=&categ_acervo=' .  $termo->slug;?>">
 													<div style="background: url('<?php echo $image;?>'); background-size: cover;">
 														<div class="cat-home-inter">
 															<?php echo esc_html( $termo->name ); ?>	

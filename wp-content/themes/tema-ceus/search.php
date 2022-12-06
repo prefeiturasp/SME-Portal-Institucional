@@ -60,7 +60,7 @@
                         <div class="col-sm-3 mt-2 px-1">
                             <select name="atividades[]" multiple="multiple" class="ms-list-1" style="">
                                 <?php foreach($terms as $term): ?>
-                                    <option value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+                                    <option value="<?php echo $term->slug; ?>"><?php echo $term->name; ?></option>
                                 <?php endforeach; ?>                                                        
                             </select>
                         </div>
@@ -73,7 +73,7 @@
                         <div class="col-sm-3 mt-2 px-1">
                             <select name="publico[]" multiple="multiple" class="ms-list-3" style="">                        
                                 <?php foreach ($publicos as $publico): ?>
-                                    <option value="<?php echo $publico->term_id; ?>"><?php echo $publico->name; ?></option>
+                                    <option value="<?php echo $publico->slug; ?>"><?php echo $publico->name; ?></option>
                                 <?php endforeach; ?>                    
                             </select>
                         </div>
@@ -81,7 +81,7 @@
                         <div class="col-sm-3 mt-2 px-1">
                             <select name="faixaEtaria[]" multiple="multiple" class="ms-list-4" style="">                        
                                 <?php foreach ($faixas as $faixa): ?>
-                                    <option value="<?php echo $faixa->term_id; ?>"><?php echo $faixa->name; ?></option>
+                                    <option value="<?php echo $faixa->slug; ?>"><?php echo $faixa->name; ?></option>
                                 <?php endforeach; ?>                      
                             </select>
                         </div>
@@ -106,7 +106,7 @@
 										
 										while ( $todasUnidades->have_posts() ) {
 											$todasUnidades->the_post();
-											
+
 											$titulo = htmlentities(get_the_title());
 											$seletor = explode (" &amp;", $titulo);
 
@@ -193,7 +193,7 @@
 				
 				$args['tax_query'][] = array (
 					'taxonomy' => 'atividades_categories',
-					'field'    => 'term_id',
+					'field'    => 'slug',
 					'terms'    => $atividades,
 				);
 			}
@@ -203,7 +203,7 @@
 				
 				$args['tax_query'][] = array (
 					'taxonomy' => 'atividades_categories',
-					'field'    => 'term_id',
+					'field'    => 'slug',
 					'terms'    => $atividadesInternas,
 				);
 			}
@@ -213,7 +213,7 @@
 				
 				$args['tax_query'][] = array (
 					'taxonomy' => 'publico_categories',
-					'field'    => 'term_id',
+					'field'    => 'slug',
 					'terms'    => $publico,
 				);
 
@@ -227,7 +227,7 @@
 				
 				$args['tax_query'][] = array (
 					'taxonomy' => 'faixa_categories',
-					'field'    => 'term_id',
+					'field'    => 'slug',
 					'terms'    => $faixaEtaria,
 				);
 			}
@@ -506,7 +506,7 @@
 											//$thumbnail_id = get_post_thumbnail_id( $eventoInterno->ID );
 											$alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
 										} else {
-											$imgEvento = get_template_directory_uri().'/img/placeholder_portal_ceus.jpg';
+											$imgEvento = get_template_directory_uri().'/img/placeholder_portal_ceus.jpg';;
 											$alt = get_the_title();
 										}
 									?>
@@ -682,7 +682,10 @@
 
 												} else {
 													$dataFinal = 'Múltiplas Datas';
-												}												
+												}
+
+												
+												
 											}
 										?>
 										<p class="mb-0">

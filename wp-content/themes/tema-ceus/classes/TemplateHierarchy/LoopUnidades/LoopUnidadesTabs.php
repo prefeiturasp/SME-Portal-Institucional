@@ -116,7 +116,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                         <label for="atividades" class='d-none'>Selecione as atividades</label>
                                         <select id="atividades" name="atividades[]" multiple="multiple" class="ms-list-1" style="">
                                             <?php foreach($terms as $term): ?>
-                                                <option value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+                                                <option value="<?php echo $term->slug; ?>"><?php echo $term->name; ?></option>
                                             <?php endforeach; ?>                                                        
                                         </select>
                                     </div>
@@ -131,7 +131,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                         <label for="publico" class='d-none'>Selecione o publico</label>        
                                         <select id="publico" name="publico[]" multiple="multiple" class="ms-list-3" style="">                        
                                             <?php foreach ($publicos as $publico): ?>
-                                                <option value="<?php echo $publico->term_id; ?>"><?php echo $publico->name; ?></option>
+                                                <option value="<?php echo $publico->slug; ?>"><?php echo $publico->name; ?></option>
                                             <?php endforeach; ?>                    
                                         </select>
                                     </div>
@@ -140,7 +140,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                         <label for="faixaEtaria" class='d-none'>Selecione a faixa etária</label>
                                         <select id="faixaEtaria" name="faixaEtaria[]" multiple="multiple" class="ms-list-4" style="">                        
                                             <?php foreach ($faixas as $faixa): ?>
-                                                <option value="<?php echo $faixa->term_id; ?>"><?php echo $faixa->name; ?></option>
+                                                <option value="<?php echo $faixa->slug; ?>"><?php echo $faixa->name; ?></option>
                                             <?php endforeach; ?>                      
                                         </select>
                                     </div>
@@ -166,8 +166,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                     
                                                     while ( $todasUnidades->have_posts() ) {
                                                         $todasUnidades->the_post();
-                                                        
-                                                      
+
                                                         $titulo = htmlentities(get_the_title());
                                                         $seletor = explode (" &amp;", $titulo);
 
@@ -364,9 +363,9 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                                 foreach($listaAtividades as $atividade){
                                                                     $k++;
                                                                     if($k == 1){
-                                                                        $showAtividades .= '<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
+                                                                        $showAtividades .= '<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term_by( 'slug', $atividade, 'atividades_categories' )->name . "</a>";
                                                                     } else {
-                                                                        $showAtividades .= ' ,<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
+                                                                        $showAtividades .= ' ,<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term_by( 'slug', $atividade, 'atividades_categories' )->name . "</a>";
                                                                     }
                                                                 }
                                                             ?>
