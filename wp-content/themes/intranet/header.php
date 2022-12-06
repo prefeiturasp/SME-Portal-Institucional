@@ -252,9 +252,7 @@ use Classes\Header\Header;
                             <?php 
                                 $user = wp_get_current_user();
                                 $profileLink = get_home_url() . '/index.php/perfil';
-                                if(current_user_can('administrator'))
-                                    $profileLink = get_home_url() . '/wp-admin/profile.php';
-                                
+                                                                
                                 $name = explode(" ", $user->data->display_name);
                                 $displayName = $name[0];
                                 if($name[1] && $name[1] != '')
