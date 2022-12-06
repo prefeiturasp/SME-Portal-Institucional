@@ -12,6 +12,42 @@ class PaginaUnidadesMapa
 	public function getMapa(){
         
     ?>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 offset-md-8 select-unidades">
+                    <?php
+                        echo '<div class="form-group">
+                        <select class="form-control" name="forma" onchange="location = this.value;">
+                            <option disabled selected value> Ir para a página da unidade </option>';
+                            
+                                $argsUnidades = array(
+                                    'post_type' => 'unidade',
+                                    'posts_per_page' => -1,
+                                    'orderby' => 'title',
+                                    'order' => 'ASC',
+                                    'post__not_in' => array(31244),
+                                );
+
+                                $todasUnidades = new \WP_Query( $argsUnidades );
+        
+                                // The Loop
+                                if ( $todasUnidades->have_posts() ) {
+                                    
+                                    while ( $todasUnidades->have_posts() ) {
+                                        $todasUnidades->the_post();
+                                        echo '<option value="' . get_the_permalink() .'">' . get_the_title() .'</option>';
+                                    }
+                                
+                                }
+                                wp_reset_postdata();
+                            
+                            echo '</select>
+                        </div>';
+                    ?>
+                
+                </div>
+            </div>
+        </div>
         <div class="container mb-5">
             <div class="row m-0">
                 <div class="col-sm-4 p-0 p-list">
@@ -110,9 +146,9 @@ class PaginaUnidadesMapa
                                 $numero = get_group_field( 'informacoes_basicas', 'numero', get_the_id() );
                                 $bairro = get_group_field( 'informacoes_basicas', 'bairro', get_the_id() );
                                 $cep = get_group_field( 'informacoes_basicas', 'cep', get_the_id() );
-                                $emails = get_group_field( 'informacoes_basicas', 'email', get_the_id() );                                
+                                $emails = get_group_field( 'informacoes_basicas', 'email', get_the_id() );
                                 $tels = get_group_field( 'informacoes_basicas', 'telefone', get_the_id() );
-                                                            
+                                
                                 echo '<li>
                                         <a href="#map" class="story" onclick="alerta(this)" data-point="' . $latitude . ',' . $longitude . '">
                                         <p class="unidades-title">' . get_the_title() . '</p>
@@ -120,7 +156,10 @@ class PaginaUnidadesMapa
                                         <p>' . nomeZona($zona) . ' • ' . $endereco . ', '. $numero .' - ' . $bairro . ' - CEP: ' . $cep . '</p>
                                         <p>
                                             <a href="mailto:' . $emails['email_principal'] .'">' . $emails['email_principal'] .'</a><br>
-                                            <a href="tel:' . clearPhone($tels['telefone_principal']) . '">' . $tels['telefone_principal'] .'</a>
+                                            <div class="d-flex justify-content-between">
+                                                <a href="tel:' . clearPhone($tels['telefone_principal']) . '">' . $tels['telefone_principal'] .'</a>
+                                                <a href="' . get_the_permalink() . '">Ir para a página <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                                            </div>
                                         </p>
                                       </li>';
                             }

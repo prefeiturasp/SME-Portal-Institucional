@@ -337,7 +337,7 @@ class Util
 
 
 				<article class="row" id="conteudo">
-					<article class="col-lg-9 col-xs-12">
+					<article class="col-lg-12 col-xs-12 editor-content">
 						<?php echo $this->getSubtitulo($this->page_id)?>
 						<?php the_content(); ?>
 					</article>

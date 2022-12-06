@@ -1,1218 +1,493 @@
 <?php get_header(); ?>
-<?php
-	global $no_search_results; 
+    <div class="container">
+        <div class="row">
+			<?php if($_GET['s'] && $_GET['s'] != ''): ?>
 
-	//verifica se a busca nao esta vazia
-	if(!$no_search_results): ?>
+				<div class="col-md-8 mb-4">
 
-	<div class="inicio aaa" style="display:none;">
-	<?php
-
-	$GLOBALS['z'] = 0;
-	//config número de posts
-	$GLOBALS['paginacao'] = 10;
-	$GLOBALS['arrayVerId'] = array();
-		function busca_multisite()
-		{
-			function tirarAcentos($string){
-			$comAcentos = array('à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ü', 'ú', 'ÿ', 'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'O', 'Ù', 'Ü', 'Ú');
-			$semAcentos = array('a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'u','u', 'u', 'y', 'A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'N', 'O', 'O', 'O', 'O', 'O', '0','U', 'U', 'U');
-
-			return str_replace($comAcentos, $semAcentos, $string);
-	}		
-
-			
-			
-			
-		$termo_buscado = get_search_query(); //termo da busca
-			$z = 0;
-			function alert($oque) {
-				echo '<script>alert("'.$oque.'");</script>';
-			}
-		
-		$arrayO = array('post','page','programa-projeto','card');  //pega todos tipos de post (inclusive indesejáveis, então precisa excluir, no array $excluidos)
-		$paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
-		$termo_buscado = isset($_GET['s']) ? $_GET['s'] : ''; 
-		$periodo = isset($_GET['periodo']) ? $_GET['periodo'] : '';
-		$tipoconteudo = isset($_GET['tipoconteudo']) ? substr(($_GET['tipoconteudo']), 0, -1) : $arrayO;
-		$categoria = isset($_GET['category']) ? $_GET['category'] : '';
-		$ano = isset($_GET['ano']) ? $_GET['ano'] : '';
-		$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-		$quaissites = isset($_GET['site']) ? $_GET['site'] : '';
-		
-			if($ano != '') {
-				$quetipodedata =  array(
-			'relation' => 'AND',
-			array('year' => intval($ano)),
-			array('year' => intval($ano)),
-		);
-			}
-			else {
-				$quetipodedata = array(
-				'after'     => $periodo.' hours ago',
-				'inclusive' => true,
-			);
-			}
-			
-			
-			
-		if($quaissites == '')
-		$arraysites = array('1','2','3','4','5','6','7'); //array dos sites disponíveis
-		else 
-		$arraysites = array($quaissites);
-			
-			//echo get_search_query();
-			//echo $termo_buscado;
-			if (!$tipoconteudo) 
-				$tipoconteudo = $arrayO;
-			
-			
-			
-
-			
-		$sites = array(
-			's' => $s,
-			'post_status'    => 'publish',
-			'sentence' => false,
-			'site__in' => $arraysites,
-			//informa a lista de sites que deseja ter nos resultados da busca
-			'paged' => $paged,
-			'orderby' => ['post_type' => 'ASC','id'=>'ASC','date' => 'DESC'],
-			'public' => 'true',
-			'posts_per_page' => -1, //utilizado para uma função custom de paginação fora do wordpress
-			'date_query' => $quetipodedata,
-		
-		
-			'post_type' => ($tipoconteudo),
-			'category_name' => $categoria
-		);
-			//aqui ultimo
-			//var_dump($tipoconteudo);
-		
-			$GLOBALS['i'] = 0;
-			
-			// mudar a ordem dos sites (descomentar abaixo para verificar order atual)
-			//print("<pre>".print_r(get_sites($sites),true)."</pre>");
-			if($quaissites == '') {
-			$sitesNovaOrdem =  array();
-			$arraySitee = get_sites($sites);
-			
-			//nova ordem relativa aos sites
-			array_push(
-				$sitesNovaOrdem,
-				$arraySitee[0],//Portal SME
-				$arraySitee[3],//DRE
-				$arraySitee[4]//Conselho
-				//$arraySitee[0],//portal SME
-				//$arraySitee[3],//DRE
-				//$arraySitee[4],//Conselho
-				//$arraySitee[6],//portal SME
-			);
-			}
-			else
-				$sitesNovaOrdem = get_sites($sites);
-				//verifica a nova ordem
-			///////print("<pre>".print_r(($sitesNovaOrdem),true)."</pre>");
-			if($_GET['s'] == '' && !isset($_GET['tipoconteudo']) == 1) {
-				echo "<div style='text-align:left'><p>Nenhum termo foi digitado.</p> <p>faça uma nova pesquisa ou navegue abaixo em nossas ultimas noticias.</p></div>";
-			}
-
-						//aqui
-			$anosArray = array();
-		
-			//aqui2 inicio
-			foreach (($sitesNovaOrdem) as $blog) {
-			
-			
-	if(strlen($_GET['s']) <= 2){ break; }   
-				switch_to_blog($blog->blog_id);
-
-				$busca_geral = new WP_Query($sites);
-				//echo "passei";
-		
-			//print("<pre>".print_r($busca_geral,true)."</pre>");
-
-
-				if ($busca_geral->have_posts()) {
-					//começo aqui
-		
-				
-					while ($busca_geral->have_posts()) {
-						$busca_geral->the_post();
-						//echo get_the_title() . "<br>";
-						
-											/*     echo '<script>alert("'.ceil($GLOBALS['i']/$GLOBALS['paginacao']).'")</script>'; */
-
-				if (!in_array(get_the_guid(), $GLOBALS['arrayVerId']))
-	{
-					
-	$search = tirarAcentos($termo_buscado);					
-	$conta = false;
-	array_push($GLOBALS['arrayVerId'],get_the_guid());
-	$titulo = tirarAcentos(get_the_title());
-	$descricao = tirarAcentos(get_the_excerpt());
-	$conteudo = tirarAcentos(get_the_content());					
-	$post_tags = get_the_tags();
-	$stringTags = '';
-						
-	if ( $post_tags ) {
-		foreach( $post_tags as $tag ) {
-		
-			
-		
-			$stringTags.= $tag->name;
-		}
-		
-	}
-			
-	if($titulo != '' && $termo_buscado != '') {
-
-		if(preg_match_all("/\b(" . $searchSai . ")\b/", $titulo) ||
-		preg_match_all("/\b(" . $searchSai . ")\b/", $descricao	) ||
-		preg_match_all("/\b(" . $searchSai . ")\b/", $conteudo		) ||
-		preg_match_all("/\b(" . $searchSai . ")\b/", $stringTags	) ||
-
-		preg_match("/{$search}/i", $titulo) ||
-		preg_match("/{$search}/i", $descricao	) ||
-		preg_match("/{$search}/i", $conteudo		) ||
-		preg_match("/{$search}/i", $stringTags	)) 
-		{
-		$GLOBALS['i']++;
-		}
-				
-	} else {
-	$GLOBALS['i']++;
-	}
-
-
-	if($GLOBALS['i'] > ($GLOBALS['paginacao'] * ($pagina-1)) and ($GLOBALS['i'] <= ($GLOBALS['paginacao'] * ($pagina)) ))
-	{
-
-		$post_date = get_the_date( 'Y' );
-		$anoCheck = get_the_date( 'Y' ) == $ano ? null : 'dnones'; 		
-
-		$temTermo = (strlen($termo_buscado) >= 1 ? true : false) ;
-								$a = 1;
-					if($a == 1)	
-					{		   
-						
-	if($temTermo)						
-	$search = tirarAcentos($termo_buscado);
-	else
-	$search = '';
-
-	//echo $search;
-
-	$searchEnt = explode(" ", $search);
-	$searchSai = implode("|",$searchEnt);
-
-	 
-
-	//echo $searchSai . "<br>";
-						
-	$esseTemSearch = false;
-
-						
-		if( 
-			preg_match("/{$search}/i", $titulo) ||
-			preg_match("/{$search}/i", $descricao	) ||
-			preg_match("/{$search}/i", $conteudo ) ||
-			preg_match("/{$search}/i", $stringTags ) ||
-			preg_match_all("/\b(" . $searchSai . ")\b/", $titulo) ||
-			preg_match_all("/\b(" . $searchSai . ")\b/", $descricao	) ||
-			preg_match_all("/\b(" . $searchSai . ")\b/", $conteudo	) ||
-			preg_match_all("/\b(" . $searchSai . ")\b/", $stringTags )
-		) 
-		{
-			
-			/* if(preg_match("/{$search}/i", $titulo	 )  )   echo 'titulo' ;
-			if(preg_match("/{$search}/i", $descricao)	)  echo 'descricao';
-			if(preg_match("/{$search}/i", $conteudo	))  echo $conteudo;
-			if(preg_match("/{$search}/i", $stringTags)	)  echo 'stringTags' ; */
-			
-			
-				$esseTemSearch = true;
-				$umadiante = true;
-				
-		}
-		else {
-		/*	$GLOBALS['i']--;  */
-		/*	echo 'menosmenos'; */
-		//echo $conteudo . "<br>";
-		
-		}
-
-				
-						
-						if($esseTemSearch == false){
-						
-							continue;
-							echo '<div class="postagemX dnone '.$GLOBALS['i'].'" >';						
-							//echo "<script>alert('$titulo')</script>";
-						
-							}
-						else {
-						
-							echo '<div class="postagemX '.$GLOBALS['i'].'">';
-							$umadiante = true;
-				
-						}
-					
-					}
-		?>
-
-					<div>
-					<div class="row">
-							<div class="col-sm-4">
-								<?php
-								$esseTemSearch = true;
-								if (has_post_thumbnail() != '') {
-									echo '<figure class="">';
-									the_post_thumbnail('medium', array(
-										'class' => 'img-fluid rounded float-left'
-									));
-									echo '</figure>';
-								} else {
-								
-								if($esseTemSearch == true){ ?>
-								
-									<figure>
-										<img class="img-fluid rounded float-left" src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/06/placeholder-sme.jpg" width="100%">
-									</figure>
-								<?php
-								}
-									else {
-										?>
-								
-									<figure>
-										<img class="img-fluid rounded float-left" srcsetX="" width="100%">
-									</figure>
-								<?php
-									}
-										
-								}
-								?>
-							</div>
-							<div class="col-sm-8">
-								<h2><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></h2>
-								<?php /*?><p><?php the_content();?></p><?php */?>   <!--Mostra conteudo-->
-								<p><?php the_excerpt();?></p>   <!--Mostra resumo-->
-								<?php /*?><p><?php the_field('insira_o_subtitulo');?></p><?php */?>   <!--Subtitulo ACF-->
-								
-								
-								<?php
-								if(get_the_tags() != null){
-									echo'<strong>Tag(s): </strong>';
-									$posttags = get_the_tags();
-									if ($posttags) {
-									foreach($posttags as $tag) {
-										echo '<a href="?s='.$tag->name.'" style="color:white" class="tagcolor">' .$tag->name . '</a> '; 
-									}
-									}
-									echo'<br>';
-								}
-								?>
-								
-								<?php
-								if(get_post_type() != ''){
-									?>
-								<strong>Tipo:</strong> <span class="tagcolor"><?php $tipopost = get_post_type();
-									if( $tipopost == "post" ) echo  'Notícia';
-									if( $tipopost == "programa-projeto" ) echo  'Página';
-									if( $tipopost == "card" ) echo  'página';
-									if( $tipopost == "page" ) echo  'Página'; ?>
-								</span><br>
-								<?php
-								}
-								?>
-	
-								<?php /*?><span><strong>Categoria(s):</strong> <?php
-								foreach (get_the_category() as $category) {
-										echo  $category->name.", ";
-									}
-								?></span><br><?php */?>
-								
-								<span><strong>Publicado em:</strong> <?php the_time('d/m/Y G\hi'); ?> </span> -
-
-								<span><strong>Site:</strong>
-									<a href="<?php echo get_site_url(); ?>">
-										<?php echo get_bloginfo('description');?>
-									</a>
-								</span><br>
-								<!--<span>na categoria: <?php // get_the_category(  )[0]->name; ?></span>-->
-
-							</div>
-
-						</div>
-	<hr>
-					</div>
-	</div>
-				<?php
-				
-							}
-							if($esseTemSearch == false){
-								
-							}
-						
-					
-						}
-						}
-				
-				}
-	
-				//fim
-				else {
-					if($GLOBALS['i'] = 0)
-					echo 'Não foi encontrado resultado para a pesquisa:' . '' . '"' . $termo_buscado . '"';
-
-					break;
-				}
-				
-				?>
-		
-		<?php restore_current_blog();
-			}
-		
-			//mescla as querys	
-		function merge_querystring($url = null,$query = null,$recursive = false){ 
-			if($url == null)
-			return false;
-			if($query == null)
-			return $url;
-
-			$url_components = parse_url($url);
-
-			if(empty($url_components['query']))
-			return $url.'?'.ltrim($query,'?');
-
-			parse_str($url_components['query'],$original_query_string);
-			parse_str(parse_url($query,PHP_URL_QUERY),$merged_query_string);
-			if($recursive == true)
-			$merged_result = array_merge_recursive($original_query_string,$merged_query_string);
-			else
-			$merged_result = array_merge($original_query_string,$merged_query_string);
-			return str_replace($url_components['query'],http_build_query($merged_result),$url);
-		}
-
-
-	?>
-
-	<?php 
-
-
-	?>
-	<div style="width:100%;text-align: center;">
-		<div class="pagination <?=ceil($GLOBALS['i']/$GLOBALS['paginacao']) > 1 && $GLOBALS['i'] !== $GLOBALS['paginacao'] ? 'ok' : 'dnone';?>">
-			<a href="" class="anterior <?=$pagina > 1 ? 'ok' : 'dnone';?>">Anterior</a><!--Ir para o anterior-->
-			<a class="paginationA " href="#">&laquo;</a><!--Ir para o primeiro-->
-			<a class="paginationB <?=$pagina >= 1 ? 'ok' : 'dnone';?>" href="<?=$pagina - 2;?>"><?=$pagina - 2;?></a>
-			<a class="paginationB <?=$pagina >= 2 ? 'ok' : 'dnone';?>" href="<?=$pagina - 1;?>"><?=$pagina - 1;?></a>
-			<a class="paginationA <?=ceil($GLOBALS['i']/$GLOBALS['paginacao']) > $pagina + 0 ? 'ok' : 'dnone';?>" href=""></a>
-			<a class="paginationA " href="<?=$pagina;?>"></a>
-			<a class="paginationA <?=ceil($GLOBALS['i']/$GLOBALS['paginacao']) > $pagina + 0 ? 'ok' : 'dnone';?>" href=""></a>
-			<a class="a paginationA <?=ceil($GLOBALS['i']/$GLOBALS['paginacao']) > $pagina + 1 ? 'ok' : 'dnone';?>"  href=""></a>
-			<a class="b paginationA <?=ceil($GLOBALS['i']/$GLOBALS['paginacao']) > $pagina + 2 ? 'ok' : 'dnone';?>"  href=""></a>
-			<a class="c paginationA <?=ceil($GLOBALS['i']/$GLOBALS['paginacao']) > $pagina + 3 ? 'ok' : 'dnone';?>"  href=""></a>
-
-			<a class="d paginationA" href="">»</a><!--Ir para o ultimo-->
-			<a href="" class="proximo <?=$pagina != ceil($GLOBALS['i']/$GLOBALS['paginacao'])  ? 'ok' : 'dnone';?>">Próximo</a><!--Ir para o próximo-->
-		</div>
-	</div>
-	<script>
-	function replaceQueryParam(param, newval, search) {
-	var regex = new RegExp("([?;&])" + param + "[^&;]*[;&]?");
-	var query = search.replace(regex, "$1").replace(/&$/, '');
-
-	return (query.length > 2 ? query + "&" : "?") + (newval ? param + "=" + newval : '');
-	}
-
-	jQuery('.anterior').eq(0).attr('href',replaceQueryParam('pagina', <?=$pagina-1; ?>  , window.location.search));
-	jQuery('.proximo').eq(0).attr('href',replaceQueryParam('pagina', <?=$pagina+1; ?>  , window.location.search));
-
-	jQuery('.paginationB').eq(0).attr('href',replaceQueryParam('pagina', <?=$pagina-2; ?>  , window.location.search)).text(<?=$pagina - 2; ?>);
-	jQuery('.paginationB').eq(1).attr('href',replaceQueryParam('pagina', <?=$pagina-1; ?>  , window.location.search)).text(<?=$pagina - 1; ?>);
-	jQuery('.paginationB').eq(2).attr('href',replaceQueryParam('pagina', <?=$pagina; ?>  , window.location.search)).text(<?=$pagina; ?>);
-	jQuery('.paginationA').eq(0).attr('href',replaceQueryParam('pagina', 1, window.location.search));
-	jQuery('.paginationA').eq(1).attr('href',replaceQueryParam('pagina', <?=$pagina; ?>  , window.location.search)).text(<?=$pagina; ?>);
-
-	jQuery('.paginationA').eq(2).attr('href',replaceQueryParam('pagina', <?=$pagina+1 <= ceil($GLOBALS['i']/$GLOBALS['paginacao']) ? $pagina+1 : $pagina; ?>, window.location.search)).text(<?=$pagina+1 <= ceil($GLOBALS['i']/$GLOBALS['paginacao']) ? $pagina+1 : $pagina; ?>);
-	jQuery('.paginationA').eq(3).attr('href',replaceQueryParam('pagina', <?=$pagina+2; ?>, window.location.search)).text(<?=$pagina+2; ?>);
-	<?php if( $GLOBALS['i']/$GLOBALS['paginacao'] >= $pagina+2) { ?>
-		jQuery('.paginationA').eq(4).attr('href',replaceQueryParam('pagina', <?=$pagina+3; ?>, window.location.search)).text(<?=$pagina+3; ?>);
-	<?php } 
-		else 
-			echo "jQuery('.paginationA').eq(4).hide();";
-		?>
-		jQuery('.paginationA').eq(5).attr('href',replaceQueryParam('pagina', <?=ceil($GLOBALS['i']/$GLOBALS['paginacao']); ?>, window.location.search)).text(<?=ceil($GLOBALS['i']/$GLOBALS['paginacao']); ?>);
-
-	jQuery('.paginationA').eq(6).attr('href',replaceQueryParam('pagina', <?=ceil($GLOBALS['i']/$GLOBALS['paginacao']); ?>, window.location.search));
-
-	jQuery('.paginationB').eq(0).text() < 1 ? jQuery('.paginationB').eq(0).remove() : null
-	jQuery('.paginationB').eq(1).text() < 1 ? jQuery('.paginationB').eq(1).remove() : null
-	jQuery('.paginationA').eq(3).text() > <?=ceil($GLOBALS['i']/$GLOBALS['paginacao']); ?> ? jQuery('.paginationA').eq(3).remove() : null
-	jQuery('.paginationA').eq(6).text() == '' ? jQuery('.paginationA').eq(6).remove() : null
-
-	jQuery('.paginationA').last().attr('href',replaceQueryParam('pagina', <?=ceil($GLOBALS['i']/$GLOBALS['paginacao']); ?>, window.location.search));			
-
-		jQuery('.paginationA').eq(1).attr('href',replaceQueryParam('pagina', <?=$pagina; ?>  , window.location.search)).text(<?=$pagina; ?>);
-
-		jQuery('.paginationA').eq(1).attr('href',replaceQueryParam('pagina', <?=$pagina; ?>  , window.location.search)).text(<?=$pagina; ?>);
-
-	</script>
-
-	<?php
-
-
-			//fim
-			
-				}					
-
-		?>
-
-
-		<div  class="container ">
-
-			<div class="row">
-
-				<div class="col-12">
 					<?php
-						$contador = 0;
+						$sites = array();
+						$allResults = array();
+						$i = 0;
 
-						// Filtro Categoria
-						if($_GET['category'] && $_GET['category'] != ''){
-							$contador++;
+						// Pega o site atual
+						$siteAtual[] = get_current_blog_id();
+
+						$allSites = array();
+						$allSites[] = 1; // Portal
+						$allSites[] = 8; // DRE Butanta
+						$allSites[] = 20; // DRE Campo Limpo
+						$allSites[] = 9; // DRE Capela Socorro
+						$allSites[] = 10; // DRE Freguesia
+						$allSites[] = 11; // DRE Guainases
+						$allSites[] = 12; // DRE Ipiranga
+						$allSites[] = 13; // DRE Itaquera
+						$allSites[] = 14; // DRE Jacana
+						$allSites[] = 15; // DRE Penha
+						$allSites[] = 16; // DRE Pirituba
+						$allSites[] = 17; // DRE Santo Amaro
+						$allSites[] = 18; // DRE Sao Mateus
+						$allSites[] = 19; // DRE Sao Miguel
+						$allSites[] = 5; // CME
+						$allSites[] = 4; // CAE
+						$allSites[] = 6; // CACSFUNDEB
+						$allSites[] = 7; // CRECE
+
+						// remove o site atual da listagem
+						$diff = array_diff( $allSites, $siteAtual );
+											
+						// Inclui o site atual como primeiro da lista
+						$sites[] = (object) array('blog_id' => $siteAtual[0]);
+
+						// Nova ordenacao de sites
+						foreach($diff as $site){
+							$sites[] = (object) array('blog_id' => $site);
 						}
 
-						// Filtro Tipo Conteudo
+						//echo "<pre>";
+						//print_r($sites);
+						//echo "</pre>";
+
+						$types = array('page', 'programa-projeto', 'card', 'post');
+
+						$contBusca = array(
+							'portal' => 1,
+							'dre-butanta' => 8,
+							'dre-campo-limpo' => 20,
+							'dre-capela-socorro' => 9,
+							'dre-freguesia-brasilandia'	=> 10,
+							'dre-guaianases' => 11,
+							'dre-ipiranga' => 12,
+							'dre-itaquera' => 13,
+							'dre-jacana-tremembe' => 14,
+							'dre-penha' => 15,
+							'dre-pirituba' => 16,
+							'dre-santo-amaro' => 17,
+							'dre-sao-mateus' => 18,
+							'dre-sao-miguel' => 19,
+							'cme-conselho' => 5,
+							'cae-conselho' => 4,
+							'cacsfundeb' => 6,
+							'crece' => 7,
+						);
+
 						if($_GET['tipoconteudo'] && $_GET['tipoconteudo'] != ''){
-							$contador++;
+							$arr = preg_split('/(?<=[a-z])(?=[0-9]+)/i', $_GET['tipoconteudo']);
+							if(is_user_logged_in()){
+								//print_r($arr);
+							}
+							if(str_contains($arr[0], 'pagina')){
+								$types = array('page', 'programa-projeto', 'card');
+							} elseif(str_contains($arr[0], 'noticia')) {
+								$types = array('post');
+							}
+							$sites = array();                      
+							$sites[] = (object) array('blog_id' => $arr[1]);
 						}
 
-						// Filtro Periodo
-						if($_GET['periodo'] && $_GET['periodo'] != ''){
-							$contador++;
-						}
-
-						// Filtro Ano
-						if($_GET['ano'] && $_GET['ano'] != ''){
-							$contador++;
-						}
-
-						// Filtro Site
 						if($_GET['site'] && $_GET['site'] != ''){
-							$contador++;
+							$sites = array();                      
+							$sites[] = (object) array('blog_id' => $contBusca[$_GET['site']]);
 						}
-					?>
-					<button type="button" class="btn btn-outline-primary btn-avanc-f btn-avanc btn-avanc-m d-lg-none d-xl-none b-0" data-toggle="modal" data-target="#filtroBusca">
-						<i class="fa fa-filter" aria-hidden="true"></i> Filtrar 
-						<?php if($contador > 0): ?>
-							<span class="badge badge-primary"><?php echo $contador; ?></span>
-						<?php endif; ?>
-					</button>
 
-					<div class="modal right fade show" id="filtroBusca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-modal="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
+						foreach ( $sites as $site ) {
+							
+							switch_to_blog( $site->blog_id );
 
-								<div class="modal-header">
-									<p class="modal-title" id="myModalLabel2">Refine a sua busca:</p>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>				
-								</div>
+							if(isset($_GET['s'])):
+									$query = $_GET['s'];
 
-								<div class="modal-body">
-									<div class="acord-busca my-3">
-										<span class="filtro-busca">
-											<form name="filtrosMobile" method="get" action="">
+									
+									foreach($types as $type){
+										
+										$args = array( 
+											's' => $query,
+											'posts_per_page' => -1,
+											'post_type' => $type,
+											'post_status' => 'publish',
+											'orderby' => 'relevance',
+											//'order'   => 'DESC',
+											//'sentence' => true,
+											//'exact'     => true,
+										);
 
-												<div class="form-group">
-													<label for="usr"><strong>Busque por um termo</strong></label>
-													<input class='form-control' type='text' name="s" placeholder='Buscar' value="<?=$_GET['s']?>"></input>
-													
-													<input id="enviar-busca-home" name="enviar-busca-home" type="hidden" class="btn btn-outline-secondary bt-search-topo" value="Buscar"> </input>
-													
-												</div>												
+										if($_GET['periodo'] && $_GET['periodo'] != ''){
+											$periodo = $_GET['periodo'];
+											if($periodo === '1'){
+												$args['date_query'] = array(
+													'after'     => '1 hour ago'
+												);
+											} elseif($periodo === '24'){
+												$args['date_query'] = array(
+													'after'     => '1 day ago'
+												);
+											} elseif($periodo === '168'){
+												$args['date_query'] = array(
+													'after'     => '1 week ago'
+												);
+											} elseif($periodo === '5040'){
+												$args['date_query'] = array(
+													'after'     => '1 month ago'
+												);
+											} elseif($periodo === '1839600'){
+												$args['date_query'] = array(
+													'after'     => '1 year ago'
+												);
+											}
+										}
 
-												<div class="form-group">
+										if($_GET['ano'] && $_GET['ano'] != ''){
+											$args['date_query'] = array(
+												'year'     => $_GET['ano'],
+											);
+										}
 
-													<label for="sel1"><strong>Filtre por tipo de conteúdo</strong></label>
+										// Incluir subtitulo da busca de noticias
+										
+										if($type == 'post'){
+											$args['s_meta_keys'] = array('insira_o_subtitulo');
+										}
+							
+										$the_query = new WP_Query( $args );
+										
 
-
-
-													<select name="tipoconteudo" onchange="jQuery('#sel3sites').val(event.target.value.slice(-1))" class="form-control" id="sel1cm">
-
-														<?php
-														$select = array();
-														$selectSaida = array();
-														$current = get_current_site();
-														echo  "<option value=''>Selecione o tipo</option>";
-														//pega todos tipos de post (inclusive indesejáveis, então precisa excluir, no array abaixo)
-													
-														$blogs = get_blog_list(0, 'all');
-													
-														//pega todos tipos de post (inclusive indesejáveis, então precisa excluir, no array $excluidos)
-														$excluidos = array('wp_block');	
-														foreach ($blogs as $blog) {
-															switch_to_blog($blog['blog_id']);
-															$args = array(
-																'hide_empty' => false
-															);
-															$categories = get_categories($args);
-															$variavelArrayPosttipo = get_post_types();
-															sort($variavelArrayPosttipo);
-															($name == $categoria ? $isselected = '' : $isselected = 'selected' );
-															
-															foreach ($variavelArrayPosttipo as $posttipo) {
-																if (!in_array($posttipo, $excluidos)) {
-																	$_GET['tipoconteudo'] == $posttipo."".$blog['blog_id'] ? $isselected = 'selected' : $isselected = '';
-																	
-																	if($posttipo == 'page' || $posttipo == 'post'){
-																		$select[] = "<option value='" . $posttipo."".$blog['blog_id'] . "' ".$isselected.">" . $posttipo."".$blog['blog_id'] . "</option>";
-																	}
-																	
-																}
-																// printf( '<a href="%s" title="%s">%s</a> ', $link, $name, $name );
-															}
-															
-														}
-														switch_to_blog($current->id);
-
-															
-
-															foreach( $select as $saida){
-																echo $saida;
-															}
-															
-														?>
-
-													</select>					
-													
-													<script>
-														jQuery('#sel1cm option[value="page1"]').insertBefore(jQuery('#sel1cm option:eq(1)'));
-														jQuery('#sel1cm option[value="post1"]').insertBefore(jQuery('#sel1cm option:eq(2)'));
-														jQuery('#sel1cm option[value="page6"]').insertBefore(jQuery('#sel1cm option:eq(3)'));
-														jQuery('#sel1cm option[value="post6"]').insertBefore(jQuery('#sel1cm option:eq(4)'));
-													</script>
-												</div>
-
-												<div class="form-group">
-
-													<label for="sel2"><strong>Filtre por um período</strong></label>
-
-													<select name="periodo" class="form-control" id="sel3">
-						
-														<option value="">Todos os períodos</option>
-														<option <?=$_GET['periodo'] == '1' ? 		"selected" : 'n' ?> value="1">Última hora</option>
-														<option <?=$_GET['periodo'] == '24' ? 		"selected" : 'n' ?> value="24">Últimas 24 horas</option>
-														<option <?=$_GET['periodo'] == '168' ? 		"selected" : 'n' ?> value="168">Última semana</option>
-														<option <?=$_GET['periodo'] == '5040' ? 	"selected" : 'n' ?> value="5040">Último mês</option>
-														<option <?=$_GET['periodo'] == '1839600' ?  "selected" : 'n' ?> value="1839600">Último ano</option>
-
-													</select>
-
-												</div>
-
-												<div class="form-group">
-
-													<label for="sel2"><strong>Filtre por ano</strong></label>
-
-													<select name="ano" class="form-control" id="sel3">
-
-													</select>
-
-												</div>
-
-												<div class="form-group">
-
-													<label for="sel2"><strong>Filtre por site</strong></label>
-													
-													<select name="site" class="form-control" id="sel3sitesm">
-
-														<option value="">Todos os sites</option>
-
-														<?php
-														foreach ($blogs as $blog) {
-															$blog['blog_id'] == $_GET['site'] ? $isselected = 'selected' : $isselected = '';
-															echo  '<option '.$isselected.' value="' . $blog['blog_id'] . '">' . $blog['path'] . '</option>';
-														}
-														?>
-													</select>
-													<script>
-														//coloca o id do site atual na variavel
-														var pageId = <?php echo $current->id; ?>;
-														//script para mudar a ordem dos sites
-														jQuery('#sel3sitesm option[value="'+pageId+'"]').insertBefore(jQuery('#sel3sitesm option:eq(1)'));//recebe o valor da variavel
-														jQuery('#sel3sitesm option[value="6"]').insertBefore(jQuery('#sel3sitesm option:eq(2)'));
-														jQuery('#sel3sitesm option[value="7"]').insertBefore(jQuery('#sel3sitesm option:eq(3)'));
-													</script>
+										// The Loop
+										if ( $the_query->have_posts() ) {
+											//echo '<ul>';
+											//echo '<h3>Site: ' . $site->path . '</h3>';
+											while ( $the_query->have_posts() ) {
+												$the_query->the_post();
+												//echo '<li>' . get_the_title() . ' - ' . $site->path . '( ' . get_post_type() . ' )' . '</li>';
+												$allResults[$i]['titulo'] = get_the_title();
 												
-												</div>
+												if( get_field('insira_o_subtitulo') ){
+													$allResults[$i]['resumo'] = get_field('insira_o_subtitulo');
+												} else {
+													$allResults[$i]['resumo'] = get_the_excerpt();
+												}
+												
+												$allResults[$i]['url'] = get_the_permalink();
+												$allResults[$i]['type'] = get_post_type();
+												$allResults[$i]['image'] = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+												$thumbnail_id = get_post_thumbnail_id( get_the_ID() );
+												$allResults[$i]['alt']  = get_post_meta ( $thumbnail_id, '_wp_attachment_image_alt', true );
+												$allResults[$i]['data']  = get_the_time('d/m/Y G\hi');
+												$allResults[$i]['site_url'] = get_site_url();
+												$allResults[$i]['site_nome'] = get_bloginfo('title');
 
-												<div class="form-group">
-													<script>
-														function limpaFiltro() {
-															setTimeout(() => {
-																window.location = window.location.pathname + "?s=";
-															}, 100);
-														}
-													</script>
-													<button onclick="limpaFiltro()" type="button" class="btn btn-refinar btn-sm float-left">Limpar filtros</button>
-													<button type="submit" class="btn btn-primary btn-sm float-right">Refinar busca</button>
+												$i++;
+											}
+											//echo '</ul>';
+										} else {
+											// no posts found
+										}
+										/* Restore original Post Data */
+										wp_reset_postdata();
 
-												</div>
+									}
 
-											</form>
+							endif;
+									
+							restore_current_blog();
+						}
 
-										</span>
-									</div>	
-								</div>
+						//$type = array_column($allResults, 'type');
+						//array_multisort($type, SORT_DESC, $allResults);
 
-							</div><!-- modal-content -->
-						</div><!-- modal-dialog -->
-					</div>
-					
-				</div>
+						//echo "<pre>";
+						//print_r($allResults);
+						//echo "</pre>";
 
-				<div class="col-sm-8 mb-4">
-	<!--Busca Manual-->
+						$pagina = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1;
+						$total = count( $allResults ); //total items in array    
+						$limit = 10; //per page    
+						$totalPages = ceil( $total/ $limit ); //calculate total pages
+						$pagina = max($pagina, 1); //get 1 page when $_GET['page'] <= 0
+						$pagina = min($pagina, $totalPages); //get last page when $_GET['page'] > $totalPages
+						$offset = ($pagina - 1) * $limit;
+						if( $offset < 0 ) $offset = 0;
 
-	<?php $campo_de_busca = get_search_query(); ?>
-
-
-	<?php if( have_rows('cadastro_busca_manual', 'option') ): ?>
-
-		<?php while( have_rows('cadastro_busca_manual', 'option') ): the_row(); ?>
-				<?php
-					//$palavra_chave = array('dina');
-
-
-	$arrayPalavrasPost = explode(",",get_sub_field('palavras_chaves_busca_manual'));
-	$arrayPalavrasPost = array_map('trim', $arrayPalavrasPost);
-
-	//Retornos das variáveis abaixo.
-	//var_dump($arrayPalavrasPost);
-	//var_dump($campo_de_busca);
-
-					
-					if (in_array(trim($campo_de_busca), $arrayPalavrasPost)  ){
-					
-
-	?>
-					
-						<?php 
-							if($_GET["pagina"] <= 1){//mostrar somente se for a primeira página
+						$allResults = array_slice( $allResults, $offset, $limit );
+						if($allResults):
+							foreach($allResults as $result):
 							?>
 								<div class="row">
-								<div class="col-sm-4">
-									<?php
-									if(get_sub_field('imagem_busca_manual') != ''){
-										?>
-										<figure>
-											<img class="img-fluid rounded float-left" src="<?php the_sub_field('imagem_busca_manual'); ?>" width="100%">
-										</figure>
-										<?php
-									}else{
-										?>
-										<figure>
-											<img class="img-fluid rounded float-left" src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/06/placeholder-sme.jpg" width="100%">
-										</figure>	
-										<?php
-									}
-									?>
-								</div>
-								<div class="col-sm-8">
-								
-									<h2>
+									<div class="col-sm-4">
 										
-										<a href="<?php the_sub_field('url_busca_manual'); ?>" targetX="<?php the_sub_field('abrir_busca_manual'); ?>" rel="noopener" >
-											<?php the_sub_field('titulo_busca_manual'); ?>
-										</a>
+										<?php if($result['image'] && $result['image'] != ''): ?>
+											<figure>
+												<?php $alt = $result['alt'] != '' ? $result['alt'] : $result['titulo']; ?>
+												<img class="img-fluid rounded float-left" src="<?=$result['image'];?>" alt="<?=$alt;?>" width="100%">
+											</figure>
+										<?php else: ?>
+											<figure>
+												<img class="img-fluid rounded float-left" src="https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/06/placeholder-sme.jpg" width="100%">
+											</figure>
+										<?php endif; // Imagem ?>
 										
-									</h2>
-									<p><?php the_sub_field('resumo_busca_manual'); ?></p>
-									<p><strong>Tipo:</strong> <span class="tagcolor"><?php the_sub_field('tipo_busca_manual'); ?></span></p>
-									
-									
+									</div>
+									<div class="col-sm-8">
+										<h2><a href="<?=$result['url'];?>"> <?=$result['titulo'];?></a></h2>								
+										<p><?=$result['resumo'];?></p>   <!--Mostra resumo-->
+																		
+										<?php if($result['type'] != ''): ?>
+											<strong>Tipo:</strong> 
+											<span class="tagcolor">
+												<?php $tipopost = $result['type'];
+												if( $tipopost == "post" ) echo  'Notícia';
+												if( $tipopost == "programa-projeto" ) echo  'Página';
+												if( $tipopost == "card" ) echo  'página';
+												if( $tipopost == "page" ) echo  'Página'; ?>
+											</span><br>
+										<?php endif; ?>
+										
+										<span><strong>Publicado em:</strong> <?=$result['data'];?> </span> -
+
+										<span><strong>Site:</strong>
+											<a href="<?=$result['site_url'];?>">
+												<?=$result['site_nome'];?>
+											</a>
+										</span><br>
+
+									</div>
+
 								</div>
-							</div>
-							<hr>
+								<hr>
 							<?php
-							}
+							endforeach;
+						else:
 						?>
+							<div class="no-results">
+								<h2 class="search-title">
+									<span class="azul-claro-acervo"><strong>0</strong></span><strong> 
+										resultados</strong>
+								</h2>
+								<img src="<?php echo get_template_directory_uri(); ?>/img/search-empty.png" alt="Imagem ilustrativa para nenhum resultado de busca encontrado" />
+								<p>Não há conteúdo disponível para o termo buscado. Por favor faça uma nova busca.</p>
+							</div>
 							
-						
-						
+
 						<?php
-					}
-				?>
-				
-		<?php endwhile; ?>
-	<?php endif; ?>
-	<!--Busca Manual-->				
+						endif;
+						
+						//echo "<pre>";
+						//print_r($allResults);
+						//echo "</pre>";
+
+						//echo 'Total Resultados: '. $total;
+						//echo "<br>";
+						//echo 'Paginas: '. $totalPages;
+						//echo "<br>";
+						//echo 'Paginas Atual: '. $pagina;
+						//echo "<br>";
+						//echo $offset;
+						//echo "<br>";
+						//echo "<br>";
+
+						$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+						$new_url = preg_replace('/&?pagina=[^&]*/', '', $actual_link);
+
+						//echo $new_url;
+						
+					?>
 					
+					<?php if($allResults && $totalPages > 1):?>
+						<div style="width:100%;text-align: center;">
+							<div class="pagination <?=ceil($GLOBALS['i']/$GLOBALS['paginacao']) > 1 && $GLOBALS['i'] !== $GLOBALS['paginacao'] ? 'ok' : 'dddnone';?>">
+								<a href="<?php echo $new_url . '&pagina=' . ($pagina - 1);?>" class="anterior <?=$pagina > 1 ? 'ok' : 'dnone';?>">Anterior</a><!--Ir para o anterior-->
+								<a class="aaa paginationA " href="<?php echo $new_url . '&pagina=1'?>">&laquo;</a><!--Ir para o primeiro-->                       
+								
+								
+								<a class="1bbb paginationB <?=$pagina >= 4 ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . ($pagina - 3);?>"><?=$pagina - 3;?></a>
+								<a class="2bbb paginationB <?=$pagina >= 3 ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . ($pagina - 2);?>"><?=$pagina - 2;?></a>
+								<a class="3ccc paginationB <?=$pagina >= 2 ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . ($pagina - 1);?>"><?=$pagina - 1;?></a>
+
+								
+								<a class="eee paginationA active" href="<?php echo $new_url . '&pagina=' . $pagina;?>"><?=$pagina;?></a>
+
+								<a class="4bbb paginationB <?=$totalPages > $pagina + 1 ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . ($pagina + 1);?>"><?=$pagina + 1;?></a>
+								<a class="5bbb paginationB <?=$totalPages > $pagina + 2  ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . ($pagina + 2);?>"><?=$pagina + 2;?></a>
+								<a class="6ccc paginationB <?=$totalPages > $pagina + 3 ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . ($pagina + 3);?>"><?=$pagina + 3;?></a>
+
+								<a class="paginationB <?=$totalPages > 1 && $pagina != $totalPages ? 'ok' : 'dnone';?>" href="<?php echo $new_url . '&pagina=' . $totalPages;?>"><?=$totalPages;?></a>
+													
+								<a class="d paginationA" href="<?php echo $new_url . '&pagina=' . $totalPages;?>">»</a><!--Ir para o ultimo-->
+								<a href="<?php echo $new_url . '&pagina=' . ($pagina + 1);?>" class="proximo <?=$pagina != $totalPages  ? 'ok' : 'dnone';?>">Próximo</a><!--Ir para o próximo-->
+							</div>
+						</div>
+					<?php endif; ?>
 					
-					<?php busca_multisite(); ?>
 
 				</div>
 
-				<div class="col-sm-4 mb-4 d-none d-lg-block d-xl-block">
+				<div class="col-md-4 mb-5">
+					<form action="<?php echo get_home_url(); ?>">                    
 
-					<span class="filtro-busca">
-						<form name="filtrosX" method="get" action="">
+						<div class="form-group border-filtro">
+							<label for="usr"><strong>
+									<h2>Refine a sua busca</h2>
+								</strong></label>
+						</div>
 
-							<div class="form-group border-filtro">
-								<label for="usr"><strong>
-										<h2>Refine a sua busca</h2>
-									</strong></label>
-							</div>
-
-							<div class="form-group">
-								<label for="usr"><strong>Busque por um termo</strong></label>
-								<input class='form-control' type='text' name="s" placeholder='Buscar' value="<?=$_GET['s']?>"></input>
-								
-								<input id="enviar-busca-home" name="enviar-busca-home" type="hidden" class="btn btn-outline-secondary bt-search-topo" value="Buscar"> </input>
-								
-							</div>
-							<div style="display: none;" class="form-group">
-
-								<label for="sel2"><strong>Filtre por categorias</strong></label>
-
-								<select class="form-control" name="category" id="sel2">
-									<?php
-									$current = get_current_site();
-
-									// pega cats de todos sites
-									$blogs = get_blog_list(0, 'all');
-
-									echo  "<option value=''>Selecione</option>";
-
-									foreach ($blogs as $blog) {
-										switch_to_blog($blog['blog_id']);
-										$args = array(
-											'hide_empty' => false
-										);
-										$categories = get_categories($args);
-										//    var_dump($categories);
-										sort($categories);
-										foreach ($categories as $category) {
-
-											$link = ($category->name);
-											$name = $category->name;
-										
-										
-											echo  "<option value='" . $link . "'>" . $name . "</option>";
-
-											// printf( '<a href="%s" title="%s">%s</a> ', $link, $name, $name );
-										}
-									}
-									switch_to_blog($current->id);
-									?>
-								</select>
-
-							</div>
-
-							<div class="form-group">
-
-								<label for="sel1"><strong>Filtre por tipo de conteúdo</strong></label>
-
-
-
-								<select name="tipoconteudo" onchange="jQuery('#sel3sites').val(event.target.value.slice(-1))" class="form-control" id="sel1c">
-
-									<?php
-									$current = get_current_site();
-									echo  "<option value=''>Selecione o tipo</option>";
-									//pega todos tipos de post (inclusive indesejáveis, então precisa excluir, no array abaixo)
-								
-									$blogs = get_blog_list(0, 'all');
-								
-									//pega todos tipos de post (inclusive indesejáveis, então precisa excluir, no array $excluidos)
-		$excluidos = array('wp_block');	
-									foreach ($blogs as $blog) {
-										switch_to_blog($blog['blog_id']);
-										$args = array(
-											'hide_empty' => false
-										);
-										$categories = get_categories($args);
-										$variavelArrayPosttipo = get_post_types();
-												sort($variavelArrayPosttipo);
-										($name == $categoria ? $isselected = '' : $isselected = 'selected' );
-										foreach ($variavelArrayPosttipo as $posttipo) {
-										if (!in_array($posttipo, $excluidos)) {
-											$_GET['tipoconteudo'] == $posttipo."".$blog['blog_id'] ? $isselected = 'selected' : $isselected = '';
-												echo  "<option value='" . $posttipo."".$blog['blog_id'] . "' ".$isselected.">" . $posttipo."".$blog['blog_id'] . "</option>";
-											}
-											// printf( '<a href="%s" title="%s">%s</a> ', $link, $name, $name );
-										}
-									}
-									switch_to_blog($current->id);
-									
-									?>
-								
-
-
-								</select>
-								<script>
-									//script para mudar a ordem mas antes sanear
-									jQuery('#sel1c option[value="page1"]').insertBefore(jQuery('#sel1c option:eq(1)')); // Pagina Portal
-									jQuery('#sel1c option[value="post1"]').insertBefore(jQuery('#sel1c option:eq(2)')); // Noticia Portal
-
-									jQuery('#sel1c option[value="page8"]').insertBefore(jQuery('#sel1c option:eq(3)')); // Pagina DRE Butanta
-									jQuery('#sel1c option[value="post8"]').insertBefore(jQuery('#sel1c option:eq(4)')); // Noticia DRE Butanta
-
-									jQuery('#sel1c option[value="page20"]').insertBefore(jQuery('#sel1c option:eq(5)')); // Pagina DRE Campo Limpo
-									jQuery('#sel1c option[value="post20"]').insertBefore(jQuery('#sel1c option:eq(6)')); // Noticia DRE Campo Limpo
-
-									jQuery('#sel1c option[value="page9"]').insertBefore(jQuery('#sel1c option:eq(7)')); // Pagina DRE Capela
-									jQuery('#sel1c option[value="post9"]').insertBefore(jQuery('#sel1c option:eq(8)')); // Noticia DRE Capela
-
-									jQuery('#sel1c option[value="page10"]').insertBefore(jQuery('#sel1c option:eq(9)')); // Pagina DRE Freg/Bras
-									jQuery('#sel1c option[value="post10"]').insertBefore(jQuery('#sel1c option:eq(10)')); // Noticia DRE Freg/Bras
-
-									jQuery('#sel1c option[value="page11"]').insertBefore(jQuery('#sel1c option:eq(11)')); // Pagina DRE Guianases
-									jQuery('#sel1c option[value="post11"]').insertBefore(jQuery('#sel1c option:eq(12)')); // Noticia DRE Guianases
-
-									jQuery('#sel1c option[value="page12"]').insertBefore(jQuery('#sel1c option:eq(13)')); // Pagina DRE Ipiranga
-									jQuery('#sel1c option[value="post12"]').insertBefore(jQuery('#sel1c option:eq(14)')); // Noticia DRE Ipiranga
-
-									jQuery('#sel1c option[value="page13"]').insertBefore(jQuery('#sel1c option:eq(15)')); // Pagina DRE Itaquera
-									jQuery('#sel1c option[value="post13"]').insertBefore(jQuery('#sel1c option:eq(16)')); // Noticia DRE Itaquera
-
-									jQuery('#sel1c option[value="page14"]').insertBefore(jQuery('#sel1c option:eq(17)')); // Pagina DRE Jacana/Tremb
-									jQuery('#sel1c option[value="post14"]').insertBefore(jQuery('#sel1c option:eq(18)')); // Noticia DRE Jacana/Tremb
-
-									jQuery('#sel1c option[value="page15"]').insertBefore(jQuery('#sel1c option:eq(19)')); // Pagina DRE Penha
-									jQuery('#sel1c option[value="post15"]').insertBefore(jQuery('#sel1c option:eq(20)')); // Noticia DRE Penha
-
-									jQuery('#sel1c option[value="page16"]').insertBefore(jQuery('#sel1c option:eq(21)')); // Pagina DRE Pirituba
-									jQuery('#sel1c option[value="post16"]').insertBefore(jQuery('#sel1c option:eq(22)')); // Noticia DRE Pirituba
-
-									jQuery('#sel1c option[value="page17"]').insertBefore(jQuery('#sel1c option:eq(23)')); // Pagina DRE S Amaro
-									jQuery('#sel1c option[value="post17"]').insertBefore(jQuery('#sel1c option:eq(24)')); // Noticia DRE S Amaro
-
-									jQuery('#sel1c option[value="page18"]').insertBefore(jQuery('#sel1c option:eq(25)')); // Pagina DRE S Mateus
-									jQuery('#sel1c option[value="post18"]').insertBefore(jQuery('#sel1c option:eq(26)')); // Noticia DRE S Mateus
-
-									jQuery('#sel1c option[value="page19"]').insertBefore(jQuery('#sel1c option:eq(27)')); // Pagina DRE S Miguel
-									jQuery('#sel1c option[value="post19"]').insertBefore(jQuery('#sel1c option:eq(28)')); // Noticia DRE S Miguel
-
-									jQuery('#sel1c option[value="page5"]').insertBefore(jQuery('#sel1c option:eq(29)')); // Pagina CME
-									jQuery('#sel1c option[value="post5"]').insertBefore(jQuery('#sel1c option:eq(30)')); // Noticia CME
-
-									jQuery('#sel1c option[value="page4"]').insertBefore(jQuery('#sel1c option:eq(31)')); // Pagina CAE
-									jQuery('#sel1c option[value="post4"]').insertBefore(jQuery('#sel1c option:eq(32)')); // Noticia CAE
-
-									jQuery('#sel1c option[value="page6"]').insertBefore(jQuery('#sel1c option:eq(33)')); // Pagina CACS
-									jQuery('#sel1c option[value="post6"]').insertBefore(jQuery('#sel1c option:eq(34)')); // Noticia CACS
-
-									jQuery('#sel1c option[value="page7"]').insertBefore(jQuery('#sel1c option:eq(35)')); // Pagina CRECE
-									jQuery('#sel1c option[value="post7"]').insertBefore(jQuery('#sel1c option:eq(36)')); // Noticia CRECE
-								</script>
-							</div>
-
-							<div class="form-group">
-
-								<label for="sel2"><strong>Filtre por um período</strong></label>
-
-								<select name="periodo" class="form-control" id="sel3">
-	
-									<option value="">Todos os períodos</option>
-									<option <?=$_GET['periodo'] == '1' ? 		"selected" : 'n' ?> value="1">Última hora</option>
-									<option <?=$_GET['periodo'] == '24' ? 		"selected" : 'n' ?> value="24">Últimas 24 horas</option>
-									<option <?=$_GET['periodo'] == '168' ? 		"selected" : 'n' ?> value="168">Última semana</option>
-									<option <?=$_GET['periodo'] == '5040' ? 	"selected" : 'n' ?> value="5040">Último mês</option>
-									<option <?=$_GET['periodo'] == '1839600' ?  "selected" : 'n' ?> value="1839600">Último ano</option>
-
-								</select>
-
-							</div>
-
-							<div class="form-group">
-
-								<label for="sel2"><strong>Filtre por ano</strong></label>
-
-								<select name="ano" class="form-control" id="sel3">
-
-								</select>
-
-							</div>
-
-							<div class="form-group">
-
-								<label for="sel2"><strong>Filtre por site</strong></label>
-								<?php $blogs = get_blog_list(0, 'all');
-								?>
-								<select name="site" class="form-control" id="sel3sites">
-
-									<option value="">Todos os sites</option>
-
-									<?php
-									foreach ($blogs as $blog) {
-										$blog['blog_id'] == $_GET['site'] ? $isselected = 'selected' : $isselected = '';
-										echo  '<option '.$isselected.' value="' . $blog['blog_id'] . '">' . $blog['path'] . '</option>';
-									}
-									?>
-								</select>
-								<script>
-									//coloca o id do site atual na variavel
-									var pageId = <?php echo $current->id; ?>;
-									//script para mudar a ordem dos sites
-									//jQuery('#sel3sites option[value="'+pageId+'"]').insertBefore(jQuery('#sel3sites option:eq(1)'));//recebe o valor da variavel
-									jQuery('#sel3sites option[value="1"]').insertBefore(jQuery('#sel3sites option:eq(1)')); // Portal
-									jQuery('#sel3sites option[value="8"]').insertBefore(jQuery('#sel3sites option:eq(2)')); // DRE Butantã
-									jQuery('#sel3sites option[value="20"]').insertBefore(jQuery('#sel3sites option:eq(3)')); // DRE Campo Limpo
-									jQuery('#sel3sites option[value="9"]').insertBefore(jQuery('#sel3sites option:eq(4)')); // DRE Capela do Socorro
-									jQuery('#sel3sites option[value="10"]').insertBefore(jQuery('#sel3sites option:eq(5)')); // DRE Freg/Bras
-									jQuery('#sel3sites option[value="11"]').insertBefore(jQuery('#sel3sites option:eq(6)')); // DRE Guaianases
-									jQuery('#sel3sites option[value="12"]').insertBefore(jQuery('#sel3sites option:eq(7)')); // DRE Ipiranga
-									jQuery('#sel3sites option[value="13"]').insertBefore(jQuery('#sel3sites option:eq(8)')); // DRE Itaquera
-									jQuery('#sel3sites option[value="14"]').insertBefore(jQuery('#sel3sites option:eq(9)')); // DRE Jaçanã/Tremembé
-									jQuery('#sel3sites option[value="15"]').insertBefore(jQuery('#sel3sites option:eq(10)')); // DRE Penha
-									jQuery('#sel3sites option[value="16"]').insertBefore(jQuery('#sel3sites option:eq(11)')); // DRE Pirituba
-									jQuery('#sel3sites option[value="17"]').insertBefore(jQuery('#sel3sites option:eq(12)')); // DRE Santo Amaro
-									jQuery('#sel3sites option[value="18"]').insertBefore(jQuery('#sel3sites option:eq(13)')); // DRE São Mateus
-									jQuery('#sel3sites option[value="19"]').insertBefore(jQuery('#sel3sites option:eq(14)')); // DRE São Miguel
-									jQuery('#sel3sites option[value="5"]').insertBefore(jQuery('#sel3sites option:eq(15)')); // CME
-									jQuery('#sel3sites option[value="4"]').insertBefore(jQuery('#sel3sites option:eq(16)')); // CAE
-									jQuery('#sel3sites option[value="6"]').insertBefore(jQuery('#sel3sites option:eq(17)')); // CACS
-									jQuery('#sel3sites option[value="7"]').insertBefore(jQuery('#sel3sites option:eq(18)')); // CRECE
-								</script>
+						<div class="form-group">
+							<label for="usr"><strong>Busque por um termo</strong></label>
+							<input class='form-control' type='text' name="s" placeholder='Buscar' value="<?=$_GET['s']?>"></input>
 							
-												</div>
+							<input id="enviar-busca-home" name="enviar-busca-home" type="hidden" class="btn btn-outline-secondary bt-search-topo" value="Buscar"> </input>
+							
+						</div>
 
-							<div class="form-group">
-								<script>
-									function limpaFiltro() {
-										setTimeout(() => {
-											window.location = window.location.pathname + "?s=";
-										}, 100);
-									}
-								</script>
-								<button onclick="limpaFiltro()" type="button" class="btn btn-refinar btn-sm float-left">Limpar filtros</button>
-								<button type="submit" class="btn btn-primary btn-sm float-right">Refinar busca</button>
+						<div class="form-group">
+							<label for="sel1"><strong>Filtre por tipo de conteúdo</strong></label>
+							<select name="tipoconteudo" onCha class="form-control" id="sel1c">
+								<option value="">Selecione o tipo</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-portal1' ? "selected" : '' ?> value="pagina-portal1">Página em SME Portal Educação</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-portal1' ? "selected" : '' ?> value="noticia-portal1">Notícia em SME Portal Educação</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-butanta8' ? "selected" : '' ?> value="pagina-dre-butanta8">Página em DRE Butantã</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-butanta8' ? "selected" : '' ?> value="noticia-dre-butanta8">Notícia em DRE Butantã</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-campo-limpo20' ? "selected" : '' ?> value="pagina-dre-campo-limpo20">Página em DRE Campo Limpo</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-campo-limpo20' ? "selected" : '' ?> value="noticia-dre-campo-limpo20">Notícia em DRE Campo Limpo</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-capela-socorro9' ? "selected" : '' ?> value="pagina-dre-capela-socorro9">Página em DRE Capela do Socorro</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-capela-socorro9' ? "selected" : '' ?> value="noticia-dre-capela-socorro9">Notícia em DRE Capela do Socorro</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-freguesia-brasilandia10' ? "selected" : '' ?> value="pagina-dre-freguesia-brasilandia10">Página em DRE Freguesia/Brasilândia</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-freguesia-brasilandia10' ? "selected" : '' ?> value="noticia-dre-freguesia-brasilandia10">Notícia em DRE Freguesia/Brasilândia</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-guaianases11' ? "selected" : '' ?> value="pagina-dre-guaianases11">Página em DRE Guaianases</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-guaianases11' ? "selected" : '' ?> value="noticia-dre-guaianases11">Notícia em DRE Guaianases</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-ipiranga12' ? "selected" : '' ?> value="pagina-dre-ipiranga12">Página em DRE Ipiranga</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-ipiranga12' ? "selected" : '' ?> value="noticia-dre-ipiranga12">Notícia em DRE Ipiranga</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-itaquera13' ? "selected" : '' ?> value="pagina-dre-itaquera13">Página em DRE Itaquera</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-itaquera13' ? "selected" : '' ?> value="noticia-dre-itaquera13">Notícia em DRE Itaquera</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-jacana-tremembe14' ? "selected" : '' ?> value="pagina-dre-jacana-tremembe14">Página em DRE Jaçanã/Tremembé</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-jacana-tremembe14' ? "selected" : '' ?> value="noticia-dre-jacana-tremembe14">Notícia em DRE Jaçanã/Tremembé</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-penha15' ? "selected" : '' ?> value="pagina-dre-penha15">Página em DRE Penha</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-penha15' ? "selected" : '' ?> value="noticia-dre-penha15">Notícia em DRE Penha</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-pirituba16' ? "selected" : '' ?> value="pagina-dre-pirituba16">Página em DRE Pirituba</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-pirituba16' ? "selected" : '' ?> value="noticia-dre-pirituba16">Notícia em DRE Pirituba</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-santo-amaro17' ? "selected" : '' ?> value="pagina-dre-santo-amaro17">Página em DRE Santo Amaro</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-santo-amaro17' ? "selected" : '' ?> value="noticia-dre-santo-amaro17">Notícia em DRE Santo Amaro</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-sao-mateus18' ? "selected" : '' ?> value="pagina-dre-sao-mateus18">Página em DRE São Mateus</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-sao-mateus18' ? "selected" : '' ?> value="noticia-dre-sao-mateus18">Notícia em DRE São Mateus</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-sao-miguel19' ? "selected" : '' ?> value="pagina-dre-sao-miguel19">Página em DRE São Miguel</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-sao-miguel19' ? "selected" : '' ?> value="noticia-dre-sao-miguel19">Notícia em DRE São Miguel</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-cme-conselho5' ? "selected" : '' ?> value="pagina-cme-conselho5">Página em CME Conselho</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-cae-conselho4' ? "selected" : '' ?> value="pagina-cae-conselho4">Página em CAE Conselho</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-cacsfundeb6' ? "selected" : '' ?> value="pagina-cacsfundeb6">Página em CACSFUNDEB Conselho</option>
+								<option <?=$_GET['tipoconteudo'] == 'pagina-crece7' ? "selected" : '' ?> value="pagina-crece7">Página em CRECE Conselho</option>
+							</select>
+							<script>
+								const sites = [];
+								sites[1]= "portal";
+								sites[8]= "dre-butanta";
+								sites[20]= "dre-campo-limpo";
+								sites[9]= "dre-capela-socorro";
+								sites[10]= "dre-freguesia-brasilandia";
+								sites[11]= "dre-guaianases";
+								sites[12]= "dre-ipiranga";
+								sites[13]= "dre-itaquera";
+								sites[14]= "dre-jacana-tremembe";
+								sites[15]= "dre-penha";
+								sites[16]= "dre-pirituba";
+								sites[17]= "dre-santo-amaro";
 
-							</div>
+								sites[18]= "dre-sao-mateus";
+								sites[19]= "dre-sao-miguel";
+								sites[5]= "cme-conselho";
+								sites[4]= "cae-conselho";
+								sites[6]= "cacsfundeb";
+								sites[7]= "crece";
 
-					</span>
+								jQuery('#sel1c').on('change', function() {                                
+									var site = this.value.replace(/[^0-9]/g,'');
+									console.log( site );
 
+									//jQuery("#sel3sites option:selected").removeAttr("selected");
+									jQuery("#sel3sites").val(sites[site]);
+								});
+							</script>
+						</div>
+
+						<div class="form-group">
+							<label for="sel2"><strong>Filtre por um período</strong></label>
+							<select name="periodo" class="form-control" id="sel2">	
+								<option value="">Todos os períodos</option>
+								<option <?=$_GET['periodo'] == '1' ? 		"selected" : 'n' ?> value="1">Última hora</option>
+								<option <?=$_GET['periodo'] == '24' ? 		"selected" : 'n' ?> value="24">Últimas 24 horas</option>
+								<option <?=$_GET['periodo'] == '168' ? 		"selected" : 'n' ?> value="168">Última semana</option>
+								<option <?=$_GET['periodo'] == '5040' ? 	"selected" : 'n' ?> value="5040">Último mês</option>
+								<option <?=$_GET['periodo'] == '1839600' ?  "selected" : 'n' ?> value="1839600">Último ano</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="sel3"><strong>Filtre por ano</strong></label>
+							<select name="ano" class="form-control" id="sel3">                               
+								<?php 
+									$ano_agora = date('Y');
+									$date_range = range(2013, $ano_agora);
+									$anosArray = $date_range;
+
+									echo '<div class="transportX" style="display:none;"><option value="">Todos os anos</option>';				
+										(sort($anosArray));
+										
+										foreach ((array_unique($anosArray)) as $ano) {
+											$ano == $_GET['ano'] ? $isselected = 'selected' : $isselected = '';
+											echo '<option '.$isselected.' value="'.$ano.'">'.$ano.'</option>';			
+										}
+									echo '</div>';
+								?>
+							</select>
+						</div>
+
+						<div class="form-group">
+
+							<label for="sel3sites"><strong>Filtre por site</strong></label>
+							<select name="site" class="form-control" id="sel3sites">
+
+								<option value="">Todos os sites</option>
+								<option <?=$_GET['site'] == 'portal' ? "selected" : '' ?> value="portal">SME Portal Educação</option>
+								<option <?=$_GET['site'] == 'dre-butanta' ? "selected" : '' ?> value="dre-butanta">DRE Butantã</option>
+								<option <?=$_GET['site'] == 'dre-campo-limpo' ? "selected" : '' ?> value="dre-campo-limpo">DRE Campo Limpo</option>
+								<option <?=$_GET['site'] == 'dre-capela-socorro' ? "selected" : '' ?> value="dre-capela-socorro">DRE Capela do Socorro</option>
+								<option <?=$_GET['site'] == 'dre-freguesia-brasilandia' ? "selected" : '' ?> value="dre-freguesia-brasilandia">DRE Freguesia/Brasilândia</option>
+								<option <?=$_GET['site'] == 'dre-guaianases' ? "selected" : '' ?> value="dre-guaianases">DRE Guaianases</option>
+								<option <?=$_GET['site'] == 'dre-ipiranga' ? "selected" : '' ?> value="dre-ipiranga">DRE Ipiranga</option>
+								<option <?=$_GET['site'] == 'dre-itaquera' ? "selected" : '' ?> value="dre-itaquera">DRE Itaquera</option>
+								<option <?=$_GET['site'] == 'dre-jacana-tremembe' ? "selected" : '' ?> value="dre-jacana-tremembe">DRE Jaçanã/Tremembé</option>
+								<option <?=$_GET['site'] == 'dre-penha' ? "selected" : '' ?> value="dre-penha">DRE Penha</option>
+								<option <?=$_GET['site'] == 'dre-pirituba' ? "selected" : '' ?> value="dre-pirituba">DRE Pirituba</option>
+								<option <?=$_GET['site'] == 'dre-santo-amaro' ? "selected" : '' ?> value="dre-santo-amaro">DRE Santo Amaro</option>
+								<option <?=$_GET['site'] == 'dre-sao-mateus' ? "selected" : '' ?> value="dre-sao-mateus">DRE São Mateus</option>
+								<option <?=$_GET['site'] == 'dre-sao-miguel' ? "selected" : '' ?> value="dre-sao-miguel">DRE São Miguel</option>
+								<option <?=$_GET['site'] == 'cme-conselho' ? "selected" : '' ?> value="cme-conselho">CME Conselho</option>
+								<option <?=$_GET['site'] == 'cae-conselho' ? "selected" : '' ?> value="cae-conselho">CAE Conselho</option>
+								<option <?=$_GET['site'] == 'cacsfundeb' ? "selected" : '' ?> value="cacsfundeb">CACSFUNDEB Conselho</option>
+								<option <?=$_GET['site'] == 'crece' ? "selected" : '' ?> value="crece">CRECE Conselho</option>
+							</select>
+						</div>
+
+						<div class="form-group mb-3">
+							<script>
+								function limpaFiltro() {
+									setTimeout(() => {
+										window.location = window.location.pathname + "?s=<?=$_GET['s'];?>";
+									}, 100);
+								}
+							</script>
+							<button onclick="limpaFiltro()" type="button" class="btn btn-refinar btn-sm float-left">Limpar filtros</button>
+							<button type="submit" class="btn btn-primary btn-sm float-right">Refinar busca</button>
+
+						</div>
+
+					</form>
 				</div>
 
+			<?php else: ?>
+				<div class="col-12">
+					<p>Nenhum termo foi digitado.</p> 
+					<p>Por favor faça uma nova pesquisa.</p>
+				</div>
+			<?php endif; ?>
 
-
-			</div>
-
-		</div>
-		</div>
-		</form>
-
-	<?php 
-	$ano_agora = date('Y');
-	$date_range = range(2013, $ano_agora);
-	$anosArray = $date_range;
-
-			echo '<div class="transportX" style="display:none;"><option value="">Todos os anos</option>';
-				
-			(sort($anosArray));
-								foreach ((array_unique($anosArray)) as $ano) {
-									$ano == $_GET['ano'] ? $isselected = 'selected' : $isselected = '';
-				echo '<option '.$isselected.' value="'.$ano.'">'.$ano.'</option>';
-			
-								}
-			echo '</div>';
-	?>
-		<script>
-			
-	function mudaNomes(nomevelho, nomenovo){
-	for (i = 0; i < jQuery('option').length; i++) {
-		if(nomenovo !== '')
-		jQuery('option').eq(i).html() == nomevelho ? jQuery('option').eq(i).html(nomenovo) : null
-		else 
-		jQuery('option').eq(i).html() == nomevelho ? jQuery('option').eq(i).hide() : null	
-	}
-	}
-//REMOVE OU MODIFICA OS NOMES DE TODOS OS SELECTS DO FILTRO
-//Troca nome filtro de conteudo
-mudaNomes('page1', 'Página em SME Portal Educação');
-mudaNomes('post1', 'Notícia em SME Portal Educação');
-mudaNomes('page4', 'Página em CAE Conselho');
-mudaNomes('post4', 'Notícia em CAE Conselho');
-mudaNomes('page5', 'Página em CME Conselho');
-mudaNomes('post5', 'Notícia em CME Conselho');
-mudaNomes('page6', 'Página em CACSFUNDEB Conselho');
-mudaNomes('post6', 'Notícia em CACSFUNDEB Conselho');
-mudaNomes('page7', 'Página em CRECE Conselho');
-mudaNomes('post7', 'Notícia em CRECE Conselho');
-mudaNomes('page8', 'Página em DRE Butantã');
-mudaNomes('post8', 'Notícia em DRE Butantã');
-mudaNomes('page9', 'Página em DRE Capela do Socorro');
-mudaNomes('post9', 'Notícia em DRE Capela do Socorro');
-mudaNomes('page10', 'Página em DRE Freguesia/Brasilândia');
-mudaNomes('post10', 'Notícia em DRE Freguesia/Brasilândia');
-mudaNomes('page11', 'Página em DRE Guaianases');
-mudaNomes('post11', 'Notícia em DRE Guaianases');
-mudaNomes('page12', 'Página em DRE Ipiranga');
-mudaNomes('post12', 'Notícia em DRE Ipiranga');
-mudaNomes('page13', 'Página em DRE Itaquera');
-mudaNomes('post13', 'Notícia em DRE Itaquera');
-mudaNomes('page14', 'Página em DRE Jaçanã/Tremembé');
-mudaNomes('post14', 'Notícia em DRE Jaçanã/Tremembé');
-mudaNomes('page15', 'Página em DRE Penha');
-mudaNomes('post15', 'Notícia em DRE Penha');
-mudaNomes('page16', 'Página em DRE Pirituba');
-mudaNomes('post16', 'Notícia em DRE Pirituba');
-mudaNomes('page17', 'Página em DRE Santo Amaro');
-mudaNomes('post17', 'Notícia em DRE Santo Amaro');
-mudaNomes('page18', 'Página em DRE São Mateus');
-mudaNomes('post18', 'Notícia em DRE São Mateus');
-mudaNomes('page19', 'Página em DRE São Miguel');
-mudaNomes('post19', 'Notícia em DRE São Miguel');
-mudaNomes('page20', 'Página em DRE Campo Limpo');
-mudaNomes('post20', 'Notícia em DRE Campo Limpo');
-	
-// Id dos sites ativos
-var sites = ["4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
-
-// remove os itens sobresalente do menu
-function logArrayElements(element, index, array) {
-    //console.log("a[" + index + "] = " + element);
-
-	mudaNomes('acf-field-group' + element, '');
-	mudaNomes('aba' + element, '');
-	mudaNomes('acf-field' + element, '');
-	mudaNomes('agenda' + element, '');
-	mudaNomes('attachment' + element, '');
-	mudaNomes('botao' + element, '');
-	mudaNomes('card' + element, '');
-	mudaNomes('contato' + element, '');
-	mudaNomes('concurso' + element, '');
-	mudaNomes('curriculo-da-cidade' + element, '');
-	mudaNomes('custom_css' + element, '');
-	mudaNomes('customize_changeset' + element, '');
-	mudaNomes('nav_menu_item' + element, '');
-	mudaNomes('oembed_cache' + element, '');
-	mudaNomes('organograma' + element, '');
-	mudaNomes('programa-projeto' + element, '');
-	mudaNomes('revision' + element, '');
-	mudaNomes('rl_gallery' + element, '');
-	mudaNomes('user_request' + element, '');
-	mudaNomes('wpcf7_contact_form' + element, '');
-}
-
-// Executa a funcao passando o id dos istes
-sites.forEach(logArrayElements);	
-
-//Remove do fitro de conteúdo		
-mudaNomes('aba1', '');
-mudaNomes('acf-field1', '');
-mudaNomes('acf-field-group1', '');
-mudaNomes('agenda1', '');
-mudaNomes('attachment1', '');
-mudaNomes('botao1', '');
-mudaNomes('card1', '');
-mudaNomes('contato1', '');
-mudaNomes('curriculo-da-cidade1', '');
-mudaNomes('custom_css1', '');
-mudaNomes('customize_changeset1', '');
-mudaNomes('nav_menu_item1', '');
-mudaNomes('oembed_cache1', '');
-mudaNomes('organograma1', '');
-mudaNomes('programa-projeto1', '');
-mudaNomes('revision1', '');
-mudaNomes('rl_gallery1', '');
-mudaNomes('user_request1', '');
-mudaNomes('wpcf7_contact_form1', '');
-mudaNomes('organograma-sec20', '');
-mudaNomes('organograma-sec19', '');
-mudaNomes('organograma-sec18', '');
-mudaNomes('organograma-sec17', '');
-mudaNomes('organograma-sec16', '');
-mudaNomes('organograma-sec15', '');
-mudaNomes('organograma-sec14', '');
-mudaNomes('organograma-sec13', '');
-mudaNomes('organograma-sec12', '');
-mudaNomes('organograma-sec11', '');
-mudaNomes('organograma-sec10', '');
-mudaNomes('organograma-sec9', '');
-mudaNomes('organograma-sec8', '');
-mudaNomes('organograma-sec7', '');
-mudaNomes('organograma-sec6', '');
-mudaNomes('organograma-sec5', '');
-mudaNomes('organograma-sec4', '');
-mudaNomes('organograma-sec1', '');
-
-//Troca nome filtros sites
-mudaNomes('/', 'SME Portal Educação');
-mudaNomes('/conselho-de-alimentacao-escolar/', 'CAE Conselho');
-mudaNomes('/conselho-municipal-de-educacao/', 'CME Conselho');
-mudaNomes('/conselho-de-representantes-de-conselhos-de-escola/', 'CRECE Conselho');
-mudaNomes('/conselho-de-acompanhamento-e-controle-social-do-fundeb/', 'CACSFUNDEB Conselho');
-mudaNomes('/diretoria-regional-de-educacao-campo-limpo/', 'DRE Campo Limpo');
-mudaNomes('/diretoria-regional-de-educacao-sao-miguel/', 'DRE São Miguel');
-mudaNomes('/diretoria-regional-de-educacao-sao-mateus/', 'DRE São Mateus');
-mudaNomes('/diretoria-regional-de-educacao-santo-amaro/', 'DRE Santo Amaro');
-mudaNomes('/diretoria-regional-de-educacao-pirituba/', 'DRE Pirituba');
-mudaNomes('/diretoria-regional-de-educacao-penha/', 'DRE Penha');
-mudaNomes('/diretoria-regional-de-educacao-jacana-tremembe/', 'DRE Jaçanã/Tremembé');
-mudaNomes('/diretoria-regional-de-educacao-itaquera/', 'DRE Itaquera');
-mudaNomes('/diretoria-regional-de-educacao-ipiranga/', 'DRE Ipiranga');
-mudaNomes('/diretoria-regional-de-educacao-guaianases/', 'DRE Guaianases');
-mudaNomes('/diretoria-regional-de-educacao-freguesia-brasilandia/', 'DRE Freguesia/Brasilândia');
-mudaNomes('/diretoria-regional-de-educacao-capela-do-socorro/', 'DRE Capela do Socorro');
-mudaNomes('/diretoria-regional-de-educacao-butanta/', 'DRE Butantã');
-
-
-			<?php 
-	if(strlen($_GET['s']) > 2){
-	?>
-	var i;
-	var o = 0;
-	var elll = document.querySelectorAll('.postagemX');
-	for (i = 0; i < elll.length ; i++) {
-	(elll[i].style.display) == 'none' ? o++ : console.log('n');
-	}
-	elll.length - o > 0 ? console.log('oi') : jQuery('.inicio .container .row .col-sm-8').html('<p>Não há conteúdo disponível para o termo buscado.</p><p>Por favor informe um novo termo no campo "Buscar".</p>')
-	<?php }
-		else
-		{
-			?>
-			jQuery('.inicio .container .row .col-sm-8').html('<p>Digite ao menos 2 caracteres.</p>');
-															jQuery("#main > div.inicio").show();
-		<?php	
-		}
-		?>
-	//remove duplicados da paginação
-	var valoresOpt = [];
-		jQuery('.paginationA').each(function(){
-		if(jQuery.inArray(this.text, valoresOpt) >-1){
-			if(this.text != "")
-			jQuery(this).remove()
-		}else{
-			valoresOpt.push(this.text);
-		}
-		});
-
-	//adiciona dinamicamente o filtro de ano
-	jQuery('[name=ano]').html(jQuery('.transportX').html())
-			
-	var ativaAgora = new URL(location.href).searchParams.get('pagina');
-	for (i = 0; i < document.querySelectorAll('.pagination.ok a').length ; i++) {
-	jQuery('.pagination.ok a').eq(i).text() == ativaAgora ?  jQuery('.pagination.ok a').eq(i).addClass('active') : null
-	}
-	jQuery( "[targetx='_blank']"  ).click(function(e) {
-	e.preventDefault();
-	window.open(e.target.href, '_blank');
-	});
-	//ultimo js a ser executado deve ser o abaixo		
-	jQuery('.inicio').show()
-		</script>             
-
-<?php 
-
-// se nao estiver vazia e tiver o parametro post_type
-elseif( isset($_GET['post_type']) && $no_search_results):	
-	get_template_part('search_concurso');
-endif;
-
-
-//var_dump($GLOBALS['z']);
-get_footer(); ?>
-</div>
+        </div>
+    </div>
+<?php get_footer(); ?>

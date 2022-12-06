@@ -99,6 +99,7 @@ class Editor
 			$this->role_object->add_cap( 'edit_imagens' );
 			$this->role_object->add_cap( 'delete_imagens' );
 			$this->role_object->add_cap( 'assign_imagens' );
+			$this->role_object->add_cap( 'read_tutoriais');
 
 		}
 	}
@@ -114,6 +115,9 @@ class Editor
 			// Remove Appearance -> Customize
 			remove_submenu_page('themes.php', 'customize.php?return=' . urlencode($_SERVER['REQUEST_URI']));
 			remove_menu_page('edit.php?post_type=setor'); // Setor
+			remove_menu_page('edit.php?post_type=agenda-dre-bt'); // DRE Butanta
+			remove_menu_page('edit.php?post_type=agenda-dre-cs'); // DRE Capela do Socorro
+			remove_menu_page('edit.php?post_type=agenda-dre-fb'); // DRE Freg/Brasilandia
 			global $submenu;
 			unset($submenu['themes.php'][15]); // header_image
 			unset($submenu['themes.php'][20]); // background_image

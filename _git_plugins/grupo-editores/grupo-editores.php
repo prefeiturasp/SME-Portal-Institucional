@@ -103,8 +103,88 @@ function wpse_user_can_edit( $user_id, $page_id ) {
 
     global $post;
     
-    if ($post->post_type == 'attachment'){
-        return $caps;
+    if(isset($post->post_type)){
+        if ($post->post_type == 'attachment'){
+            return $caps;
+        }
+    } 
+    
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-bt'){
+            return $caps;
+        }
+    }
+
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-cs'){
+            return $caps;
+        }
+    }
+
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-cl'){
+            return $caps;
+        }
+    }
+
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-fb'){
+            return $caps;
+        }
+    }
+
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-gn'){
+            return $caps;
+        }
+    }
+
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-ip'){
+            return $caps;
+        }
+    }
+
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-it'){
+            return $caps;
+        }
+    }
+
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-jt'){
+            return $caps;
+        }
+    }
+
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-pe'){
+            return $caps;
+        }
+    }
+
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-pi'){
+            return $caps;
+        }
+    }
+
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-sa'){
+            return $caps;
+        }
+    }
+
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-sma'){
+            return $caps;
+        }
+    }
+
+    if(isset($post->post_type)){
+        if ($post->post_type == 'agenda-dre-smi'){
+            return $caps;
+        }
     }
 
     // capability atribuida

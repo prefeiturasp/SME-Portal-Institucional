@@ -1152,21 +1152,66 @@ function wcag_nav_menu_link_attributes( $atts, $item, $depth ) {
 }
 add_filter( 'nav_menu_link_attributes', 'wcag_nav_menu_link_attributes', 10, 4 );
 
-// Envia Concursos para revisao caso seja Editor
+// Envia Noticias/Concursos para revisao caso seja Contribuidor
 add_filter( 'wp_insert_post_data', 're_aprove', 50, 2 );
 function re_aprove( $data, $postarr ) {
 	
 	$user = wp_get_current_user();
-	$type = get_post_type();
+	$type = get_post_type($postarr["ID"]);
+	$cptAgendas = array(
+		'agenda-dre-bt',
+		'agenda-dre-cl',
+		'agenda-dre-cs',
+		'agenda-dre-fb',
+		'agenda-dre-gn',
+		'agenda-dre-ip',
+		'agenda-dre-it',
+		'agenda-dre-jt',
+		'agenda-dre-pe',
+		'agenda-dre-pi',
+		'agenda-dre-sa',
+		'agenda-dre-sma',
+		'agenda-dre-smi',
+	);
 
-	if ( in_array( 'contributor', (array) $user->roles ) ) {
-		if ( 'publish' === $data['post_status']) {
+	if ( in_array( 'contributor', (array) $user->roles ) || in_array( 'dre', (array) $user->roles ) ) {
+		if ( 'publish' === $data['post_status'] && !in_array( $postarr['post_type'], $cptAgendas) ) {
             $data['post_status'] = 'pending';
         }
 	}
     
     return $data;
 }
+
+// Define a categoria padrao para usuarios DRE
+function default_category_save($post_ID) {
+	$user = wp_get_current_user();
+	
+
+	if ($user->roles[0] == 'dre'){
+		$grupos = get_user_meta($user->ID,'grupo',true);	
+		$categorias = array();
+		
+		if($grupos && $grupos !=''){
+			if($grupos && $grupos != ''){
+				foreach($grupos as $grupo){
+					$categorias[] = get_post_meta($grupo, 'noticias', true);
+				}
+			}
+
+			$categorias = array_flatten($categorias);
+			$categorias = array_unique($categorias);
+						
+			$result = array_unique($categorias);
+			$result = array_filter($result);
+
+		}
+		if($result != ''){
+			wp_set_post_categories( $post_ID, $result );
+		}		 
+	}
+}
+add_action( 'save_post', 'default_category_save' );
 
 // Desabilitar funcoes de usuarios
 remove_role( 'subscriber' ); // Assinante
@@ -1949,10 +1994,28 @@ function my_search_query($query) {
 // Alterar placeholder cadastro/edicao Agenda do Secretario
 function wpb_change_title_text( $title ){
 	$screen = get_current_screen(); 
-	if  ( 'agendanew' == $screen->post_type ) {
+	$cpt_titles = array(
+		'agendanew',
+		'agenda-dre-bt',
+		'agenda-dre-cs',
+		'agenda-dre-fb',
+		'agenda-dre-gn',
+		'agenda-dre-ip',
+		'agenda-dre-it',
+		'agenda-dre-jt',
+		'agenda-dre-pe',
+		'agenda-dre-pi',
+		'agenda-dre-sa',
+		'agenda-dre-sma',
+		'agenda-dre-smi',
+	);
+
+	if  ( in_array($screen->post_type, $cpt_titles) ) {
 		 $title = 'Digite a data dos compromissos';
-	} 
-	return $title;}
+	}
+	
+	return $title;
+}
  
 add_filter( 'enter_title_here', 'wpb_change_title_text' );
 
@@ -2217,3 +2280,619 @@ function media_admin_notice(){
 	}
 }
 add_action('admin_notices', 'media_admin_notice');
+
+/** Acervo embed
+*  example : https://hom-acervodigital.sme.prefeitura.sp.gov.br/?avanc=1&categ=1&s=&categoria_acervo=57
+*/
+
+// Pega as informacoes da midia via API
+function get_media_api($id){
+	$url = 'https://acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/media/' . $id;
+	$headers = [];
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	
+	$response = curl_exec($ch);                
+	
+	$jsonArrayResponse = json_decode($response);
+
+	return $jsonArrayResponse;
+}
+
+// Pega as informacoes de categoria via API
+function get_categ_api($id){
+	$url = 'https://acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/categoria_acervo/' . $id;
+	$headers = [];
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	
+	$response = curl_exec($ch);                
+	
+	$jsonArrayResponse = json_decode($response);
+
+	return $jsonArrayResponse;
+}
+
+add_action(
+    'init',
+    function () {
+        wp_embed_register_handler(
+            'acervo',
+            '#https://acervodigital\.sme\.prefeitura\.sp\.gov\.br/\?(.*)$#i',
+            'embed_handler_acervo'
+        );
+    }
+);
+
+function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
+    
+	// Versao com Iframe (sem uso no momento)
+	/*
+	$embed = sprintf(
+        '<iframe src="%s&incorporar=1" width="500" frameborder="0" height="1000" class="w-100 block__acervo"></iframe>',
+        esc_attr( $matches[0] )
+    );*/
+
+	// URL Atual da pagina
+	$pagina = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1; 
+	
+	// URL padrao da API
+	$url = 'https://acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/acervo/?per_page=12&page=' . $pagina;
+	
+	// Recebe a URL e divide os valores de GET em variaveis
+	$parts = parse_url($matches[0]);
+	parse_str($parts['query'], $query);
+	
+	// Debbug -> Visualizar todas os valores de GET recebido
+	//print_r($query);
+	
+	// Se tiver os valores de Busca incluir na URL da API
+	if($query['s'] != ''){
+		$busca = $query['s'];
+		$busca = str_replace(' ', '+', $busca);		
+		$url = $url . '&search=' . $busca;
+	}
+
+	// Se tiver os valores de Categoria (Prod) incluir na URL da API
+	if($query['categ_acervo'] != ''){
+		$url = $url . '&categoria_acervo=' . $query['categ_acervo'];
+	}
+
+	// Se tiver os valores de Categoria (Homolog) incluir na URL da API
+	if($query['categoria_acervo'] != ''){
+		$url = $url . '&categoria_acervo=' . $query['categoria_acervo'];
+	}
+
+	// Se tiver os valores de Modalidade incluir na URL da API
+	if($query['modalidadeb'] != ''){
+		$modalidades = implode(",", $query['modalidadeb']);
+		$url = $url . '&modalidade=' . $modalidades;
+	}
+
+	// Se tiver os valores de Componente incluir na URL da API
+	if($query['componenteb'] != ''){
+		$componentes = implode(",", $query['componenteb']);
+		$url = $url . '&componente=' . $componentes;
+	}
+
+	// Se tiver os valores de Ano incluir na URL da API
+	if($query['anob'] != ''){
+		$anos = implode(",", $query['anob']);
+		$url = $url . '&ano_da_publicacao_acervo_digital=' . $anos;
+	}
+
+	// Se tiver os valores de Setor incluir na URL da API
+	if($query['setorb'] != ''){
+		$setores = implode(",", $query['setorb']);
+		$url = $url . '&setor=' . $setores;
+	}
+
+	// Se tiver os valores de Autor incluir na URL da API
+	if($query['autor'] != ''){		
+		$url = $url . '&autor=' . $query['autor'];
+	}
+
+	// Se tiver os valores de Idioma incluir na URL da API
+	if($query['idiomab'] != ''){
+		$idiomas = implode(",", $query['idiomab']);
+		$url = $url . '&idioma=' . $idiomas;
+	}
+
+	// Se tiver os valores de Palavra Chave incluir na URL da API
+	if($query['palavrab'] != ''){		
+		$url = $url . '&palavra=' . $query['palavrab'];
+	}
+	
+	// Consulta Via API no Acervo
+	$headers = [];
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+		function ($curl, $header) use (&$headers) {
+			$len = strlen($header);
+			$header = explode(':', $header, 2);
+			if (count($header) < 2) // ignore invalid headers
+				return $len;
+
+			$headers[strtolower(trim($header[0]))][] = trim($header[1]);
+
+			return $len;
+		}
+	);
+	$response = curl_exec($ch);                
+	
+	$jsonArrayResponse = json_decode($response);
+
+	$embed = '';
+	$embed .= '<div class="row m-0">';
+
+	foreach($jsonArrayResponse as $acervo){
+		$imagem = get_media_api($acervo->arquivo_acervo_digital);
+		if($imagem->id == ''){			
+			$imagem = get_media_api($acervo->arquivos_particionados_0_arquivo);
+		}
+		$imagemShow = $imagem->media_details->sizes->full->source_url;
+		if(!$imagemShow){
+			$imagemShow = 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
+		}
+		
+		$formato = explode("/", $imagem->mime_type);
+		if($formato[1] == 'VND.OPENXMLFORMATS-OFFICEDOCUMENT.SPREADSHEETML.SHEET' || $formato[1] == 'vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+			$formato[1] = 'XLS';
+		}
+
+		if($formato[1] == 'vnd.openxmlformats-officedocument.wordprocessingml.document'){
+			$formato[1] = 'DOC';
+		}
+		
+		if(!$formato[1]){
+			$formato[1] = 'INDEFINIDO';
+		}
+
+		
+
+		if($acervo->categoria_acervo != ''){
+			$categName = array();
+			foreach($acervo->categoria_acervo as $categoria){
+				$categName[] = get_categ_api($categoria)->name;
+			}			
+		}		
+
+		// Monta o HTML para ser retornado na pagina
+		$embed .= '<div class="col-md-3 col-sm-6 p-3 acervo-display">
+			<div class="row m-0">
+				<div class="col-sm-12 view-tag flag">
+					<div class="img-mask shadow-sm">
+						<img src="' . $imagemShow . '">
+						<span class="flag-pdf-full">' . $formato[1] . '</span>
+					</div>					
+				</div>
+				<div class="col-sm-12 mt-3 mb-3 p-0">
+					<h3 class="azul-claro-acervo"><a class="no-external" target="_blank" href="' . $acervo->link . '">' . $acervo->title->rendered . '</a></h3>
+					
+					<div class="links-flag">
+						<div class="cat-flag mb-2">' . implode(' / ', $categName) . '</div>
+						<div class="btn-acervo d-flex justify-content-between">							
+							<a href="' . $acervo->link . '" class="btn btn-outline-primary no-external">Ver detalhes</a>
+							<a href="' . $imagem->source_url . '" class="p3-4 no-external">Baixar</a>													
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>';
+	}
+
+	$embed .= '</div>';
+	
+	$embed .= '<div class="container">';
+		$embed .= '<div class="row">';
+			$embed .= '<div class="col-12">';
+				
+				
+				$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+				$actual_link = str_replace('/?', '/', $actual_link);
+				$new_url = preg_replace('/&?pagina=[^&]*/', '', $actual_link);             
+				$totalPages = $headers['x-wp-totalpages'][0];
+				$param = '?pagina=';
+				$pageOne = '?pagina=1';
+				if($_GET['filter']){
+					$param = '&pagina=';
+					$pageOne = '&pagina=1';
+				}
+				
+				//$pagina = $_GET['pagina'];
+
+				if($totalPages > 1):
+					$embed .= '<div class="pagination-prog">';
+						$embed .= '<div class="wp-pagenavi">';
+							$embed .= '<div style="text-align: center;display: flex;align-items: center;justify-content: center; margin-top: 10px;">';                             
+								// Primeira Pagina
+								$embed .= '<a class="pagination paginationA " href="' . $new_url . $pageOne . '"><i class="fa fa-chevron-left" aria-hidden="true"></i></a><!--Ir para o primeiro-->';
+								
+								// 3 Antes da pagina atual
+								if($pagina >= 4){
+									$embed .= '<a class="pagination paginationB" href="' . $new_url . $param . ($pagina - 3) . '">' . ($pagina - 3) . '</a>';
+								}
+								if($pagina >= 3){
+									$embed .= '<a class="pagination paginationB" href="' . $new_url . $param . ($pagina - 2) . '">' . ($pagina - 2) . '</a>';
+								}
+								if($pagina >= 2){
+									$embed .= '<a class="pagination paginationB" href="' . $new_url . $param . ($pagina - 1) . '">' . ($pagina - 1) . '</a>';
+								}
+
+								// Atual
+								$embed .= '<a class="pagination paginationA active" href="' . $new_url . $param . $pagina . '">' . $pagina . '</a>';
+
+								// 3 apos a atual
+								if($totalPages > $pagina + 1){
+									$embed .= '<a class="pagination paginationC" href="' . $new_url . $param . ($pagina + 1) . '">' . ($pagina + 1) . '</a>';
+								}
+
+								if($totalPages > $pagina + 2){
+									$embed .= '<a class="pagination paginationC" href="' . $new_url . $param . ($pagina + 2) . '">' . ($pagina + 2) . '</a>';
+								}
+								if($totalPages > $pagina + 3){
+									$embed .= '<a class="pagination paginationC" href="' . $new_url . $param . ($pagina + 3) . '">' . ($pagina + 3) . '</a>';
+								}
+
+								// Total Paginas
+								if($totalPages > 1 && $pagina != $totalPages){
+									$embed .= '<a class="pagination paginationD" href="' . $new_url . $param . $totalPages . '">' . $totalPages . '</a>';
+								}
+
+								// Ultima Pagina
+								$embed .= '<a class="pagination paginationD" href="' . $new_url . $param . $totalPages . '"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>';	
+								
+									
+							$embed .= '</div>';
+						$embed .= '</div>';
+					$embed .= '</div>';
+				endif;
+
+			$embed .= '</div>';
+		$embed .= '</div>';
+	$embed .= '</div>';
+
+	
+
+    return apply_filters( 'embed_acervo', $embed, $matches, $attr, $url, $rawattr );
+}
+
+
+/*Remove page template*/
+function remove_page_template( $page_templates) {
+    unset( $page_templates['pagina-mapa-dres.php'] );
+    return $page_templates;
+}
+add_filter( 'theme_page_templates', 'remove_page_template', 20, 3 );
+
+// Adicionar o menu Agenda DREs
+add_action( 'admin_menu', 'menu_agenda_dres' );
+function menu_agenda_dres() {
+	$menu_slug = 'agenda-das-dres';	
+
+	$current_user = get_current_user_id();
+	$grupos = get_field('grupo', 'user_'. $current_user );
+	$AgendaDre = array();
+
+	foreach($grupos as $grupo){
+		$agenda = get_field('agendas', $grupo );
+		if($agenda != ''){
+			array_push( $AgendaDre, get_field('agendas', $grupo ) );
+		}
+	}
+
+	$arraySingle = call_user_func_array('array_merge', $AgendaDre);
+	$arraySingle = array_unique($arraySingle);
+
+	if ( current_user_can( 'manage_options' ) || ( $arraySingle[0] != '' && count($arraySingle) > 1 ) ) {
+		add_menu_page( 'Agenda das DREs', 'Agenda das DREs', 'read', $menu_slug, false, '', 19 );
+	} elseif( $arraySingle[0] != '' ){
+		add_menu_page( 'Agenda', 'Agenda', 'read', $menu_slug, false, '', 19 );
+	}
+
+}
+
+// Adicionar DREs no submenu da Agenda das DREs
+function add_external_link_admin_submenu() {
+    global $submenu;    
+
+	$current_user = get_current_user_id();
+	$grupos = get_field('grupo', 'user_'. $current_user );
+	$AgendaDre = array();
+
+	foreach($grupos as $grupo){
+		$agenda = get_field('agendas', $grupo );
+		if($agenda != ''){
+			array_push( $AgendaDre, get_field('agendas', $grupo ) );
+		}
+	}
+
+	$arraySingle = call_user_func_array('array_merge', $AgendaDre);
+	$arraySingle = array_unique($arraySingle);
+
+	if (in_array("dre-bt", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_bt = admin_url( 'edit.php' ).'?post_type=agenda-dre-bt';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Butantã', 'edit_concursos', $permalink_bt );
+	}
+
+	if (in_array("dre-cl", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_cs = admin_url( 'edit.php' ).'?post_type=agenda-dre-cl';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Campo Limpo', 'edit_concursos', $permalink_cs );
+	}
+
+	if (in_array("dre-cs", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_cs = admin_url( 'edit.php' ).'?post_type=agenda-dre-cs';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Capela do Socorro', 'edit_concursos', $permalink_cs );
+	}
+
+	if (in_array("dre-fb", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_fb = admin_url( 'edit.php' ).'?post_type=agenda-dre-fb';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Freg/Brasilândia', 'edit_concursos', $permalink_fb );
+	}
+
+	if (in_array("dre-gn", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_fb = admin_url( 'edit.php' ).'?post_type=agenda-dre-gn';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Guaianases', 'edit_concursos', $permalink_fb );
+	}
+
+	if (in_array("dre-ip", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_ip = admin_url( 'edit.php' ).'?post_type=agenda-dre-ip';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Ipiranga', 'edit_concursos', $permalink_ip );
+	}
+
+	if (in_array("dre-it", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_it = admin_url( 'edit.php' ).'?post_type=agenda-dre-it';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Itaquera', 'edit_concursos', $permalink_it );
+	}
+
+	if (in_array("dre-jt", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_jt = admin_url( 'edit.php' ).'?post_type=agenda-dre-jt';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Jaçanã/Tremembé', 'edit_concursos', $permalink_jt );
+	}
+
+	if (in_array("dre-pe", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_pe = admin_url( 'edit.php' ).'?post_type=agenda-dre-pe';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Penha', 'edit_concursos', $permalink_pe );
+	}
+
+	if (in_array("dre-pi", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_pi = admin_url( 'edit.php' ).'?post_type=agenda-dre-pi';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Pirituba', 'edit_concursos', $permalink_pi );
+	}
+
+	if (in_array("dre-sa", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_sa = admin_url( 'edit.php' ).'?post_type=agenda-dre-sa';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Santo Amaro', 'edit_concursos', $permalink_sa );
+	}
+
+	if (in_array("dre-sma", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_sa = admin_url( 'edit.php' ).'?post_type=agenda-dre-sma';
+    	$submenu['agenda-das-dres'][] = array( 'DRE São Mateus', 'edit_concursos', $permalink_sa );
+	}
+
+	if (in_array("dre-smi", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_sa = admin_url( 'edit.php' ).'?post_type=agenda-dre-smi';
+    	$submenu['agenda-das-dres'][] = array( 'DRE São Miguel', 'edit_concursos', $permalink_sa );
+	}
+
+}
+add_action('admin_menu', 'add_external_link_admin_submenu');
+
+// Ocultar o link direto da DRE no admin
+add_action( 'admin_init', 'wpse_136058_remove_menu_pages' );
+
+function wpse_136058_remove_menu_pages() {
+    remove_menu_page('edit.php?post_type=agenda-dre-bt'); // DRE Butanta
+	remove_menu_page('edit.php?post_type=agenda-dre-cl'); // DRE Campo Limpo
+	remove_menu_page('edit.php?post_type=agenda-dre-cs'); // DRE Capela do Socorro
+	remove_menu_page('edit.php?post_type=agenda-dre-fb'); // DRE Freg/Brasilandia
+	remove_menu_page('edit.php?post_type=agenda-dre-gn'); // DRE Guaianases
+	remove_menu_page('edit.php?post_type=agenda-dre-ip'); // DRE Ipiranga
+	remove_menu_page('edit.php?post_type=agenda-dre-it'); // DRE Itaquera
+	remove_menu_page('edit.php?post_type=agenda-dre-jt'); // DRE Jacana/Tremembe
+	remove_menu_page('edit.php?post_type=agenda-dre-pe'); // DRE Penha
+	remove_menu_page('edit.php?post_type=agenda-dre-pi'); // DRE Pirituba
+	remove_menu_page('edit.php?post_type=agenda-dre-sa'); // DRE Santo Amaro
+	remove_menu_page('edit.php?post_type=agenda-dre-sma'); // DRE São Mateus
+	remove_menu_page('edit.php?post_type=agenda-dre-smi'); // DRE São Miguel
+}
+
+// Filtra as eventos que grupo pertence
+function wp38_limit_posts_to_author($query) {
+
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+		
+	// 	filtra os noticias pelo grupo pertencente
+	if( $_GET['filter'] == 'grupo' && $_GET['list'] == 'noticias' && ($user->roles[0] == 'dre') ){
+
+		global $wpdb;
+		
+		// pega as categorias permitidas para edicao do grupo
+        $noticias = get_user_meta($user->ID,'grupo',true);
+		$noticias2 = array();
+		
+		if($noticias && $noticias !=''){
+			if($noticias && $noticias != ''){
+				foreach($noticias as $noticia){
+					$noticias2[] = get_post_meta($noticia, 'noticias', true);
+				}
+			}
+	
+			$noticias2 = array_flatten($noticias2);
+			$noticias2 = array_unique($noticias2);			
+						
+			$result = array_unique($noticias2);
+			$result = array_filter($result);
+			
+			if($result){
+				$query->set('cat', $result);
+			} else {
+				$query->set('post_type', 'empty');
+			}
+			
+		} else {
+			$query->set('post_type', 'empty');
+		}
+		
+	}
+	
+	return $query;
+	
+}
+add_filter('pre_get_posts', 'wp38_limit_posts_to_author');
+
+// Altera a URL de Eventos e Unidades para colaboladores
+add_action('admin_menu', 'alter_link_news');
+function alter_link_news() {
+	global $submenu;
+	
+    // pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+	
+	if($user->roles[0] == 'dre'){		
+		$submenu['edit.php'][5][2] = 'edit.php?list=noticias&filter=grupo';
+		$submenu['edit.php?post_type=page'][5][2] = 'edit.php?post_type=page&filter=grupo';
+		$submenu['edit.php?post_type=contato'][5][2] = 'edit.php?post_type=contato&filter=grupo';
+	}
+}
+
+add_filter( 'list_terms_exclusions', 'nsf_exclude_cats', 20 );
+function nsf_exclude_cats( $exclusions ) {
+
+    global $typenow;
+    global $result; // array from another function, with all the cat_ID's to be excluded
+
+	$user = wp_get_current_user();
+    	
+	$nsf_exclude = array(473,1028); 
+    if (current_user_can( 'dre' ) && is_admin() && $typenow != 'attachment' ) {
+		$noticias = get_user_meta($user->ID,'grupo',true);
+		$noticias2 = array();
+		
+		if($noticias && $noticias !=''){
+			if($noticias && $noticias != ''){
+				foreach($noticias as $noticia){
+					$noticias2[] = get_post_meta($noticia, 'noticias', true);
+				}
+			}
+	
+			$noticias2 = array_flatten($noticias2);
+			$noticias2 = array_unique($noticias2);
+						
+			$result = array_unique($noticias2);
+			$result = array_filter($result);
+
+		}
+
+        if(!empty($result)){
+            $exclusions .= ' AND t.term_id IN (';
+            foreach($result as $exclude) {
+                $exclusions .= $exclude.',';
+            }
+            $exclusions = substr($exclusions, 0, -1); // Removing the last comma
+            $exclusions .= ')';
+        }
+    }
+    return $exclusions;
+}
+
+add_filter('acf/fields/relationship/query/key=field_63640d0347c62', 'filter_by_user_group', 10, 3);
+function filter_by_user_group( $args, $field, $post_id ) {
+
+	$user = wp_get_current_user();
+
+	if ( in_array( 'dre', (array) $user->roles ) ) {
+		
+		$grupos = get_user_meta($user->ID,'grupo',true);
+		$categorias = array();
+		
+		if($grupos && $grupos !=''){
+			//if($grupos && $grupos != ''){
+				foreach($grupos as $grupo){
+					$categorias[] = get_post_meta($grupo, 'noticias', true);
+				}
+			//}
+	
+			$categorias = array_flatten($categorias);
+			$categorias = array_unique($categorias);
+						
+			$result = array_unique($categorias);
+			$result = array_filter($result);
+
+		}
+		$args['cat'] = $result;
+	}
+
+    return $args;
+}
+
+function wp_admin_post_type () {
+    global $post, $parent_file, $typenow, $current_screen, $pagenow;
+
+    $post_type = NULL;
+
+    if($post && (property_exists($post, 'post_type') || method_exists($post, 'post_type')))
+        $post_type = $post->post_type;
+
+    if(empty($post_type) && !empty($current_screen) && (property_exists($current_screen, 'post_type') || method_exists($current_screen, 'post_type')) && !empty($current_screen->post_type))
+        $post_type = $current_screen->post_type;
+
+    if(empty($post_type) && !empty($typenow))
+        $post_type = $typenow;
+
+    if(empty($post_type) && function_exists('get_current_screen'))
+        $post_type = get_current_screen();
+
+    if(empty($post_type) && isset($_REQUEST['post']) && !empty($_REQUEST['post']) && function_exists('get_post_type') && $get_post_type = get_post_type((int)$_REQUEST['post']))
+        $post_type = $get_post_type;
+
+    if(empty($post_type) && isset($_REQUEST['post_type']) && !empty($_REQUEST['post_type']))
+        $post_type = sanitize_key($_REQUEST['post_type']);
+
+    if(empty($post_type) && 'edit.php' == $pagenow)
+        $post_type = 'post';
+
+    return $post_type;
+}
+
+function editar_concursos(){
+
+	global $typenow;
+	$post_type = wp_admin_post_type();
+	
+	$user = wp_get_current_user();
+
+	if(!current_user_can('administrator')){
+		$grupos = get_user_meta($user->ID,'grupo',true);
+		$concursos = array();
+
+		if($grupos && $grupos !=''){
+			foreach($grupos as $grupo){
+				$concursos[] = get_post_meta($grupo, 'concursos', true);
+				$concursos = array_flatten($concursos);
+				$concursos = array_unique($concursos);
+							
+				$result = array_unique($concursos);
+				$result = array_filter($result);
+			}
+		}
+
+		if(!in_array('1', $result)){
+			remove_menu_page('edit.php?post_type=concurso'); // Concursos
+			
+    		if ($typenow == 'concurso' || $post_type == 'concurso') {
+				$admin_url = get_admin_url();
+				wp_redirect($admin_url);
+				exit();
+				
+			}
+		}
+		
+	}
+}
+add_action( 'admin_init', 'editar_concursos' );

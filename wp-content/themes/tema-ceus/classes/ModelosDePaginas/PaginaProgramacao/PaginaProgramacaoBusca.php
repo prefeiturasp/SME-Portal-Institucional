@@ -40,7 +40,7 @@ class PaginaProgramacaoBusca
                             // Faixa Etaria
                             $faixas = get_terms( array( 
                                 'taxonomy' => 'faixa_categories',
-                                'parent'   => 0,                                
+                                //'parent'   => 0,                                
                                 'hide_empty' => false
                             ) );
 
@@ -73,7 +73,7 @@ class PaginaProgramacaoBusca
                         <div class="col-sm-3 mt-2 px-1">
                             <select name="atividades[]" multiple="multiple" class="ms-list-1" style="">
                                 <?php foreach($terms as $term): ?>
-                                    <option value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+                                    <option value="<?php echo $term->slug; ?>"><?php echo $term->name; ?></option>
                                 <?php endforeach; ?>                                                        
                             </select>
                         </div>
@@ -86,7 +86,7 @@ class PaginaProgramacaoBusca
                         <div class="col-sm-3 mt-2 px-1">
                             <select name="publico[]" multiple="multiple" class="ms-list-3" style="">                        
                                 <?php foreach ($publicos as $publico): ?>
-                                    <option value="<?php echo $publico->term_id; ?>"><?php echo $publico->name; ?></option>
+                                    <option value="<?php echo $publico->slug; ?>"><?php echo $publico->name; ?></option>
                                 <?php endforeach; ?>                    
                             </select>
                         </div>
@@ -94,7 +94,7 @@ class PaginaProgramacaoBusca
                         <div class="col-sm-3 mt-2 px-1">
                             <select name="faixaEtaria[]" multiple="multiple" class="ms-list-4" style="">                        
                                 <?php foreach ($faixas as $faixa): ?>
-                                    <option value="<?php echo $faixa->term_id; ?>"><?php echo $faixa->name; ?></option>
+                                    <option value="<?php echo $faixa->slug; ?>"><?php echo $faixa->name; ?></option>
                                 <?php endforeach; ?>                      
                             </select>
                         </div>
@@ -107,6 +107,8 @@ class PaginaProgramacaoBusca
                                             'post_type' => 'unidade',
                                             'posts_per_page' => -1,
                                             'post__not_in' => array(31675, 31244),
+                                            'orderby' => 'title',
+	                                        'order'   => 'ASC',
                                         );
 
                                         $todasUnidades = new \WP_Query( $argsUnidades );
@@ -116,10 +118,14 @@ class PaginaProgramacaoBusca
                                             
                                             while ( $todasUnidades->have_posts() ) {
                                                 $todasUnidades->the_post();
+
+                                                $titulo = htmlentities(get_the_title());
+                                                $seletor = explode (" &amp;", $titulo);
+
                                                 if($currentID == get_the_id() ) {
-                                                    echo '<option selected value="' . get_the_id() .'">' . get_the_title() .'</option>';
+                                                    echo '<option selected value="' . get_the_id() .'">' . $seletor[0] .'</option>';
                                                 } else {
-                                                    echo '<option value="' . get_the_id() .'">' . get_the_title() .'</option>';
+                                                    echo '<option value="' . get_the_id() .'">' . $seletor[0] .'</option>';
                                                 }
                                                 
                                             }

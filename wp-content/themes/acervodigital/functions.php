@@ -542,3 +542,23 @@ function rest_api_filter_add_filter_param( $args, $request ) {
 	}
 	return $args;
 }
+
+// Incluir o ACF ano_da_publicacao_acervo_digital como filtro da API
+add_filter( 'rest_query_vars', function ( $valid_vars ) {
+    return array_merge( $valid_vars, array( 'ano_da_publicacao_acervo_digital', 'meta_query' ) );
+} );
+add_filter( 'rest_acervo_query', function( $args, $request ) {
+    $ano_da_publicacao_acervo_digital   = $request->get_param( 'ano_da_publicacao_acervo_digital' );
+
+    if ( ! empty( $ano_da_publicacao_acervo_digital ) ) {
+        $args['meta_query'] = array(
+            array(
+                'key'     => 'ano_da_publicacao_acervo_digital',
+                'value'   => $ano_da_publicacao_acervo_digital,
+                //'compare' => '=',
+            )
+        );      
+    }
+
+    return $args;
+}, 10, 2 );

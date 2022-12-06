@@ -24,7 +24,7 @@ jQuery(document).ready(function ($) {
 
     $('.calendario-agenda-sec').ionCalendar({
         lang: "pt-br",
-        years: "1",
+        years: "3",
 
         onReady: function(){
             getAnoMesCalendario()

@@ -54,6 +54,16 @@ if( function_exists('acf_add_options_page') ) {
     ));
 
     acf_add_options_sub_page(array(
+        'page_title' 	=> 'Analytics',
+        'menu_title'	=> 'Analytics',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'acf_options',
+		'post_id' 		=> 'conf-analytics',
+        'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Informações do Analytics atualizado com sucesso", 'acf'),
+    ));
+
+    acf_add_options_sub_page(array(
         'page_title' 	=> 'Informações Rodapé',
         'menu_title'	=> 'Rodapé',
         'parent_slug'	=> 'conf-geral',

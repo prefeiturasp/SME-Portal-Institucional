@@ -915,10 +915,28 @@ function template_chooser($template){
 }
 add_filter('template_include', 'template_chooser');
 
-// Thumbnail Customozadas
-add_image_size( 'recorte-eventos', 820, 380, true ); // Slide
-add_image_size( 'categoria-eventos', 300, 300, true ); // Categorias
-add_image_size( 'recorte-unidades', 575, 297, true ); // Eventos
+// Thumbnail Customizadas
+add_image_size( 'recorte-eventos', 640, 350, true ); // Slide
+add_image_size( 'categoria-eventos', 350, 350, true ); // Categorias
+
+// Inserir tamanho minimo para upload de imagens
+add_filter('wp_handle_upload_prefilter','tc_handle_upload_prefilter');
+function tc_handle_upload_prefilter($file) {
+    // Debugging...
+    //return array("error"=> print_r( $_POST, true ) );
+    //return array("error"=> print_r( $file, true ) );
+    //return array("error"=> print_r( $GLOBALS, true ) );
+    
+    $img = getimagesize( $file['tmp_name'] );
+    $minimum = array( 'width' => '640', 'height' => '350' );
+    $width = $img[0];
+    $height = $img[1];
+
+    if ( $width < $minimum['width'] || $height < $minimum['height'])
+        return array( "error"=>"As dimensões da imagem são muito pequenas. A tamanho mínimo é {$minimum['width']}px de largura e {$minimum['height']}px de altura. Sua imagem tem o tamanho de {$width}x{$height}px.");
+    else
+        return $file; 
+}
 
 add_action( 'init',  function() {
     add_rewrite_rule( 'page/([a-z0-9-]+)[/]?$', 'index.php?page=$matches[1]', 'top' );
@@ -2021,4 +2039,182 @@ function hide_permalink() {
 // Se usuario nao for admin remove o botao de editar o link permanente
 if ( !current_user_can('edit_plugins') ) {
 	add_filter( 'get_sample_permalink_html', 'hide_permalink' );
+}
+
+// Filtrar os usuarios por grupo do usuarios que estiver logado
+function modify_user_list($query){
+    $user = wp_get_current_user();
+
+    //if( ! current_user_can( 'edit_user' ) ) return $query;
+	if ( !current_user_can( 'manage_options' ) ) {
+		$user_id = $user->ID; 
+		$user_group = get_user_meta($user_id, 'grupo', true);
+		
+		$meta_query = array(
+			'relation' => 'OR',
+		);
+		if($user_group){
+			foreach($user_group as $group){
+				$meta_query[] = array(
+					'key' => 'grupo', // name of custom field
+					'value' => $group, // matches exaclty "123", not just 123. This prevents a match for "1234"
+					'compare' => 'LIKE'
+				);
+			}
+		}
+		$query->set( 'meta_query', $meta_query );
+	}
+
+}
+add_action('pre_get_users', 'modify_user_list');
+
+// Mostrar os grupos que o usuario pertence no seletor de grupos de usuarios
+add_filter('acf/fields/relationship/query/key=field_5f9843469209b', 'filter_groups_by_user', 10, 3);
+function filter_groups_by_user() {
+    $user = wp_get_current_user(); 
+	$user_id = $user->ID; 
+	$args['post_type'] = 'wporg_unidades';
+
+	if( in_array('editor', $user->roles) ){
+		$user_group = get_user_meta($user_id, 'grupo', true);		
+		$args['post__in'] = $user_group;
+	}	
+	
+    return $args;
+}
+
+// Ocultar contador de usuario na pagina users.php
+add_action('admin_head', 'hide_counter_users');
+function hide_counter_users() {
+	global $pagenow;
+	$user = wp_get_current_user();  
+
+	if($pagenow == 'users.php' && !in_array('administrator', $user->roles)){
+		echo '<style>
+		.subsubsub .count {
+			display: none;
+		}
+		</style>';
+	}
+	
+}
+
+// Ocultar seletor de cor
+function admin_color_scheme() {
+	global $_wp_admin_css_colors;
+	$_wp_admin_css_colors = 0;
+}
+add_action('admin_head', 'admin_color_scheme');
+add_filter( 'login_display_language_dropdown', '__return_false' );
+
+#####
+// ocultar campos na edicao do perfil do usuario
+if ( ! function_exists( 'cor_remove_personal_options' ) ) {
+	function cor_remove_personal_options( $subject ) {
+		
+		global $_wp_admin_css_colors;
+		$_wp_admin_css_colors = 0;
+
+		$subject = preg_replace('#<h2>'.__("Personal Options").'</h2>#s', '', $subject, 1); // Remover titulo "Opções pessoais"
+		$subject = preg_replace('#<tr class="user-rich-editing-wrap(.*?)</tr>#s', '', $subject, 1); // Remover "Editor visual"
+		$subject = preg_replace('#<tr class="user-comment-shortcuts-wrap(.*?)</tr>#s', '', $subject, 1); // Remover "Atalhos do teclado"
+		$subject = preg_replace('#<tr class="show-admin-bar(.*?)</tr>#s', '', $subject, 1); // Remover "Barra de ferramentas"
+		$subject = preg_replace('#<tr class="user-language-wrap(.*?)</tr>#s', '', $subject, 1); // Remover "Idioma"
+		$subject = preg_replace('#<tr class="user-syntax-highlighting-wrap(.*?)</tr>#s', '', $subject, 1); // Remover "Destaque de sintaxe"
+		
+		return $subject;
+	}
+
+	function cor_profile_subject_start() {
+		if ( ! current_user_can('manage_options') ) {
+			ob_start( 'cor_remove_personal_options' );
+		}
+	}
+
+	function cor_profile_subject_end() {
+		if ( ! current_user_can('manage_options') ) {
+			ob_end_flush();
+		}
+	}
+}
+add_action( 'admin_head', 'cor_profile_subject_start' );
+add_action( 'admin_footer', 'cor_profile_subject_end' );
+#####
+
+
+//Filtra por tipo de evento grande ou serie
+function wpse45436_admin_posts_filter_restrict_manage_posts(){
+    $type = 'post';
+    if (isset($_GET['post_type'])) {
+        $type = $_GET['post_type'];
+    }
+
+    if ('post' == $type){
+        $values = array(
+            'Grande evento' => 'outro',
+            'Eventos em série' => 'serie',
+        );
+        ?>
+        <select name="tipo">
+            <option value=""><?php _e('Todos os tipos de eventos ', 'wose45436'); ?></option>
+            <?php $current_v = isset($_GET['tipo'])? $_GET['tipo']:''; foreach ($values as $label => $value) {
+                printf
+                (
+                    '<option value="%s"%s>%s</option>',
+                    $value,
+                    $value == $current_v? ' selected="selected"':'',
+                    $label
+                );
+            }
+            ?>
+        </select>
+    <?php } //if submitted filter by post meta
+}
+
+add_filter( 'parse_query', 'wpse45436_posts_filter' );
+function wpse45436_posts_filter( $query ){
+	global $pagenow;
+
+	if ( is_admin() && 'edit.php' == $pagenow && $_GET['tipo'] != '' )  {
+        $query->query_vars['meta_value'] = $_GET['tipo'];
+    }
+    
+}
+add_action( 'restrict_manage_posts', 'wpse45436_admin_posts_filter_restrict_manage_posts' );
+
+// Nao permitir a edicao de eventos para usuarios que nao sejam do mesmo grupo
+global $pagenow;
+global $current_user;
+if (( $pagenow == 'post.php' ) || (get_post_type() == 'post')) {
+
+    $evento = $_GET['post']; // Pegar ID do evento (post)
+	if(get_post_type($_GET['post']) == 'unidade'){
+		$unidade = $_GET['post'];
+		$redirect = admin_url('edit.php?post_type=unidade&filter=grupo');
+	} else {
+		$unidade = get_field('localizacao', $evento); // Pegar a localizacao atribuida
+		$redirect = admin_url('edit.php?list=evento&filter=grupo');
+	}
+    
+    $user = get_currentuserinfo(); // Pegar informacoes do usuario logado
+
+	if($user->roles[0] != 'administrator'){
+		$grupos = get_field('grupo', 'user_' . $user->ID); // Grupo do usuario
+	
+		$unidades = array();
+
+		if($grupos && $grupos != ''){
+			foreach($grupos as $grupo){
+				$unidades[] = get_field('unidades', $grupo);
+			}
+		}
+
+		$unidades = call_user_func_array('array_merge', $unidades);
+		$unidades = array_unique($unidades);
+		
+		if( !in_array($unidade, $unidades) ){
+			wp_redirect( $redirect );
+		}
+	}
+	
 }

@@ -116,7 +116,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                         <label for="atividades" class='d-none'>Selecione as atividades</label>
                                         <select id="atividades" name="atividades[]" multiple="multiple" class="ms-list-1" style="">
                                             <?php foreach($terms as $term): ?>
-                                                <option value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+                                                <option value="<?php echo $term->slug; ?>"><?php echo $term->name; ?></option>
                                             <?php endforeach; ?>                                                        
                                         </select>
                                     </div>
@@ -131,7 +131,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                         <label for="publico" class='d-none'>Selecione o publico</label>        
                                         <select id="publico" name="publico[]" multiple="multiple" class="ms-list-3" style="">                        
                                             <?php foreach ($publicos as $publico): ?>
-                                                <option value="<?php echo $publico->term_id; ?>"><?php echo $publico->name; ?></option>
+                                                <option value="<?php echo $publico->slug; ?>"><?php echo $publico->name; ?></option>
                                             <?php endforeach; ?>                    
                                         </select>
                                     </div>
@@ -140,7 +140,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                         <label for="faixaEtaria" class='d-none'>Selecione a faixa etária</label>
                                         <select id="faixaEtaria" name="faixaEtaria[]" multiple="multiple" class="ms-list-4" style="">                        
                                             <?php foreach ($faixas as $faixa): ?>
-                                                <option value="<?php echo $faixa->term_id; ?>"><?php echo $faixa->name; ?></option>
+                                                <option value="<?php echo $faixa->slug; ?>"><?php echo $faixa->name; ?></option>
                                             <?php endforeach; ?>                      
                                         </select>
                                     </div>
@@ -154,6 +154,9 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                 $argsUnidades = array(
                                                     'post_type' => 'unidade',
                                                     'posts_per_page' => -1,
+                                                    'post__not_in' => array(31244, 31675),
+                                                    'orderby' => 'title',
+	                                                'order'   => 'ASC',
                                                 );
                 
                                                 $todasUnidades = new \WP_Query( $argsUnidades );
@@ -163,10 +166,14 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                     
                                                     while ( $todasUnidades->have_posts() ) {
                                                         $todasUnidades->the_post();
+
+                                                        $titulo = htmlentities(get_the_title());
+                                                        $seletor = explode (" &amp;", $titulo);
+
                                                         if($currentID == get_the_id() ) {
-                                                            echo '<option selected value="' . get_the_id() .'">' . get_the_title() .'</option>';
+                                                            echo '<option selected value="' . get_the_id() .'">' . $seletor[0] .'</option>';
                                                         } else {
-                                                            echo '<option value="' . get_the_id() .'">' . get_the_title() .'</option>';
+                                                            echo '<option value="' . get_the_id() .'">' . $seletor[0] .'</option>';
                                                         }
                                                         
                                                     }
@@ -310,11 +317,11 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                             //$thumbnail_id = get_post_thumbnail_id( $eventoID );
                                                             $alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
                                                         } else {
-                                                            $imgEvento = 'https://via.placeholder.com/820x380';
+                                                            $imgEvento = get_template_directory_uri().'/img/placeholder_portal_ceus.jpg';
                                                             $alt = get_the_title($eventoID);
                                                         }
                                                     ?>
-                                                    <a href="#"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
+                                                    <a href="<?= get_the_permalink(); ?>"><img src="<?php echo $imgEvento; ?>" class="img-fluid d-block" alt="<?php echo $alt; ?>"></a>
                                                     
                                                     <?php if($tipo && $tipo != '') : 
                                                         echo '<span class="flag-pdf-full">';
@@ -356,9 +363,9 @@ class LoopUnidadesTabs extends LoopUnidades{
                                                                 foreach($listaAtividades as $atividade){
                                                                     $k++;
                                                                     if($k == 1){
-                                                                        $showAtividades .= '<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
+                                                                        $showAtividades .= '<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term_by( 'slug', $atividade, 'atividades_categories' )->name . "</a>";
                                                                     } else {
-                                                                        $showAtividades .= ' ,<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
+                                                                        $showAtividades .= ' ,<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term_by( 'slug', $atividade, 'atividades_categories' )->name . "</a>";
                                                                     }
                                                                 }
                                                             ?>
@@ -630,7 +637,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                             <?php endif; ?>
 
                                             <?php if($servico['foto_descricao'] && $servico['foto_descricao'] != ''): 
-                                                    $imgurl = wp_get_attachment_image_url( $servico['foto_descricao'], 'recorte-unidades' );
+                                                    $imgurl = wp_get_attachment_image_url( $servico['foto_descricao'], 'recorte-eventos' );
                                                     $image_alt = get_post_meta($servico['foto_descricao'], '_wp_attachment_image_alt', TRUE);
                                                 ?>
                                                 <p><img src="<?php echo  $imgurl; ?>" alt='<?php echo $image_alt; ?>'></p>
@@ -782,13 +789,13 @@ class LoopUnidadesTabs extends LoopUnidades{
                                     <div class="carousel-inner">
 
                                         <?php foreach($todasFotos as $foto):
-                                                $featured_img_url = wp_get_attachment_image_src($foto, 'recorte-unidades');
+                                                $featured_img_url = wp_get_attachment_image_src($foto, 'recorte-eventos');
                                                 if($featured_img_url){
                                                     $imgEvento = $featured_img_url[0];
                                                     //$thumbnail_id = get_post_thumbnail_id( $eventoID );
                                                     $alt = get_post_meta($foto, '_wp_attachment_image_alt', true);  
                                                 } else {
-                                                    $imgEvento = 'https://via.placeholder.com/575x297';
+                                                    $imgEvento = get_template_directory_uri().'/img/placeholder_portal_ceus.jpg';
                                                     $alt = get_the_title($eventoID);
                                                 }
                                         ?>

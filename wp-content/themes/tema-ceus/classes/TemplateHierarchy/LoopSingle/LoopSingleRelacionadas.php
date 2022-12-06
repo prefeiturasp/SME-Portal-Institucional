@@ -57,91 +57,91 @@ class LoopSingleRelacionadas extends LoopSingle
 			$zona = get_group_field( 'informacoes_basicas', 'zona_sp', $local );
 
 	?>
-		<?php if($local == '31675' || $local == '31244'): ?>
+		<?php if($local == '31675' || $local == '31244' || ($group_field['tipo'] == 'serie' && $group_field['evento_principal'] == 'parte') ): ?>
 
 		<?php else : ?>
-		<div class="end-footer py-4 col-12 color-<?php echo $zona; ?>">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
+			<div class="end-footer py-4 col-12 color-<?php echo $zona; ?>">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
 
-                        <div class="end-title-unidade my-3">
-                            <p><?php echo get_the_title($local); ?></p>
-						</div>
-						
-                        <div class="end-infos">
-							<p>
-								<?php 
-									if($infosBasicas['endereco'] && $infosBasicas['endereco'] != ''){
-										echo $infosBasicas['endereco'];
-									}
-
-									if($infosBasicas['numero'] && $infosBasicas['numero'] != ''){
-										echo ', ' . $infosBasicas['numero'];
-									}
-
-									if($infosBasicas['complemento'] && $infosBasicas['complemento'] != ''){
-										echo ' - ' . $infosBasicas['complemento'];
-									}
-
-									if($infosBasicas['bairro'] && $infosBasicas['bairro'] != ''){
-										echo ' - ' . $infosBasicas['bairro'];
-									}
-
-									if($infosBasicas['cep'] && $infosBasicas['cep'] != ''){
-										echo ' - CEP: ' . $infosBasicas['cep'];
-									}
-								?>
-							</p>
-
-							<?php if($infosBasicas['email'] != ''): ?>								
-								<p><i class="fa fa-envelope" aria-hidden="true"></i> 
-								<?php 
-									$email_primary = $infosBasicas['email']['email_principal'];
-									$email_second = $infosBasicas['email']['email_second'];
-
-									if($email_primary && $email_primary != ''){
-										echo $email_primary;
-									}
-								
-									if($email_second && $email_second != ''){
-										foreach($email_second as $email){
-											echo '<br>' . $email['email'];
-										}
-									}                        
-								?>
-								</p>
-							<?php endif; ?>
-
-							<?php if($infosBasicas['telefone'] != ''): ?>								
-								<p><i class="fa fa-phone" aria-hidden="true"></i> 
+							<div class="end-title-unidade my-3">
+								<p><?php echo get_the_title($local); ?></p>
+							</div>
+							
+							<div class="end-infos">
+								<p>
 									<?php 
-										$tel_primary = $infosBasicas['telefone']['telefone_principal'];
-										$tel_second = $infosBasicas['telefone']['tel_second'];
+										if($infosBasicas['endereco'] && $infosBasicas['endereco'] != ''){
+											echo $infosBasicas['endereco'];
+										}
 
-										if($tel_primary && $tel_primary != ''){
-											echo $tel_primary;
+										if($infosBasicas['numero'] && $infosBasicas['numero'] != ''){
+											echo ', ' . $infosBasicas['numero'];
+										}
+
+										if($infosBasicas['complemento'] && $infosBasicas['complemento'] != ''){
+											echo ' - ' . $infosBasicas['complemento'];
+										}
+
+										if($infosBasicas['bairro'] && $infosBasicas['bairro'] != ''){
+											echo ' - ' . $infosBasicas['bairro'];
+										}
+
+										if($infosBasicas['cep'] && $infosBasicas['cep'] != ''){
+											echo ' - CEP: ' . $infosBasicas['cep'];
+										}
+									?>
+								</p>
+
+								<?php if($infosBasicas['email'] != ''): ?>								
+									<p><i class="fa fa-envelope" aria-hidden="true"></i> 
+									<?php 
+										$email_primary = $infosBasicas['email']['email_principal'];
+										$email_second = $infosBasicas['email']['email_second'];
+
+										if($email_primary && $email_primary != ''){
+											echo $email_primary;
 										}
 									
-										if($tel_second && $tel_second != ''){
-											foreach($tel_second as $tel){
-												echo ' / ' . $tel['telefone_sec'];
+										if($email_second && $email_second != ''){
+											foreach($email_second as $email){
+												echo '<br>' . $email['email'];
 											}
 										}                        
 									?>
-								</p>
-							<?php endif; ?>
-                            
-                        </div>
-                    </div>
+									</p>
+								<?php endif; ?>
 
-                    <div class="col-md-6">
-						<div id="map" style="width: 100%; height: 350px;"></div>
-                        <a href="#map" class="story" data-point="<?php echo $infosBasicas['latitude']; ?>,<?php echo $infosBasicas['longitude']; ?>,<div class='marcador-unidade  color-<?php echo $infosBasicas['zona_sp']; ?>'><p class='marcador-title'><?php echo get_the_title($local); ?></p><p><?php echo $infosBasicas['endereco'];?> nº <?php echo $infosBasicas['numero']; ?> - <?php echo $infosBasicas['bairro']; ?></p><p>CEP: <?php echo $infosBasicas['cep']; ?></p></div>,<?php echo $infosBasicas['zona_sp']; ?>" style="display: none;"> &nbsp;destacar no mapa</a></span>                  
-                    </div>
-                </div>
-            </div>
-		</div>
+								<?php if($infosBasicas['telefone'] != ''): ?>								
+									<p><i class="fa fa-phone" aria-hidden="true"></i> 
+										<?php 
+											$tel_primary = $infosBasicas['telefone']['telefone_principal'];
+											$tel_second = $infosBasicas['telefone']['tel_second'];
+
+											if($tel_primary && $tel_primary != ''){
+												echo $tel_primary;
+											}
+										
+											if($tel_second && $tel_second != ''){
+												foreach($tel_second as $tel){
+													echo ' / ' . $tel['telefone_sec'];
+												}
+											}                        
+										?>
+									</p>
+								<?php endif; ?>
+								
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div id="map" style="width: 100%; height: 350px;"></div>
+							<a href="#map" class="story" data-point="<?php echo $infosBasicas['latitude']; ?>,<?php echo $infosBasicas['longitude']; ?>,<div class='marcador-unidade  color-<?php echo $infosBasicas['zona_sp']; ?>'><p class='marcador-title'><?php echo get_the_title($local); ?></p><p><?php echo $infosBasicas['endereco'];?> nº <?php echo $infosBasicas['numero']; ?> - <?php echo $infosBasicas['bairro']; ?></p><p>CEP: <?php echo $infosBasicas['cep']; ?></p></div>,<?php echo $infosBasicas['zona_sp']; ?>" style="display: none;"> &nbsp;destacar no mapa</a></span>                  
+						</div>
+					</div>
+				</div>
+			</div>
 		<?php endif; ?>		
 		<?php
 		else:
@@ -374,6 +374,7 @@ class LoopSingleRelacionadas extends LoopSingle
 											<?php 
 												
 												$imgSelect = get_field('capa_do_evento', get_the_ID());
+												$tipo_evento = get_field('tipo_de_evento');
 												$tipo = get_field('tipo_de_evento_selecione_o_evento', get_the_ID());
 																							
 												$featured_img_url = wp_get_attachment_image_src($imgSelect, 'recorte-eventos');
@@ -381,7 +382,7 @@ class LoopSingleRelacionadas extends LoopSingle
 													$imgEvento = $featured_img_url[0];													
 													$alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
 												} else {
-													$imgEvento = 'https://via.placeholder.com/820x380';
+													get_template_directory_uri().'/img/placeholder_portal_ceus.jpg';
 													$alt = get_the_title(get_the_ID());
 												}
 											?>
@@ -518,13 +519,15 @@ class LoopSingleRelacionadas extends LoopSingle
 															$data = $dataInicial[2] . " " . $mes . " " . $dataInicial[0];
 
 															$dataFinal = $data;
-														}
-
-														
+														}											
 
 													}
 
 												} 
+
+												if($tipo_evento['tipo'] == 'serie'){
+													$dataFinal = 'Múltiplas Datas';
+												}
 											?>
 											<p class="mb-0">
 												<i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $dataFinal; ?>
@@ -563,12 +566,15 @@ class LoopSingleRelacionadas extends LoopSingle
 														
 													}
 
-												}else {
+												} else {
 													$hora = '';
 												}
 												?>
 												<?php if($hora) : ?>                                           
-													<i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo convertHour($hora); ?>
+                                                	<i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> <?php echo convertHour($hora); ?>
+												<?php endif; ?>
+												<?php if($tipo_evento['tipo'] == 'serie'): ?>
+													<i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> Múltiplos Horários
 												<?php endif; ?>
 											</p>
 											<?php
@@ -576,6 +582,9 @@ class LoopSingleRelacionadas extends LoopSingle
 												if($local == '31675' || $local == '31244'):
 											?>
 												<p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></p>
+											
+											<?php elseif($tipo_evento['tipo'] == 'serie'): ?>
+												<p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> Múltiplas Unidades</p>
 											<?php else: ?>
 												<p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
 											<?php endif; ?>

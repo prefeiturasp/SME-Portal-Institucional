@@ -142,6 +142,7 @@ class Colaborador
 			$this->role_object->add_cap( 'manage_concursos' );
 			$this->role_object->add_cap( 'edit_concursos' );
 			$this->role_object->add_cap( 'assign_concursos' );
+			$this->role_object->add_cap( 'read_tutoriais');
 
 		}
 	}
@@ -153,7 +154,7 @@ class Colaborador
 
 		if ($usuario->roles[0] === 'contributor') {
 			remove_menu_page('edit.php'); // Noticias
-			remove_menu_page('edit.php?post_type=agenda'); // Agenda do Secretario
+			remove_menu_page('edit.php?post_type=new'); // Agenda do Secretario
 			//remove_menu_page('edit.php?post_type=contato');
 			remove_menu_page('edit.php?post_type=organograma'); // Organograma
 			remove_menu_page('edit.php?post_type=curriculo-da-cidade'); // Curriculo

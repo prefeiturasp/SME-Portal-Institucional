@@ -185,7 +185,7 @@ use Classes\Header\Header;
 			$image = wp_get_attachment_image_src($custom_logo_id, 'full');
 			?>
             <p class="logo-topo">
-                <a class="brand" href="<?php echo STM_URL ?>">
+                <a class="brand" href="https://educacao.sme.prefeitura.sp.gov.br/">
                     <img class="img-fluid" src="<?php echo $image[0] ?>" alt="Logotipo da Secretaria Municipal de Educação - Ir para a página principal"/>
                 </a>
             </p>

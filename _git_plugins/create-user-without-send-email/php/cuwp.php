@@ -22,7 +22,7 @@ class CUWP_Create_User_With_Password {
         add_action('admin_action_createuser', array($this, 'cuwp_listen'), 3);
 
         // remove filter that updates welcome email
-        remove_filter('site_option_welcome_user_email', 'welcome_user_msg_filter');
+        remove_filter('site_option_welcome_user_email', 'welcome_user_msg_filter');                
     }
 
     /**
@@ -80,11 +80,7 @@ class CUWP_Create_User_With_Password {
      */
     public function cuwp_listen() {
 
-        if (isset($_REQUEST['cuwp_security']) && 'cuwp' == $_REQUEST['cuwp_security']) {
-            
-            if(sanitize_text_field($_REQUEST['cuwp_pass1']) != sanitize_text_field($_REQUEST['cuwp_pass2'])){
-                wp_die(__('Passwords do not match.', 'create-user-with-password-multisite'));
-            }
+        
             
             global $wpdb;
             check_admin_referer('create-user', '_wpnonce_create-user');
@@ -100,7 +96,7 @@ class CUWP_Create_User_With_Password {
                     if (current_user_can('list_users'))
                         $redirect = 'users.php?update=add&id=' . $user_id;
                     else
-                        $redirect = add_query_arg('update', 'add', 'user-new.php');
+                        $redirect = add_query_arg('update', 'add', 'user-new.php?false=3');
                     wp_redirect($redirect);
                     die();
                 }
@@ -127,7 +123,7 @@ class CUWP_Create_User_With_Password {
                         wpmu_activate_signup($key);
                         $redirect = add_query_arg(array('update' => 'add'), 'user-new.php');
                     } else {
-                        $redirect = add_query_arg(array('update' => 'add'), 'user-new.php');
+                        $redirect = add_query_arg(array('update' => 'add'), 'user-new.php?');
                     }
 
                     // set password for user
@@ -136,40 +132,12 @@ class CUWP_Create_User_With_Password {
                         wp_set_password(sanitize_text_field($_REQUEST['cuwp_pass1']), $user->ID);
                     endif;
 
-                    if (isset($_POST['noconfirmation'])) {
-                        // send email with login details
-                        $replaced_all = sprintf(__('Dear User,'. '<br/>' .
-                            'Your new account has been set up.'. '<br/>' .
-                            '<br/>' .
-                            'You can log in with the following information:'. '<br/>' .
-                            'Username: %1$s' . '<br/>' .
-                            'Password: %2$s' . '<br/>' .
-                            '<br/>' .
-                            '%3$s ' . '<br/>' .
-                            '<br/>' .
-                            'Thanks!'. '<br/>', 'create-user-with-password-multisite'), sanitize_user(wp_unslash($_REQUEST['user_login']), true), sanitize_text_field($_REQUEST['cuwp_pass1']), get_admin_url());
-
-                        $headers = 'From: institucional@sme.prefeitura.sp.gov.br' . "\r\n" .
-                                'Content-type: text/html; charset=utf-8\n' .
-                                'Reply-To: institucional@sme.prefeitura.sp.gov.br' . "\r\n" .
-                                'X-Mailer: PHP/' . phpversion();
-
-                        $mail = wp_mail(sanitize_text_field($_REQUEST['email']), __('Login details', 'create-user-with-password-multisite'), $replaced_all, $headers);
-                        if (true == $mail) {
-                            wp_redirect($redirect);
-                        } else {
-                            wp_die(__('We are sorry but an error has occurred whilst sending the email with the login details. Check if your server is able to send emails. If so, please deactivate the "Create User with Password Multisite" plugin and let us know your issue on the support forum: https://wordpress.org/support/plugin/create-user-with-password-multisite', 'create-user-with-password-multisite'));
-                        }
-
-                        die();
-                    } else {
-
-                        wp_redirect($redirect);
-                        die();
-                    }
+                    wp_redirect($redirect);
+                    die();
+                    
                 }
             }
-        }
+        
     }
 
 }
