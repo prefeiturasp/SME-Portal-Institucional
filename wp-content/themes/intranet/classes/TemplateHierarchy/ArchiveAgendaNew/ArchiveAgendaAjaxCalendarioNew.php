@@ -30,10 +30,31 @@ class ArchiveAgendaAjaxCalendarioNew extends Util
 		
 		$args = array(
 			'post_type' => 'agendanew',
-			'meta_key'     => 'data_do_evento',
-			'meta_value'   => $data_recebida_ao_clicar, // change to how "event date" is stored
-			'meta_compare' => '=',
-			'posts_per_page' => -1
+			'posts_per_page' => -1,
+			'meta_query' => array(
+				'relation' => 'OR',
+				array(
+					'key' => 'data_do_evento',
+					'value' => $data_recebida_ao_clicar,
+					'compare' => '=',
+				),
+				array(
+					'relation' => 'AND',
+					array(
+						'key' => 'data_do_evento',
+						'value' => $data_recebida_ao_clicar,
+						'type' => 'date',
+						'compare' => '<='
+					),
+					array(
+						'key' => 'data_evento_final',
+						'value' => $data_recebida_ao_clicar,
+						'type' => 'date',
+						'compare' => '>='
+					),
+				),			
+			)
+			
 		);
 		$query = new \WP_Query( $args );
 
@@ -48,7 +69,7 @@ class ArchiveAgendaAjaxCalendarioNew extends Util
 						//echo "</pre>";
 					?>
 					<?php foreach($eventos as $evento): ?>
-						<div class="agenda mb-4 agenda-new aaa">
+						<div class="agenda mb-4 agenda-new abc">
 							<div class="order_hri">
 								<?php
 									//converte campo hora por extenso para ordenar
@@ -141,5 +162,3 @@ class ArchiveAgendaAjaxCalendarioNew extends Util
 	}
 
 }
-
-?>
