@@ -15,7 +15,7 @@ class LoopEventoPrincipal extends LoopEvento
 			while (have_posts()): the_post();
 			?>
 				<div class="row m-0">
-					<div class="event-content col-md-5 my-4">
+					<div class="event-content col-12 col-md-5 my-4">
 						<h2>Sobre este evento</h2>
 						<?= get_the_content(); ?>
 						<a href="<?= get_home_url(); ?>/inscricoes/?eventoid=<?= get_the_id(); ?>" class="btn visitas-btn mt-4">Fazer inscrição</a>
