@@ -95,8 +95,20 @@
     font-weight: 700;
 }
 
-.bannerhome-content{
+@media (max-width: 767px){
+    .bannerhome-content .btn.visitas-btn,
+    .event-detail .btn.visitas-btn {
+        display: block;
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .title-event .bannerhome-title{
+        line-height: 1.2;
+    }
 }
+
 .bannerhome-infoline{
     color: #727A86;
     font-size: 18px;
@@ -190,10 +202,26 @@
     color: #767E85;
     padding-left: 30px;
 }
-.blc-news{
+.container.blc-news{
     background: #026EEA;
     border-radius: 8px;
+    padding: 3rem;
 }
+@media (max-width: 767px){
+    .container.blc-news{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .form-news input, .form-news select{
+        width: 100%;
+    }
+
+    .blc-news h2.title-news{
+        line-height: 1.2;
+    }
+}
+
 .btn-form-busca {
     background: #1C2833 !important;
     border-radius: 30px !important;

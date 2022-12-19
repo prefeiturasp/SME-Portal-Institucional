@@ -55,7 +55,7 @@ class Construtor extends Util
 		if(get_field('fx_flex_habilitar_menu') != null || get_field('fx_flex_habilitar_menu', $parent) != null){
 			$container = 'container';
 		} else {
-			$container = 'container-fluid p-0';
+			$container = 'container-fluid';
 		}
 		//echo $post->post_parent;
 		?>
@@ -430,7 +430,7 @@ class Construtor extends Util
 								//conteudo flexivel 1 coluna
 								if( have_rows('fx_coluna_1_1') ):
 									echo '<div class="bg_fx_'.$background['value'].' lk_fx_'.$link['value'].' fx_all">';//fundo e link
-									echo '<div class="container-fluid p-0">';//bootstrap container
+									echo '<div class="container-fluid">';//bootstrap container
 									echo '<div class="row">';//bootstrap row
 									echo '<div class="col-sm-12 tx_fx_'.$color['value'].'  mt-3 mb-3 col-bt-'.$colorbtn['value'].' ' . $contentClass . '">';//bootstrap col
 										while( have_rows('fx_coluna_1_1') ): the_row();

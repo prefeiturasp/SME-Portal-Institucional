@@ -172,6 +172,12 @@ li.nav-item{
 	width: 100% !important;
 }
 
+@media (max-width: 576px){
+    .bn_fx_banner{
+        display: none;
+    }
+}
+
 /*Bloco Noticias*/
 #noticias_fx {
     max-height: 650px;

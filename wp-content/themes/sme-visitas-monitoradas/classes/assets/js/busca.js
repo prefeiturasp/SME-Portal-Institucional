@@ -68,9 +68,19 @@ jQuery(function() {
     jQuery(".btn-filtros").click(function(){
         jQuery('.filter-sidebar').show('active-pill');
     });
-    /*Abre Filtro*/
+    /*Fecha Filtro*/
     jQuery(".btn-filtros-close").click(function(){
         jQuery('.filter-sidebar').hide('active-pill');
+    });
+
+    /*Abre menu*/
+    jQuery(".btn-menu").click(function(){
+        jQuery('.menu-sidebar').show('active-pill');
+    });
+
+    /*Fecha menu*/
+    jQuery(".btn-menu-close").click(function(){
+        jQuery('.menu-sidebar').hide('active-pill');
     });
 
 

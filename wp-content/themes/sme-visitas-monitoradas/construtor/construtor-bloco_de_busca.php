@@ -65,9 +65,9 @@
         </div>
     </div>
     <div class="container mt-5 mb-5">
-        <div class="row">
+        <div class="row m-0">
             <div class="col-sm-10">
-                <div class="row mb-2">
+                <div class="row mb-2 form-input">
                     <div class="col-sm-3 pr-2 pl-2">
                         <div class="form-group icon-group">
                             <span class="icon-control icon-control-busca"></span>
@@ -143,3 +143,4 @@
     </div>
     </div>
 </form>
+

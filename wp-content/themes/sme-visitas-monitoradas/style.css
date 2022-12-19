@@ -18,6 +18,14 @@ Text Domain: sme-portal-institucional
 .logo-visitas{
     max-width: 100px;
 }
+
+@media (max-width: 767px){
+    .logo-visitas {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
 .alignnone {
     margin: 5px 20px 20px 0;
 }
@@ -70,6 +78,13 @@ Text Domain: sme-portal-institucional
 .profile-menus .dropdown-item {
     font-size: 14px;
     line-height: 1.5;
+}
+
+@media (max-width: 767px)
+{
+    .profile-menus .dropdown-menu{
+        left: -45px !important;
+    }
 }
 
 .profile-menu .simple-menu a {
@@ -621,6 +636,7 @@ a {
     background-color: #196CBD;
     color: #FFF;
     font-weight: bold;
+    font-size: 12px;
 }
 
 .list-inline-item:not(:last-child) {
@@ -1969,6 +1985,8 @@ ul.nav.nav-tabs{
     color: #FFFFFF;
 }
 
+c
+
 .title-bg {
     background: #F4F4F5;
     margin-top: 18px;
@@ -1976,6 +1994,12 @@ ul.nav.nav-tabs{
 
 .title-bg .info-date-banner{
     font-weight: 500;
+}
+
+@media (max-width: 767px){
+    .title-bg h1 {
+        line-height: 1.2;
+    }
 }
 
 .return-link{
@@ -2095,6 +2119,12 @@ ul.nav.nav-tabs{
 .wizard > .steps > ul > li
 {
     width: 33.33%;
+}
+
+@media (max-width: 576px){
+    .wizard > .steps > ul > li{
+        width: 100%;
+    }
 }
 
 .wizard > .steps > ul > li,
@@ -2264,9 +2294,25 @@ ul.nav.nav-tabs{
     margin-bottom: 30px;
 }
 
-.wizard > .actions > ul > li
-{
+.wizard > .actions > ul > li{
     margin: 0 0.5em;
+}
+
+@media (max-width: 576px){
+    .wizard > .content > .body{
+        padding: 2.5% 0%;
+    }
+
+    .wizard > .actions > ul{
+        display: block;
+    }
+
+    .wizard > .actions > ul > li{
+        margin: 0;
+        width: 100%;
+        margin-bottom: 10px;
+        text-align: center;
+    }
 }
 
 .wizard.vertical > .actions > ul > li
