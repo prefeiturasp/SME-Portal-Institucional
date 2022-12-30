@@ -26,7 +26,7 @@ class LoopEventoParceiro extends LoopEvento
 				?>
 
 				<?php if($logo): ?>
-					<img src="<?= $logo; ?>" alt="Logo <?= $nomeParceiro; ?>">
+					<a href="<?= get_the_permalink($parceiro); ?>"><img src="<?= $logo; ?>" alt="Logo <?= $nomeParceiro; ?>"></a>
 				<?php endif; ?>
 
 				<h3><?= $nomeParceiro; ?></h3>

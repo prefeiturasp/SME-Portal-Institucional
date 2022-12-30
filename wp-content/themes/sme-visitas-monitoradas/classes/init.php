@@ -41,6 +41,11 @@ require_once __ROOT__.'/classes/TemplateHierarchy/LoopEvento/LoopEventoAgenda.ph
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopEvento/LoopEventoParceiro.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopEvento/LoopEventoRelacionados.php';
 
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopParceiro/LoopParceiro.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopParceiro/LoopParceiroCabecalho.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopParceiro/LoopParceiroRelacionados.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopParceiro/LoopParceiroCta.php';
+
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaDre/ArchiveAgendaDre.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaDre/ArchiveAgendaAjaxCalendarioDre.php';
 
