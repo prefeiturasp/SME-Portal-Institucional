@@ -12,7 +12,7 @@ class Administrador
 	{
 		$this->getRole();
 		$this->addCap();
-		//add_action('admin_menu', array($this, 'escondeMenu' ));
+		add_action('admin_init', array($this, 'escondeMenu' ));
 	}
 
 	public function getRole(){
@@ -111,25 +111,33 @@ class Administrador
 		}
 	}
 
+	
 	public function escondeMenu(){
 
 		$usuario = wp_get_current_user();
 
 		if ($usuario->roles[0] === self::ROLE) {
 
-			remove_submenu_page( 'themes.php', 'themes.php' ); // hide the theme selection submenu
-			remove_submenu_page( 'themes.php', 'widgets.php' ); // hide the widgets submenu
-			// Remove Appearance -> Customize
-			remove_submenu_page('themes.php', 'customize.php?return=' . urlencode($_SERVER['REQUEST_URI']));
-			global $submenu;
-			unset($submenu['themes.php'][15]); // header_image
-			unset($submenu['themes.php'][20]); // background_image
-			remove_submenu_page( 'themes.php', 'customize.php?return=%2Fwp-admin%2Ftools.php&#038;autofocus%5Bcontrol%5D=background_image' ); // hide the background submenu
+			$menu_completo = get_field('menu_completo', 'user_'. $usuario->data->ID );
 
-			remove_menu_page( 'wpcf7' );
-			remove_menu_page('edit-comments.php');
-			remove_menu_page('tools.php');
-
+			if(!$menu_completo){
+				remove_menu_page('edit.php'); // Posts
+				remove_menu_page('upload.php'); // Midia
+				remove_menu_page('edit.php?post_type=acf-field-group'); // Paginas
+				remove_menu_page( 'wpcf7' );
+				remove_menu_page('edit-comments.php');
+				remove_menu_page('tools.php');
+				remove_menu_page('themes.php');
+				remove_menu_page( 'plugins.php' );
+				remove_menu_page( 'options-general.php' );
+				remove_menu_page( 'loco' );
+				remove_menu_page( 'WP-Optimize' );
+				remove_menu_page( 'wp-mail-smtp' );
+				remove_menu_page( 'loginwp-settings' );
+				remove_menu_page( 'flamingo' );
+				remove_menu_page( 'tutorial_slug' );
+				remove_menu_page( 'acf-options-alerta-da-pagina-inicial' );
+			}
 
 		}
 

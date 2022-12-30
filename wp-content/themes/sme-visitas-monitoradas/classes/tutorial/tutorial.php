@@ -19,7 +19,7 @@ class WPDocs_Options_Page {
         add_menu_page(
             __( 'Tutoriais', 'textdomain' ),//page title
             __( 'Tutoriais', 'textdomain' ),//menu title
-            'read',//Capability
+            'activate_plugins',//Capability
             'tutorial_slug',//slug
             array(
                 $this,

@@ -23,7 +23,8 @@ class CptCadastroTransporte extends Cpt
             $columns = array(
                 'cb' => '<input type="checkbox" />',
                 'title' => 'Nome da empresa',
-                'telefone' => 'Telefone da empresa',                
+                'telefone' => 'Telefone da empresa',
+                'date' => 'Data',              
             );
     
             return $columns;

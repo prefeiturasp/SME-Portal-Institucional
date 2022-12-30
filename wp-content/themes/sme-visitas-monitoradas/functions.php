@@ -2804,3 +2804,57 @@ function duplicar_infos($post_id) {
 		update_field('nome_responsavel_copia', $responsavel, $post_id);
 	}
 }
+
+// Widget custimizado no menu Painel
+add_action('wp_dashboard_setup', 'last_subs_dashboard_widgets');
+  
+function last_subs_dashboard_widgets() {
+	global $wp_meta_boxes;
+	
+	wp_add_dashboard_widget('custom_help_widget', 'Inscrições mais recentes', 'custom_dashboard_help');
+}
+ 
+function custom_dashboard_help() {
+	$user = wp_get_current_user();
+			
+	if($user->roles[0] != 'administrator'){		
+		// pega o grupo que o usuario pertence
+		$grupos = get_user_meta($user->ID, 'grupo');		
+	}
+
+	
+	$posts = get_posts(array(
+		'numberposts'   => 10,
+		'post_type'     => 'agendamento',
+		'meta_key'      => 'dre_selected',
+		'meta_value'    => $grupos[0],
+		'post_status' => array( 'pending', 'draft', 'publish' )
+	));
+	
+
+	if($posts){
+		foreach($posts as $inscricao){
+			echo "<p><a href='/wp-admin/post.php?post=" . $inscricao->ID . "&action=edit'>" . $inscricao->post_title . "</a></p>";
+		}
+	}
+
+}
+
+// Remover widgets padrao do Painel
+add_action('wp_dashboard_setup', 'wpdocs_remove_dashboard_widgets');
+
+function wpdocs_remove_dashboard_widgets(){
+   remove_meta_box('dashboard_quick_press', 'dashboard', 'side');
+   remove_meta_box('dashboard_primary', 'dashboard', 'side');
+   remove_meta_box('dashboard_right_now', 'dashboard', 'normal');
+   remove_meta_box('dashboard_activity', 'dashboard', 'normal');
+   remove_meta_box('wp_mail_smtp_reports_widget_lite', 'dashboard', 'normal');
+   remove_meta_box('dashboard_site_health', 'dashboard', 'normal');
+}
+
+// Remover coluna "Posts" da lista de usuarios
+function wpseq_270133_users( $columns ) {
+    unset( $columns['posts'] );
+    return $columns;
+}
+add_filter( 'manage_users_columns', 'wpseq_270133_users' );

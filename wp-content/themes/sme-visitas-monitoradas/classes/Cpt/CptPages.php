@@ -18,12 +18,12 @@ class CptPages extends Cpt
 		if( current_user_can('editor') || current_user_can('administrator') ) {
 			$columns = array(
 				'cb' => '<input type="checkbox" />',
-				'title' => 'Title',
-				'author' => 'Author',
-				'modified' => 'Modificado por',
-				'featured_thumb' => 'Thumbnail',
-				'grupo' => 'Grupo',
-				'date' => 'Date',	
+				'title' => 'Titulo',
+				//'author' => 'Author',
+				//'modified' => 'Modificado por',
+				//'featured_thumb' => 'Thumbnail',
+				//'grupo' => 'Grupo',
+				'date' => 'Data',	
 			);
 		} else {
 			$columns = array(

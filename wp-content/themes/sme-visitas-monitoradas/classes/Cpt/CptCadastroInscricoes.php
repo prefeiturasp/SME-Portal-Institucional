@@ -92,7 +92,7 @@ class CptCadastroInscricoes extends Cpt
                 'dre' => 'DRE',
                 'ue' => 'Unidade Escolar',            
                 'date' => 'Data',
-                'transporte' => 'UE precisa de transporte?',
+                'transporte' => 'Tipo de transporte',
                 'status' => 'Status',
             );
     
@@ -120,7 +120,7 @@ class CptCadastroInscricoes extends Cpt
             'dre' => 'DRE',
             'ue' => 'Unidade Escolar',            
             'date' => 'Data',
-            'transporte' => 'UE precisa de transporte?',
+            'transporte' => 'Tipo de transporte',
             'status' => 'Status',
         );
 
@@ -147,8 +147,16 @@ class CptCadastroInscricoes extends Cpt
 				break;
 
 			case 'transporte':
-				$transporte = get_field('transporte', $post->ID);
-				echo $transporte == 1 ? "Sim" : "Não";
+				$transporte = get_field('tipo_transporte', $post->ID);
+                
+				if($transporte == 'dre'){
+                    echo "DRE";
+                }elseif($transporte == 'parceiro'){
+                    echo "Parceiro";
+                }elseif($transporte == 'proprio-ue'){
+                    echo "Próprio UE";
+                }
+
 				break;
 
             case 'status':
