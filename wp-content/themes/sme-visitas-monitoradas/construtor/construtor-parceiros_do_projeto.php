@@ -26,7 +26,7 @@
             while ( $new_query->have_posts() ) : $new_query->the_post();
                 ?>
                 <div class="col-6 col-md-4 col-lg-2 mt-4 mb-4">
-                    <img src="<?php the_field('foto_principal_parceiro') ?>" alt="<?php the_title(); ?>"  width="176" height="56">
+                    <a href="<?= get_the_permalink(); ?>"><img src="<?php the_field('foto_principal_parceiro') ?>" alt="<?php the_title(); ?>"  width="176" height="56">
                 </div>
                 <?php
                 $count_parceiros++;

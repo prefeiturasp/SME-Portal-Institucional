@@ -1985,8 +1985,6 @@ ul.nav.nav-tabs{
     color: #FFFFFF;
 }
 
-c
-
 .title-bg {
     background: #F4F4F5;
     margin-top: 18px;
@@ -2000,6 +1998,57 @@ c
     .title-bg h1 {
         line-height: 1.2;
     }
+}
+
+.part-detail .bg-cabecalho{
+    width: 100%;
+    background: #F4F4F5;
+    margin-top: 20px;
+    padding-top: 35px;
+    padding-bottom: 25px;
+}
+
+.part-detail .logo-part{
+    margin-bottom: 20px;
+}
+
+.part-detail .logo-part img{
+    border-radius: 4px;
+}
+
+.part-detail .infos-part p {
+    text-align: right;
+}
+
+.part-detail .infos-part p a {
+    color: #3A454F;
+}
+
+.part-detail .infos-part .social a{
+    text-decoration: underline;
+}
+
+.cta-part {
+    background: #026EEA;
+    text-align: center;
+    padding: 70px 20px 60px;
+    margin-bottom: 50px;
+    color: #FFFFFF;
+    border-radius: 8px;
+}
+
+.cta-part h3{
+    color: #FFFFFF;
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.cta-part .btn-cta {
+    background: #1C2833;
+    color: #FFFFFF;
+    padding: 7px 30px;
+    border-radius: 20px;
 }
 
 .return-link{
