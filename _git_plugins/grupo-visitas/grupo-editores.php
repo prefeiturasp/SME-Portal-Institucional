@@ -18,6 +18,7 @@ function wporg_custom_post_type() {
             'public'      => true,
             'has_archive' => true,
 			'rewrite'     => array( 'slug' => 'editores_portal' ), // my custom slug
+            'menu_position'=> 20,
 			'capabilities' => array(
 				'edit_post'          => 'activate_plugins',
 				'read_post'          => 'activate_plugins',
@@ -91,7 +92,7 @@ function wpse_user_can_edit( $user_id, $page_id ) {
         $dres_open = array_flatten($dres_open);
         $dres_open = array_unique($dres_open);
         
-        $dre_publi = get_field('dre', $id_pot);
+        $dre_publi = get_field('dre_selected', $id_pot);
         
         
         //echo "<pre>";
@@ -101,7 +102,7 @@ function wpse_user_can_edit( $user_id, $page_id ) {
         //$result = array_merge($unidades, $id_pot);
 
         // se a pagina corrente esta na lista de paginas do grupo libera para edicao
-        if( in_array($dre_publi, $dres_open) ||  in_array($dre_publi['value'], $dres_open)){
+        if( in_array($dre_publi, $variable) ||  in_array($dre_publi['value'], $variable)){
 			return true;
 		} else {
 			return false;
@@ -144,8 +145,13 @@ function wpse_user_can_edit( $user_id, $page_id ) {
 }, 10, 4 );
 
 add_filter('manage_editores_portal_posts_columns', function($columns) {
+    $columns = array(
+        'cb' => '<input type="checkbox" />',
+        'title' => 'DRE',                    
+    );
 	$columns = array_merge($columns, ['qtd_total' => __('Total de ônibus', 'textdomain')]);
-	$columns = array_merge($columns, ['qtd_dispo' => __('Ônibus disponíveis', 'textdomain')]);    
+	$columns = array_merge($columns, ['qtd_dispo' => __('Ônibus disponíveis', 'textdomain')]);
+    unset($columns['date']); 
     return $columns;
 });
  
