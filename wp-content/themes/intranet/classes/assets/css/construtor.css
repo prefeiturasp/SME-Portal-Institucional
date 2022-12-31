@@ -795,10 +795,15 @@ form.form-recados label {
     font-weight: bold;
 }
 
+.curso h2,
 .curso h2 a{
     color: #B8002E;
     display: block;
     text-transform: uppercase;
+}
+
+.certificado h2{
+    text-transform: initial;
 }
 
 .curso .link{

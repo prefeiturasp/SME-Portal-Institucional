@@ -530,6 +530,18 @@ a {
     color: #FFFFFF;
 }
 
+#menu-menu-superior-1 .dropdown-menu{
+    background-color: #14457c;
+    padding: 0;
+    width: 100%;
+    top: 47px;
+    border-radius: 0;
+}
+
+#menu-menu-superior-1 .dropdown-menu li a{
+    text-align: center;
+}
+
 /**** Menu ****/
 
 .btn-menu {
