@@ -60,7 +60,7 @@ class CptPages extends Cpt
 					'meta_query' => array(
 						array(
 							'key' => 'selecionar_paginas', // name of custom field
-							'value' => '"' . $localizacao . '"', // matches exaclty "123", not just 123. This prevents a match for "1234"
+							'value' => '' . $localizacao . '', // matches exaclty "123", not just 123. This prevents a match for "1234"
 							'compare' => 'LIKE'
 						)
 					)
