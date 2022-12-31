@@ -392,6 +392,10 @@ class Construtor extends Util
 											elseif( get_row_layout() == 'fx_cl1_ingressos_plateia_1_1' ):
 												get_template_part( 'construtor/construtor', 'ingressos_plateia_1_1' );
 
+											// Certificados
+											elseif( get_row_layout() == 'fx_cl1_certificados_1_1' ):
+												get_template_part( 'construtor/construtor', 'certificados_1_1' );
+
 											// Integracao Pagina
 											elseif( get_row_layout() == 'integrar_pagina' ):
 
@@ -2048,6 +2052,10 @@ class Construtor extends Util
 											// Cartao Educador
 											elseif( get_row_layout() == 'fx_cl1_cartao_educador_1_2' ):
 												get_template_part( 'construtor/construtor', 'cartao_educador', array( 'key' => '1_2' ) );
+
+											// Card com Imagem
+											elseif( get_row_layout() == 'fx_cl1_card_imagem_1_2' ):
+												get_template_part( 'construtor/construtor', 'card_imagem', array( 'key' => '1_2' ) );
 											
 											endif;
 
@@ -2160,6 +2168,10 @@ class Construtor extends Util
 											// Cartao Educador
 											elseif( get_row_layout() == 'fx_cl1_cartao_educador_2_2' ):
 												get_template_part( 'construtor/construtor', 'cartao_educador', array( 'key' => '2_2' ) );
+											
+											// Card com Imagem
+											elseif( get_row_layout() == 'fx_cl1_card_imagem_2_2' ):
+												get_template_part( 'construtor/construtor', 'card_imagem', array( 'key' => '2_2' ) );
 
 											endif;
 
