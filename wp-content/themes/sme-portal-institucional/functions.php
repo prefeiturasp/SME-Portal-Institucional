@@ -2896,3 +2896,17 @@ function editar_concursos(){
 	}
 }
 add_action( 'admin_init', 'editar_concursos' );
+
+function data_periodo_agenda($dataIni, $dataFin){
+	$dataIni = implode('-', array_reverse(explode('/', $dataIni)));
+	$dataFin = implode('-', array_reverse(explode('/', $dataFin)));
+
+	$inicial = new \DateTime( $dataIni );
+	$final = new \DateTime( $dataFin );
+	$final = $final->modify( '+1 day' ); 
+
+	$intervalo = new \DateInterval('P1D');
+	$periodo = new \DatePeriod($inicial, $intervalo ,$final);
+
+	return $periodo;
+}

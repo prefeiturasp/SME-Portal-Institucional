@@ -33,17 +33,37 @@ class ArchiveAgendaAjaxCalendarioDre extends Util
 		
 		$args = array(
 			'post_type' => 'agenda-dre-bt',
-			'meta_key'     => 'data_do_evento',
-			'meta_value'   => $data_recebida_ao_clicar, // change to how "event date" is stored
-			'meta_compare' => '=',
-			'posts_per_page' => -1
+			'posts_per_page' => -1,
+			'meta_query' => array(
+				'relation' => 'OR',
+				array(
+					'key' => 'data_do_evento',
+					'value' => $data_recebida_ao_clicar,
+					'compare' => '=',
+				),
+				array(
+					'relation' => 'AND',
+					array(
+						'key' => 'data_do_evento',
+						'value' => $data_recebida_ao_clicar,
+						'type' => 'date',
+						'compare' => '<='
+					),
+					array(
+						'key' => 'data_evento_final',
+						'value' => $data_recebida_ao_clicar,
+						'type' => 'date',
+						'compare' => '>='
+					),
+				),			
+			)
 		);
 		$query = new \WP_Query( $args );
 
 		if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
 			?>
 			<article class="col-lg-12 col-xs-12">
-				<div class="agenda mb-4 agenda-dre">
+				<div class="agenda mb-4 agenda-new agenda-dre">
 					<?php
 						$eventos = get_field('eventos_do_dia');
 						//echo "<pre>";
@@ -51,7 +71,7 @@ class ArchiveAgendaAjaxCalendarioDre extends Util
 						//echo "</pre>";
 					?>
 					<?php foreach($eventos as $evento): ?>
-						<div class="agenda mb-4 agenda-dre <?= $dre_select; ?>">
+						<div class="agenda mb-4 agenda-inside agenda-dre <?= $dre_select; ?>">
 							<div class="order_hri">
 								<?php
 									//converte campo hora por extenso para ordenar
@@ -71,7 +91,7 @@ class ArchiveAgendaAjaxCalendarioDre extends Util
 								<div class="local"><strong>Pauta/Assunto:</strong> <?= $evento['pauta_assunto']; ?></div>
 							<?php endif; ?>
 
-							<?php if( $evento['digite_o_endereco_do_evento'] != '') :?>
+							<?php if( $evento['endereco_evento'] == 'outros' && $evento['digite_o_endereco_do_evento'] != '') :?>
 								<div class="local"><strong>Local:</strong> <?= $evento['digite_o_endereco_do_evento'] ?></div>
 							<?php else: ?>
 								<div class="local"><strong>Local:</strong> <?= get_term( $evento['endereco_evento'] )->name; ?> - <?= get_term( $evento['endereco_evento'] )->description; ?></div>
@@ -137,7 +157,7 @@ class ArchiveAgendaAjaxCalendarioDre extends Util
 
 		endwhile;
 		else:
-			echo '<p class="agenda agenda-dre"><strong>Não existem eventos cadastrados nesta data</strong></p>';
+			echo '<p class="agenda agenda-new agenda-dre"><strong>Não existem eventos cadastrados nesta data</strong></p>';
 		endif;
 		wp_reset_postdata();
 
