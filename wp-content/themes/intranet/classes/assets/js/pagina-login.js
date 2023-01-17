@@ -9,7 +9,7 @@ jQuery(document).ready(function ($) {
     });
 
     // Inclui placeholder nos inputs de login
-    $("#user").attr("placeholder", "Informe o RF do usuário");
+    $("#user").attr("placeholder", "Informe o RF/Cód.EOL do Usuário");
     
     $("#pass").attr("placeholder", "Informe sua senha");
     // Inclui botao hide/show no campo de senha

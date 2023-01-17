@@ -3,7 +3,7 @@
 * Plugin Name: CoreSSO Integração API
 * Plugin URI: https://amcom.com.br/
 * Description: Integração do Login do WordPress com o CoreSSO.
-* Version: 1.0
+* Version: 1.1
 * Author: AMcom
 * Author URI: https://amcom.com.br/
 **/
@@ -45,23 +45,55 @@ function demo_auth( $user, $username, $password ){
 
         // Verifica se tem o codigo RF e busca os dados do usuario
         if($user->codigoRf){
-            $api_url = 'https://hom-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/AutenticacaoSgp/' . $user->codigoRf . '/dados';
-            $response = wp_remote_get( $api_url ,
-                array( 
-                    'headers' => array( 
-                        'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99',							
-                    )
-                )
-            );
+            
+            $rf = $user->codigoRf;
+            
+            $countRf = strlen($rf);
 
-            $user = json_decode($response['body']);            
+            if($countRf == 6){
+                $usuario = $rf;
+                $api_url = 'https://hom2-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/escolas/unidades-parceiras';
+                $response = wp_remote_post( $api_url, array(
+                    'method'      => 'POST',                    
+                    'headers' => array( 
+                        'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99',
+                        'Content-Type' => 'application/json-patch+json'
+                    ),
+                    'body' => '['.$rf.']',
+                    )
+                );
+                
+                if ( is_wp_error( $response ) ) {
+                    //$error_message = $response->get_error_message();
+                    //echo "Something went wrong: $error_message";
+                } else {
+                    $user = json_decode($response['body']);                     
+                }
+            } else {
+                $api_url = 'https://hom-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/AutenticacaoSgp/' . $user->codigoRf . '/dados';
+                $response = wp_remote_get( $api_url ,
+                    array( 
+                        'headers' => array( 
+                            'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99',							
+                        )
+                    )
+                );
+
+                $user = json_decode($response['body']); 
+            }
+                       
         }
 
+        if($user->email){
+            $email = $user->email;
+        } else {
+            $email = $user[0]->email;
+        }
         
         
         // Verifica se o usuario ja esta cadastrado no WordPress
         $userobj = new WP_User();
-        $user_wp = $userobj->get_data_by( 'email', $user->email ); // Does not return a WP_User object :(
+        $user_wp = $userobj->get_data_by( 'email', $email ); // Does not return a WP_User object :(
         $user_wp = new WP_User($user_wp->ID); // Attempt to load up the user with that ID
 
         // Se nao estiver cadastrado faz a criacao do usuario
@@ -74,27 +106,41 @@ function demo_auth( $user, $username, $password ){
             // Recebe o nome completo do usuario            
             $name = $user->nome;
 
-            // Recebe o CPF
-            $cpf = $user->cpf;
+            if($user[0]->codigo){
 
-            // Divide o nome em Nome e Sobrenome
-            $parts = explode(" ", $name);
-            if(count($parts) > 1) {
-                $firstname = array_shift($parts);
-                $lastname = implode(" ", $parts);
+                $userdata = array( 'user_email' => $user[0]->email,
+                                    'user_login' => $user[0]->email,
+                                    'first_name' => $user[0]->nome,                            
+                                );
+                $new_user_id = wp_insert_user( $userdata ); // Um novo usuario sera criado
+                update_user_meta($new_user_id, "rf", $user[0]->codigo);
+                update_user_meta($new_user_id, "parceira", 1);
+
             } else {
-                $firstname = $name;
-                $lastname = " ";
+                // Recebe o CPF
+                $cpf = $user->cpf;
+
+                // Divide o nome em Nome e Sobrenome
+                $parts = explode(" ", $name);
+                if(count($parts) > 1) {
+                    $firstname = array_shift($parts);
+                    $lastname = implode(" ", $parts);
+                } else {
+                    $firstname = $name;
+                    $lastname = " ";
+                }
+
+                $userdata = array( 'user_email' => $user->email,
+                                    'user_login' => $user->email,
+                                    'first_name' => $firstname,
+                                    'last_name' => $lastname,                                
+                                );
+                $new_user_id = wp_insert_user( $userdata ); // Um novo usuario sera criado
+                update_user_meta($new_user_id, "rf", $username);
+                update_user_meta($new_user_id, "cpf", $cpf);
             }
 
-            $userdata = array( 'user_email' => $user->email,
-                                'user_login' => $user->email,
-                                'first_name' => $firstname,
-                                'last_name' => $lastname,                                
-                            );
-            $new_user_id = wp_insert_user( $userdata ); // Um novo usuario sera criado
-            update_user_meta($new_user_id, "rf", $username);
-            update_user_meta($new_user_id, "cpf", $cpf);
+            
             
             // Carregar as novas informações do usuário
             $user_wp = new WP_User ($new_user_id);

@@ -12,7 +12,7 @@ class LoginRecuperar extends Util
 	{
 
 		$this->montaHtmlLogin();
-		//contabiliza visualiza��es de noticias
+		//contabiliza visualizacoes de noticias
 		//setPostViews(get_the_ID()); /*echo getPostViews(get_the_ID());*/
 
 	}
@@ -35,7 +35,7 @@ class LoginRecuperar extends Util
 							<form id="lost-pass" action="<?= get_the_permalink(); ?>" method="post">
 								<p class="login-username">
 									<label for="user">Usuário</label>
-									<input type="text" name="log" id="user" class="input" value="" size="20" placeholder="Informe o RF do usuário">
+									<input type="text" name="log" id="user" class="input" value="" size="20" placeholder="Informe o RF/Cód.EOL do Usuário">
 									<div class="buttons-form text-right">
 										<a href="<?= get_home_url(); ?>" class="btn btn-outline-primary" id="cancel">Cancelar</a>
 										<input type="submit" value="Continuar" id="continue" class="btn btn-primary">

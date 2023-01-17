@@ -28,6 +28,10 @@ function custom_setup() {
 		'primary' => __('Menu Superior', 'THEMENAME'),
 	));
 
+	register_nav_menus(array(
+		'primary_parc' => __('Menu Superior Parceiras', 'THEMENAME'),
+	));
+
 	register_nav_menu('navbar', __('Navbar', 'your-theme'));
 
 
@@ -1932,8 +1936,6 @@ function get_file_url($id){
 	return $mediaResponse->source_url;
 }
 
-
-
 // Incluir a opacao de Limpar o contador dos usuarios
 add_filter('bulk_actions-users', function($bulk_actions) {
 	$bulk_actions['limpar-contator'] = __('Limpar Contator', 'txtdomain');
@@ -1952,6 +1954,12 @@ add_filter('handle_bulk_actions-users', function($redirect_url, $action, $users)
 	}
 	return $redirect_url;
 }, 10, 3);
+
+function destroy_sessions() {
+	$sessions->destroy_all();//destroys all sessions
+	wp_clear_auth_cookie();//clears cookies regarding WP Auth
+}
+add_action('wp_logout', 'destroy_sessions');
 
 // Validar Senha
 add_action('wp_ajax_valida_user','valida_user');
@@ -2049,3 +2057,27 @@ function update_user_option_admin_color( $color_scheme ) {
 
     return $color_scheme;
 }
+
+if ( (! empty($GLOBALS['pagenow']) && 'post.php' === $GLOBALS['pagenow']) ||  (! empty($GLOBALS['pagenow']) && 'edit.php' === $GLOBALS['pagenow']))
+    add_action('admin_footer', 'trash_click_message');
+function trash_click_message() {
+    echo <<<JQUERY
+<script>
+	jQuery( function($) {       
+		$('.edit-php a.submitdelete, .post-php a.submitdelete').click( function( event ) {
+			if( ! confirm( 'Você realmente deseja mover para a lixeira?' ) ) {
+				event.preventDefault();
+			}           
+		});
+	});
+</script>
+JQUERY;
+}
+
+function wpse95147_filter_wp_title( $title ) {
+    if ( is_single() || ( is_home() && !is_front_page() ) || ( is_page() && !is_front_page() ) ) {
+        $title = single_post_title( '', false );
+    }
+    return $title;
+}
+add_filter( 'wp_title', 'wpse95147_filter_wp_title' );
