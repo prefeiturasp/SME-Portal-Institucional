@@ -18,8 +18,16 @@ class LoopParceiroCabecalho extends LoopParceiro
 
 						<div class="col-12">
 							<div class="logo-part">
-								<?php $logo = get_field('foto_principal_parceiro'); ?>
-								<img src="<?= $logo; ?>" alt="logo <?= get_the_title(); ?>">
+								<?php 
+									$logo = get_field('foto_principal_parceiro');
+									$img_url = '';
+									if(is_numeric($logo)){
+										$img_url = wp_get_attachment_image_url($logo, 'parceiros');
+									} else {
+										$img_url = $logo;
+									}
+								?>
+								<img src="<?= $img_url; ?>" alt="logo <?= get_the_title(); ?>">
 							</div>
 						</div>
 

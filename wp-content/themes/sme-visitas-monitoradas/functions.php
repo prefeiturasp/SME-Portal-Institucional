@@ -38,6 +38,7 @@ function custom_setup() {
 	if (function_exists('add_image_size')) {
 		add_image_size('home-thumb', 250, 166);
 		add_image_size('default-image', 825, 470, true);
+		add_image_size('parceiros', 176, 56);
 	}
 
 	//Permite adicionar no post ou página uma imagem com tamanho personalizado, nesse caso a home-thumb já definida anteriormente com 250X147

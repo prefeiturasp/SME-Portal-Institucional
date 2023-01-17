@@ -517,6 +517,14 @@ class Construtor extends Util
 											// FAQ
 											elseif( get_row_layout() == 'fx_cl1_faq_1_1' ):
 												get_template_part( 'construtor/construtor', 'faq' );
+
+											// Seja Parceiro
+											elseif( get_row_layout() == 'fx_cl1_form_parceiro_1_1' ):
+												get_template_part( 'construtor/construtor', 'form_parceiro' );
+
+											// Carrossel Parceiros
+											elseif( get_row_layout() == 'fx_cl1_car_parceiros_1_1' ):
+												get_template_part( 'construtor/construtor', 'car_parceiros' );
 											
 											endif; //fx_fl1_bloco_rede_1_1
 
