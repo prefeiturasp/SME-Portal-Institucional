@@ -4,6 +4,8 @@ use Classes\Header\Header;
 <!doctype html>
 <html lang="pt-br">
 <head>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<?php
 	if (function_exists('get_field')){
         $tituloPagina = get_field("insira_o_title_desejado");
@@ -62,16 +64,21 @@ use Classes\Header\Header;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="author" content="Secretaria Municipal de Educação de São Paulo">   
+    <meta name="author" content="Secretaria Municipal de Educação de São Paulo">
+    
+    
 
 	<?php wp_head() ?>
 
-    <?php
-        $analytics = get_field('codigo','conf-analytics');
-        if($analytics && $analytics != ''){
-            echo $analytics;
-        }
-    ?>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149756375-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-149756375-1');
+    </script>
     
     <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/5a2df64151ea7e12d55494267/c9466a177cfa11afee4e2e22b.js");</script>
 
@@ -325,16 +332,23 @@ use Classes\Header\Header;
 
             <nav class="collapse navbar-collapse justify-content-between w-100" id="irmenu" aria-label="Menu Principal">
                 <?php
-				wp_nav_menu(array(
-					'menu' => 'primary',
-					'theme_location' => 'primary',
-					'depth' => 2,
-					'container_id' => 'bs-example-navbar-collapse-1',
-					'menu_class' => 'navbar-nav mr-auto nav d-flex justify-content-between',
-					'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
-					'walker'            => new WP_Bootstrap_Navwalker(),
-                    'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
-				));
+                    $user_id = get_current_user_id();
+                    $parceira = get_field('parceira', 'user_'. $user_id );
+                    $menu = 'primary';
+                    if($parceira){
+                        $menu = 'primary_parc';
+                    }
+
+                    wp_nav_menu(array(
+                        'menu' => 'primary',
+                        'theme_location' => $menu,
+                        'depth' => 2,
+                        'container_id' => 'bs-example-navbar-collapse-1',
+                        'menu_class' => 'navbar-nav mr-auto nav d-flex justify-content-between',
+                        'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
+                        'walker'            => new WP_Bootstrap_Navwalker(),
+                        'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
+                    ));
 				?>
 
             </nav>
