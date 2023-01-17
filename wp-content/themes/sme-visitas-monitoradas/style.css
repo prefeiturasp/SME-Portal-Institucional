@@ -2298,7 +2298,8 @@ ul.nav.nav-tabs{
 }
 
 .wizard > .content > .body input.error,
-.wizard > .content > .body select.error
+.wizard > .content > .body select.error,
+.wizard > .content > .body textarea.error
 {
     background: rgb(251, 227, 228);
     border: 1px solid #fbc2c4;
@@ -2493,4 +2494,41 @@ ul.nav.nav-tabs{
 .tabcontrol > .content > .body ul > li
 {
     display: list-item;
+}
+
+.form_parceiro {
+    max-width: 75%;
+    display: block;
+    margin: 0 auto;
+}
+
+@media (max-width: 576px){
+    .form_parceiro {
+        max-width: 100%;
+    }
+}
+
+.carousel_part img {
+    border-radius: 6px;
+}
+
+.carousel_part .carousel-indicators {
+    bottom: -25px;
+    width: 100%;
+    right: 0;
+    left: 0;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.carousel_part .carousel-indicators li {
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+}
+
+.carousel_part .carousel-indicators li.active {
+    background: #B1B5BC;
 }

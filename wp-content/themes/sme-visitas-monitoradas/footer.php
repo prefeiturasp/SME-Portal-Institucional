@@ -204,6 +204,12 @@
 							}						
 
 						}
+					},
+					logo_parceiro: {
+						required: true,
+					},
+					aceite_compa: {
+						required: true,
 					}
 				},
 				messages: {
@@ -296,5 +302,16 @@
 </script>
 
 <?php endif; ?>
+
+<?php if($_SESSION['success']): ?>
+	<script>
+		Swal.fire(
+		'Inscrição enviada para análise!',
+		'Após a aprovação da equipe do Visitas Monitoradas seu conteúdo estará disponível.',
+		'success'
+		)
+	</script>
+<?php endif; ?>
+
 </body>
 </html>
