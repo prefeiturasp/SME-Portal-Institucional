@@ -1198,3 +1198,22 @@ background: #5c4961;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 }
+
+
+/**** SME Explica ****/
+.sme-informe a{
+    color: #003B73;
+}
+
+.sme-informe .link a {
+    color: #42474A;
+    text-decoration: underline;
+}
+
+.sme-informe .post_like a{
+    color: #000000;
+}
+
+.sme-informe .post_like a i {
+    color: #42474A;
+}
