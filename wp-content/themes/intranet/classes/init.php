@@ -33,6 +33,7 @@ require_once __ROOT__.'/classes/Cpt/CptDestaques.php';
 require_once __ROOT__.'/classes/Cpt/CptPortais.php';
 require_once __ROOT__.'/classes/Cpt/CptFaqs.php';
 require_once __ROOT__.'/classes/Cpt/CptParceiros.php';
+require_once __ROOT__.'/classes/Cpt/CptSmeExplica.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
@@ -154,3 +155,6 @@ $cptFaqExtend = new \Classes\Cpt\CptFaqs();
 
 $cptParceiros = new \Classes\Cpt\Cpt('parceiros', 'parceiros', 'Parceiros', 'Todos os Parceiros', 'parceiros', 'parceiros', null, null, null, 'dashicons-external', true);
 $cptParceirosExtend = new \Classes\Cpt\CptParceiros();
+
+$cptSmeExplica = new \Classes\Cpt\Cpt('info-sme-explica', 'info-sme-explica', 'SME Explica', 'Todos os Informativos', 'info-sme-explica', 'info-sme-explica', null, null, null, 'dashicons-external', true);
+$cptSmeExplicaExtend = new \Classes\Cpt\CptSmeExplica();

@@ -396,6 +396,10 @@ class Construtor extends Util
 											elseif( get_row_layout() == 'fx_cl1_certificados_1_1' ):
 												get_template_part( 'construtor/construtor', 'certificados_1_1' );
 
+											// SME Explica
+											elseif( get_row_layout() == 'fx_cl1_sme_explica_1_1' ):
+												get_template_part( 'construtor/construtor', 'sme_explica' );
+
 											// Integracao Pagina
 											elseif( get_row_layout() == 'integrar_pagina' ):
 
