@@ -2061,6 +2061,10 @@ class Construtor extends Util
 											elseif( get_row_layout() == 'fx_cl1_card_imagem_1_2' ):
 												get_template_part( 'construtor/construtor', 'card_imagem', array( 'key' => '1_2' ) );
 											
+											// SME Explica - Destaque
+											elseif( get_row_layout() == 'fx_cl1_dest_sme_ex_1_2' ):
+												get_template_part( 'construtor/construtor', 'sme_explica_dest', array( 'key' => '1_2' ) );
+
 											endif;
 
 										endwhile;
