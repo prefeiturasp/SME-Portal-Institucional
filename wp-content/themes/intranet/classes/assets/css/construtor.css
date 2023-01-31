@@ -1217,3 +1217,61 @@ background: #5c4961;
 .sme-informe .post_like a i {
     color: #42474A;
 }
+
+.card-dest {
+    background: #003B73;
+    padding: 20px;
+    color: #FFFFFF;
+}
+
+.card-dest h3{
+    color: #FFFFFF;
+    font-size: 22px;
+}
+
+.card-dest .titulo{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.card-dest a{
+    color: #FFFFFF;
+}
+
+.card-dest a:hover{
+    color: #FFFFFF;
+}
+
+.card-dest .link_saiba{
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+.card-dest .img-dest{
+    position: relative;
+}
+
+.card-dest .img-dest .fa {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 5em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.card-dest .img-dest::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.card-dest .wp-audio-shortcode {
+    margin-bottom: 15px;
+}
