@@ -2859,3 +2859,83 @@ function wpseq_270133_users( $columns ) {
     return $columns;
 }
 add_filter( 'manage_users_columns', 'wpseq_270133_users' );
+
+
+
+// Add um novo intervalo de execucao de 1 dia (84400s)
+add_filter( 'cron_schedules', 'email_avalicao_ue' );
+function email_avalicao_ue( $schedules ) {
+    $schedules['every_day_exec'] = array(
+            'interval'  => 86400,
+            'display'   => __( 'Uma vez por dia', 'textdomain' )
+    );
+    return $schedules;
+}
+
+// Schedule an action if it's not already scheduled
+if ( ! wp_next_scheduled( 'email_avalicao_ue' ) ) {
+    wp_schedule_event( time(), 'every_day_exec', 'email_avalicao_ue' );
+}
+
+// Hook into that action that'll fire every three minutes
+add_action( 'email_avalicao_ue', 'every_day_exec_event_func' );
+function every_day_exec_event_func() {	
+
+	$data = date('Y-m-d');
+	$dataVerify = date('d/m/Y',(strtotime ( '-1 day' , strtotime ( $data ) ) ));
+	echo $dataVerify;
+
+	$args = array(
+		'post_type' => 'agendamento',
+		'posts_per_page' => -1,
+		'post_status' => array( 'pending', 'publish', 'draft' ),
+		'meta_query'    => array(
+			'relation'      => 'AND',
+			array(
+				'key'       => 'data_horario',
+				'value'     => $dataVerify,
+				'compare'   => 'LIKE',
+			),
+			array(
+				'key' => 'status',
+				'value' => 'confirmada',
+				'compare' => '=',
+			),
+		),
+	);
+	// The Query
+	$the_query = new WP_Query( $args );
+
+	// The Loop
+	if ( $the_query->have_posts() ) {
+		
+		while ( $the_query->have_posts() ) {
+			$the_query->the_post();
+			$status = get_field('status', get_the_ID());
+			$data = get_field('data_horario', get_the_ID());
+			$email = get_field('email_responsavel', get_the_ID());
+			if(is_array($status)){
+				$status = $status['value'];
+			}
+
+			$to = $email;
+			$subject = '[Visitas Monitoradas] Avalie sua Visita';
+
+			$body = '<p>Olá,</p>';
+			$body .= '<p>Ontem a sua UE realizou uma atividade pelo projeto Visitas Monitoradas. É muito importante para nós saber como foi a sua experiência. Criamos um formulário com apenas 5 perguntas para ouvirmos você. Esses dados não serão compartilhados diretamente com o parceiro ou outra pessoa externa da COCEU. <strong>Acesse o link abaixo para responder</strong>:</p>';
+			$body .= '<p><a href="https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br/avaliacao?evento_id=' . get_the_ID() . '">https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br/avaliacao?evento_id=' . get_the_ID() . '</a></p>';
+			$body .= '<p>Atenciosamente,</p>';
+			$body .= '<p>Equipe Visitas Monitoradas</p>';
+
+			$headers = array('Content-Type: text/html; charset=UTF-8');
+
+			wp_mail( $to, $subject, $body, $headers );
+			update_post_meta(get_the_ID(), 'enviar_email', 1);
+		}
+		
+	} else {
+		// no posts found
+	}
+	/* Restore original Post Data */
+	wp_reset_postdata();
+}

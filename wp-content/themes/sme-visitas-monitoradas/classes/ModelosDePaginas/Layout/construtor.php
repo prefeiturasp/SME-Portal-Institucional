@@ -525,6 +525,10 @@ class Construtor extends Util
 											// Carrossel Parceiros
 											elseif( get_row_layout() == 'fx_cl1_car_parceiros_1_1' ):
 												get_template_part( 'construtor/construtor', 'car_parceiros' );
+
+											// Feedback UE
+											elseif( get_row_layout() == 'fx_cl1_feedback_1_1' ):
+												get_template_part( 'construtor/construtor', 'feedback' );
 											
 											endif; //fx_fl1_bloco_rede_1_1
 

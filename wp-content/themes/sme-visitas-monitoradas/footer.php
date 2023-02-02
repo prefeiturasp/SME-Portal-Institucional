@@ -279,6 +279,42 @@
 	});
 </script>
 
+<script type="text/javascript">
+    jQuery(function () {
+
+		jQuery('#form-feedback').submit(function(e){
+			e.preventDefault();
+
+			var valid = true;
+
+			var demandas = jQuery("input[name=demandas]").is(":checked");
+            var transporte = jQuery("input[name=transporte_uti]").is(":checked");
+			var relacao = jQuery("input[name=relacao]").is(":checked");
+            var repetir = jQuery("input[name=repetir]").is(":checked");
+
+			
+			if(!demandas || !transporte || !relacao || !repetir){
+				Swal.fire(
+					'Campo Obrigatório!',
+					'Um ou mais campos possuem erros. Por favor verifique os campos e tente novamente.',
+					'error'
+				);				
+				valid = false;
+			}
+
+			//Display error message if no RadioButton is checked.
+            jQuery("#demandasError")[0].style.display = demandas ? "none" : "block";
+			jQuery("#transporteError")[0].style.display = transporte ? "none" : "block";
+            jQuery("#relacaoError")[0].style.display = relacao ? "none" : "block";
+			jQuery("#repetirError")[0].style.display = repetir ? "none" : "block";
+
+			if (valid) this.submit();
+
+		});
+        
+    });
+</script>
+
 <?php if($_GET['cadastro'] == '1'): ?>
 
 	<script>
@@ -308,6 +344,16 @@
 		Swal.fire(
 		'Inscrição enviada para análise!',
 		'Após a aprovação da equipe do Visitas Monitoradas seu conteúdo estará disponível.',
+		'success'
+		)
+	</script>
+<?php endif; ?>
+
+<?php if($_SESSION['feedback']): ?>
+	<script>
+		Swal.fire(
+		'Avaliação eviada com sucesso!',
+		'Sua avaliação foi enviada com sucesso e foi recebido por nossa equipe, obrigado.',
 		'success'
 		)
 	</script>
