@@ -2532,3 +2532,68 @@ ul.nav.nav-tabs{
 .carousel_part .carousel-indicators li.active {
     background: #B1B5BC;
 }
+
+
+
+.form-feedback{
+    max-width: 75%;
+    display: block;
+    margin: 20px auto;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.rate {
+    float: left;
+    height: 40px;
+}
+.rate:not(:checked) > input {
+    display: none;
+}
+.rate:not(:checked) > label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 40px;
+    line-height: 40px;
+    color: #ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+.btn.btn-cancel{
+    background: #E5E5E5;
+    color: #1C2833;
+    border: #e5e5e5 solid 1px;
+    padding: 0.5em 2em;
+    text-decoration: none;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.form-feedback .error {
+    float: left;
+    width: 100%;
+    color: #FF0000;
+    font-weight: 500;
+}
