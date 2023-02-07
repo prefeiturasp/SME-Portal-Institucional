@@ -2373,17 +2373,25 @@ function filtering_unidade($post_type){
 		}
 
 	} else {
+		$args = array(
+			'post_type'  => 'editores_portal',
+			'fields' => 'ids',
+			'numberposts' => 99,
+			'order'          => 'ASC',
+			'orderby'        => 'title'
+		);
+		$grupos = get_posts($args);
 		$dres = $allDres;
 	}
 
 
 	echo '<select id="my-loc" name="search_dre">';
 		echo '<option value="all">Todas as DREs</option>';	
-		foreach($dres as $key => $dre){
-			if($_GET['search_dre'] == $key){
-				echo '<option value="' . $key . '" selected>' . $dre . '</option>';
+		foreach($grupos as $dre){
+			if($_GET['search_dre'] == $dre){
+				echo '<option value="' . $dre . '" selected>' . get_the_title($dre) . '</option>';
 			} else {
-				echo '<option value="' . $key . '">' . $dre . '</option>';
+				echo '<option value="' . $dre . '">' . get_the_title($dre) . '</option>';
 			}
 		}
 	echo '</select>';
@@ -2453,9 +2461,8 @@ function limit_events_group($query) {
 		
 		if( $_GET['search_dre'] && $_GET['search_dre'] != '' &&  $_GET['search_dre'] != 'all')  {
 			$meta_query[] = array(					
-				'key'     => 'dre',
+				'key'     => 'dre_selected',
 				'value' => $_GET['search_dre'],
-				'compare' => 'LIKE'
 			);
 		} else {
 			$user = wp_get_current_user();
@@ -2719,7 +2726,7 @@ function export_btn() {
 				<?php if($_GET['faixa'] && $_GET['faixa'] != ''): ?>
 					<input type="hidden" name="faixa" value="<?= $_GET['faixa']; ?>">
 				<?php endif; ?>
-                <input type="submit" name='export' class="button button-primary button-large button-export" id="xlsxExport" value="Exportar"/>
+                <input type="submit" name='export' class="button button-primary button-large button-export" id="xlsxExport" value="Exportar relatório"/>
             </form>
         </div>
 
