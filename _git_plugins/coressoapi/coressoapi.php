@@ -3,7 +3,7 @@
 * Plugin Name: CoreSSO Integração API
 * Plugin URI: https://amcom.com.br/
 * Description: Integração do Login do WordPress com o CoreSSO.
-* Version: 1.1
+* Version: 1.2
 * Author: AMcom
 * Author URI: https://amcom.com.br/
 **/
@@ -86,8 +86,10 @@ function demo_auth( $user, $username, $password ){
 
         if($user->email){
             $email = $user->email;
-        } else {
+        } elseif(is_array($user)) {
             $email = $user[0]->email;
+        } else {
+            $email = $rf . "@sme.prefeitura.sp.gov.br";
         }
         
         
@@ -95,7 +97,7 @@ function demo_auth( $user, $username, $password ){
         $userobj = new WP_User();
         $user_wp = $userobj->get_data_by( 'email', $email ); // Does not return a WP_User object :(
         $user_wp = new WP_User($user_wp->ID); // Attempt to load up the user with that ID
-
+        
         // Se nao estiver cadastrado faz a criacao do usuario
         if( $user_wp->ID == 0 ) {
              
@@ -104,16 +106,36 @@ function demo_auth( $user, $username, $password ){
             //$user_wp = new WP_Error( 'denied', __("ERROR: Not a valid user for this system") );
 
             // Recebe o nome completo do usuario            
-            $name = $user->nome;
+            $name = $user->nome;            
 
-            if($user[0]->codigo){
+            if($user->codigo){
+                $codigo = $user->codigo;
+            } elseif(is_array($user)) {
+                $codigo = $user[0]->codigo;
+            }
 
-                $userdata = array( 'user_email' => $user[0]->email,
-                                    'user_login' => $user[0]->email,
-                                    'first_name' => $user[0]->nome,                            
+            if($user->email){
+                $email = $user->email;
+            } elseif(is_array($user)) {
+                $email = $user[0]->email;
+            } else {
+                $email = $rf . "@sme.prefeitura.sp.gov.br";
+            }
+
+            if($user->nome){
+                $nome = $user->nome;
+            } elseif(is_array($user)) {
+                $nome = $user[0]->nome;
+            }
+
+            if($codigo){
+
+                $userdata = array( 'user_email' => $email,
+                                    'user_login' => $email,
+                                    'first_name' => $nome,                            
                                 );
                 $new_user_id = wp_insert_user( $userdata ); // Um novo usuario sera criado
-                update_user_meta($new_user_id, "rf", $user[0]->codigo);
+                update_user_meta($new_user_id, "rf", $codigo);
                 update_user_meta($new_user_id, "parceira", 1);
 
             } else {
@@ -130,8 +152,8 @@ function demo_auth( $user, $username, $password ){
                     $lastname = " ";
                 }
 
-                $userdata = array( 'user_email' => $user->email,
-                                    'user_login' => $user->email,
+                $userdata = array( 'user_email' =>$email,
+                                    'user_login' =>$email,
                                     'first_name' => $firstname,
                                     'last_name' => $lastname,                                
                                 );

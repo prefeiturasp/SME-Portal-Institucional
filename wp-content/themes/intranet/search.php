@@ -1,3 +1,15 @@
+<?php
+$user = wp_get_current_user();
+$rf = get_field('rf', 'user_' . $user->ID);
+$email = $user->user_email;
+$verifyEmail = explode('@', $email);
+
+if($rf == $verifyEmail[0]){
+    wp_redirect( home_url('index.php/perfil?atualizar=1') ); 
+	exit;
+}
+?>
+
 <?php get_header(); ?>
     <div class="container">
         <div class="row">
