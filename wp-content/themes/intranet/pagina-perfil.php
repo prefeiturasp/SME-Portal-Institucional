@@ -23,10 +23,29 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
     if ( !empty( $_POST['email'] ) ){
         if (!is_email(esc_attr( $_POST['email'] )))
             $error[] = __('The Email you entered is not valid.  please try again.', 'profile');
-        elseif(email_exists(esc_attr( $_POST['email'] )) != $current_user->id )
+        elseif( email_exists(esc_attr( $_POST['email'] )) && email_exists(esc_attr( $_POST['email'] )) != $current_user->id )
             $error[] = __('This email is already used by another user.  try a different one.', 'profile');
         else{
+            $usuario = get_field('rf', 'user_' . $current_user->ID);
+            $api_url = '';
+            $email = $_POST['email'];
+            $response = wp_remote_post( $api_url, array(
+                'method'      => 'POST',                    
+                'headers' => array( 
+                        'x-api-eol-key' => '',                    
+                    ),
+                'body' => array("Usuario" => "$usuario","Email" => "$email"),
+                )
+            );
+            
+            if ( is_wp_error( $response ) ) {
+                $error_message = $response->get_error_message();
+                echo "Something went wrong: $error_message";
+            } else {                
+                $response = json_decode($response['body']);                
+            }
             wp_update_user( array ('ID' => $current_user->ID, 'user_email' => esc_attr( $_POST['email'] )));
+            
         }
     }
 
@@ -86,8 +105,6 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
         wp_redirect( get_permalink().'?updated=true' ); exit;
     }       
 }
-
-
 
 get_header(); // Loads the header.php template. ?>
 
@@ -197,7 +214,16 @@ get_header(); // Loads the header.php template. ?>
 
                                 <div class="col-12 col-md-4">
                                     <label for="email"><?php _e('E-mail *', 'profile'); ?></label>
-                                    <input class="text-input form-control" name="email" type="text" id="email" value="<?php the_author_meta( 'user_email', $current_user->ID ); ?>" />
+                                    <?php
+                                        $rf = get_field('rf', 'user_' . $current_user->ID);
+                                        $email = $current_user->user_email;
+                                        $verifyEmail = explode('@', $email);                                        
+                                    ?>
+                                    <?php if($rf == $verifyEmail[0]): ?>
+                                        <input class="text-input form-control" name="email" type="text" id="email" value="" required />
+                                    <?php else: ?>
+                                        <input class="text-input form-control" name="email" type="text" id="email" value="<?= $email; ?>" />
+                                    <?php endif; ?>
                                 </div>
 
                             <?php endif; ?>
@@ -391,3 +417,17 @@ get_header(); // Loads the header.php template. ?>
 </div>
 
 <?php get_footer(); // Loads the footer.php template. ?>
+
+<?php if($_GET['atualizar']): ?>
+    <script>
+        Swal.fire({
+            title: '<strong><u>Seus dados estão incompletos!</u></strong>',
+            //icon: 'error',
+            html: 'Favor atualizar o e-mail em seu perfil! <br>Fique atento para não haver erro de digitação!',
+            imageUrl: '<?= get_template_directory_uri() . "/img/perfil-ilustra.jpg"; ?>',
+            showCloseButton: true,            
+            focusConfirm: false,
+            confirmButtonText: '<i class="fa fa-thumbs-up"></i> Atualize agora',            
+        })
+    </script>
+<?php endif; ?>
