@@ -16,7 +16,7 @@ function demo_auth( $user, $username, $password ){
     if($username == '' || $password == '') return;
 
     // URL da API
-    $api_url = 'https://hom-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/v1/autenticacao';
+    $api_url = '';
 
     // Conversao do body para JSON
     $body = wp_json_encode( array(
@@ -27,7 +27,7 @@ function demo_auth( $user, $username, $password ){
     $response = wp_remote_post( $api_url ,
             array(
                 'headers' => array( 
-                    'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99', // Chave da API
+                    'x-api-eol-key' => '', // Chave da API
                     'Content-Type'=> 'application/json-patch+json'
                 ),
                 'body' => $body, // Body da requisicao
@@ -42,7 +42,8 @@ function demo_auth( $user, $username, $password ){
         $user = new WP_Error( 'denied', __("ERRO: Usuário/senha incorretos") );
 
     } else if( $response['response']['code'] == 200 ) {
-
+        //echo $user->codigoRf;
+        
         // Verifica se tem o codigo RF e busca os dados do usuario
         if($user->codigoRf){
             
@@ -52,11 +53,11 @@ function demo_auth( $user, $username, $password ){
 
             if($countRf == 6){
                 $usuario = $rf;
-                $api_url = 'https://hom2-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/escolas/unidades-parceiras';
+                $api_url = '';
                 $response = wp_remote_post( $api_url, array(
                     'method'      => 'POST',                    
                     'headers' => array( 
-                        'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99',
+                        'x-api-eol-key' => '',
                         'Content-Type' => 'application/json-patch+json'
                     ),
                     'body' => '['.$rf.']',
@@ -69,12 +70,27 @@ function demo_auth( $user, $username, $password ){
                 } else {
                     $user = json_decode($response['body']);                     
                 }
+                
+                if(!$user){
+                    echo $rf;
+                    $api_url = '';
+                    $response = wp_remote_get( $api_url ,
+                        array( 
+                            'headers' => array( 
+                                'x-api-eol-key' => '',							
+                            )
+                        )
+                    );
+
+                    $user = json_decode($response['body']);
+                }
+
             } else {
-                $api_url = 'https://hom-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/AutenticacaoSgp/' . $user->codigoRf . '/dados';
+                $api_url = '';
                 $response = wp_remote_get( $api_url ,
                     array( 
                         'headers' => array( 
-                            'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99',							
+                            'x-api-eol-key' => '',							
                         )
                     )
                 );
@@ -82,7 +98,7 @@ function demo_auth( $user, $username, $password ){
                 $user = json_decode($response['body']); 
             }
                        
-        }
+        }        
 
         if($user->email){
             $email = $user->email;
@@ -90,14 +106,14 @@ function demo_auth( $user, $username, $password ){
             $email = $user[0]->email;
         } else {
             $email = $rf . "@sme.prefeitura.sp.gov.br";
-        }
+        }        
         
         
         // Verifica se o usuario ja esta cadastrado no WordPress
         $userobj = new WP_User();
         $user_wp = $userobj->get_data_by( 'email', $email ); // Does not return a WP_User object :(
         $user_wp = new WP_User($user_wp->ID); // Attempt to load up the user with that ID
-        
+
         // Se nao estiver cadastrado faz a criacao do usuario
         if( $user_wp->ID == 0 ) {
              
@@ -159,7 +175,13 @@ function demo_auth( $user, $username, $password ){
                                 );
                 $new_user_id = wp_insert_user( $userdata ); // Um novo usuario sera criado
                 update_user_meta($new_user_id, "rf", $username);
-                update_user_meta($new_user_id, "cpf", $cpf);
+                if(strlen($username) != 6){
+                    update_user_meta($new_user_id, "cpf", $cpf);
+                }
+                
+                if(strlen($username) == 11 || strlen($username) == 6){
+                    update_user_meta($new_user_id, "parceira", 1);
+                }
             }
 
             
