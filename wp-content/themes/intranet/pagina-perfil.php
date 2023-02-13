@@ -45,7 +45,6 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
                 $response = json_decode($response['body']);                
             }
             wp_update_user( array ('ID' => $current_user->ID, 'user_email' => esc_attr( $_POST['email'] )));
-            
         }
     }
 
@@ -187,7 +186,7 @@ get_header(); // Loads the header.php template. ?>
 
                                 <div class="col-12">
                                     <label for="first-name"><?php _e('Nome da Unidade Educacional', 'profile'); ?></label>
-                                    <div class="input-disable" id="first-name"><?php the_author_meta( 'first_name', $current_user->ID ); ?></div>
+                                    <div class="input-disable" id="first-name"><?php the_author_meta( 'first_name', $current_user->ID ); ?> <?php the_author_meta( 'last_name', $current_user->ID ); ?></div>
                                 </div>
 
                                 <div class="col-12 col-md-6">
@@ -195,9 +194,19 @@ get_header(); // Loads the header.php template. ?>
                                     <div class="input-disable" id="user-rf"><?= get_field('rf', 'user_' . $current_user->ID); ?></div>
                                 </div>
 
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-6">                                    
                                     <label for="email"><?php _e('E-mail *', 'profile'); ?></label>
-                                    <div class="input-disable" id="email"><?php the_author_meta( 'user_email', $current_user->ID ); ?></div>
+                                    
+                                    <?php
+                                        $rf = get_field('rf', 'user_' . $current_user->ID);
+                                        $email = $current_user->user_email;
+                                        $verifyEmail = explode('@', $email);                                        
+                                    ?>
+                                    <?php if($rf == $verifyEmail[0]): ?>
+                                        <div class="input-disable" id="email"></div>
+                                    <?php else: ?>
+                                        <div class="input-disable" id="email"><?php the_author_meta( 'user_email', $current_user->ID ); ?></div>
+                                    <?php endif; ?>
                                 </div>
 
                             <?php else: ?>
@@ -418,7 +427,7 @@ get_header(); // Loads the header.php template. ?>
 
 <?php get_footer(); // Loads the footer.php template. ?>
 
-<?php if($_GET['atualizar']): ?>
+<?php if($_GET['atualizar'] && !$parceira): ?>
     <script>
         Swal.fire({
             title: '<strong><u>Seus dados estão incompletos!</u></strong>',
@@ -428,6 +437,26 @@ get_header(); // Loads the header.php template. ?>
             showCloseButton: true,            
             focusConfirm: false,
             confirmButtonText: '<i class="fa fa-thumbs-up"></i> Atualize agora',            
+        })
+    </script>
+
+<?php elseif($_GET['atualizar'] && $parceira): ?>
+    <script>
+        Swal.fire({
+            title: '<strong><u>Seus dados estão incompletos!</u></strong>',
+            //icon: 'error',
+            html: 'Para acessar a intranet, por favor atualizar o e-mail da unidade no EOL.',
+            imageUrl: '<?= get_template_directory_uri() . "/img/perfil-ilustra.jpg"; ?>',
+            showCloseButton: false,            
+            focusConfirm: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            confirmButtonText: '<i class="fa fa-thumbs-up"></i> Atualize agora',            
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                window.location.href = 'https://eol.prefeitura.sp.gov.br/';
+            }
         })
     </script>
 <?php endif; ?>
