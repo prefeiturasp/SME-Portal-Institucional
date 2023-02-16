@@ -2697,6 +2697,89 @@ function liberar_inscricoes( $post_id ) {
     }
 }
 
+function updateSubs() {
+	// Set variables
+	$id_update = $_POST['id_update'];
+	
+	// Update the field
+	update_post_meta($id_update, 'status', 'cancelada');
+	
+	$status = get_field('status', $id_update);
+    if( $status ==  'cancelada' || $status['value'] == 'cancelada') {
+        $evento = get_field('evento', $id_update);
+		$dt_liberar = get_field('data_horario', $id_update);
+		$dh_select = explode(']', (explode('[', $dt_liberar)[1]))[0];
+		update_post_meta($evento, 'agenda_' . $dh_select . '_status', 'Disponível');
+
+		// Envio de email
+		$email_resp = get_field ('email_responsavel', $id_update); // Email do responsavel
+		$grupos[] = get_field ('dre_selected', $id_update); // Dre atribuida ao evento
+
+		// Pegar os responsaveis da DICEU/Editores
+		$relation['relation'] = 'OR';
+		if($grupos && $grupos != ''){
+			foreach($grupos as $grupo){
+				$relation[] = array(
+					'key' => 'grupo',
+					'value' => $grupo,
+					'compare' => 'LIKE'
+				);                
+			}  
+			
+			$args = array(
+				'role' => 'editor', 
+				'meta_query'=>array(
+					'relation' => 'AND',         
+						array(
+							$relation
+						),       
+					
+				)
+			);     
+			
+			$editorUsers = get_users( $args ); // Uuarios do tipo Editor
+
+		}
+
+		// Email dos responsaveis
+		$emailto = array();
+		foreach ($editorUsers as $user) {
+			$emailto[] = $user->user_email;
+		}
+
+		
+		// Assunto do email"            
+		$subject = '[Visitas Monitoradas] Inscrição cancelada';
+
+		$data_email = explode('[', $dt_liberar);
+		
+		// Corpo do email		
+        $message = "Olá,<br><br>";
+		$message .= "A inscrição para o evento <b>" . get_the_title($evento) . "</b> foi cancelada pela UE no dia <b>" . $data_email[0] . "</b>. Qualquer problema, entre em contato com smecoceu@sme.prefeitura.sp.gov.br.<br><br>";
+
+		$message .= "Atenciosamente,<br><br>";
+		$message .= "Equipe do Visitas Monitoradas<br><br>";
+
+		$message .= "<img src='https://visitasmonitoradas.sme.prefeitura.sp.gov.br/wp-content/uploads/2022/07/logo-visitas.png' alt='Logo Visitas Monitoradas'>";
+		
+        // envio dos emails
+		$content_type = function() { return 'text/html'; };
+		add_filter( 'wp_mail_content_type', $content_type );
+		wp_mail( $email_resp, $subject, $message ); // Responsavel
+        wp_mail( $emailto, $subject, $message ); // DICEUS
+		wp_mail( "smecoceu@sme.prefeitura.sp.gov.br", $subject, $message ); // COCEU
+		remove_filter( 'wp_mail_content_type', $content_type );
+		
+
+		echo json_encode(true);
+    } else {
+		echo json_encode(false);
+	}
+	wp_die();
+}
+add_action( 'wp_ajax_nopriv_updateSubs',  'updateSubs' );
+add_action( 'wp_ajax_updateSubs','updateSubs' );
+
 add_action( 'admin_notices', 'export_btn' );
 function export_btn() {
     global $typenow;

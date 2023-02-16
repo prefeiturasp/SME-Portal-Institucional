@@ -62,6 +62,9 @@ function convert_status($status){
         case 'negado':
             return "Inscrição negada";
             break;
+        case 'cancelada':
+            return "Cancelado pela UE";
+            break;
         default:
            return $status;
     }
@@ -235,7 +238,7 @@ class CptCadastroInscricoes extends Cpt
             'exclude_from_search' => false,
             'show_in_rest' => true,
             'rest_controller_class' => 'WP_REST_Posts_Controller',
-            'supports' => array('revisions'),
+            'supports' => array('revisions', 'author'),
         );
 
         register_post_type($this->cptSlug, $args);

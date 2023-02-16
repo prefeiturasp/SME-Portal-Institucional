@@ -205,7 +205,8 @@ use Classes\Header\Header;
                                     <div class="dropdown-divider"></div>
                                     <?php if(current_user_can('administrator') || current_user_can('editor')): ?>
                                         <a href="<?= $profileLink; ?>" class="dropdown-item">Perfil</a>
-                                    <?php endif; ?>                               
+                                    <?php endif; ?>
+                                    <a href="<?= get_home_url(); ?>/minhas-incricoes/" class="dropdown-item">Minhas inscrições</a>                          
                                     <a href="<?= wp_logout_url(); ?>" class="dropdown-item">Sair</a>
                                 </div>
                             </div>

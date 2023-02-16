@@ -250,7 +250,7 @@
 		}
 	});
 
-	jQuery('#transporte').on('change', function() {
+	jQuery('#select_transporte').on('change', function() {
 		var value = jQuery(this).val();
 		if(value == 0){
 			jQuery('#info-transporte').hide();
@@ -358,6 +358,79 @@
 		)
 	</script>
 <?php endif; ?>
+
+<?php if($_GET['update'] == '1'): ?>
+
+<script>
+	Swal.fire(
+		'Inscrição cancelada com sucesso!',
+		'Em breve você receberá um email confirmando seu cancelamento.',
+		'success'
+	);
+</script>
+
+<?php endif; ?>
+
+<script>
+
+	function updateSubs(id){
+		var ajaxurl = 'https://'+window.location.host+'/wp-admin/admin-ajax.php';
+			
+		jQuery.ajax({
+			url: ajaxurl + "?action=updateSubs",
+			type: 'POST',
+			data: {'id_update' : id},
+				success: function(data) {
+				if(data == 'true'){
+					window.location.href = window.location.href + '?update=1';
+				} else {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						html: 'Não foi possível cancelar sua inscrição!<br>Tente novamente ou fale com sua DRE',
+					})
+				}
+			},
+				error: function(data) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						html: 'Não foi possível cancelar sua inscrição!<br>Tente novamente ou fale com sua DRE',
+					})
+				//console.log("FAILURE");
+			}
+		});
+	}
+
+	function confirmUpdate(id){
+
+		var titulo = jQuery("#title_" + id).text();
+		
+		Swal.fire({
+			title: '<strong>Cancelamento de inscrição</strong>',
+			icon: 'warning',
+			html: 'Você confirma o <strong>cancelamento</strong> da inscrição para o evento:<br> <strong>' + titulo + '</strong>',
+			showCloseButton: true,
+			showCancelButton: true,
+			focusConfirm: false,
+			confirmButtonText:
+				'<i class="fa fa-thumbs-up"></i> Confirmar!',
+			confirmButtonAriaLabel: 'Thumbs up, great!',
+			cancelButtonText:
+				'<i class="fa fa-thumbs-down"></i> Cancelar',
+			cancelButtonAriaLabel: 'Thumbs down'
+		}).then((result) => {
+		/* Read more about isConfirmed, isDenied below */
+			if (result.isConfirmed) {
+				updateSubs(id)
+			} else if (result.isDenied) {
+				Swal.fire('Changes are not saved', '', 'info')
+			}
+		})
+	}
+
+	
+</script>
 
 </body>
 </html>

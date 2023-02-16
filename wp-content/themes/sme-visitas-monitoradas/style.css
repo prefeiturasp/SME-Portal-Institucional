@@ -2597,3 +2597,9 @@ ul.nav.nav-tabs{
     color: #FF0000;
     font-weight: 500;
 }
+
+.label_data {
+    font-weight: 500;
+    text-align: right;
+    display: block;
+}
