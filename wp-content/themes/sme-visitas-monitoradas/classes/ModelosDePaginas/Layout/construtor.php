@@ -530,6 +530,10 @@ class Construtor extends Util
 											elseif( get_row_layout() == 'fx_cl1_feedback_1_1' ):
 												get_template_part( 'construtor/construtor', 'feedback' );
 											
+											// Minhas Incricoes
+											elseif( get_row_layout() == 'fx_cl1_m_inscricoes_1_1' ):
+												get_template_part( 'construtor/construtor', 'minhas_inscricoes' );
+
 											endif; //fx_fl1_bloco_rede_1_1
 
 										endwhile;

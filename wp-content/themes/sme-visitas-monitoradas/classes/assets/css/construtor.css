@@ -90,24 +90,6 @@ li.nav-item{
 }
 
 
-/*tabela*/
-.table-responsive {
-    margin: auto !important;
-    height: auto !important;
-}
-.table-responsive tbody {
-    display: table;
-    width: 100%;
-}
-.fx_all td {
-    padding: 0.5rem;
-}
-@media only screen and (max-width: 768px) {
-	.table-responsive {
-		white-space: nowrap !important;
-	}
-}
-
 /*Custom Sanfona*/
 .card.sanfona {
     background: none;

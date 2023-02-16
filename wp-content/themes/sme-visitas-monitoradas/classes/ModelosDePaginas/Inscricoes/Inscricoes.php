@@ -178,11 +178,11 @@ class Inscricoes extends Util{
                                     ?>
                                         <hr>
                                         
-                                        <?php $transporte = $_POST['transporte']; ?>
-                                        <label for="transporte">UE precisa de transporte da DRE ou Parceiro?:</label>
-                                        <select id="transporte" name="transporte" class="form-control">
-                                            <option value="1" <?= $transporte == '1' ? "selected" : ''; ?>>Sim</option>
-                                            <option value="0" <?= $transporte == '0' ? "selected" : ''; ?>>Não</option>
+                                        <?php $select_transporte = $_POST['select_transporte']; ?>
+                                        <label for="select_transporte">UE precisa de transporte da DRE ou Parceiro?:</label>
+                                        <select id="select_transporte" name="select_transporte" class="form-control">
+                                            <option value="1" <?= $select_transporte == '1' ? "selected" : ''; ?>>Sim</option>
+                                            <option value="0" <?= $select_transporte == '0' ? "selected" : ''; ?>>Não</option>
                                         </select>
 
                                         <div id="info-transporte" <?= $transporte == '0' ? "style='display: none;'" : ''; ?>>
@@ -417,6 +417,13 @@ class Inscricoes extends Util{
 
                     $dh_select = explode(']', (explode('[', $_POST['data_hora'])[1]))[0];
                     update_post_meta($_GET['eventoid'], 'agenda_' . $dh_select . '_status', 'Esgotado');
+
+                    $data = substr($data_hora, 0, 10);
+                    $date = \DateTime::createFromFormat('d/m/Y', $data);
+                    $date = $date->format('Ymd');
+
+                    //update_field('data_escolhida', $date, $pid);
+                    update_post_meta($pid, 'data_escolhida', $date);
                 }
 
                 $duracao_visita = get_field('duracao_visita', $_GET['eventoid']);
@@ -424,9 +431,9 @@ class Inscricoes extends Util{
                     update_post_meta($pid, 'duracao', $duracao_visita);
                 }
 
-                if($_POST['transporte'] && $_POST['transporte'] != ''){
-                    $transporte = $_POST['transporte'];                    
-                    update_post_meta($pid, 'transporte', $transporte);
+                if($_POST['select_transporte'] && $_POST['select_transporte'] != ''){
+                    $select_transporte = $_POST['select_transporte'];                    
+                    update_post_meta($pid, 'transporte', $select_transporte);
                 }
 
                 $tipo_transporte = get_field('tipo_de_transporte', $_GET['eventoid']);
