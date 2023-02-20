@@ -9,14 +9,14 @@ jQuery(document).ready(function ($) {
     });
 
     // Inclui placeholder nos inputs de login
-    $("#user").attr("placeholder", "Informe o RF/Cód.EOL do Usuário");
+    $("#user").attr("placeholder", "Informe o RF/Usuário");
     
     $("#pass").attr("placeholder", "Informe sua senha");
     // Inclui botao hide/show no campo de senha
     $(".login-password").append('<i class="fa fa-eye-slash" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>');
 
     // Inclui campo de erro
-    $(".login-username").append('<span class="login-error">Insira o seu usuário ou RF</span>');
+    $(".login-username").append('<span class="login-error">Insira o seu RF/Usuário</span>');
     $(".login-password").append('<span class="pass-error">Campo obrigatório</span>');
 
     const togglePassword = document.querySelector('#togglePassword');

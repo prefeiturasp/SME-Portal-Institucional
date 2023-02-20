@@ -1849,12 +1849,13 @@ function lost_pass(){
 	$link = get_field('link', $post_id);
 	$additional_field = '';
 	if($link){
-     	$additional_field .= '<div class="lost-pass">
-        <p class="m-0"><a href="' . $link . '">Esqueceu sua senha?</a></p>
-		<p class="pass-text">Na senha, digite a mesma senha do Sistema de Gestão Pedagógica (SGP) e Plateia. Caso esqueça sua senha e necessite redefinir, a mesma será aplicada
+		$additional_field .= '<div class="lost-pass">
+	   	<p class="pass-text m-0">Na senha, digite a mesma senha do Sistema de Gestão Pedagógica (SGP) e Plateia. Caso esqueça sua senha e necessite redefinir, a mesma será aplicada
 		para os outros acessos (Portais e Sistemas) da SME.</p>
-     </div>';
-	}
+	   	<p><a href="' . $link . '">Esqueceu sua senha?</a></p>
+	   
+	</div>';
+   }
 	
 	$additional_field .= '<div class="login-custom-field-wrapper">
         <input type="hidden" value="1" name="login_page"></label>
