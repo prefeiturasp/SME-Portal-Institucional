@@ -321,7 +321,7 @@
 				Swal.fire({
 					icon: 'error',
 					title: 'Erro',
-					text: 'Você precisa confirmar o termo de ciencia para troca da senha.',
+					text: 'Você precisa confirmar o termo de ciência para troca da senha.',
 				});
 			} else if(!atual || !nova1 || !nova2){
 				Swal.fire({
