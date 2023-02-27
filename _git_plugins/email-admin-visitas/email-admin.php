@@ -4,7 +4,7 @@
 Plugin Name: Emails de Inscrição
 Plugin URI: http://educacao.sme.prefeitura.sp.gov.br
 Description: Envio de emails para inscricoes nos eventos.
-Version: 1.0
+Version: 1.1
 Author: AMcom
 Author URI: https://www.amcom.com.br
 */
@@ -42,7 +42,7 @@ function post_unpublished( $new_status, $old_status, $post ) {
             //$message = "Email: " . $_POST['user_inscri'] . "<br>";
             //$message .= 'A publicação "' . get_the_title($post->ID) . '"' . " foi adicionada ao portal.<br>Para visualizar a publicação acesse: " . get_permalink( $post->ID ) . "<br>Para publicar no portal acesse: " . $link;
             
-            $emailto2 = 'felipe.almeida@amcom.com.br';
+            //$emailto2 = '';
             $emailto = $_POST['email_resp'];
             $content_type = function() { return 'text/html'; };
             add_filter( 'wp_mail_content_type', $content_type );
@@ -67,8 +67,8 @@ function post_unpublished( $new_status, $old_status, $post ) {
             
             // Corpo do email
             $message = 'O parceiro "' . get_the_title($post->ID) . '"' . " fez sua inscrição no portal.\nPara visualizar a inscrição acesse: " . get_permalink( $post->ID ) . "\nPara publicar no portal acesse: " . $link;
-            $emailto2 = 'felipe.almeida@amcom.com.br';
-            wp_mail( $emailto2, $subject, $message );
+            //$emailto2 = '';
+            wp_mail( $emailto, $subject, $message );
             
         }
         
@@ -110,20 +110,17 @@ function my_acf_save_post_new( $post_id ) {
         //$message = "Email: " . $_POST['user_inscri'] . "<br>";
         //$message .= 'A publicação "' . get_the_title($post->ID) . '"' . " foi adicionada ao portal.<br>Para visualizar a publicação acesse: " . get_permalink( $post->ID ) . "<br>Para publicar no portal acesse: " . $link;
         
-        $emailto2 = 'felipe.almeida@amcom.com.br';
+        //$emailto2 = 'felipe.almeida@amcom.com.br';
         $emailto = $_POST['email_resp'];
         $content_type = function() { return 'text/html'; };
         add_filter( 'wp_mail_content_type', $content_type );
-        wp_mail( $emailto2, $subject, $message );
+        wp_mail( $emailto, $subject, $message );
         remove_filter( 'wp_mail_content_type', $content_type );
 
     }
 
-    // Incricao Confirmada
-
-    $atualizacao = 0;
-
     // Atualizacao de campos
+    $atualizacao = 0;
     if($prev_values['saida_onibus'] != substr($values['field_631b8f40cfaa0'], 0, 5)){
         $atualizacao++;
     }
@@ -159,6 +156,8 @@ function my_acf_save_post_new( $post_id ) {
     if($prev_values['contato_motorista'] != $values['field_63876c2b7283c']){
         $atualizacao++;
     }
+
+    // Inscricao Confirmada
     
     if( $post_type == 'agendamento' && ( ($prev_values['status']['value'] != 'confirmada' && $values['field_63209d17c6acf'] == 'confirmada') || ($values['field_63209d17c6acf'] == 'confirmada'  &&  $atualizacao > 0) ) ){
         // Assunto do email"
@@ -236,11 +235,90 @@ function my_acf_save_post_new( $post_id ) {
         //$message = "Email: " . $_POST['user_inscri'] . "<br>";
         //$message .= 'A publicação "' . get_the_title($post->ID) . '"' . " foi adicionada ao portal.<br>Para visualizar a publicação acesse: " . get_permalink( $post->ID ) . "<br>Para publicar no portal acesse: " . $link;
         
-        $emailto2 = 'felipe.almeida@amcom.com.br';
-        $emailto = $_POST['email_resp'];
+        //$emailto2 = '';
+        $emailto = $values['field_631f25b2a8d08'];
         $content_type = function() { return 'text/html'; };
         add_filter( 'wp_mail_content_type', $content_type );
-        wp_mail( $emailto2, $subject, $message );
+        wp_mail( $emailto, $subject, $message );
+        remove_filter( 'wp_mail_content_type', $content_type );
+
+    }
+
+    // Inscricao Confirmada - Parceiro
+    if( $post_type == 'agendamento' && ( ($prev_values['status']['value'] != 'confirmada' && $values['field_63209d17c6acf'] == 'confirmada') || ($values['field_63209d17c6acf'] == 'confirmada'  &&  $atualizacao > 0) ) ){
+        // Assunto do email"
+        $parceiro = $values['field_63f6653def215'];
+        $nome_resp = get_field('nome_responsavel_parceiro', $parceiro);
+
+        $subject = "[Visitas Monitoradas] " . $nome_resp . ", você tem uma Visita confirmada!";
+    }
+
+    if( $post_type == 'agendamento' && ( ($prev_values['status']['value'] != 'confirmada' && $values['field_63209d17c6acf'] == 'confirmada') || ($values['field_63209d17c6acf'] == 'confirmada'  &&  $atualizacao > 0) ) ){
+        // Corpo do email
+        $message = "Prezado(a) " . $nome_resp . ",<br><br>"; 
+        
+        $message .= "Você tem uma nova Visita Monitorada confirmada para o evento <strong>" . get_the_title($post_id) . "</strong>. A visita vai acontecer em " . substr($values['field_631b8b3898ec4'], 0, 16) . " com " . $values['field_631f3f84a9289'] . " inscritos. Confira mais informações abaixo:<br><br>";       
+
+        $transporte = $values['field_631b8e0d5a10c']; // Precisa de Transporte
+        $tipo_transporte = $values['field_6356d16b4c6d2']; // Tipo de Transporte
+
+        if($transporte){
+            if($tipo_transporte == 'parceiro'){
+                $tipo_transporte = "Parceiro";
+            } elseif($tipo_transporte == 'dre'){
+                $tipo_transporte = "DRE";
+            }
+            $message .= "Tipo de Transporte: " . $tipo_transporte . " <br>";
+        } else {
+            $message .= "Tipo de Transporte: Próprio UE<br>";
+        }
+       
+
+        // Chegada Onibus
+        $chegada_onibus = $values['field_631b8f40cfaa0'];
+        if($chegada_onibus && $chegada_onibus != ''){
+            $message .= "Horário de chegada do ônibus: " . substr($chegada_onibus, 0, 5) . "<br>";
+        }
+
+        if($transporte && $tipo_transporte == 'Parceiro'){
+            // Endereco UE
+            $endereco_ue = $values['field_631b9732b6324'];
+            if($endereco_ue && $endereco_ue != ''){
+                $message .= "Endereço da UE: " . $endereco_ue . "<br>";
+            }
+
+            // Ponto de referencia
+            $ponto_referencia = $values['field_631b9747b6325'];
+            if($ponto_referencia && $ponto_referencia != ''){
+                $message .= "Ponto de referência da UE: " . $ponto_referencia . "<br>";
+            }
+
+            // Local desembarque
+            $local_desembarque = $values['field_63876b7d72837'];
+            if($local_desembarque && $local_desembarque != ''){
+                $message .= "Local de desembarque no evento: " . $local_desembarque . "<br>";
+            }
+
+            // Retorno UE
+            $hora_retorno = $values['field_631b8f73cfaa1'];
+            if($hora_retorno && $hora_retorno != ''){
+                $message .= "Horário de retorno à UE: " . substr($hora_retorno, 0, 5) . "<br>";            
+            }
+        }
+
+        $message .= "<br>Qualquer dúvida, entre em contato com COCEU pelo e-mail smecoceu@sme.prefeitura.sp.gov.br.<br><br>";
+        
+        $message .= "Atenciosamente,<br>";
+        $message .= "Equipe Visitas Monitoradas<br><br>";
+
+        $message .= "<img src='https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br/wp-content/uploads/2022/07/logo-visitas.png' alt='Logo Visitas Monitoradas'>";
+        
+        
+        //$emailto2 = '';
+        $emailto = get_field('email_responsavel_parceiro', $parceiro); // Email do responsavel
+        $content_type = function() { return 'text/html'; };
+        add_filter( 'wp_mail_content_type', $content_type );
+        wp_mail( $emailto, $subject, $message );
         remove_filter( 'wp_mail_content_type', $content_type );
 
     }
