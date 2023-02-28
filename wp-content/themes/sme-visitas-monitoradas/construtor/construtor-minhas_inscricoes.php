@@ -12,8 +12,9 @@
         'nova' => '<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Nova inscrição"><i class="fa fa-bookmark" aria-hidden="true"></i></span>',
         'andamento' => '<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Inscrição em andamento"><i class="fa fa-clock-o" aria-hidden="true"></i></span>',
         'confirmada' => '<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Inscrição confirmada"><i class="fa fa-check-circle-o" aria-hidden="true"></i></span>',
-        'negado' => '<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Inscrição negada"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>',
-        'cancelada' => '<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Cancelado pela UE"><i class="fa fa-ban text-danger"></i></span>'
+        'negado' => '<span class="d-inline-block negado" tabindex="0" data-toggle="tooltip" title="Inscrição negada"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>',
+        'cancelada' => '<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Cancelado pela UE"><i class="fa fa-ban text-danger"></i></span>',
+        'realizada' => '<span class="d-inline-block realizada" tabindex="0" data-toggle="tooltip" title="Visita realizada"><i class="fa fa-flag" aria-hidden="true"></i></span>',
     );
 ?>
 
@@ -53,20 +54,58 @@
         </div>
 
         <div class="col-12">
+            <?php
+                function wcmo_get_current_user_roles() {
+                    if( is_user_logged_in() ) {
+                    $user = wp_get_current_user();
+                    $roles = ( array ) $user->roles;                    
+                        return $roles[0];
+                    } else {
+                        return array();
+                    }
+                }
+
+                $current_user = wcmo_get_current_user_roles();
+                
+                if($current_user == 'parceiro'){
+                    $parceiros_ativos = get_field('unidades_parceiras', 'user_' . get_current_user_id());
+                }
+            ?>
+        </div>
+
+        <div class="col-12">
             <?php                      
-                $paged = get_query_var('paged') ? get_query_var('paged') : 1;	
+                $paged = get_query_var('paged') ? get_query_var('paged') : 1;
                 $args = array(
                     'post_type' => 'agendamento',
                     'posts_per_page' => 5,
                     'paged' => $paged,
-                    'author' => get_current_user_id(),
                     'post_status' => array('publish', 'pending', 'draft'),
                     'meta_key'      => 'data_escolhida', //ACF date field 
                     'orderby' => 'meta_value',                  
                     'meta_query' => array(
-                        'relation' => 'AND',                        
+                        'relation' => 'AND'
                     )
                 );
+
+                if($current_user != 'parceiro'){
+                    $args['author'] = get_current_user_id();
+                } else {                    
+                    if($parceiros_ativos && is_array($parceiros_ativos)){
+                        $args['meta_query']['relation'] = 'OR';
+                        foreach($parceiros_ativos as $parceiro){
+                            $args['meta_query'][] = array(
+                                'key' => 'parceiro', 
+                                'value' => $parceiro,
+                                'compare' => 'LIKE'
+                            );
+                        }
+                    } else {
+                        $args['author'] = 99999;
+                    }
+                    
+                }
+
 
                 if($_GET['term'] != ''){
                     $args['s'] = $_GET['term'];
@@ -99,16 +138,26 @@
                 // The Loop
                 if ( $the_query->have_posts() ) :
             ?>
-                <table class="table table-hover table-responsive">
+                <table class="table table-default table-hover table-responsive-lg">
                     <thead>
-                        <tr>
-                            <th scope="col">Evento</th>
-                            <th scope="col">Data/hora agendamento</th>
-                            <th scope="col">Transporte</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Cancelar</th>
-                            <th scope="col">Avaliar</th>
-                        </tr>
+                        <?php if($current_user == 'parceiro'): ?>                            
+                            <tr>
+                                <th scope="col">Evento</th>
+                                <th scope="col">Data/hora agendamento</th>                                
+                                <th scope="col">Nº de inscritos</th>
+                                <th scope="col">Transporte</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        <?php else: ?>
+                            <tr>
+                                <th scope="col">Evento</th>
+                                <th scope="col">Data/hora agendamento</th>
+                                <th scope="col">Transporte</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Cancelar</th>
+                                <th scope="col">Avaliar</th>
+                            </tr>
+                        <?php endif; ?>
                     </thead>
                     <tbody> 
 
@@ -172,8 +221,19 @@
                                 <button type="button" class="btn btn-danger btn-sm" disabled><i class="fa fa-ban" aria-hidden="true"></i></button>
                             </span>';
                         }
-
-                        echo '<tr>';
+                        if($current_user == 'parceiro'){
+                            if($dateTimestamp1 < $dateTimestamp2 && !$avaliacao && $status == 'confirmada'){
+                                $status = 'realizada';
+                            }
+                            echo '<tr>';
+                            echo '<td scope="row"><span id="title_' . get_the_ID() . '">' . get_the_title() . '</span></td>';
+                            echo '<td>' . $data_hora[0] . '</td>';                            
+                            echo '<td class="text-center">' . get_field('num_estudantes') . '</td>';
+                            echo '<td>' . $tipo_transporte . '</td>';
+                            echo '<td class="text-center">' . $status_icon[$status] . '</td>';
+                        echo '</tr>';
+                        } else {
+                            echo '<tr>';
                             echo '<td scope="row"><span id="title_' . get_the_ID() . '">' . get_the_title() . '</span></td>';
                             echo '<td>' . $data_hora[0] . '</td>';
                             echo '<td>' . $tipo_transporte . '</td>';
@@ -181,6 +241,8 @@
                             echo '<td class="text-center">' . $cancelar . '</td>';
                             echo '<td class="text-center">' . $avaliar . '</td>';
                         echo '</tr>';
+                        }
+                        
                     }
             ?>
                     </tbody>
