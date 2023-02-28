@@ -556,6 +556,7 @@ class Inscricoes extends Util{
 
                 update_post_meta($pid, 'status', 'nova');
                 update_post_meta($pid, 'evento', $_GET['eventoid']);
+                update_post_meta($pid, 'parceiro', $parceiro);
 
                 if($_POST['sucesso'] == 1){
                 

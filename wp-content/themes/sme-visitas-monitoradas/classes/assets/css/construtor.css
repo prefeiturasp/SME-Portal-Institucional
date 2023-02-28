@@ -540,3 +540,11 @@ video {
     clear: both;
     margin-bottom: 30px;
 }
+
+.realizada {
+    color: #00c100;
+}
+
+.negado{
+    color: #ff4500;
+}
