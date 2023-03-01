@@ -3,6 +3,7 @@
 		
 <?php wp_footer() ?>
 <script src="//api.handtalk.me/plugin/latest/handtalk.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     var ht = new HT({
         token: "aa1f4871439ba18dabef482aae5fd934"
@@ -65,9 +66,105 @@
 						
 			
 		});
+		
 
-		console.log('To aqui');
+		$("#newPassForm").submit(function(e){
+			//$("#newPassForm").preventDefault();
+			//e.preventDefault();
+
+
+			var nova1 = $("#senha-nova").val();
+			var nova2 = $("#senha-repita").val();
+			var ciente = $('#ciencia-senha:checked').length;
+
+			if($('#ciencia-senha:checked').length < 1){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'Você precisa confirmar o termo de ciência para troca da senha.',
+				});
+				e.preventDefault();
+			} else if(!nova1 || !nova2){
+				Swal.fire({
+					icon: 'error',
+					title: 'Senhas obrigatórias',
+					text: 'Preencha todos os campos de senha.',
+				});
+				e.preventDefault();
+			} else if(nova1 == nova2){				
+				//validar_usuario(rf, atual, nova1, nova2);
+				//alert('tudo certo');
+				if (nova1.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,12}$/)) {
+					e.submit();
+				} else {
+					Swal.fire({
+						icon: 'error',
+						title: 'Senhas inválida',
+						text: 'Sua nova senha deve conter letras Maiúsculas, Minúsculas, números e símbolos. Por favor digite outra senha.',
+					});
+					e.preventDefault();
+				}				
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Senhas diferentes',
+					text: 'As novas senhas não conferem, por gentileza revise e tente novamente.',
+				});
+				e.preventDefault();
+			}
+			
+		});
+		
+		//console.log('To aqui');
+
+		// Inclui botao hide/show no campo de nova senha
+		$(".senha-nova").append('<i class="fa fa-eye-slash" id="senha-nova-show" style="margin-left: -30px; cursor: pointer;"></i>');
+
+		const senhaNovaShow = document.querySelector('#senha-nova-show');
+		const senhaNova = document.querySelector('#senha-nova'); 
+		
+		senhaNovaShow.addEventListener('click', function (e) {
+			// toggle the type attribute
+			const type = senhaNova.getAttribute('type') === 'password' ? 'text' : 'password';
+			senhaNova.setAttribute('type', type);
+			// toggle the eye slash icon
+			this.classList.toggle('fa-eye-slash');
+			this.classList.toggle('fa-eye');
+		});
+
+		// Inclui botao hide/show no campo de repita senha
+		$(".senha-repita").append('<i class="fa fa-eye-slash" id="senha-repita-show" style="margin-left: -30px; cursor: pointer;"></i>');
+
+		const senhaRepitaShow = document.querySelector('#senha-repita-show');
+		const senhaRepita = document.querySelector('#senha-repita'); 
+		
+		senhaRepitaShow.addEventListener('click', function (e) {
+			// toggle the type attribute
+			const type = senhaRepita.getAttribute('type') === 'password' ? 'text' : 'password';
+			senhaRepita.setAttribute('type', type);
+			// toggle the eye slash icon
+			this.classList.toggle('fa-eye-slash');
+			this.classList.toggle('fa-eye');
+		});
 	} );
 </script>
+<?php if( isset($_GET['login']) && $_GET['login'] == 'new' ): ?>
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: 'Dados atualizados',
+			text: 'Seus dados foram atualizados com sucesso!',
+		});
+	</script>
+<?php endif; ?>
+<?php if( isset($_GET['pass']) && $_GET['pass'] == 'new' ): ?>
+	<script>
+		Swal.fire({
+			icon: 'error',
+			title: 'Este link expirou',
+			text: 'Solicite um novo link de recuperação de senha.',
+		});
+	</script>
+<?php endif; ?>
 </body>
 </html>
