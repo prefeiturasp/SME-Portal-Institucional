@@ -149,7 +149,7 @@ class Inscricoes extends Util{
                                     ?>
 
                                     <label for="telefone_ue">Telefone da UE:</label>
-                                    <input id="telefone_ue" name="telefone_ue" value="<?= $tel; ?>" type="text" class="required form-control">
+                                    <input id="telefone_ue" name="telefone_ue" value="<?= $tel; ?>" type="text" class="required form-control tel-mask" placeholder="(00) 0000-0000">
 
                                     <?php
                                         $agenda = get_field('agenda', $_GET['eventoid']);                                        
@@ -232,7 +232,7 @@ class Inscricoes extends Util{
                                     <input id="nome_resp" name="nome_resp" type="text" value="<?= $nome_resp; ?>" class="required form-control">
 
                                     <label for="contato_resp">Contato do responsável:</label>
-                                    <input id="contato_resp" name="contato_resp" type="text" class="required form-control" value="<?= $_POST['contato_resp']; ?>">
+                                    <input id="contato_resp" name="contato_resp" type="text" class="required form-control tel-mask" value="<?= $_POST['contato_resp']; ?>" placeholder="(00) 0000-0000">
                                     
                                     <?php 
                                         if( $_POST['email_resp'] != '' && isset($_POST['email_resp']) ){
@@ -251,13 +251,13 @@ class Inscricoes extends Util{
                                     <input id="nome_edu" name="nome_edu" type="text" class="required form-control" value="<?= $_POST['nome_edu']; ?>">
 
                                     <label for="contato_edu">Contato do educador 1:</label>
-                                    <input id="contato_edu" name="contato_edu" type="text" class="required form-control" value="<?= $_POST['contato_edu']; ?>">
+                                    <input id="contato_edu" name="contato_edu" type="text" class="required form-control tel-mask" value="<?= $_POST['contato_edu']; ?>" placeholder="(00) 0000-0000">
 
                                     <label for="nome_edu_2">Nome do educador 2 (opcional):</label>
                                     <input id="nome_edu_2" name="nome_edu_2" type="text" class="form-control" value="<?= $_POST['nome_edu_2']; ?>">
 
                                     <label for="contato_edu_2">Contato do educador 2 (opcional):</label>
-                                    <input id="contato_edu_2" name="contato_edu_2" type="text" class="form-control" value="<?= $_POST['contato_edu_2']; ?>">
+                                    <input id="contato_edu_2" name="contato_edu_2" type="text" class="form-control tel-mask" value="<?= $_POST['contato_edu_2']; ?>" placeholder="(00) 0000-0000">
                                     
                                 </section>
 

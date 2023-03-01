@@ -125,27 +125,18 @@
 			//$(this).click();
 		} );
 
-		$("#conteudo a").each(function(){
-			var href = $(this).attr('href');
-			var valor = $(this).html();
-			
-							
-				if( href && !href.startsWith('#') && !valor.includes('<button') && !valor.includes('<img') && !href.includes('tel:') && !href.includes('mailto:') && !$(this).hasClass( "scroll" ) && href != ''){
-					if(!href.includes("https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br") && !href.includes("http://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br")){
-						$(this).html(valor + ' <span class="screen-reader-text">(Link para um novo sítio)</span><span aria-hidden="true" class="dashicons dashicons-external"></span>');
-					}
-				}
+		var SPMaskBehavior = function (val) {
+			return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+		},
+		spOptions = {
+			onKeyPress: function(val, e, field, options) {
+				field.mask(SPMaskBehavior.apply({}, arguments), options);
+			}
+		};
 
-				if(valor.includes('<img')){
-					if(!href.includes("https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br") && !href.includes("http://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br")){
-						$(this).html(valor + ' <span class="screen-reader-text">(Link para um novo sítio)</span>');
-					}
-				}
-						
-			
-		});
-
-		//console.log('To aqui');
+		$('.tel-mask').mask(SPMaskBehavior, spOptions);
+	
+		
 		<?php
 			$parceiros = '';
 			$the_query = new WP_Query( 
@@ -177,10 +168,10 @@
 <script>
 	jQuery.extend(jQuery.validator.messages, {
 		required: "Campo Obrigatório.",		
-	});
+	});	
 
 	var form = jQuery("#example-form");
-	
+
 	form.children("div").steps({
 		headerTag: "h3",
 		bodyTag: "section",
@@ -233,7 +224,8 @@
 		onFinishing: function (event, currentIndex) { 
 			//alert('Inscrição feita com sucesso!');
 			form.validate().settings.ignore = ":disabled";
-			//console.log(form.valid());			
+			//console.log(form.valid());
+			
 			return form.valid();			
 			
 		}, 		
@@ -276,7 +268,7 @@
 			jQuery('#info-pcd').show();
 			jQuery('#tipo_pcd').addClass('required');
 		}
-	});
+	});	
 </script>
 
 <script type="text/javascript">
@@ -313,6 +305,33 @@
 		});
         
     });
+
+	function verifyCancel(){
+		
+		Swal.fire({
+			title: 'Deseja cancelar a avaliação?',
+			text: "Você perderá os dados cadastrados, mas pode fazer a avaliação posteriormente.",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Sim',
+			cancelButtonText: 'Não',
+		}).then((result) => {
+		if (result.isConfirmed) {
+			Swal.fire({
+				icon: 'success',
+				title: 'Cancelamento realizado',
+				timer: 3000,
+  				timerProgressBar: true,
+			})
+			setTimeout(function() {	
+				window.location = "/minhas-incricoes/";
+			}, 3000);
+			
+		}
+		})
+	}
 </script>
 
 <?php if($_GET['cadastro'] == '1'): ?>

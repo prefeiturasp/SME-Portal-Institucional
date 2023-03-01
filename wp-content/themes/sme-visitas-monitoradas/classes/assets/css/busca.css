@@ -167,7 +167,8 @@
 .icon-control {
     content: '';
     position: absolute;
-    top: 8px;
+    top: 50%;
+    transform: translateY(-50%);
     left: 10px;
     z-index: 2;
     display: block;
@@ -177,6 +178,10 @@
     background-size: auto;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.icon-control:before{
+    font-size: 17px;
 }
 .icon-control-busca{
     background-image: url('https://visitas.rafaelhsouza.com.br/img/busque.png');
