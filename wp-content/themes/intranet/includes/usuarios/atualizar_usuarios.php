@@ -8,7 +8,7 @@
 ?>
 
 <div class="wrap">
-<h2>Importar usuários</h2>
+<h2>Atualizar usuários</h2>
 <form method="post" enctype="multipart/form-data">    
     <label for="file">Faça o upload do arquivo em formato XLSX</label><br>
     <input type="file" name="file" id="file" /><br><br>
@@ -27,8 +27,8 @@ if (isset($_FILES['file'])) {
         echo "<table class='wp-list-table widefat fixed striped table-view-list posts' cellspacing='0'>";
             echo "<thead>";
             echo "<tr>";
-            echo "<th class='manage-column column-title'><strong>Usuario</strong></th>";
             echo "<th class='manage-column column-title'><strong>RF/EOL</strong></th>";
+            echo "<th class='manage-column column-title'><strong>E-mail</strong></th>";
             echo "<th class='manage-column column-title'><strong>Status</strong></th>";
             echo "</tr>";
             echo "</thead>";
@@ -39,28 +39,22 @@ if (isset($_FILES['file'])) {
                 //print_r($usuario);
                 //echo "</pre>";
 
-                // Conversao do body para JSON
-                $body = wp_json_encode( array(
-                    'nome' => $usuario[0] ,
-                    'documento' => '1',
-                    'codigoRF' => $usuario[1],
-                    'email' => $usuario[2]
-                ) );
+                $usuarioEol = $usuario[0];
+                $email = $usuario[1];
                 
                 $response = wp_remote_post( $api_url, array(
                     'method'      => 'POST',                    
                     'headers' => array( 
                         'x-api-eol-key' => '',
-                        'Content-Type' => 'application/json-patch+json'
                     ),
-                    'body' => $body, // Body da requisicao
+                    'body' => array("Usuario" => "$usuarioEol","Email" => "$email"),
                     )
                 );
                 
                 if ( is_wp_error( $response ) ) {
                     $error_message = $response->get_error_message();
                     echo "<tr>";
-                    echo "<td>" . $usuario[0]  . "</td>";
+                    echo "<td>" . $usuario[0] . "</td>";
                     echo "<td>" . $usuario[1] . "</td>";
                     echo "<td>Ocorreu um erro: $error_message</td>";
                     echo "</tr>";
@@ -70,29 +64,31 @@ if (isset($_FILES['file'])) {
 
                     if($response['response']['code'] == 601){
                         echo "<tr>";
-                            echo "<td>" . $usuario[0]  . "</td>";
+                            echo "<td>" . $usuario[0] . "</td>";
                             echo "<td>" . $usuario[1] . "</td>";
                             echo "<td>" . $response['body'] . "</td>";
                         echo "</tr>";
-                        //echo "Usuario: " . $usuario[0]  . " - RF/EOL: " . $usuario[1] . " - " . $response['body'] . " <br>";
+                        //echo "Usuario: " . $usuario[0] . " - RF/EOL: " . $usuario[1] . " - " . $response['body'] . " <br>";
                     } elseif($response['response']['code'] == 200){
                         echo "<tr>";
-                            echo "<td>" . $usuario[0]  . "</td>";
+                            echo "<td>" . $usuario[0] . "</td>";
                             echo "<td>" . $usuario[1] . "</td>";
-                            echo "<td>Usuário cadastrado com sucesso!</td>";
+                            echo "<td>Usuário atualizado com sucesso!</td>";
                         echo "</tr>";
-                        //echo "Usuario: " . $usuario[0]  . " - RF/EOL: " . $usuario[1] . " - Usuário cadastrado com sucesso <br>";
+                        //echo "Usuario: " . $usuario[0] . " - RF/EOL: " . $usuario[1] . " - Usuário cadastrado com sucesso <br>";
                     } else {
                         echo "<tr>";
-                            echo "<td>" . $usuario[0]  . "</td>";
+                            echo "<td>" . $usuario[0] . "</td>";
                             echo "<td>" . $usuario[1] . "</td>";
                             echo "<td>Ocorreu um erro, verifique os dados e tente novamente.</td>";
                         echo "</tr>";
-                        //echo "Usuario: " . $usuario[0]  . " - RF/EOL: " . $usuario[1] . " - Ocorreu um erro, verifique os dados e tente novamente. <br>";
+                        //echo "Usuario: " . $usuario[0] . " - RF/EOL: " . $usuario[1] . " - Ocorreu um erro, verifique os dados e tente novamente. <br>";
                     }
-                                        
+                    
+                    //echo "<pre>";
                     //print_r($response['body']);
-                    //print_r($response['response']);                    
+                    //print_r($response['response']);
+                    //echo "</pre>";
                 }
                 
             }
