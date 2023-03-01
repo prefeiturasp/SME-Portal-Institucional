@@ -65,26 +65,29 @@ class LoginRecuperar extends Util
 		echo '<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
 
 		if($_POST['log'] && $_POST['log'] != ''){
-			$url = 'https://hom2-novosgp.sme.prefeitura.sp.gov.br/api/v1/autenticacao/solicitar-recuperacao-senha?login=' . $_POST['log'];			
-
-			$ch = curl_init();
-
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_POST, 1);			
-
-			// Receber resposta do servidor ...
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-			$server_output = curl_exec($ch);
-			$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-			curl_close ($ch);
-
-			$response = json_decode($server_output);			
 			
-			if($httpcode == 200){		
+			$usuario = $rf;
+			$api_url = '';
+			$response = wp_remote_post( $api_url, array(
+				'method'      => 'POST',                    
+				'headers' => array( 
+					'x-api-eol-key' => '',
+					'Content-Type' => 'application/json-patch+json'
+				),
+				'body' => '"' . $_POST['log'] . '"',
+				)
+			);
 
-				$userEmail = filterEmail($server_output);
+			if ( is_wp_error( $response ) ) {
+				//$error_message = $response->get_error_message();
+				//echo "Something went wrong: $error_message";
+			} else {
+				$response = $response;
+			}
+			
+			if($response['response']['code'] == 200){		
+
+				$userEmail = filterEmail($response['body']);
 				echo "<script>Swal.fire({
 					title: 'Email enviado com sucesso!',
   					icon: 'success',
@@ -94,9 +97,9 @@ class LoginRecuperar extends Util
 
 				
 				
-			} elseif($httpcode == 601){				
+			} elseif($response['response']['code'] == 601){				
 				
-				if($response->mensagens[0] == '"Usuário ou RF não encontrado"'){
+				if($response['body'] == '"Usuário ou RF não encontrado"'){
 					echo "<script>Swal.fire('RF ou Usuário não encontrado!', 'Verifique os dados digitados e tente novamente!', 'info');</script>";
 				} else {
 					echo "<script>Swal.fire('Email não encontrado!', 'Você não tem um e-mail cadastrado para recuperar sua senha. Solicite o reset da senha da Intranet via Whatsapp (+55 61 3247-3192) e, após seu primeiro acesso na Intranet, atualize o e-mail na tela de perfil.', 'warning');	</script>";

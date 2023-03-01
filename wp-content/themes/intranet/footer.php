@@ -370,6 +370,39 @@
 			this.classList.toggle('fa-eye');
 		});
 
+		$("#newPass").click(function(){
+			alert('AQui');
+			var nova1 = $("#senha-nova").val();
+			var nova2 = $("#senha-repita").val();
+			var ciente = $('#ciencia-senha:checked').length;
+            
+
+			if($('#ciencia-senha:checked').length < 1){
+				Swal.fire({
+					icon: 'error',
+					title: 'Erro',
+					text: 'Você precisa confirmar o termo de ciência para troca da senha.',
+				});
+			} else if(!nova1 || !nova2){
+				Swal.fire({
+					icon: 'error',
+					title: 'Senhas obrigatórias',
+					text: 'Preencha todos os campos de senha.',
+				});
+			} else if(nova1 == nova2){				
+				//validar_usuario(rf, atual, nova1, nova2);
+				//alert('tudo certo');
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Senhas diferentes',
+					text: 'As novas senhas não conferem, por gentileza revise e tente novamente.',
+				});
+			}
+
+			
+		});
+
 		// Inclui botao hide/show no campo de repita senha
 		$(".senha-repita").append('<i class="fa fa-eye-slash" id="senha-repita-show" style="margin-left: -30px; cursor: pointer;"></i>');
 
