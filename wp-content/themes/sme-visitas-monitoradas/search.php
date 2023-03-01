@@ -92,7 +92,7 @@
 						</div>
 						<div class="col-sm-3 pr-2 pl-2">
 							<div class="form-group icon-group">
-								<span class="icon-control icon-control-parceiro"></span>
+								<i class="fa fa-map-o icon-control" aria-hidden="true"></i>
 								<input type="text" id="TipoParceiros" class="form-control icon-control-inpt" placeholder="Busque por parceiro" name="parceiro" value="<?= $_GET['parceiro']; ?>">
 								
 							</div>

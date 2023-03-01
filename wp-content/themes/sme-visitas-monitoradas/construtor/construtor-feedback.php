@@ -112,7 +112,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <a class="btn btn-cancel" href="<?= get_home_url(); ?>">Cancelar</a>
+                    <input type="button" class="btn btn-cancel" value="Cancelar" onclick="verifyCancel()">
                     <input class="btn visitas-btn" id="btnSubmit" type="submit" value="Enviar">
                 </div>
                 

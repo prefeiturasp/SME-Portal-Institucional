@@ -36,10 +36,10 @@ class LoadDependences
         // Página Busca Home
         if(!is_admin()){
             wp_enqueue_script( 'js_busca_home', STM_THEME_URL . 'classes/assets/js/busca.js', array( 'jquery' ), 1, true );
-            wp_enqueue_script( 'js_query_ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js', array( 'jquery' ), 1, true );
+            wp_enqueue_script( 'js_query_ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js', array( 'jquery' ), 1, true );
             wp_enqueue_script( 'js_multiselect', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js', array( 'jquery' ), 1, true );
             wp_enqueue_script( 'js_validate', 'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js', array( 'jquery' ), 1, true );
-            wp_register_style('css_query_ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css', null, null, 'all');
+            wp_register_style('css_query_ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css', null, null, 'all');
             wp_enqueue_style('css_query_ui');
             wp_register_style('css_multiselec', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css', null, null, 'all');
             wp_enqueue_style('css_multiselec');
@@ -65,8 +65,11 @@ class LoadDependences
 		wp_register_script('jquery-steps',  STM_THEME_URL . 'classes/assets/js/jquery.steps.js', array ('jquery'), false, false);
 		wp_enqueue_script('jquery-steps');
 
-		//wp_register_script('jquery-steps-config',  STM_THEME_URL . 'classes/assets/js/jquery.steps.config.js', array ('jquery'), false, false);
-		//wp_enqueue_script('jquery-steps-config');
+		wp_register_script('jquery-steps-config',  STM_THEME_URL . 'classes/assets/js/jquery.steps.config.js', array ('jquery'), false, false);
+		wp_enqueue_script('jquery-steps-config');
+
+		wp_register_script('jquery-mask',  STM_THEME_URL . 'classes/assets/js/jquery.mask.min', array ('jquery'), false, false);
+		wp_enqueue_script('jquery-mask');
 				
 		//construtor
 		if(!is_admin()){
