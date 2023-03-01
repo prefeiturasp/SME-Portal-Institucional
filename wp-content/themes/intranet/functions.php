@@ -1793,7 +1793,7 @@ function wpdocs_my_custom_submenu_page_callback() {
     echo '</div>';
 }
 
-// Incluir Pagina Exportar Usuarios no menu Usuarios
+// Incluir Pagina Importar Usuarios no menu Usuarios
 add_action('admin_menu', 'cadastro_usuarios_core_sso');
 
 function cadastro_usuarios_core_sso() {
@@ -1808,6 +1808,23 @@ function cadastro_usuarios_core_sso() {
 
 function incluir_cadastro_usuarios_core_sso(){
 	include('includes/usuarios/cadastro_usuarios.php');
+}
+
+// Incluir Pagina Atualizar Usuarios no menu Usuarios
+add_action('admin_menu', 'atualizar_usuarios_core_sso');
+
+function atualizar_usuarios_core_sso() {
+    add_submenu_page(
+        'users.php',
+        'Atualizar Usuarios',
+        'Atualizar Usuarios',
+        'manage_options',
+        'update-users',
+        'incluir_atualizar_usuarios_core_sso' );
+}
+
+function incluir_atualizar_usuarios_core_sso(){
+	include('includes/usuarios/atualizar_usuarios.php');
 }
 
 add_action('pre_get_posts', 'my_make_search_exact', 10);
