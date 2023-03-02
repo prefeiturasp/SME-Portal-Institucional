@@ -166,7 +166,7 @@ get_header('forms'); // Loads the header.php template. ?>
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Atenção',
-                                text: 'A nova senha não pode ser uma das ultimas 5 anteriores.',
+                                text: 'A nova senha não pode ser uma das últimas 5 anteriores.',
                             });
                         </script>";
                     } else {

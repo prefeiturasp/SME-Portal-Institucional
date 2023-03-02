@@ -32,7 +32,7 @@ class LoginRecuperar extends Util
 							<hr>
 							<p>Fique atento! A mudança de senha aqui, também acarretará automaticamente na mudança de senha do SGP, Plateia e outros Sistemas. Caso a senha do SGP esteja salva em seus dispositivos, lembre-se de usar a nova senha em seus próximos acessos.</p>
 							<p>As orientações para redefinição da sua senha serão enviadas para o seu  e-mail.</p>
-							<p>Para usuários da Rede Parceira, a senha foi enviada para o e-mail da Unidade Educacional.</p>
+							<p>Para usuários das Unidades Parceiras, a senha foi enviada para o e-mail da Unidade Educacional.</p>
 							<form id="lost-pass" action="<?= get_the_permalink(); ?>" method="post">
 								<p class="login-username">
 									<label for="user">Usuário</label>
