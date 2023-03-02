@@ -51,7 +51,7 @@ function demo_auth( $user, $username, $password ){
             
             $countRf = strlen($rf);
 
-            if($countRf == 6){
+            if($countRf == 20){
                 $usuario = $rf;
                 $api_url = '';
                 $response = wp_remote_post( $api_url, array(
