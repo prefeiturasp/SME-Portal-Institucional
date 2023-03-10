@@ -44,6 +44,10 @@ require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMenuInter
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleNoticiaPrincipal.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMaisRecentes.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleRelacionadas.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopExplica/LoopExplica.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopExplica/LoopExplicaCabecalho.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopExplica/LoopExplicaNoticiaPrincipal.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopExplica/LoopExplicaRelacionadas.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaGetDatasEventos.php';
 //require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContato/ArchiveContatoMetabox.php';

@@ -42,13 +42,15 @@ function custom_setup() {
 	if (function_exists('add_image_size')) {
 		add_image_size('home-thumb', 250, 166);
 		add_image_size('default-image', 825, 470, true);
+		add_image_size('img-dest', 1000, 400, true);
 	}
 
 	//Permite adicionar no post ou página uma imagem com tamanho personalizado, nesse caso a home-thumb já definida anteriormente com 250X147
 	function custom_choose_sizes($sizes) {
 		$custom_sizes = array(
 			'home-thumb' => 'Tamanho Personalizado',
-			'default-image' => 'Tamanho Padrão'
+			'default-image' => 'Tamanho Padrão',
+			'img-dest' => 'Imagem de Destaque'
 		);
 		return array_merge($sizes, $custom_sizes);
 	}
@@ -163,6 +165,8 @@ function custom_formats() {
 	wp_register_style('default_ie', STM_THEME_URL . 'css/ie6.1.1.css', null, null, 'all');
 	wp_register_style('font_awesome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 	wp_register_style('style', get_stylesheet_uri(), null, null, 'all');
+	wp_register_style('slick_css', STM_THEME_URL . 'css/slick.css', null, null, 'all');
+	wp_register_style('slick_theme_css', STM_THEME_URL . 'css/slick-theme.css', null, null, 'all');
 
 	//wp_register_script('bootstrap_js', STM_THEME_URL . 'js/bootstrap.js', false, false);
 
@@ -175,6 +179,9 @@ function custom_formats() {
 	wp_register_script('jquery_waituntilexists', STM_THEME_URL . 'js/jquery.waituntilexists.js', array('jquery'), 1.0, true);
 	wp_register_script('scripts_js', STM_THEME_URL . 'js/scripts.js', array('jquery'), 1.0, true);
 	wp_register_script('jquery.event.move_js', STM_THEME_URL . 'js/jquery.event.move.js', array('jquery'), 1.0, true);
+	wp_register_script('slick_min_js', STM_THEME_URL . 'js/slick.min.js', array('jquery'), 1.0, true);
+	wp_register_script('slick_func_js', STM_THEME_URL . 'js/slick-func.js', array('jquery'), 1.0, true);
+	wp_register_script('lightbox_js', STM_THEME_URL . 'js/jquery-simple-lightbox.js', array('jquery'), 1.0, true);
 
 
 	global $wp_styles;
