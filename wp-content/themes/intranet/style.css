@@ -2598,3 +2598,76 @@ div.star-rating-on a {
         justify-content: space-between;
     }
 }
+
+
+
+.content-explica .data {
+    font-size: 14px;
+    font-style: italic;
+}
+
+.content-explica .titulo-noticia-principal {
+    color: #003B73;
+    font-size: 24px !important;
+    text-decoration: underline;
+}
+
+.content-explica .sub-titulo{
+    font-size: 18px;
+    font-style: normal;
+}
+
+.content-explica .slick-list .slick-slide{
+    padding: 10px;
+}
+
+.content-explica .post_like a{
+    color: #000000;
+}
+
+.content-explica .post_like a i {
+    color: #42474A;
+}
+
+.content-explica .slick-prev:before,
+.content-explica .slick-next:before{
+    opacity: 1;
+    color: #003B73;
+}
+
+.wp-video {
+    display: block;
+    margin: 0 auto 25px;
+}
+
+.wp-audio-shortcode {
+    margin-bottom: 25px;
+}
+
+.rel-infos{
+    background: #FFFFFF;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.rel-infos .rel-title {
+    background: #14457C;
+    margin-bottom: 30px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.rel-infos .rel-title h2{
+    font-size: 24px;
+}
+
+.rel-infos .rel-title a{
+    text-decoration: underline;
+}
+
+.rel-infos .rel-title h2,
+.rel-infos .rel-title a{
+    color: #FFFFFF;
+    margin-bottom: 0;
+    padding: 8px 20px;
+}
