@@ -34,6 +34,7 @@ require_once __ROOT__.'/classes/Cpt/CptPortais.php';
 require_once __ROOT__.'/classes/Cpt/CptFaqs.php';
 require_once __ROOT__.'/classes/Cpt/CptParceiros.php';
 require_once __ROOT__.'/classes/Cpt/CptSmeExplica.php';
+require_once __ROOT__.'/classes/Cpt/CptMuralProf.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
@@ -162,3 +163,6 @@ $cptParceirosExtend = new \Classes\Cpt\CptParceiros();
 
 $cptSmeExplica = new \Classes\Cpt\Cpt('info-sme-explica', 'info-sme-explica', 'SME Explica', 'Todos os Informativos', 'info-sme-explica', 'info-sme-explica', null, null, null, 'dashicons-external', true);
 $cptSmeExplicaExtend = new \Classes\Cpt\CptSmeExplica();
+
+$cptMuralProf = new \Classes\Cpt\Cpt('mural-professores', 'mural-professores', 'Mural dos Professores', 'Todas as Publicações', 'mural-professores', 'mural-professores', null, null, null, 'dashicons-external', true);
+$cptMuralProfExtend = new \Classes\Cpt\CptMuralProf();
