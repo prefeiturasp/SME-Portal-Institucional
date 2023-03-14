@@ -2185,6 +2185,10 @@ class Construtor extends Util
 											elseif( get_row_layout() == 'fx_cl1_card_imagem_2_2' ):
 												get_template_part( 'construtor/construtor', 'card_imagem', array( 'key' => '2_2' ) );
 
+											// Banner Horizontal
+											elseif( get_row_layout() == 'fx_cl1_banner_horiz_2_2' ):
+												get_template_part( 'construtor/construtor', 'banner_horiz', array( 'key' => '2_2' ) );
+
 											endif;
 
 										endwhile;
