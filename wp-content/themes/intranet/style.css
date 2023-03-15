@@ -2671,3 +2671,17 @@ div.star-rating-on a {
     margin-bottom: 0;
     padding: 8px 20px;
 }
+
+.info-email{
+    font-size: 14px;
+    color: #212529;
+}
+
+#acf-field_62420050a8eb3 {
+    margin-bottom: 0;
+}
+
+#adduser .form-check .form-check-label {
+    font-weight: normal;
+    font-size: 14px;
+}
