@@ -41,10 +41,15 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
             if ( is_wp_error( $response ) ) {
                 $error_message = $response->get_error_message();
                 echo "Something went wrong: $error_message";
-            } else {                
-                $response = json_decode($response['body']);                
+            } else {
+                echo "<pre>";
+                print_r($response);
+                echo "</pre>";
+                $response = json_decode($response['body']);
+                
             }
             wp_update_user( array ('ID' => $current_user->ID, 'user_email' => esc_attr( $_POST['email'] )));
+            echo "Aqui";
         }
     }
 
@@ -79,6 +84,19 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
     if ( !empty( $_POST['acf']['field_624ae351630a7'] ) )
         update_user_meta( $current_user->ID, 'rg', esc_attr( $_POST['acf']['field_624ae351630a7'] ) );
     
+    // Novidades Email
+    if ( !empty( $_POST['nov-email'] ) ){
+        update_user_meta( $current_user->ID, 'nov_email', esc_attr( $_POST['nov-email'] ) );
+    } else {
+        update_user_meta( $current_user->ID, 'nov_email', 0 );
+    }   
+    
+    // Novidades WhatsApp
+    if ( !empty( $_POST['nov-whats'] ) ){
+        update_user_meta( $current_user->ID, 'nov_whats', esc_attr( $_POST['nov-whats'] ) );
+    } else {
+        update_user_meta( $current_user->ID, 'nov_whats', 0 );
+    }
     
     // These files need to be included as dependencies when on the front end.
     require_once( ABSPATH . 'wp-admin/includes/image.php' );
@@ -105,7 +123,13 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
     }       
 }
 
-get_header(); // Loads the header.php template. ?>
+$email = email_exists(esc_attr( 'aa7217757@sme.prefeitura.sp.gov.br' ));
+
+get_header(); // Loads the header.php template. 
+
+?>
+
+
 
 <div class="container">
     <div class="row">
@@ -137,10 +161,7 @@ get_header(); // Loads the header.php template. ?>
                                             $parceira = get_field('parceira', 'user_'. $current_user->ID );
                                             $image_id = get_field('imagem', 'user_' . $current_user->ID);
                                             $image_profile = $img_atts = wp_get_attachment_image_src($image_id, 'thumbnail');
-
-                                            //echo "<pre>";
-                                            //print_r($image_id);
-                                            //echo "</pre>";
+                                        
                                                                            
                                             if($image_id['sizes']['thumbnail']):
                                         ?>
@@ -211,17 +232,17 @@ get_header(); // Loads the header.php template. ?>
 
                             <?php else: ?>
 
-                                <div class="col-12 col-md-4">
+                                <div class="col-12 col-md-6">
                                     <label for="first-name"><?php _e('Nome', 'profile'); ?></label>
                                     <input class="text-input form-control" name="first-name" type="text" id="first-name" value="<?php the_author_meta( 'first_name', $current_user->ID ); ?>" />
                                 </div>
 
-                                <div class="col-12 col-md-4">
+                                <div class="col-12 col-md-6">
                                     <label for="last-name"><?php _e('Sobrenome', 'profile'); ?></label>
                                     <input class="text-input form-control" name="last-name" type="text" id="last-name" value="<?php the_author_meta( 'last_name', $current_user->ID ); ?>" />
                                 </div>
 
-                                <div class="col-12 col-md-4">
+                                <div class="col-12 col-md-6 mb-2">
                                     <label for="email"><?php _e('E-mail *', 'profile'); ?></label>
                                     <?php
                                         $rf = get_field('rf', 'user_' . $current_user->ID);
@@ -229,10 +250,55 @@ get_header(); // Loads the header.php template. ?>
                                         $verifyEmail = explode('@', $email);                                        
                                     ?>
                                     <?php if($rf == $verifyEmail[0]): ?>
-                                        <input class="text-input form-control" name="email" type="text" id="email" value="" required />
+                                        <input class="text-input form-control mb-1" name="email" type="text" id="email" value="" required />
                                     <?php else: ?>
-                                        <input class="text-input form-control" name="email" type="text" id="email" value="<?= $email; ?>" />
+                                        <input class="text-input form-control mb-1" name="email" type="text" id="email" value="<?= $email; ?>" />
                                     <?php endif; ?>
+                                    <span class="info-email"><i class="fa fa-info-circle"></i> Verifique se seu e-mail está preenchido corretamente. Caso não esteja, digite atentamente o e-mail correto e clique em Salvar mudanças.</span>
+                                </div>
+                                
+                                <div class="col-12 col-md-6">
+                                    <?php
+                                        $options = array(
+                                            'post_id' => 'user_'.$current_user->ID,
+                                            'field_groups' => array(1342),
+                                            'form' => false,
+                                            'fields' => array('celular'),
+                                            'return' => false,
+                                            'html_before_fields' => '',
+                                            'html_after_fields' => '',
+                                            'submit_value' => 'Update' 
+                                        );
+                                        acf_form( $options );
+                                    ?>
+
+                                    <?php
+                                        $nov_email = get_field('nov_email', 'user_' . $current_user->ID);
+                                        $nov_whats = get_field('nov_whats', 'user_' . $current_user->ID);                                        
+                                        $check_email = '';
+                                        $check_whats = '';
+                                        if($nov_email)
+                                            $check_email = 'checked';
+                                        
+                                        if($nov_whats)
+                                            $check_whats = 'checked';
+                                        //checked
+                                    ?>
+
+                                    <div class="form-check mt-1">
+                                        <input class="form-check-input" type="checkbox" name="nov-email" value="1" id="nov-email" <?= $check_email; ?>>
+                                        <label class="form-check-label" for="nov-email">
+                                            Aceito receber as novidades pelo e-mail.
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check mt-1 mb-3">
+                                        <input class="form-check-input" type="checkbox" name="nov-whats" value="1" id="nov-whats" <?= $check_whats; ?>>
+                                        <label class="form-check-label" for="nov-whats">
+                                            Aceito receber as novidades por Whatsapp.
+                                        </label>
+                                    </div>
+
                                 </div>
 
                             <?php endif; ?>
@@ -242,17 +308,20 @@ get_header(); // Loads the header.php template. ?>
                         <?php if(!$parceira): ?>
 
                             <div class="row">
-                                <div class="col-12 col-md-3">
+
+                                <div class="col-12 col-md-4">
                                     <label for="user-rf"><?php _e('Número do RF', 'profile'); ?></label>                               
                                     <div class="input-disable" id="user-rf"><?= get_field('rf', 'user_' . $current_user->ID); ?></div>
                                 </div>
 
-                                <div class="col-12 col-md-3">
+                                                                
+
+                                <div class="col-12 col-md-4">
                                     <label for="user-cpf"><?php _e('Número do CPF', 'profile'); ?></label>                               
                                     <div class="input-disable" id="user-cpf"><?= get_field('cpf', 'user_' . $current_user->ID); ?></div>
                                 </div>
 
-                                <div class="col-12 col-md-3">
+                                <div class="col-12 col-md-4">
                                     <?php
                                         $options = array(
                                             'post_id' => 'user_'.$current_user->ID,
@@ -267,22 +336,7 @@ get_header(); // Loads the header.php template. ?>
                                         acf_form( $options );
                                     ?>
                                 </div>
-
-                                <div class="col-12 col-md-3">
-                                    <?php
-                                        $options = array(
-                                            'post_id' => 'user_'.$current_user->ID,
-                                            'field_groups' => array(1342),
-                                            'form' => false,
-                                            'fields' => array('celular'),
-                                            'return' => false,
-                                            'html_before_fields' => '',
-                                            'html_after_fields' => '',
-                                            'submit_value' => 'Update' 
-                                        );
-                                        acf_form( $options );
-                                    ?>
-                                </div>
+                                
 
                                 <div class="col-12 col-md-6">
                                     <?php
@@ -343,7 +397,6 @@ get_header(); // Loads the header.php template. ?>
                                     <span class="pass-text">Utilizar a mesma senha do SGP</span>
                                     <a href="#modalPass" class="d-block mb-3" data-toggle="modal" data-target="#modalPass">Alterar senha</a>
                                 </div>
-
                             </div>
 
                         <?php endif; ?>
@@ -458,5 +511,33 @@ get_header(); // Loads the header.php template. ?>
                 window.location.href = 'https://eol.prefeitura.sp.gov.br/';
             }
         })
-    </script>
+    </script>    
 <?php endif; ?>
+
+<script>
+    jQuery(document).ready(function($){
+
+        $("#adduser").submit(function(e){
+            if($('#nov-whats').is(':checked')){
+                
+                if( $('#acf-field_62420050a8eb3').val().length === 0 ) {
+                    Swal.fire(
+                        'Atenção',
+                        'Para receber as novidades via WhatsApp é necessário preencher o campo Celular.',
+                        'warning'
+                    ).then(function() {
+                        $('#acf-field_62420050a8eb3').focus();
+                    });
+                    
+                    return false;
+                } else {
+                    return true;
+                }
+
+            } else {
+                return true;
+            }            
+        });
+               
+    });
+</script>
