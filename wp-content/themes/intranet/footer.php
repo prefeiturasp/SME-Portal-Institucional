@@ -199,7 +199,7 @@
 					Swal.fire({
 						icon: 'error',
 						title: 'Atenção',
-						text: 'A imagem não pode ter mais que 2mb.',
+						text: 'A imagem não pode ter mais que 500kb.',
 					});
 					return false;
 				}
