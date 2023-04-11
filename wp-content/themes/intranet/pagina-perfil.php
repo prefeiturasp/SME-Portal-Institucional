@@ -27,12 +27,12 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
             $error[] = __('This email is already used by another user.  try a different one.', 'profile');
         else{
             $usuario = get_field('rf', 'user_' . $current_user->ID);
-            $api_url = '';
+            $api_url = 'https://hom-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/AutenticacaoSgp/AlterarEmail';
             $email = $_POST['email'];
             $response = wp_remote_post( $api_url, array(
                 'method'      => 'POST',                    
                 'headers' => array( 
-                        'x-api-eol-key' => '',                    
+                        'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99',                    
                     ),
                 'body' => array("Usuario" => "$usuario","Email" => "$email"),
                 )
@@ -104,7 +104,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
     require_once( ABSPATH . 'wp-admin/includes/media.php' );
 
     // Let WordPress handle the upload.
-    $img_id = media_handle_upload( 'avatar_user', 0 );
+    $img_id = media_handle_upload( 'avatar_user', 1454 );
 
     if ( is_wp_error( $img_id ) ) {
         echo "Error";
@@ -124,8 +124,15 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
 }
 
 $email = email_exists(esc_attr( 'aa7217757@sme.prefeitura.sp.gov.br' ));
+//print_r($email);
+
+//echo "<pre>";
+    //print_r($_POST);
+    //echo "</pre>";
 
 get_header(); // Loads the header.php template. 
+
+
 
 ?>
 
@@ -160,18 +167,21 @@ get_header(); // Loads the header.php template.
                                         <?php
                                             $parceira = get_field('parceira', 'user_'. $current_user->ID );
                                             $image_id = get_field('imagem', 'user_' . $current_user->ID);
-                                            $image_profile = $img_atts = wp_get_attachment_image_src($image_id, 'thumbnail');
-                                        
+                                            $image_profile = wp_get_attachment_image_src($image_id, 'thumbnail');
+
+                                            //echo "<pre>";
+                                            //print_r($image_id);
+                                            //echo "</pre>";
                                                                            
-                                            if($image_id['sizes']['thumbnail']):
+                                            if($image_profile[0]):
                                         ?>
-                                                <img src="<?= $image_id['sizes']['thumbnail']; ?>" alt="Imagem de perfil">
+                                                <img src="<?= $image_profile[0]; ?>" alt="Imagem de perfil">
                                         <?php else: ?>
                                             <img src="<?= get_template_directory_uri() . '/img/user-image.jpg'; ?>" alt="Avatar">                                     
                                         <?php endif; ?>
                                     </div>
                                     <div class="name-profile">
-                                        <?php
+                                        <?php                                            
                                             $nome = get_the_author_meta( 'first_name', $current_user->ID );
                                             $sobrenome = get_the_author_meta( 'last_name', $current_user->ID );
                                         ?>
@@ -181,7 +191,7 @@ get_header(); // Loads the header.php template.
                                             <?php
                                                 $image_id = get_field('imagem', 'user_' . $current_user->ID);
                                                 $image_profile = $img_atts = wp_get_attachment_image_src($image_id, 'thumbnail');
-                                                                            
+                                                                                                                              
                                                 if($image_profile[0]):
                                             ?>
                                                     <img src="<?= $image_profile[0]; ?>" alt="Imagem de perfil">
@@ -190,7 +200,8 @@ get_header(); // Loads the header.php template.
                                             <?php endif; ?>
                                         </div>
 
-                                        <input class="text-input" name="avatar_user" type="file" data-max-size="2048000" accept="image/png, image/gif, image/jpeg" id="avatar_user"/>
+                                        <input class="text-input" id="avatar_user" name="avatar_user" type="file" data-max-size="500000" accept="image/png, image/gif, image/jpeg" id="avatar_user"/><br>
+                                        <label for="avatar_user">Somente arquivo nos formatos .png, .jpg ou .jpeg, com até 500Kb.</label>
                                     </div>
                                 </div>
 

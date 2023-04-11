@@ -278,9 +278,9 @@ use Classes\Header\Header;
                                             $image_id = get_field('imagem', 'user_' . get_current_user_id());
                                             $image_profile = $img_atts = wp_get_attachment_image_src($image_id, 'thumbnail');
                                                                         
-                                            if($image_id['sizes']['thumbnail']):
+                                            if($image_profile[0]):
                                         ?>
-                                            <img src="<?= $image_id['sizes']['thumbnail']; ?>" alt="Imagem de perfil">
+                                            <img src="<?= $image_profile[0]; ?>" alt="Imagem de perfil">
                                         <?php else: ?>
                                             <img src="<?= get_template_directory_uri() . '/img/user-image.jpg'; ?>" class="avatar" alt="Avatar"> 
                                         <?php endif; ?>
@@ -291,9 +291,9 @@ use Classes\Header\Header;
                                             $image_id = get_field('imagem', 'user_' . get_current_user_id());
                                             $image_profile = $img_atts = wp_get_attachment_image_src($image_id, 'thumbnail');
                                                                         
-                                            if($image_id['sizes']['thumbnail']):
+                                            if($image_profile[0]):
                                         ?>
-                                            <img src="<?= $image_id['sizes']['thumbnail']; ?>" alt="Imagem de perfil">
+                                            <img src="<?= $image_profile[0]; ?>" alt="Imagem de perfil">
                                         <?php else: ?>
                                             <img src="<?= get_template_directory_uri() . '/img/user-image.jpg'; ?>" class="avatar" alt="Avatar"> 
                                         <?php endif; ?>

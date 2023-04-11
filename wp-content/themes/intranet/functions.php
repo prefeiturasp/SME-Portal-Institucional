@@ -2223,3 +2223,10 @@ function post_like_callback() {
 
 add_action( 'wp_ajax_post_like', 'post_like_callback' );
 add_action( 'wp_ajax_nopriv_post_like', 'post_like_callback' );
+
+add_filter( 'ajax_query_attachments_args', 'filterMediaLibrary', 10, 1 );
+//add_action( 'pre_get_posts', 'filterMediaLibrary' );
+function filterMediaLibrary($query = array()) {
+    $query['post_parent__not_in'] = array(1454);
+    return $query;
+}
