@@ -16,11 +16,7 @@ if(get_sub_field($chave)) :
                     echo '<ul class="card-group nav m-0 acesso-rapido" role="tablist">';
 
                         $acessosRapido = get_sub_field($chave);
-                        $key = generateRandomString(5);
-
-                        //echo "<pre>";
-                        //print_r($acessosRapido);
-                        //echo "</pre>";
+                        $key = generateRandomString(5);                        
 
                         foreach($acessosRapido as $acessos):
                         ?>

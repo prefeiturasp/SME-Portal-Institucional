@@ -34,10 +34,7 @@ if (isset($_FILES['file'])) {
             echo "</thead>";
             echo "<tbody>";
 
-            foreach($usuarios as $usuario){
-                //echo "<pre>";
-                //print_r($usuario);
-                //echo "</pre>";
+            foreach($usuarios as $usuario){                
 
                 // Conversao do body para JSON
                 $body = wp_json_encode( array(

@@ -15,10 +15,6 @@ if(get_sub_field('fx_acessos_1_1')) :
 
                         $acessosRapido = get_sub_field('fx_acessos_1_1');
 
-                        //echo "<pre>";
-                        //print_r($acessosRapido);
-                        //echo "</pre>";
-
                         foreach($acessosRapido as $acessos):
                         ?>
                             <li id="tab_<?php echo $acessos['menu']; ?>" class="container-a-icones-home card rounded-0 border-0">

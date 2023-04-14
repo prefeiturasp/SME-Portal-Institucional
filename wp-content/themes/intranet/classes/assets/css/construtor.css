@@ -1340,3 +1340,40 @@ background: #5c4961;
 .card-dest .wp-audio-shortcode {
     margin-bottom: 15px;
 }
+
+.title-mural {
+    color: #870051 !important;
+    margin-bottom: 20px;
+}
+
+#mural-enviar label {
+    font-weight: bold;
+}
+
+#mural-enviar label.custom-file-label {
+    font-weight: normal;
+    color: #84757d;
+}
+
+#mural-enviar .form-check-label {
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+#mural-enviar .image-uploader {
+    border: 1px dashed #888585;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#mural-enviar .image-uploader .upload-text{
+    padding: 10px 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#mural-enviar .custom-file-label::after {
+    content: "Adicionar";
+    background-color: #0048A9;
+    color: #FFFFFF;
+}

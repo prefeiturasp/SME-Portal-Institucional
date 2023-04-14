@@ -144,10 +144,7 @@ if($rf == $verifyEmail[0]){
 											$response = curl_exec($ch);                
 											
 											$jsonArrayResponse = json_decode($response);
-
-											//echo "<pre>";
-											//print_r($jsonArrayResponse);
-											//echo "</pre>";
+											
 
 											if($jsonArrayResponse && $jsonArrayResponse[0] != ''){
 												foreach($jsonArrayResponse as $curso){
@@ -262,10 +259,7 @@ if($rf == $verifyEmail[0]){
 
 						//$type = array_column($allResults, 'type');
 						//array_multisort($type, SORT_DESC, $allResults);
-
-						//echo "<pre>";
-						//print_r($allResults);
-						//echo "</pre>";
+						
 
 						$pagina = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1;
 						$total = count( $allResults ); //total items in array    
@@ -550,20 +544,7 @@ if($rf == $verifyEmail[0]){
 
 						<?php
 						endif;
-						
-						//echo "<pre>";
-						//print_r($allResults);
-						//echo "</pre>";
-
-						//echo 'Total Resultados: '. $total;
-						//echo "<br>";
-						//echo 'Paginas: '. $totalPages;
-						//echo "<br>";
-						//echo 'Paginas Atual: '. $pagina;
-						//echo "<br>";
-						//echo $offset;
-						//echo "<br>";
-						//echo "<br>";
+												
 
 						$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 						$new_url = preg_replace('/&?pagina=[^&]*/', '', $actual_link);

@@ -143,11 +143,7 @@
                                     <img src="<?= get_template_directory_uri(); ?>/img/categ-destaques.jpg" class="img-fluid rounded" alt="Imagem de ilustração categoria">
                                 <?php endif; ?>
                             </div>
-                            <?php 
-                                //echo "<pre>";
-                                //print_r($image);
-                                //echo "</pre>";
-                            ?>
+                            
                             <div class="col-9 col-md-9">
 
                                 <p class="data"><?= getDay(get_the_date('w')); ?>, <?= get_the_date('M d') ?> às <?= get_the_date('H\hi\m\i\n') ?> 

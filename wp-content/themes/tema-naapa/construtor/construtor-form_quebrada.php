@@ -197,11 +197,7 @@
  
                 $upload_overrides = array( 'test_form' => false );
                 $movefile = wp_handle_upload( $_FILES["fileToUpload"], $upload_overrides );
-                 
-                //echo "<pre>";
-                //print_r($movefile);
-                //echo "</pre>";
-
+                                 
                 
                 // $filename should be the path to a file in the upload directory.
                 $filename = $movefile['file'];

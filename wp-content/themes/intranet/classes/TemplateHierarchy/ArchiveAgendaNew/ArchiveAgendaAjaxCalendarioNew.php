@@ -64,9 +64,7 @@ class ArchiveAgendaAjaxCalendarioNew extends Util
 				<div class="agenda mb-4 agenda-new bbb">
 					<?php
 						$eventos = get_field('eventos_do_dia');
-						//echo "<pre>";
-						//print_r($eventos);
-						//echo "</pre>";
+						
 					?>
 					<?php foreach($eventos as $evento): ?>
 						<div class="agenda mb-4 agenda-new abc">

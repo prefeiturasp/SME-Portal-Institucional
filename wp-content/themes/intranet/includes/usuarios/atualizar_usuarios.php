@@ -34,10 +34,7 @@ if (isset($_FILES['file'])) {
             echo "</thead>";
             echo "<tbody>";
 
-            foreach($usuarios as $usuario){
-                //echo "<pre>";
-                //print_r($usuario);
-                //echo "</pre>";
+            foreach($usuarios as $usuario){                
 
                 $usuarioEol = $usuario[0];
                 $email = $usuario[1];
@@ -83,12 +80,8 @@ if (isset($_FILES['file'])) {
                             echo "<td>Ocorreu um erro, verifique os dados e tente novamente.</td>";
                         echo "</tr>";
                         //echo "Usuario: " . $usuario[0] . " - RF/EOL: " . $usuario[1] . " - Ocorreu um erro, verifique os dados e tente novamente. <br>";
-                    }
+                    }                    
                     
-                    //echo "<pre>";
-                    //print_r($response['body']);
-                    //print_r($response['response']);
-                    //echo "</pre>";
                 }
                 
             }

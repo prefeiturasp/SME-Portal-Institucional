@@ -146,11 +146,8 @@
                             <a href="<?php echo get_template_directory_uri(); ?>/certificado/export-pdf.php/?id=<?= $row['id']; ?>" class="link" rel="noopener noreferrer">Baixar certificado <i class="fa fa-download" aria-hidden="true"></i></a>
 
                         </div>
-                    <?php endforeach;
+                    <?php endforeach;                    
                     
-                    //echo "<pre>";
-                    //print_r($result);
-                    //echo "</pre>";
                     
                     $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 					

@@ -78,11 +78,11 @@ get_header('forms'); // Loads the header.php template. ?>
 
     if($_GET['token'] && $_GET['token'] != ''){
         
-        $api_url = 'https://hom-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/v1/autenticacao/RecuperarSenha/token/validar';
+        $api_url = '';
         $response = wp_remote_post( $api_url, array(
             'method'      => 'POST',                    
             'headers' => array( 
-                'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99',
+                'x-api-eol-key' => '',
                 'Content-Type' => 'application/json-patch+json'
             ),
             'body' => '"' . $_GET['token'] . '"',
@@ -103,11 +103,7 @@ get_header('forms'); // Loads the header.php template. ?>
             echo "<script>                    
                     window.location.replace('" . get_home_url() . "/index.php/recupere-sua-senha/?pass=new');
                 </script>";
-        }
-
-        //echo "<pre>";
-        //print_r($token);
-        //echo "<pre>";
+        }        
 
 		if(isset($_POST['senha-nova']) && $_POST['senha-nova'] == '' && $_POST['senha-repita'] == '' && $token){
             echo 
@@ -137,7 +133,7 @@ get_header('forms'); // Loads the header.php template. ?>
                 if($token && $validar){
                     
                     // URL da API
-                    $api_url = 'https://hom-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/v1/autenticacao/AlterarSenha';
+                    $api_url = '';
 
                     // Conversao do body para JSON
                     $tokenKey = $_GET['token'];
@@ -145,14 +141,10 @@ get_header('forms'); // Loads the header.php template. ?>
                     $response = wp_remote_post( $api_url ,
                             array(
                                 'headers' => array( 
-                                    'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99', // Chave da API
+                                    'x-api-eol-key' => '', // Chave da API
                                 ),
                                 'body' => array("Token" => "$tokenKey","Senha" => "$senha"),
-                            ));
-
-                    //echo "<pre>";
-                    //print_r($response);
-                    //echo "</pre>";
+                            ));                    
 
                     if($response['response']['code'] == 200){
                         

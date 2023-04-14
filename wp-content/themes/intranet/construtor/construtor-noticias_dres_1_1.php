@@ -25,10 +25,7 @@
                     $blogs[] = array('blog_id' => 18); // DRE
 					$blogs[] = array('blog_id' => 19); // DRE
                     $blogs[] = array('blog_id' => 20); // DRE
-
-					//echo "<pre>";
-					//print_r($blogs);
-					//echo "</pre>";
+					
 
 					// New empty arrays
 					$blog_ids;

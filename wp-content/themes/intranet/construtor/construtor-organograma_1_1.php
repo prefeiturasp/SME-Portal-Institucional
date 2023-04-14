@@ -37,12 +37,7 @@
     }
 
     $i = 1;
-
-    //echo "<pre>";
-    //print_r($terciario);
-    //echo "</pre>";
-
-    //print_r($principal);
+    
 ?>
 <script>
         $s(document).ready(function() {

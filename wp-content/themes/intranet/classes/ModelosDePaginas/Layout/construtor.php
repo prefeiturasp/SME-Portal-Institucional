@@ -139,10 +139,7 @@ class Construtor extends Util
 												}
 											}
 										}	
-
-										//echo "<pre>";
-										//print_r($campos);
-										//echo "</pre>";
+										
 									?>
 								</ul>
 							</div>
@@ -403,6 +400,10 @@ class Construtor extends Util
 											// Mural dos Professores
 											elseif( get_row_layout() == 'fx_cl1_mural_prof_1_1' ):
 												get_template_part( 'construtor/construtor', 'mural_prof' );
+
+											// Mural dos Professores - Enviar Publicacao
+											elseif( get_row_layout() == 'fx_cl1_mural_enviar_1_1' ):
+												get_template_part( 'construtor/construtor', 'mural_enviar' );
 
 											// Integracao Pagina
 											elseif( get_row_layout() == 'integrar_pagina' ):

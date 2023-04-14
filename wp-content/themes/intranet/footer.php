@@ -140,6 +140,7 @@
 <?php wp_footer() ?>
 <script src="//api.handtalk.me/plugin/latest/handtalk.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="<?= get_template_directory_uri(); ?>/js/image-uploader.js"></script>
 <script>
 	
 	//var ht = new HT({
@@ -186,7 +187,127 @@
 		
 	} );
 
+	document.querySelector('.custom-file-input').addEventListener('change',function(e){
+		var fileName = document.getElementById("customFile").files[0].name;
+		var nextSibling = e.target.nextElementSibling
+		nextSibling.innerText = fileName + ' selecionado'
+	});
+
+	function calcelMural(){
+		Swal.fire({
+			title: '<strong>Atenção</u></strong>',
+			icon: 'question',
+			html: 'Deseja cancelar o cadastro da publicação?',
+			showCloseButton: true,
+			showCancelButton: false,
+			showDenyButton: true,
+			focusConfirm: false,
+			confirmButtonText:
+				'Não',
+			confirmButtonAriaLabel: 'Cancelar ação',
+			denyButtonText:
+				'Sim',
+			cancelButtonAriaLabel: 'Confirmar ação'
+		}).then((result) => {
+			/* Se for clicado no SIM */
+		 	if (result.isDenied) {
+				window.location.href = "<?= get_home_url(); ?>/index.php/mural-dos-professores/";
+			}
+		})
+	}
+
 	jQuery(document).ready(function($){
+
+		$('.input-images').imageUploader({
+			label: 'Clique ou arraste a imagem para esta área para carregar. Adicione até 4 imagens nos formatos JPG, JPEG ou PNG.',
+			maxSize: 1 * 1024 * 1024,
+			maxFiles: 4
+		});
+
+		$('#mural-enviar').submit(function(e){
+			
+			// Nome obrigatorio
+			var nome = $('#nome').val();
+			if(!nome){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'O campo Nome é obrigatório.',
+				});
+				//e.preventDefault();
+				return false;
+			}
+
+			// Nome da entidade obrigatorio
+			var nome_ent = $('#nome_ent').val();
+			if(!nome_ent){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'O campo Nome da entidade é obrigatório.',
+				});
+				//e.preventDefault();
+				return false;
+			}
+
+			// Título para publicação obrigatorio
+			var title = $('#title').val();
+			if(!title){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'O campo Título para publicação é obrigatório.',
+				});
+				//e.preventDefault();
+				return false;
+			}
+
+			if ($('#customFile').get(0).files.length === 0) {
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'O campo Imagem destaque é obrigatório.',
+				});
+				//e.preventDefault();
+				return false;
+			}
+
+			// Validar o tamanho da imagem
+			var fileInput = $('#customFile');
+			var maxSize = fileInput.data('max-size');
+			if(fileInput.get(0).files.length){
+				var fileSize = fileInput.get(0).files[0].size;  //in bytes
+				//console.log(fileSize);
+				if(fileSize>maxSize){
+					Swal.fire({
+						icon: 'error',
+						title: 'Atenção',
+						text: 'A imagem não pode ter mais que 1mb.',
+					});
+					e.preventDefault();
+					return false;
+				}
+			}
+
+			if(!$('input[name="auto_publi"]').is(':checked')){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'Você precisa aceitar o termo de autorização de publicação.',
+				});
+				return false;
+			}
+
+			if(!$('input[name="auto_compa"]').is(':checked')){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'Você precisa aceitar o termo de autorização para compartilhamento.',
+				});
+				return false;
+			}
+			
+		});
 
 		var fileInput = $('#avatar_user');
 		var maxSize = fileInput.data('max-size');
@@ -416,7 +537,8 @@
 			// toggle the eye slash icon
 			this.classList.toggle('fa-eye-slash');
 			this.classList.toggle('fa-eye');
-		});
+		});		
+		
 	});
 </script>
 <?php if($_GET['updated']): ?>
@@ -428,5 +550,25 @@
 		});
 	</script>
 <?php endif; ?>
+<?php if($_GET['publicacao'] == 'success'): ?>
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: 'Obrigada por compartilhar sua prática',
+			text: 'Suas postagens serão moderadas pelo administrador do site antes de serem postadas.',
+		});
+	</script>
+<?php endif; ?>
+<script>
+    tinymce.init({
+      selector: '.mural-textarea',
+	  menubar: false,
+	  block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3',
+      plugins: 'lists textcolor',
+      toolbar: 'undo redo | blocks | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | forecolor',
+      language: 'pt_BR'
+    });	
+</script>
+
 </body>
 </html>
