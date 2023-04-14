@@ -69,6 +69,8 @@ use Classes\Header\Header;
     
 
 	<?php wp_head() ?>
+    <script src="https://cdn.tiny.cloud/1/6tbmnxag9fklyg3bf5q3uhtpfkueibicjjefm8wq8t4lt1yh/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <link type="text/css" rel="stylesheet" href="<?= get_template_directory_uri(); ?>/css/image-uploader.min.css">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149756375-1"></script>

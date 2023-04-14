@@ -42,14 +42,12 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
                 $error_message = $response->get_error_message();
                 echo "Something went wrong: $error_message";
             } else {
-                echo "<pre>";
-                print_r($response);
-                echo "</pre>";
+                
                 $response = json_decode($response['body']);
                 
             }
             wp_update_user( array ('ID' => $current_user->ID, 'user_email' => esc_attr( $_POST['email'] )));
-            echo "Aqui";
+            
         }
     }
 
@@ -126,10 +124,6 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
 $email = email_exists(esc_attr( 'aa7217757@sme.prefeitura.sp.gov.br' ));
 //print_r($email);
 
-//echo "<pre>";
-    //print_r($_POST);
-    //echo "</pre>";
-
 get_header(); // Loads the header.php template. 
 
 
@@ -168,10 +162,7 @@ get_header(); // Loads the header.php template.
                                             $parceira = get_field('parceira', 'user_'. $current_user->ID );
                                             $image_id = get_field('imagem', 'user_' . $current_user->ID);
                                             $image_profile = wp_get_attachment_image_src($image_id, 'thumbnail');
-
-                                            //echo "<pre>";
-                                            //print_r($image_id);
-                                            //echo "</pre>";
+                                           
                                                                            
                                             if($image_profile[0]):
                                         ?>

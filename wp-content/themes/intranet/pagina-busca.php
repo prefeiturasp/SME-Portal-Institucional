@@ -49,10 +49,6 @@
                         $sites[] = (object) array('blog_id' => $site);
                     }
 
-                    echo "<pre>";
-                    print_r($sites);
-                    echo "</pre>";
-
                     $types = array('page', 'programa-projeto', 'card', 'post');
 
                     if($_GET['tipoconteudo'] && $_GET['tipoconteudo'] != ''){
@@ -168,11 +164,7 @@
                     }
 
                     //$type = array_column($allResults, 'type');
-                    //array_multisort($type, SORT_DESC, $allResults);
-
-                    //echo "<pre>";
-                    //print_r($allResults);
-                    //echo "</pre>";
+                    //array_multisort($type, SORT_DESC, $allResults);                    
 
                     $pagina = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1;
                     $total = count( $allResults ); //total items in array    
@@ -244,21 +236,8 @@
                         
 
                     <?php
-                    endif;
+                    endif;                    
                     
-                    //echo "<pre>";
-                    //print_r($allResults);
-                    //echo "</pre>";
-
-                    //echo 'Total Resultados: '. $total;
-                    //echo "<br>";
-                    //echo 'Paginas: '. $totalPages;
-                    //echo "<br>";
-                    //echo 'Paginas Atual: '. $pagina;
-                    //echo "<br>";
-                    //echo $offset;
-                    //echo "<br>";
-                    //echo "<br>";
 
                     $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                     $new_url = preg_replace('/&?pagina=[^&]*/', '', $actual_link);

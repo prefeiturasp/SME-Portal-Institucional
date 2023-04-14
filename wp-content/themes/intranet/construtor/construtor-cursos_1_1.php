@@ -221,10 +221,6 @@
                 
                 $jsonArrayResponse = json_decode($response);
 
-                //echo "<pre>";
-                //print_r($jsonArrayResponse);
-                //echo "</pre>";
-
                 foreach($jsonArrayResponse as $acervo):
                     $old_date_timestamp = strtotime($acervo->date);        
                     $data = getDay(date('w', $old_date_timestamp)) . ', ' . converter_mes(date('m', $old_date_timestamp)) . ' ' . date('d', $old_date_timestamp) . ' às ' . date('H\hi\m\i\n', $old_date_timestamp);

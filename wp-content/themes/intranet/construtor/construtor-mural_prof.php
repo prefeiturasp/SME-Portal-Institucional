@@ -34,10 +34,15 @@
                     </div>
 
                     <div class="col-12">
-                        <div class="form-group d-flex justify-content-end">
-                            <input type="hidden" name="filter" value="1">
-                            <button type="button" class="btn btn-outline-primary mr-3" id="limpar" onclick="window.location.href='<?= get_the_permalink($page_id); ?>'">Limpar filtros</button>
-                            <button type="submit" class="btn btn-primary">Filtrar</button>
+                        
+                        <div class="form-group d-flex justify-content-between">
+                            <a href="<?= get_home_url(); ?>/index.php/mural-dos-professores/enviar-publicacao/" class="btn btn-primary text-white">Enviar publicação</a>
+                            <div class="itens-form d-flex justify-content-end">
+                                <input type="hidden" name="filter" value="1">
+                                <button type="button" class="btn btn-outline-primary mr-3" id="limpar" onclick="window.location.href='<?= get_the_permalink($page_id); ?>'">Limpar filtros</button>
+                                <button type="submit" class="btn btn-primary">Filtrar</button>
+                            </div>
+                            
                         </div>
                     </div>
 
