@@ -93,7 +93,7 @@
 	$mensagem = get_field('mensagem_modal');
 	$botao_url = get_field('botao_modal');
 	$botao_nome = get_field('nome_botao_modal');
-	print_r($feed);
+	//print_r($feed);
 ?>
 <?php if(!$feed): ?>
 	<?php if( ($modal && $exibi == 'all') || ($modal && $exibi != 'all' && $count >= $exibi) ): ?>	
