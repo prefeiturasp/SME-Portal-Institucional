@@ -1377,3 +1377,15 @@ background: #5c4961;
     background-color: #0048A9;
     color: #FFFFFF;
 }
+
+.content-mural .titulo-noticia-principal{
+    color: #870051 !important;
+}
+
+.rel-infos .rel-title.rel-mural{
+    background: #870051;
+}
+
+.rel-infos.rel-profs {
+    background: initial;
+}
