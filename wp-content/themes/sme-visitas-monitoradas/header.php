@@ -62,7 +62,7 @@ use Classes\Header\Header;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="author" content="Secretaria Municipal de Educa��o de S�o Paulo">
+    <meta name="author" content="Secretaria Municipal de Educação de São Paulo">
 
 	<?php wp_head() ?>
 
@@ -193,23 +193,25 @@ use Classes\Header\Header;
                         </div>
                         
                         <?php $current_user = wp_get_current_user(); ?>
-                        <div class="navbar-nav">                                
-                            <div class="nav-item dropdown profile-menus">
-                                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
-                                    <img src="/wp-content/uploads/2022/07/login.png" alt="login" width="24" height="24">
-                                    <span><?= $current_user->user_firstname; ?></span> <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <img src="/wp-content/uploads/2022/07/login.png" alt="login" width="24" height="24">
-                                    <p><?= $current_user->user_firstname; ?></p>
-                                    <div class="dropdown-divider"></div>
-                                    <?php if(current_user_can('administrator') || current_user_can('editor')): ?>
-                                        <a href="<?= $profileLink; ?>" class="dropdown-item">Perfil</a>
-                                    <?php endif; ?>
-                                    <a href="<?= get_home_url(); ?>/minhas-incricoes/" class="dropdown-item">Minhas inscrições</a>                          
-                                    <a href="<?= wp_logout_url(); ?>" class="dropdown-item">Sair</a>
+                        <div class="navbar-nav">
+                            <?php if ( is_user_logged_in() ) : ?>                            
+                                <div class="nav-item dropdown profile-menus">
+                                    <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
+                                        <img src="/wp-content/uploads/2022/07/login.png" alt="login" width="24" height="24">
+                                        <span><?= $current_user->user_firstname; ?></span> <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <img src="/wp-content/uploads/2022/07/login.png" alt="login" width="24" height="24">
+                                        <p><?= $current_user->user_firstname; ?></p>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="<?= get_home_url(); ?>/wp-admin/profile.php" class="dropdown-item">Perfil</a>                                        
+                                        <a href="<?= get_home_url(); ?>/minhas-inscricoes/" class="dropdown-item">Minhas inscrições</a>                          
+                                        <a href="<?= wp_logout_url(); ?>" class="dropdown-item">Sair</a>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php else : ?>
+                                <a href="<?= get_home_url(); ?>/login" class="ml-3 btn btn-outline-dark">Login</a>
+                            <?php endif; ?>
                         </div>
                         
                     </div>
