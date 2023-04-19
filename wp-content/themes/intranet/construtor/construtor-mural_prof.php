@@ -99,7 +99,7 @@
                                 <div class="row m-0">
                                     <div class="col-12 img-column mb-3 p-0">
                                         <?php 
-                                            $image = get_the_post_thumbnail( $post_id, 'large', array( 'class' => 'img-fluid' ) );
+                                            $image = get_the_post_thumbnail( $post_id, 'default-image', array( 'class' => 'img-fluid' ) );
                                         ?>
                                         <?php if($image): ?>
                                             <?= $image; ?>
@@ -121,7 +121,14 @@
                                         <div class="d-flex justify-content-between">
                                             
                                             <div class="autor">
-                                                por <?= get_the_author(); ?>
+                                                <?php
+                                                    $nome = get_field('nome');
+                                                    if($nome){
+                                                        echo ' por: ' . $nome;
+                                                    } else {
+                                                        echo ' por: ' . get_the_author();
+                                                    }
+                                                ?>
                                             </div>
                                         </div>
                                                             

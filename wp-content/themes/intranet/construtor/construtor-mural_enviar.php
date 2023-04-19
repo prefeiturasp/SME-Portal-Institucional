@@ -56,8 +56,8 @@
 
                     <div class="col-12 col-md-12">
                         <div class="form-group">
-                            <label for="conteudo">Descrição da publicação</label>
-                            <textarea id="conteudo" class="mural-textarea" name="conteudo" placeholder="Descreva aqui o seu projeto">
+                            <label for="descricao_publi">Descrição da publicação*</label>
+                            <textarea id="descricao_publi" class="mural-textarea" name="descricao_publi" placeholder="Descreva aqui o seu projeto">
                             </textarea>
                         </div>
                     </div>
@@ -96,7 +96,7 @@ if($_POST['title']){
         'post_status'   => 'pending',         // Selecione o status
         'post_author'   => get_current_user_id(),
         'post_type' => 'mural-professores',  // Selecione o post type
-        'post_content' => $_POST['conteudo']
+        'post_content' => $_POST['descricao_publi']
     );
     //salva o novo post e retorna o ID
     $pid = wp_insert_post($new_post);
