@@ -2337,15 +2337,15 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 	$pagina = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1; 
 	
 	// URL padrao da API
-	$url = 'https://acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/acervo/?per_page=12&page=' . $pagina;
-	
+	$url = 'https://acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/acervo/?per_page=99&page=' . $pagina;
+
 	// Recebe a URL e divide os valores de GET em variaveis
 	$parts = parse_url($matches[0]);
 	parse_str($parts['query'], $query);
-	
+
 	// Debbug -> Visualizar todas os valores de GET recebido
 	//print_r($query);
-	
+
 	// Se tiver os valores de Busca incluir na URL da API
 	if($query['s'] != ''){
 		$busca = $query['s'];
@@ -2355,7 +2355,11 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 
 	// Se tiver os valores de Categoria (Prod) incluir na URL da API
 	if($query['categ_acervo'] != ''){
-		$url = $url . '&categoria_acervo=' . $query['categ_acervo'];
+		if(is_numeric($query['categ_acervo'])){
+			$url = $url . '&categoria_acervo=' . $query['categ_acervo'];
+		} else {
+			$url = $url . '&filter[categoria_acervo]=' . $query['categ_acervo'];
+		}		
 	}
 
 	// Se tiver os valores de Categoria (Homolog) incluir na URL da API
@@ -2366,13 +2370,23 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 	// Se tiver os valores de Modalidade incluir na URL da API
 	if($query['modalidadeb'] != ''){
 		$modalidades = implode(",", $query['modalidadeb']);
-		$url = $url . '&modalidade=' . $modalidades;
+		
+		if(is_numeric($query['modalidadeb'][0])){
+			$url = $url . '&modalidade=' . $modalidades;
+		} else {
+			$url = $url . '&filter[modalidade]=' . $modalidades;
+		}
 	}
 
 	// Se tiver os valores de Componente incluir na URL da API
 	if($query['componenteb'] != ''){
-		$componentes = implode(",", $query['componenteb']);
-		$url = $url . '&componente=' . $componentes;
+		$componentes = implode(",", $query['componenteb']);		
+
+		if(is_numeric($query['componenteb'][0])){
+			$url = $url . '&componente=' . $componentes;
+		} else {
+			$url = $url . '&filter[componente]=' . $componentes;
+		}
 	}
 
 	// Se tiver os valores de Ano incluir na URL da API
@@ -2380,27 +2394,45 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 		$anos = implode(",", $query['anob']);
 		$url = $url . '&ano_da_publicacao_acervo_digital=' . $anos;
 	}
-
+	
 	// Se tiver os valores de Setor incluir na URL da API
 	if($query['setorb'] != ''){
-		$setores = implode(",", $query['setorb']);
-		$url = $url . '&setor=' . $setores;
+		$setores = implode(",", $query['setorb']);		
+
+		if(is_numeric($query['setorb'][0])){
+			$url = $url . '&setor=' . $setores;
+		} else {
+			$url = $url . '&filter[setor]=' . $setores;
+		}
 	}
 
 	// Se tiver os valores de Autor incluir na URL da API
 	if($query['autor'] != ''){		
-		$url = $url . '&autor=' . $query['autor'];
+		if(is_numeric($query['autor'])){
+			$url = $url . '&autor=' . $query['autor'];
+		} else {
+			$url = $url . '&filter[autor]=' . $query['autor'];
+		}
 	}
 
 	// Se tiver os valores de Idioma incluir na URL da API
 	if($query['idiomab'] != ''){
-		$idiomas = implode(",", $query['idiomab']);
-		$url = $url . '&idioma=' . $idiomas;
+		$idiomas = implode(",", $query['idiomab']);		
+
+		if(is_numeric($query['idiomab'][0])){
+			$url = $url . '&idioma=' . $idiomas;
+		} else {
+			$url = $url . '&filter[idioma]=' . $idiomas;
+		}
 	}
 
 	// Se tiver os valores de Palavra Chave incluir na URL da API
 	if($query['palavrab'] != ''){		
-		$url = $url . '&palavra=' . $query['palavrab'];
+		if(is_numeric($query['palavrab'] )){
+			$url = $url . '&palavra=' . $query['palavrab'];
+		} else {
+			$url = $url . '&filter[palavra]=' . $query['palavrab'];
+		}
 	}
 	
 	// Consulta Via API no Acervo
@@ -2896,3 +2928,17 @@ function editar_concursos(){
 	}
 }
 add_action( 'admin_init', 'editar_concursos' );
+
+function data_periodo_agenda($dataIni, $dataFin){
+	$dataIni = implode('-', array_reverse(explode('/', $dataIni)));
+	$dataFin = implode('-', array_reverse(explode('/', $dataFin)));
+
+	$inicial = new \DateTime( $dataIni );
+	$final = new \DateTime( $dataFin );
+	$final = $final->modify( '+1 day' ); 
+
+	$intervalo = new \DateInterval('P1D');
+	$periodo = new \DatePeriod($inicial, $intervalo ,$final);
+
+	return $periodo;
+}

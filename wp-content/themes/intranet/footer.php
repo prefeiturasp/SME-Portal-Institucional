@@ -93,7 +93,7 @@
 	$mensagem = get_field('mensagem_modal');
 	$botao_url = get_field('botao_modal');
 	$botao_nome = get_field('nome_botao_modal');
-	print_r($feed);
+	//print_r($feed);
 ?>
 <?php if(!$feed): ?>
 	<?php if( ($modal && $exibi == 'all') || ($modal && $exibi != 'all' && $count >= $exibi) ): ?>	
@@ -140,6 +140,7 @@
 <?php wp_footer() ?>
 <script src="//api.handtalk.me/plugin/latest/handtalk.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="<?= get_template_directory_uri(); ?>/js/image-uploader.js"></script>
 <script>
 	
 	//var ht = new HT({
@@ -186,26 +187,139 @@
 		
 	} );
 
-	jQuery(document).ready(function($){
+	document.querySelector('.custom-file-input').addEventListener('change',function(e){
+		var fileName = document.getElementById("customFile").files[0].name;
+		var nextSibling = e.target.nextElementSibling
+		nextSibling.innerText = fileName + ' selecionado'
+	});
 
-		var fileInput = $('#avatar_user');
-		var maxSize = fileInput.data('max-size');
-		$('#adduser').submit(function(e){
+	function calcelMural(){
+		Swal.fire({
+			title: '<strong>Atenção</u></strong>',
+			icon: 'question',
+			html: 'Deseja cancelar o cadastro da publicação?',
+			showCloseButton: true,
+			showCancelButton: false,
+			showDenyButton: true,
+			focusConfirm: false,
+			confirmButtonText:
+				'Não',
+			confirmButtonAriaLabel: 'Cancelar ação',
+			denyButtonText:
+				'Sim',
+			cancelButtonAriaLabel: 'Confirmar ação'
+		}).then((result) => {
+			/* Se for clicado no SIM */
+		 	if (result.isDenied) {
+				window.location.href = "<?= get_home_url(); ?>/index.php/mural-dos-professores/";
+			}
+		})
+	}
+
+	jQuery(document).ready(function($){		
+
+		$('.input-images').imageUploader({
+			label: 'Clique ou arraste a imagem para esta área para carregar. Adicione até 4 imagens nos formatos JPG, JPEG ou PNG.',
+			maxSize: 1 * 1024 * 1024,
+			maxFiles: 4
+		});		
+
+		$('#mural-enviar').submit(function(e){
 			
+			// Nome obrigatorio
+			var nome = $('#nome').val();
+			if(!nome){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'O campo Nome é obrigatório.',
+				});
+				//e.preventDefault();
+				return false;
+			}
+
+			// Nome da entidade obrigatorio
+			var nome_ent = $('#nome_ent').val();
+			if(!nome_ent){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'O campo Nome da entidade é obrigatório.',
+				});
+				//e.preventDefault();
+				return false;
+			}
+
+			// Título para publicação obrigatorio
+			var title = $('#title').val();
+			if(!title){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'O campo Título para publicação é obrigatório.',
+				});
+				//e.preventDefault();
+				return false;
+			}
+
+			if ($('#customFile').get(0).files.length === 0) {
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'O campo Imagem destaque é obrigatório.',
+				});
+				//e.preventDefault();
+				return false;
+			}
+
+			// Validar o tamanho da imagem
+			var fileInput = $('#customFile');
+			var maxSize = fileInput.data('max-size');
 			if(fileInput.get(0).files.length){
-				var fileSize = fileInput.get(0).files[0].size; // in bytes
-				console.log(fileSize);
+				var fileSize = fileInput.get(0).files[0].size;  //in bytes
+				//console.log(fileSize);
 				if(fileSize>maxSize){
 					Swal.fire({
 						icon: 'error',
 						title: 'Atenção',
-						text: 'A imagem não pode ter mais que 2mb.',
+						text: 'A imagem não pode ter mais que 1mb.',
 					});
+					e.preventDefault();
 					return false;
 				}
 			}
+
+			// Descricao obrigatorio
+			var conteudo = $('#descricao_publi').val();
+			if(!conteudo){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'O campo Descrição da publicação é obrigatório.',
+				});
+				//e.preventDefault();
+				return false;
+			}
+
+			if(!$('input[name="auto_publi"]').is(':checked')){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'Você precisa aceitar o termo de autorização de publicação.',
+				});
+				return false;
+			}
+
+			if(!$('input[name="auto_compa"]').is(':checked')){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'Você precisa aceitar o termo de autorização para compartilhamento.',
+				});
+				return false;
+			}
 			
-		});
+		});		
 
 		// Start
 		// sessionStorage.getItem('key');
@@ -321,7 +435,7 @@
 				Swal.fire({
 					icon: 'error',
 					title: 'Erro',
-					text: 'Você precisa confirmar o termo de ciencia para troca da senha.',
+					text: 'Você precisa confirmar o termo de ciência para troca da senha.',
 				});
 			} else if(!atual || !nova1 || !nova2){
 				Swal.fire({
@@ -370,6 +484,39 @@
 			this.classList.toggle('fa-eye');
 		});
 
+		$("#newPass").click(function(){
+			alert('AQui');
+			var nova1 = $("#senha-nova").val();
+			var nova2 = $("#senha-repita").val();
+			var ciente = $('#ciencia-senha:checked').length;
+            
+
+			if($('#ciencia-senha:checked').length < 1){
+				Swal.fire({
+					icon: 'error',
+					title: 'Erro',
+					text: 'Você precisa confirmar o termo de ciência para troca da senha.',
+				});
+			} else if(!nova1 || !nova2){
+				Swal.fire({
+					icon: 'error',
+					title: 'Senhas obrigatórias',
+					text: 'Preencha todos os campos de senha.',
+				});
+			} else if(nova1 == nova2){				
+				//validar_usuario(rf, atual, nova1, nova2);
+				//alert('tudo certo');
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Senhas diferentes',
+					text: 'As novas senhas não conferem, por gentileza revise e tente novamente.',
+				});
+			}
+
+			
+		});
+
 		// Inclui botao hide/show no campo de repita senha
 		$(".senha-repita").append('<i class="fa fa-eye-slash" id="senha-repita-show" style="margin-left: -30px; cursor: pointer;"></i>');
 
@@ -383,7 +530,8 @@
 			// toggle the eye slash icon
 			this.classList.toggle('fa-eye-slash');
 			this.classList.toggle('fa-eye');
-		});
+		});		
+		
 	});
 </script>
 <?php if($_GET['updated']): ?>
@@ -395,5 +543,25 @@
 		});
 	</script>
 <?php endif; ?>
+<?php if($_GET['publicacao'] == 'success'): ?>
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: 'Obrigada por compartilhar sua prática',
+			text: 'Suas postagens serão moderadas pelo administrador do site antes de serem postadas.',
+		});
+	</script>
+<?php endif; ?>
+<script>
+    tinymce.init({
+      selector: '.mural-textarea',
+	  menubar: false,
+	  block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3',
+      plugins: 'lists textcolor',
+      toolbar: 'undo redo | blocks | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | forecolor',
+      language: 'pt_BR'
+    });	
+</script>
+
 </body>
 </html>

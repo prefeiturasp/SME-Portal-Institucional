@@ -5,7 +5,7 @@ $txtBtnNews = get_sub_field('texto_botao');
 $imgNews = get_sub_field('imagem');
 $shortcode = get_sub_field('shortcode');
 ?>
-<div class="container blc-news p-5">
+<div class="container blc-news">
     <div class="row">
         <div class="col-12">
             <div class="container">

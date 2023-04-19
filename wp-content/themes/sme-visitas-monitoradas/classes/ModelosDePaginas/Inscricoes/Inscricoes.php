@@ -149,7 +149,7 @@ class Inscricoes extends Util{
                                     ?>
 
                                     <label for="telefone_ue">Telefone da UE:</label>
-                                    <input id="telefone_ue" name="telefone_ue" value="<?= $tel; ?>" type="text" class="required form-control">
+                                    <input id="telefone_ue" name="telefone_ue" value="<?= $tel; ?>" type="text" class="required form-control tel-mask" placeholder="(00) 0000-0000">
 
                                     <?php
                                         $agenda = get_field('agenda', $_GET['eventoid']);                                        
@@ -178,11 +178,11 @@ class Inscricoes extends Util{
                                     ?>
                                         <hr>
                                         
-                                        <?php $transporte = $_POST['transporte']; ?>
-                                        <label for="transporte">UE precisa de transporte da DRE ou Parceiro?:</label>
-                                        <select id="transporte" name="transporte" class="form-control">
-                                            <option value="1" <?= $transporte == '1' ? "selected" : ''; ?>>Sim</option>
-                                            <option value="0" <?= $transporte == '0' ? "selected" : ''; ?>>Não</option>
+                                        <?php $select_transporte = $_POST['select_transporte']; ?>
+                                        <label for="select_transporte">UE precisa de transporte da DRE ou Parceiro?:</label>
+                                        <select id="select_transporte" name="select_transporte" class="form-control">
+                                            <option value="1" <?= $select_transporte == '1' ? "selected" : ''; ?>>Sim</option>
+                                            <option value="0" <?= $select_transporte == '0' ? "selected" : ''; ?>>Não</option>
                                         </select>
 
                                         <div id="info-transporte" <?= $transporte == '0' ? "style='display: none;'" : ''; ?>>
@@ -232,7 +232,7 @@ class Inscricoes extends Util{
                                     <input id="nome_resp" name="nome_resp" type="text" value="<?= $nome_resp; ?>" class="required form-control">
 
                                     <label for="contato_resp">Contato do responsável:</label>
-                                    <input id="contato_resp" name="contato_resp" type="text" class="required form-control" value="<?= $_POST['contato_resp']; ?>">
+                                    <input id="contato_resp" name="contato_resp" type="text" class="required form-control tel-mask" value="<?= $_POST['contato_resp']; ?>" placeholder="(00) 0000-0000">
                                     
                                     <?php 
                                         if( $_POST['email_resp'] != '' && isset($_POST['email_resp']) ){
@@ -251,13 +251,13 @@ class Inscricoes extends Util{
                                     <input id="nome_edu" name="nome_edu" type="text" class="required form-control" value="<?= $_POST['nome_edu']; ?>">
 
                                     <label for="contato_edu">Contato do educador 1:</label>
-                                    <input id="contato_edu" name="contato_edu" type="text" class="required form-control" value="<?= $_POST['contato_edu']; ?>">
+                                    <input id="contato_edu" name="contato_edu" type="text" class="required form-control tel-mask" value="<?= $_POST['contato_edu']; ?>" placeholder="(00) 0000-0000">
 
                                     <label for="nome_edu_2">Nome do educador 2 (opcional):</label>
                                     <input id="nome_edu_2" name="nome_edu_2" type="text" class="form-control" value="<?= $_POST['nome_edu_2']; ?>">
 
                                     <label for="contato_edu_2">Contato do educador 2 (opcional):</label>
-                                    <input id="contato_edu_2" name="contato_edu_2" type="text" class="form-control" value="<?= $_POST['contato_edu_2']; ?>">
+                                    <input id="contato_edu_2" name="contato_edu_2" type="text" class="form-control tel-mask" value="<?= $_POST['contato_edu_2']; ?>" placeholder="(00) 0000-0000">
                                     
                                 </section>
 
@@ -417,6 +417,13 @@ class Inscricoes extends Util{
 
                     $dh_select = explode(']', (explode('[', $_POST['data_hora'])[1]))[0];
                     update_post_meta($_GET['eventoid'], 'agenda_' . $dh_select . '_status', 'Esgotado');
+
+                    $data = substr($data_hora, 0, 10);
+                    $date = \DateTime::createFromFormat('d/m/Y', $data);
+                    $date = $date->format('Ymd');
+
+                    //update_field('data_escolhida', $date, $pid);
+                    update_post_meta($pid, 'data_escolhida', $date);
                 }
 
                 $duracao_visita = get_field('duracao_visita', $_GET['eventoid']);
@@ -424,9 +431,9 @@ class Inscricoes extends Util{
                     update_post_meta($pid, 'duracao', $duracao_visita);
                 }
 
-                if($_POST['transporte'] && $_POST['transporte'] != ''){
-                    $transporte = $_POST['transporte'];                    
-                    update_post_meta($pid, 'transporte', $transporte);
+                if($_POST['select_transporte'] && $_POST['select_transporte'] != ''){
+                    $select_transporte = $_POST['select_transporte'];                    
+                    update_post_meta($pid, 'transporte', $select_transporte);
                 }
 
                 $tipo_transporte = get_field('tipo_de_transporte', $_GET['eventoid']);
@@ -549,6 +556,7 @@ class Inscricoes extends Util{
 
                 update_post_meta($pid, 'status', 'nova');
                 update_post_meta($pid, 'evento', $_GET['eventoid']);
+                update_post_meta($pid, 'parceiro', $parceiro);
 
                 if($_POST['sucesso'] == 1){
                 

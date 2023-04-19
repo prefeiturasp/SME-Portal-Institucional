@@ -1831,7 +1831,7 @@ function hcf_save( $post_id ) {
 		update_post_meta(
 			$post_id,
 			'descricao',
-			sanitize_text_field( $_POST['acf']["field_6005f383003ea"] )
+			$_POST['acf']["field_6005f383003ea"]
 		);
 	}
 	

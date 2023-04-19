@@ -23,10 +23,31 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
     if ( !empty( $_POST['email'] ) ){
         if (!is_email(esc_attr( $_POST['email'] )))
             $error[] = __('The Email you entered is not valid.  please try again.', 'profile');
-        elseif(email_exists(esc_attr( $_POST['email'] )) != $current_user->id )
+        elseif( email_exists(esc_attr( $_POST['email'] )) && email_exists(esc_attr( $_POST['email'] )) != $current_user->id )
             $error[] = __('This email is already used by another user.  try a different one.', 'profile');
         else{
+            $usuario = get_field('rf', 'user_' . $current_user->ID);
+            $api_url = 'https://hom-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/AutenticacaoSgp/AlterarEmail';
+            $email = $_POST['email'];
+            $response = wp_remote_post( $api_url, array(
+                'method'      => 'POST',                    
+                'headers' => array( 
+                        'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99',                    
+                    ),
+                'body' => array("Usuario" => "$usuario","Email" => "$email"),
+                )
+            );
+            
+            if ( is_wp_error( $response ) ) {
+                $error_message = $response->get_error_message();
+                echo "Something went wrong: $error_message";
+            } else {
+                
+                $response = json_decode($response['body']);
+                
+            }
             wp_update_user( array ('ID' => $current_user->ID, 'user_email' => esc_attr( $_POST['email'] )));
+            
         }
     }
 
@@ -61,6 +82,19 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
     if ( !empty( $_POST['acf']['field_624ae351630a7'] ) )
         update_user_meta( $current_user->ID, 'rg', esc_attr( $_POST['acf']['field_624ae351630a7'] ) );
     
+    // Novidades Email
+    if ( !empty( $_POST['nov-email'] ) ){
+        update_user_meta( $current_user->ID, 'nov_email', esc_attr( $_POST['nov-email'] ) );
+    } else {
+        update_user_meta( $current_user->ID, 'nov_email', 0 );
+    }   
+    
+    // Novidades WhatsApp
+    if ( !empty( $_POST['nov-whats'] ) ){
+        update_user_meta( $current_user->ID, 'nov_whats', esc_attr( $_POST['nov-whats'] ) );
+    } else {
+        update_user_meta( $current_user->ID, 'nov_whats', 0 );
+    }
     
     // These files need to be included as dependencies when on the front end.
     require_once( ABSPATH . 'wp-admin/includes/image.php' );
@@ -68,7 +102,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
     require_once( ABSPATH . 'wp-admin/includes/media.php' );
 
     // Let WordPress handle the upload.
-    $img_id = media_handle_upload( 'avatar_user', 0 );
+    $img_id = media_handle_upload( 'avatar_user', 1454 );
 
     if ( is_wp_error( $img_id ) ) {
         echo "Error";
@@ -87,13 +121,22 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
     }       
 }
 
+$email = email_exists(esc_attr( 'aa7217757@sme.prefeitura.sp.gov.br' ));
+//print_r($email);
+
+get_header(); // Loads the header.php template. 
 
 
-get_header(); // Loads the header.php template. ?>
+
+?>
+
+
 
 <div class="container">
     <div class="row">
-        <h1 class="profile-title"><?= get_the_title(); ?></h1>
+        <div class="col-12">
+            <h1 class="profile-title"><?= get_the_title(); ?></h1>
+        </div>        
     </div>
 </div>
 
@@ -114,10 +157,12 @@ get_header(); // Loads the header.php template. ?>
                             <div class="col-12">
                                 <div class="profile-avatar">
 
-                                    <div class="img-profile">
+                                    <div class="img-profile d-none d-md-flex">
                                         <?php
+                                            $parceira = get_field('parceira', 'user_'. $current_user->ID );
                                             $image_id = get_field('imagem', 'user_' . $current_user->ID);
-                                            $image_profile = $img_atts = wp_get_attachment_image_src($image_id, 'thumbnail');
+                                            $image_profile = wp_get_attachment_image_src($image_id, 'thumbnail');
+                                           
                                                                            
                                             if($image_profile[0]):
                                         ?>
@@ -127,12 +172,27 @@ get_header(); // Loads the header.php template. ?>
                                         <?php endif; ?>
                                     </div>
                                     <div class="name-profile">
-                                        <?php
+                                        <?php                                            
                                             $nome = get_the_author_meta( 'first_name', $current_user->ID );
                                             $sobrenome = get_the_author_meta( 'last_name', $current_user->ID );
                                         ?>
                                         <h3><?= strtolower($nome); ?> <?= strtolower($sobrenome); ?></h3>
-                                        <input class="text-input" name="avatar_user" type="file" data-max-size="2048000" accept="image/png, image/gif, image/jpeg" id="avatar_user"/>
+                                        
+                                        <div class="img-profile profile-mob d-inline-block d-sm-inline-block d-md-none">
+                                            <?php
+                                                $image_id = get_field('imagem', 'user_' . $current_user->ID);
+                                                $image_profile = $img_atts = wp_get_attachment_image_src($image_id, 'thumbnail');
+                                                                                                                              
+                                                if($image_profile[0]):
+                                            ?>
+                                                    <img src="<?= $image_profile[0]; ?>" alt="Imagem de perfil">
+                                            <?php else: ?>
+                                                <img src="<?= get_template_directory_uri() . '/img/user-image.jpg'; ?>" alt="Avatar">                                     
+                                            <?php endif; ?>
+                                        </div>
+
+                                        <input class="text-input" id="avatar_user" name="avatar_user" type="file" data-max-size="500000" accept="image/png, image/gif, image/jpeg" id="avatar_user"/><br>
+                                        <label for="avatar_user">Somente arquivo nos formatos .png, .jpg ou .jpeg, com até 500Kb.</label>
                                     </div>
                                 </div>
 
@@ -143,127 +203,205 @@ get_header(); // Loads the header.php template. ?>
                             </div>
                         </div>
 
-                        <div class="row">                     
-
-                            <div class="col-12 col-md-4">
-                                <label for="first-name"><?php _e('Nome', 'profile'); ?></label>
-                                <input class="text-input form-control" name="first-name" type="text" id="first-name" value="<?php the_author_meta( 'first_name', $current_user->ID ); ?>" />
-                            </div>
-
-                            <div class="col-12 col-md-4">
-                                <label for="last-name"><?php _e('Sobrenome', 'profile'); ?></label>
-                                <input class="text-input form-control" name="last-name" type="text" id="last-name" value="<?php the_author_meta( 'last_name', $current_user->ID ); ?>" />
-                            </div>
-
-                            <div class="col-12 col-md-4">
-                                <label for="email"><?php _e('E-mail *', 'profile'); ?></label>
-                                <input class="text-input form-control" name="email" type="text" id="email" value="<?php the_author_meta( 'user_email', $current_user->ID ); ?>" />
-                            </div>
-
-                        </div>
-
                         <div class="row">
-                            <div class="col-12 col-md-3">
-                                <label for="user-rf"><?php _e('Número do RF', 'profile'); ?></label>                               
-                                <div class="input-disable" id="user-rf"><?= get_field('rf', 'user_' . $current_user->ID); ?></div>
-                            </div>
 
-                            <div class="col-12 col-md-3">
-                                <label for="user-cpf"><?php _e('Número do CPF', 'profile'); ?></label>                               
-                                <div class="input-disable" id="user-cpf"><?= get_field('cpf', 'user_' . $current_user->ID); ?></div>
-                            </div>
+                            <?php if($parceira): ?>
 
-                            <div class="col-12 col-md-3">
-                                <?php
-                                    $options = array(
-                                        'post_id' => 'user_'.$current_user->ID,
-                                        'field_groups' => array(1342),
-                                        'form' => false,
-                                        'fields' => array('celular'),
-                                        'return' => false,
-                                        'html_before_fields' => '',
-                                        'html_after_fields' => '',
-                                        'submit_value' => 'Update' 
-                                    );
-                                    acf_form( $options );
-                                ?>
-                            </div>
+                                <div class="col-12">
+                                    <label for="first-name"><?php _e('Nome da Unidade Educacional', 'profile'); ?></label>
+                                    <div class="input-disable" id="first-name"><?php the_author_meta( 'first_name', $current_user->ID ); ?> <?php the_author_meta( 'last_name', $current_user->ID ); ?></div>
+                                </div>
 
-                            <div class="col-12 col-md-3">
-                                <?php
-                                    $options = array(
-                                        'post_id' => 'user_'.$current_user->ID,
-                                        'field_groups' => array(1342),
-                                        'form' => false,
-                                        'fields' => array('rg'),
-                                        'return' => false,
-                                        'html_before_fields' => '',
-                                        'html_after_fields' => '',
-                                        'submit_value' => 'Update' 
-                                    );
-                                    acf_form( $options );
-                                ?>
-                            </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="user-rf"><?php _e('Código EOL', 'profile'); ?></label>                               
+                                    <div class="input-disable" id="user-rf"><?= get_field('rf', 'user_' . $current_user->ID); ?></div>
+                                </div>
 
-                            <div class="col-12 col-md-6">
-                                <?php
-                                    $options = array(
-                                        'post_id' => 'user_'.$current_user->ID,
-                                        'field_groups' => array(1342),
-                                        'form' => false,
-                                        'fields' => array('dre'),
-                                        'return' => false,
-                                        'html_before_fields' => '',
-                                        'html_after_fields' => '',
-                                        'submit_value' => 'Update' 
-                                    );
-                                    acf_form( $options );
-                                ?>
-                            </div>
+                                <div class="col-12 col-md-6">                                    
+                                    <label for="email"><?php _e('E-mail *', 'profile'); ?></label>
+                                    
+                                    <?php
+                                        $rf = get_field('rf', 'user_' . $current_user->ID);
+                                        $email = $current_user->user_email;
+                                        $verifyEmail = explode('@', $email);                                        
+                                    ?>
+                                    <?php if($rf == $verifyEmail[0]): ?>
+                                        <div class="input-disable" id="email"></div>
+                                    <?php else: ?>
+                                        <div class="input-disable" id="email"><?php the_author_meta( 'user_email', $current_user->ID ); ?></div>
+                                    <?php endif; ?>
+                                </div>
 
-                            <div class="col-12 col-md-6">
-                                <?php
-                                    $options = array(
-                                        'post_id' => 'user_'.$current_user->ID,
-                                        'field_groups' => array(1342),
-                                        'form' => false,
-                                        'fields' => array('cargo'),
-                                        'return' => false,
-                                        'html_before_fields' => '',
-                                        'html_after_fields' => '',
-                                        'submit_value' => 'Update' 
-                                    );
-                                    acf_form( $options );
-                                ?>
+                            <?php else: ?>
 
-                                <?php                                    
-                                    $options = array(
-                                        'post_id' => 'user_'.$current_user->ID,
-                                        'field_groups' => array(1342),
-                                        'form' => false,
-                                        'fields' => array('cargo_outro'),
-                                        'html_before_fields' => '<div class="hide-input">',
-                                        'html_after_fields' => '</div>',
-                                        'return' => false,
-                                        'submit_value' => 'Update'
-                                    );
-                                    $cargo = get_field('cargo', 'user_' . $current_user->ID);
-                                    if($cargo != 'Outro'){
-                                        $options['html_before_fields'] = '<div class="hide-input" style="display: none;">';
-                                        $options['html_after_fields'] = '</div>';
-                                    }
-                                    acf_form( $options );
-                                ?>
-                            </div>                            
-                            
-                            <div class="col-12 col-md-4">
-                                <label for="pass"><?php _e('Senha', 'profile'); ?></label>                               
-                                <div class="input-disable m-0" id="pass">********</div>
-                                <span class="pass-text">Utilizar a mesma senha do SGP</span>
-                                <a href="#modalPass" class="d-block mb-3" data-toggle="modal" data-target="#modalPass">Alterar senha</a>
-                            </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="first-name"><?php _e('Nome', 'profile'); ?></label>
+                                    <input class="text-input form-control" name="first-name" type="text" id="first-name" value="<?php the_author_meta( 'first_name', $current_user->ID ); ?>" />
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="last-name"><?php _e('Sobrenome', 'profile'); ?></label>
+                                    <input class="text-input form-control" name="last-name" type="text" id="last-name" value="<?php the_author_meta( 'last_name', $current_user->ID ); ?>" />
+                                </div>
+
+                                <div class="col-12 col-md-6 mb-2">
+                                    <label for="email"><?php _e('E-mail *', 'profile'); ?></label>
+                                    <?php
+                                        $rf = get_field('rf', 'user_' . $current_user->ID);
+                                        $email = $current_user->user_email;
+                                        $verifyEmail = explode('@', $email);                                        
+                                    ?>
+                                    <?php if($rf == $verifyEmail[0]): ?>
+                                        <input class="text-input form-control mb-1" name="email" type="text" id="email" value="" required />
+                                    <?php else: ?>
+                                        <input class="text-input form-control mb-1" name="email" type="text" id="email" value="<?= $email; ?>" />
+                                    <?php endif; ?>
+                                    <span class="info-email"><i class="fa fa-info-circle"></i> Verifique se seu e-mail está preenchido corretamente. Caso não esteja, digite atentamente o e-mail correto e clique em Salvar mudanças.</span>
+                                </div>
+                                
+                                <div class="col-12 col-md-6">
+                                    <?php
+                                        $options = array(
+                                            'post_id' => 'user_'.$current_user->ID,
+                                            'field_groups' => array(1342),
+                                            'form' => false,
+                                            'fields' => array('celular'),
+                                            'return' => false,
+                                            'html_before_fields' => '',
+                                            'html_after_fields' => '',
+                                            'submit_value' => 'Update' 
+                                        );
+                                        acf_form( $options );
+                                    ?>
+
+                                    <?php
+                                        $nov_email = get_field('nov_email', 'user_' . $current_user->ID);
+                                        $nov_whats = get_field('nov_whats', 'user_' . $current_user->ID);                                        
+                                        $check_email = '';
+                                        $check_whats = '';
+                                        if($nov_email)
+                                            $check_email = 'checked';
+                                        
+                                        if($nov_whats)
+                                            $check_whats = 'checked';
+                                        //checked
+                                    ?>
+
+                                    <div class="form-check mt-1">
+                                        <input class="form-check-input" type="checkbox" name="nov-email" value="1" id="nov-email" <?= $check_email; ?>>
+                                        <label class="form-check-label" for="nov-email">
+                                            Aceito receber as novidades pelo e-mail.
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check mt-1 mb-3">
+                                        <input class="form-check-input" type="checkbox" name="nov-whats" value="1" id="nov-whats" <?= $check_whats; ?>>
+                                        <label class="form-check-label" for="nov-whats">
+                                            Aceito receber as novidades por Whatsapp.
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            <?php endif; ?>
 
                         </div>
+
+                        <?php if(!$parceira): ?>
+
+                            <div class="row">
+
+                                <div class="col-12 col-md-4">
+                                    <label for="user-rf"><?php _e('Número do RF', 'profile'); ?></label>                               
+                                    <div class="input-disable" id="user-rf"><?= get_field('rf', 'user_' . $current_user->ID); ?></div>
+                                </div>
+
+                                                                
+
+                                <div class="col-12 col-md-4">
+                                    <label for="user-cpf"><?php _e('Número do CPF', 'profile'); ?></label>                               
+                                    <div class="input-disable" id="user-cpf"><?= get_field('cpf', 'user_' . $current_user->ID); ?></div>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <?php
+                                        $options = array(
+                                            'post_id' => 'user_'.$current_user->ID,
+                                            'field_groups' => array(1342),
+                                            'form' => false,
+                                            'fields' => array('rg'),
+                                            'return' => false,
+                                            'html_before_fields' => '',
+                                            'html_after_fields' => '',
+                                            'submit_value' => 'Update' 
+                                        );
+                                        acf_form( $options );
+                                    ?>
+                                </div>
+                                
+
+                                <div class="col-12 col-md-6">
+                                    <?php
+                                        $options = array(
+                                            'post_id' => 'user_'.$current_user->ID,
+                                            'field_groups' => array(1342),
+                                            'form' => false,
+                                            'fields' => array('dre'),
+                                            'return' => false,
+                                            'html_before_fields' => '',
+                                            'html_after_fields' => '',
+                                            'submit_value' => 'Update' 
+                                        );
+                                        acf_form( $options );
+                                    ?>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <?php
+                                        $options = array(
+                                            'post_id' => 'user_'.$current_user->ID,
+                                            'field_groups' => array(1342),
+                                            'form' => false,
+                                            'fields' => array('cargo'),
+                                            'return' => false,
+                                            'html_before_fields' => '',
+                                            'html_after_fields' => '',
+                                            'submit_value' => 'Update' 
+                                        );
+                                        acf_form( $options );
+                                    ?>
+
+                                    <?php                                    
+                                        $options = array(
+                                            'post_id' => 'user_'.$current_user->ID,
+                                            'field_groups' => array(1342),
+                                            'form' => false,
+                                            'fields' => array('cargo_outro'),
+                                            'html_before_fields' => '<div class="hide-input">',
+                                            'html_after_fields' => '</div>',
+                                            'return' => false,
+                                            'submit_value' => 'Update'
+                                        );
+                                        $cargo = get_field('cargo', 'user_' . $current_user->ID);
+                                        if($cargo != 'Outro'){
+                                            $options['html_before_fields'] = '<div class="hide-input" style="display: none;">';
+                                            $options['html_after_fields'] = '</div>';
+                                        }
+                                        acf_form( $options );
+                                    ?>
+                                </div>
+
+                                
+                                
+                                <div class="col-12 col-md-4">
+                                    <label for="pass"><?php _e('Senha', 'profile'); ?></label>                               
+                                    <div class="input-disable m-0" id="pass">********</div>
+                                    <span class="pass-text">Utilizar a mesma senha do SGP</span>
+                                    <a href="#modalPass" class="d-block mb-3" data-toggle="modal" data-target="#modalPass">Alterar senha</a>
+                                </div>
+                            </div>
+
+                        <?php endif; ?>
                     
                         <p class="form-submit text-right">
                             <?php echo $referer; ?>
@@ -343,3 +481,87 @@ get_header(); // Loads the header.php template. ?>
 </div>
 
 <?php get_footer(); // Loads the footer.php template. ?>
+
+<?php if($_GET['atualizar'] && !$parceira): ?>
+    <script>
+        Swal.fire({
+            title: '<strong><u>Seus dados estão incompletos!</u></strong>',
+            //icon: 'error',
+            html: 'Favor atualizar o e-mail em seu perfil! <br>Fique atento para não haver erro de digitação!',
+            imageUrl: '<?= get_template_directory_uri() . "/img/perfil-ilustra.jpg"; ?>',
+            showCloseButton: true,            
+            focusConfirm: false,
+            confirmButtonText: '<i class="fa fa-thumbs-up"></i> Atualize agora',            
+        })
+    </script>
+
+<?php elseif($_GET['atualizar'] && $parceira): ?>
+    <script>
+        Swal.fire({
+            title: '<strong><u>Seus dados estão incompletos!</u></strong>',
+            //icon: 'error',
+            html: 'Para acessar a intranet, por favor atualizar o e-mail da unidade no EOL.',
+            imageUrl: '<?= get_template_directory_uri() . "/img/perfil-ilustra.jpg"; ?>',
+            showCloseButton: false,            
+            focusConfirm: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            confirmButtonText: '<i class="fa fa-thumbs-up"></i> Atualize agora',            
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                window.location.href = 'https://eol.prefeitura.sp.gov.br/';
+            }
+        })
+    </script>    
+<?php endif; ?>
+
+<script>
+    jQuery(document).ready(function($){
+
+        $("#adduser").submit(function(e){
+
+            var fileInput = $('#avatar_user');
+		    var maxSize = fileInput.data('max-size');
+
+            
+            if(fileInput.get(0).files.length){
+                var fileSize = fileInput.get(0).files[0].size; // in bytes
+                if(fileSize>maxSize){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Atenção',
+                        text: 'A imagem não pode ter mais que 500kb.',
+                    });
+                    return false;
+                }
+            }
+			
+		    
+
+            if($('#nov-whats').is(':checked')){
+                
+                if( $('#acf-field_62420050a8eb3').val().length === 0 ) {
+                    Swal.fire(
+                        'Atenção',
+                        'Para receber as novidades via WhatsApp é necessário preencher o campo Celular.',
+                        'warning'
+                    ).then(function() {
+                        $('#acf-field_62420050a8eb3').focus();
+                    });
+                    
+                    return false;
+                } else {
+                    return true;
+                }
+
+            } else {
+                return true;
+            }
+            
+            
+
+        });
+               
+    });
+</script>

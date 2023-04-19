@@ -14,7 +14,23 @@ class CptEventos extends Cpt
 		add_action('init', array($this, 'register'));
 
 		//Alterando e Exibindo as colunas no Dashboard que vem por padrão na classe CPT
-		add_filter('manage_posts_columns', array($this, 'exibe_cols'), 10, 2);
+		//add_filter('manage_posts_columns', array($this, 'exibe_cols'), 10, 2);
+
+		add_filter('manage_' . $this->cptSlug . '_posts_columns', function($columns) {
+            if ($post_type == $this->cptSlug) {
+                unset($cols['tags'], $cols['author'],$cols['categories'],$cols['comments'], $cols['categoria'], $cols['featured_thumb']);
+            }
+            $columns = array(
+                'cb' => '<input type="checkbox" />',
+                'title' => 'Evento',
+                'parceiro' => 'Parceiro',
+                'vagas' => 'Vagas disponíveis',            
+                'date' => 'Data',
+            );
+    
+            return $columns;
+        });
+
 		add_action('manage_' . $this->cptSlug . '_posts_custom_column', array($this, 'cols_content'));
 		add_filter('manage_edit-' . $this->cptSlug . '_sortable_columns', array($this, 'cols_sort'));
 		add_filter('request', array($this, 'orderby'));
@@ -39,19 +55,24 @@ class CptEventos extends Cpt
 	{
 		global $post;
 		switch ($col) {
-			case 'data_evento':
-				$data_do_evento = get_field('data_do_evento', $post->ID);
-				echo $data_do_evento;
+			case 'parceiro':
+				$parceiro = get_field('parceiro', $post->ID);
+				if($parceiro){
+					echo get_the_title($parceiro);
+				}
 				break;
 
-			case 'hora_evento':
-				$hora_do_evento = get_field('hora_do_evento', $post->ID);
-				echo $hora_do_evento;
-				break;
-
-			case 'local_evento':
-				$local_do_evento = get_field('endereco_do_evento', $post->ID);
-				echo $local_do_evento;
+			case 'vagas':
+				$vagas = get_field('agenda', $post->ID);
+				$totalVagas = 0;
+				if($vagas){
+					foreach($vagas as $vaga){
+						if($vaga['status'] == 'Disponível'){
+							$totalVagas = $totalVagas + $vaga['convites_disponiveis'];
+						}
+					}
+				}
+				echo $totalVagas;
 				break;
 		}
 	}

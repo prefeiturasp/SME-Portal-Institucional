@@ -5,7 +5,7 @@
 		<div class="filtro-busca">
 		<div class="filter-sidebar">
 			<div class="container">
-				<div class="row mt-3 mb-3">
+				<div class="row my-3 mx-0">
 					<div class="col-12 text-left"><span class="btn-filtros-close"><img src="https://visitas.rafaelhsouza.com.br/img/fechar.png" alt="Fechar"> Fechar</span></div>
 				</div>
 				<div class="row mt-4 mb-3">
@@ -83,7 +83,7 @@
 		<div class="container mt-5 mb-5">
 			<div class="row">
 				<div class="col-sm-10">
-					<div class="row mb-2">
+					<div class="row mb-2 form-input">
 						<div class="col-sm-3 pr-2 pl-2">
 							<div class="form-group icon-group">
 								<span class="icon-control icon-control-busca"></span>
@@ -92,7 +92,7 @@
 						</div>
 						<div class="col-sm-3 pr-2 pl-2">
 							<div class="form-group icon-group">
-								<span class="icon-control icon-control-parceiro"></span>
+								<i class="fa fa-map-o icon-control" aria-hidden="true"></i>
 								<input type="text" id="TipoParceiros" class="form-control icon-control-inpt" placeholder="Busque por parceiro" name="parceiro" value="<?= $_GET['parceiro']; ?>">
 								
 							</div>

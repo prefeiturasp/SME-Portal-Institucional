@@ -38,6 +38,7 @@ function custom_setup() {
 	if (function_exists('add_image_size')) {
 		add_image_size('home-thumb', 250, 166);
 		add_image_size('default-image', 825, 470, true);
+		add_image_size('parceiros', 176, 56);
 	}
 
 	//Permite adicionar no post ou página uma imagem com tamanho personalizado, nesse caso a home-thumb já definida anteriormente com 250X147
@@ -2372,17 +2373,25 @@ function filtering_unidade($post_type){
 		}
 
 	} else {
+		$args = array(
+			'post_type'  => 'editores_portal',
+			'fields' => 'ids',
+			'numberposts' => 99,
+			'order'          => 'ASC',
+			'orderby'        => 'title'
+		);
+		$grupos = get_posts($args);
 		$dres = $allDres;
 	}
 
 
 	echo '<select id="my-loc" name="search_dre">';
 		echo '<option value="all">Todas as DREs</option>';	
-		foreach($dres as $key => $dre){
-			if($_GET['search_dre'] == $key){
-				echo '<option value="' . $key . '" selected>' . $dre . '</option>';
+		foreach($grupos as $dre){
+			if($_GET['search_dre'] == $dre){
+				echo '<option value="' . $dre . '" selected>' . get_the_title($dre) . '</option>';
 			} else {
-				echo '<option value="' . $key . '">' . $dre . '</option>';
+				echo '<option value="' . $dre . '">' . get_the_title($dre) . '</option>';
 			}
 		}
 	echo '</select>';
@@ -2452,9 +2461,8 @@ function limit_events_group($query) {
 		
 		if( $_GET['search_dre'] && $_GET['search_dre'] != '' &&  $_GET['search_dre'] != 'all')  {
 			$meta_query[] = array(					
-				'key'     => 'dre',
+				'key'     => 'dre_selected',
 				'value' => $_GET['search_dre'],
-				'compare' => 'LIKE'
 			);
 		} else {
 			$user = wp_get_current_user();
@@ -2689,6 +2697,89 @@ function liberar_inscricoes( $post_id ) {
     }
 }
 
+function updateSubs() {
+	// Set variables
+	$id_update = $_POST['id_update'];
+	
+	// Update the field
+	update_post_meta($id_update, 'status', 'cancelada');
+	
+	$status = get_field('status', $id_update);
+    if( $status ==  'cancelada' || $status['value'] == 'cancelada') {
+        $evento = get_field('evento', $id_update);
+		$dt_liberar = get_field('data_horario', $id_update);
+		$dh_select = explode(']', (explode('[', $dt_liberar)[1]))[0];
+		update_post_meta($evento, 'agenda_' . $dh_select . '_status', 'Disponível');
+
+		// Envio de email
+		$email_resp = get_field ('email_responsavel', $id_update); // Email do responsavel
+		$grupos[] = get_field ('dre_selected', $id_update); // Dre atribuida ao evento
+
+		// Pegar os responsaveis da DICEU/Editores
+		$relation['relation'] = 'OR';
+		if($grupos && $grupos != ''){
+			foreach($grupos as $grupo){
+				$relation[] = array(
+					'key' => 'grupo',
+					'value' => $grupo,
+					'compare' => 'LIKE'
+				);                
+			}  
+			
+			$args = array(
+				'role' => 'editor', 
+				'meta_query'=>array(
+					'relation' => 'AND',         
+						array(
+							$relation
+						),       
+					
+				)
+			);     
+			
+			$editorUsers = get_users( $args ); // Uuarios do tipo Editor
+
+		}
+
+		// Email dos responsaveis
+		$emailto = array();
+		foreach ($editorUsers as $user) {
+			$emailto[] = $user->user_email;
+		}
+
+		
+		// Assunto do email"            
+		$subject = '[Visitas Monitoradas] Inscrição cancelada';
+
+		$data_email = explode('[', $dt_liberar);
+		
+		// Corpo do email		
+        $message = "Olá,<br><br>";
+		$message .= "A inscrição para o evento <b>" . get_the_title($evento) . "</b> foi cancelada pela UE no dia <b>" . $data_email[0] . "</b>. Qualquer problema, entre em contato com smecoceu@sme.prefeitura.sp.gov.br.<br><br>";
+
+		$message .= "Atenciosamente,<br><br>";
+		$message .= "Equipe do Visitas Monitoradas<br><br>";
+
+		$message .= "<img src='https://visitasmonitoradas.sme.prefeitura.sp.gov.br/wp-content/uploads/2022/07/logo-visitas.png' alt='Logo Visitas Monitoradas'>";
+		
+        // envio dos emails
+		$content_type = function() { return 'text/html'; };
+		add_filter( 'wp_mail_content_type', $content_type );
+		wp_mail( $email_resp, $subject, $message ); // Responsavel
+        wp_mail( $emailto, $subject, $message ); // DICEUS
+		wp_mail( "smecoceu@sme.prefeitura.sp.gov.br", $subject, $message ); // COCEU
+		remove_filter( 'wp_mail_content_type', $content_type );
+		
+
+		echo json_encode(true);
+    } else {
+		echo json_encode(false);
+	}
+	wp_die();
+}
+add_action( 'wp_ajax_nopriv_updateSubs',  'updateSubs' );
+add_action( 'wp_ajax_updateSubs','updateSubs' );
+
 add_action( 'admin_notices', 'export_btn' );
 function export_btn() {
     global $typenow;
@@ -2718,7 +2809,7 @@ function export_btn() {
 				<?php if($_GET['faixa'] && $_GET['faixa'] != ''): ?>
 					<input type="hidden" name="faixa" value="<?= $_GET['faixa']; ?>">
 				<?php endif; ?>
-                <input type="submit" name='export' class="button button-primary button-large button-export" id="xlsxExport" value="Exportar"/>
+                <input type="submit" name='export' class="button button-primary button-large button-export" id="xlsxExport" value="Exportar relatório"/>
             </form>
         </div>
 
@@ -2803,4 +2894,138 @@ function duplicar_infos($post_id) {
     if($responsavel){
 		update_field('nome_responsavel_copia', $responsavel, $post_id);
 	}
+}
+
+// Widget custimizado no menu Painel
+add_action('wp_dashboard_setup', 'last_subs_dashboard_widgets');
+  
+function last_subs_dashboard_widgets() {
+	global $wp_meta_boxes;
+	
+	wp_add_dashboard_widget('custom_help_widget', 'Inscrições mais recentes', 'custom_dashboard_help');
+}
+ 
+function custom_dashboard_help() {
+	$user = wp_get_current_user();
+			
+	if($user->roles[0] != 'administrator'){		
+		// pega o grupo que o usuario pertence
+		$grupos = get_user_meta($user->ID, 'grupo');		
+	}
+
+	
+	$posts = get_posts(array(
+		'numberposts'   => 10,
+		'post_type'     => 'agendamento',
+		'meta_key'      => 'dre_selected',
+		'meta_value'    => $grupos[0],
+		'post_status' => array( 'pending', 'draft', 'publish' )
+	));
+	
+
+	if($posts){
+		foreach($posts as $inscricao){
+			echo "<p><a href='/wp-admin/post.php?post=" . $inscricao->ID . "&action=edit'>" . $inscricao->post_title . "</a></p>";
+		}
+	}
+
+}
+
+// Remover widgets padrao do Painel
+add_action('wp_dashboard_setup', 'wpdocs_remove_dashboard_widgets');
+
+function wpdocs_remove_dashboard_widgets(){
+   remove_meta_box('dashboard_quick_press', 'dashboard', 'side');
+   remove_meta_box('dashboard_primary', 'dashboard', 'side');
+   remove_meta_box('dashboard_right_now', 'dashboard', 'normal');
+   remove_meta_box('dashboard_activity', 'dashboard', 'normal');
+   remove_meta_box('wp_mail_smtp_reports_widget_lite', 'dashboard', 'normal');
+   remove_meta_box('dashboard_site_health', 'dashboard', 'normal');
+}
+
+// Remover coluna "Posts" da lista de usuarios
+function wpseq_270133_users( $columns ) {
+    unset( $columns['posts'] );
+    return $columns;
+}
+add_filter( 'manage_users_columns', 'wpseq_270133_users' );
+
+
+
+// Add um novo intervalo de execucao de 1 dia (84400s)
+add_filter( 'cron_schedules', 'email_avalicao_ue' );
+function email_avalicao_ue( $schedules ) {
+    $schedules['every_day_exec'] = array(
+            'interval'  => 86400,
+            'display'   => __( 'Uma vez por dia', 'textdomain' )
+    );
+    return $schedules;
+}
+
+// Schedule an action if it's not already scheduled
+if ( ! wp_next_scheduled( 'email_avalicao_ue' ) ) {
+    wp_schedule_event( time(), 'every_day_exec', 'email_avalicao_ue' );
+}
+
+// Hook into that action that'll fire every three minutes
+add_action( 'email_avalicao_ue', 'every_day_exec_event_func' );
+function every_day_exec_event_func() {	
+
+	$data = date('Y-m-d');
+	$dataVerify = date('d/m/Y',(strtotime ( '-1 day' , strtotime ( $data ) ) ));
+	echo $dataVerify;
+
+	$args = array(
+		'post_type' => 'agendamento',
+		'posts_per_page' => -1,
+		'post_status' => array( 'pending', 'publish', 'draft' ),
+		'meta_query'    => array(
+			'relation'      => 'AND',
+			array(
+				'key'       => 'data_horario',
+				'value'     => $dataVerify,
+				'compare'   => 'LIKE',
+			),
+			array(
+				'key' => 'status',
+				'value' => 'confirmada',
+				'compare' => '=',
+			),
+		),
+	);
+	// The Query
+	$the_query = new WP_Query( $args );
+
+	// The Loop
+	if ( $the_query->have_posts() ) {
+		
+		while ( $the_query->have_posts() ) {
+			$the_query->the_post();
+			$status = get_field('status', get_the_ID());
+			$data = get_field('data_horario', get_the_ID());
+			$email = get_field('email_responsavel', get_the_ID());
+			if(is_array($status)){
+				$status = $status['value'];
+			}
+
+			$to = $email;
+			$subject = '[Visitas Monitoradas] Avalie sua Visita';
+
+			$body = '<p>Olá,</p>';
+			$body .= '<p>Ontem a sua UE realizou uma atividade pelo projeto Visitas Monitoradas. É muito importante para nós saber como foi a sua experiência. Criamos um formulário com apenas 5 perguntas para ouvirmos você. Esses dados não serão compartilhados diretamente com o parceiro ou outra pessoa externa da COCEU. <strong>Acesse o link abaixo para responder</strong>:</p>';
+			$body .= '<p><a href="https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br/avaliacao?evento_id=' . get_the_ID() . '">https://hom-visitasmonitoradas.sme.prefeitura.sp.gov.br/avaliacao?evento_id=' . get_the_ID() . '</a></p>';
+			$body .= '<p>Atenciosamente,</p>';
+			$body .= '<p>Equipe Visitas Monitoradas</p>';
+
+			$headers = array('Content-Type: text/html; charset=UTF-8');
+
+			wp_mail( $to, $subject, $body, $headers );
+			update_post_meta(get_the_ID(), 'enviar_email', 1);
+		}
+		
+	} else {
+		// no posts found
+	}
+	/* Restore original Post Data */
+	wp_reset_postdata();
 }

@@ -110,11 +110,8 @@ class Util
 															$classe = '';
 														}
 													}
-												}	
-
-												//echo "<pre>";
-												//print_r($campos);
-												//echo "</pre>";
+												}
+												
 											?>
 										</ul>
 									</div>

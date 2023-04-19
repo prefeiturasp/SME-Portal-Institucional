@@ -3,7 +3,7 @@
 * Plugin Name: CoreSSO Integração API
 * Plugin URI: https://amcom.com.br/
 * Description: Integração do Login do WordPress com o CoreSSO.
-* Version: 1.0
+* Version: 1.2
 * Author: AMcom
 * Author URI: https://amcom.com.br/
 **/
@@ -16,7 +16,7 @@ function demo_auth( $user, $username, $password ){
     if($username == '' || $password == '') return;
 
     // URL da API
-    $api_url = 'https://hom-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/v1/autenticacao';
+    $api_url = '';
 
     // Conversao do body para JSON
     $body = wp_json_encode( array(
@@ -27,7 +27,7 @@ function demo_auth( $user, $username, $password ){
     $response = wp_remote_post( $api_url ,
             array(
                 'headers' => array( 
-                    'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99', // Chave da API
+                    'x-api-eol-key' => '', // Chave da API
                     'Content-Type'=> 'application/json-patch+json'
                 ),
                 'body' => $body, // Body da requisicao
@@ -42,26 +42,76 @@ function demo_auth( $user, $username, $password ){
         $user = new WP_Error( 'denied', __("ERRO: Usuário/senha incorretos") );
 
     } else if( $response['response']['code'] == 200 ) {
-
+        //echo $user->codigoRf;
+        
         // Verifica se tem o codigo RF e busca os dados do usuario
         if($user->codigoRf){
-            $api_url = 'https://hom-smeintegracaoapi.sme.prefeitura.sp.gov.br/api/AutenticacaoSgp/' . $user->codigoRf . '/dados';
-            $response = wp_remote_get( $api_url ,
-                array( 
+            
+            $rf = $user->codigoRf;
+            
+            $countRf = strlen($rf);
+
+            if($countRf == 20){
+                $usuario = $rf;
+                $api_url = '';
+                $response = wp_remote_post( $api_url, array(
+                    'method'      => 'POST',                    
                     'headers' => array( 
-                        'x-api-eol-key' => 'fe8c65abfac596a39c40b8d88302cb7341c8ec99',							
+                        'x-api-eol-key' => '',
+                        'Content-Type' => 'application/json-patch+json'
+                    ),
+                    'body' => '['.$rf.']',
                     )
-                )
-            );
+                );
+                
+                if ( is_wp_error( $response ) ) {
+                    //$error_message = $response->get_error_message();
+                    //echo "Something went wrong: $error_message";
+                } else {
+                    $user = json_decode($response['body']);                     
+                }
+                
+                if(!$user){
+                    echo $rf;
+                    $api_url = '';
+                    $response = wp_remote_get( $api_url ,
+                        array( 
+                            'headers' => array( 
+                                'x-api-eol-key' => '',							
+                            )
+                        )
+                    );
 
-            $user = json_decode($response['body']);            
-        }
+                    $user = json_decode($response['body']);
+                }
 
+            } else {
+                $api_url = '';
+                $response = wp_remote_get( $api_url ,
+                    array( 
+                        'headers' => array( 
+                            'x-api-eol-key' => '',							
+                        )
+                    )
+                );
+
+                $user = json_decode($response['body']); 
+            }
+                       
+        }        
+
+        if($user->email){
+            $email = $user->email;
+        } elseif(is_array($user)) {
+            $email = $user[0]->email;
+        } else {
+            $email = $rf . "@sme.prefeitura.sp.gov.br";
+        }        
         
         
         // Verifica se o usuario ja esta cadastrado no WordPress
         $userobj = new WP_User();
-        $user_wp = $userobj->get_data_by( 'email', $user->email ); // Does not return a WP_User object :(
+        $user_wp = $userobj->get_data_by( 'email', $email ); // Does not return a WP_User object :(
         $user_wp = new WP_User($user_wp->ID); // Attempt to load up the user with that ID
 
         // Se nao estiver cadastrado faz a criacao do usuario
@@ -72,29 +122,69 @@ function demo_auth( $user, $username, $password ){
             //$user_wp = new WP_Error( 'denied', __("ERROR: Not a valid user for this system") );
 
             // Recebe o nome completo do usuario            
-            $name = $user->nome;
+            $name = $user->nome;            
 
-            // Recebe o CPF
-            $cpf = $user->cpf;
-
-            // Divide o nome em Nome e Sobrenome
-            $parts = explode(" ", $name);
-            if(count($parts) > 1) {
-                $firstname = array_shift($parts);
-                $lastname = implode(" ", $parts);
-            } else {
-                $firstname = $name;
-                $lastname = " ";
+            if($user->codigo){
+                $codigo = $user->codigo;
+            } elseif(is_array($user)) {
+                $codigo = $user[0]->codigo;
             }
 
-            $userdata = array( 'user_email' => $user->email,
-                                'user_login' => $user->email,
-                                'first_name' => $firstname,
-                                'last_name' => $lastname,                                
-                            );
-            $new_user_id = wp_insert_user( $userdata ); // Um novo usuario sera criado
-            update_user_meta($new_user_id, "rf", $username);
-            update_user_meta($new_user_id, "cpf", $cpf);
+            if($user->email){
+                $email = $user->email;
+            } elseif(is_array($user)) {
+                $email = $user[0]->email;
+            } else {
+                $email = $rf . "@sme.prefeitura.sp.gov.br";
+            }
+
+            if($user->nome){
+                $nome = $user->nome;
+            } elseif(is_array($user)) {
+                $nome = $user[0]->nome;
+            }
+
+            if($codigo){
+
+                $userdata = array( 'user_email' => $email,
+                                    'user_login' => $email,
+                                    'first_name' => $nome,                            
+                                );
+                $new_user_id = wp_insert_user( $userdata ); // Um novo usuario sera criado
+                update_user_meta($new_user_id, "rf", $codigo);
+                update_user_meta($new_user_id, "parceira", 1);
+
+            } else {
+                // Recebe o CPF
+                $cpf = $user->cpf;
+
+                // Divide o nome em Nome e Sobrenome
+                $parts = explode(" ", $name);
+                if(count($parts) > 1) {
+                    $firstname = array_shift($parts);
+                    $lastname = implode(" ", $parts);
+                } else {
+                    $firstname = $name;
+                    $lastname = " ";
+                }
+
+                $userdata = array( 'user_email' =>$email,
+                                    'user_login' =>$email,
+                                    'first_name' => $firstname,
+                                    'last_name' => $lastname,                                
+                                );
+                $new_user_id = wp_insert_user( $userdata ); // Um novo usuario sera criado
+                update_user_meta($new_user_id, "rf", $username);
+                if(strlen($username) != 6){
+                    update_user_meta($new_user_id, "cpf", $cpf);
+                }
+                
+                if(strlen($username) == 11 || strlen($username) == 6){
+                    update_user_meta($new_user_id, "parceira", 1);
+                }
+            }
+
+            
             
             // Carregar as novas informações do usuário
             $user_wp = new WP_User ($new_user_id);

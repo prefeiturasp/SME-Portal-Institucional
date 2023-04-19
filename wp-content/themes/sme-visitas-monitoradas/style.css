@@ -18,6 +18,14 @@ Text Domain: sme-portal-institucional
 .logo-visitas{
     max-width: 100px;
 }
+
+@media (max-width: 767px){
+    .logo-visitas {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
 .alignnone {
     margin: 5px 20px 20px 0;
 }
@@ -70,6 +78,13 @@ Text Domain: sme-portal-institucional
 .profile-menus .dropdown-item {
     font-size: 14px;
     line-height: 1.5;
+}
+
+@media (max-width: 767px)
+{
+    .profile-menus .dropdown-menu{
+        left: -45px !important;
+    }
 }
 
 .profile-menu .simple-menu a {
@@ -621,6 +636,7 @@ a {
     background-color: #196CBD;
     color: #FFF;
     font-weight: bold;
+    font-size: 12px;
 }
 
 .list-inline-item:not(:last-child) {
@@ -1978,6 +1994,63 @@ ul.nav.nav-tabs{
     font-weight: 500;
 }
 
+@media (max-width: 767px){
+    .title-bg h1 {
+        line-height: 1.2;
+    }
+}
+
+.part-detail .bg-cabecalho{
+    width: 100%;
+    background: #F4F4F5;
+    margin-top: 20px;
+    padding-top: 35px;
+    padding-bottom: 25px;
+}
+
+.part-detail .logo-part{
+    margin-bottom: 20px;
+}
+
+.part-detail .logo-part img{
+    border-radius: 4px;
+}
+
+.part-detail .infos-part p {
+    text-align: right;
+}
+
+.part-detail .infos-part p a {
+    color: #3A454F;
+}
+
+.part-detail .infos-part .social a{
+    text-decoration: underline;
+}
+
+.cta-part {
+    background: #026EEA;
+    text-align: center;
+    padding: 70px 20px 60px;
+    margin-bottom: 50px;
+    color: #FFFFFF;
+    border-radius: 8px;
+}
+
+.cta-part h3{
+    color: #FFFFFF;
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.cta-part .btn-cta {
+    background: #1C2833;
+    color: #FFFFFF;
+    padding: 7px 30px;
+    border-radius: 20px;
+}
+
 .return-link{
     color: #353F50;
     font-weight: 700;
@@ -2095,6 +2168,12 @@ ul.nav.nav-tabs{
 .wizard > .steps > ul > li
 {
     width: 33.33%;
+}
+
+@media (max-width: 576px){
+    .wizard > .steps > ul > li{
+        width: 100%;
+    }
 }
 
 .wizard > .steps > ul > li,
@@ -2219,7 +2298,8 @@ ul.nav.nav-tabs{
 }
 
 .wizard > .content > .body input.error,
-.wizard > .content > .body select.error
+.wizard > .content > .body select.error,
+.wizard > .content > .body textarea.error
 {
     background: rgb(251, 227, 228);
     border: 1px solid #fbc2c4;
@@ -2264,9 +2344,25 @@ ul.nav.nav-tabs{
     margin-bottom: 30px;
 }
 
-.wizard > .actions > ul > li
-{
+.wizard > .actions > ul > li{
     margin: 0 0.5em;
+}
+
+@media (max-width: 576px){
+    .wizard > .content > .body{
+        padding: 2.5% 0%;
+    }
+
+    .wizard > .actions > ul{
+        display: block;
+    }
+
+    .wizard > .actions > ul > li{
+        margin: 0;
+        width: 100%;
+        margin-bottom: 10px;
+        text-align: center;
+    }
 }
 
 .wizard.vertical > .actions > ul > li
@@ -2398,4 +2494,112 @@ ul.nav.nav-tabs{
 .tabcontrol > .content > .body ul > li
 {
     display: list-item;
+}
+
+.form_parceiro {
+    max-width: 75%;
+    display: block;
+    margin: 0 auto;
+}
+
+@media (max-width: 576px){
+    .form_parceiro {
+        max-width: 100%;
+    }
+}
+
+.carousel_part img {
+    border-radius: 6px;
+}
+
+.carousel_part .carousel-indicators {
+    bottom: -25px;
+    width: 100%;
+    right: 0;
+    left: 0;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.carousel_part .carousel-indicators li {
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+}
+
+.carousel_part .carousel-indicators li.active {
+    background: #B1B5BC;
+}
+
+
+
+.form-feedback{
+    max-width: 75%;
+    display: block;
+    margin: 20px auto;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.rate {
+    float: left;
+    height: 40px;
+}
+.rate:not(:checked) > input {
+    display: none;
+}
+.rate:not(:checked) > label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 40px;
+    line-height: 40px;
+    color: #ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+.btn.btn-cancel{
+    background: #E5E5E5;
+    color: #1C2833;
+    border: #e5e5e5 solid 1px;
+    padding: 0.5em 2em;
+    text-decoration: none;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.form-feedback .error {
+    float: left;
+    width: 100%;
+    color: #FF0000;
+    font-weight: 500;
+}
+
+.label_data {
+    font-weight: 500;
+    text-align: right;
+    display: block;
 }

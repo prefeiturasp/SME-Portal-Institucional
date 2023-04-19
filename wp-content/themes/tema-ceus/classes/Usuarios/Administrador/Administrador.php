@@ -12,7 +12,7 @@ class Administrador
 	{
 		$this->getRole();
 		$this->addCap();
-		//add_action('admin_menu', array($this, 'escondeMenu' ));
+		add_action('admin_menu', array($this, 'escondeMenu' ), 999);
 	}
 
 	public function getRole(){
@@ -73,7 +73,7 @@ class Administrador
 			$this->role_object->add_cap( 'delete_others_unidades' );
 			$this->role_object->add_cap( 'delete_private_unidades');
 			$this->role_object->add_cap( 'edit_others_unidades' );
-			$this->role_object->add_cap( 'edit_private_unidades');
+			$this->role_object->add_cap( 'edit_private_unidades');	
 
 			$this->role_object->add_cap( 'read_contato');
 			$this->role_object->add_cap( 'read_private_contatos' );
@@ -120,19 +120,19 @@ class Administrador
 
 		if ($usuario->roles[0] === self::ROLE) {
 
-			remove_submenu_page( 'themes.php', 'themes.php' ); // hide the theme selection submenu
-			remove_submenu_page( 'themes.php', 'widgets.php' ); // hide the widgets submenu
-			// Remove Appearance -> Customize
-			remove_submenu_page('themes.php', 'customize.php?return=' . urlencode($_SERVER['REQUEST_URI']));
-			global $submenu;
-			unset($submenu['themes.php'][15]); // header_image
-			unset($submenu['themes.php'][20]); // background_image
-			remove_submenu_page( 'themes.php', 'customize.php?return=%2Fwp-admin%2Ftools.php&#038;autofocus%5Bcontrol%5D=background_image' ); // hide the background submenu
+			$menu_completo = get_field('menu_completo', 'user_'. $usuario->data->ID );
 
-			remove_menu_page( 'wpcf7' );
-			remove_menu_page('edit-comments.php');
-			remove_menu_page('tools.php');
+			if(!$menu_completo){				
 
+				remove_menu_page( 'plugins.php' ); // Plugins
+				remove_menu_page( 'wp-mail-smtp' ); // SMTP
+				remove_menu_page('themes.php'); // Aparencias
+				remove_menu_page( 'options-general.php' ); // Configuracoes
+				remove_menu_page( 'acf-options-busca-manual' ); // Opcoes Gerais
+				remove_menu_page('edit.php?post_type=acf-field-group'); // Campos Personalizados
+				remove_menu_page('tools.php'); // Ferramentas
+				
+			}
 
 		}
 

@@ -241,11 +241,7 @@
                                 'key' => 'status',
                                 'value' => $status
                             );
-                        }
-
-                        //echo "<pre>";
-                        //print_r($args);
-                        //echo "</pre>";
+                        }                      
                         
                         
                         $query = new WP_Query( $args );

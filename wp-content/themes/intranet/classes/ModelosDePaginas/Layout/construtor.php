@@ -139,10 +139,7 @@ class Construtor extends Util
 												}
 											}
 										}	
-
-										//echo "<pre>";
-										//print_r($campos);
-										//echo "</pre>";
+										
 									?>
 								</ul>
 							</div>
@@ -391,6 +388,22 @@ class Construtor extends Util
 											// Ingressos Plateia
 											elseif( get_row_layout() == 'fx_cl1_ingressos_plateia_1_1' ):
 												get_template_part( 'construtor/construtor', 'ingressos_plateia_1_1' );
+
+											// Certificados
+											elseif( get_row_layout() == 'fx_cl1_certificados_1_1' ):
+												get_template_part( 'construtor/construtor', 'certificados_1_1' );
+
+											// SME Explica
+											elseif( get_row_layout() == 'fx_cl1_sme_explica_1_1' ):
+												get_template_part( 'construtor/construtor', 'sme_explica' );
+
+											// Mural dos Professores
+											elseif( get_row_layout() == 'fx_cl1_mural_prof_1_1' ):
+												get_template_part( 'construtor/construtor', 'mural_prof' );
+
+											// Mural dos Professores - Enviar Publicacao
+											elseif( get_row_layout() == 'fx_cl1_mural_enviar_1_1' ):
+												get_template_part( 'construtor/construtor', 'mural_enviar' );
 
 											// Integracao Pagina
 											elseif( get_row_layout() == 'integrar_pagina' ):
@@ -2048,7 +2061,15 @@ class Construtor extends Util
 											// Cartao Educador
 											elseif( get_row_layout() == 'fx_cl1_cartao_educador_1_2' ):
 												get_template_part( 'construtor/construtor', 'cartao_educador', array( 'key' => '1_2' ) );
+
+											// Card com Imagem
+											elseif( get_row_layout() == 'fx_cl1_card_imagem_1_2' ):
+												get_template_part( 'construtor/construtor', 'card_imagem', array( 'key' => '1_2' ) );
 											
+											// SME Explica - Destaque
+											elseif( get_row_layout() == 'fx_cl1_dest_sme_ex_1_2' ):
+												get_template_part( 'construtor/construtor', 'sme_explica_dest', array( 'key' => '1_2' ) );
+
 											endif;
 
 										endwhile;
@@ -2160,6 +2181,14 @@ class Construtor extends Util
 											// Cartao Educador
 											elseif( get_row_layout() == 'fx_cl1_cartao_educador_2_2' ):
 												get_template_part( 'construtor/construtor', 'cartao_educador', array( 'key' => '2_2' ) );
+											
+											// Card com Imagem
+											elseif( get_row_layout() == 'fx_cl1_card_imagem_2_2' ):
+												get_template_part( 'construtor/construtor', 'card_imagem', array( 'key' => '2_2' ) );
+
+											// Banner Horizontal
+											elseif( get_row_layout() == 'fx_cl1_banner_horiz_2_2' ):
+												get_template_part( 'construtor/construtor', 'banner_horiz', array( 'key' => '2_2' ) );
 
 											endif;
 

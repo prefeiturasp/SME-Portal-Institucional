@@ -85,7 +85,7 @@
 
                 <div id="collapse<?= get_the_ID(); ?>" class="collapse" aria-labelledby="heading<?= get_the_ID(); ?>" data-parent="#accordionFaq">
                     <div class="card-body">
-                        <?= get_the_content(); ?>
+                        <?php the_content(); ?>
                     </div>
                 </div>
             </div>

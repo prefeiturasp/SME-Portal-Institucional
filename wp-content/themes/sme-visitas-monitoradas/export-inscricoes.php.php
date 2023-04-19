@@ -18,7 +18,12 @@ $agendamentos[] = array(
 	'<style bgcolor="#8EA9DB">Ano/Ciclo</style>',
 	'<style bgcolor="#8EA9DB">Telefone</style>',	
 	'<style bgcolor="#8EA9DB">Nome do responsável</style>',
-	'<style bgcolor="#8EA9DB">Contato do responsável</style>'
+	'<style bgcolor="#8EA9DB">Contato do responsável</style>',
+	'<style bgcolor="#8EA9DB">Demandas atendidas</style>',
+	'<style bgcolor="#8EA9DB">Transporte utilizado</style>',
+	'<style bgcolor="#8EA9DB">Relação com parceiro</style>',
+	'<style bgcolor="#8EA9DB">Repetiria a visita</style>',
+	'<style bgcolor="#8EA9DB">Comentarios gerais</style>',
 );
 
 $tipoTransporte = array(
@@ -49,9 +54,8 @@ $user = wp_get_current_user();
 if($_GET['search_dre'] && $_GET['search_dre'] != '' && $_GET['search_dre'] != 'all'){
 	$args['meta_query'][] = 
 		array(
-			'key'     => 'dre',
+			'key'     => 'dre_selected',
 			'value' => $_GET['search_dre'],
-			'compare' => 'LIKE'
 		
 	);
 } elseif($user->roles[0] != 'administrator'){		
@@ -132,6 +136,10 @@ if ( $the_query->have_posts() ) {
 			$dre = convert_dre_name($dre);
 		}
 
+		if(get_field('dre_selected')){
+			$dre = get_the_title(get_field('dre_selected'));
+		}
+
 		$cicloAno = '';
 		$i = 0;
 		$ciclos = get_field('ciclo_ano');
@@ -142,6 +150,20 @@ if ( $the_query->have_posts() ) {
 				$cicloAno .= ', ' . get_term($ciclo)->name;
 			}
 			$i++;		
+		}
+
+		if(get_field('aval_resp')){
+			$demandas = get_field('demandas_pedago');
+			$transporte = get_field('transporte_util');
+			$rel_parceiro = get_field('rel_parceiro');
+			$repetir = get_field('repetir_visita');
+			$comentarios = get_field('comentarios_gerais');
+		} else {
+			$demandas = '';
+			$transporte = '';
+			$rel_parceiro = '';
+			$repetir = '';
+			$comentarios = '';
 		}
 
 		$agendamentos[] = array(
@@ -159,12 +181,16 @@ if ( $the_query->have_posts() ) {
 			get_field('telefone_ue'),
 			get_field('nome_responsavel'),
 			get_field('contato_responsavel'),
+			$demandas,
+			$transporte,
+			$rel_parceiro,
+			$repetir,
+			$comentarios,
 		);
 	}
 	
 }
 wp_reset_postdata();
-
 
 $xlsx = Classes\Lib\SimpleXLSXGen::fromArray( $agendamentos );
 $xlsx->downloadAs($fileName); // or downloadAs('books.xlsx') or $xlsx_content = (string) $xlsx 

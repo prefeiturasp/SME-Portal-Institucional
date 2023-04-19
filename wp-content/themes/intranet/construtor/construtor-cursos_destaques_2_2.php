@@ -34,10 +34,7 @@
             $response = curl_exec($ch);                
             
             $jsonArrayResponse = json_decode($response);
-
-            //echo "<pre>";
-            //print_r($jsonArrayResponse);
-            //echo "</pre>";
+            
 
             foreach($jsonArrayResponse as $acervo):
                 $old_date_timestamp = strtotime($acervo->date);        

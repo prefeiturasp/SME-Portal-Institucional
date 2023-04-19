@@ -20,6 +20,15 @@
     background: #026EEA;
     cursor: pointer;
 }
+
+@media (max-width: 767px){
+    .btn-buscar{
+        margin-top: 20px;
+        margin-bottom: 10px;
+        height: 37px;
+    }
+}
+
 .btn-limpar-filtros{
     display: none;
     border: none;
@@ -47,7 +56,8 @@
     background: #026EEA;
     cursor: pointer;
 }
-.btn-filtros{
+.btn-filtros,
+.btn-busca{
     display: inline-flex;
     color: #58616A;
     font-weight: 600;
@@ -81,6 +91,21 @@
 }
 .btn-filtros-close:hover img{
     filter: invert(73%) sepia(59%) saturate(6621%) hue-rotate(333deg) brightness(98%) contrast(99%);
+}
+.btn-menu{
+    font-size: 28px;
+    padding-top: 5px;
+    color: #1C2833;
+}
+
+.menu-sidebar ul {
+    width: 100%;
+}
+
+.menu-sidebar ul li {
+    list-style-type: none;
+    display: block;
+    width: 100%;
 }
 /*Pills*/
 .pill-all{
@@ -124,9 +149,12 @@
     filter: grayscale(1) brightness(100);
 }*/
 /*Form group*/
-.form-group {
-    margin-bottom: 0 !important;
+@media (min-width: 992px){
+    .form-input .form-group {
+        margin-bottom: 0 !important;
+    }
 }
+
 /* Bootstrap 4 text input with icon */
 .icon-group{
     position: relative;
@@ -139,7 +167,8 @@
 .icon-control {
     content: '';
     position: absolute;
-    top: 8px;
+    top: 50%;
+    transform: translateY(-50%);
     left: 10px;
     z-index: 2;
     display: block;
@@ -149,6 +178,10 @@
     background-size: auto;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.icon-control:before{
+    font-size: 17px;
 }
 .icon-control-busca{
     background-image: url('https://visitas.rafaelhsouza.com.br/img/busque.png');
@@ -202,7 +235,8 @@ ul.multiselect-container.dropdown-menu.show {
 }
 
 /*Sidebar Filtro*/
-.filter-sidebar{
+.filter-sidebar,
+.menu-sidebar{
     display: none;
     position: fixed;
     top: 0;
@@ -214,7 +248,46 @@ ul.multiselect-container.dropdown-menu.show {
     background: #fff;
     padding: 20px 15px;
     border: solid 1px #ccc;
+    overflow-y: auto;
 }
+
+.menu-sidebar{
+    right: initial;
+    left: 0;
+}
+
+.menu-sidebar ul li a {
+    color: #58616A;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.menu-sidebar ul.menu-aces li a {
+    color: #196CBD;
+}
+
+@media (max-width: 767px)
+{
+    .filter-sidebar,
+    .menu-sidebar{
+        width: 100%;
+    }
+}
+
+.social-mobile{
+    width: 100%;
+}
+
+.menu-sidebar .midias-sociais {
+    background: black;
+    margin: 0;
+    padding: 5px 10px;
+}
+
+.menu-sidebar .midias-sociais li{
+    width: auto;
+}
+
 .title-ad-filter{
     font-size: 16px;
     font-weght: 500;

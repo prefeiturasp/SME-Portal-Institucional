@@ -4,6 +4,8 @@ use Classes\Header\Header;
 <!doctype html>
 <html lang="pt-br">
 <head>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<?php
 	if (function_exists('get_field')){
         $tituloPagina = get_field("insira_o_title_desejado");
@@ -13,7 +15,7 @@ use Classes\Header\Header;
 		if (trim($tituloPagina != "")) { ?>
             <title><?php echo $tituloPagina ?></title>
 		<?php } else { ?>
-            <title><?php echo STM_SITE_NAME ?> - Home</title>
+            <title>Página Inicial</title>
 		<?php }
 
 		if (trim($descriptionPagina != "")) { ?>
@@ -34,7 +36,7 @@ use Classes\Header\Header;
 		if (trim($tituloCategoria != "")) { ?>
             <title><?php echo $tituloCategoria ?></title>
 		<?php } else { ?>
-            <title><?php wp_title('', true, '-'); ?> - <?php echo STM_SITE_NAME ?></title>
+            <title><?php echo STM_SITE_NAME ?> - <?php echo get_the_title(); ?></title>
 		<?php }
 
 		if (trim($descriptionCategoria != "")) { ?>
@@ -48,7 +50,7 @@ use Classes\Header\Header;
 		if (trim($tituloPagina != "")) { ?>
             <title><?php echo $tituloPagina ?></title>
 		<?php } else { ?>
-            <title><?php wp_title('', true, '-'); ?> - <?php echo STM_SITE_NAME ?></title>
+            <title><?php echo STM_SITE_NAME ?> - <?php echo get_the_title(); ?></title>
 		<?php }
 
 		if (trim($descriptionPagina != "")) { ?>
@@ -62,16 +64,23 @@ use Classes\Header\Header;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="author" content="Secretaria Municipal de Educação de São Paulo">    
+    <meta name="author" content="Secretaria Municipal de Educação de São Paulo">
+    
+    
 
 	<?php wp_head() ?>
+    <script src="https://cdn.tiny.cloud/1/6tbmnxag9fklyg3bf5q3uhtpfkueibicjjefm8wq8t4lt1yh/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <link type="text/css" rel="stylesheet" href="<?= get_template_directory_uri(); ?>/css/image-uploader.min.css">
 
-    <?php
-        $analytics = get_field('codigo','conf-analytics');
-        if($analytics && $analytics != ''){
-            echo $analytics;
-        }
-    ?>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149756375-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-149756375-1');
+    </script>
     
     <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/5a2df64151ea7e12d55494267/c9466a177cfa11afee4e2e22b.js");</script>
 
@@ -178,7 +187,7 @@ use Classes\Header\Header;
                 <div class="container">
                     <div class="row py-3">
 
-                    <div class="col-2 d-flex d-sm-flex d-md-none mobile-menu">
+                        <div class="col-2 d-flex d-sm-flex d-md-none mobile-menu">
                             <button type="button" class="btn btn-menu" data-toggle="modal" data-target="#menu">
                                 <i class="fa fa-bars" aria-hidden="true"></i> MENU
                             </button>
@@ -247,13 +256,11 @@ use Classes\Header\Header;
                                 <?php if($faq_fb['icone_feedback'] && $faq_fb['endereco_feedback']): ?>
                                     <a href="<?= $faq_fb['endereco_feedback']; ?>" data-toggle="tooltip" title="Feedback" data-placement="bottom"><img src="<?= $faq_fb['icone_feedback']; ?>" alt="Ir para a página de Feedback"></a>
                                 <?php endif; ?>
-                            </div>
+                            </div>                            
                             
                             <?php 
                                 $user = wp_get_current_user();
                                 $profileLink = get_home_url() . '/index.php/perfil';
-                                if(current_user_can('administrator'))
-                                    $profileLink = get_home_url() . '/wp-admin/profile.php';
                                 
                                 $name = explode(" ", $user->data->display_name);
                                 $displayName = $name[0];
@@ -266,7 +273,7 @@ use Classes\Header\Header;
                                 //echo "</pre>";
 
                             ?>
-                            <div class="navbar-nav ml-auto">                                
+                            <div class="navbar-nav">                                
                                 <div class="nav-item dropdown profile-menus">
                                     <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
                                         <?php
@@ -327,16 +334,23 @@ use Classes\Header\Header;
 
             <nav class="collapse navbar-collapse justify-content-between w-100" id="irmenu" aria-label="Menu Principal">
                 <?php
-				wp_nav_menu(array(
-					'menu' => 'primary',
-					'theme_location' => 'primary',
-					'depth' => 2,
-					'container_id' => 'bs-example-navbar-collapse-1',
-					'menu_class' => 'navbar-nav mr-auto nav d-flex justify-content-between',
-					'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
-					'walker'            => new WP_Bootstrap_Navwalker(),
-                    'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
-				));
+                    $user_id = get_current_user_id();
+                    $parceira = get_field('parceira', 'user_'. $user_id );
+                    $menu = 'primary';
+                    if($parceira){
+                        $menu = 'primary_parc';
+                    }
+
+                    wp_nav_menu(array(
+                        'menu' => 'primary',
+                        'theme_location' => $menu,
+                        'depth' => 2,
+                        'container_id' => 'bs-example-navbar-collapse-1',
+                        'menu_class' => 'navbar-nav mr-auto nav d-flex justify-content-between',
+                        'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
+                        'walker'            => new WP_Bootstrap_Navwalker(),
+                        'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
+                    ));
 				?>
 
             </nav>

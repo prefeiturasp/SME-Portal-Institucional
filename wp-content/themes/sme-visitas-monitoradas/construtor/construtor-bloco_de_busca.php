@@ -65,9 +65,9 @@
         </div>
     </div>
     <div class="container mt-5 mb-5">
-        <div class="row">
+        <div class="row m-0">
             <div class="col-sm-10">
-                <div class="row mb-2">
+                <div class="row mb-2 form-input">
                     <div class="col-sm-3 pr-2 pl-2">
                         <div class="form-group icon-group">
                             <span class="icon-control icon-control-busca"></span>
@@ -76,7 +76,7 @@
                     </div>
                     <div class="col-sm-3 pr-2 pl-2">
                         <div class="form-group icon-group">
-                            <span class="icon-control icon-control-parceiro"></span>
+                            <i class="fa fa-map-o icon-control" aria-hidden="true"></i>
                             <input type="text" id="TipoParceiros" class="form-control icon-control-inpt" placeholder="Busque por parceiro" name="parceiro">
                         </div>
                     </div>

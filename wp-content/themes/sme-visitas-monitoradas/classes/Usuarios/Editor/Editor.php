@@ -11,7 +11,8 @@ class Editor
 
 	public function __construct()
 	{
-		$this->getRole();		
+		$this->getRole();
+		//$this->removeCap();		
 		$this->addCap();
 		add_action('admin_menu', array($this, 'escondeMenu' ));
 	}
@@ -99,6 +100,7 @@ class Editor
 			$this->role_object->add_cap( 'edit_imagens' );
 			$this->role_object->add_cap( 'delete_imagens' );
 			$this->role_object->add_cap( 'assign_imagens' );
+
 			$this->role_object->add_cap( 'add_grupo' );
 
 		}
@@ -112,7 +114,16 @@ class Editor
 
 			remove_submenu_page( 'themes.php', 'themes.php' ); // hide the theme selection submenu
 			remove_submenu_page( 'themes.php', 'widgets.php' ); // hide the widgets submenu
+			remove_submenu_page( 'themes.php', 'nav-menus.php' ); // Aparencia
 			remove_menu_page('edit.php?post_type=setor'); // Setor
+			remove_menu_page('admin.php?page=custom-header'); // Setor
+			remove_menu_page('edit.php'); // Posts
+			remove_menu_page('upload.php'); // Midia
+			remove_menu_page('edit.php?post_type=page'); // Paginas
+			remove_menu_page('edit.php?post_type=evento'); // Eventos
+			remove_menu_page('edit.php?post_type=parceiros'); // Parceiros
+			remove_menu_page('edit.php?post_type=faq-duvidas'); // FAQ
+			
 			// Remove Appearance -> Customize
 			remove_submenu_page('themes.php', 'customize.php?return=' . urlencode($_SERVER['REQUEST_URI']));
 			global $submenu;
@@ -123,6 +134,7 @@ class Editor
 			remove_menu_page( 'wpcf7' );
 			remove_menu_page('edit-comments.php');
 			remove_menu_page('tools.php');
+			remove_menu_page('themes.php');
 
 
 		}

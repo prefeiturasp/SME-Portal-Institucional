@@ -28,6 +28,10 @@ function custom_setup() {
 		'primary' => __('Menu Superior', 'THEMENAME'),
 	));
 
+	register_nav_menus(array(
+		'primary_parc' => __('Menu Superior Parceiras', 'THEMENAME'),
+	));
+
 	register_nav_menu('navbar', __('Navbar', 'your-theme'));
 
 
@@ -38,13 +42,15 @@ function custom_setup() {
 	if (function_exists('add_image_size')) {
 		add_image_size('home-thumb', 250, 166);
 		add_image_size('default-image', 825, 470, true);
+		add_image_size('img-dest', 1000, 400, true);
 	}
 
 	//Permite adicionar no post ou página uma imagem com tamanho personalizado, nesse caso a home-thumb já definida anteriormente com 250X147
 	function custom_choose_sizes($sizes) {
 		$custom_sizes = array(
 			'home-thumb' => 'Tamanho Personalizado',
-			'default-image' => 'Tamanho Padrão'
+			'default-image' => 'Tamanho Padrão',
+			'img-dest' => 'Imagem de Destaque'
 		);
 		return array_merge($sizes, $custom_sizes);
 	}
@@ -159,6 +165,8 @@ function custom_formats() {
 	wp_register_style('default_ie', STM_THEME_URL . 'css/ie6.1.1.css', null, null, 'all');
 	wp_register_style('font_awesome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 	wp_register_style('style', get_stylesheet_uri(), null, null, 'all');
+	wp_register_style('slick_css', STM_THEME_URL . 'css/slick.css', null, null, 'all');
+	wp_register_style('slick_theme_css', STM_THEME_URL . 'css/slick-theme.css', null, null, 'all');
 
 	//wp_register_script('bootstrap_js', STM_THEME_URL . 'js/bootstrap.js', false, false);
 
@@ -171,6 +179,9 @@ function custom_formats() {
 	wp_register_script('jquery_waituntilexists', STM_THEME_URL . 'js/jquery.waituntilexists.js', array('jquery'), 1.0, true);
 	wp_register_script('scripts_js', STM_THEME_URL . 'js/scripts.js', array('jquery'), 1.0, true);
 	wp_register_script('jquery.event.move_js', STM_THEME_URL . 'js/jquery.event.move.js', array('jquery'), 1.0, true);
+	wp_register_script('slick_min_js', STM_THEME_URL . 'js/slick.min.js', array('jquery'), 1.0, true);
+	wp_register_script('slick_func_js', STM_THEME_URL . 'js/slick-func.js', array('jquery'), 1.0, true);
+	wp_register_script('lightbox_js', STM_THEME_URL . 'js/jquery-simple-lightbox.js', array('jquery'), 1.0, true);
 
 
 	global $wp_styles;
@@ -1789,6 +1800,40 @@ function wpdocs_my_custom_submenu_page_callback() {
     echo '</div>';
 }
 
+// Incluir Pagina Importar Usuarios no menu Usuarios
+add_action('admin_menu', 'cadastro_usuarios_core_sso');
+
+function cadastro_usuarios_core_sso() {
+    add_submenu_page(
+        'users.php',
+        'Importar Usuarios',
+        'Importar Usuarios',
+        'manage_options',
+        'import-users',
+        'incluir_cadastro_usuarios_core_sso' );
+}
+
+function incluir_cadastro_usuarios_core_sso(){
+	include('includes/usuarios/cadastro_usuarios.php');
+}
+
+// Incluir Pagina Atualizar Usuarios no menu Usuarios
+add_action('admin_menu', 'atualizar_usuarios_core_sso');
+
+function atualizar_usuarios_core_sso() {
+    add_submenu_page(
+        'users.php',
+        'Atualizar Usuarios',
+        'Atualizar Usuarios',
+        'manage_options',
+        'update-users',
+        'incluir_atualizar_usuarios_core_sso' );
+}
+
+function incluir_atualizar_usuarios_core_sso(){
+	include('includes/usuarios/atualizar_usuarios.php');
+}
+
 add_action('pre_get_posts', 'my_make_search_exact', 10);
 function my_make_search_exact($query){
 
@@ -1828,12 +1873,13 @@ function lost_pass(){
 	$link = get_field('link', $post_id);
 	$additional_field = '';
 	if($link){
-     	$additional_field .= '<div class="lost-pass">
-        <p class="m-0"><a href="' . $link . '">Esqueceu sua senha?</a></p>
-		<p class="pass-text">Na senha, digite a mesma senha do Sistema de Gestão Pedagógica (SGP) e Plateia. Caso esqueça sua senha e necessite redefinir, a mesma será aplicada
+		$additional_field .= '<div class="lost-pass">
+	   	<p class="pass-text m-0">Na senha, digite a mesma senha do Sistema de Gestão Pedagógica (SGP) e Plateia. Caso esqueça sua senha e necessite redefinir, a mesma será aplicada
 		para os outros acessos (Portais e Sistemas) da SME.</p>
-     </div>';
-	}
+	   	<p><a href="' . $link . '">Esqueceu sua senha?</a></p>
+	   
+	</div>';
+   }
 	
 	$additional_field .= '<div class="login-custom-field-wrapper">
         <input type="hidden" value="1" name="login_page"></label>
@@ -1932,8 +1978,6 @@ function get_file_url($id){
 	return $mediaResponse->source_url;
 }
 
-
-
 // Incluir a opacao de Limpar o contador dos usuarios
 add_filter('bulk_actions-users', function($bulk_actions) {
 	$bulk_actions['limpar-contator'] = __('Limpar Contator', 'txtdomain');
@@ -1952,6 +1996,12 @@ add_filter('handle_bulk_actions-users', function($redirect_url, $action, $users)
 	}
 	return $redirect_url;
 }, 10, 3);
+
+function destroy_sessions() {
+	$sessions->destroy_all();//destroys all sessions
+	wp_clear_auth_cookie();//clears cookies regarding WP Auth
+}
+add_action('wp_logout', 'destroy_sessions');
 
 // Validar Senha
 add_action('wp_ajax_valida_user','valida_user');
@@ -2048,4 +2098,135 @@ function update_user_option_admin_color( $color_scheme ) {
     $color_scheme = 'sunrise';
 
     return $color_scheme;
+}
+
+if ( (! empty($GLOBALS['pagenow']) && 'post.php' === $GLOBALS['pagenow']) ||  (! empty($GLOBALS['pagenow']) && 'edit.php' === $GLOBALS['pagenow']))
+    add_action('admin_footer', 'trash_click_message');
+function trash_click_message() {
+    echo <<<JQUERY
+<script>
+	jQuery( function($) {       
+		$('.edit-php a.submitdelete, .post-php a.submitdelete').click( function( event ) {
+			if( ! confirm( 'Você realmente deseja mover para a lixeira?' ) ) {
+				event.preventDefault();
+			}           
+		});
+	});
+</script>
+JQUERY;
+}
+
+function wpse95147_filter_wp_title( $title ) {
+    if ( is_single() || ( is_home() && !is_front_page() ) || ( is_page() && !is_front_page() ) ) {
+        $title = single_post_title( '', false );
+    }
+    return $title;
+}
+add_filter( 'wp_title', 'wpse95147_filter_wp_title' );
+
+// Criar tabela para armazenar os likes
+function post_like_table_create() {
+
+	global $wpdb;
+	$table_name = $wpdb->prefix. "post_like_table";
+	global $charset_collate;
+	$charset_collate = $wpdb->get_charset_collate();
+	global $db_version;
+	
+	if( $wpdb->get_var("SHOW TABLES LIKE '" . $table_name . "'") != $table_name)
+	{ $create_sql = "CREATE TABLE " . $table_name . " (
+	id INT(11) NOT NULL auto_increment,
+	postid INT(11) NOT NULL ,
+	
+	clientip VARCHAR(40) NOT NULL ,
+	
+	PRIMARY KEY (id))$charset_collate;";
+	require_once(ABSPATH . "wp-admin/includes/upgrade.php");
+	dbDelta( $create_sql );
+	}
+	
+	
+	//register the new table with the wpdb object
+	if (!isset($wpdb->post_like_table))
+	{
+	$wpdb->post_like_table = $table_name;
+	//add the shortcut so you can use $wpdb->stats
+	$wpdb->tables[] = str_replace($wpdb->prefix, '', $table_name);
+	}
+	
+}
+add_action( 'init', 'post_like_table_create');
+	
+// Add o JS
+function theme_name_scripts() {
+	wp_enqueue_script( 'script-name', get_template_directory_uri() . '/js/post-like.js', array('jquery'), '1.0.0', true );
+	wp_localize_script( 'script-name', 'MyAjax', array(
+	// URL to wp-admin/admin-ajax.php to process the request
+	'ajaxurl' => admin_url( 'admin-ajax.php' ),
+	// generate a nonce with a unique ID "myajax-post-comment-nonce"
+	// so that you can check it later when an AJAX request is sent
+	'security' => wp_create_nonce( 'my-special-string' )
+	));
+}
+add_action( 'wp_enqueue_scripts', 'theme_name_scripts' );
+// The function that handles the AJAX request
+	
+function get_client_ip() {
+	if (!empty($_SERVER['HTTP_CLIENT_IP']))   //check ip from share internet
+	{
+		$ip=$_SERVER['HTTP_CLIENT_IP'];
+	}
+	elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))   //to check ip is pass from proxy
+	{
+		$ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+	}
+	else
+	{
+		$ip=$_SERVER['REMOTE_ADDR'];
+	}
+	return $ip;
+}
+	
+function post_like_callback() {
+	check_ajax_referer( 'my-special-string', 'security' );
+	$postid = intval( $_POST['postid'] );
+	$clientip = get_client_ip();
+	$like = 0;
+	$dislike = 0;
+	$like_count = 0;
+
+	//check if post id and ip present
+	global $wpdb;
+	$row = $wpdb->get_results( "SELECT id FROM $wpdb->post_like_table WHERE postid = '$postid' AND clientip = '$clientip'");
+
+	if(empty($row)){
+		//insert row
+		$wpdb->insert( $wpdb->post_like_table, array( 'postid' => $postid, 'clientip' => $clientip ), array( '%d', '%s' ) );
+		//echo $wpdb->insert_id;
+		$like=1;
+	}
+
+	if(!empty($row)){
+		//delete row
+		$wpdb->delete( $wpdb->post_like_table, array( 'postid' => $postid, 'clientip'=> $clientip ), array( '%d','%s' ) );
+		$dislike = 1;
+	}
+
+	//calculate like count from db.
+	$totalrow = $wpdb->get_results( "SELECT id FROM $wpdb->post_like_table WHERE postid = '$postid'");
+	$total_like = $wpdb->num_rows;
+	$data = array( 'postid' => $postid,'likecount' => $total_like, 'clientip' => $clientip, 'like' => $like, 'dislike' => $dislike);
+	echo json_encode($data);
+	//echo $clientip;
+	die(); // this is required to return a proper result
+}
+
+add_action( 'wp_ajax_post_like', 'post_like_callback' );
+add_action( 'wp_ajax_nopriv_post_like', 'post_like_callback' );
+
+add_filter( 'ajax_query_attachments_args', 'filterMediaLibrary', 10, 1 );
+//add_action( 'pre_get_posts', 'filterMediaLibrary' );
+function filterMediaLibrary($query = array()) {
+    $query['post_parent__not_in'] = array(1454);
+    return $query;
 }

@@ -90,24 +90,6 @@ li.nav-item{
 }
 
 
-/*tabela*/
-.table-responsive {
-    margin: auto !important;
-    height: auto !important;
-}
-.table-responsive tbody {
-    display: table;
-    width: 100%;
-}
-.fx_all td {
-    padding: 0.5rem;
-}
-@media only screen and (max-width: 768px) {
-	.table-responsive {
-		white-space: nowrap !important;
-	}
-}
-
 /*Custom Sanfona*/
 .card.sanfona {
     background: none;
@@ -170,6 +152,12 @@ li.nav-item{
 /*Banner customizado*/
 .bn_fx_banner{
 	width: 100% !important;
+}
+
+@media (max-width: 576px){
+    .bn_fx_banner{
+        display: none;
+    }
 }
 
 /*Bloco Noticias*/
@@ -510,4 +498,53 @@ video {
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+
+.form_contato{
+    margin-top: 25px;
+}
+
+.form_contato input,
+.form_contato label,
+.form_contato textarea {
+    width: 100%;
+}
+
+.form_contato input,
+.form_contato textarea{
+    border: 1px solid #CFD2D5;
+    border-radius: 6px;
+}
+
+.form_contato input,
+.form_contato textarea {
+    padding: 5px 10px;
+}
+
+.form_contato .input_require {
+    color: #767E85;
+    text-align: right;
+    display: block;
+    font-size: 14px;
+}
+
+.form_contato input.wpcf7-submit {
+    padding: 10px 60px !important;
+    border-radius: 30px !important;
+    color: #1C2833 !important;
+    background-color: #FFB441 !important;
+    font-weight: 600 !important;
+    width: initial;
+    float: right;
+    overflow: hidden;
+    clear: both;
+    margin-bottom: 30px;
+}
+
+.realizada {
+    color: #00c100;
+}
+
+.negado{
+    color: #ff4500;
 }

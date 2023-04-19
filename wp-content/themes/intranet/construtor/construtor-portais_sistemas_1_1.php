@@ -27,11 +27,7 @@
         </div>
     </form>    
     <?php if($ativarCategorias): ?>
-        <?php
-            //echo "<pre>";
-            //print_r($categorias);
-            //echo "</pre>";
-        ?>
+        
         <?php if($categorias): ?>
             <?php foreach($categorias as $categoria): ?>
                 <div class="lista-portais">

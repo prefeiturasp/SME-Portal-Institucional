@@ -117,7 +117,7 @@ class LoopEventoCabecalho extends LoopEvento
 						foreach($datas as $data){
 							if($data['status'] == 'Disponível')
 								$vagas = $vagas + $data['convites_disponiveis'];
-						}
+						}						
 					?>
 					<div class="col-12">
 						<img src="<?= get_template_directory_uri(); ?>/classes/assets/img/users-icon.png" alt="icone mapa"> 						
@@ -149,7 +149,7 @@ class LoopEventoCabecalho extends LoopEvento
 					endif;
 				?>
 				
-				<a href="<?= get_home_url(); ?>/inscricoes/?eventoid=<?= get_the_id(); ?>" class="btn visitas-btn mt-4">Fazer inscrição</a>
+				<a href="<?= get_home_url(); ?>/inscricoes/?eventoid=<?= get_the_id(); ?>" class="btn visitas-btn my-4">Fazer inscrição</a>
 
 			</div>
 

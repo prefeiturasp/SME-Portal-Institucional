@@ -3,6 +3,7 @@
 
 require_once __ROOT__.'/classes/LoadDependences.php';
 require_once __ROOT__.'/classes/Lib/Util.php';
+require_once __ROOT__.'/classes/Lib/SimpleXLSXGen.php';
 
 require_once __ROOT__.'/classes/Header/Header.php';
 
@@ -33,6 +34,8 @@ require_once __ROOT__.'/classes/Cpt/CptDestaques.php';
 require_once __ROOT__.'/classes/Cpt/CptPortais.php';
 require_once __ROOT__.'/classes/Cpt/CptFaqs.php';
 require_once __ROOT__.'/classes/Cpt/CptParceiros.php';
+require_once __ROOT__.'/classes/Cpt/CptSmeExplica.php';
+require_once __ROOT__.'/classes/Cpt/CptMuralProf.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Page.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Tag.php';
@@ -43,6 +46,14 @@ require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMenuInter
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleNoticiaPrincipal.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleMaisRecentes.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/LoopSingle/LoopSingleRelacionadas.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopExplica/LoopExplica.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopExplica/LoopExplicaCabecalho.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopExplica/LoopExplicaNoticiaPrincipal.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopExplica/LoopExplicaRelacionadas.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopMural/LoopMural.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopMural/LoopMuralCabecalho.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopMural/LoopMuralNoticiaPrincipal.php';
+require_once __ROOT__.'/classes/TemplateHierarchy/LoopMural/LoopMuralRelacionadas.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaGetDatasEventos.php';
 //require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveContato/ArchiveContatoMetabox.php';
@@ -154,3 +165,9 @@ $cptFaqExtend = new \Classes\Cpt\CptFaqs();
 
 $cptParceiros = new \Classes\Cpt\Cpt('parceiros', 'parceiros', 'Parceiros', 'Todos os Parceiros', 'parceiros', 'parceiros', null, null, null, 'dashicons-external', true);
 $cptParceirosExtend = new \Classes\Cpt\CptParceiros();
+
+$cptSmeExplica = new \Classes\Cpt\Cpt('info-sme-explica', 'info-sme-explica', 'SME Explica', 'Todos os Informativos', 'info-sme-explica', 'info-sme-explica', null, null, null, 'dashicons-external', true);
+$cptSmeExplicaExtend = new \Classes\Cpt\CptSmeExplica();
+
+$cptMuralProf = new \Classes\Cpt\Cpt('mural-professores', 'mural-professores', 'Mural dos Professores', 'Todas as Publicações', 'mural-professores', 'mural-professores', null, null, null, 'dashicons-external', true);
+$cptMuralProfExtend = new \Classes\Cpt\CptMuralProf();
