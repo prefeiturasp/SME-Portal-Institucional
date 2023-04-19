@@ -859,6 +859,20 @@ form.navbar-form{
     font-weight: bold;
 }
 
+@media (max-width: 767px) {
+    .dropdown-menu.menu-top{
+        position: relative !important;
+        background: #c9e2ff;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-left: 0 !important;
+    }
+
+    .dropdown-menu.menu-top .menu-item:not(:last-child){
+        border: 0;
+    }
+}
+
 @media (min-width: 992px) {
     .menu-completo {
         left: 50%;
@@ -867,6 +881,8 @@ form.navbar-form{
         width: 100vw;
     }
 }
+
+
 
 
 /* Noticias */
