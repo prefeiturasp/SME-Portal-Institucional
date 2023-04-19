@@ -520,6 +520,25 @@ get_header(); // Loads the header.php template.
     jQuery(document).ready(function($){
 
         $("#adduser").submit(function(e){
+
+            var fileInput = $('#avatar_user');
+		    var maxSize = fileInput.data('max-size');
+
+            
+            if(fileInput.get(0).files.length){
+                var fileSize = fileInput.get(0).files[0].size; // in bytes
+                if(fileSize>maxSize){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Atenção',
+                        text: 'A imagem não pode ter mais que 500kb.',
+                    });
+                    return false;
+                }
+            }
+			
+		    
+
             if($('#nov-whats').is(':checked')){
                 
                 if( $('#acf-field_62420050a8eb3').val().length === 0 ) {
@@ -538,7 +557,10 @@ get_header(); // Loads the header.php template.
 
             } else {
                 return true;
-            }            
+            }
+            
+            
+
         });
                
     });

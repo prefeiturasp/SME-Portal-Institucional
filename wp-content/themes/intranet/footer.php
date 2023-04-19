@@ -216,13 +216,13 @@
 		})
 	}
 
-	jQuery(document).ready(function($){
+	jQuery(document).ready(function($){		
 
 		$('.input-images').imageUploader({
 			label: 'Clique ou arraste a imagem para esta área para carregar. Adicione até 4 imagens nos formatos JPG, JPEG ou PNG.',
 			maxSize: 1 * 1024 * 1024,
 			maxFiles: 4
-		});
+		});		
 
 		$('#mural-enviar').submit(function(e){
 			
@@ -289,6 +289,18 @@
 				}
 			}
 
+			// Descricao obrigatorio
+			var conteudo = $('#descricao_publi').val();
+			if(!conteudo){
+				Swal.fire({
+					icon: 'error',
+					title: 'Atenção',
+					text: 'O campo Descrição da publicação é obrigatório.',
+				});
+				//e.preventDefault();
+				return false;
+			}
+
 			if(!$('input[name="auto_publi"]').is(':checked')){
 				Swal.fire({
 					icon: 'error',
@@ -307,26 +319,7 @@
 				return false;
 			}
 			
-		});
-
-		var fileInput = $('#avatar_user');
-		var maxSize = fileInput.data('max-size');
-		$('#adduser').submit(function(e){
-			
-			if(fileInput.get(0).files.length){
-				var fileSize = fileInput.get(0).files[0].size; // in bytes
-				console.log(fileSize);
-				if(fileSize>maxSize){
-					Swal.fire({
-						icon: 'error',
-						title: 'Atenção',
-						text: 'A imagem não pode ter mais que 500kb.',
-					});
-					return false;
-				}
-			}
-			
-		});
+		});		
 
 		// Start
 		// sessionStorage.getItem('key');
