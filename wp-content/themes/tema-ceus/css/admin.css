@@ -28,3 +28,9 @@
 .user-language-wrap{
     display: none;
 }
+
+.acf-label span {
+    font-size: 11px;
+    font-style: italic;
+    margin-left: 10px;
+}
