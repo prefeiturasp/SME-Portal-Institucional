@@ -19,7 +19,7 @@
 <?php
 
 if (isset($_FILES['file'])) {
-    echo '<h1>Resultados da importação</h1>';
+    echo '<h1>Resultados da atualização</h1>';
     if ($xlsx = SimpleXLSX::parse($_FILES['file']['tmp_name']) ) {
         
         $api_url = '';
@@ -37,7 +37,7 @@ if (isset($_FILES['file'])) {
             foreach($usuarios as $usuario){                
 
                 $usuarioEol = $usuario[0];
-                $email = $usuario[1];
+                $email = $usuario[2];
                 
                 $response = wp_remote_post( $api_url, array(
                     'method'      => 'POST',                    
@@ -52,7 +52,7 @@ if (isset($_FILES['file'])) {
                     $error_message = $response->get_error_message();
                     echo "<tr>";
                     echo "<td>" . $usuario[0] . "</td>";
-                    echo "<td>" . $usuario[1] . "</td>";
+                    echo "<td>" . $usuario[2] . "</td>";
                     echo "<td>Ocorreu um erro: $error_message</td>";
                     echo "</tr>";
                 } else {
@@ -62,24 +62,24 @@ if (isset($_FILES['file'])) {
                     if($response['response']['code'] == 601){
                         echo "<tr>";
                             echo "<td>" . $usuario[0] . "</td>";
-                            echo "<td>" . $usuario[1] . "</td>";
+                            echo "<td>" . $usuario[2] . "</td>";
                             echo "<td>" . $response['body'] . "</td>";
                         echo "</tr>";
-                        //echo "Usuario: " . $usuario[0] . " - RF/EOL: " . $usuario[1] . " - " . $response['body'] . " <br>";
+                        //echo "Usuario: " . $usuario[0] . " - RF/EOL: " . $usuario[2] . " - " . $response['body'] . " <br>";
                     } elseif($response['response']['code'] == 200){
                         echo "<tr>";
                             echo "<td>" . $usuario[0] . "</td>";
-                            echo "<td>" . $usuario[1] . "</td>";
+                            echo "<td>" . $usuario[2] . "</td>";
                             echo "<td>Usuário atualizado com sucesso!</td>";
                         echo "</tr>";
-                        //echo "Usuario: " . $usuario[0] . " - RF/EOL: " . $usuario[1] . " - Usuário cadastrado com sucesso <br>";
+                        //echo "Usuario: " . $usuario[0] . " - RF/EOL: " . $usuario[2] . " - Usuário cadastrado com sucesso <br>";
                     } else {
                         echo "<tr>";
                             echo "<td>" . $usuario[0] . "</td>";
-                            echo "<td>" . $usuario[1] . "</td>";
+                            echo "<td>" . $usuario[2] . "</td>";
                             echo "<td>Ocorreu um erro, verifique os dados e tente novamente.</td>";
                         echo "</tr>";
-                        //echo "Usuario: " . $usuario[0] . " - RF/EOL: " . $usuario[1] . " - Ocorreu um erro, verifique os dados e tente novamente. <br>";
+                        //echo "Usuario: " . $usuario[0] . " - RF/EOL: " . $usuario[2] . " - Ocorreu um erro, verifique os dados e tente novamente. <br>";
                     }                    
                     
                 }
