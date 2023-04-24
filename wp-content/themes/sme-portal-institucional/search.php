@@ -14,20 +14,7 @@
 						$siteAtual[] = get_current_blog_id();
 
 						$allSites = array();
-						$allSites[] = 1; // Portal
-						$allSites[] = 8; // DRE Butanta
-						$allSites[] = 20; // DRE Campo Limpo
-						$allSites[] = 9; // DRE Capela Socorro
-						$allSites[] = 10; // DRE Freguesia
-						$allSites[] = 11; // DRE Guainases
-						$allSites[] = 12; // DRE Ipiranga
-						$allSites[] = 13; // DRE Itaquera
-						$allSites[] = 14; // DRE Jacana
-						$allSites[] = 15; // DRE Penha
-						$allSites[] = 16; // DRE Pirituba
-						$allSites[] = 17; // DRE Santo Amaro
-						$allSites[] = 18; // DRE Sao Mateus
-						$allSites[] = 19; // DRE Sao Miguel
+						$allSites[] = 1; // Portal						
 						$allSites[] = 5; // CME
 						$allSites[] = 4; // CAE
 						$allSites[] = 6; // CACSFUNDEB
@@ -44,31 +31,30 @@
 							$sites[] = (object) array('blog_id' => $site);
 						}
 
-						//echo "<pre>";
-						//print_r($sites);
-						//echo "</pre>";
-
 						$types = array('page', 'programa-projeto', 'card', 'post');
 
 						$contBusca = array(
-							'portal' => 1,
-							'dre-butanta' => 8,
-							'dre-campo-limpo' => 20,
-							'dre-capela-socorro' => 9,
-							'dre-freguesia-brasilandia'	=> 10,
-							'dre-guaianases' => 11,
-							'dre-ipiranga' => 12,
-							'dre-itaquera' => 13,
-							'dre-jacana-tremembe' => 14,
-							'dre-penha' => 15,
-							'dre-pirituba' => 16,
-							'dre-santo-amaro' => 17,
-							'dre-sao-mateus' => 18,
-							'dre-sao-miguel' => 19,
+							'portal' => 1,							
 							'cme-conselho' => 5,
 							'cae-conselho' => 4,
 							'cacsfundeb' => 6,
 							'crece' => 7,
+						);
+
+						$categNoticias = array(
+							'noticia-dre-butanta1' => 23,
+							'noticia-dre-campo-limpo1' => 83,
+							'noticia-dre-capela-socorro1' => 115,
+							'noticia-dre-freguesia-brasilandia1' => 114,
+							'noticia-dre-guaianases1' => 81,
+							'noticia-dre-ipiranga1' => 48,
+							'noticia-dre-itaquera1' => 75,
+							'noticia-dre-jacana-tremembe1' => 89,
+							'noticia-dre-penha1' => 113,
+							'noticia-dre-pirituba1' => 37,
+							'noticia-dre-santo-amaro1' => 31,
+							'noticia-dre-sao-mateus1' => 42,
+							'noticia-dre-sao-miguel1' => 112,
 						);
 
 						if($_GET['tipoconteudo'] && $_GET['tipoconteudo'] != ''){
@@ -99,6 +85,12 @@
 
 									
 									foreach($types as $type){
+
+										if(is_user_logged_in()){
+											//print_r($site->blog_id);
+										}
+
+										
 										
 										$args = array( 
 											's' => $query,
@@ -106,10 +98,14 @@
 											'post_type' => $type,
 											'post_status' => 'publish',
 											'orderby' => 'relevance',
-											//'order'   => 'DESC',
-											//'sentence' => true,
-											//'exact'     => true,
 										);
+
+										if($site->blog_id == 1){
+											if($_GET['tipoconteudo'] && $_GET['tipoconteudo'] != ''){
+												$categoria = $_GET['tipoconteudo'];
+												$args['cat'] = $categNoticias[$categoria];
+											}
+										}
 
 										if($_GET['periodo'] && $_GET['periodo'] != ''){
 											$periodo = $_GET['periodo'];
@@ -189,14 +185,7 @@
 							endif;
 									
 							restore_current_blog();
-						}
-
-						//$type = array_column($allResults, 'type');
-						//array_multisort($type, SORT_DESC, $allResults);
-
-						//echo "<pre>";
-						//print_r($allResults);
-						//echo "</pre>";
+						}						
 
 						$pagina = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1;
 						$total = count( $allResults ); //total items in array    
@@ -269,25 +258,9 @@
 
 						<?php
 						endif;
-						
-						//echo "<pre>";
-						//print_r($allResults);
-						//echo "</pre>";
-
-						//echo 'Total Resultados: '. $total;
-						//echo "<br>";
-						//echo 'Paginas: '. $totalPages;
-						//echo "<br>";
-						//echo 'Paginas Atual: '. $pagina;
-						//echo "<br>";
-						//echo $offset;
-						//echo "<br>";
-						//echo "<br>";
 
 						$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-						$new_url = preg_replace('/&?pagina=[^&]*/', '', $actual_link);
-
-						//echo $new_url;
+						$new_url = preg_replace('/&?pagina=[^&]*/', '', $actual_link);						
 						
 					?>
 					
@@ -342,33 +315,20 @@
 							<select name="tipoconteudo" onCha class="form-control" id="sel1c">
 								<option value="">Selecione o tipo</option>
 								<option <?=$_GET['tipoconteudo'] == 'pagina-portal1' ? "selected" : '' ?> value="pagina-portal1">Página em SME Portal Educação</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-portal1' ? "selected" : '' ?> value="noticia-portal1">Notícia em SME Portal Educação</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-butanta8' ? "selected" : '' ?> value="pagina-dre-butanta8">Página em DRE Butantã</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-butanta8' ? "selected" : '' ?> value="noticia-dre-butanta8">Notícia em DRE Butantã</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-campo-limpo20' ? "selected" : '' ?> value="pagina-dre-campo-limpo20">Página em DRE Campo Limpo</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-campo-limpo20' ? "selected" : '' ?> value="noticia-dre-campo-limpo20">Notícia em DRE Campo Limpo</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-capela-socorro9' ? "selected" : '' ?> value="pagina-dre-capela-socorro9">Página em DRE Capela do Socorro</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-capela-socorro9' ? "selected" : '' ?> value="noticia-dre-capela-socorro9">Notícia em DRE Capela do Socorro</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-freguesia-brasilandia10' ? "selected" : '' ?> value="pagina-dre-freguesia-brasilandia10">Página em DRE Freguesia/Brasilândia</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-freguesia-brasilandia10' ? "selected" : '' ?> value="noticia-dre-freguesia-brasilandia10">Notícia em DRE Freguesia/Brasilândia</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-guaianases11' ? "selected" : '' ?> value="pagina-dre-guaianases11">Página em DRE Guaianases</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-guaianases11' ? "selected" : '' ?> value="noticia-dre-guaianases11">Notícia em DRE Guaianases</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-ipiranga12' ? "selected" : '' ?> value="pagina-dre-ipiranga12">Página em DRE Ipiranga</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-ipiranga12' ? "selected" : '' ?> value="noticia-dre-ipiranga12">Notícia em DRE Ipiranga</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-itaquera13' ? "selected" : '' ?> value="pagina-dre-itaquera13">Página em DRE Itaquera</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-itaquera13' ? "selected" : '' ?> value="noticia-dre-itaquera13">Notícia em DRE Itaquera</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-jacana-tremembe14' ? "selected" : '' ?> value="pagina-dre-jacana-tremembe14">Página em DRE Jaçanã/Tremembé</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-jacana-tremembe14' ? "selected" : '' ?> value="noticia-dre-jacana-tremembe14">Notícia em DRE Jaçanã/Tremembé</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-penha15' ? "selected" : '' ?> value="pagina-dre-penha15">Página em DRE Penha</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-penha15' ? "selected" : '' ?> value="noticia-dre-penha15">Notícia em DRE Penha</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-pirituba16' ? "selected" : '' ?> value="pagina-dre-pirituba16">Página em DRE Pirituba</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-pirituba16' ? "selected" : '' ?> value="noticia-dre-pirituba16">Notícia em DRE Pirituba</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-santo-amaro17' ? "selected" : '' ?> value="pagina-dre-santo-amaro17">Página em DRE Santo Amaro</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-santo-amaro17' ? "selected" : '' ?> value="noticia-dre-santo-amaro17">Notícia em DRE Santo Amaro</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-sao-mateus18' ? "selected" : '' ?> value="pagina-dre-sao-mateus18">Página em DRE São Mateus</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-sao-mateus18' ? "selected" : '' ?> value="noticia-dre-sao-mateus18">Notícia em DRE São Mateus</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-dre-sao-miguel19' ? "selected" : '' ?> value="pagina-dre-sao-miguel19">Página em DRE São Miguel</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-sao-miguel19' ? "selected" : '' ?> value="noticia-dre-sao-miguel19">Notícia em DRE São Miguel</option>
+								<option <?=$_GET['tipoconteudo'] == 'noticia-portal1' ? "selected" : '' ?> value="noticia-portal1">Notícia em SME Portal Educação</option>								
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-butanta1' ? "selected" : '' ?> value="noticia-dre-butanta1">Notícia em DRE Butantã</option>								
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-campo-limpo1' ? "selected" : '' ?> value="noticia-dre-campo-limpo1">Notícia em DRE Campo Limpo</option>								
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-capela-socorro1' ? "selected" : '' ?> value="noticia-dre-capela-socorro1">Notícia em DRE Capela do Socorro</option>								
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-freguesia-brasilandia1' ? "selected" : '' ?> value="noticia-dre-freguesia-brasilandia1">Notícia em DRE Freguesia/Brasilândia</option>								
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-guaianases1' ? "selected" : '' ?> value="noticia-dre-guaianases1">Notícia em DRE Guaianases</option>								
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-ipiranga1' ? "selected" : '' ?> value="noticia-dre-ipiranga1">Notícia em DRE Ipiranga</option>								
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-itaquera1' ? "selected" : '' ?> value="noticia-dre-itaquera1">Notícia em DRE Itaquera</option>								
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-jacana-tremembe1' ? "selected" : '' ?> value="noticia-dre-jacana-tremembe1">Notícia em DRE Jaçanã/Tremembé</option>								
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-penha1' ? "selected" : '' ?> value="noticia-dre-penha1">Notícia em DRE Penha</option>								
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-pirituba1' ? "selected" : '' ?> value="noticia-dre-pirituba1">Notícia em DRE Pirituba</option>								
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-santo-amaro1' ? "selected" : '' ?> value="noticia-dre-santo-amaro1">Notícia em DRE Santo Amaro</option>							
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-sao-mateus1' ? "selected" : '' ?> value="noticia-dre-sao-mateus1">Notícia em DRE São Mateus</option>								
+								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-sao-miguel1' ? "selected" : '' ?> value="noticia-dre-sao-miguel1">Notícia em DRE São Miguel</option>
 								<option <?=$_GET['tipoconteudo'] == 'pagina-cme-conselho5' ? "selected" : '' ?> value="pagina-cme-conselho5">Página em CME Conselho</option>
 								<option <?=$_GET['tipoconteudo'] == 'pagina-cae-conselho4' ? "selected" : '' ?> value="pagina-cae-conselho4">Página em CAE Conselho</option>
 								<option <?=$_GET['tipoconteudo'] == 'pagina-cacsfundeb6' ? "selected" : '' ?> value="pagina-cacsfundeb6">Página em CACSFUNDEB Conselho</option>
@@ -376,21 +336,7 @@
 							</select>
 							<script>
 								const sites = [];
-								sites[1]= "portal";
-								sites[8]= "dre-butanta";
-								sites[20]= "dre-campo-limpo";
-								sites[9]= "dre-capela-socorro";
-								sites[10]= "dre-freguesia-brasilandia";
-								sites[11]= "dre-guaianases";
-								sites[12]= "dre-ipiranga";
-								sites[13]= "dre-itaquera";
-								sites[14]= "dre-jacana-tremembe";
-								sites[15]= "dre-penha";
-								sites[16]= "dre-pirituba";
-								sites[17]= "dre-santo-amaro";
-
-								sites[18]= "dre-sao-mateus";
-								sites[19]= "dre-sao-miguel";
+								sites[1]= "portal";								
 								sites[5]= "cme-conselho";
 								sites[4]= "cae-conselho";
 								sites[6]= "cacsfundeb";
@@ -444,20 +390,7 @@
 							<select name="site" class="form-control" id="sel3sites">
 
 								<option value="">Todos os sites</option>
-								<option <?=$_GET['site'] == 'portal' ? "selected" : '' ?> value="portal">SME Portal Educação</option>
-								<option <?=$_GET['site'] == 'dre-butanta' ? "selected" : '' ?> value="dre-butanta">DRE Butantã</option>
-								<option <?=$_GET['site'] == 'dre-campo-limpo' ? "selected" : '' ?> value="dre-campo-limpo">DRE Campo Limpo</option>
-								<option <?=$_GET['site'] == 'dre-capela-socorro' ? "selected" : '' ?> value="dre-capela-socorro">DRE Capela do Socorro</option>
-								<option <?=$_GET['site'] == 'dre-freguesia-brasilandia' ? "selected" : '' ?> value="dre-freguesia-brasilandia">DRE Freguesia/Brasilândia</option>
-								<option <?=$_GET['site'] == 'dre-guaianases' ? "selected" : '' ?> value="dre-guaianases">DRE Guaianases</option>
-								<option <?=$_GET['site'] == 'dre-ipiranga' ? "selected" : '' ?> value="dre-ipiranga">DRE Ipiranga</option>
-								<option <?=$_GET['site'] == 'dre-itaquera' ? "selected" : '' ?> value="dre-itaquera">DRE Itaquera</option>
-								<option <?=$_GET['site'] == 'dre-jacana-tremembe' ? "selected" : '' ?> value="dre-jacana-tremembe">DRE Jaçanã/Tremembé</option>
-								<option <?=$_GET['site'] == 'dre-penha' ? "selected" : '' ?> value="dre-penha">DRE Penha</option>
-								<option <?=$_GET['site'] == 'dre-pirituba' ? "selected" : '' ?> value="dre-pirituba">DRE Pirituba</option>
-								<option <?=$_GET['site'] == 'dre-santo-amaro' ? "selected" : '' ?> value="dre-santo-amaro">DRE Santo Amaro</option>
-								<option <?=$_GET['site'] == 'dre-sao-mateus' ? "selected" : '' ?> value="dre-sao-mateus">DRE São Mateus</option>
-								<option <?=$_GET['site'] == 'dre-sao-miguel' ? "selected" : '' ?> value="dre-sao-miguel">DRE São Miguel</option>
+								<option <?=$_GET['site'] == 'portal' ? "selected" : '' ?> value="portal">SME Portal Educação</option>								
 								<option <?=$_GET['site'] == 'cme-conselho' ? "selected" : '' ?> value="cme-conselho">CME Conselho</option>
 								<option <?=$_GET['site'] == 'cae-conselho' ? "selected" : '' ?> value="cae-conselho">CAE Conselho</option>
 								<option <?=$_GET['site'] == 'cacsfundeb' ? "selected" : '' ?> value="cacsfundeb">CACSFUNDEB Conselho</option>
