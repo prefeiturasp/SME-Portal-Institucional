@@ -1,6 +1,287 @@
 <?php get_header(); ?>
 
-	<div class="container-fluid">	
+	<div class="container-fluid">
+
+		<div class="slide-principal mt-3 mb-3">
+			<div class="container">
+				<div class="row">
+					<?php 
+						$slides = get_field('slide', 30834);
+						$qtSlide = count($slides);
+						$l = 0;
+						$m = 0;
+						//echo $qtSlide;
+						
+					?>
+					<div id="carouselExampleIndicators" class="carousel slide col-sm-12" data-ride="carousel">
+						<ol class="carousel-indicators">
+						
+						
+							<?php while($m < $qtSlide) : ?>
+								<li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $m; ?>" class="<?php if($m == 0){echo 'active';} ?>"></li>
+							<?php 
+								$m++;
+								endwhile; ?>
+						</ol>
+						<div class="carousel-inner border">
+
+							<?php foreach($slides as $slide): ?>
+								<div class="carousel-item <?php if($l == 0){echo 'active';} ?>">
+									<div class="row">
+										<div class="col-sm-7">
+											<?php 
+												$imgSelect = get_field('capa_do_evento', $slide->ID);
+												$featured_img_url = wp_get_attachment_image_src($imgSelect, 'recorte-eventos');
+												
+												if($featured_img_url){
+													$imgSlide = $featured_img_url[0];
+												} else {
+													$imgSlide = 'http://via.placeholder.com/640x350';
+												}
+											?>
+											<img class="d-block w-100" src="<?php echo  $imgSlide; ?>" alt="Slide ">
+										</div>
+										<div class="col-sm-5">
+											<div class="carousel-categ">
+												<?php
+													$tipoEvento = get_field('tipo_de_evento_tipo', $slide->ID);
+													$atividades = get_the_terms( $slide->ID, 'atividades_categories' );
+													$listaAtividades = array();
+													foreach($atividades as $atividade){
+														if($atividade->parent != 0){
+															$listaAtividades[] = $atividade->term_id;
+														}
+													}
+
+													$total = count($listaAtividades); 
+													$k = 0;
+													$showAtividades = '';
+
+													foreach($listaAtividades as $atividade){
+														$k++;
+														if($k == 1){
+															$showAtividades .= '<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
+														} else {
+															$showAtividades .= ' ,<a href="' . get_home_url() . '?s&atividadesInternas[]=' . $atividade . '">' . get_term( $atividade )->name . "</a>";
+														}
+													}
+												?>
+											
+												<p><?php echo $showAtividades; ?></p> 
+											</div>
+
+											<div class="carousel-title">
+												<p><a href="<?php echo get_permalink( $slide->ID ); ?>"><?php echo $slide->post_title; ?></a></p>
+											</div>
+											<?php 
+												$subTitle = get_field('subtitulo', $slide->ID);
+												if($subTitle):
+											?>
+												<div class="carousel-subtitle">
+													<p>- <?php echo $subTitle; ?></p>
+												</div>
+
+											<?php endif; ?>
+
+											<div class="carousel-data">
+												<?php
+													$campos = get_field('data', $slide->ID);
+													
+													// Verifica se possui campos
+													if($campos){
+
+														if($campos['tipo_de_data'] == 'data'){ // Se for do tipo data
+
+															$dataEvento = $campos['data'];
+
+															$dataEvento = explode("-", $dataEvento);
+															$mes = date('M', mktime(0, 0, 0, $dataEvento[1], 10));
+															$mes = translateMonth($mes);
+															$data = $dataEvento[2] . " " . $mes . " " . $dataEvento[0];
+
+															$dataFinal = $data;
+
+														} elseif($campos['tipo_de_data'] == 'periodo'){
+
+															$dataInicial = $campos['data'];
+															$dataFinal = $campos['data_final'];
+
+															if($dataFinal){ // Verifica se possui a data final
+																$dataInicial = explode("-", $dataInicial);
+																$dataFinal = explode("-", $dataFinal);
+																$mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+																$mes = translateMonth($mes);
+
+																$data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+
+																$dataFinal = $data;
+															} else { // Se nao tiver a final mostra apenas a inicial
+																$dataInicial = explode("-", $dataInicial);
+																$mes = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
+																$mes = translateMonth($mes);
+																$data = $dataInicial[2] . " " . $mes . " " . $dataInicial[0];
+
+																$dataFinal = $data;
+															}
+
+														} elseif($campos['tipo_de_data'] == 'semana'){ // se for do tipo semana
+															
+															$semana = $campos['dia_da_semana'];													
+													
+															$diasSemana = array();
+
+															foreach($semana as $dias){
+
+																$total = count($dias['selecione_os_dias']); 
+																$i = 0;
+																$diasShow = '';
+																
+																foreach($dias['selecione_os_dias'] as $diaS){
+																	$i++;
+																	//echo $dia . "<br>";
+																	if($total - $i == 1){
+																		$diasShow .= $diaS . " ";
+																	} elseif($total != $i){
+																		$diasShow .= $diaS . ", ";
+																	} elseif($total == 1){
+																		$diasShow = $diaS;
+																	} else {
+																		$diasShow .= "e " . $diaS;
+																	}	
+																															
+																}
+
+																$show[] = $diasShow;
+																
+															}
+														
+															$totalDias = count($show);
+															$j = 0;	
+															
+															$dias = '';
+
+															foreach($show as $diaShow){
+																$j++;
+																if($j == 1){
+																	$dias .= $diaShow . " ";                                                        
+																} else {
+																	$dias .= "/ " . $diaShow;
+																}
+															}
+
+															$dataFinal = $dias; 
+														}
+
+													}
+													if($tipoEvento == 'serie'){
+														$participantes = get_field('ceus_participantes',  $slide->ID);
+														$countPart = count($participantes);
+														$countPart = $countPart - 1;
+														
+														$dtInicial = $participantes[0]['data_serie'];
+														$dtFinal = $participantes[$countPart]['data_serie'];
+		
+														if($dtInicial['tipo_de_data'] == 'data' && $dtFinal['tipo_de_data'] == 'data'){
+															
+															$dataInicial = explode("-", $dtInicial['data']);
+															$dataFinal = explode("-", $dtFinal['data']);
+															$mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+															$mes = translateMonth($mes);
+		
+															$data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+		
+															$dataFinal = $data;
+		
+														} else {
+															$dataFinal = 'Múltiplas Datas';
+														}											
+													}
+												?>
+												<p class="mb-0">
+													<i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $dataFinal; ?>
+													<br>
+													<?php
+														// Exibe os horários
+														$horario = get_field('horario', $slide->ID);
+
+														
+
+														if($horario['selecione_o_horario'] == 'horario'){
+															$hora = $horario['hora'];
+														} elseif($horario['selecione_o_horario'] == 'periodo'){
+															
+															$hora = '';
+															$k = 0;
+															
+															foreach($horario['hora_periodo'] as $periodo){
+																//print_r($periodo['periodo_hora_final']);
+																
+																if($periodo['periodo_hora_inicio']){
+
+																	if($k > 0){
+																		$hora .= ' / ';
+																	}
+
+																	$hora .= $periodo['periodo_hora_inicio'];
+
+																} 
+																
+																if ($periodo['periodo_hora_final']){
+
+																	$hora .= ' às ' . $periodo['periodo_hora_final'];
+
+																}
+																
+																$k++;
+																
+															}
+
+														}else {
+															$hora = '';
+														}
+													?>
+													<?php if($hora) : ?>                                           
+														<i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> <?php echo convertHour($hora); ?>
+													<?php endif; ?>
+													<?php if($tipoEvento == 'serie'): ?>
+														<i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> Múltiplos Horários
+													<?php endif; ?>
+												</p>
+												<?php
+													$local = get_field('localizacao', $slide->ID);                                                        
+													if($local == '31675' || $local == '31244'):
+												?>
+													<p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></p>
+													<?php elseif($tipoEvento == 'serie') : ?>
+														<p class="mb-0 mt-1 evento-unidade no-link"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> Múltiplas Unidades</p>
+													<?php else: ?>
+													<p class="mb-0 mt-1 evento-unidade"><a href="<?php echo get_the_permalink($local); ?>"><i class="fa fa-map-marker" aria-hidden="true"><span>icone unidade</span></i> <?php echo get_the_title($local); ?></a></p>
+												<?php endif; ?>
+											</div>
+										</div>
+									</div>
+								</div>
+							<?php 
+								$l++;
+								endforeach; ?>
+
+							
+
+
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="search-home py-4" id='programacao'>
             <div class="container">
                 
@@ -46,122 +327,162 @@
                                 'hide_empty' => false,
                                 'exclude' => 1
                             ) );
-
-                            //echo "<pre>";
-                            //print_r($terms);
-                            //echo "</pre>";
-
                             
                         ?>
                     </div>
-                    <form action="<?php echo home_url( '/' ); ?>"  id="searchform" class="row col-sm-12">
-                        <input id="prodId" name="tipo" type="hidden" value="programacao">
-                        <input name="s" type="hidden" value="">
-                        <div class="col-sm-3 mt-2 px-1">
-                            <select name="atividades[]" multiple="multiple" class="ms-list-1" style="">
-                                <?php foreach($terms as $term): ?>
-                                    <option value="<?php echo $term->slug; ?>"><?php echo $term->name; ?></option>
-                                <?php endforeach; ?>                                                        
-                            </select>
-                        </div>
+					
+					<div class="col-12">
+						<form action="<?php echo home_url( '/' ); ?>"  id="searchform" class="row form-prog">
+							<input id="prodId" name="tipo" type="hidden" value="programacao">
 
-                        <div class="col-sm-3 mt-2 px-1">
-                            <select name="atividadesInternas[]" multiple="multiple" class="ms-list-2" style="">                                
-                            </select>
-                        </div>
+							<div class="col-sm-6 mt-3">
+								<input type="text" name="s" class="form-control" placeholder="Busque por palavra-chave" value="<?= $_GET['s']; ?>">
+							</div>
 
-                        <div class="col-sm-3 mt-2 px-1">
-                            <select name="publico[]" multiple="multiple" class="ms-list-3" style="">                        
-                                <?php foreach ($publicos as $publico): ?>
-                                    <option value="<?php echo $publico->slug; ?>"><?php echo $publico->name; ?></option>
-                                <?php endforeach; ?>                    
-                            </select>
-                        </div>
+							<div class="col-sm-6 mt-3">
+								<select name="atividades[]" multiple="multiple" class="ms-list-1" style="">
+									<?php if ( !empty( $terms ) && !is_wp_error( $terms ) ): ?>
+										<?php foreach( get_terms( 'atividades_categories', array( 'hide_empty' => false, 'parent' => 0 ) ) as $parent_term ) : ?>
+											<?php
+												$term_children = get_term_children($parent_term->term_id, 'atividades_categories');
+												if($term_children):
+											?>
+												<optgroup label="<?= $parent_term->name; ?>">
+													<?php foreach($term_children as $term): 
+														$categoria = get_term( $term, 'atividades_categories' );
+													?>
+														<?php if(in_array($categoria->slug, $_GET['atividades'])) :?>
+															<option value="<?= $categoria->slug; ?>" selected><?= $categoria->name; ?></option>
+														<?php else: ?>
+															<option value="<?= $categoria->slug; ?>"><?= $categoria->name; ?></option>
+														<?php endif; ?>
+													<?php endforeach; ?>
+												</optgroup>
+											<?php else: ?>
+												<option value="<?= $parent_term->slug; ?>"><?= $parent_term->name; ?></option>
+											<?php endif; ?>
+										<?php endforeach; ?>
+									<?php endif; ?>                                                   
+								</select>
+							</div>
 
-                        <div class="col-sm-3 mt-2 px-1">
-                            <select name="faixaEtaria[]" multiple="multiple" class="ms-list-4" style="">                        
-                                <?php foreach ($faixas as $faixa): ?>
-                                    <option value="<?php echo $faixa->slug; ?>"><?php echo $faixa->name; ?></option>
-                                <?php endforeach; ?>                      
-                            </select>
-                        </div>
+							<div class="col-sm-6 mt-3">
+								<select name="faixaEtaria[]" multiple="multiple" class="ms-list-4" style="">                        
+									<?php if ( !empty( $faixas ) && !is_wp_error( $faixas ) ): ?>
+										<?php foreach( get_terms( 'faixa_categories', array( 'hide_empty' => false, 'parent' => 0 ) ) as $parent_term ) : ?>
+											<?php
+												$term_children = get_term_children($parent_term->term_id, 'faixa_categories');
+												if($term_children):
+											?>
+												<optgroup label="<?= $parent_term->name; ?>">
+													<?php foreach($term_children as $term): 
+														$faixa_etaria = get_term( $term, 'faixa_categories' );
+													?>
+														<?php if(in_array($faixa_etaria->slug, $_GET['faixaEtaria'])) :?>                                                    	
+															<option value="<?= $faixa_etaria->slug; ?>" selected><?= $faixa_etaria->name; ?></option>
+														<?php else: ?>
+															<option value="<?= $faixa_etaria->slug; ?>"><?= $faixa_etaria->name; ?></option>
+														<?php endif; ?>
+														
+													<?php endforeach; ?>
+												</optgroup>
+											<?php else: ?>
+												<option value="<?= $parent_term->slug; ?>"><?= $parent_term->name; ?></option>
+											<?php endif; ?>
+										<?php endforeach; ?>
+									<?php endif; ?>                      
+								</select>
+							</div>
 
-                        <div class="col-sm-3 mt-3 px-1">
-                            
-							<select name="unidades[]" multiple="multiple" class="ms-list-5" style="">
-								<?php
-									$currentID = get_the_id();
-									$argsUnidades = array(
-										'post_type' => 'unidade',
-										'posts_per_page' => -1,
-										'post__not_in' => array(31244, 31675),
-										'orderby' => 'title',
-	                                    'order'   => 'ASC',
-									);
+							<div class="col-sm-3 mt-3">
+								<select name="publico[]" multiple="multiple" class="ms-list-3" style="">                        
+									<?php foreach ($publicos as $publico): ?>
+										<?php if(in_array($publico->slug, $_GET['publico'])) :?>										
+											<option value="<?php echo $publico->slug; ?>" selected><?php echo $publico->name; ?></option>
+										<?php else: ?>
+											<option value="<?php echo $publico->slug; ?>"><?php echo $publico->name; ?></option>
+										<?php endif; ?>                                    
+									<?php endforeach; ?>                    
+								</select>
+							</div>
 
-									$todasUnidades = new \WP_Query( $argsUnidades );
-			
-									// The Loop
-									if ( $todasUnidades->have_posts() ) {
-										
-										while ( $todasUnidades->have_posts() ) {
-											$todasUnidades->the_post();
+							<div class="col-sm-3 mt-3">
+								<select name="unidades[]" multiple="multiple" class="ms-list-5" style="">
+									<?php
+											$currentID = get_the_id();
+											$argsUnidades = array(
+												'post_type' => 'unidade',
+												'posts_per_page' => -1,
+												'post__not_in' => array(31675, 31244),
+												'orderby' => 'title',
+												'order'   => 'ASC',
+											);
 
-											$titulo = htmlentities(get_the_title());
-											$seletor = explode (" &amp;", $titulo);
+											$todasUnidades = new \WP_Query( $argsUnidades );
+					
+											// The Loop
+											if ( $todasUnidades->have_posts() ) {
+												
+												while ( $todasUnidades->have_posts() ) {
+													$todasUnidades->the_post();
 
-											if($currentID == get_the_id() ) {
-												echo '<option selected value="' . get_the_id() .'">' . $seletor[0] .'</option>';
-											} else {
-												echo '<option value="' . get_the_id() .'">' . $seletor[0] .'</option>';
-											}
+													$titulo = htmlentities(get_the_title());
+													$seletor = explode (" &amp;", $titulo);
+
+													if(in_array( get_the_ID(), $_GET['unidades']) ) {
+														echo '<option selected value="' . get_the_id() .'">' . $seletor[0] .'</option>';
+													} else {
+														echo '<option value="' . get_the_id() .'">' . $seletor[0] .'</option>';
+													}
+													
+												}
 											
-										}
-									
-									}
-									wp_reset_postdata();
-								?>      
-                            </select>
-                        </div>
+											}
+											wp_reset_postdata();
+										?>      
+								</select>
+							</div>
 
-                        <div class="col-sm-3 mt-3 px-1">
-                        <select name='tipoData' class="form-control" id="tipoData">
-                            <option value="" disabled selected>Selecione o tipo de data</option>
-                            <option value='dia_semana'>Dia da Semana</option>
-                            <option value='intervalo'>Intervalo de data</option>
-                            <option value='mes'>Mês</option>
-                        </select>
-                        </div>
+							<div class="col-sm-6 mt-3">
+								<div id='date-range'>
+									<div class="input-daterange input-group" id="datepicker">
+										<input type="text" class="input-sm form-control" name="start" value="<?= $_GET['start']; ?>" placeholder="Data" />
+										<span class="input-group-addon px-2">Até</span>
+										<input type="text" class="input-sm form-control" name="end" value="<?= $_GET['end']; ?>" placeholder="Data" />
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-3 mt-3">
+								<select name="data[]" multiple="multiple" class="ms-list-9" style=""> 
+									<optgroup label="Dia da semana">
+										<option value="segunda" <?= in_array('segunda', $_GET['data']) ? "selected" : ""; ?>>Segunda</option>
+										<option value="terca" <?= in_array('terca', $_GET['data']) ? "selected" : ""; ?>>Terça</option>
+										<option value="quarta" <?= in_array('quarta', $_GET['data']) ? "selected" : ""; ?>>Quarta</option>
+										<option value="quinta" <?= in_array('quinta', $_GET['data']) ? "selected" : ""; ?>>Quinta</option>
+										<option value="sexta" <?= in_array('sexta', $_GET['data']) ? "selected" : ""; ?>>Sexta</option>
+										<option value="sabado" <?= in_array('sabado', $_GET['data']) ? "selected" : ""; ?>>Sábado</option>
+										<option value="domingo" <?= in_array('domingo', $_GET['data']) ? "selected" : ""; ?>>Domingo</option>
+									</optgroup>
+								</select>
+							</div>
 
-                        <div class="col-sm-3 mt-3 px-1">
-                            
-                            <div id='date-range' style='display: none;'>
-                                <div class="input-daterange input-group" id="datepicker">
-                                    <input type="text" class="input-sm form-control" name="start" />
-                                    <span class="input-group-addon">até</span>
-                                    <input type="text" class="input-sm form-control" name="end" />
-                                </div>
+							<div class="col-sm-3 mt-3">
+								<select name="periodos[]" multiple="multiple" class="ms-list-8" style="">                        
+									<option value='manha' <?= in_array('manha', $_GET['periodos']) ? "selected" : ""; ?>>Manhã</option>
+									<option value='tarde' <?= in_array('tarde', $_GET['periodos']) ? "selected" : ""; ?>>Tarde</option>
+									<option value='noite' <?= in_array('noite', $_GET['periodos']) ? "selected" : ""; ?>>Noite</option>                        
+								</select>
+							</div>
+
+							<div class="col-sm-12 text-right mt-3">
+                                <a href="<?= get_home_url();?>/programacao" class="btn btn-outline-primary mr-3">Limpar busca</a>
+                                <button type="submit" class="btn btn-search">Buscar</button>
                             </div>
-                            <div id="date-periode">
-                                <select name="data[]" multiple="multiple" class="ms-list-10" style="">                        
-                                    <option value="" disabled selected>Selecione a(s) data(s)</option>                   
-                                </select>
-                            </div>
-                            
-                        </div>
 
-                        <div class="col-sm-3 mt-3 px-1">
-							<select name="periodos[]" multiple="multiple" class="ms-list-8" style="">                        
-								<option value='manha'>Manhã</option>
-                                <option value='tarde'>Tarde</option>
-                                <option value='noite'>Noite</option>                          
-                            </select>
-                        </div>
-                        <div class="col-sm-12 text-right mt-3">
-                            <button type="submit" class="btn btn-search rounded-0">Buscar</button>
-                        </div>
-                        
-                    </form> <!-- end form -->
+						</form>
+					</div>
+
                 </div> <!-- end row -->
             </div>
         </div>
@@ -188,7 +509,7 @@
 				$args['s'] = $s;
 			}
 
-			if( isset($_GET['atividades']) && $_GET['atividades'] != ''){
+			if( (isset($_GET['atividades']) && $_GET['atividades'] != '') || (isset($_GET['atividadesInternas']) && $_GET['atividadesInternas'] != '') ){
 				$atividades = $_GET['atividades'];
 				
 				$args['tax_query'][] = array (
@@ -372,11 +693,11 @@
 								
 			}
 
-			if( isset($_GET['tipoData']) && $_GET['tipoData'] != ''){
+			//if( isset($_GET['tipoData']) && $_GET['tipoData'] != ''){
 				$tipoData = $_GET['tipoData'];
 
 				// Dia da semana
-				if($tipoData == 'dia_semana'){
+				//if($tipoData == 'dia_semana'){
 
 					if( isset($_GET['data']) && $_GET['data'] != ''){
 						$diasSemana = $_GET['data'];
@@ -385,8 +706,8 @@
 
 						foreach($diasSemana as $dia){
 							$diasBusca = array(
-								'key'	 	=> 'data_semana',
-								'value'	  	=> $dia,
+								'key'	 	=> 'data_dia_da_semana_$_selecione_os_dias',
+								'value' => '"'.$dia.'"',
 								'compare' 	=> 'LIKE',
 							);
 						}
@@ -396,10 +717,10 @@
 							$diasBusca						
 						);	
 					}
-				}
+				//}
 
 				// Intervalo de data
-				if($tipoData == 'intervalo'){
+				//if($tipoData == 'intervalo'){
 
 					if( isset($_GET['start']) && $_GET['start'] != ''){
 						$dtInicial = $_GET['start'];
@@ -426,43 +747,10 @@
 							'type'      => 'DATE',
 						);						
 					}
-				}
+				//}
 
-
-				// Mes
-				if($tipoData == 'mes'){
-
-					if( isset($_GET['data']) && $_GET['data'] != ''){
-						$meses = $_GET['data'];
-
-						$args['meta_query'] = array(
-							'relation'	=> 'OR'			
-						);
-
-						foreach($meses as $mes){
-							$args['meta_query'][] = array (
-								'relation' => 'AND',
-								array(
-									'key' => 'data_data',
-									'value'     => date("Y") . $mes . '01',
-									'compare'   => '>=',
-									'type'      => 'DATE',
-								),
-								array(
-									'key' => 'data_data',
-									'value'     => date("Y") . $mes . '31',
-									'compare'   => '<=',
-									'type'      => 'DATE',
-								),
-							);
-						}
-						
-
-						//print_r($meses);
-					}
-				}
 				
-			}
+			//}
 
 			$query = new WP_Query( $args );
 
@@ -584,8 +872,9 @@
 
 												} elseif($campos['tipo_de_data'] == 'semana'){ // se for do tipo semana
 													
-													$semana = $campos['dia_da_semana'];													
-                                                
+													$semana = $campos['dia_da_semana'];
+													
+													
 													$diasSemana = array();
 
 													foreach($semana as $dias){
@@ -593,8 +882,6 @@
 														$total = count($dias['selecione_os_dias']); 
 														$i = 0;
 														$diasShow = '';
-
-														$show = array();
 														
 														foreach($dias['selecione_os_dias'] as $diaS){
 															$i++;
@@ -607,32 +894,31 @@
 																$diasShow = $diaS;
 															} else {
 																$diasShow .= "e " . $diaS;
-															}	
-																													
+															}																													
 														}
 
 														$show[] = $diasShow;
 														
 													}
-													
+
 													$totalDias = count($show);
 													$j = 0;	
 													
 													$dias = '';
 
-													foreach($show as $diaShow){
-														$j++;
-														if($j == 1){
-															$dias .= $diaShow . " ";                                                        
-														} else {
-															$dias .= "/ " . $diaShow;
-														}
-													}
+                                                    foreach($show as $diaShow){
+                                                        $j++;
+                                                        if($j == 1){
+                                                            $dias .= $diaShow . " ";                                                        
+                                                        } else {
+                                                            $dias .= "/ " . $diaShow;
+                                                        }
+                                                    }
 
-													$dataFinal = $dias; 
+													$dataFinal = $dias;
 
 													$dias = '';
-													$show = '';
+													$show = array();
 													
 												} elseif($campos['tipo_de_data'] == 'periodo'){
 													
