@@ -143,7 +143,7 @@
             $(instance.element).addClass('jqmsLoaded ms-list-'+ instance.listNumber ).data( 'plugin_multiselect-instance', instance );
 
             // add option container
-            $(instance.element).after('<div id="ms-list-'+ instance.listNumber +'" class="ms-options-wrap aa"><button type="button"><span>None Selected</span></button><div class="ms-options"><ul></ul></div></div>');
+            $(instance.element).after('<div id="ms-list-'+ instance.listNumber +'" class="ms-options-wrap"><button type="button"><span>None Selected</span></button><div class="ms-options"><ul></ul></div></div>');
 
             var placeholder = $(instance.element).siblings('#ms-list-'+ instance.listNumber +'.ms-options-wrap').find('> button:first-child');
             var optionsWrap = $(instance.element).siblings('#ms-list-'+ instance.listNumber +'.ms-options-wrap').find('> .ms-options');
@@ -830,7 +830,7 @@
            
 
             // UPDATE PLACEHOLDER TEXT WITH OPTIONS SELECTED
-            placeholderTxt.text( selOpts.join( ', ' ) );
+            placeholderTxt.html( selOpts.map(i => `<span>${i}</span>`).join( ' ' ) );
 
             if( selOpts.length ) {
                 optionsWrap.closest('.ms-options-wrap').addClass('ms-has-selections');
@@ -850,7 +850,7 @@
             }
             // if copy is larger than button width use "# selected"
             else if( (placeholderTxt.width() > placeholder.width()) || (selOpts.length != selectVals.length) ) {
-                placeholderTxt.text( selectVals.length + instance.options.texts.selectedOptions );
+                placeholderTxt.html( "<span>" + selectVals.length + instance.options.texts.selectedOptions + "</span>" );
             }
         },
 
