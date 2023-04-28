@@ -1575,12 +1575,19 @@ $translated = str_ireplace(  array_keys($words),  $words,  $translated );
 return $translated;
 }
 
-##################
+// Incluir o campo ceus participantes do tipo repetidor (ACF) na classe wp_query
 function wpza_replace_repeater_field( $where ) {
 	$where = str_replace( "meta_key = 'ceus_participantes_$", "meta_key LIKE 'ceus_participantes_%", $where );
 	return $where;
 }
 add_filter( 'posts_where', 'wpza_replace_repeater_field' );
+
+// Incluir o campo dia da semana do tipo repetidor (ACF) na classe wp_query
+function wpza_replace_repeater_field_date( $where ) {
+	$where = str_replace( "meta_key = 'data_dia_da_semana_$", "meta_key LIKE 'data_dia_da_semana_%", $where );
+	return $where;
+}
+add_filter( 'posts_where', 'wpza_replace_repeater_field_date' );
 
 add_filter('acf/fields/relationship/result', 'my_acf_fields_relationship_result', 10, 4);
 function my_acf_fields_relationship_result( $text, $post, $field, $post_id ) {
