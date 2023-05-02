@@ -334,6 +334,9 @@
 					<div class="col-12">
 						<form action="<?php echo home_url( '/' ); ?>"  id="searchform" class="row form-prog">
 							<input id="prodId" name="tipo" type="hidden" value="programacao">
+							<?php if( isset($_GET['tipo_atividade']) && $_GET['tipo_atividade'] != '' ): ?>
+								<input name="tipo_atividade" type="hidden" value="<?= $_GET['tipo_atividade']; ?>">
+							<?php endif; ?>
 
 							<div class="col-sm-6 mt-3">
 								<input type="text" name="s" class="form-control" placeholder="Busque por palavra-chave" value="<?= $_GET['s']; ?>">
@@ -507,6 +510,95 @@
 				$s = $_GET['s'];
 
 				$args['s'] = $s;
+			}
+
+			if( isset($_GET['tipo_atividade']) && $_GET['tipo_atividade'] != '' ){
+				
+				$tipo = $_GET['tipo_atividade'];
+				$today = date('Ymd');
+				
+				if($tipo == 'proxima'){
+					// Proximas Atividades
+					$args['meta_key'] = 'data_data';
+					$args['orderby'] = 'meta_value_num';
+					$args['order'] = 'ASC';
+					
+					$args['meta_query'] = array(
+						'relation' => 'AND',
+						array(
+							'relation' => 'OR',
+							array(
+								'key'     => 'data_data',
+								'compare' => '>=', // depois ou igual a data de hoje
+								//'compare' => '<', // antes da data de hoje
+								'value'   => $today,
+							),
+							array(
+								'key'     => 'data_data_final',
+								'compare' => '>=', // depois ou igual a data de hoje
+								//'compare' => '<', // antes da data de hoje
+								'value'   => $today,
+							),
+						),
+						array(
+							'key'   => 'tipo_de_evento_tipo',
+							'value' => 'serie',
+							'compare' => '!='
+						),
+						array(
+							'key'   => 'data_tipo_de_data',
+							'value' => 'semana',
+							'compare' => '!='
+						),					
+					);
+					
+				}
+
+				elseif($tipo == 'encerrada'){
+					// Proximas Atividades
+					$args['meta_key'] = 'data_data';
+					$args['orderby'] = 'meta_value_num';
+					$args['order'] = 'DESC';
+					
+					$args['meta_query'] = array(
+						'relation' => 'AND',
+						array(
+							'key'     => 'data_data',
+							//'compare' => '>=', // depois ou igual a data de hoje
+							'compare' => '<', // antes da data de hoje
+							'value'   => $today,
+						),
+						array(
+							'key'     => 'data_data_final',
+							//'compare' => '>=', // depois ou igual a data de hoje
+							'compare' => '<', // antes da data de hoje
+							'value'   => $today,
+						),
+						array(
+							'key'   => 'tipo_de_evento_tipo',
+							'value' => 'serie',
+							'compare' => '!='
+						),
+						array(
+							'key'   => 'data_tipo_de_data',
+							'value' => 'semana',
+							'compare' => '!='
+						),
+					);
+					
+				}
+
+				elseif($tipo == 'permanente'){					
+					
+					$args['meta_query'] = array(
+						'relation' => 'AND',                            
+						array(
+							'key'   => 'data_tipo_de_data',
+							'value' => 'semana',
+						),
+					);
+					
+				}
 			}
 
 			if( (isset($_GET['atividades']) && $_GET['atividades'] != '') || (isset($_GET['atividadesInternas']) && $_GET['atividadesInternas'] != '') ){
@@ -755,20 +847,47 @@
 			$query = new WP_Query( $args );
 
 			?>
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-12 mt-4 atividades-found">
-						<?php 
-							$count = $query->found_posts;
-							if($count == 1){						 					
-								echo '<p class="mb-0"><span>' . $count . '</span> ATIVIDADE ENCONTRADA</p>';
-							} else {
-								echo '<p class="mb-0"><span>' . $count . '</span> ATIVIDADES ENCONTRADAS</p>';
-							}
-						 ?>
+			<?php if( isset($_GET['tipo_atividade']) && $_GET['tipo_atividade'] != ''): ?>
+				<?php				
+					$title = '';
+
+					if($_GET['tipo_atividade'] == 'proxima'){
+						$title = 'Próximas Atividades';                                    
+					} elseif($_GET['tipo_atividade'] == 'permanente'){
+						$title = 'Atividades Permanentes';                                    
+					} else {
+						$title = 'Atividades Encerradas';                                    
+					}
+				?>
+
+				<div class="container mt-5">
+					<div class="row">
+						<div class="col-12">
+							<div class="title-ativi">
+								<h2><?= $title; ?></h2>
+								<hr>
+								<a href="<?= get_home_url(); ?>/programacao">Voltar ao Início</a>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
+				
+			<?php else: ?>
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12 mt-4 atividades-found">
+							<?php 
+								$count = $query->found_posts;
+								if($count == 1){						 					
+									echo '<p class="mb-0"><span>' . $count . '</span> ATIVIDADE ENCONTRADA</p>';
+								} else {
+									echo '<p class="mb-0"><span>' . $count . '</span> ATIVIDADES ENCONTRADAS</p>';
+								}
+							?>
+						</div>
+					</div>
+				</div>
+			<?php endif; ?>
 			
 			<?php
 
