@@ -56,6 +56,8 @@ class LoopSingleRelacionadas extends LoopSingle
 			$infosBasicas = get_field('informacoes_basicas', $local);
 			$zona = get_group_field( 'informacoes_basicas', 'zona_sp', $local );
 
+			//print_r($group_field);
+
 	?>
 		<?php if($local == '31675' || $local == '31244' || ($group_field['tipo'] == 'serie' && $group_field['evento_principal'] == 'parte') ): ?>
 
@@ -204,15 +206,15 @@ class LoopSingleRelacionadas extends LoopSingle
 				if($atividades != ''){
 					foreach($atividades as $atividade){
 						if($atividade->parent == 0){
-							$filtroAtividades[] = $atividade->term_id;
+							//$filtroAtividades[] = $atividade->term_id;
+						} else {
+							$filtroAtividades[$atividade->parent][] = $atividade->term_id;
 						}
 					}
 				}				
 
 			}
-
-			
-			$filtroAtividades = array_unique($filtroAtividades);
+										
 
 			$filtroUnidades = array_unique($unidadesEventos);
 			
@@ -244,20 +246,27 @@ class LoopSingleRelacionadas extends LoopSingle
 							</div>
 							<form action="<?php echo get_the_permalink(); ?>" class="row col-sm-12">
 								
-								<div class="col-sm-12 col-md-6 px-1">
+								<div class="col-sm-12 col-md-12 px-1">
 									<label for="atividades">Atividade(s) de interesse</label>
 									<select name="atividades[]" multiple="multiple" class="ms-list-1" id="atividades">
-										<?php foreach($filtroAtividades as $term):
-											$showAtividade = get_term_by('id', $term, 'atividades_categories');
-										?>
-											<option value="<?php echo $term; ?>"><?php echo $showAtividade->name; ?></option>
-										<?php endforeach; ?>                                                        
-									</select>
-								</div>
+										
+										<?php 
+											foreach($filtroAtividades as $chave => $filtro): 
+												$catPrincipal = get_term( $chave, 'atividades_categories' );
+												$catSubs = array_unique($filtro);
+											?>
+												<optgroup label="<?= $catPrincipal->name; ?>">
+													<?php foreach($catSubs as $term):
+														$categoria = get_term( $term, 'atividades_categories' );
+													?>
+														<option value="<?= $categoria->slug; ?>"><?= $categoria->name; ?></option>
+													<?php endforeach; ?>
+												</optgroup>
 
-								<div class="col-sm-12 col-md-6 px-1">
-									<label for="detalhes">Detalhe(s) de atividade(s)</label>
-									<select name="atividadesInternas[]" multiple="multiple" class="ms-list-2" id="detalhes">                                
+											<?php
+											endforeach;
+										?>
+
 									</select>
 								</div>
 
@@ -352,7 +361,7 @@ class LoopSingleRelacionadas extends LoopSingle
 				$args['meta_query'][] = array(
 					//'relation'	=> 'OR',				
 					$unidadesBusca				
-				);
+				);				
 			}
 			
 			// The Query
@@ -382,7 +391,7 @@ class LoopSingleRelacionadas extends LoopSingle
 													$imgEvento = $featured_img_url[0];													
 													$alt = get_post_meta($imgSelect, '_wp_attachment_image_alt', true);  
 												} else {
-													get_template_directory_uri().'/img/placeholder_portal_ceus.jpg';
+													$imgEvento = get_template_directory_uri().'/img/placeholder_portal_ceus.jpg';
 													$alt = get_the_title(get_the_ID());
 												}
 											?>
@@ -578,6 +587,7 @@ class LoopSingleRelacionadas extends LoopSingle
 												<?php endif; ?>
 											</p>
 											<?php
+												//print_r($tipo_evento);
 												$local = get_field('localizacao', get_the_ID());                                                        
 												if($local == '31675' || $local == '31244'):
 											?>

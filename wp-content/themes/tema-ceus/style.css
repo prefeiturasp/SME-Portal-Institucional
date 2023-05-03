@@ -1394,7 +1394,7 @@ select#tipoData {
 }
 
 .flag-pdf-full {
-    background: #2F80ED;
+    background: rgba(47, 128, 237, 0.5);
     color: #fff;
     position: absolute;
     left: 15px;
