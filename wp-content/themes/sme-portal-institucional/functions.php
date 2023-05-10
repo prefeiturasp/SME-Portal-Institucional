@@ -2455,11 +2455,13 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 	$response = curl_exec($ch);                
 	
 	$jsonArrayResponse = json_decode($response);
-
+	
 	$embed = '';
 	$embed .= '<div class="row m-0">';
 
 	foreach($jsonArrayResponse as $acervo){
+		$qtdArquivos = count($acervo->arquivos_particionados);
+
 		$imagem = get_media_api($acervo->arquivo_acervo_digital);
 		if($imagem->id == ''){			
 			$imagem = get_media_api($acervo->arquivos_particionados_0_arquivo);
@@ -2489,8 +2491,27 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 			foreach($acervo->categoria_acervo as $categoria){
 				$categName[] = get_categ_api($categoria)->name;
 			}			
-		}		
+		}
 
+		if($qtdArquivos > 1){
+			$menuBtn = '';
+			
+			$menuBtn = '<div class="dropdown show">';
+				$menuBtn .= '<a class="btn dropdown-toggle px-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Baixar</a><div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
+					for ($i = 0; $i < $qtdArquivos; $i++) {
+						$chave = 'arquivos_particionados_' . $i . '_arquivo';
+						$arquivo = get_media_api($acervo->$chave);
+						$numArquivo = $i + 1;
+						$menuBtn .= '<a href="' . $arquivo->source_url . '" class="no-external">Baixar Arquivo ' . $numArquivo . '</a>';
+					}
+				$menuBtn .= '</div>';
+
+			$menuBtn .= '</div>';
+		} else {
+			$menuBtn = '<a href="' . $imagem->source_url . '" class="p3-4 no-external">Baixar</a>';
+		}
+
+		
 		// Monta o HTML para ser retornado na pagina
 		$embed .= '<div class="col-md-3 col-sm-6 p-3 acervo-display">
 			<div class="row m-0">
@@ -2507,16 +2528,16 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 						<div class="cat-flag mb-2">' . implode(' / ', $categName) . '</div>
 						<div class="btn-acervo d-flex justify-content-between">							
 							<a href="' . $acervo->link . '" class="btn btn-outline-primary no-external">Ver detalhes</a>
-							<a href="' . $imagem->source_url . '" class="p3-4 no-external">Baixar</a>													
+							' . $menuBtn . ' 													
 						</div>
 					</div>
 
 				</div>
 			</div>
 		</div>';
-	}
+	}	
 
-	$embed .= '</div>';
+	$embed .= '</div>';	
 	
 	$embed .= '<div class="container">';
 		$embed .= '<div class="row">';
