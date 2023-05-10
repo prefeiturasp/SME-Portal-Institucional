@@ -1946,3 +1946,34 @@ ul.nav.nav-tabs {
         height: 300px;
     }
 }
+
+.acervo-display .dropdown-menu{
+    border: 1px solid rgba(0,0,0,.15) !important;
+    top: 100% !important
+}
+
+.acervo-display .dropdown-menu a{
+    display: block;
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    clear: both;
+    font-weight: 400;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+
+.acervo-display .dropdown-menu a:hover {
+    color: #16181b;
+    text-decoration: none;
+    background-color: #f8f9fa;
+}
+
+.acervo-display .btn.dropdown-toggle{
+    color: #007bff;
+}
+
+.acervo-display .btn-acervo p{
+    display: none;
+}
