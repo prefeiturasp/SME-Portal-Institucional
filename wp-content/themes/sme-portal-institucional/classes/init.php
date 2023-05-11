@@ -63,7 +63,6 @@ require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgenda/ArchiveAgendaAja
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaNew/ArchiveAgendaGetDatasEventosNew.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaNew/ArchiveAgendaNew.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveAgendaNew/ArchiveAgendaAjaxCalendarioNew.php';
-require_once __ROOT__.'/classes/TemplateHierarchy/ArchiveCurriculoDaCidade/ArchiveCurriculoDaCidade.php';
 
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/GetTipoDePost.php';
 require_once __ROOT__.'/classes/TemplateHierarchy/Search/SearchForm.php';
@@ -98,13 +97,6 @@ require_once __ROOT__.'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNo
 require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasOutrasNoticias.php';
 require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMaisNoticias/PaginaMaisNoticiasNewsletter.php';
 
-/*
-require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMapaDres/PaginaMapaDres.php';
-require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMapaDres/PaginaMapaDresMapa.php';
-require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMapaDres/PaginaMapaDresBotoes.php';
-require_once __ROOT__ .'/classes/ModelosDePaginas/PaginaMapaDres/PaginaMapaDresBlocosDeTextosAdicionais.php';
-*/
-
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolasRewriteUrl.php';
 require_once __ROOT__.'/classes/BuscaDeEscolas/BuscaDeEscolas.php';
 
@@ -126,9 +118,6 @@ $cptAgendaSecretarioNewExtend = new \Classes\Cpt\CptAgendaSecretarioNew();
 $cptContatoSme = new \Classes\Cpt\Cpt('contato', 'contato', 'Contatos SME', 'Todos os Contatos', 'Contatos', 'Contato', null, null, null,'dashicons-email-alt', true);
 $cptContatoSmeExtend = new \Classes\Cpt\CptContato();
 $taxonomiaMediaImages = new \Classes\Cpt\CptMediaImages();
-
-$cptCurriculoDaCidade = new \Classes\Cpt\Cpt('curriculo-da-cidade', 'curriculo-da-cidade', 'Currículo da Cidade', 'Todos os Currículos', 'Currículos da Cidade', 'Currículo da Cidade', 'categorias-curriculo-da-cidade', 'Categorias de Currículos', 'Categoria de Currículo', 'dashicons-format-image', true);
-$cptCurriculoDaCidadeExtende = new \Classes\Cpt\CptCurriculoDaCidade();
 
 // Concursos
 $cptConcursos = new \Classes\Cpt\Cpt('concurso', 'concurso', 'Cadastro de Concurso', 'Todos os Concursos', 'Concursos', 'Cadastro de Concurso', '', '', '', 'dashicons-external' , true);

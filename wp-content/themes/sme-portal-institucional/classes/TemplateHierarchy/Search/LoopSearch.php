@@ -84,11 +84,6 @@ class LoopSearch
 			$this->montaHtmlSearchPersonalizado("DRE's — Diretorias Regionais de Educação", 'mapa-dres');
 		}
 
-		$texto_buscado_curriculo_da_cidade = array('Curriculo da Cidade', 'curriculo da cidade', 'Currículo da Cidade', 'currículo da cidade');
-		if (in_array($campo_de_busca, $texto_buscado_curriculo_da_cidade)) {
-			$this->montaHtmlSearchPersonalizado("Currículo da Cidade", 'curriculo-da-cidade');
-		}
-
 		$texto_buscado_agenda = array('Agenda', 'agenda', 'Agenda do Secretário', 'agenda do secretário', 'Agenda do Secretario', 'agenda do secretario');
 		if (in_array($campo_de_busca, $texto_buscado_agenda)) {
 			$this->montaHtmlSearchPersonalizado("Agenda do Secretário de Educação", 'agenda');
