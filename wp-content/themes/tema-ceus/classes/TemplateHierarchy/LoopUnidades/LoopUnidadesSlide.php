@@ -18,7 +18,11 @@ class LoopUnidadesSlide extends LoopUnidades{
                 <?php 
                     $slides = get_field('carrossel_principal');
                     $slides = $slides['carrocel'];
-                    $qtSlide = count($slides);
+                    if($slides){
+                        $qtSlide = count($slides);
+                    } else {
+                        $qtSlide = 0;
+                    }
                     $l = 0;
                     $m = 0;
                     //echo $qtSlide;
