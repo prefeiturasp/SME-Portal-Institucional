@@ -2462,10 +2462,15 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 	foreach($jsonArrayResponse as $acervo){
 		$qtdArquivos = count($acervo->arquivos_particionados);
 		
-		$imagem = get_media_api($acervo->arquivo_acervo_digital);
-		if($imagem->id == ''){			
-			$imagem = get_media_api($acervo->arquivos_particionados_0_arquivo);
+		if($acervo->substituir_capa_acervo_digital != ''){
+			$imagem = get_media_api($acervo->substituir_capa_acervo_digital);
+		} else {
+			$imagem = get_media_api($acervo->arquivo_acervo_digital);
+			if($imagem->id == ''){			
+				$imagem = get_media_api($acervo->arquivos_particionados_0_arquivo);
+			}
 		}
+		
 		$imagemShow = $imagem->media_details->sizes->full->source_url;
 		if(!$imagemShow){
 			$imagemShow = 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
