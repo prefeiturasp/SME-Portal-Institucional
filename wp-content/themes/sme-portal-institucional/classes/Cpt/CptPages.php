@@ -21,8 +21,9 @@ class CptPages extends Cpt
 				'title' => 'Title',
 				'author' => 'Author',
 				'modified' => 'Modificado por',
-				'featured_thumb' => 'Thumbnail',
+				//'featured_thumb' => 'Thumbnail',
 				'grupo' => 'Grupo',
+				'modelo' => 'Modelo',
 				'date' => 'Date',	
 			);
 		} else {
@@ -94,8 +95,25 @@ class CptPages extends Cpt
 				//print_r($posts);
 				break;
 
+			case 'modelo':
+				$template_path = get_post_meta(get_the_ID(), '_wp_page_template', true);
+				$templates = wp_get_theme()->get_page_templates();
+				echo $templates[$template_path];
+				if(!$templates[$template_path]){
+					echo "Modelo Padrão";
+				}
+				// Verifica se conteudo (post_content) em paginas que usam o modelo Construturo de Paginas
+				if($template_path == 'construtor-layout.php'){
+					if( '' !== get_post()->post_content ) {
+						echo "<br><strong>Conteudo:</strong> Sim";
+					} else {
+						echo "<br><strong>Conteudo:</strong> Não";
+					}
+				}
+				
+				break;
+
 		}
 	}
-
 
 }
