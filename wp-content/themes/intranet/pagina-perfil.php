@@ -107,7 +107,9 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
     if ( is_wp_error( $img_id ) ) {
         echo "Error";
     } else {
-        update_user_meta( $current_user->ID, 'imagem', $img_id );
+        $image_id = get_field('imagem', 'user_' . $current_user->ID); // Pegar imagem anterior
+        wp_delete_attachment( $image_id, true ); // Deleter a imagem anterior
+        update_user_meta( $current_user->ID, 'imagem', $img_id ); // Atualizar o avatar do usuarios
     }
 
 
@@ -125,7 +127,6 @@ $email = email_exists(esc_attr( 'aa7217757@sme.prefeitura.sp.gov.br' ));
 //print_r($email);
 
 get_header(); // Loads the header.php template. 
-
 
 
 ?>
@@ -523,7 +524,7 @@ get_header(); // Loads the header.php template.
 
             var fileInput = $('#avatar_user');
 		    var maxSize = fileInput.data('max-size');
-
+                            
             
             if(fileInput.get(0).files.length){
                 var fileSize = fileInput.get(0).files[0].size; // in bytes
@@ -536,8 +537,6 @@ get_header(); // Loads the header.php template.
                     return false;
                 }
             }
-			
-		    
 
             if($('#nov-whats').is(':checked')){
                 
