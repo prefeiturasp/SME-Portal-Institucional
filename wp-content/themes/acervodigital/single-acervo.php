@@ -26,8 +26,6 @@ function generateRandomString($length = 10) {
 
 					$file = get_field('arquivo_acervo_digital');
 					$stringSeparada = explode(".", $file['filename']);
-					$indice = count($stringSeparada);
-					$indice = $indice - 1;
 					$type = get_post_type();
 					$postid = get_the_ID();
 
@@ -67,9 +65,9 @@ function generateRandomString($length = 10) {
 								$n = 0;
 								foreach($categories as $categoria){
 									if($n == 0){
-										echo "<a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categ_acervo=" . $categoria->slug . "'>" . $categoria->name . "</a>";
+										echo "<a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $categoria->slug . "'>" . $categoria->name . "</a>";
 									} else {
-										echo " / <a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categ_acervo=" . $categoria->slug . "'>" . $categoria->name . "</a>";
+										echo " / <a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $categoria->slug . "'>" . $categoria->name . "</a>";
 									}
 									$n++;
 								}									
@@ -82,20 +80,18 @@ function generateRandomString($length = 10) {
 
 					<div class="mask-detail">
 						<img src="<?php
-							  if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[$indice] == 'pdf'){
+							  if(get_field('substituir_capa_acervo_digital') == '' && $stringSeparada[1] == 'pdf'){
 								 echo $file['icon']; 
-							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[$indice] == 'xlsx' || $stringSeparada[$indice] == 'xls') ){
+							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'xlsx' || $stringSeparada[1] == 'xls') ){
 								echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-xls.jpg';
-							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[$indice] == 'docx' || $stringSeparada[$indice] == 'doc') ){
+							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'docx' || $stringSeparada[1] == 'doc') ){
 								echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
-							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[$indice] == 'pptx' || $stringSeparada[$indice] == 'ppt') ){
+							  }else if(get_field('substituir_capa_acervo_digital') == '' && ($stringSeparada[1] == 'pptx' || $stringSeparada[1] == 'ppt') ){
 								echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
 							  }else if(get_field('substituir_capa_acervo_digital') != ''){
 								 echo get_field('substituir_capa_acervo_digital'); 
-							  }else if($file['url']){
+							  }else{
 								 echo $file['url'];
-							  } else {
-								  echo 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
 							  }
 							  ?>" alt="<?php the_field('campo_alt_acervo_digital'); ?>" class='shadow-sm img-mobile'>
 					</div>
@@ -105,8 +101,6 @@ function generateRandomString($length = 10) {
 						} elseif($partional){
 							$url = $partional[0];
 							$stringSeparada = explode(".", $url);
-							$indice = count($stringSeparada);
-							$indice = $indice - 1;
 						}else{
 							$url = false;
 						}
@@ -114,10 +108,8 @@ function generateRandomString($length = 10) {
 					
 						<button type="button" class="btn btn-view mb-2" data-toggle="modal" data-target=".<?php echo $class; ?>"><i class="fa fa-search" aria-hidden="true"></i> Visualizar</button>
 					
-						<?php if($stringSeparada[$indice] == 'jpg' || $stringSeparada[$indice] == 'jpeg' || $stringSeparada[$indice] == 'png' || $stringSeparada[$indice] == 'gif' || $stringSeparada[$indice] == 'webp') : ?>
-
-												
-
+						<?php if($stringSeparada[1] == 'jpg' || $stringSeparada[1] == 'jpeg' || $stringSeparada[1] == 'png' || $stringSeparada[1] == 'gif' || $stringSeparada[1] == 'webp') : ?>
+				
 							<div class="modal <?php echo $class; ?>" tabindex="-1" role="dialog">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
@@ -138,33 +130,33 @@ function generateRandomString($length = 10) {
 								</div>
 							</div>
 
-							<?php elseif($stringSeparada[1] == 'pdf'): ?>
+						<?php elseif($stringSeparada[1] == 'pdf'): ?>
 
-								<div class="modal fade bd-example-modal-lg <?php echo $class; ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-xl">
+							<div class="modal fade bd-example-modal-lg <?php echo $class; ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-xl">
 
-										
+									
 
-										<div class="modal-content">
+									<div class="modal-content">
 
-											<div class="modal-header">
-												<p class="modal-title"><?php the_title(); ?></p>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-												<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-
-											<div class="modal-body">
-												<div class="embed-responsive embed-responsive-16by9">
-													<?php echo do_shortcode('[wonderplugin_pdf src="' . $url . '" width="100%" height="600px" style="border:0;"]'); ?>
-												</div>
-											</div>
-
+										<div class="modal-header">
+											<p class="modal-title"><?php the_title(); ?></p>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+											<span aria-hidden="true">&times;</span>
+											</button>
 										</div>
+
+										<div class="modal-body">
+											<div class="embed-responsive embed-responsive-16by9">
+												<?php echo do_shortcode('[wonderplugin_pdf src="' . $url . '" width="100%" height="600px" style="border:0;"]'); ?>
+											</div>
+										</div>
+
 									</div>
 								</div>
+							</div>
 
-							<?php else : ?>
+						<?php else : ?>
 
 							<div class="modal fade bd-example-modal-lg <?php echo $class; ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-xl">
@@ -244,9 +236,7 @@ function generateRandomString($length = 10) {
 					<?php
 
 					$idpost = get_the_ID();
-
 					$ipacesso = get_client_ip();
-
 					$titledoc = get_the_title();
 
 					?>
@@ -254,18 +244,12 @@ function generateRandomString($length = 10) {
 					<?php
 
 					$articles = get_posts(
-
-					 array(
-
-					  's' => $titledoc,
-
-					  'numberposts' => -1,
-
-					  'post_status' => 'any',
-
-					  'post_type' => 'download',
-					 )
-
+						array(
+						's' => $titledoc,
+						'numberposts' => -1,
+						'post_status' => 'any',
+						'post_type' => 'download',
+						)
 					);
 
 					?>
@@ -273,23 +257,16 @@ function generateRandomString($length = 10) {
 					<?php
 
 					//executar depois do click
-
-					// Cria post para registro de downloads.
-
-					
+					// Cria post para registro de downloads.					
 
 					if(isset($_GET['ajaxify'])) {
 
 					    echo 'ajaxifying';
 
 					$download_data = array(
-
 						'post_title'    => $titledoc,
-
 						'post_type'     => 'download',
-
 						'post_status'   => 'publish'
-
 					);
 
 					$download_id = wp_insert_post( $download_data );
@@ -326,11 +303,8 @@ function generateRandomString($length = 10) {
 					// Cria post para registro de visitas.
 
 					$acesso_data = array(
-
 						'post_title'    => $titledoc,
-
 						'post_type'     => 'acesso',
-
 						'post_status'   => 'publish'
 
 					);
@@ -360,11 +334,11 @@ function generateRandomString($length = 10) {
 
 					update_field( $field_key, $value, $acesso_id );
 
-					update_field( $field_key, $value, $acesso_id );
-
 					$allItens = array();
+					$allItens['categoria'] = get_the_terms(get_the_ID(), 'categoria_acervo' ); // Categorias
 					$allItens['modalidade'] = get_field('modalidade_acervo_digital'); // Modalidade
 					$allItens['componente'] = get_field('componente_acervo_digital'); // Componente
+					$allItens['qt_paginas'] = get_field('qt_de_paginas_acervo_digital'); // Componente
 					$allItens['mes'] = get_field('mes_da_publicacao_acervo_digital'); // Mes			
 					$allItens['ano'] = get_field('ano_da_publicacao_acervo_digital'); // Ano
 					$allItens['formacao'] = get_field('formacao_acervo_digital'); // Tipo de Formação
@@ -374,9 +348,9 @@ function generateRandomString($length = 10) {
 					$allItens['proposta'] = get_field('numero_da_proposta_de_validacao'); // Numero Proposta
 					$allItens['comunicado'] = get_field('numero_do_comunicado'); // Numero Comunicado
 					$allItens['periodo'] = get_field('periodo_de_inscricao'); // Periodo Inscricao
-					
 					$allItens['autor'] = get_field('autor_acervo_digital'); // Autor
 					$allItens['setor'] = get_field('setor_acervo_digital'); // Setor
+					$allItens['edicao_volume'] = get_field('edicao_volume'); // Edicao / Volume
 					$allItens['idioma'] = get_field('idioma_acervo_digital'); //Idioma
 					$allItens['pagina'] = get_field('pagina_do_diario_oficial'); //Pagina Diario Oficial
 					$allItens['data'] = get_field('data_diario_oficial'); //Data Diario Oficial
@@ -445,8 +419,7 @@ function generateRandomString($length = 10) {
 						return $wp_query->found_posts;
 					}
 					$allItens['views'] = retornaNumero_total(('acesso'));
-
-					
+													
 					?>
 			
 			
@@ -461,9 +434,9 @@ function generateRandomString($length = 10) {
 										$n = 0;
 										foreach($categories as $categoria){
 											if($n == 0){
-												echo "<a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categ_acervo=" . $categoria->slug . "'>" . $categoria->name . "</a>";
+												echo "<a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $categoria->slug . "'>" . $categoria->name . "</a>";
 											} else {
-												echo " / <a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categ_acervo=" . $categoria->slug . "'>" . $categoria->name . "</a>";
+												echo " / <a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $categoria->slug . "'>" . $categoria->name . "</a>";
 											}
 											$n++;
 										}									
@@ -498,7 +471,7 @@ function generateRandomString($length = 10) {
 								<div id="descri" class="tab-pane fade in active show">
 									<p><?php the_field('descricao_acervo_digital'); ?></p>
 								</div>
-								<div id="especi" class="tab-pane fade">
+								<div id="especi" class="tab-pane fade">									
 									<div class="container">
 										<div class="row table-especificacoes">
 											<?php
@@ -508,7 +481,36 @@ function generateRandomString($length = 10) {
 													if($allItens[$chave] != '' || $allItens[$chave][0] != ''){
 														$contador++;
 
-														if($chave == 'modalidade'): ?>
+														if($chave == 'categoria'): ?>
+															<div class="col-6 espec-element">																
+																<?php
+																	$terms = $item;
+																	$qt_terms = count($terms);
+																	if($qt_terms > 1){
+																		echo "<strong>Categorias</strong><br>";
+																	} else {
+																		echo "<strong>Categoria</strong><br>";
+																	}
+																	if($item != '' /*&& $tipo == 'publicacoes_institucionais'*/ ){
+																		$n = 0;
+																		if( $terms ):
+																			foreach( $terms as $term ):
+																				if($n == 0){
+																					echo "<a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $term->slug . "'>" . $term->name . "</a>";
+																				} else {
+																					echo " / <a href='" . get_home_url() . "/?avanc=1&categ=1&s=&categoria_acervo=" . $term->slug . "'>" . $term->name . "</a>";
+																				}
+																				$n++;															
+																			endforeach;
+																		endif;  
+																	} else {
+																		echo "-";
+																	}			
+																?>
+															</div>
+														<?php
+
+														elseif($chave == 'modalidade'): ?>
 															<div class="col-6 espec-element">
 																<strong>Modalidade de ensino</strong><br>
 																<?php
@@ -519,9 +521,9 @@ function generateRandomString($length = 10) {
 																	if( $modalidades ):
 																		foreach( $modalidades as $modalidade ):
 																			if($n == 0){
-																				echo "<a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidadeb%5B%5D=" . $modalidade->slug . "'>" . $modalidade->name . "</a>";
+																				echo "<a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidade%5B%5D=" . $modalidade->slug . "'>" . $modalidade->name . "</a>";
 																			} else {
-																				echo " / <a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidadeb%5B%5D=" . $modalidade->slug . "'>" . $modalidade->name . "</a>";
+																				echo " / <a href='" . get_home_url() . "/?avanc=1&modal=1&s=&modalidade%5B%5D=" . $modalidade->slug . "'>" . $modalidade->name . "</a>";
 																			}
 																			$n++;																
 																		endforeach;
@@ -539,9 +541,9 @@ function generateRandomString($length = 10) {
 																		if( $terms ):
 																			foreach( $terms as $term ):
 																				if($n == 0){
-																					echo "<a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componenteb%5B%5D=" . $term->slug . "'>" . $term->name . "</a>";
+																					echo "<a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componente%5B%5D=" . $term->slug . "'>" . $term->name . "</a>";
 																				} else {
-																					echo " / <a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componenteb%5B%5D=" . $term->slug . "'>" . $term->name . "</a>";
+																					echo " / <a href='" . get_home_url() . "/?avanc=1&comp=1&s=&componente%5B%5D=" . $term->slug . "'>" . $term->name . "</a>";
 																				}
 																				$n++;															
 																			endforeach;
@@ -559,9 +561,9 @@ function generateRandomString($length = 10) {
 																		if( $terms ):
 																			foreach( $terms as $term ):
 																				if($n == 0){
-																					echo "<a href='" . get_home_url() . "/?avanc=1&forma=1&s=&formab=" . $term->slug . "'>" . $term->name . "</a>";
+																					echo "<a href='" . get_home_url() . "/?avanc=1&forma=1&s=&formab[]=" . $term->slug . "'>" . $term->name . "</a>";
 																				} else {
-																					echo " / <a href='" . get_home_url() . "/?avanc=1&forma=1&s=&formab=" . $term->slug . "'>" . $term->name . "</a>";
+																					echo " / <a href='" . get_home_url() . "/?avanc=1&forma=1&s=&formab[]=" . $term->slug . "'>" . $term->name . "</a>";
 																				}
 																				$n++;															
 																			endforeach;
@@ -621,9 +623,9 @@ function generateRandomString($length = 10) {
 																		if( $autores ):
 																			foreach( $autores as $autor ):
 																				if($n == 0){
-																					echo "<a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autorb=" . $autor->slug . "'>" . $autor->name . "</a>";
+																					echo "<a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autor=" . $autor->slug . "'>" . $autor->name . "</a>";
 																				} else {
-																					echo " / <a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autorb=" . $autor->slug . "'>" . $autor->name . "</a>";
+																					echo " / <a href='" . get_home_url() . "/?avanc=1&aut=1&s=&autor=" . $autor->slug . "'>" . $autor->name . "</a>";
 																				}
 																				$n++;																	
 																			endforeach;
@@ -641,9 +643,9 @@ function generateRandomString($length = 10) {
 																		if( $setores ):
 																			foreach( $setores as $setor ):
 																				if($n == 0){
-																					echo "<a href='" . get_home_url() . "/?avanc=1&set=1&s=&setorb%5B%5D=" . $setor->slug . "'>" . $setor->name . "</a>";
+																					echo "<a href='" . get_home_url() . "/?avanc=1&set=1&s=&setor%5B%5D=" . $setor->slug . "'>" . $setor->name . "</a>";
 																				} else {
-																					echo " / <a href='" . get_home_url() . "/?avanc=1&set=1&s=&setorb%5B%5D=" . $setor->slug . "'>" . $setor->name . "</a>";
+																					echo " / <a href='" . get_home_url() . "/?avanc=1&set=1&s=&setor%5B%5D=" . $setor->slug . "'>" . $setor->name . "</a>";
 																				}
 																				$n++;																	
 																			endforeach;
@@ -651,10 +653,15 @@ function generateRandomString($length = 10) {
 																	}
 																?>
 															</div>
+														<?php elseif($chave == 'edicao_volume'): ?>
+															<div class="col-6 espec-element">
+																<strong>Edição/Volume do acervo</strong><br>
+																<?php echo $item; ?>
+															</div>
 														<?php elseif($chave == 'despacho'): ?>
 															<div class="col-6 espec-element">
 																<strong>Nº de despacho de homologação</strong><br>
-																<?php echo $item; ?>
+																<?php echo "<a href='" . get_home_url() . "/?avanc=1&desp=1&s=&despb=" . $item . "'>" . $item . "</a>"; ?>
 															</div>
 														<?php elseif($chave == 'data'): ?>
 															<div class="col-6 espec-element">
@@ -681,6 +688,11 @@ function generateRandomString($length = 10) {
 																<strong>Período de inscrição</strong><br>
 																<?php echo $item; ?>
 															</div>
+														<?php elseif($chave == 'qt_paginas'): ?>
+															<div class="col-6 espec-element">
+																<strong>Qt. de Páginas</strong><br>
+																<?php echo $item; ?>
+															</div>
 														<?php elseif($chave == 'mes'):?>
 															<div class="col-6 espec-element">
 																<strong>Mês de publicação</strong><br>
@@ -689,7 +701,7 @@ function generateRandomString($length = 10) {
 														<?php elseif($chave == 'ano'):?>
 															<div class="col-6 espec-element">
 																<strong>Ano de publicação</strong><br>
-																<?php echo "<a href='" . get_home_url() . "/?avanc=1&tano=1&s=&anob%5B%5D=" . $item . "'>" . $item . "</a>";?>
+																<?php echo "<a href='" . get_home_url() . "/?avanc=1&tano=1&s=&ano%5B%5D=" . $item . "'>" . $item . "</a>";?>
 															</div>
 														<?php elseif($chave == 'tipo'):?>
 															<div class="col-6 espec-element">
@@ -711,9 +723,9 @@ function generateRandomString($length = 10) {
 																		if( $idiomas ):
 																			foreach( $idiomas as $idioma ):
 																				if($n == 0){
-																					echo "<a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idiomab%5B%5D=" . $idioma->slug . "'>" . $idioma->name . "</a>";
+																					echo "<a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idioma%5B%5D=" . $idioma->slug . "'>" . $idioma->name . "</a>";
 																				} else {
-																					echo " / <a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idiomab%5B%5D=" . $idioma->slug . "'>" . $idioma->name . "</a>";
+																					echo " / <a href='" . get_home_url() . "/?avanc=1&idi=1&s=&idioma%5B%5D=" . $idioma->slug . "'>" . $idioma->name . "</a>";
 																				}
 																				$n++;															
 																			endforeach;
@@ -751,9 +763,9 @@ function generateRandomString($length = 10) {
 																if($palavras){
 																	foreach($palavras as $palavra){
 																		if($n == 0){
-																			echo "<a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavrab=" . $palavra->slug . "'>" . $palavra->name . "</a>";
+																			echo "<a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavra=" . $palavra->slug . "'>" . $palavra->name . "</a>";
 																		} else {
-																			echo " <a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavrab=" . $palavra->slug . "'>" . $palavra->name . "</a>";
+																			echo " <a href='" . get_home_url() . "/?avanc=1&chave=1&s=&palavra=" . $palavra->slug . "'>" . $palavra->name . "</a>";
 																		}
 																		$n++;
 																	}
@@ -768,6 +780,7 @@ function generateRandomString($length = 10) {
 											<?php endif; ?>
 										</div>
 									</div>
+									
 								</div>								
 							</div>
 						</div>
