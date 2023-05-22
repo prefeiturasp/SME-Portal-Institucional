@@ -18,6 +18,7 @@ $usuarios = array();
 $usuarios[] = array(
 	'<style bgcolor="#8EA9DB">ID</style>',
 	'<style bgcolor="#8EA9DB">Login</style>',
+	'<style bgcolor="#8EA9DB">Nome</style>',
 	'<style bgcolor="#8EA9DB">E-mail</style>',
 	'<style bgcolor="#8EA9DB">Função</style>',
 	'<style bgcolor="#8EA9DB">Grupo</style>',
@@ -71,9 +72,13 @@ foreach($blogusers as $user){
 	if($func == '')
 		$func = '<center>-</center>';
 
+	$user_info = get_userdata( $user->id );
+	$nome = $user_info->first_name . ' ' . $user_info->last_name;
+
 	$usuarios[] = array(
 		$user->id,
 		$user->user_login,
+		$nome,
 		$user->user_email,
 		convertFunc($func),
 		$grupoTitle,

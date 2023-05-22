@@ -86,7 +86,7 @@ function demo_auth( $user, $username, $password ){
                 }
 
             } else {
-                $api_url = '';
+                $api_url = '' . $user->codigoRf . '/dados';
                 $response = wp_remote_get( $api_url ,
                     array( 
                         'headers' => array( 
@@ -98,7 +98,7 @@ function demo_auth( $user, $username, $password ){
                 $user = json_decode($response['body']); 
             }
                        
-        }        
+        }
 
         if($user->email){
             $email = $user->email;
@@ -106,13 +106,29 @@ function demo_auth( $user, $username, $password ){
             $email = $user[0]->email;
         } else {
             $email = $rf . "@sme.prefeitura.sp.gov.br";
-        }        
-        
+        }
         
         // Verifica se o usuario ja esta cadastrado no WordPress
         $userobj = new WP_User();
         $user_wp = $userobj->get_data_by( 'email', $email ); // Does not return a WP_User object :(
         $user_wp = new WP_User($user_wp->ID); // Attempt to load up the user with that ID
+
+        // Verifica se o usuario esta com um email temporario cadastrado
+        // email temporario corresponde a 'rf + @sme.prefeitura.sp.gov.br'
+        if( $user_wp->ID == 0) {
+            $email = $rf . "@sme.prefeitura.sp.gov.br";
+            $userobj = new WP_User();
+            $user_wp = $userobj->get_data_by( 'email', $email ); // Does not return a WP_User object :(
+            $user_wp = new WP_User($user_wp->ID); // Attempt to load up the user with that ID
+
+            $args = array(
+                'ID'         => $user_wp->ID,
+                'user_email' => esc_attr( $user->email )
+            );
+            wp_update_user( $args );
+        }
+
+        
 
         // Se nao estiver cadastrado faz a criacao do usuario
         if( $user_wp->ID == 0 ) {

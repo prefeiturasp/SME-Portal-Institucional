@@ -19,7 +19,11 @@ class PaginaProgramacaoSlide
                 <div class="row">
                     <?php 
                         $slides = get_field('slide');
-                        $qtSlide = count($slides);
+                        if($slides){
+							$qtSlide = count($slides);
+						} else {
+							$qtSlide = 0;
+						}
                         $l = 0;
                         $m = 0;
                         //echo $qtSlide;

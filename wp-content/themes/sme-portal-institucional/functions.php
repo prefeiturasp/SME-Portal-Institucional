@@ -2460,10 +2460,17 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 	$embed .= '<div class="row m-0">';
 
 	foreach($jsonArrayResponse as $acervo){
-		$imagem = get_media_api($acervo->arquivo_acervo_digital);
-		if($imagem->id == ''){			
-			$imagem = get_media_api($acervo->arquivos_particionados_0_arquivo);
+		$qtdArquivos = count($acervo->arquivos_particionados);
+		
+		if($acervo->substituir_capa_acervo_digital != ''){
+			$imagem = get_media_api($acervo->substituir_capa_acervo_digital);
+		} else {
+			$imagem = get_media_api($acervo->arquivo_acervo_digital);
+			if($imagem->id == ''){			
+				$imagem = get_media_api($acervo->arquivos_particionados_0_arquivo);
+			}
 		}
+		
 		$imagemShow = $imagem->media_details->sizes->full->source_url;
 		if(!$imagemShow){
 			$imagemShow = 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
@@ -2489,8 +2496,27 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 			foreach($acervo->categoria_acervo as $categoria){
 				$categName[] = get_categ_api($categoria)->name;
 			}			
-		}		
+		}
 
+		if($qtdArquivos > 1){
+			$menuBtn = '';
+			
+			$menuBtn = '<div class="dropdown show">';
+				$menuBtn .= '<a class="btn dropdown-toggle px-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Baixar</a><div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
+					for ($i = 0; $i < $qtdArquivos; $i++) {
+						$chave = 'arquivos_particionados_' . $i . '_arquivo';
+						$arquivo = get_media_api($acervo->$chave);
+						$numArquivo = $i + 1;
+						$menuBtn .= '<a href="' . $arquivo->source_url . '" class="no-external">Baixar Arquivo ' . $numArquivo . '</a>';
+					}
+				$menuBtn .= '</div>';
+
+			$menuBtn .= '</div>';
+		} else {
+			$menuBtn = '<a href="' . $imagem->source_url . '" class="p3-4 no-external">Baixar</a>';
+		}
+
+		
 		// Monta o HTML para ser retornado na pagina
 		$embed .= '<div class="col-md-3 col-sm-6 p-3 acervo-display">
 			<div class="row m-0">
@@ -2507,16 +2533,16 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 						<div class="cat-flag mb-2">' . implode(' / ', $categName) . '</div>
 						<div class="btn-acervo d-flex justify-content-between">							
 							<a href="' . $acervo->link . '" class="btn btn-outline-primary no-external">Ver detalhes</a>
-							<a href="' . $imagem->source_url . '" class="p3-4 no-external">Baixar</a>													
+							' . $menuBtn . ' 													
 						</div>
 					</div>
 
 				</div>
 			</div>
 		</div>';
-	}
+	}	
 
-	$embed .= '</div>';
+	$embed .= '</div>';	
 	
 	$embed .= '<div class="container">';
 		$embed .= '<div class="row">';
@@ -2942,3 +2968,80 @@ function data_periodo_agenda($dataIni, $dataFin){
 
 	return $periodo;
 }
+
+// Incluir um seletor na listagem de paginas no admin baseado nos modelos de paginas disponivel no tema
+add_action( 'restrict_manage_posts', 'wp_page_model_filter_manage_posts' );
+function wp_page_model_filter_manage_posts(){
+    $type = 'post';
+    if (isset($_GET['post_type'])) {
+        $type = $_GET['post_type'];
+    }
+
+    //adicionar o filtro somente em paginas
+    if ('page' == $type){
+        //pegar os valores para serem exibidos
+        //formato 'label' => 'valor'
+		$templates = wp_get_theme()->get_page_templates();
+        $current_v = isset($_GET['modelo_pagina'])? $_GET['modelo_pagina']:'';
+        ?>
+        <select name="modelo_pagina">
+        <option value=""><?php _e('Todos os modelos ', 'wose45436'); ?></option>
+		<option value="default">Modelo Padrão</option>
+        <?php
+            
+            foreach ($templates as $label => $value) {
+                printf
+                    (
+                        '<option value="%s"%s>%s</option>',
+                        $label,
+                        $label == $current_v? ' selected="selected"':'',
+                        $value
+                    );
+                }
+        ?>
+        </select>
+        <?php
+    }
+}
+
+// Quando o filtro de modelos for acionado será incluido na query para exibir a lista baseado no modelo
+add_filter( 'parse_query', 'wp_page_model_filter' );
+function wp_page_model_filter( $query ){
+    global $pagenow;
+    $type = 'post';
+    if (isset($_GET['post_type'])) {
+        $type = $_GET['post_type'];
+    }
+    if ( 'page' == $type && is_admin() && $pagenow=='edit.php' && isset($_GET['modelo_pagina']) && $_GET['modelo_pagina'] != '') {
+        $query->query_vars['meta_key'] = '_wp_page_template';
+        $query->query_vars['meta_value'] = $_GET['modelo_pagina'];
+    }
+}
+
+// Incluir uma acao em massa personalizado (Limpar o conteudo) na listagem de paginas
+add_filter('bulk_actions-edit-page', function($bulk_actions) {
+	$bulk_actions['clear_content'] = __('Limpar o conteúdo', 'txtdomain');
+	return $bulk_actions;
+});
+
+// Se a acao for chamada fazer a limpeza do post_content (conteudo da pagina)
+add_filter('handle_bulk_actions-edit-page', function($redirect_url, $action, $post_ids) {
+	if ($action == 'clear_content') {
+		foreach ($post_ids as $post_id) {
+			wp_update_post([
+				'ID' => $post_id,
+				'post_content' => '',
+			]);
+		}
+		$redirect_url = add_query_arg('clear_content', count($post_ids), $redirect_url);
+	}
+	return $redirect_url;
+}, 10, 3);
+
+// Apos executar a acao exibir a mensagem de sucesso
+add_action('admin_notices', function() {
+	if (!empty($_REQUEST['clear_content'])) {
+		//$num_changed = (int) $_REQUEST['clear_content']; // Numero de paginas atualizadas
+		echo '<div id="message" class="updated notice is-dismissable"><p>O conteúdo das páginas selecionadas foram removidos.</p></div>';
+	}
+});

@@ -157,6 +157,8 @@ function custom_formats() {
 	wp_register_style('default_ie', STM_THEME_URL . 'css/ie6.1.1.css', null, null, 'all');
 	wp_register_style('font_awesome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 	wp_register_style('style', get_stylesheet_uri(), null, null, 'all');
+	wp_register_style('slick_css', STM_THEME_URL . 'css/slick.css', null, null, 'all');
+	wp_register_style('slick_theme_css', STM_THEME_URL . 'css/slick-theme.css', null, null, 'all');
 
 	//wp_register_script('bootstrap_js', STM_THEME_URL . 'js/bootstrap.js', false, false);
 
@@ -169,6 +171,8 @@ function custom_formats() {
 	wp_register_script('jquery_waituntilexists', STM_THEME_URL . 'js/jquery.waituntilexists.js', array('jquery'), 1.0, true);
 	wp_register_script('scripts_js', STM_THEME_URL . 'js/scripts.js', array('jquery'), 1.0, true);
 	wp_register_script('jquery.event.move_js', STM_THEME_URL . 'js/jquery.event.move.js', array('jquery'), 1.0, true);
+	wp_register_script('slick_min_js', STM_THEME_URL . 'js/slick.js', array('jquery'), 1.0, true);
+	wp_register_script('slick_func_js', STM_THEME_URL . 'js/slick-func.js', array('jquery'), 1.0, true);
 
 
 	global $wp_styles;
@@ -1575,12 +1579,19 @@ $translated = str_ireplace(  array_keys($words),  $words,  $translated );
 return $translated;
 }
 
-##################
+// Incluir o campo ceus participantes do tipo repetidor (ACF) na classe wp_query
 function wpza_replace_repeater_field( $where ) {
 	$where = str_replace( "meta_key = 'ceus_participantes_$", "meta_key LIKE 'ceus_participantes_%", $where );
 	return $where;
 }
 add_filter( 'posts_where', 'wpza_replace_repeater_field' );
+
+// Incluir o campo dia da semana do tipo repetidor (ACF) na classe wp_query
+function wpza_replace_repeater_field_date( $where ) {
+	$where = str_replace( "meta_key = 'data_dia_da_semana_$", "meta_key LIKE 'data_dia_da_semana_%", $where );
+	return $where;
+}
+add_filter( 'posts_where', 'wpza_replace_repeater_field_date' );
 
 add_filter('acf/fields/relationship/result', 'my_acf_fields_relationship_result', 10, 4);
 function my_acf_fields_relationship_result( $text, $post, $field, $post_id ) {

@@ -4,8 +4,7 @@ use Classes\Header\Header;
 <!doctype html>
 <html lang="pt-br">
 <head>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
 	<?php
 	if (function_exists('get_field')){
         $tituloPagina = get_field("insira_o_title_desejado");

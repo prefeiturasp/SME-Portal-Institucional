@@ -14,7 +14,7 @@ class PaginaProgramacaoCategoria
 
 	public function getCategoria(){
     ?>
-        <div class="atividades-categorias mt-5">
+        <div class="atividades-categorias mt-5 mb-5">
             <div class="container d-none d-md-block">
                 <div class="row">
                     <?php

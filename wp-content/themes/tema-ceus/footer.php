@@ -234,6 +234,18 @@
             });
             $s('.ms-list-10').multiselect( 'disable', true );
 
+            $s('.ms-list-9').multiselect({
+                columns  : 1,
+                search   : false,
+                selectAll: false,
+                texts    : {
+                    placeholder: 'Selecione o dia da semana',
+                    selectedOptions: ' selecionados'
+                },
+                maxHeight : 300,
+                maxWidth: 245
+            });
+
             $s('.ms-list-8').multiselect({
                 columns  : 1,
                 search   : false,
@@ -245,127 +257,7 @@
                 maxHeight : 300,
                 maxWidth: 245
             });
-
-            $s('#tipoData').change(function(){ 
-                var value = $s(this).val();
-                console.log(value);
-
-                if(value == 'dia_semana'){
-                    $s('.ms-list-10').multiselect( 'disable', false );
-                    $s('.ms-list-10').multiselect('loadOptions', [{
-                        name   :'Segunda',
-                        value  :'segunda',
-                        checked:false
-                    },{
-                        name   :'Terça',
-                        value  :'terca',
-                        checked:false
-                    },{
-                        name   :'Quarta',
-                        value  :'quarta',
-                        checked:false
-                    },{
-                        name   :'Quinta',
-                        value  :'quinta',
-                        checked:false
-                    },{
-                        name   :'Sexta',
-                        value  :'sexta',
-                        checked:false
-                    },{
-                        name   :'Sabado',
-                        value  :'sabado',
-                        checked:false
-                    },{
-                        name   :'Domingo',
-                        value  :'domingo',
-                        checked:false
-                    }
-                    ]);
-                    $s('#date-range').hide();
-                    $s('#date-periode').show();
-                } else if(value == 'mes'){
-                    $s('.ms-list-10').multiselect( 'disable', false );
-                    $s('.ms-list-10').multiselect('loadOptions', [{
-                        name   :'Janeiro',
-                        value  :'01',
-                        checked:false
-                    },{
-                        name   :'Fevereiro',
-                        value  :'02',
-                        checked:false
-                    },{
-                        name   :'Março',
-                        value  :'03',
-                        checked:false
-                    },{
-                        name   :'Abril',
-                        value  :'04',
-                        checked:false
-                    },{
-                        name   :'Maio',
-                        value  :'05',
-                        checked:false
-                    },{
-                        name   :'Junho',
-                        value  :'06',
-                        checked:false
-                    },{
-                        name   :'Julho',
-                        value  :'07',
-                        checked:false
-                    },{
-                        name   :'Agosto',
-                        value  :'08',
-                        checked:false
-                    },{
-                        name   :'Setembro',
-                        value  :'09',
-                        checked:false
-                    },{
-                        name   :'Outubro',
-                        value  :'10',
-                        checked:false
-                    },{
-                        name   :'Novembro',
-                        value  :'11',
-                        checked:false
-                    },{
-                        name   :'Dezembro',
-                        value  :'12',
-                        checked:false
-                    }
-                    ]);
-                    $s('#date-range').hide();
-                    $s('#date-periode').show();
-                } else if(value == 'intervalo') {
-                    $s('#date-range').show();
-                    $s('#date-periode').hide();
-                    $s('.ms-list-10').multiselect( 'disable', true );
-                }
-            });
-
-			// DYNAMICALLY LOAD OPTIONS
-			/*
-            $s('.ms-list-1').multiselect( 'loadOptions', [{
-                name   : 'Option Name 1',
-                value  : 'option-value-1',
-                checked: false,
-                attributes : {
-                    custom1: 'value1',
-                    custom2: 'value2'
-                }
-            },{
-                name   : 'Option Name 2',
-                value  : 'option-value-2',
-                checked: false,
-                attributes : {
-                    custom1: 'value1',
-                    custom2: 'value2'
-                }
-            }]);
-
-            */
+			
     
         });
 

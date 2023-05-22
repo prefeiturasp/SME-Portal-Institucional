@@ -1094,7 +1094,6 @@ select#tipoData {
 .ms-options-wrap>.ms-options>ul>li.optgroup .label {
     display: block;
     padding: 5px 0 0 0;
-    font-weight: normal !important;
     font-size: 13px;
 }
 
@@ -1103,7 +1102,7 @@ select#tipoData {
     color: #333333;
 }
 
-.ms-options-wrap.ms-has-selections>button>span {
+.ms-options-wrap.ms-has-selections > button > span > span {
     background: #0048A9;
     color: #FFFFFF;
     padding: 2px 7px;
@@ -1122,6 +1121,25 @@ select#tipoData {
 .search-event label {
     color: #FFFFFF;
     font-size: 14px;
+}
+
+.ms-options li.optgroup {
+    border: 0 !important;
+}
+
+#date-range .input-daterange input {
+    text-align: left;
+    font-size: 14px;
+    padding-right: 25px;
+    background: url(img/calendar-icon.png) no-repeat right;
+    background-size: 16px;
+    background-color: #FFFFFF;
+    background-position: right 15px top 9px;
+}
+
+#date-range .input-daterange .input-group-addon {
+    font-size: 14px;
+    padding-top: 8px;
 }
 
 
@@ -1245,6 +1263,35 @@ select#tipoData {
     border-top: 1px solid transparent;
 }
 
+.title-ativi {
+    display: flex;
+    align-items: center;
+}
+
+.title-ativi h2{
+    color: #0057AD;
+    text-transform: uppercase;
+}
+
+.title-ativi hr{
+    flex-grow: 1;
+    border-bottom: 1px solid #0057AD;
+    margin-top: 21px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.title-ativi a {
+    color: #0057AD;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.row-slide .slick-prev:before, .row-slide .slick-next:before {
+    opacity: 1;
+    color: #0057AD;
+}
+
 
 /**** Evento Interna ****/
 
@@ -1347,7 +1394,7 @@ select#tipoData {
 }
 
 .flag-pdf-full {
-    background: #2F80ED;
+    background: rgba(47, 128, 237, 0.5);
     color: #fff;
     position: absolute;
     left: 15px;
@@ -1594,7 +1641,7 @@ a.nextpostslink {
 }
 
 .color-leste.unidade-tab ul.nav-tabs li a.active,
-.color-leste .ms-options-wrap.ms-has-selections>button>span,
+.color-leste .ms-options-wrap.ms-has-selections>button>span>span,
 .color-leste .search-home .btn-search,
 .color-leste.end-footer,
 .color-leste.end-footer .end-title-unidade {
@@ -1609,7 +1656,7 @@ a.nextpostslink {
 }
 
 .color-norte.unidade-tab ul.nav-tabs li a.active,
-.color-norte .ms-options-wrap.ms-has-selections>button>span,
+.color-norte .ms-options-wrap.ms-has-selections>button>span>span,
 .color-norte .search-home .btn-search,
 .color-norte.end-footer,
 .color-norte.end-footer .end-title-unidade {
@@ -1628,7 +1675,7 @@ a.nextpostslink {
 }
 
 .color-sul.unidade-tab ul.nav-tabs li a.active,
-.color-sul .ms-options-wrap.ms-has-selections>button>span,
+.color-sul .ms-options-wrap.ms-has-selections>button>span>span,
 .color-sul .search-home .btn-search,
 .color-sul.end-footer,
 .color-sul.end-footer .end-title-unidade {
@@ -1647,7 +1694,7 @@ a.nextpostslink {
 }
 
 .color-oeste.unidade-tab ul.nav-tabs li a.active,
-.color-oeste .ms-options-wrap.ms-has-selections>button>span,
+.color-oeste .ms-options-wrap.ms-has-selections>button>span>span,
 .color-oeste .search-home .btn-search,
 .color-oeste.end-footer,
 .color-oeste.end-footer .end-title-unidade {

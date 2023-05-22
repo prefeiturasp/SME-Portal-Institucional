@@ -14,7 +14,7 @@ class LoopUnidades extends Util
 
 	public function init(){
 		$container_geral_tags = array('div', 'div');
-		$container_geral_css = array('container-fluid', 'row');
+		$container_geral_css = array('container-fluid', '');
 		$this->abreContainer($container_geral_tags, $container_geral_css);
 
 		new LoopUnidadesCabecalho();
