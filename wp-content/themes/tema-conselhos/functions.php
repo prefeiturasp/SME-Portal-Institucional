@@ -805,17 +805,59 @@ function remove_core_updates(){
 remove_role( 'subscriber' ); // Assinante
 remove_role( 'author' ); // Autor
 
-// Renomear tipo de usuario Contribuidor para Colaborador
-add_action( 'wp_roles_init', static function ( \WP_Roles $roles ) {
-    $roles->roles['contributor']['name'] = 'Colaborador';
-    $roles->role_names['contributor'] = 'Colaborador';
-} );
-
-// Alterar paleta de cores do admin para 'Amanhecer'
 add_filter( 'get_user_option_admin_color', 'update_user_option_admin_color', 5 );
 
 function update_user_option_admin_color( $color_scheme ) {
     $color_scheme = 'sunrise';
 
     return $color_scheme;
+}
+
+// Incluir Pagina Exportar Usuarios no menu Usuarios
+add_action('admin_menu', 'wpdocs_register_my_custom_submenu_page');
+ 
+function wpdocs_register_my_custom_submenu_page() {
+    add_submenu_page(
+        'users.php',
+        'Exportar Usuarios',
+        'Exportar Usuarios',
+        'manage_options',
+        'export-users',
+        'wpdocs_my_custom_submenu_page_callback' );
+}
+ 
+function wpdocs_my_custom_submenu_page_callback() {
+    echo '<div class="wrap"><div id="icon-tools" class="icon32"></div>';
+        echo '<h2>Exportar Usuarios</h2><br>';
+		$blogusers = get_users( array( 'fields' => array( 'id', 'user_login', 'user_email' ) ) );
+		$usuarios = array();
+		
+		foreach($blogusers as $user){
+			$user_meta = get_userdata($user->id);
+			$user_roles = $user_meta->roles;
+			$setor = get_field('setor', 'user_'. $user->id );			
+
+			$usuarios[] = array(
+				'id' => $user->id,
+				'login' => $user->user_login,
+				'email' => $user->user_email,
+				'funcao' => $user_roles[0],
+				'setor' => $setor
+			);
+
+		}
+	?>
+
+		<form action="<?= get_template_directory_uri(); ?>/export-users.php">
+			<select name="funcao" id="">
+				<option value="all">Todos</option>
+				<option value="administrator">Administrador</option>
+				<option value="editor">Editor</option>
+				<option value="contributor">Colaborador</option>
+			</select>
+			<input type="submit" value="Exportar" class="button action">
+		</form>
+
+	<?php
+    echo '</div>';
 }
