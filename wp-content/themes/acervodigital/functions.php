@@ -546,3 +546,46 @@ function rest_api_filter_add_filter_param( $args, $request ) {
 	}
 	return $args;
 }
+
+// Contador de visitas
+function getPostViews($postID){
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    if( $count == ''){
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+        return "0";
+    }
+    return $count;
+}
+
+// registrar a funcao de contador de visualizacoes na chamada do Ajax para usuarios autenticados
+add_action('wp_ajax_count_acervo_view', 'count_acervo_view');
+
+// registrar a funcao de contador de visualizacoes na chamada do Ajax para usuarios NAO autenticados
+add_action('wp_ajax_nopriv_count_acervo_view', 'count_acervo_view');
+
+// Funcao para incrementar o contador de visualizacoes
+function count_acervo_view() {
+    $acervo_id = $_REQUEST['acervo_id'];
+
+    // verificar se existe um contador e incrementa +1 no contador
+    $count_key = 'post_views_count';
+    $count = get_post_meta($acervo_id, $count_key, true);
+    if($count==''){
+        $count = 0;
+        delete_post_meta($acervo_id, $count_key);
+        add_post_meta($acervo_id, $count_key, '0');
+    }else{
+        $count++;
+        update_post_meta($acervo_id, $count_key, $count);
+    }
+
+    $contador = getPostViews($acervo_id); // Pega o valor de visualizacoes
+
+    // retorna o valor atualizado do contador
+    wp_send_json_success([$contador]);
+
+    // caso tenha erro retorna a mensagem
+    wp_send_json_error(['error']);
+}
