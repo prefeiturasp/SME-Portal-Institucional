@@ -106,7 +106,7 @@ function generateRandomString($length = 10) {
 						}
 					?>
 					
-						<button type="button" class="btn btn-view mb-2" data-toggle="modal" data-target=".<?php echo $class; ?>"><i class="fa fa-search" aria-hidden="true"></i> Visualizar</button>
+						<button type="button" class="btn btn-view mb-2" data-acervoid="<?= get_the_ID(); ?>"  data-toggle="modal" data-target=".<?php echo $class; ?>"><i class="fa fa-search" aria-hidden="true"></i> Visualizar</button>
 					
 						<?php if($stringSeparada[1] == 'jpg' || $stringSeparada[1] == 'jpeg' || $stringSeparada[1] == 'png' || $stringSeparada[1] == 'gif' || $stringSeparada[1] == 'webp') : ?>
 				
@@ -377,48 +377,8 @@ function generateRandomString($length = 10) {
 					}else{
 						$allItens['tamanho'] = 'INDEFINIDO';
 					}
-					// Qtd Visualizações					
-					function title_filter_total( $where, &$wp_query ){
-						global $wpdb;
-						if ( $search_term = $wp_query->get( 'search_prod_title' ) ) {
-							$where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'' . esc_sql( like_escape( $search_term ) ) . '\'';
-						}
-						return $where;
-					}
-
-					function retornaNumero_total($posttype) {	
-						$args = array(
-							'post_type' => $posttype,
-							'posts_per_page' => -1,
-							'search_prod_title' => get_the_title(),
-							'post_status' => 'publish',
-							'orderby'     => 'title', 
-							'order'       => 'ASC'
-						);
-
-						add_filter( 'posts_where', 'title_filter_total', 10, 2 );
-						$wp_query = new WP_Query($args);
-						remove_filter( 'posts_where', 'title_filter_total', 10 );
-
-						$contador = 0;
-						echo '<div style="display: none">';
-						$artigo = get_posts(
-							array(
-								's' => 'Alimentação Escolar',
-								'post_type' => $posttype,
-								'numberposts' => -1,
-								'post_status' => 'any',
-							));
-						echo '</div>';
-
-						foreach ($artigo as $article) { 
-						$contador++;
-						//var_dump($article);
-						}
-						//return $contador;
-						return $wp_query->found_posts;
-					}
-					$allItens['views'] = retornaNumero_total(('acesso'));
+					
+					$allItens['views'] = getPostViews(get_the_ID());
 													
 					?>
 			
@@ -736,7 +696,7 @@ function generateRandomString($length = 10) {
 														<?php elseif($chave == 'views'): ?>
 															<div class="col-6 espec-element">
 																<strong>Número de visualizações</strong><br>
-																<?php echo $item; ?>
+																<span id="num_views"><?php echo $item; ?></span>
 															</div>
 														<?php endif;
 													}
@@ -798,29 +758,23 @@ function generateRandomString($length = 10) {
 </section>
 
 <script>
-function ctDownload() {
+	function ctDownload() {
+		var href = new URL(window.location.href);
 
-    var href = new URL(window.location.href);
+		href.searchParams.set('ajaxify', '1');
+		jQuery.ajax({url: href.toString(), success: function(result){
+			//console.log(result);
+		}});
+	}	
 
-href.searchParams.set('ajaxify', '1');
-  jQuery.ajax({url: href.toString(), success: function(result){
-
-    console.log(result);
-
-  }});
-
-}	jQuery( "#download_link" ).click(function() {
-
-ctDownload();
-
+	jQuery( "#download_link" ).click(function() {
+		ctDownload();
 	});
 
 	
 
 	jQuery( "#view_link" ).click(function() {
-
-ctDownload();
-
+		ctDownload();
 	});
 
 /*
@@ -839,5 +793,30 @@ ctDownload();
 
 		 //window.location.reload();
 
+</script>
+<script>
+	jQuery(document).ready(function() { 
+		jQuery(".btn-view").click(function () {
+			var acervo_id = jQuery(this).data("acervoid"); // recebe o ID do acervo atual
+			
+			jQuery.ajax({
+				type: "POST",
+				url: "/wp-admin/admin-ajax.php",
+				data: {
+					action: 'count_acervo_view', // funcao no functions.php
+					acervo_id: acervo_id // ID atual do acervo
+				},
+				success: function (data) {
+					var total = data['data']; // recebe o total
+					if(total == 'error'){
+						console.log('Erro no contador');
+					} else {
+						jQuery("#num_views").html(total); // atualiza o valor na pagina
+					}					
+				}
+			});
+			
+		});
+	});
 </script>
 <?php get_footer(); ?>
