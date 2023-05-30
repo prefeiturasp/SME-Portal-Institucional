@@ -128,61 +128,8 @@
                     selectedOptions: ' selecionados'
                 },
                 maxHeight : 300,
-                maxWidth: 245,
-                onOptionClick :function( element, option ){
-                    var thisOpt = $s(option);
-
-                    
-                    var selecionados = $s('.ms-list-1').val();
-
-                    //console.log(selecionados);
-
-                    if(selecionados != null){
-                        $s('.ms-list-2').multiselect( 'disable', false );
-
-                        $s.ajax({
-                            type: "POST",
-                            url: "<?php echo get_template_directory_uri(); ?>/get_category.php",
-                            data: {data : selecionados}, 
-                            cache: false,
-
-                            success: function(res){
-                                
-                                var b = JSON.parse(res); 
-                                var options = b;
-                                console.log(b);
-                                $s('.ms-list-2').multiselect('loadOptions', options );
-
-                                if(b.length == 0){
-                                    $s('.ms-list-2').multiselect( 'disable', true );
-                                }
-                            }
-                        });
-
-                    } else {
-                        $s('.ms-list-2').multiselect( 'disable', true );
-                    }                    
-
-                    
-                }
+                maxWidth: 245,                
             });
-
-            
-
-
-            $s('.ms-list-2').multiselect({
-                columns  : 1,
-                search   : false,
-                selectAll: false,
-                texts    : {
-                    placeholder: 'Selecione a(s) atividade(s) interna(s)',
-                    selectedOptions: ' selecionados'
-                },
-                maxHeight : 300,
-                maxWidth: 245
-            });
-
-            $s('.ms-list-2').multiselect( 'disable', true );
 
             $s('.ms-list-3').multiselect({
                 columns  : 1,
@@ -310,9 +257,44 @@
         var key = 'pk.2217522833071a6e06b34ac78dfc05bc';
 
         // Initial map view
-        var INITIAL_LNG = -46.6360999;
-        var INITIAL_LAT = -23.5504533;
-
+        <?php if($_GET['idUnidade'] && $_GET['idUnidade'] != ''): 
+            $idUnidade = $_GET['idUnidade'];
+            $latitude = get_group_field( 'informacoes_basicas', 'latitude', $idUnidade );
+            $longitude = get_group_field( 'informacoes_basicas', 'longitude', $idUnidade );
+            ?>
+            var INITIAL_LNG = <?= $longitude ?>;
+            var INITIAL_LAT = <?= $latitude; ?>;
+            var INITIAL_ZOOM = 13;
+        <?php elseif($_GET['zona'] && $_GET['zona'] != '' && $_GET['zona'] == 'norte'): ?>
+            var INITIAL_LNG = -46.6457;
+            var INITIAL_LAT = -23.4768;
+            var INITIAL_ZOOM = 13;
+        <?php elseif($_GET['zona'] && $_GET['zona'] != '' && $_GET['zona'] == 'sul'): ?>
+            var INITIAL_LNG = -46.6900;
+            var INITIAL_LAT = -23.6867;
+            var INITIAL_ZOOM = 12;
+        <?php elseif($_GET['zona'] && $_GET['zona'] != '' && $_GET['zona'] == 'leste'): ?>
+            var INITIAL_LNG = -46.5046;
+            var INITIAL_LAT = -23.5791;
+            var INITIAL_ZOOM = 12;
+        <?php elseif($_GET['zona'] && $_GET['zona'] != '' && $_GET['zona'] == 'oeste'): ?>
+            var INITIAL_LNG = -46.7059;
+            var INITIAL_LAT = -23.5671;
+            var INITIAL_ZOOM = 13;
+        <?php elseif($_GET['zona'] && $_GET['zona'] != '' && $_GET['zona'] == 'centro'): ?>
+            var INITIAL_LNG = -46.6340;
+            var INITIAL_LAT = -23.5425;
+            var INITIAL_ZOOM = 14;
+        <?php elseif($_GET['busca'] && $_GET['busca'] == 'endereco'): ?>
+            var INITIAL_LNG = <?= $_GET['longitude']; ?>;
+            var INITIAL_LAT = <?= $_GET['latitute']; ?>;
+            var INITIAL_ZOOM = 15;
+        <?php else: ?>
+            var INITIAL_LNG = -46.6360999;
+            var INITIAL_LAT = -23.5504533;
+            var INITIAL_ZOOM = 11;
+        <?php endif; ?>
+        
         // Change the initial view if there is a GeoIP lookup
         if (typeof Geo === 'object') {
             INITIAL_LNG = Geo.lon;
@@ -338,7 +320,7 @@
         }).setView({
             lng: INITIAL_LNG,
             lat: INITIAL_LAT
-        }, 11);
+        }, INITIAL_ZOOM);
         var hash = new L.Hash(map);
 
         L.control.zoom({
@@ -381,7 +363,7 @@
                 // the variable is defined
                 //alert('Aqui');
             }
-            //console.log(e.latlng);
+            console.log(e.latlng);
             map.setView([e.latlng.lat, e.latlng.lng], 15);
         });
 
@@ -446,7 +428,16 @@
             jQuery([document.documentElement, document.body]).animate({
                 scrollTop: jQuery("#map").offset().top
             }, 1000);
-        }        
+        }
+        
+        <?php if($_GET['busca'] == 'endereco') : ?>
+            
+            var marker = L.marker([INITIAL_LAT, INITIAL_LNG]).addTo(map);
+            map.setView([INITIAL_LAT, INITIAL_LNG], 15);
+            jQuery([document.documentElement, document.body]).animate({
+                scrollTop: jQuery("#map").offset().top
+            }, 1000);
+        <?php endif; ?>
 
         //adiciona link aos marcadores
         jQuery('.name .story').on('click', function(){
@@ -461,6 +452,7 @@
             var marker = L.marker([lat, lng] ).bindPopup(desc).addTo(map).openPopup();
             // adiciona no mapa
             map.setView([lat, lng], zoom);
+            
         })
 
         function alerta(content){
@@ -470,7 +462,7 @@
             var lat = latlng[0];
             var lng = latlng[1];
             var desc = latlng[2];
-            var zoom = 17;                
+            var zoom = 17;
         
             // adiciona no mapa
             map.setView([lat, lng], zoom);
@@ -568,6 +560,113 @@
                 jQuery("#collpaseContent").addClass('closeContent');
             }
             
+        });
+        
+        var addressInput = document.getElementById('addressInput');
+        var clearButton = document.getElementById('clearButton');
+        var searchResults = document.getElementById('searchResults');
+
+        addressInput.addEventListener('focus', function() {
+        showResults();
+        });
+
+        addressInput.addEventListener('blur', function() {
+        hideResults();
+        });
+
+        addressInput.addEventListener('input', function() {
+        if (addressInput.value.trim() !== '') {
+            clearButton.style.display = 'block';
+        } else {
+            clearButton.style.display = 'none';
+        }
+        });
+
+        function showResults() {
+        if (addressInput.value.trim() !== '') {
+            searchResults.style.display = 'block';
+        }
+        }
+
+        function hideResults() {
+        searchResults.style.display = 'none';
+        }
+
+        function clearSearch() {
+        addressInput.value = '';
+        clearButton.style.display = 'none';
+        searchResults.innerHTML = '';
+        }
+
+        function geocodeAddress() {
+            var address = document.getElementById('addressInput').value;
+            var busca = address;
+            var country = 'BR';
+
+            fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + address + '&countrycodes=' + country)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                var searchResults = document.getElementById('searchResults');
+                searchResults.innerHTML = '';
+
+                if (data && data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        var result = data[i];
+                        var address = result.display_name;
+
+                        let index = address.indexOf(",");
+                        let parte1 = address.substring(0, index);
+                        let parte2 = address.substring(index + 1);
+
+                        var latlng = [result.lat, result.lon];
+
+                        var resultItem = document.createElement('div');
+                        resultItem.classList.add('end-result');
+                        resultItem.innerHTML = '<a href="/mapa-completo/?busca=endereco&latitute=' + latlng[0] + '&longitude=' + latlng[1] + '"><div class="name">' + parte1 + '</div><div class="address">' + parte2 + '</div></a>';
+
+                        searchResults.appendChild(resultItem);
+
+                        jQuery.ajax({
+                            url: '<?php echo admin_url( 'admin-ajax.php' ) ?>',
+                            type:"post",
+                            data: { action: 'data_fetch', keyword: busca  },
+                            success: function(data) {
+                                jQuery('#unidadesResult').remove();
+                                var conteudoHTML = data;
+                                var elemento = jQuery('<div id="unidadesResult"></div>').html(conteudoHTML);
+                                searchResults.prepend(elemento["0"]);
+                                //console.log(elemento["0"]);
+                                //console.log(busca);
+                            },
+                            //error : function(error){ console.log(error) }
+                        });
+
+                    }
+                } else {
+                    searchResults.innerHTML = 'Nenhum resultado encontrado';
+                }
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        }
+    </script>
+
+    <script>
+        jQuery(document).ready(function() {
+            jQuery('.openPopup').click(function() {
+                jQuery('.popup').fadeOut();
+                var popupId = jQuery(this).data("id");
+                var classPop = 'popup-' + popupId;
+                console.log(classPop);
+                jQuery('.' + classPop).fadeIn();
+            });
+
+            jQuery('.closePopup').click(function() {
+                jQuery('.popup').fadeOut();
+            });
         });
     </script>
 

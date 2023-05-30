@@ -1125,7 +1125,7 @@ class LoopUnidadesTabs extends LoopUnidades{
                                 if ( $the_query->have_posts() ) {
 
                                     echo '<div class="title-ativi">';
-                                        echo '<h2>Atividades Permanentes</h2><hr>';                                    
+                                        echo '<h2>Atividades Permanentess</h2><hr>';                                    
                                         echo '<a href="' . get_home_url() . '/?s=&tipo_atividade=permanente">Ver todas</a>';
                                     echo '</div>';
 
