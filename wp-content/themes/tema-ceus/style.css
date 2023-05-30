@@ -1878,10 +1878,10 @@ a.nextpostslink {
 
 .lista-unidades {
     margin: 0;
-    height: 652px;
+    height: 750px;
     overflow-y: overlay;
     overflow-x: hidden;
-    border-bottom: 1px solid #DADADA;
+    border: 1px solid #DADADA;
 }
 
 .lista-unidades::-webkit-scrollbar {
@@ -1898,7 +1898,7 @@ a.nextpostslink {
 
 .lista-unidades li {
     list-style-type: none;
-    border: 1px solid #DADADA;
+    border-bottom: 1px solid #495464;
     box-sizing: border-box;
     padding-left: 10px;
     padding-right: 10px;
@@ -1907,14 +1907,56 @@ a.nextpostslink {
 }
 
 .lista-unidades li .unidades-title {
-    font-size: 18px;
-    color: #000000;
+    font-size: 22px;
+    color: #0048A9;
+    font-weight: bold;
 }
 
 .lista-unidades li p {
     color: #888888;
     font-size: 15px;
     margin-bottom: 10px;
+}
+
+.lista-unidades li .btn-all {
+    background: #E8E8E8;
+    color: #2F80ED;
+    width: 90%;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding: 6px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: none;
+    z-index: 999999999;
+    max-width: 390px;
+}
+
+.popup .closePopup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: initial;
+    border: 0;
+    padding: 0;
+    font-size: 25px;
+    color: #FFFFFF;
+    cursor: pointer;
 }
 
 #unidade-list {
@@ -2276,6 +2318,144 @@ h2.submenu-title {
 
 .filtro-zonas-button.open-close{
     display: none;
+}
+
+.input-custom {
+    height: calc(2.875rem + 2px);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    border: 2px solid #BBBFCA;
+}
+
+.input-top-search{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0; 
+}
+
+.btn-top-search{
+    height: calc(2.875rem + 2px);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: 0;
+    background: #BBBFCA;
+    color: #363738;
+    font-weight: bold;
+}
+
+#clearButton {
+    position: absolute;
+    background: initial;
+    top: 0;
+    border: 0;
+    right: 0;
+    height: 100%;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+#searchResults {
+    z-index: 9999;
+    background: #FFFFFF;
+    max-width: 90%;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    border-radius: 4px;
+    left: 15px;
+    top: 65px;
+    text-align: left
+}
+
+#searchResults .end-result:hover,
+#searchResults #unidade-list li:hover{
+    background-color: #d5f1f3;
+    border-color: #d5f1f3;
+}
+
+#searchResults .end-result a:hover,
+#searchResults #unidade-list li a:hover{
+    text-decoration: none;
+}
+
+#searchResults .end-result .name{
+    font-size: 13px;
+    padding: 12px 7px 5px;
+    border-top: 1px solid #f1f1f1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    text-align: left;
+    line-height: 0px;
+    font-weight: bold;
+    color: #333333;
+}
+
+#searchResults .end-result .address{
+    padding: 7px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 12px;
+    color: #666;
+}
+
+#searchResults #unidade-list .name{
+    color: #333333;
+}
+
+#searchResults #unidade-list .address{
+    color: #666666;
+}
+
+.unidade-card{
+    border: 1px solid #BBBFCA;
+    height: 100%;    
+    transition: 0.2s;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.unidade-card a:hover{
+    text-decoration: none;
+}
+
+.unidade-card:hover{
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    transition: 0.2s;
+}
+
+.unidade-card h2 {
+    color: #0048A9;
+    padding: 5px 8px;
+    margin: 0;
+    min-height: 75px;
+}
+
+.unidade-card td {
+    vertical-align: top;
+    padding: 5px;
+    color: #495464;
+}
+.unidade-card td .fa {
+    color: #09244B;
+    padding-left: 3px;
+}
+
+.unidade-card .card-link {
+    background: #E8E8E8;
+    color: #2F80ED;
+    padding: 5px 20px;
+    border-radius: 15px;
+    margin-left: 10px;
+    margin-top: 5px;
+    display: inline-block;
+    width: fit-content;
 }
 
 @media (max-width: 767px) {

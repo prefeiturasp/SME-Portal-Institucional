@@ -174,7 +174,6 @@ function custom_formats() {
 	wp_register_script('slick_min_js', STM_THEME_URL . 'js/slick.js', array('jquery'), 1.0, true);
 	wp_register_script('slick_func_js', STM_THEME_URL . 'js/slick-func.js', array('jquery'), 1.0, true);
 
-
 	global $wp_styles;
 	$wp_styles->add_data('default_ie', 'conditional', 'IE 6');
 	wp_enqueue_style('bootstrap_4_css');
@@ -845,12 +844,14 @@ function atividades_taxonomy() {
             'query_var' => true,
             'rewrite' => array(
                 'slug' => 'atividades',    // This controls the base slug that will display before each term
-                'with_front' => false  // Don't display the category base before
+                'with_front' => true,  // Don't display the category base before
+				'hierarchical' => true
             )
         )
     );
 }
 add_action( 'init', 'atividades_taxonomy');
+
 
 // Incluir taxonomia Publico
 function publico_taxonomy() {
@@ -863,7 +864,7 @@ function publico_taxonomy() {
             'query_var' => true,
             'rewrite' => array(
                 'slug' => 'publico',    // This controls the base slug that will display before each term
-                'with_front' => false  // Don't display the category base before
+                'with_front' => true  // Don't display the category base before
             )
         )
     );
@@ -922,6 +923,7 @@ add_filter('template_include', 'template_chooser');
 // Thumbnail Customizadas
 add_image_size( 'recorte-eventos', 640, 350, true ); // Slide
 add_image_size( 'categoria-eventos', 350, 350, true ); // Categorias
+//add_image_size( 'recorte-unidades', 575, 297, true ); // Eventos
 
 // Inserir tamanho minimo para upload de imagens
 add_filter('wp_handle_upload_prefilter','tc_handle_upload_prefilter');
@@ -1117,6 +1119,10 @@ function wp37_limit_posts_to_author($query) {
 			$unidades2 = array_flatten($unidades2);
 			$unidades2 = array_unique($unidades2);
 			
+			
+			//print_r($unidades2);
+	
+	
 			//print_r($unidades2);
 	
 			$showEventos = array();
@@ -1136,7 +1142,7 @@ function wp37_limit_posts_to_author($query) {
 			
 		} else {
 			$query->set('post_type', 'empty');
-		}		
+		}
 		
 	}
 	
@@ -1259,11 +1265,22 @@ function populateUserGroups( $field ){
     } else {
 		$variable = get_user_meta($user->ID,'grupo',true);
 
-		$pages = get_post_meta($variable, 'unidades', true);
-		if($pages && $pages != ""){
-			foreach ($pages as $page) {
-				$field['choices'][ $page ] = get_the_title($page);
-			}
+		$permitidas = array();
+
+        if($variable && $variable != ''){
+            foreach($variable as $permitido){
+                //$permitidas[] = get_field('unidades', $permitido);
+				$permitidas[] = get_post_meta($permitido, 'unidades', true);
+            }
+        }
+
+        $unidades = array_flatten($permitidas);
+        $unidades = array_unique($unidades);
+
+		//print_r($unidades);
+		
+		foreach ($unidades as $page) {
+			$field['choices'][ $page ] = get_the_title($page);
 		}
 		
 	}
@@ -1314,6 +1331,20 @@ function get_unidades(){
 		'post__not_in' => array(31244, 31675),
 		'posts_per_page' => -1
 	);
+
+	if($_GET['idUnidade'] && $_GET['idUnidade'] != ''){
+		$args['p'] = $_GET['idUnidade'];
+	}
+
+	if($_GET['zona'] && $_GET['zona'] != ''){
+		$args['meta_key'] = 'informacoes_basicas_zona_sp';
+		$args['meta_value'] = $_GET['zona'];
+	}
+
+	if($_GET['setor'] && $_GET['setor'] != ''){
+		$args['meta_key'] = 'informacoes_basicas_dre_pertencente';
+		$args['meta_value'] = $_GET['setor'];
+	}
 
 	$idUnidades = array();
 	
@@ -1376,7 +1407,8 @@ function data_fetch(){
 			//print_r($campos);
 	?>
 
-		<li class=""><a href="#map" class="story" onclick="alerta(this)" data-point="<?php echo $campos['latitude']; ?>,<?php echo $campos['longitude']; ?>"><div class="name"><?php echo get_the_title(); ?></div><div class="address"><?php echo $campos['endereco']; ?>, <?php echo $campos['numero']; ?> - <?php echo $campos['bairro']; ?> - CEP: <?php echo $campos['cep']; ?></div></a></li>
+		<li class=""><a href="/mapa-completo/?idUnidade=<?= get_the_ID(); ?>"><div class="name"><?php echo get_the_title(); ?></div><div class="address"><?php echo $campos['endereco']; ?>, <?php echo $campos['numero']; ?> - <?php echo $campos['bairro']; ?> - CEP: <?php echo $campos['cep']; ?></div></a></li>
+		<?php /*<li class=""><a href="#map" class="story" onclick="alerta(this)" data-point="<?php echo $campos['latitude']; ?>,<?php echo $campos['longitude']; ?>"><div class="name"><?php echo get_the_title(); ?></div><div class="address"><?php echo $campos['endereco']; ?>, <?php echo $campos['numero']; ?> - <?php echo $campos['bairro']; ?> - CEP: <?php echo $campos['cep']; ?></div></a></li> */ ?>
 
         <?php endwhile;
 		echo "<li class='disable-link'>Endereços</li>";
@@ -1615,6 +1647,7 @@ function my_remove_sub_menus() {
     remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=post_tag');
 }
 
+
 // Alterar place cadastro/edicao Sobre o CEU
 function wpb_change_title_text( $title ){
 	$screen = get_current_screen(); 
@@ -1668,6 +1701,12 @@ function hide_event_css () {
             echo 'div.sub-admin{width: 100% !important;}';
 			echo '.tipo-evento .acf-radio-list li:nth-child(3){display: none;}';
 			echo '.sobre-evento .acf-radio-list li:nth-child(1){display: none;}';
+			echo '.cptImageSize-thumbnail{display: none;} ';
+			echo '.cptImageSize-categoria-eventos{display: none;}';
+        echo '</style>';
+    }
+	if (is_admin() && is_user_logged_in()) {
+        echo '<style>';
 			echo '.cptImageSize-thumbnail{display: none;} ';
 			echo '.cptImageSize-categoria-eventos{display: none;}';
         echo '</style>';
@@ -1728,7 +1767,7 @@ function acf_filter_destaque( $args, $field, $post_id ) {
 	 return $args;
 }
 
-// Alterar paleta de cores do admin para 'Amanhecer'
+// Alterar cores do Admin para Amanhecer
 add_filter( 'get_user_option_admin_color', 'update_user_option_admin_color', 5 );
 
 function update_user_option_admin_color( $color_scheme ) {
@@ -1758,7 +1797,7 @@ function custom_wp_new_user_notification_email( $wp_new_user_notification_email,
     
 	// Gerar uma chave de verificacao
 	$key = get_password_reset_key( $user );
-    
+
 	// Editar conteudo do Email
     $message = sprintf(__('Nome de usuário: ')) . rawurlencode($user->user_login) . "\r\n\r\n";
     $message .= 'Para definir sua senha, visite o seguinte endereço:' . "\r\n\r\n";
@@ -1837,14 +1876,15 @@ function hcf_save( $post_id ) {
 		);
 	}
 
+	/*
 	// Descricao
 	if( isset($_POST['acf']["field_6005f383003ea"]) && $_POST['acf']["field_6005f383003ea"] != '' ){
 		update_post_meta(
 			$post_id,
 			'descricao',
-			$_POST['acf']["field_6005f383003ea"]
+			sanitize_text_field( $_POST['acf']["field_6005f383003ea"] )
 		);
-	}
+	}*/
 	
 }
 add_action( 'save_post', 'hcf_save' );
@@ -1972,20 +2012,35 @@ function limit_events_group($query) {
 		}		
 		
 		if($query->is_main_query()){
-			$meta_query = array(
-				'relation' => 'OR',
-				array(
-					'key'     => 'localizacao',
-					'value'   => $_GET['search_unidade'],
-				),					
-				array(
-					'key'		=> 'ceus_participantes_$_localizacao_serie',
-					'compare'	=> '=',
-					'value'		=> $_GET['search_unidade'],
-				),
-			);
+
+			if($user->roles[0] == 'contributor' || $user->roles[0] == 'editor'){
+				$meta_query = array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'localizacao',
+						'value'   => $_GET['search_unidade'],
+					)
+				);
+			} else {
+
+				$meta_query = array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'localizacao',
+						'value'   => $_GET['search_unidade'],
+					),					
+					array(
+						'key'		=> 'ceus_participantes_$_localizacao_serie',
+						'compare'	=> '=',
+						'value'		=> $_GET['search_unidade'],
+					),
+				);
+
+			}
 			
-			$query->set( 'meta_query', $meta_query );			
+			$query->set( 'meta_query', $meta_query );
+			//$query->set( 'meta_key', 'localizacao' );
+        	//$query->set( 'meta_value', $_GET['search_unidade'] );
 		}	
 
 	}
@@ -2126,12 +2181,12 @@ if ( ! function_exists( 'cor_remove_personal_options' ) ) {
 		global $_wp_admin_css_colors;
 		$_wp_admin_css_colors = 0;
 
-		$subject = preg_replace('#<h2>'.__("Personal Options").'</h2>#s', '', $subject, 1); // Remover titulo "Opções pessoais"
-		$subject = preg_replace('#<tr class="user-rich-editing-wrap(.*?)</tr>#s', '', $subject, 1); // Remover "Editor visual"
-		$subject = preg_replace('#<tr class="user-comment-shortcuts-wrap(.*?)</tr>#s', '', $subject, 1); // Remover "Atalhos do teclado"
-		$subject = preg_replace('#<tr class="show-admin-bar(.*?)</tr>#s', '', $subject, 1); // Remover "Barra de ferramentas"
-		$subject = preg_replace('#<tr class="user-language-wrap(.*?)</tr>#s', '', $subject, 1); // Remover "Idioma"
-		$subject = preg_replace('#<tr class="user-syntax-highlighting-wrap(.*?)</tr>#s', '', $subject, 1); // Remover "Destaque de sintaxe"
+		$subject = preg_replace('#<h2>'.__("Personal Options").'</h2>#s', '', $subject, 1); // Remove the "Personal Options" title
+		$subject = preg_replace('#<tr class="user-rich-editing-wrap(.*?)</tr>#s', '', $subject, 1); // Remove the "Visual Editor" field
+		$subject = preg_replace('#<tr class="user-comment-shortcuts-wrap(.*?)</tr>#s', '', $subject, 1); // Remove the "Keyboard Shortcuts" field
+		$subject = preg_replace('#<tr class="show-admin-bar(.*?)</tr>#s', '', $subject, 1); // Remove the "Toolbar" field
+		$subject = preg_replace('#<tr class="user-language-wrap(.*?)</tr>#s', '', $subject, 1); // Remove the "Toolbar" field
+		$subject = preg_replace('#<tr class="user-syntax-highlighting-wrap(.*?)</tr>#s', '', $subject, 1); // Remove the "Toolbar" field
 		
 		return $subject;
 	}
@@ -2152,6 +2207,40 @@ add_action( 'admin_head', 'cor_profile_subject_start' );
 add_action( 'admin_footer', 'cor_profile_subject_end' );
 #####
 
+global $pagenow;
+global $current_user;
+if (( $pagenow == 'post.php' ) || (get_post_type() == 'post')) {
+
+    $evento = $_GET['post']; // Pegar ID do evento (post)
+	if(get_post_type($_GET['post']) == 'unidade'){
+		$unidade = $_GET['post'];
+	} else {
+		$unidade = get_field('localizacao', $evento); // Pegar a localizacao atribuida 
+	}
+    
+        
+    $user = get_currentuserinfo(); // Pegar informacoes do usuario logado
+
+	if($user->roles[0] != 'administrator'){
+		$grupos = get_field('grupo', 'user_' . $user->ID); // Grupo do usuario
+	
+		$unidades = array();
+
+		if($grupos && $grupos != ''){
+			foreach($grupos as $grupo){
+				$unidades[] = get_field('unidades', $grupo);
+			}
+		}
+
+		$unidades = call_user_func_array('array_merge', $unidades);
+		$unidades = array_unique($unidades);
+		
+		if( !in_array($unidade, $unidades) ){
+			wp_redirect( admin_url() );
+		}
+	}
+	
+}
 
 //Filtra por tipo de evento grande ou serie
 function wpse45436_admin_posts_filter_restrict_manage_posts(){
