@@ -420,18 +420,19 @@ class LoopSingleRelacionadas extends LoopSingle
 			if( isset($_GET['semana']) && $_GET['semana'] != ''){
 				$diasSemana = $_GET['semana'];
 
-				$diasBusca = array();
+				$diasBusca = array(
+					'relation'	=> 'OR',
+				);
 
 				foreach($diasSemana as $dia){
-					$diasBusca = array(
+					$diasBusca[] = array(
 						'key'	 	=> 'data_dia_da_semana_$_selecione_os_dias',
 						'value' => '"'.$dia.'"',
 						'compare' 	=> 'LIKE',
 					);
 				}
-
+				
 				$args['meta_query'][] = array(
-					'relation'	=> 'OR',
 					$diasBusca						
 				);	
 			}
