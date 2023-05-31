@@ -2318,3 +2318,24 @@ if (( $pagenow == 'post.php' ) || (get_post_type() == 'post')) {
 	}
 	
 }
+
+// Se o campo Tipo de data for selecionado o valor de periodo o campo Data passa a ser obrigatorio
+add_filter('acf/validate_value/key=field_5fbd46389c564', 'acf_validate_data', 10, 4);
+// Se o campo Tipo de data for selecionado o valor de periodo o campo Data Final passa a ser obrigatorio
+add_filter('acf/validate_value/key=field_5fbd47ef11d9c', 'acf_validate_data', 10, 4);
+
+function acf_validate_data( $valid, $value, $field, $input ) {
+	
+	// bail early if value is already invalid
+	if( !$valid ) { return $valid; }
+	
+	$tipo = $_POST['acf']['field_6005f25ba8021']['field_6005f287a8022'];
+	$periodo = $_POST['acf']['field_5fbd45c38af48']['field_5fbd46009c563'];
+	if($periodo == "periodo" && $tipo == "outro"){
+		if (!$value) {
+			$valid = __('Por favor preencha este campo com a data.');
+		} 
+	}
+
+	return $valid;
+}
