@@ -654,9 +654,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
 											</tr>
 										<?php endif; ?>
 
-										<?php //print_r($tipo_evento); ?>
-
-										<?php
+										<?php											
 											// Verifica se possui campos
                                             if($datas){
 
@@ -757,7 +755,7 @@ class LoopSingleNoticiaPrincipal extends LoopSingle
                                             }
                                         ?>
 
-										<?php if($tipo_evento != 'serie') : ?>
+										<?php if($tipo_evento != 'serie' && ($datas['data'] != '' || $datas['data_final'] != '' || $datas['dia_da_semana']) ) : ?>
 
 											<tr>
 												<th scope="row" class="align-middle"><i class="fa fa-calendar" aria-hidden="true"></i></th>

@@ -33,7 +33,33 @@ class LoopSingleRelacionadas extends LoopSingle
 			return 1; 
 		else
 			return 0; 
-	} 
+	}
+
+	public function getDatesInRange($startDate, $endDate) {
+		$dates = array();
+		$currentDate = clone $startDate;
+	
+		while ($currentDate <= $endDate) {
+			$dates[] = $currentDate->format('Y-m-d');
+			$currentDate->add(new \DateInterval('P1D'));
+		}
+	
+		return $dates;
+	}
+
+	public function compareDaysOfWeek($a, $b) {
+		$daysOrder = array(
+			'Segunda' => 1,
+			'Terça' => 2,
+			'Quarta' => 3,
+			'Quinta' => 4,
+			'Sexta' => 5,
+			'Sábado' => 6,
+			'Domingo' => 7
+		);
+	
+		return $daysOrder[$a] - $daysOrder[$b];
+	}
 
 	public function convertData($data){ 
 		$dataEvento = $data;
@@ -163,6 +189,7 @@ class LoopSingleRelacionadas extends LoopSingle
 			
 
 			$diasEventos = array();
+			$diasSemana = array();
 			$atividadesEventos = array();
 			$unidadesEventos = array();
 
@@ -189,9 +216,27 @@ class LoopSingleRelacionadas extends LoopSingle
 
 						}elseif($campos['tipo_de_data'] == 'periodo'){
 
-							$diasEventos[] = $campos['data']; // data inicio
-							$diasEventos[] = $campos['data_final']; // data final
+							$startDate = new \DateTime($campos['data']); // data inicio
+							$endDate = new \DateTime($campos['data_final']); // data final
 
+							$datesInRange = $this->getDatesInRange($startDate, $endDate);
+
+							foreach ($datesInRange as $date) {
+								$diasEventos[] = $date;
+							}
+
+						} elseif($campos['tipo_de_data'] == 'semana'){
+							//$total = count($campos['selecione_os_dias']);
+							$semana = $campos['dia_da_semana'];
+							if($semana != ''){
+								foreach($semana as $dias){
+									foreach($dias['selecione_os_dias'] as $dia){
+										$diasSemana[] = $dia;
+									}									
+								}
+							}
+
+							
 						}
 					}
 					
@@ -220,6 +265,14 @@ class LoopSingleRelacionadas extends LoopSingle
 			
 			wp_reset_postdata();
 			
+			$diasSemana = array_unique($diasSemana); // remove datas iguais
+			usort($diasSemana, array($this, 'compareDaysOfWeek')); // Ordena por dia da semana
+
+			//echo "<pre>";
+			//print_r($diasSemana);
+			//echo "</pre>";
+			
+			
 			usort($diasEventos, array($this, 'compareByTimeStamp')); // Ondena por data
 			$diasEventos = array_unique($diasEventos); // remove datas iguais
 		?>
@@ -229,9 +282,9 @@ class LoopSingleRelacionadas extends LoopSingle
 			<div class="container mt-3 px-0">
 			
 				<div class="search-home search-event py-4 col-12" id='programacao'>
-					<div class="container">
+					<div class="">
 						
-						<div class="row">
+						<div class="">
 							<div class="col-sm-12 text-center">							
 								<?php 
 
@@ -244,9 +297,9 @@ class LoopSingleRelacionadas extends LoopSingle
 									) );								
 								?>
 							</div>
-							<form action="<?php echo get_the_permalink(); ?>" class="row col-sm-12">
+							<form action="<?php echo get_the_permalink(); ?>" class="row">
 								
-								<div class="col-sm-12 col-md-12 px-1">
+								<div class="col-sm-12 col-md-6">
 									<label for="atividades">Atividade(s) de interesse</label>
 									<select name="atividades[]" multiple="multiple" class="ms-list-1" id="atividades">
 										
@@ -270,18 +323,7 @@ class LoopSingleRelacionadas extends LoopSingle
 									</select>
 								</div>
 
-								<div class="col-sm-5 mt-3 px-1">
-									<label for="tipoData">Data</label>
-									<select name='data' class="form-control" id="tipoData">
-										<option value="" disabled selected>Selecione a data</option>
-										
-										<?php foreach($diasEventos as $dia) : ?>
-											<option value="<?php echo $dia; ?>"><?php echo $this->convertData($dia); ?></option>
-										<?php endforeach; ?>  
-									</select>
-								</div>
-								
-								<div class="col-sm-12 col-md-6 mt-3 px-1">
+								<div class="col-sm-12 col-md-6">
 									<label for="unidades">CEUs</label>
 									<select name="unidades[]" multiple="multiple" class="ms-list-5" id="unidades">
 										<?php foreach($filtroUnidades as $term): ?>
@@ -289,8 +331,47 @@ class LoopSingleRelacionadas extends LoopSingle
 										<?php endforeach; ?>      
 									</select>
 								</div>
+
+								<div class="col-sm-12 col-md-6 mt-3">
+									<label for="tipoData">Data</label>									
+									<?php if(!empty($diasEventos)): ?>
+										<select name='data' class="form-control" id="tipoData">
+											<option value="" disabled selected>Selecione a data</option>
+											
+											<?php foreach($diasEventos as $dia) : ?>
+												<option value="<?php echo $dia; ?>"><?php echo $this->convertData($dia); ?></option>
+											<?php endforeach; ?>  
+										</select>
+									<?php else: ?>
+										<select name='data'  class="form-control" id="tipoData" disabled>
+											<option value="" disabled selected>Selecione a data</option>
+										</select> 
+									<?php endif; ?>
+									
+								</div>
+
+								<div class="col-sm-12 col-md-6 mt-3">
+									<label for="semana">Dias da semana</label>
+									<?php if(!empty($diasSemana)): ?>
+										<select name="semana[]" multiple="multiple" class="ms-list-9"> 
+											<optgroup label="Dia da semana">
+												<?php 
+													foreach($diasSemana as $dia):														
+														$valor = str_replace('ç', 'c', $dia); // Remover caracteres especiais
+														$valor = str_replace('á', 'a', $valor); // Remover caracteres especiais
+														$valor = strtolower($valor); // Converter para minúsculas
+												?>
+													<option value="<?= $valor; ?>" <?= in_array($valor, $_GET['semana']) ? "selected" : ""; ?>><?= $dia; ?></option>
+												<?php endforeach; ?>
+											</optgroup>
+										</select>
+									<?php else: ?>
+										<select name="semana[]" multiple="multiple" class="ms-list-9" disabled></select> 
+									<?php endif; ?>
+								</div>
 								
-								<div class="col-sm-1 text-right mt-3" style="align-self: flex-end;">
+								<div class="col-12 text-right mt-3" style="align-self: flex-end;">
+									<a href="<?= get_the_permalink(); ?>" class="btn btn-light btn-clear mr-2">Limpar busca</a>
 									<button type="submit" class="btn btn-search rounded-0">Buscar</button>
 								</div>
 								
@@ -309,12 +390,50 @@ class LoopSingleRelacionadas extends LoopSingle
 				$diaEvento = $_GET['data'];
 
 				$diaEvento = str_replace('-', '', $diaEvento);
-
+				/*
 				$args['meta_query'][] = array (
 					'key' => 'data_data',
 					'value'     => $diaEvento,
 					'compare'   => '=',
+				);*/
+
+				$args['meta_query'][] = array(
+					
+					array(
+						'relation' => 'OR',
+						array(
+							'key'     => 'data_data',
+							'compare' => '>=', // depois ou igual a data de hoje
+							//'compare' => '<', // antes da data de hoje
+							'value'   => $diaEvento,
+						),
+						array(
+							'key'     => 'data_data_final',
+							'compare' => '>=', // depois ou igual a data de hoje
+							//'compare' => '<', // antes da data de hoje
+							'value'   => $diaEvento,
+						),
+					),		
 				);
+			}
+
+			if( isset($_GET['semana']) && $_GET['semana'] != ''){
+				$diasSemana = $_GET['semana'];
+
+				$diasBusca = array();
+
+				foreach($diasSemana as $dia){
+					$diasBusca = array(
+						'key'	 	=> 'data_dia_da_semana_$_selecione_os_dias',
+						'value' => '"'.$dia.'"',
+						'compare' 	=> 'LIKE',
+					);
+				}
+
+				$args['meta_query'][] = array(
+					'relation'	=> 'OR',
+					$diasBusca						
+				);	
 			}
 
 			if( isset($_GET['atividades']) && $_GET['atividades'] != ''){
@@ -440,152 +559,175 @@ class LoopSingleRelacionadas extends LoopSingle
 											</div>
 											<h3><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></h3>
 											<?php
-												$campos = get_field('data', get_the_ID());
-												
-												// Verifica se possui campos
-												if($campos){
+                                                    $campos = get_field('data', get_the_ID());
+                                                    
+                                                    // Verifica se possui campos
+                                                    if($campos){
 
-													//print_r($campos);
+                                                        //print_r($campos);
 
+                                                        if($campos['tipo_de_data'] == 'data'){ // Se for do tipo data
+                                                            
+                                                            $dataEvento = $campos['data'];
 
-													if($campos['tipo_de_data'] == 'data'){ // Se for do tipo data
-														
-														$dataEvento = $campos['data'];
+                                                            $dataEvento = explode("-", $dataEvento);
+                                                            $mes = date('M', mktime(0, 0, 0, $dataEvento[1], 10));
+                                                            $mes = translateMonth($mes);
+                                                            $data = $dataEvento[2] . " " . $mes . " " . $dataEvento[0];
 
-														$dataEvento = explode("-", $dataEvento);
-														$mes = date('M', mktime(0, 0, 0, $dataEvento[1], 10));
-														$mes = translateMonth($mes);
-														$data = $dataEvento[2] . " " . $mes . " " . $dataEvento[0];
+                                                            $dataFinal = $data;
 
-														$dataFinal = $data;
+                                                        } elseif($campos['tipo_de_data'] == 'semana'){ // se for do tipo semana
+                                                            
+                                                            $semana = $campos['dia_da_semana'];
+                                                            $diasSemana = array();
+                                                            $show = array();
 
-														
+                                                            foreach($semana as $dias){
 
-													} elseif($campos['tipo_de_data'] == 'semana'){ // se for do tipo semana
-														
-														$semana = $campos['dia_da_semana'];													
-														
-														$diasSemana = array();
+                                                                $total = count($dias['selecione_os_dias']); 
+                                                                $i = 0;
+                                                                $diasShow = '';
+                                                                
+                                                                foreach($dias['selecione_os_dias'] as $diaS){
+                                                                    $i++;
+                                                                    //echo $dia . "<br>";
+                                                                    if($total - $i == 1){
+                                                                        $diasShow .= $diaS . " ";
+                                                                    } elseif($total != $i){
+                                                                        $diasShow .= $diaS . ", ";
+                                                                    } elseif($total == 1){
+                                                                        $diasShow = $diaS;
+                                                                    } else {
+                                                                        $diasShow .= "e " . $diaS;
+                                                                    }	
+                                                                                                                            
+                                                                }
 
-														foreach($semana as $dias){
+                                                                $show[] = $diasShow;
+                                                                
+                                                            }
+                                                            
+                                                            $totalDias = count($show);
+                                                            $j = 0;	
+                                                            
+                                                            $dias = '';
 
-															$total = count($dias['selecione_os_dias']); 
-															$i = 0;
-															$diasShow = '';
-															
-															foreach($dias['selecione_os_dias'] as $diaS){
-																$i++;
-																if($total - $i == 1){
-																	$diasShow .= $diaS . " ";
-																} elseif($total != $i){
-																	$diasShow .= $diaS . ", ";
-																} else {
-																	$diasShow .= "e " . $diaS;
-																}	
-																														
-															}
-															$show = array();
-															$show[] = $diasShow;
-														}
-														
-														$totalDias = count($show);
-														$j = 0;	
-														
-														$dias = '';
+                                                            foreach($show as $diaShow){
+                                                                $j++;
+                                                                if($j == 1){
+                                                                    $dias .= $diaShow . " ";                                                        
+                                                                } else {
+                                                                    $dias .= "/ " . $diaShow;
+                                                                }
+                                                            }
 
-														foreach($show as $diaShow){
-															$j++;
-															if($j == 1){
-																$dias .= $diaShow . " ";                                                        
-															} else {
-																$dias .= "/ " . $diaShow;
-															}
-														}
+                                                            $dataFinal = $dias; 
 
-														$dataFinal = $dias; 
+                                                            $dias = '';
+                                                            $show = '';
+                                                            
+                                                        } elseif($campos['tipo_de_data'] == 'periodo'){
+                                                            
+                                                            $dataInicial = $campos['data'];
+                                                            $dataFinal = $campos['data_final'];
 
-														$dias = '';
-														$show = '';
-														
-													} elseif($campos['tipo_de_data'] == 'periodo'){
-														
-														$dataInicial = $campos['data'];
-														$dataFinal = $campos['data_final'];
+                                                            if($dataFinal){ // Verifica se possui a data final
+                                                                $dataInicial = explode("-", $dataInicial);
+                                                                $dataFinal = explode("-", $dataFinal);
+                                                                $mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+                                                                $mes = translateMonth($mes);
 
-														if($dataFinal){ // Verifica se possui a data final
-															$dataInicial = explode("-", $dataInicial);
-															$dataFinal = explode("-", $dataFinal);
-															$mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
-															$mes = translateMonth($mes);
+                                                                $data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
 
-															$data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+                                                                $dataFinal = $data;
+                                                            } else { // Se nao tiver a final mostra apenas a inicial
+                                                                $dataInicial = explode("-", $dataInicial);
+                                                                $mes = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
+                                                                $mes = translateMonth($mes);
+                                                                $data = $dataInicial[2] . " " . $mes . " " . $dataInicial[0];
 
-															$dataFinal = $data;
-														} else { // Se nao tiver a final mostra apenas a inicial
-															$dataInicial = explode("-", $dataInicial);
-															$mes = date('M', mktime(0, 0, 0, $dataInicial[1], 10));
-															$mes = translateMonth($mes);
-															$data = $dataInicial[2] . " " . $mes . " " . $dataInicial[0];
+                                                                $dataFinal = $data;
+                                                            }
 
-															$dataFinal = $data;
-														}											
+                                                        }
 
-													}
+                                                    }
 
-												} 
+                                                    if($tipoEvento == 'serie'){
+                                                        $participantes = get_field('ceus_participantes',  get_the_ID());
+                                                        $countPart = count($participantes);
+                                                        $countPart = $countPart - 1;
+                                                        
+                                                        $dtInicial = $participantes[0]['data_serie'];
+                                                        $dtFinal = $participantes[$countPart]['data_serie'];
 
-												if($tipo_evento['tipo'] == 'serie'){
-													$dataFinal = 'Múltiplas Datas';
-												}
-											?>
+                                                        if($dtInicial['tipo_de_data'] == 'data' && $dtFinal['tipo_de_data'] == 'data'){
+                                                            
+                                                            $dataInicial = explode("-", $dtInicial['data']);
+                                                            $dataFinal = explode("-", $dtFinal['data']);
+                                                            $mes = date('M', mktime(0, 0, 0, $dataFinal[1], 10));
+                                                            $mes = translateMonth($mes);
+
+                                                            $data = $dataInicial[2] . " a " .  $dataFinal[2] . " " . $mes . " " . $dataFinal[0];
+
+                                                            $dataFinal = $data;
+
+                                                        } else {
+                                                            $dataFinal = 'Múltiplas Datas';
+                                                        }											
+                                                    }
+                                                ?>
 											<p class="mb-0">
-												<i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $dataFinal; ?>
-												<br>
-												<?php
-												// Exibe os horários
-												$horario = get_field('horario', get_the_ID());
-												
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $dataFinal; ?>
+                                                    <br>
+                                                    <?php
+                                                    // Exibe os horários
+                                                                $horario = get_field('horario', get_the_ID());
 
-												if($horario['selecione_o_horario'] == 'horario'){
-													$hora = $horario['hora'];
-												} elseif($horario['selecione_o_horario'] == 'periodo'){
-													
-													$hora = '';
-													$k = 0;
-													
-													foreach($horario['hora_periodo'] as $periodo){
-														
-														if($periodo['periodo_hora_inicio']){
+                                                                
 
-															if($k > 0){
-																$hora .= ' / ';
-															}
+                                                                if($horario['selecione_o_horario'] == 'horario'){
+                                                                    $hora = $horario['hora'];
+                                                                } elseif($horario['selecione_o_horario'] == 'periodo'){
+                                                                    
+                                                                    $hora = '';
+                                                                    $k = 0;
+                                                                    
+                                                                    foreach($horario['hora_periodo'] as $periodo){
+                                                                        //print_r($periodo['periodo_hora_final']);
+                                                                        
+                                                                        if($periodo['periodo_hora_inicio']){
 
-															$hora .= $periodo['periodo_hora_inicio'];
+                                                                            if($k > 0){
+                                                                                $hora .= ' / ';
+                                                                            }
 
-														} 
-														
-														if ($periodo['periodo_hora_final']){
+                                                                            $hora .= $periodo['periodo_hora_inicio'];
 
-															$hora .= ' às ' . $periodo['periodo_hora_final'];
+                                                                        } 
+                                                                        
+                                                                        if ($periodo['periodo_hora_final']){
 
-														}
-														
-														$k++;
-														
-													}
+                                                                            $hora .= ' às ' . $periodo['periodo_hora_final'];
 
-												} else {
-													$hora = '';
-												}
-												?>
-												<?php if($hora) : ?>                                           
-                                                	<i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> <?php echo convertHour($hora); ?>
-												<?php endif; ?>
-												<?php if($tipo_evento['tipo'] == 'serie'): ?>
-													<i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> Múltiplos Horários
-												<?php endif; ?>
-											</p>
+                                                                        }
+                                                                        
+                                                                        $k++;
+                                                                        
+                                                                    }
+
+                                                                }else {
+                                                                    $hora = '';
+                                                                }
+                                                    ?>
+                                                    <?php if($hora) : ?>                                           
+                                                        <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo convertHour($hora); ?>
+                                                    <?php endif; ?>
+                                                    <?php if($tipoEvento == 'serie'): ?>
+                                                        <i class="fa fa-clock-o" aria-hidden="true"><span>icone horario</span></i> Múltiplos Horários
+                                                    <?php endif; ?>
+                                                </p>
 											<?php
 												//print_r($tipo_evento);
 												$local = get_field('localizacao', get_the_ID());                                                        

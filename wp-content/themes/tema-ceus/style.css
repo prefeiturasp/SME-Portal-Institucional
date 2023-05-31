@@ -1045,6 +1045,12 @@ ol.carousel-indicators {
     color: #FFFFFF;
 }
 
+.btn-clear {
+    color: #0048A9;
+    font-weight: bold;
+    border-radius: 0;
+}
+
 .search-home .ms-options-wrap>button:focus,
 .search-home .ms-options-wrap>button {
     display: block;
