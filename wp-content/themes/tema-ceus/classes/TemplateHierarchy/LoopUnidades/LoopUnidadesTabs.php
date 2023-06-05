@@ -1942,10 +1942,14 @@ class LoopUnidadesTabs extends LoopUnidades{
                             <?php 
                                 $princial[] = get_field('foto_principal_do_ceu');
                                 $seconds = get_field('outras_fotos_da_unidade');
+                                if(!$seconds){
+                                    $seconds = array();
+                                }
                                 $todasFotos = array_merge($princial, $seconds);
+                                $todasFotos = array_filter($todasFotos);                                
 
                                 $count_fotos = count($todasFotos);
-
+                                
                                 $j = 0;
                             ?>
 
