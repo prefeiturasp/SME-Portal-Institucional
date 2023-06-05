@@ -259,6 +259,63 @@ function my_acf_save_post_new( $post_id ) {
         
         $message .= "Você tem uma nova Visita Monitorada confirmada para o evento <strong>" . get_the_title($post_id) . "</strong>. A visita vai acontecer em " . substr($values['field_631b8b3898ec4'], 0, 16) . " com " . $values['field_631f3f84a9289'] . " inscritos. Confira mais informações abaixo:<br><br>";       
 
+        $nome_ue = $values['field_631b7cd1447ea']; // Nome da UE
+        if($nome_ue){
+            $message .= "Nome da UE: " . $nome_ue . " <br>";
+        }
+
+        $nome_responsavel = $values['field_631f2592a8d06']; // Nome do Responsável
+        if($nome_responsavel){
+            $message .= "Nome do responsável pela visita: " . $nome_responsavel . " <br>";
+        }
+
+        $faixa_etaria = $values['field_631f3fd2a928b']; // Faixa Etária
+        if($faixa_etaria){
+            $faixas_email = '';
+            $i = 0;
+            foreach($faixa_etaria as $faixa){
+                $term = get_term( $faixa );
+                if($i == 0){
+                    $faixas_email .= $term->name;
+                } else {
+                    $faixas_email .= ', ' . $term->name;
+                }
+                $i++;
+            }
+            $message .= "Faixa etária do grupo: " . $faixas_email . " <br>";
+        }
+
+        $contato_responsavel = $values['field_631f25a2a8d07']; // Telefone de contato do responsável
+        if($contato_responsavel){
+            $message .= "Telefone de contato do responsável: " . $contato_responsavel . " <br>";
+        }
+
+        $email_responsavel = $values['field_631f25b2a8d08']; // E-mail do responsável
+        if($email_responsavel){
+            $message .= "E-mail do responsável: " . $email_responsavel . " <br>";
+        }
+
+        $pcd = $values['field_631f6aee3f5c6']; // Faixa Etária
+        if($pcd){
+            $def_lista = $values['field_631f6b093f5c7'];
+            $outras_def = $values['field_631f6b343f5c8']; // Outras deficiências
+            $def_email = '';
+            $i = 0;
+            foreach($def_lista as $def){
+                $term = get_term( $def );
+                if($i == 0){
+                    $def_email .= $term->name;
+                } else {
+                    $def_email .= ', ' . $term->name;
+                }
+                $i++;
+            }
+            $message .= "No grupo tem estudantes PCD ou com mobilidade reduzida: " . $def_email . " <br>";
+            if($outras_def){
+                $message .= "Outras deficiências: " . $outras_def . " <br>";
+            }
+        }
+        
         $transporte = $values['field_631b8e0d5a10c']; // Precisa de Transporte
         $tipo_transporte = $values['field_6356d16b4c6d2']; // Tipo de Transporte
 
