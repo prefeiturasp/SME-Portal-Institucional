@@ -90,7 +90,8 @@ class PaginaUnidades extends ArchiveContato
                                     'posts_per_page' => -1,
                                     'orderby' => 'title',
                                     'order' => 'ASC',
-                                    'post__not_in' => array(31244),                                    
+                                    'post__not_in' => array(31244),
+									'post_status' => array('publish', 'pending'),
 
                                 );
                                 $currentPage = get_the_permalink();
@@ -131,6 +132,7 @@ class PaginaUnidades extends ArchiveContato
 			'orderby' => 'title',
 			'order' => 'ASC',
 			'post__not_in' => array(34180, 31675),
+			'post_status' => array('publish', 'pending'),
 		);
 
 		$todasUnidades = new \WP_Query( $argsUnidades );

@@ -1329,7 +1329,8 @@ function get_unidades(){
 	$args = array(
 		'post_type' => 'unidade',
 		'post__not_in' => array(31244, 31675),
-		'posts_per_page' => -1
+		'posts_per_page' => -1,
+		'post_status' => array('publish', 'pending'),
 	);
 
 	if($_GET['idUnidade'] && $_GET['idUnidade'] != ''){
@@ -1396,7 +1397,8 @@ function data_fetch(){
 	$the_query = new WP_Query( array( 'posts_per_page' => 10,
 									  'post_status' => 'publish',
 									  'cc_search_post_title' => esc_attr( $_POST['keyword'] ), 
-									  'post_type' => 'unidade' ) );
+									  'post_type' => 'unidade',
+									  'post_status' => array('publish', 'pending'), ) );
 	remove_filter( 'posts_where', 'cc_post_title_filter', 10 );
 
     if( $the_query->have_posts() ) :
@@ -1926,7 +1928,8 @@ function filtering_unidade($post_type){
 			'orderby'	=> 'title',
 			'order'	=> 'ASC',
 			'meta_key' => '',
-			'meta_value' => '',		
+			'meta_value' => '',
+			'post_status' => array('publish', 'pending'),
 		) );
 
 		
@@ -2339,3 +2342,16 @@ function acf_validate_data( $valid, $value, $field, $input ) {
 
 	return $valid;
 }
+
+function unidade_pending_review_redirect(){
+	$user = wp_get_current_user();
+	$id = get_the_id();
+	if(get_post_status ( get_the_id() ) == 'pending'){
+		if (!is_user_logged_in() && !$user->roles[0] == 'administrator' ) {
+			$url = get_home_url() . "/conteudo-em-manutencao";
+			wp_redirect( $url );
+        	exit;
+		}
+	}
+}
+add_action('template_redirect', 'unidade_pending_review_redirect');

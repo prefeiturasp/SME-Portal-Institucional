@@ -67,7 +67,8 @@ class PaginaUnidadesMapa
                                     'posts_per_page' => -1,
                                     'orderby' => 'title',
                                     'order' => 'ASC',
-                                    'post__not_in' => array(31244),                                    
+                                    'post__not_in' => array(31244),
+                                    'post_status' => array('publish', 'pending'),                                  
 
                                 );
                                 $currentPage = get_the_permalink();
@@ -120,7 +121,8 @@ class PaginaUnidadesMapa
                             'post__not_in' => array(31244, 31675),
                             'order' => 'ASC',
                             'orderby' => 'title',
-                            'posts_per_page' => -1,                            
+                            'posts_per_page' => -1,
+                            'post_status' => array('publish', 'pending'),                        
                         );
 
                         if($_GET['idUnidade'] && $_GET['idUnidade'] != ''){

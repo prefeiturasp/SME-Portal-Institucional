@@ -249,6 +249,21 @@
         
     </script>
 
+<?php
+    $idUnidade = $_GET['idUnidade'];
+    $latitude = get_group_field( 'informacoes_basicas', 'latitude', $idUnidade );
+    $longitude = get_group_field( 'informacoes_basicas', 'longitude', $idUnidade );
+    
+    if (get_post_status($idUnidade) === 'pending') {
+        // Obtém o valor de um campo do ACF
+        //$latitude = get_field('informacoes_basicas_latitute', $idUnidade);
+    }
+
+    echo '<pre>';
+    print_r($latitude);
+    echo '</pre>';
+?>
+
 <?php if(is_page()) : ?>
     <script type="text/javascript">
 
@@ -261,6 +276,8 @@
             $idUnidade = $_GET['idUnidade'];
             $latitude = get_group_field( 'informacoes_basicas', 'latitude', $idUnidade );
             $longitude = get_group_field( 'informacoes_basicas', 'longitude', $idUnidade );
+
+            
             ?>
             var INITIAL_LNG = <?= $longitude ?>;
             var INITIAL_LAT = <?= $latitude; ?>;
