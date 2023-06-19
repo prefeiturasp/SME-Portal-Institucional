@@ -1,9 +1,109 @@
 <?php get_header(); ?>
     <div class="container">
         <div class="row">
-			<?php if($_GET['s'] && $_GET['s'] != ''): ?>
+			<?php if($_GET['busca_s'] && $_GET['busca_s'] != ''): ?>
 
-				<div class="col-md-8 mb-4">
+				<div class="col-12 mb-5">
+					<form action="<?= get_home_url() . '/busca-validacao'; ?>">
+                    
+                        <div class="form-row">
+
+                            <div class="form-group col">
+                                <div class="row">
+                                    <div class="col-4 text-left">
+                                        <label for="usr">Busque por um termo</label>
+                                        <input class='form-control' type='text' name="busca_s" placeholder='Buscar' value="<?=$_GET['busca_s']?>"></input>
+                                    
+                                        <input id="enviar-busca-home" name="enviar-busca-home" type="hidden" class="btn btn-outline-secondary bt-search-topo" value="Buscar"> </input>
+                                    </div>
+                                    <div class="col-4 text-left">
+                                        <label for="sel1">Filtre por tipo de conteúdo</label>
+                                        <select name="tipoconteudo" class="form-control" id="sel1c">
+                                            <option value="">Selecione o tipo</option>
+                                            <option <?=$_GET['tipoconteudo'] == 'pagina' ? "selected" : '' ?> value="pagina">Página</option>
+                                            <option <?=$_GET['tipoconteudo'] == 'noticia' ? "selected" : '' ?> value="noticia">Notícia</option>								
+                                            
+                                        </select>
+                                        <script>
+
+                                            jQuery('#sel1c').on('change', function() {                                
+                                                var site = this.value;
+                                                //console.log( site );
+
+                                                // Função para remover o optgroup
+                                                function removerOptgroup(label, labelshow) {
+                                                    jQuery('optgroup[label="' + label + '"]').hide();
+                                                    jQuery('optgroup[label="' + labelshow + '"]').show();
+                                                    jQuery('#sel3sites').val('');
+                                                }
+
+                                                // validacao de selecao
+
+                                                if(site == 'pagina'){
+                                                    removerOptgroup('NOTÍCIA', 'PÁGINA');
+                                                } else if(site == 'noticia'){
+                                                    removerOptgroup('PÁGINA', 'NOTÍCIA');
+                                                } else {
+                                                    jQuery('optgroup[label="NOTÍCIA"]').show();
+                                                    jQuery('optgroup[label="PÁGINA"]').show();
+                                                    jQuery('#sel3sites').val('');
+                                                }
+                                                
+
+                                                //jQuery("#sel3sites option:selected").removeAttr("selected");
+                                                //jQuery("#sel3sites").val(sites[site]);
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="col-4 text-left">
+                                        <label for="sel3sites">Filtre por detalhe</label>
+                                        <select name="site" class="form-control" id="sel3sites">
+
+                                            <option value="">Selecionar</option>
+                                            <optgroup label="PÁGINA" <?=$_GET['tipoconteudo'] == 'noticia' ? "style='display: none;'" : '' ?>>
+                                                <option <?=$_GET['site'] == 'portal' ? "selected" : '' ?> value="portal">SME Portal Educação</option>								
+                                            </optgroup>
+                                            
+                                            <optgroup label="NOTÍCIA" <?=$_GET['tipoconteudo'] == 'pagina' ? "style='display: none;'" : '' ?>>
+                                                <option <?=$_GET['site'] == 'noticia-portal1' ? "selected" : '' ?> value="noticia-portal1">SME Portal</option>								
+                                                <option <?=$_GET['site'] == 'noticia-dre-butanta1' ? "selected" : '' ?> value="noticia-dre-butanta1">DRE Butantã</option>								
+                                                <option <?=$_GET['site'] == 'noticia-dre-campo-limpo1' ? "selected" : '' ?> value="noticia-dre-campo-limpo1">DRE Campo Limpo</option>								
+                                                <option <?=$_GET['site'] == 'noticia-dre-capela-socorro1' ? "selected" : '' ?> value="noticia-dre-capela-socorro1">DRE Capela do Socorro</option>								
+                                                <option <?=$_GET['site'] == 'noticia-dre-freguesia-brasilandia1' ? "selected" : '' ?> value="noticia-dre-freguesia-brasilandia1">DRE Freguesia/Brasilândia</option>								
+                                                <option <?=$_GET['site'] == 'noticia-dre-guaianases1' ? "selected" : '' ?> value="noticia-dre-guaianases1">DRE Guaianases</option>								
+                                                <option <?=$_GET['site'] == 'noticia-dre-ipiranga1' ? "selected" : '' ?> value="noticia-dre-ipiranga1">DRE Ipiranga</option>								
+                                                <option <?=$_GET['site'] == 'noticia-dre-itaquera1' ? "selected" : '' ?> value="noticia-dre-itaquera1">DRE Itaquera</option>								
+                                                <option <?=$_GET['site'] == 'noticia-dre-jacana-tremembe1' ? "selected" : '' ?> value="noticia-dre-jacana-tremembe1">DRE Jaçanã/Tremembé</option>								
+                                                <option <?=$_GET['site'] == 'noticia-dre-penha1' ? "selected" : '' ?> value="noticia-dre-penha1">DRE Penha</option>								
+                                                <option <?=$_GET['site'] == 'noticia-dre-pirituba1' ? "selected" : '' ?> value="noticia-dre-pirituba1">DRE Pirituba</option>								
+                                                <option <?=$_GET['site'] == 'noticia-dre-santo-amaro1' ? "selected" : '' ?> value="noticia-dre-santo-amaro1">DRE Santo Amaro</option>							
+                                                <option <?=$_GET['site'] == 'noticia-dre-sao-mateus1' ? "selected" : '' ?> value="noticia-dre-sao-mateus1">DRE São Mateus</option>								
+                                                <option <?=$_GET['site'] == 'noticia-dre-sao-miguel1' ? "selected" : '' ?> value="noticia-dre-sao-miguel1">DRE São Miguel</option>                                    
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group mb-3 col-2 d-flex align-items-end justify-content-between">
+                                <script>
+                                    function limpaFiltro() {
+                                        setTimeout(() => {
+                                            window.location = window.location.pathname + "?busca_s=<?=$_GET['busca_s'];?>";
+                                        }, 100);
+                                    }
+                                </script>
+                                <button onclick="limpaFiltro()" type="button" class="btn btn-refinar btn-sm float-left" style="width: 48%;">Limpar filtros</button>
+                                <button type="submit" class="btn btn-primary btn-sm float-right" style="width: 48%;">Buscar</button>
+
+                            </div>
+                        </div>
+
+					</form>
+				</div>
+                
+                <div class="col-12 col-lg-8 mb-4">
 
 					<?php
 						$sites = array();
@@ -57,31 +157,36 @@
 							'noticia-dre-sao-miguel1' => 112,
 						);
 
-						if($_GET['tipoconteudo'] && $_GET['tipoconteudo'] != ''){
+						if($_GET['tipoconteudo'] && $_GET['tipoconteudo']){
 							$arr = preg_split('/(?<=[a-z])(?=[0-9]+)/i', $_GET['tipoconteudo']);
+                            $sites = array();
 							if(is_user_logged_in()){
-								//print_r($arr);
+								//print_r($arr[0]);
 							}
 							if(str_contains($arr[0], 'pagina')){
 								$types = array('page', 'programa-projeto', 'card');
+
+                                foreach($contBusca as $blog){
+                                    $sites[] = (object) array('blog_id' => $blog);
+                                }
 							} elseif(str_contains($arr[0], 'noticia')) {
 								$types = array('post');
-							}
-							$sites = array();                      
-							$sites[] = (object) array('blog_id' => $arr[1]);
+                                $sites[] = (object) array('blog_id' => 1);
+							}                 
+							
 						}
 
-						if($_GET['site'] && $_GET['site'] != ''){
+                        if($_GET['site'] && $_GET['site'] != ''){							
 							$sites = array();                      
-							$sites[] = (object) array('blog_id' => $contBusca[$_GET['site']]);
+							$sites[] = (object) array('blog_id' => 1);
 						}
 
 						foreach ( $sites as $site ) {
 							
 							switch_to_blog( $site->blog_id );
 
-							if(isset($_GET['s'])):
-									$query = $_GET['s'];
+							if(isset($_GET['busca_s'])):
+									$query = $_GET['busca_s'];
 
 									
 									foreach($types as $type){
@@ -101,42 +206,11 @@
 										);
 
 										if($site->blog_id == 1){
-											if($_GET['tipoconteudo'] && $_GET['tipoconteudo'] != ''){
-												$categoria = $_GET['tipoconteudo'];
+											if($_GET['site'] && $_GET['site'] != ''){
+												$categoria = $_GET['site'];
 												$args['cat'] = $categNoticias[$categoria];
 											}
-										}
-
-										if($_GET['periodo'] && $_GET['periodo'] != ''){
-											$periodo = $_GET['periodo'];
-											if($periodo === '1'){
-												$args['date_query'] = array(
-													'after'     => '1 hour ago'
-												);
-											} elseif($periodo === '24'){
-												$args['date_query'] = array(
-													'after'     => '1 day ago'
-												);
-											} elseif($periodo === '168'){
-												$args['date_query'] = array(
-													'after'     => '1 week ago'
-												);
-											} elseif($periodo === '5040'){
-												$args['date_query'] = array(
-													'after'     => '1 month ago'
-												);
-											} elseif($periodo === '1839600'){
-												$args['date_query'] = array(
-													'after'     => '1 year ago'
-												);
-											}
-										}
-
-										if($_GET['ano'] && $_GET['ano'] != ''){
-											$args['date_query'] = array(
-												'year'     => $_GET['ano'],
-											);
-										}
+										}										
 
 										// Incluir subtitulo da busca de noticias
 										
@@ -291,127 +365,6 @@
 					<?php endif; ?>
 					
 
-				</div>
-
-				<div class="col-md-4 mb-5">
-					<form action="<?php echo get_home_url(); ?>">                    
-
-						<div class="form-group border-filtro">
-							<label for="usr"><strong>
-									<h2>Refine a sua busca</h2>
-								</strong></label>
-						</div>
-
-						<div class="form-group">
-							<label for="usr"><strong>Busque por um termo</strong></label>
-							<input class='form-control' type='text' name="s" placeholder='Buscar' value="<?=$_GET['s']?>"></input>
-							
-							<input id="enviar-busca-home" name="enviar-busca-home" type="hidden" class="btn btn-outline-secondary bt-search-topo" value="Buscar"> </input>
-							
-						</div>
-
-						<div class="form-group">
-							<label for="sel1"><strong>Filtre por tipo de conteúdo</strong></label>
-							<select name="tipoconteudo" onCha class="form-control" id="sel1c">
-								<option value="">Selecione o tipo</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-portal1' ? "selected" : '' ?> value="pagina-portal1">Página em SME Portal Educação</option>
-								<option <?=$_GET['tipoconteudo'] == 'noticia-portal1' ? "selected" : '' ?> value="noticia-portal1">Notícia em SME Portal Educação</option>								
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-butanta1' ? "selected" : '' ?> value="noticia-dre-butanta1">Notícia em DRE Butantã</option>								
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-campo-limpo1' ? "selected" : '' ?> value="noticia-dre-campo-limpo1">Notícia em DRE Campo Limpo</option>								
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-capela-socorro1' ? "selected" : '' ?> value="noticia-dre-capela-socorro1">Notícia em DRE Capela do Socorro</option>								
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-freguesia-brasilandia1' ? "selected" : '' ?> value="noticia-dre-freguesia-brasilandia1">Notícia em DRE Freguesia/Brasilândia</option>								
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-guaianases1' ? "selected" : '' ?> value="noticia-dre-guaianases1">Notícia em DRE Guaianases</option>								
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-ipiranga1' ? "selected" : '' ?> value="noticia-dre-ipiranga1">Notícia em DRE Ipiranga</option>								
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-itaquera1' ? "selected" : '' ?> value="noticia-dre-itaquera1">Notícia em DRE Itaquera</option>								
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-jacana-tremembe1' ? "selected" : '' ?> value="noticia-dre-jacana-tremembe1">Notícia em DRE Jaçanã/Tremembé</option>								
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-penha1' ? "selected" : '' ?> value="noticia-dre-penha1">Notícia em DRE Penha</option>								
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-pirituba1' ? "selected" : '' ?> value="noticia-dre-pirituba1">Notícia em DRE Pirituba</option>								
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-santo-amaro1' ? "selected" : '' ?> value="noticia-dre-santo-amaro1">Notícia em DRE Santo Amaro</option>							
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-sao-mateus1' ? "selected" : '' ?> value="noticia-dre-sao-mateus1">Notícia em DRE São Mateus</option>								
-								<option <?=$_GET['tipoconteudo'] == 'noticia-dre-sao-miguel1' ? "selected" : '' ?> value="noticia-dre-sao-miguel1">Notícia em DRE São Miguel</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-cme-conselho5' ? "selected" : '' ?> value="pagina-cme-conselho5">Página em CME Conselho</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-cae-conselho4' ? "selected" : '' ?> value="pagina-cae-conselho4">Página em CAE Conselho</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-cacsfundeb6' ? "selected" : '' ?> value="pagina-cacsfundeb6">Página em CACSFUNDEB Conselho</option>
-								<option <?=$_GET['tipoconteudo'] == 'pagina-crece7' ? "selected" : '' ?> value="pagina-crece7">Página em CRECE Conselho</option>
-							</select>
-							<script>
-								const sites = [];
-								sites[1]= "portal";								
-								sites[5]= "cme-conselho";
-								sites[4]= "cae-conselho";
-								sites[6]= "cacsfundeb";
-								sites[7]= "crece";
-
-								jQuery('#sel1c').on('change', function() {                                
-									var site = this.value.replace(/[^0-9]/g,'');
-									console.log( site );
-
-									//jQuery("#sel3sites option:selected").removeAttr("selected");
-									jQuery("#sel3sites").val(sites[site]);
-								});
-							</script>
-						</div>
-
-						<div class="form-group">
-							<label for="sel2"><strong>Filtre por um período</strong></label>
-							<select name="periodo" class="form-control" id="sel2">	
-								<option value="">Todos os períodos</option>
-								<option <?=$_GET['periodo'] == '1' ? 		"selected" : 'n' ?> value="1">Última hora</option>
-								<option <?=$_GET['periodo'] == '24' ? 		"selected" : 'n' ?> value="24">Últimas 24 horas</option>
-								<option <?=$_GET['periodo'] == '168' ? 		"selected" : 'n' ?> value="168">Última semana</option>
-								<option <?=$_GET['periodo'] == '5040' ? 	"selected" : 'n' ?> value="5040">Último mês</option>
-								<option <?=$_GET['periodo'] == '1839600' ?  "selected" : 'n' ?> value="1839600">Último ano</option>
-							</select>
-						</div>
-
-						<div class="form-group">
-							<label for="sel3"><strong>Filtre por ano</strong></label>
-							<select name="ano" class="form-control" id="sel3">                               
-								<?php 
-									$ano_agora = date('Y');
-									$date_range = range(2013, $ano_agora);
-									$anosArray = $date_range;
-
-									echo '<div class="transportX" style="display:none;"><option value="">Todos os anos</option>';				
-										(sort($anosArray));
-										
-										foreach ((array_unique($anosArray)) as $ano) {
-											$ano == $_GET['ano'] ? $isselected = 'selected' : $isselected = '';
-											echo '<option '.$isselected.' value="'.$ano.'">'.$ano.'</option>';			
-										}
-									echo '</div>';
-								?>
-							</select>
-						</div>
-
-						<div class="form-group">
-
-							<label for="sel3sites"><strong>Filtre por site</strong></label>
-							<select name="site" class="form-control" id="sel3sites">
-
-								<option value="">Todos os sites</option>
-								<option <?=$_GET['site'] == 'portal' ? "selected" : '' ?> value="portal">SME Portal Educação</option>								
-								<option <?=$_GET['site'] == 'cme-conselho' ? "selected" : '' ?> value="cme-conselho">CME Conselho</option>
-								<option <?=$_GET['site'] == 'cae-conselho' ? "selected" : '' ?> value="cae-conselho">CAE Conselho</option>
-								<option <?=$_GET['site'] == 'cacsfundeb' ? "selected" : '' ?> value="cacsfundeb">CACSFUNDEB Conselho</option>
-								<option <?=$_GET['site'] == 'crece' ? "selected" : '' ?> value="crece">CRECE Conselho</option>
-							</select>
-						</div>
-
-						<div class="form-group mb-3">
-							<script>
-								function limpaFiltro() {
-									setTimeout(() => {
-										window.location = window.location.pathname + "?s=<?=$_GET['s'];?>";
-									}, 100);
-								}
-							</script>
-							<button onclick="limpaFiltro()" type="button" class="btn btn-refinar btn-sm float-left">Limpar filtros</button>
-							<button type="submit" class="btn btn-primary btn-sm float-right">Refinar busca</button>
-
-						</div>
-
-					</form>
 				</div>
 
 			<?php else: ?>
