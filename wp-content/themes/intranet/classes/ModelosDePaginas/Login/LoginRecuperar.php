@@ -28,11 +28,9 @@ class LoginRecuperar extends Util
 					<div class="col-12 col-md-6 offset-md-6">
 
 						<div class='core_login_form'>
-							<h2>Esqueceu sua senha</h2>
+							<h2><?= get_the_title(); ?></h2>
 							<hr>
-							<p>Fique atento! A mudança de senha aqui, também acarretará automaticamente na mudança de senha do SGP, Plateia e outros Sistemas. Caso a senha do SGP esteja salva em seus dispositivos, lembre-se de usar a nova senha em seus próximos acessos.</p>
-							<p>As orientações para redefinição da sua senha serão enviadas para o seu  e-mail.</p>
-							<p>Para usuários das Unidades Parceiras, a senha foi enviada para o e-mail da Unidade Educacional.</p>
+							<?= get_the_content(); ?>
 							<form id="lost-pass" action="<?= get_the_permalink(); ?>" method="post">
 								<p class="login-username">
 									<label for="user">Usuário</label>
