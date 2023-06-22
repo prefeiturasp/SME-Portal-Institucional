@@ -938,7 +938,7 @@ function wp37_limit_posts_to_author($query) {
 	$user = wp_get_current_user();
 
 	// 	filtra as paginas pelo grupo pertencente
-	if( $_GET['filter'] == 'grupo' && $user->roles[0] == 'contributor')  {
+	if( ($_GET['filter'] == 'grupo' && $user->roles[0] == 'contributor' && $_GET['post_type'] == 'page') || ($_GET['filter'] == 'grupo' && $user->roles[0] == 'dre' && $_GET['post_type'] == 'page') )  {
 		
 		$variable = get_user_meta($user->ID, 'grupo', true);
 		$variable = array_flatten($variable);
@@ -992,7 +992,7 @@ function wp38_add_movies_filter($views){
 	// pega as informacoes do usuario logado
 	$user = wp_get_current_user();
 
-	if($user->roles[0] == 'contributor'){
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'dre'){
 
 		if( $_GET['filter'] == 'grupo' ){
 
@@ -1010,6 +1010,30 @@ function wp38_add_movies_filter($views){
  
 add_filter('views_edit-page', 'wp38_add_movies_filter');
 
+// Adiciona o filtro Minhas Paginas
+function my_posts_filter($views){
+	
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'dre'){
+
+		if( $_GET['filter'] == 'grupo' ){
+
+			$views['grupos'] = "<a href='" . admin_url('edit.php?list=noticias&filter=grupo') . "' class='current'>Minhas Notícias</a>";
+		return $views;
+
+		} else {
+			$views['grupos'] = "<a href='" . admin_url('edit.php?list=noticias&filter=grupo') . "'>Minhas Notícias</a>";
+		return $views;
+		}
+	}
+
+	return $views;
+}
+ 
+add_filter('views_edit-post', 'my_posts_filter');
+
 // Altera a URL de Paginas para colaboladores
 add_action('admin_menu', 'add_custom_link_into_appearnace_menu');
 function add_custom_link_into_appearnace_menu() {
@@ -1018,7 +1042,7 @@ function add_custom_link_into_appearnace_menu() {
     // pega as informacoes do usuario logado
 	$user = wp_get_current_user();
 	
-	if($user->roles[0] == 'contributor'){		
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'dre'){		
 		$submenu['edit.php?post_type=page'][5][2] = 'edit.php?post_type=page&filter=grupo';
 		$submenu['edit.php?post_type=contato'][5][2] = 'edit.php?post_type=contato&filter=grupo';
 	}
@@ -1030,7 +1054,7 @@ function contatos_filter($views){
 	// pega as informacoes do usuario logado
 	$user = wp_get_current_user();
 
-	if($user->roles[0] == 'contributor'){
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'dre'){
 
 		if( $_GET['filter'] == 'grupo' ){
 
@@ -3045,3 +3069,24 @@ add_action('admin_notices', function() {
 		echo '<div id="message" class="updated notice is-dismissable"><p>O conteúdo das páginas selecionadas foram removidos.</p></div>';
 	}
 });
+
+/**
+ * Remover 'Todos', 'Publicados', 'Futuro', 'Destaque', 'Rascunho', 'Pendente', 'Lixeira' 
+ * nas listagem de páginas e noticias para usuarios DRE
+ */
+add_filter( 'views_edit-page', 'remove_sub_sub_menu' );
+add_filter( 'views_edit-post', 'remove_sub_sub_menu' );
+function remove_sub_sub_menu($views){
+	$user = wp_get_current_user();
+    if( $user->roles[0] != 'dre' )
+        return $views;
+
+    $remove_views = [ 'all','publish','future','sticky','draft','pending','trash', 'private' ];
+
+    foreach( (array) $remove_views as $view )
+    {
+        if( isset( $views[$view] ) )
+            unset( $views[$view] );
+    }
+    return $views;
+}

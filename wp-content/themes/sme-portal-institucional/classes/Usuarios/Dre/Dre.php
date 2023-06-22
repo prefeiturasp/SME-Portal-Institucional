@@ -10,8 +10,8 @@ class Dre
 	public function __construct()
 	{
 		$this->getRole();
-		$this->removeCap();
-		$this->addCap();
+		//$this->removeCap();
+		//$this->addCap();
 
 		add_action( 'admin_menu', array($this, 'remove_menus' ));
 	}
@@ -54,7 +54,13 @@ class Dre
 				'delete_cards',
 				'delete_card',
 				'manage_cards',
-				'assign_cards',				
+				'assign_cards',
+				//
+				'publish_concursos',
+				'delete_concurso',
+				'delete_others_concursos',
+				'delete_private_concursos',
+				'delete_concursos',
 			);
 
 			foreach ($caps as $cap){
@@ -103,7 +109,6 @@ class Dre
 			$this->role_object->add_cap( 'delete_cards' );
 			$this->role_object->add_cap( 'assign_cards' );
 
-
 			$this->role_object->add_cap( 'read_botao');
 			$this->role_object->add_cap( 'edit_botoes' );
 			$this->role_object->add_cap( 'delete_botoes' );
@@ -139,6 +144,8 @@ class Dre
 			$this->role_object->add_cap( 'manage_concursos' );
 			$this->role_object->add_cap( 'edit_concursos' );
 			$this->role_object->add_cap( 'assign_concursos' );
+			$this->role_object->add_cap( 'read_tutoriais');
+
 
 		}
 	}
@@ -151,15 +158,14 @@ class Dre
 		if ($usuario->roles[0] === 'dre') {
 			//remove_menu_page('edit.php'); // Noticias
 			remove_menu_page('edit.php?post_type=agenda'); // Agenda do Secretario
-			remove_menu_page('edit.php?post_type=agendanew');
-			remove_menu_page('edit.php?post_type=organograma'); // Organograma
+			remove_menu_page('edit.php?post_type=agendanew'); // Agenda do Secretario
+			//remove_menu_page('edit.php?post_type=contato');
+			remove_menu_page('edit.php?post_type=organograma-sec'); // Organograma
 			remove_menu_page('edit.php?post_type=curriculo-da-cidade'); // Curriculo
 			remove_menu_page('edit.php?post_type=setor'); // Setor
-			//remove_menu_page('edit.php?post_type=concurso'); // Concursos
 			//remove_menu_page('edit.php?post_type=aba');
 			//remove_menu_page('edit.php?post_type=botao');
-			remove_menu_page('admin.php?page=wpseo_workouts');
-			remove_menu_page('tutorial_slug');
+			remove_menu_page('admin.php?page=acf-options-alerta-da-pagina-inicial');
 			remove_menu_page( 'wpcf7' );
 			remove_menu_page('edit-comments.php'); // Comentarios
 			remove_menu_page('tools.php'); // Ferramentas
