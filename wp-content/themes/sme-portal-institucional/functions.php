@@ -3090,3 +3090,17 @@ function remove_sub_sub_menu($views){
     }
     return $views;
 }
+
+add_filter('acf/fields/relationship/query/key=field_616875a8b6c80', 'filter_page_by_user_group', 10, 3);
+function filter_page_by_user_group( $args, $field, $post_id ) {
+
+	$user = wp_get_current_user();
+	
+	if($user->roles[0] != 'administrator'){
+		$grupos = get_user_meta($user->ID,'grupo',true);		
+    	$args['post__in'] = $grupos;
+	}
+	
+	
+    return $args;
+}
