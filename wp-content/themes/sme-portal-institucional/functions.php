@@ -3076,6 +3076,7 @@ add_action('admin_notices', function() {
  */
 add_filter( 'views_edit-page', 'remove_sub_sub_menu' );
 add_filter( 'views_edit-post', 'remove_sub_sub_menu' );
+add_filter( 'views_edit-contato', 'remove_sub_sub_menu' );
 function remove_sub_sub_menu($views){
 	$user = wp_get_current_user();
     if( $user->roles[0] != 'dre' )
@@ -3092,6 +3093,7 @@ function remove_sub_sub_menu($views){
 }
 
 add_filter('acf/fields/relationship/query/key=field_616875a8b6c80', 'filter_page_by_user_group', 10, 3);
+add_filter('acf/fields/relationship/query/key=field_6256db1575dcb', 'filter_page_by_user_group', 10, 3);
 function filter_page_by_user_group( $args, $field, $post_id ) {
 
 	$user = wp_get_current_user();
@@ -3104,3 +3106,39 @@ function filter_page_by_user_group( $args, $field, $post_id ) {
 	
     return $args;
 }
+
+// Filtra as paginas que grupo pertence
+
+function limit_contact_posts($query) {
+
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	// 	filtra as paginas pelo grupo pertencente
+	if( $_GET['post_type'] == 'contato' && $user->roles[0] != 'administrator' && $_GET['filter'] == 'grupo' ) {
+		
+		$variable = get_user_meta($user->ID, 'grupo', true);
+		$variable = array_flatten($variable);
+        $variable = array_unique($variable);
+		
+		$contatos = array();
+
+		if($variable && $variable != ''){
+            foreach($variable as $grupo){
+				//$contatos[] = get_post_meta($grupo, 'selecionar_paginas', true);
+				$contatos[] = get_post_meta($grupo, 'contatos_sme', true);
+			}
+        }
+
+		$contatos = array_flatten($contatos);
+        $contatos = array_unique($contatos);
+		
+		//print_r($variable);
+		$query->set('post__in', $contatos);
+	} 
+
+	
+	return $query;
+	
+}
+add_filter('pre_get_posts', 'limit_contact_posts');
