@@ -1938,7 +1938,7 @@ function generateRandomString($length = 10) {
 																}else{
 																	the_permalink();
 																}
-																?>" class='p3-4'>Baixar</a>
+																?>" class='p3-4 btn-down-count' data-acervoid="<?= get_the_ID(); ?>" download>Baixar</a>
 														<?php endif; ?>
 
 														<?php if($partional && !$file) : ?>
@@ -1950,7 +1950,7 @@ function generateRandomString($length = 10) {
 																<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 																	<?php $a = 1;
 																		foreach($partional as $arquivo) : ?>
-																		<a href="<?php echo $arquivo; ?>" class="dropdown-item" id="download_link" target="_blank" download>
+																		<a href="<?php echo $arquivo; ?>" class="dropdown-item btn-down-count" id="download_link" target="_blank" data-acervoid="<?= get_the_ID(); ?>" download>
 																			Baixar Arquivo <?php echo $a++; ?>
 																		</a>
 																	<?php endforeach; ?>
@@ -1960,10 +1960,6 @@ function generateRandomString($length = 10) {
 														<?php endif; ?>
 														
 													</div>
-
-													
-													
-													
 
 												</div>
 
@@ -3382,5 +3378,32 @@ function generateRandomString($length = 10) {
 		</div><!-- modal-content -->
 	</div><!-- modal-dialog -->
 </div><!-- modal -->
+
+<script>
+	jQuery(document).ready(function() { 		
+
+		jQuery(".btn-down-count").click(function () {
+			var acervo_id = jQuery(this).data("acervoid"); // recebe o ID do acervo atual
+			
+			jQuery.ajax({
+				type: "POST",
+				url: "/wp-admin/admin-ajax.php",
+				data: {
+					action: 'count_acervo_download', // funcao no functions.php
+					acervo_id: acervo_id // ID atual do acervo
+				},
+				success: function (data) {
+					var total = data['data']; // recebe o total
+					if(total == 'error'){
+						console.log('Erro no contador');
+					} else {
+						jQuery("#num_downs").html(total); // atualiza o valor na pagina
+					}					
+				}
+			});
+			
+		});
+	});
+</script>
 
 <?php get_footer();

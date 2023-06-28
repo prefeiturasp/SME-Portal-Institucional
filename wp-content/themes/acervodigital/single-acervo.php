@@ -188,7 +188,7 @@ function generateRandomString($length = 10) {
 						if($file['url'] != ''){
 							?>
 							<a href="<?php echo $file['url']; ?>" id="download_link" target="_blank" download>
-								<button type="button" class="btn btn-down btn-primary mb-2"><i class="fa fa-download" aria-hidden="true"></i> Baixar documento</button>
+								<button type="button" class="btn btn-down btn-primary mb-2 btn-down-count" data-acervoid="<?= get_the_ID(); ?>"><i class="fa fa-download" aria-hidden="true"></i> Baixar documento</button>
 							</a>
 							<?php
 						}
@@ -209,7 +209,7 @@ function generateRandomString($length = 10) {
 												while ( have_rows('arquivos_particionados') ) : the_row();
 													if( get_row_layout() == 'adicionar_arquivos' ):
 														?>
-														<a href="<?php echo $text = get_sub_field('arquivo'); ?>" class="dropdown-item" id="download_link" target="_blank" download>
+														<a href="<?php echo $text = get_sub_field('arquivo'); ?>" class="dropdown-item btn-down-count" id="download_link" data-acervoid="<?= get_the_ID(); ?>" target="_blank" download>
 															Baixar Arquivo <?php echo $a++; ?>
 														</a>
 														<?php
@@ -379,7 +379,11 @@ function generateRandomString($length = 10) {
 					}
 					
 					$allItens['views'] = getPostViews(get_the_ID());
-													
+					$allItens['downs'] = getPostDownloads(get_the_ID());
+					
+					//echo "<pre>";
+					//print_r($allItens);
+					//echo "</pre>";
 					?>
 			
 			
@@ -698,6 +702,11 @@ function generateRandomString($length = 10) {
 																<strong>Número de visualizações</strong><br>
 																<span id="num_views"><?php echo $item; ?></span>
 															</div>
+														<?php elseif($chave == 'downs'): ?>
+															<div class="col-6 espec-element">
+																<strong>Número de downloads</strong><br>
+																<span id="num_downs"><?php echo $item; ?></span>
+															</div>
 														<?php endif;
 													}
 												}
@@ -812,6 +821,28 @@ function generateRandomString($length = 10) {
 						console.log('Erro no contador');
 					} else {
 						jQuery("#num_views").html(total); // atualiza o valor na pagina
+					}					
+				}
+			});
+			
+		});
+
+		jQuery(".btn-down-count").click(function () {
+			var acervo_id = jQuery(this).data("acervoid"); // recebe o ID do acervo atual
+			
+			jQuery.ajax({
+				type: "POST",
+				url: "/wp-admin/admin-ajax.php",
+				data: {
+					action: 'count_acervo_download', // funcao no functions.php
+					acervo_id: acervo_id // ID atual do acervo
+				},
+				success: function (data) {
+					var total = data['data']; // recebe o total
+					if(total == 'error'){
+						console.log('Erro no contador');
+					} else {
+						jQuery("#num_downs").html(total); // atualiza o valor na pagina
 					}					
 				}
 			});
