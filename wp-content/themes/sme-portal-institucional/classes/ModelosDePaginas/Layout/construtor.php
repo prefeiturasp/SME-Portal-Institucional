@@ -55,7 +55,7 @@ class Construtor extends Util
 		?>
 			<div id="<?php echo $post_slug; ?>" class="container-fluid p-0">
 				<div class="container">
-					<div class="row" id="conteudo">
+					<div class="row" id="conteudo">					
 						<?php if(get_field('fx_flex_habilitar_menu') != null || get_field('fx_flex_habilitar_menu', $parent) != null): ?>
 							
 							
@@ -487,14 +487,18 @@ class Construtor extends Util
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres_1_1' );
 
+															// Noticias DREs - Destaques
+															elseif( get_row_layout() == 'fx_cl1_noticias_dres_destaques' ):
+																get_template_part( 'construtor/construtor', 'noticias_destaque_dre' );
+
 															// Organograma DREs
 															elseif( get_row_layout() == 'fx_cl1_organograma' ):
 																get_template_part( 'construtor/construtor', 'organograma_1_1' );
-															
+
 															// Concursos
 															elseif( get_row_layout() == 'concursos_sme' ):
-																get_template_part( 'construtor/construtor', 'concursos_sme' );	
-
+																get_template_part( 'construtor/construtor', 'concursos_sme' );
+															
 															// Mapa DREs
 															elseif( get_row_layout() == 'mapa_dres' ):
 																get_template_part( 'construtor/construtor', 'mapa_dres' );
@@ -506,7 +510,11 @@ class Construtor extends Util
 															// Mapa
 															elseif( get_row_layout() == 'fx_cl1_mapa' ):
 																get_template_part( 'construtor/construtor', 'mapa' );
-															
+
+															// Acervo
+															elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																get_template_part( 'construtor/construtor', 'acervo_embed' );
+
 															// Integracao Pagina
 															elseif( get_row_layout() == 'integrar_pagina' ):
 
@@ -636,6 +644,19 @@ class Construtor extends Util
 																							elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																								get_template_part( 'construtor/construtor', 'noticias_dres_1_1' );
 																							
+																							
+																							// Organograma DREs
+																							elseif( get_row_layout() == 'fx_cl1_organograma' ):
+																								get_template_part( 'construtor/construtor', 'organograma_1_1' );
+																							
+																							// Concursos
+																							elseif( get_row_layout() == 'concursos_sme' ):
+																								get_template_part( 'construtor/construtor', 'concursos_sme' );	
+
+																							// Mapa DREs
+																							elseif( get_row_layout() == 'mapa_dres' ):
+																								get_template_part( 'construtor/construtor', 'mapa_dres' );	
+																								
 																							// Organograma DREs
 																							elseif( get_row_layout() == 'fx_cl1_organograma' ):
 																								get_template_part( 'construtor/construtor', 'organograma_1_1' );
@@ -1284,6 +1305,10 @@ class Construtor extends Util
 																								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																									get_template_part( 'construtor/construtor', 'noticias_dres' );
 
+																								// Acervo
+																								elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																									get_template_part( 'construtor/construtor', 'acervo_embed' );
+
 																								endif;
 																							
 																							endwhile;
@@ -1381,6 +1406,10 @@ class Construtor extends Util
 																								// Noticias DREs
 																								elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																									get_template_part( 'construtor/construtor', 'noticias_dres' );
+
+																								// Acervo
+																								elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																									get_template_part( 'construtor/construtor', 'acervo_embed' );
 
 																								endif;
 																							endwhile;
@@ -2164,6 +2193,10 @@ class Construtor extends Util
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres' );
 
+															// Acervo
+															elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																get_template_part( 'construtor/construtor', 'acervo_embed' );
+
 															endif;
 
 														endwhile;
@@ -2263,6 +2296,10 @@ class Construtor extends Util
 															// Noticias DREs
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres' );
+
+															// Acervo
+															elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																get_template_part( 'construtor/construtor', 'acervo_embed' );
 
 															endif;
 
@@ -2384,6 +2421,10 @@ class Construtor extends Util
 																// Noticias DREs
 																elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																	get_template_part( 'construtor/construtor', 'noticias_dres' );
+
+																// Acervo
+																elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																	get_template_part( 'construtor/construtor', 'acervo_embed' );
 																
 																endif;
 
@@ -2485,6 +2526,10 @@ class Construtor extends Util
 																elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																	get_template_part( 'construtor/construtor', 'noticias_dres' );
 
+																// Acervo
+																elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																	get_template_part( 'construtor/construtor', 'acervo_embed' );
+
 																endif;
 
 															endwhile;
@@ -2585,6 +2630,10 @@ class Construtor extends Util
 																// Noticias DREs
 																elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																	get_template_part( 'construtor/construtor', 'noticias_dres' );
+
+																// Acervo
+																elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																	get_template_part( 'construtor/construtor', 'acervo_embed' );
 
 																endif;
 
@@ -2708,6 +2757,10 @@ class Construtor extends Util
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres' );
 
+															// Acervo
+															elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																get_template_part( 'construtor/construtor', 'acervo_embed' );
+
 															endif;
 
 														endwhile;
@@ -2807,6 +2860,10 @@ class Construtor extends Util
 															// Noticias DREs
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres' );
+
+															// Acervo
+															elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																get_template_part( 'construtor/construtor', 'acervo_embed' );
 
 															endif;	
 
@@ -2909,6 +2966,10 @@ class Construtor extends Util
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres' );
 
+															// Acervo
+															elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																get_template_part( 'construtor/construtor', 'acervo_embed' );
+
 															endif;	
 
 														endwhile;
@@ -3008,6 +3069,10 @@ class Construtor extends Util
 															// Noticias DREs
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres' );
+
+															// Acervo
+															elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																get_template_part( 'construtor/construtor', 'acervo_embed' );
 
 															endif;	
 
@@ -3130,6 +3195,10 @@ class Construtor extends Util
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres' );
 
+															// Acervo
+															elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																get_template_part( 'construtor/construtor', 'acervo_embed' );
+
 															endif;
 
 														endwhile;
@@ -3230,9 +3299,9 @@ class Construtor extends Util
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres' );
 
-															// Mapa
-															elseif( get_row_layout() == 'fx_cl1_mapa' ):
-																get_template_part( 'construtor/construtor', 'mapa' );
+															// Acervo
+															elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																get_template_part( 'construtor/construtor', 'acervo_embed' );
 
 															endif;
 
@@ -3247,7 +3316,7 @@ class Construtor extends Util
 									////////////////////////////// Final 1/3 Colunas ///////////////////////////////
 
 									////////////////////////////// Inicio 3/1 Colunas ///////////////////////////////
-									elseif( get_row_layout() == 'fx_linha_coluna_3b1' ):
+											elseif( get_row_layout() == 'fx_linha_coluna_3b1' ):
 												//Personalização da coluna
 												$background = get_sub_field('fx_fundo_da_coluna_1_1');
 												$color = get_sub_field('fx_cor_do_texto_coluna_1_1');
@@ -3355,6 +3424,10 @@ class Construtor extends Util
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres' );
 
+															// Acervo
+															elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																get_template_part( 'construtor/construtor', 'acervo_embed' );
+
 															endif;
 
 														endwhile;
@@ -3454,10 +3527,14 @@ class Construtor extends Util
 															// Noticias DREs
 															elseif( get_row_layout() == 'fx_cl1_noticias_dres' ):
 																get_template_part( 'construtor/construtor', 'noticias_dres' );
-															
+
 															// Mapa
 															elseif( get_row_layout() == 'fx_cl1_mapa' ):
 																get_template_part( 'construtor/construtor', 'mapa' );
+
+															// Acervo
+															elseif( get_row_layout() == 'fx_cl1_acervo' ):
+																get_template_part( 'construtor/construtor', 'acervo_embed' );
 
 															endif;
 

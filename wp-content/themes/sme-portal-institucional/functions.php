@@ -2486,8 +2486,14 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 	foreach($jsonArrayResponse as $acervo){
 		$qtdArquivos = count($acervo->arquivos_particionados);
 		
+		$get_format = '';
+		
 		if($acervo->substituir_capa_acervo_digital != ''){
 			$imagem = get_media_api($acervo->substituir_capa_acervo_digital);
+			$get_format = get_media_api($acervo->arquivo_acervo_digital);
+			if($get_format->id == ''){			
+				$get_format = get_media_api($acervo->arquivos_particionados_0_arquivo);
+			}
 		} else {
 			$imagem = get_media_api($acervo->arquivo_acervo_digital);
 			if($imagem->id == ''){			
@@ -2500,7 +2506,12 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 			$imagemShow = 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
 		}
 		
-		$formato = explode("/", $imagem->mime_type);
+		if($get_format == ''){
+			$formato = explode("/", $imagem->mime_type);
+		} else {
+			$formato = explode("/", $get_format->mime_type);
+		}
+
 		if($formato[1] == 'VND.OPENXMLFORMATS-OFFICEDOCUMENT.SPREADSHEETML.SHEET' || $formato[1] == 'vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
 			$formato[1] = 'XLS';
 		}
@@ -3082,7 +3093,7 @@ function remove_sub_sub_menu($views){
     if( $user->roles[0] != 'dre' )
         return $views;
 
-    $remove_views = [ 'all','publish','future','sticky','draft','pending','trash', 'private' ];
+    $remove_views = [ 'all','publish','future','sticky','draft','pending','trash', 'private', 'mine' ];
 
     foreach( (array) $remove_views as $view )
     {
