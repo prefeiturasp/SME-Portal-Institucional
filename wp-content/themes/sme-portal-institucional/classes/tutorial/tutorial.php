@@ -35,32 +35,37 @@ class WPDocs_Options_Page {
      */
     function conteudo_tutorial() {
 		echo '<hr>';
+		$user = wp_get_current_user();
+		$funcao = $user->roles[0];		
 		if( have_rows('cadastro_de_tutoriais','option') ):
 			while ( have_rows('cadastro_de_tutoriais','option') ) : the_row();
+				$perfis = get_sub_field('perfil');
+				if( in_array($funcao, $perfis) || $perfis[0] == ''):
 			?>
-			<div style="width: fit-content; display: inline-grid; padding: 10px; text-align: center; margin: 5px; border: solid 1px #000; height: 350px; overflow-y: scroll; max-width: 400px;">
-					<h3><?php the_sub_field('nome_tutorial'); ?></h3>
-				<?php
-					if(get_sub_field('arquivo_tutorial') != ''){
-						?>
-						<video width="400" height="230" controls>
-						  <source src="<?php the_sub_field('arquivo_tutorial'); ?>" type="video/mp4">
-						</video>
+					<div style="width: fit-content; display: inline-grid; padding: 10px; text-align: center; margin: 5px; border: solid 1px #000; height: 350px; overflow-y: scroll; max-width: 400px;">
+							<h3><?php the_sub_field('nome_tutorial'); ?></h3>
 						<?php
-					}
-				?>
-					
-					<p><?php the_sub_field('descricao_tutorial'); ?></p>
-				<?php
-					if(get_sub_field('botao_tutorial') != ''){
+							if(get_sub_field('arquivo_tutorial') != ''){
+								?>
+								<video width="400" height="230" controls>
+								<source src="<?php the_sub_field('arquivo_tutorial'); ?>" type="video/mp4">
+								</video>
+								<?php
+							}
 						?>
-							<p><a href="<?php the_sub_field('botao_tutorial'); ?>"><button>Ver tutorial</button></a></p>
+							
+							<p><?php the_sub_field('descricao_tutorial'); ?></p>
 						<?php
-					}
-				?>
-					
-			</div>
+							if(get_sub_field('botao_tutorial') != ''){
+								?>
+									<p><a href="<?php the_sub_field('botao_tutorial'); ?>"><button>Ver tutorial</button></a></p>
+								<?php
+							}
+						?>
+							
+					</div>
 			<?php
+				endif;
 			endwhile;
 		else :
 		endif;
@@ -68,6 +73,3 @@ class WPDocs_Options_Page {
 }
  
 new WPDocs_Options_Page;
-
-?>
-	
