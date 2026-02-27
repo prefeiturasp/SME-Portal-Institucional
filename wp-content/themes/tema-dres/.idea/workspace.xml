@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0ae1fb44-0d38-42da-9010-f15e8f0650b1" name="Default Changelist" comment="Unidades escolares">
+      <change beforePath="$PROJECT_DIR$/classes/ModelosDePaginas/PaginaInicial/PaginaInicialEndereco.php" beforeDir="false" afterPath="$PROJECT_DIR$/classes/ModelosDePaginas/PaginaInicial/PaginaInicialEndereco.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaquePrimaria.php" beforeDir="false" afterPath="$PROJECT_DIR$/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaquePrimaria.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaqueSecundarias.php" beforeDir="false" afterPath="$PROJECT_DIR$/classes/ModelosDePaginas/PaginaInicial/PaginaInicialNoticiasDestaqueSecundarias.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectId" id="1WndPbY9DDwKCPP5eoCyDSnIE6K" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="ignore.virus.scanning.warn.message" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../.." />
+    <property name="settings.editor.selected.configurable" value="preferences.updates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\SME-Portal-Institucional\wp-content\themes\tema-dres\classes\Usuarios" />
+      <recent name="C:\xampp\htdocs\SME-Portal-Institucional\wp-content\themes\tema-dres\classes\Cpt" />
+      <recent name="C:\xampp\htdocs\SME-Portal-Institucional\wp-content\themes\tema-dres\classes\TemplateHierarchy" />
+      <recent name="C:\xampp\htdocs\SME-Portal-Institucional\wp-content\themes\tema-dres" />
+      <recent name="C:\xampp\htdocs\SME-Portal-Institucional\wp-content\themes\tema-dres\classes\ModelosDePaginas\PaginaInicial" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0ae1fb44-0d38-42da-9010-f15e8f0650b1" name="Default Changelist" comment="" />
+      <created>1579789270408</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1579789270408</updated>
+      <workItem from="1579789273393" duration="15485000" />
+      <workItem from="1579868958579" duration="6503000" />
+      <workItem from="1579882168680" duration="2445000" />
+      <workItem from="1579884859908" duration="80000" />
+      <workItem from="1579884953955" duration="111000" />
+      <workItem from="1579885243391" duration="81000" />
+      <workItem from="1579893917891" duration="53000" />
+      <workItem from="1580120748572" duration="2811000" />
+      <workItem from="1580126288369" duration="30667000" />
+      <workItem from="1580293077601" duration="5955000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-1208" y="94" key="#Notifications" timestamp="1579869026232">
+      <screen x="-1600" y="5" width="1600" height="860" />
+    </state>
+    <state x="-1208" y="94" key="#Notifications/0.0.1366.728/-1600.5.1600.860@-1600.5.1600.860" timestamp="1579869026232" />
+    <state x="-1289" y="5" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1580219376769">
+      <screen x="-1600" y="5" width="1600" height="860" />
+    </state>
+    <state x="-1289" y="5" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728/-1600.5.1600.860@-1600.5.1600.860" timestamp="1580219376769" />
+    <state x="-1070" y="191" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580135747390">
+      <screen x="-1600" y="5" width="1600" height="860" />
+    </state>
+    <state x="-1070" y="191" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728/-1600.5.1600.860@-1600.5.1600.860" timestamp="1580135747390" />
+    <state x="-1251" y="32" key="CommitChangelistDialog2" timestamp="1579884790465">
+      <screen x="-1600" y="5" width="1600" height="860" />
+    </state>
+    <state x="-1251" y="32" key="CommitChangelistDialog2/0.0.1366.728/-1600.5.1600.860@-1600.5.1600.860" timestamp="1579884790465" />
+    <state x="494" y="146" key="FileChooserDialogImpl" timestamp="1580302744273">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="-1021" y="178" key="FileChooserDialogImpl/0.0.1366.728/-1600.5.1600.860@-1600.5.1600.860" timestamp="1580220461954" />
+    <state x="494" y="146" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1580302744273" />
+    <state x="-966" y="359" key="NewPhpFileDialog" timestamp="1580133449390">
+      <screen x="-1600" y="5" width="1600" height="860" />
+    </state>
+    <state x="-966" y="359" key="NewPhpFileDialog/0.0.1366.728/-1600.5.1600.860@-1600.5.1600.860" timestamp="1580133449390" />
+    <state x="-1297" y="81" key="SettingsEditor" timestamp="1579885321823">
+      <screen x="-1600" y="5" width="1600" height="860" />
+    </state>
+    <state x="-1297" y="81" key="SettingsEditor/0.0.1366.728/-1600.5.1600.860@-1600.5.1600.860" timestamp="1579885321823" />
+    <state x="391" y="193" key="com.intellij.ide.util.TipDialog" timestamp="1580293088443">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="391" y="193" key="com.intellij.ide.util.TipDialog/0.0.1366.728/-1600.5.1600.860@-1600.5.1600.860" timestamp="1580293088443" />
+    <state x="-1104" y="33" width="918" height="804" key="find.popup" timestamp="1580209410248">
+      <screen x="-1600" y="5" width="1600" height="860" />
+    </state>
+    <state x="-1104" y="33" width="918" height="804" key="find.popup/0.0.1366.728/-1600.5.1600.860@-1600.5.1600.860" timestamp="1580209410248" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="tema-dres" type="b2602c69:ProjectViewProjectNode" />
+        <item name="tema-dres" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
+  </component>
+</project>

@@ -1,0 +1,234 @@
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+
+RewriteEngine on
+RewriteBase /
+Options +FollowSymLinks
+RewriteCond %{HTTP_HOST} ^www.educacao.sme.prefeitura.sp.gov.br [NC]
+RewriteRule ^(.*)$ https://educacao.sme.prefeitura.sp.gov.br/$1 [R=301,L] 
+
+
+# add a trailing slash to /wp-admin
+RewriteRule ^([_0-9a-zA-Z-]+/)?wp-admin$ $1wp-admin/ [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) $2 [L] 
+RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ $2 [L]
+RewriteRule . index.php [L]
+
+#php_value upload_max_filesize 128M
+#php_value post_max_size 128M
+#php_value max_execution_time 300
+#php_value max_input_time 300
+#php_value max_input_vars 5000
+#php_value suhosin.get.max_vars 5000
+#php_value suhosin.post.max_vars 5000
+#php_value suhosin.request.max_vars 5000
+
+# Bloquear acesso ao arquivo xmlrpc.php
+<Files xmlrpc.php>
+order deny,allow
+deny from all
+</Files>
+
+redirect 301 /default.aspx https://educacao.sme.prefeitura.sp.gov.br/
+redirect 301 /Main https://educacao.sme.prefeitura.sp.gov.br/
+redirect 301 /contato /contatos
+redirect 301 /materialescolar /coserv/material-escolar
+
+# REDIRECTS
+RedirectMatch 301 ^/centros-educacionais-unificados-ceus(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/centroseducacionaisunificados/
+RedirectMatch 301 /wp-content/uploads/2021/05/Povos_Migrantes_OD.pdf https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/06/Curr%C3%ADculo-da-Cidade-Povos-Migrantes-WEB.pdf
+RedirectMatch 301 /wp-content/uploads/2021/02/Rev_Magist_10_EDUCOM-web.pdf https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/03/Rev_Magist_10_EDUCOM-web.pdf
+RedirectMatch 301 /wp-content/uploads/2021/03/Protocolo_SME_versaoII_2021.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/protocolo-volta-as-aulas/
+RedirectMatch 301 /wp-content/uploads/2021/05/MIOLO_CIEJAs-na-Cidade_Capa-e-miolo-WEB4009.pdf https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/06/LIVRO_CIEJAs-na-Cidade_WEB.pdf
+RedirectMatch 301 /wp-content/uploads/2021/04/Di(.*)logos_NAAPA_Vol-3_WEB.pdf https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/05/Livro_Dialogos_NAAPA_vol3_Vulner_WEB.pdf
+RedirectMatch 301 ^/nucleo-de-apoio-para-aprendizagem(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/naapa/
+RedirectMatch 301 ^/revista-ocupacao-mai-edicao-1-2(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/revista-ocupacao-mai-edicao-1/
+RedirectMatch 301 ^/revista-ocupacao-mai-edicao-1-2(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/revista-ocupacao-mai-edicao-12/
+RedirectMatch 301 ^/educacao-de-jovens-e-adultos-eja/publicacoes-eja/ciejas-na-cidade-de-sao-paulo-identidades-culturas-e-historias(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-de-jovens-e-adultos-eja/publicacoes-eja/ciejas-na-cidade-de-sao-paulo/
+RedirectMatch 301 ^/noticias/prefeitura-inicia-entrega-de-81-mil-face-shields-e-16-milhao-mascaras-para-profissionais-que-atuam-nas-escolas(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/noticias/prefeitura-inicia-entrega-de-81-mil-face-shields-e-de-16-milhao-mascaras-para-profissionais-que-atuam-nas-escolas/
+RedirectMatch 301 ^/noticias/vacinacao-contra-covid-19-para-profissionais-da-educacao-comeca-a-partir-desta-sexta-feira(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/noticias/vacinacao-contra-covid-19-para-profissionais-da-educacao/
+RedirectMatch 301 ^/noticias/prefeitura-de-sp-prorroga-consulta-com-professores-da-rede-municipal-sobre-uso-de-tecnologia-digitais-ate-a-proxima-segunda-feira(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/noticias/prefeitura-de-sp-prorroga-consulta-com-professores-da-rede-municipal-sobre-uso-de-tecnologia-digitais-ate-hoje/
+RedirectMatch 301 ^/transporte-escolar-gratuito-teg(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/transporte-escolar-gratuito/
+RedirectMatch 301 ^/educacao-de-jovens-e-adultos(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-de-jovens-e-adultos-eja/
+RedirectMatch 301 ^/acesso-a-informacao/contratos-convenios(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/acesso-a-informacao/contratos-e-convenios/
+RedirectMatch 301 ^/noticias/sme-abre-inscricoes-para-curso-de-desenho-universal-para-aprendizagem-que-colabora-com-praticas-pedagogicas-inclusivas(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/noticias/sme-abre-inscricoes-do-curso-de-desenho-universal-para-aprendizagem-que-colabora-com-praticas-pedagogicas-inclusivas/
+RedirectMatch 301 ^/noticias/sme-abre-inscricoes-para-curso-de-desenho-universal-para-aprendizagem-que-colabora-com-praticas-pedagogicas-inclusivassme-abre-inscricoes-para-curso-de-desenho-que-colabora-com-praticas-pedagogicas-in(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/noticias/sme-abre-inscricoes-para-curso-de-desenho-universal-para-aprendizagem-que-colabora-com-praticas-pedagogicas-inclusivas/
+RedirectMatch 301 ^/noticias/sme-abre-inscricoes-para-curso-de-desenho-que-colabora-com-praticas-pedagogicas-inclusivas(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/noticias/sme-abre-inscricoes-para-curso-de-desenho-universal-para-aprendizagem-que-colabora-com-praticas-pedagogicas-inclusivassme-abre-inscricoes-para-curso-de-desenho-que-colabora-com-praticas-pedagogicas-in/
+RedirectMatch 301 ^/coped/nucleo-tecnico-de-formacao-ntf(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/coped/ntf/
+RedirectMatch 301 ^/educomunicacao-auloes(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educomunicacao/educomunicacao-auloes/
+RedirectMatch 301 ^/sme-forma-professores-para-ensinar-lingua-portuguesa-aos-imigrantes(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/sme-forma-professores-para-ensinar-lingua-portuguesa-aos-migrantes/
+RedirectMatch 301 ^/noticias-2(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/noticias/
+RedirectMatch 301 ^/organograma-2(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/organograma/
+RedirectMatch 301 ^/organograma-3(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/organograma/
+RedirectMatch 301 ^/nova-maratona-de-auloes-de-educomunicacao-comeca-nesta-terca-feira-19(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/nova-maratona-de-auloes-de-educomunicacao-comeca-nesta-terca-feira-20/
+RedirectMatch 301 ^/educacao-de-sao-paulo-prepara-edital-para-compor-conselho-de-acompanhamento-e-de-controle-social-do-fundo-de-manutencao(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/oscs-podem-indicar-candidatos-como-representante-no-cacs-fundeb/
+RedirectMatch 301 ^/mes-das-mulheres-conheca-a-diretora-que-nao-mediu-esforcos-para-manter-estudantes-nas-aulas-remotas(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/mulheres-na-educacao-conheca-a-diretora-que-nao-mediu-esforcos-para-manter-estudantes-nas-aulas-remotas/
+RedirectMatch 301 ^/mes-das-mulheres-conheca-michelly-francini-formadora-de-professores-e-coordenadores-da-rede(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/mes-das-mulheres-formadora-de-professores-e-coordenadores/
+RedirectMatch 301 ^/mes-das-mulheres-conheca-a-psicopedagoga-da-sme-que-da-suporte-aos-estudantes-familias-e-docentes-durante-a-pandemia(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/mes-das-mulheres-psicopedagoga/
+RedirectMatch 301 ^/familias-precisam-se-recadastrar-para-receber-valor-para-compra-de-uniformes(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/familias-precisam-se-recadastrar/
+RedirectMatch 301 ^/cuidando-de-quem-cuida-redescobrindo-o-espaco-escolar(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/cuidando-de-quem-cuida/
+RedirectMatch 301 ^/sme-disponibiliza-guias-de-orientacao-para-a-volta-as-aulas-em-libras(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/conheca-os-guias-de-orientacao-para-a-volta-as-aulas-em-libras/
+RedirectMatch 301 ^/cadastro-de-propostas-de-formacao(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/cadastro-de-propostas-de-formacao-2019/
+RedirectMatch 301 ^/educacao-de-sao-paulo-aguarda-decisao-judicial-sobre-volta-as-aulas-presenciais(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-de-sao-paulo-segue-o-planejamento-para-atendimento-dos-estudantes-em-2021/
+RedirectMatch 301 ^/secrinscricao-para-educacao-de-jovens-e-adultos-2021(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/inscricao-para-educacao-de-jovens-e-adultos-2021/
+RedirectMatch 301 ^/secretaria-municipal-de-educacao-abre-inscricao-para-ensino-de-jovens-e-adultos-eja-2021(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/inscricao-para-educacao-de-jovens-e-adultos-2021/
+RedirectMatch 301 ^/292-mil-estudantes-da-rede-municipal-de-ensino-realizam-avaliacao-diagnostica(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/avaliacao-diagnostica/
+RedirectMatch 301 ^/baby(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/baby-teg/
+RedirectMatch 301 ^/secretaria-municipal-de-educacao-divulga-alteracoes-no-periodo-letivo-para-eja(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/alteracoes-eja/
+RedirectMatch 301 ^/matriculas-podem-ser-realizadas-on-line(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/matriculas-on-line/
+RedirectMatch 301 ^/curso-educando-para-boas-escolhas-on-line-esta-com-vagas-adicionais-abertas__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/curso-educando-para-boas-escolhas-on-line-esta-com-vagas-adicionais-abertas/
+RedirectMatch 301 ^/covid-19-familias-de-sao-paulo-recebem-2o-deposito-do-auxilio-alimentacao-da-prefeitura(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/2-deposito-auxilio/
+RedirectMatch 301 ^/secretaria-municipal-de-educacao-define-funcionamento-de-escolas-e-jornada-de-servidores(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/secretaria-municipal-de-educacao-antecipa-recesso-escolar-e-define-funcionamento-de-escolas/
+RedirectMatch 301 ^/instalacao-com-150-guarda-chuvas-enche-de-cor-ao-ceu-alvarenga(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/instalacao-com-150-guarda-chuvas-enche-de-cor-o-ceu-alvarenga/
+RedirectMatch 301 ^/cadastramento-de-interessados-para-contratacao-de-professores-de-educacao-infantil(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/cadastramento-de-interessados-para-contratacao-de-professores-de-educacao-infantil-na-rede-municipal-de-ensino/
+RedirectMatch 301 ^/educacao-municipal-divulga-abertura-de-inscricoes-para-contratacao-de-professores-de-educacao-infantil(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/cadastramento-de-interessados-para-contratacao-de-professores-de-educacao-infantil-na-rede-municipal-de-ensino/
+RedirectMatch 301 ^/diretoria-regional-de-educacao-guaianases-promove-reuniao-de-organizacao-inicial-para-profissionais-da-educacao-infantil(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/diretoria-regional-de-educacao-guaianases-promove-reuniao-de-organizacao-inicial-para-profissionais-da-educacao/
+RedirectMatch 301 ^/setor-de-supervisao-escolar-da-dre-f-b-disponibiliza-modelos-de-formularios-e-calendarios(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/supervisao-escolar-da-dre-fb-disponibiliza-modelos-e-calendarios/
+RedirectMatch 301 ^/mais-de-um-milhao-de-estudantes-voltam-as-aulas-no-dia-5-de-janeiro(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/mais-de-um-milhao-de-estudantes-voltam-as-aulas-no-dia-5-de-fevereiro/
+RedirectMatch 301 ^/ceu-caminho-do-mar-promove-campanha-de-castracao-caes-e-gatos(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/ceu-alvarenga-promove-campanha-de-castracao-caes-e-gatos/
+RedirectMatch 301 ^/ceu-alvarenga-informacoes-gerais(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/ceu-alvarenga-informacoes-gerais-2/
+RedirectMatch 301 ^/estudantes-do-ensino-medico-publicam-artigos-cientificos-em-revista-da-usp-pela-primeira-vez(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/estudantes-do-ensino-medio-publicam-artigos-cientificos-em-revista-da-usp-pela-primeira-vez/
+RedirectMatch 301 ^/secretaria-oferece-bolsa-de-estudos-para-educadores-da-rede-municipal-de-ensino(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/secretaria-oferece-bolsas-de-estudo-para-educadores-da-rede-municipal-de-ensino/
+RedirectMatch 301 ^/mais-de-400-mil-estudantes-vao-as-urnas-para-eleicao-de-gremio-estudantil-1(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/mais-de-400-mil-estudantes-vao-as-urnas-para-eleicao-de-gremio-estudantil/
+RedirectMatch 301 ^/professores-participam-de-formacao-para-uso-de-impressoras-3d-1(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/professores-participam-de-formacao-para-uso-de-impressoras-3d/
+RedirectMatch 301 ^/emei-nelson-mandela-convida-comunidade-para-festa-o-de-casa-posso-entrar-1(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/emei-nelson-mandela-convida-comunidade-para-festa-o-de-casa-posso-entrar/
+RedirectMatch 301 ^/estudantes-da-rede-municipal-constroem-objetos-com-movimentos-utilizando-material-reciclavel(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/estudantes-da-rede-municipal-constroem-objetos-com-movimentos-utilizando-material-reciclavel-1/
+RedirectMatch 301 ^/semana-de-arte-moderna-da-academia-estudantil-de-letras-2019__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/semana-de-arte-moderna-da-academia-estudantil-de-letras-2019/
+RedirectMatch 301 ^/secretaria-municipal-de-educacao-divulga-nova-data-e-novos-locais-para-concurso-publico__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/secretaria-municipal-de-educacao-divulga-nova-data-e-novos-locais-para-concurso-publico/
+RedirectMatch 301 ^/estudantes-da-emebs-anne-sullivan-participam-do-dia-da-visibilidade-e-orgulho-surdo__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/estudantes-da-emebs-anne-sullivan-participam-do-dia-da-visibilidade-e-orgulho-surdo/
+RedirectMatch 301 ^/dez-escolas-municipais-sao-premiadas-na-4-edicao-do-territorio-educativos__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/dez-escolas-municipais-sao-premiadas-na-4-edicao-do-territorio-educativos/
+RedirectMatch 301 ^/diretoria-regional-de-educacao-freguesiabrasilandia-realiza-palestra-dorina__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/diretoria-regional-de-educacao-freguesiabrasilandia-realiza-palestra-dorina/
+RedirectMatch 301 ^/secretaria-municipal-de-educacao-firma-parceria-para-difundir-a-educacao-ambiental-e-a-reciclagem-dos-plasticos__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/secretaria-municipal-de-educacao-firma-parceria-para-difundir-a-educacao-ambiental-e-a-reciclagem-dos-plasticos/
+RedirectMatch 301 ^/bruno-caetano-participa-de-reuniao-do-conselho-municipal-de-educacao__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/bruno-caetano-participa-de-reuniao-do-conselho-municipal-de-educacao/
+RedirectMatch 301 ^/secretaria-municipal-de-educacao-promove-peca-teatral-no-centro-educacional-unificado-pera-marmelo__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/secretaria-municipal-de-educacao-promove-peca-teatral-no-centro-educacional-unificado-pera-marmelo/
+RedirectMatch 301 ^/formacoes-oferecidas-em-2019__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/formacoes-oferecidas-em-2019/
+RedirectMatch 301 ^/estudantes-visitam-exposicao-do-artista-eduardo-kobra__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/estudantes-visitam-exposicao-do-artista-eduardo-kobra/
+RedirectMatch 301 ^/evento-educador-em-destaque-ira-premiar-e-homenagear-os-trabalhos-inovadores-e-criativos-da-rede-municipal-de-ensino__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/evento-educador-em-destaque-ira-premiar-e-homenagear-os-trabalhos-inovadores-e-criativos-da-rede-municipal-de-ensino/
+RedirectMatch 301 ^/dre-guaianases-realiza-17-semana-de-alfabetizacao__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/dre-guaianases-realiza-17-semana-de-alfabetizacao/
+RedirectMatch 301 ^/pratica-da-secretaria-municipal-de-educacao-e-apresentada-no-9-forum-da-internet-no-brasil__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/pratica-da-secretaria-municipal-de-educacao-e-apresentada-no-9-forum-da-internet-no-brasil/
+RedirectMatch 301 ^/bandas-de-escolas-municipais-de-ensino-fundamental-se-reunem-para-abertura-de-seminario-regional__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/bandas-de-escolas-municipais-de-ensino-fundamental-se-reunem-para-abertura-de-seminario-regional/
+RedirectMatch 301 ^/cerimonia-marcara-a-posse-de-mais-120-novos-membros-para-a-academia-de-letras-dos-professores__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/cerimonia-marcara-a-posse-de-mais-120-novos-membros-para-a-academia-de-letras-dos-professores/
+RedirectMatch 301 ^/criancas-da-escola-municipal-de-educacao-infantil-gabriel-prestes-exibem-lembrancas-na-exposicao-do-coisario-ao-relicario-memorias-e-afetividades__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/criancas-da-escola-municipal-de-educacao-infantil-gabriel-prestes-exibem-lembrancas-na-exposicao-do-coisario-ao-relicario-memorias-e-afetividades/
+RedirectMatch 301 ^/734-profissionais-se-formam-em-pedagogia-pela-rede-uniceu__trashed(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/734-profissionais-se-formam-em-pedagogia-pela-rede-uniceu/
+RedirectMatch 301 ^/estudantes-da-rede-municipal-de-ensino-entram-em-recesso-escolar-no-proximo-dia-8(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/estudantes-da-rede-municipal-de-ensino-entram-em-recesso-escolar-no-proximo-dia-8-1/
+RedirectMatch 301 ^/ceu-paz-e-emef-neir-augusto-vencem-festival-de-xadrez-por-equipe(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/ceu-paz-e-emef-neir-augusto-vencem-festival-de-xadrez-por-equipe-1/
+RedirectMatch 301 ^/diretoria-regional-de-educacao-freguesiabrasilandia-participa-de-jornada-pedagogica(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/diretoria-regional-de-educacao-freguesiabrasilandia-participa-de-jornada-pedagogica-1/
+RedirectMatch 301 ^/escolas-municipais-recebem-premiacao-por-projetos-realizados-nos-territorios-da-cidade(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/escolas-municipais-recebem-premiacao-por-projetos-realizados-nos-territorios-da-cidade-1/
+RedirectMatch 301 ^/centro-educacional-unificado-meninos-recebe-palestra-contra-a-violencia-de-mulheres-e-meninas(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/centro-educacional-unificado-meninos-recebe-palestra-contra-a-violencia-de-mulheres-e-meninas-1/
+RedirectMatch 301 ^/espetaculo-depassagem-se-apresenta-no-centro-educacional-unificado-heliopolis(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/espetaculo-depassagem-se-apresenta-no-centro-educacional-unificado-heliopolis-1/
+RedirectMatch 301 ^/uniceu-parque-bristol-oferece-oficina-de-escrita-para-processos-seletivos(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/uniceu-parque-bristol-oferece-oficina-de-escrita-para-processos-seletivos-1/
+RedirectMatch 301 ^/diretoria-regional-de-educacao-freguesiabrasilandia-realizou-seminario-das-relacoes-etnico-raciais-1(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/diretoria-regional-de-educacao-freguesiabrasilandia-realizou-seminario-das-relacoes-etnico-raciais/
+RedirectMatch 301 ^/diretoria-regional-de-educacao-sao-miguel-recebeu-encontro-do-programa-sme-presente(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/diretoria-regional-de-educacao-sao-miguel-recebeu-encontro-do-programa-sme-presente-1/
+RedirectMatch 301 ^/secretaria-municipal-de-educacao-promove-seminario-a-investigacao-no-ensino-de-ciencias-e-matematica-da-rede-municipal-de-ensino(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/secretaria-municipal-de-educacao-promove-seminario-a-investigacao-no-ensino-de-ciencias-e-matematica-da-rede-municipal-de-ensino-1/
+RedirectMatch 301 ^/estudantes-produzem-mapas-conceituais-e-quadrinhos-para-aprender-conteudos-da-educacao-fisica(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/estudantes-produzem-mapas-conceituais-e-quadrinhos-para-aprender-conteudos-da-educacao-fisica-1/
+RedirectMatch 301 ^/criancas-do-cei-joaquim-thome-filho-constroem-novas-formas-e-espacos-de-brincar(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/criancas-do-cei-joaquim-thome-filho-constroem-novas-formas-e-espacos-de-brincar-1/
+RedirectMatch 301 ^/emef-abrao-de-moraes-recebe-espetaculo-rolezinho(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/emef-abrao-de-moraes-recebe-espetaculo-rolezinho-1/
+RedirectMatch 301 ^/perguntas-frequentes-sobre-o-uniforme-escolar(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/perguntas-uniforme-familias/
+RedirectMatch 301 ^/perguntas-frequentes-dos-interessados-em-se-cadastrar-para-vender-uniforme-escolar-as-familias(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/perguntas-uniforme-fornecedores/
+RedirectMatch 301 ^/duvidas-frequentes-das-familias-sobre-o-material-escolar(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/perguntas-material-familias/
+RedirectMatch 301 ^/perguntas-frequentes-dos-interessados-em-se-cadastrar-para-vender-material-escolar-as-familias(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/perguntas-material-fornecedores/
+RedirectMatch 301 ^/coserv/uniforme-escolar(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/uniforme-escolar/
+RedirectMatch 301 ^/coserv/material-escolar(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/material-escolar/
+RedirectMatch 301 ^/perguntas-material-familia(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/perguntas-material-familias/
+RedirectMatch 301 ^/volta-as-aulas-2021(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/ano-letivo-2021/
+RedirectMatch 301 /wp-content/uploads/2021/07/Protocolo-Volta-às-Aulas.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/protocolo-volta-as-aulas/
+RedirectMatch 301 /wp-content/uploads/2021/08/Manual-ativa(.*)(.*)o-notebook-V1.pdf https://educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/Manual-ativação-notebook.pdf
+RedirectMatch 301 ^/demanda(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/acesso-a-informacao/demanda-escolar/
+RedirectMatch 301 ^/concursos(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/concursos-sme/
+RedirectMatch 301 ^/concursos(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/concursos-sme/
+RedirectMatch 301 ^/nucleo-de-educacao-ambiental(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-ambiental/
+RedirectMatch 301 ^/coordenadoria-pedagogica-coped/ntf/propostas-formativas-2021(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/coped/ntf/propostas-formativas/
+RedirectMatch 301 ^/nucleo-tecnico-de-formacao/propostas-formativas(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/coped/ntf/propostas-formativas/
+RedirectMatch 301 ^/coordenadoria-pedagogica-coped/ntf/propostas-formativas(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/coped/ntf/propostas-formativas/
+RedirectMatch 301 ^/coped/ntf/propostas-formativas(\/|)$ https://acervodigital.sme.prefeitura.sp.gov.br/?avanc=1&categ=1&s=&categ_acervo=58
+RedirectMatch 301 ^/coordenadoria-de-alimentacao-escolar(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/codae/
+RedirectMatch 301 ^/codae/programa-de-alimentacao-escolar(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/programa-de-alimentacao-escolar/
+RedirectMatch 301 ^/centro-de-multimeios/biblioteca-pedagogica/publicacoes-institucionais(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/publicacoes-institucionais/
+RedirectMatch 301 /wp-content/uploads/2021/08/Protocolo-Volta-as-Aulas.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/protocolo-volta-as-aulas/
+RedirectMatch 301 ^/coordenadoria-pedagogica-coped/nucleo-tecnico-de-avaliacao-nta(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/coped/nta/
+RedirectMatch 301 ^/coped/nucleo-tecnico-de-avaliacao-nta(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/coped/nta/
+RedirectMatch 301 ^/coordenadoria-pedagogica-coped/nta(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/coped/nta/
+RedirectMatch 301 ^/coronavirus/servicos/alimentacao-2(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/alimentacao-2/
+RedirectMatch 301 /wp-content/uploads/2021/03/caderno_basico_web.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/portas-abertas-portugues-para-imigrantes-caderno-basico/
+RedirectMatch 301 /wp-content/uploads/2021/03/caderno_intermediario_web.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/portas-abertas-portugues-para-imigrantes-caderno-intermediario/
+RedirectMatch 301 /wp-content/uploads/2021/03/caderno_avan(.*)ado_web.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/portas-abertas-portugues-para-imigrantes-caderno-avancado/
+RedirectMatch 301 ^/coordenadoria-de-planejamento-e-orcamento-coplan/programa-de-transferencia-de-recursos-financeiros-ptrf(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/coplan/programa-de-transferencia-de-recursos-financeiros-ptrf/
+RedirectMatch 301 ^/sala-e-espaco-de-leitura/cartao-do-educador/faca-o-seu-cartao(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/sala-e-espaco-de-leitura/cartao-do-educador/
+RedirectMatch 301 ^/sala-e-espaco-de-leitura/cartao-do-educador/livrarias-participantes(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/sala-e-espaco-de-leitura/cartao-do-educador/
+RedirectMatch 301 ^/sala-e-espaco-de-leitura/cartao-do-educador/como-funciona(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/sala-e-espaco-de-leitura/cartao-do-educador/
+RedirectMatch 301 ^/salas-espacos-de-leitura/cartao-do-educador(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/sala-e-espaco-de-leitura/
+RedirectMatch 301 ^/cartao-do-educador(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/sala-e-espaco-de-leitura/cartao-do-educador/
+RedirectMatch 301 ^/educacao-de-jovens-e-adultos-eja/formas-de-atendimento/eja-regular(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-de-jovens-e-adultos-eja/formas-de-atendimento/
+RedirectMatch 301 ^/educacao-de-jovens-e-adultos-eja/formas-de-atendimento/cieja-2(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-de-jovens-e-adultos-eja/formas-de-atendimento/
+RedirectMatch 301 ^/educacao-de-jovens-e-adultos-eja/formas-de-atendimento/cmct-2(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-de-jovens-e-adultos-eja/formas-de-atendimento/
+RedirectMatch 301 ^/educacao-de-jovens-e-adultos-eja/formas-de-atendimento/mova-sp-2(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-de-jovens-e-adultos-eja/formas-de-atendimento/
+RedirectMatch 301 ^/educacao-de-jovens-e-adultos-eja/formas-de-atendimento/eja-modular-2(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-de-jovens-e-adultos-eja/formas-de-atendimento/
+RedirectMatch 301 ^/autoavaliacao-institucional-participativa-da-educacao-infantil(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-infantil/avaliacao/
+RedirectMatch 301 ^/ensino-fundamental-e-medio/educacao-integral(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-integral/
+RedirectMatch 301 ^/educacao-de-jovens-e-adultos-eja/organizacao-da-educacao-de-jovens-e-adultos(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-de-jovens-e-adultos-eja/
+RedirectMatch 301 ^/noticias/prefeitura-de-sp-institui-gratificacao-de-ate-r-1-500-reais-para-diminuir-rotatividade-de-professores-em-escolas-municipais-mais-afastadas(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/noticias/prefeitura-de-sp-institui-gratificacao-de-ate-r-1-500-reais-para-diminuir-rotatividade-de-profissionais-em-escolas-municipais-mais-afastadas/
+RedirectMatch 301 ^/orientacoes-para-pesquisa(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/centro-de-multimeios/memoria-documental/orientacoes-para-pesquisa/
+RedirectMatch 301 ^/centro-de-multimeios/memoria-documental/centro-de-documentacao-cedoc(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/centro-de-multimeios/memoria-documental/cedoc/
+RedirectMatch 301 ^/centro-de-multimeios/biblioteca-pedagogica/revista-magisterio(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/revista-magisterio/
+RedirectMatch 301 /wp-content/uploads/2019/05/5286.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-1-aonde-anda-a-aula/
+RedirectMatch 301 /wp-content/uploads/2019/05/5287.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-2-a-aula-expandida/
+RedirectMatch 301 /wp-content/uploads/2019/05/7377.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-3-o-aluno/
+RedirectMatch 301 /wp-content/uploads/2019/05/14873.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-pnaic-ed-especial/
+RedirectMatch 301 /wp-content/uploads/2019/05/24816.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-80-anos-da-educacao-infantil-ed-especial/
+RedirectMatch 301 /wp-content/uploads/2019/05/14872.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-4-avaliacao/
+RedirectMatch 301 /wp-content/uploads/2020/02/revista-magist(.*)rio-gest(.*)o.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-5-gestao/
+RedirectMatch 301 /wp-content/uploads/2020/02/revista-magist(.*)rio-das-creches-aos-ceis.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-das-creches-aos-ceis-ed-especial/
+RedirectMatch 301 /wp-content/uploads/2020/02/Rev_Mag-7_Curriculo-1.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-7-curriculo/
+RedirectMatch 301 /wp-content/uploads/2020/03/Revista-Magisterio-Gestao-5.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-5-gestao/
+RedirectMatch 301 /wp-content/uploads/2021/01/Magisterio_1.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-1-aonde-anda-a-aula/
+RedirectMatch 301 /wp-content/uploads/2021/01/Magisterio_2.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-2-a-aula-expandida/
+RedirectMatch 301 /wp-content/uploads/2021/01/Magist(.*)rio_3.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-3-o-aluno/
+RedirectMatch 301 /wp-content/uploads/2021/01/Magisterio_4.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-4-avaliacao/
+RedirectMatch 301 /wp-content/uploads/2021/01/Magisterio_9-DIEI_WEB.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-9-infancias-conectadas/
+RedirectMatch 301 /wp-content/uploads/2021/01/Magisterio_11_AEL_WEB.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-11-academia-estudantil-de-letras/
+RedirectMatch 301 /wp-content/uploads/2021/01/Revista-Mag.Edi(.*)(.*)o-Esp.-n.1.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-pnaic-ed-especial/
+RedirectMatch 301 /wp-content/uploads/2021/03/Rev_Magist_10_EDUCOM-web.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-10-educomunicacao/
+RedirectMatch 301 /wp-content/uploads/2021/04/Rev_Magist_10_EDUCOM-web.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-10-educomunicacao/
+RedirectMatch 301 /wp-content/uploads/2021/05/Revista_Magisterio_13_DIEI.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-13-infancias-conectadas-ii/
+RedirectMatch 301 /wp-content/uploads/2021/05/Revista_Magist_8_TPA-WEB.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-8-tecnologias-para-aprendizagem/
+RedirectMatch 301 /wp-content/uploads/2020/03/Rev-Magisterio-80-anos.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-80-anos-da-educacao-infantil-ed-especial/
+RedirectMatch 301 /wp-content/uploads/2020/12/Magisterio_9-DIEI_WEB.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-9-infancias-conectadas/
+RedirectMatch 301 /wp-content/uploads/2020/03/Rev_Magisterio_7_Curriculo.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-7-curriculo/
+RedirectMatch 301 /wp-content/uploads/2020/03/Rev_Magisterio_6_CECI.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-6-ceci/
+RedirectMatch 301 /wp-content/uploads/2020/03/Rev-Magisterio-das-Creches.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-das-creches-aos-ceis-ed-especial/
+RedirectMatch 301 /wp-content/uploads/2020/03/Rev-Magisterio-80-anos.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-80-anos-da-educacao-infantil-ed-especial/
+RedirectMatch 301 /wp-content/uploads/2021/04/Revista-Magist(.*)rio_12_EM_web.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-12-o-novo-ensino-medio/
+RedirectMatch 301 /wp-content/uploads/2021/04/Revista-Magist(.*)rio_12_EM_web.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-12-o-novo-ensino-medio/
+RedirectMatch 301 /wp-content/uploads/2021/04/Revista-Magiste\%CC\%81rio_12_EM_web.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-12-o-novo-ensino-medio/
+RedirectMatch 301 /wp-content/uploads/2021/04/Revista-Magist(.*)rio_12_EM_web.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-12-o-novo-ensino-medio/
+RedirectMatch 301 ^/coordenadoria-pedagogica-coped/ntf/equipe-do-nucleo-tecnico-de-formacao(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/coped/ntf/equipe-do-nucleo-tecnico-de-formacao/
+RedirectMatch 301 ^/demanda-escolar(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/acesso-a-informacao/demanda-escolar/
+RedirectMatch 301 ^/coordenadoria-pedagogica-coped/ntc(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/coped/ntc/
+RedirectMatch 301 /wp-content/uploads/2021/04/Revista-Magist(.*)rio_12_EM_web.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-12-o-novo-ensino-medio/
+RedirectMatch 301 ^/perguntas-uniforme-familias(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/kit-escolar/
+RedirectMatch 301 ^/perguntas-material-familias(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/kit-escolar/
+RedirectMatch 301 ^http://portal.sme.prefeitura.sp.gov.br/Main/Noticia/Visualizar/PortalSMESP/DRE-Capela-do-Socorro#/.U_-FwPlSiSo(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/diretoria-regional-de-educacao-capela-do-socorro/
+RedirectMatch 301 ^/uniforme-escolar(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/kit-escolar
+RedirectMatch 301 ^/material-escolar(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/kit-escolar
+RedirectMatch 301 ^/coordenadoria-de-gestao-e-organizacao-educacional-coged/solicitacao-de-vaga-e-matricula(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/solicitacao-de-vaga-e-matricula/
+RedirectMatch 301 ^/educacao-de-jovens-e-adultos/formas-de-atendimento(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-de-jovens-e-adultos-eja/formas-de-atendimento/
+RedirectMatch 301 ^/card/compras-publicas(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/acesso-a-informacao/compras-publicas/
+RedirectMatch 301 ^/concurso(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/concursos-sme/
+RedirectMatch 301 ^/mapa-dres(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/dres/
+RedirectMatch 301 ^/centroseducacionaisunificados/enderecos(\/|)$ https://ceu.sme.prefeitura.sp.gov.br/unidades-ceus/
+RedirectMatch 301 ^/apresentacao-do-curriculo-da-cidade(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/curriculo/
+RedirectMatch 301 ^/curriculo-da-cidade-acervo(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/curriculo/
+RedirectMatch 301 /wp-content/uploads/2021/06/Curr%C3%ADculo-da-Cidade-Povos-Migrantes-WEB.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/curriculo-da-cidade-povos-migrantes-orientacoes-pedagogicas/
+RedirectMatch 301 /wp-content/uploads/2021/06/Curr(.*)culo-da-Cidade-Povos-Migrantes-WEB.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/curriculo-da-cidade-povos-migrantes-orientacoes-pedagogicas/
+RedirectMatch 301 ^/curriculo-da-cidade(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/curriculo/
+RedirectMatch 301 ^/sao-paulo-cidade-educadora(\/|)$ https://educacao.sme.prefeitura.sp.gov.br/educacao-integral/sao-paulo-cidade-educadora/
+RedirectMatch 301 ^/wp-admin/post.php?post=44228&action=edit(\/|)$ https://acervodigital.sme.prefeitura.sp.gov.br/acervo/sala-de-leitura-vivencias-saberes-e-pratica/
+RedirectMatch 301 ^/wp-admin/post.php?post=38209&action=edit(\/|)$ https://acervodigital.sme.prefeitura.sp.gov.br/acervo/sala-de-leitura-vivencias-saberes-e-pratica/
+RedirectMatch 301 /wp-content/uploads/2021/09/Uso-de-Tecnologias_versao-final-2.pdf https://acervodigital.sme.prefeitura.sp.gov.br/acervo/uso-de-tecnologias-em-contexto-de-pandemia-o-que-aprendemos-e-como-prosseguir-aprendendo/
+
+# END REDIRECTS

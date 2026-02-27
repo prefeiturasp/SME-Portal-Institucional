@@ -1,0 +1,56 @@
+version: '3.3'
+services:
+    educacao:
+        restart: always
+        env_file:
+            - ../env_educacao
+        container_name: educacao
+        ports:
+            - '80:80'
+        volumes:
+            - '../nfs/educacao-dev/uploads:/var/www/html/wp-content/uploads'
+            - '../nfs/educacao-dev/plugins:/var/www/html/wp-content/plugins'
+            - '../nfs/educacao-dev/wflogs:/var/www/html/wp-content/wflogs'
+            - '../nfs/educacao-dev/videos:/var/www/html/wp-content/videos'
+            - '../nfs/educacao-dev/upgrade:/var/www/html/wp-content/upgrade'
+            - '../nfs/educacao-dev/locationmatch:/etc/apache2/locationmatch/location_match.modsecurity'
+        image: wordpress/educacao
+        build: 
+            dockerfile: ./Dockerfile
+            context: . 
+        networks:
+          - educacao
+    db:
+        image: mariadb:11.0
+        container_name: db
+        restart: always
+        environment:
+          MYSQL_ROOT_PASSWORD: 'AMcom25anos'
+          MYSQL_DATABASE: educacao_dev
+        volumes:
+          - ../database/educacao:/var/lib/mysql
+        networks:
+          - educacao
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        restart: always
+        ports:
+          - 9090:80
+        environment:
+          PMA_HOST: db
+          PMA_PORT: 3306
+        networks:
+          - educacao
+    restore:
+        image: debian:bullseye
+        container_name: restore
+        depends_on:
+        - db
+        command: sh -c 'sleep 10 && apt-get update && apt-get install -y mariadb-client && mysql -h db -u root -pAMcom25anos educacao_dev < /tmp/educacao_dev.sql && echo "####restore concluído####"'
+        volumes:
+          - ../database/restore/educacao_dev.sql:/tmp/educacao_dev.sql
+        networks:
+          - educacao
+networks:
+  educacao:          
