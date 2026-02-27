@@ -1,0 +1,4433 @@
+<?php
+// Desabilitando o Gutemberg
+add_filter('use_block_editor_for_post', '__return_false');
+
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'rsd_link');
+
+// Remover a tag p da category_description
+remove_filter('term_description', 'wpautop');
+// Remover a tag p do the_excerpt()
+remove_filter('the_excerpt', 'wpautop');
+
+add_action('after_setup_theme', 'custom_setup');
+
+function custom_setup() {
+	if ( !( current_user_can('editor') || current_user_can('administrator') ) && !is_admin() ) {
+		show_admin_bar(false);
+	}
+	add_action('wp_enqueue_scripts', 'custom_formats');
+	add_filter('get_image_tag_class', 'image_tag_class');
+	add_action('login_head', 'custom_login_logo');
+	add_filter('login_headerurl', 'my_login_logo_url');
+	add_filter('login_headertitle', 'my_login_logo_url_title');
+	add_action( 'widgets_init', 'theme_slug_widgets_init' );
+
+	register_nav_menus(array(
+		'primary' => __('Menu Superior', 'THEMENAME'),
+	));
+
+	register_nav_menu('navbar', __('Navbar', 'your-theme'));
+
+
+	if (function_exists('add_image_size')) {
+		add_theme_support('post-thumbnails');
+	}
+
+	if (function_exists('add_image_size')) {
+		add_image_size('home-thumb', 250, 166);
+		add_image_size('medium', 300, 300, true);
+		add_image_size('default-image', 825, 470, true);
+		add_image_size('destaque-small', 825, 422, true);
+	}
+
+	//Permite adicionar no post ou página uma imagem com tamanho personalizado, nesse caso a home-thumb já definida anteriormente com 250X147
+	function custom_choose_sizes($sizes) {
+		$custom_sizes = array(
+			'home-thumb' => 'Tamanho Personalizado'
+		);
+		return array_merge($sizes, $custom_sizes);
+	}
+
+	add_filter('image_size_names_choose', 'custom_choose_sizes');
+
+// Limita o Numero de palavras da função the_excerpt(), nesse caso em 20
+	function wpdev_custom_excerpt_length() {
+		return 20;
+	}
+	add_filter('excerpt_length', 'wpdev_custom_excerpt_length');
+
+	function theme_slug_widgets_init()
+	{
+
+		register_sidebar(array(
+			'name' => 'Rodape Esquerda',
+			'id' => 'sidebar-4',
+			'before_widget' => '',
+			'after_widget' => '',
+			'before_title' => '<p class="titulo-rodape">',
+			'after_title' => '</p>',
+		));
+
+		register_sidebar(array(
+			'name' => 'Rodape Centro',
+			'id' => 'sidebar-5',
+			'before_widget' => '',
+			'after_widget' => '',
+			'before_title' => '<p class="titulo-rodape">',
+			'after_title' => '</p>',
+		));
+
+
+		register_sidebar(array(
+			'name' => 'Rodape Direita',
+			'id' => 'sidebar-6',
+			'before_widget' => '',
+			'after_widget' => '',
+			'before_title' => '<p class="titulo-rodape">',
+			'after_title' => '</p>',
+		));
+
+		register_sidebar(array(
+			'name' => 'Facebook Home',
+			'id' => 'sidebar-7',
+			'before_widget' => '',
+			'after_widget' => '',
+			//'before_title' => '<p class="titulo-rodape">',
+			//'after_title' => '</p>',
+		));
+	}
+
+
+//////////////////////////////////////////////////////////////////////////
+///        FUNCAO PARA TROCAR BACKGROUND                            /////
+////////////////////////////////////////////////////////////////////////
+
+
+	$defaults = array(
+		'default-color' => '',
+		'default-image' => '',
+		'wp-head-callback' => '_custom_background_cb',
+		'admin-head-callback' => '',
+		'admin-preview-callback' => ''
+	);
+	add_theme_support('custom-background', $defaults);
+
+
+//////////////////////////////////////////////////////////////////////////
+///        FUNCAO HEADER, PARA TROCAR O CABEÃ‡ALHO                   /////
+////////////////////////////////////////////////////////////////////////
+	$defaults = array(
+		'default-image' => '',
+		'width' => 0,
+		'height' => 0,
+		'flex-height' => false,
+		'flex-width' => false,
+		'uploads' => true,
+		'random-default' => false,
+		'header-text' => true,
+		'default-text-color' => '',
+		'wp-head-callback' => '',
+		'admin-head-callback' => '',
+		'admin-preview-callback' => '',
+	);
+	add_theme_support('custom-header', $defaults);
+
+
+//////////////////////////////////////////////////////////////////////////
+///        FUNCAO HEADER, PARA TROCAR O lOGOTIPO                    /////
+////////////////////////////////////////////////////////////////////////
+	add_theme_support( 'custom-logo', array(
+		'height'      => 100,
+		'width'       => 400,
+		'flex-height' => true,
+		'flex-width'  => true,
+		'header-text' => array( 'site-title', 'site-description' ),
+	) );
+
+
+}
+
+function custom_formats() {
+
+	//wp_register_style('bootstrap_css', STM_THEME_URL . 'css/bootstrap.css', null, null, 'all');
+	wp_register_style('bootstrap_4_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css', null, '4.2.1', 'all');
+
+	wp_register_style('animate_css', STM_THEME_URL . 'css/animate.css', null, null, 'all');
+	wp_register_style('hamburger_menu_icons_css', STM_THEME_URL . 'css/hamburger_menu_icons.css', null, null, 'all');
+	wp_register_style('hover-effects_css', STM_THEME_URL . 'css/hover-effects.css', null, null, 'all');
+	wp_register_style('default_ie', STM_THEME_URL . 'css/ie6.1.1.css', null, null, 'all');
+	wp_register_style('font_awesome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+	wp_register_style('style', get_stylesheet_uri(), null, null, 'all');
+
+	//wp_register_script('bootstrap_js', STM_THEME_URL . 'js/bootstrap.js', false, false);
+
+	wp_register_script('bootstrap_4_popper_js',  'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js', false, '1.14.6', true);
+	wp_register_script('bootstrap_4_js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', false, '4.2.1', true);
+
+
+	wp_register_script('modal_on_load_js', STM_THEME_URL . 'js/modal_on_load.js', false, true);
+	wp_register_script('wow_js', STM_THEME_URL . 'js/wow.min.js', array('jquery'), 1.0, true);
+	wp_register_script('jquery_waituntilexists', STM_THEME_URL . 'js/jquery.waituntilexists.js', array('jquery'), 1.0, true);
+	wp_register_script('scripts_js', STM_THEME_URL . 'js/scripts.js', array('jquery'), 1.0, true);
+	wp_register_script('jquery.event.move_js', STM_THEME_URL . 'js/jquery.event.move.js', array('jquery'), 1.0, true);
+
+
+	global $wp_styles;
+	$wp_styles->add_data('default_ie', 'conditional', 'IE 6');
+	wp_enqueue_style('bootstrap_4_css');
+
+	wp_enqueue_style('animate_css');
+	wp_enqueue_style('hamburger_menu_icons_css');
+	wp_enqueue_style('hover-effects_css');
+	wp_enqueue_style('default_ie');
+	wp_enqueue_style('font_awesome');
+	wp_enqueue_style('style');
+
+	wp_enqueue_script('jquery');
+
+	wp_enqueue_script('bootstrap_4_popper_js');
+	wp_enqueue_script('bootstrap_4_js');
+
+	wp_enqueue_script('modal_on_load_js');
+	wp_enqueue_script('wow_js');
+	wp_enqueue_script('jquery_waituntilexists');
+	wp_enqueue_script('scripts_js');
+	wp_enqueue_script('jquery.event.move_js');
+}
+
+// **************** Scripts para fazer o efeito de rolagem do menu funcionar corretamente ****************
+
+/* Função para adicionar classes ao li a do menu wp-nav-menu para fazer o efeito de scroll */
+function adicionar_nav_class($output) {
+	$output = preg_replace('/<a/', '<a class="nav-link scroll"', $output, -1);
+	return $output;
+}
+add_filter('wp_nav_menu', 'adicionar_nav_class');
+
+
+
+// **************** FIM dos Scripts para fazer o efeito de rolagem do menu funcionar corretamente ****************
+
+/* Função para adicionar classes a imagem que vem da biblioteca de midia */
+function image_tag_class($class) {
+	$class .= ' img-fluid';
+	return $class;
+}
+
+function paginacao() {
+	echo '<nav id="pagination" class="container">';
+	global $wp_query;
+	$pagina_atual = (int) $wp_query->get('paged');
+	if (!$pagina_atual)
+		$pagina_atual = 1;
+	$total_paginas = (int) $wp_query->max_num_pages;
+	echo paginate_links(
+		array(
+			'current' => $pagina_atual,
+			'total' => $total_paginas,
+			'base' => str_replace($total_paginas + 1, '%#%', get_pagenum_link($total_paginas + 1)),
+			'prev_next'         => True,
+			'prev_text'          	=> __('<i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i>'),
+			'next_text'          	=> __('<i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i>'),
+		)
+	);
+	echo '</nav>';
+}
+
+/*function paginacao2($query) {
+
+	echo '<nav id="pagination">';
+	global $wp_query;
+
+	$pagina_atual = (int) $wp_query->get('paged');
+
+	if (!$pagina_atual)
+		$pagina_atual = 1;
+
+	$total_paginas = (int) $query->max_num_pages;
+
+	echo paginate_links(
+		array(
+			//'base' => str_replace($total_paginas + 1, '%#%', get_pagenum_link($total_paginas + 1)),
+			'base' => @add_query_arg('page','%#%'),
+			'current' => $pagina_atual,
+			'total' => $total_paginas,
+			'end_size'  => 1,
+			'mid_size'  => 2,
+			'show_all' => false,
+			'prev_next' => true,
+			'prev_text' => __('<<'),
+			'next_text' => __('>>'),
+		)
+	);
+	echo '</nav>';
+}*/
+
+function custom_login_logo() {
+//Altera o logo
+	echo '<style type="text/css">
+.login h1 a{ background-size: 273px 159px !important; width:323px; height:159px }
+h1 a { background-image: url(' . get_bloginfo('template_directory') . '/img/logo_admin.png) !important; }
+</style>';
+
+//Altera a Imagem do Background
+	echo '<style type="text/css">
+body { background-image: url(' . get_bloginfo('template_directory') . '/img/bg-background.png) !important; }
+</style>';
+}
+
+//Link na tela de login para a pÃ¡gina inicial
+function my_login_logo_url() {
+	return STM_URL;
+}
+
+function my_login_logo_url_title() {
+	return STM_SITE_NAME;
+}
+
+// Adicionando alt e title nas images
+add_filter( 'wp_get_attachment_image_attributes','getAltTitleImagesThePostThumbnail', 10, 2 );
+function getAltTitleImagesThePostThumbnail( $attr=null, $attachment = null ) {
+
+	//$img_title = trim( strip_tags( $attachment->post_title ) );
+	$img_alt = trim( strip_tags( $attachment->post_excerpt ) );
+
+/*	if (!$img_alt){
+		$img_alt = $img_title;
+	}*/
+
+	$attr['alt'] = $img_alt;
+	//$attr['title'] = $img_title;
+
+
+	return $attr;
+}
+
+
+function incluir_nome_nos_anexos($post_id, $xml_node, $is_update)
+{
+	$xml_node = (array) $xml_node;
+
+	$nome_dos_arquivos = $xml_node['Files_Nomes_Dos_Arquivos'];
+
+	$pieces = explode(',', $nome_dos_arquivos);
+
+	$post_thumbnail_id = get_post_thumbnail_id( $post_id );
+
+	$post =  get_post($post_id);
+
+	$attachments = get_posts( array(
+		'post_type' => 'attachment',
+		'posts_per_page' => -1,
+		'post_parent' => $post_id,
+		'orderby'	=> 'ID',
+		'order'	=> 'ASC',
+		'exclude'     => $post_thumbnail_id
+	) );
+
+	if ($attachments) {
+
+
+		foreach ($attachments as $index => $attachment) {
+
+			$my_post = array(
+				'ID' => $attachment->ID,
+				'post_title' => $pieces[$index], // FINAL
+				'post_excerpt' => $post->post_excerpt,
+				'post_content' => $post->post_excerpt,
+			);
+			// Update do post dentro do Banco de Dados
+			wp_update_post($my_post);
+
+		}
+	}
+}
+
+add_action('pmxi_saved_post', 'incluir_nome_nos_anexos', 10, 3);
+
+/*
+function incluir_titulo_nos_thumbnails($post_id, $xml_node, $is_update ) {
+	$post_thumbnail_id = get_post_thumbnail_id( $post_id );
+	$post =  get_post($post_id);
+
+	$my_post = array(
+		'ID' => $post_thumbnail_id,
+		'post_title' => $post->post_title,
+	);
+	// Update do post dentro do Banco de Dados
+	wp_update_post($my_post);
+
+
+}
+add_action( 'pmxi_saved_post', 'incluir_titulo_nos_thumbnails', 10, 3 );*/
+
+/*if ( current_user_can('contributor') && !current_user_can('upload_files') )
+	add_action('admin_init', 'allow_contributor_uploads');
+function allow_contributor_uploads() {
+	$contributor = get_role('contributor');
+	$contributor->add_cap('upload_files');
+}*/
+
+add_image_size( 'admin-list-thumb', 80, 80, false );
+
+// Adicionando a classe css img-fluid em todas as imagens dentro do the_content
+/*function img_responsive($content){
+	return str_replace('<img ','<img class="img-fluid" ', $content);
+}
+add_filter('the_content','img_responsive');*/
+
+/*function add_image_responsive_class($content) {
+	global $post;
+	$pattern ="/<img(.*?)class=\"(.*?)\"(.*?)>/i";
+	$replacement = '<img$1class="$2 img-fluid"$3>';
+	$content = preg_replace($pattern, $replacement, $content);
+	return $content;
+}
+add_filter('the_content', 'add_image_responsive_class');*/
+
+/*function add_image_class_post_content ($class){
+	$class .= ' img-fluid';
+	return $class;
+}
+add_filter('get_image_tag_class','add_image_class_post_content');*/
+
+// Retirando a tag <p> antes e depois de um iframe dentro do the_content
+function remove_some_ptags( $content ) {
+	$content = preg_replace('/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $content);
+	$content = preg_replace('/<p>\s*(<script.*>*.<\/script>)\s*<\/p>/iU', '\1', $content);
+	$content = preg_replace('/<p>\s*(<iframe.*>*.<\/iframe>)\s*<\/p>/iU', '\1', $content);
+	return $content;
+}
+add_filter( 'the_content', 'remove_some_ptags' );
+
+
+
+
+// Removendo o atributo title dos menus
+function my_menu_notitle( $menu ){
+	return $menu = preg_replace('/ title=\"(.*?)\"/', '', $menu );
+
+}
+add_filter( 'wp_nav_menu', 'my_menu_notitle' );
+add_filter( 'wp_page_menu', 'my_menu_notitle' );
+add_filter( 'wp_list_categories', 'my_menu_notitle' );
+
+/**
+ * Disable the emoji's
+ */
+function disable_emojis() {
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_action( 'admin_print_styles', 'print_emoji_styles' );
+	remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+	remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+	add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
+	add_filter( 'wp_resource_hints', 'disable_emojis_remove_dns_prefetch', 10, 2 );
+}
+add_action( 'init', 'disable_emojis' );
+
+/**
+ * Filter function used to remove the tinymce emoji plugin.
+ *
+ * @param array $plugins
+ * @return array Difference betwen the two arrays
+ */
+function disable_emojis_tinymce( $plugins ) {
+	if ( is_array( $plugins ) ) {
+		return array_diff( $plugins, array( 'wpemoji' ) );
+	} else {
+		return array();
+	}
+}
+
+/**
+ * Remove emoji CDN hostname from DNS prefetching hints.
+ *
+ * @param array $urls URLs to print for resource hints.
+ * @param string $relation_type The relation type the URLs are printed for.
+ * @return array Difference betwen the two arrays.
+ */
+function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
+	if ( 'dns-prefetch' == $relation_type ) {
+		/** This filter is documented in wp-includes/formatting.php */
+		$emoji_svg_url = apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/' );
+
+		$urls = array_diff( $urls, array( $emoji_svg_url ) );
+	}
+
+	return $urls;
+}
+
+// POSTS MAIS VISTOS  (NO FUNCTIONS)
+function shapeSpace_popular_posts($post_id) {
+	$count_key = 'popular_posts';
+	$count = get_post_meta($post_id, $count_key, true);
+	if ($count == '') {
+		$count = 0;
+		delete_post_meta($post_id, $count_key);
+		add_post_meta($post_id, $count_key, '0');
+	} else {
+		$count++;
+		update_post_meta($post_id, $count_key, $count);
+	}
+}
+function shapeSpace_track_posts($post_id) {
+	if (!is_single()) return;
+	if (empty($post_id)) {
+		global $post;
+		$post_id = $post->ID;
+	}
+	shapeSpace_popular_posts($post_id);
+}
+add_action('wp_head', 'shapeSpace_track_posts');
+
+function redireciona_paginas_pendentes(){
+	if( is_404() ){
+		global $wpdb;
+		$querystr = "
+			 SELECT $wpdb->posts.post_title 
+			FROM $wpdb->posts
+			WHERE $wpdb->posts.post_status = 'pending' 
+			AND $wpdb->posts.post_type = 'page'
+			ORDER BY $wpdb->posts.post_date DESC
+ ";
+		$pageposts = $wpdb->get_results($querystr, OBJECT);
+		$slug_nome_das_paginas = [];
+		foreach ($pageposts as $page){
+			$slug_nome_das_paginas[] = sanitize_title($page->post_title);
+		}
+		$uri = trim($_SERVER['REQUEST_URI'], '/');
+		$segments = explode('/', $uri);
+		$slug_index = count($segments);
+
+		$page_slug = $segments[$slug_index - 1];
+
+		if (in_array($page_slug, $slug_nome_das_paginas)){
+			wp_redirect(STM_URL.'/conteudo-em-atualizacao/');
+		}
+
+
+
+	}
+}
+add_action('template_redirect', 'redireciona_paginas_pendentes');
+
+/*//Add Open Graph Meta Info from the actual article data, or customize as necessary
+function facebook_open_graph() {
+	global $post;
+	if ( !is_singular()) //if it is not a post or a page
+		return;
+	if($excerpt = $post->post_excerpt)
+	{
+		$excerpt = strip_tags($post->post_excerpt);
+		$excerpt = str_replace("", "'", $excerpt);
+	}
+	else
+	{
+		$excerpt = get_bloginfo('description');
+	}
+
+	//You'll need to find you Facebook profile Id and add it as the admin
+	//echo '<meta property="fb:admins" content="XXXXXXXXX-fb-admin-id"/>';
+	echo '<meta property="og:title" content="' . get_the_title() . '"/>';
+	echo '<meta property="og:description" content="' . $excerpt . '"/>';
+	echo '<meta property="og:type" content="article"/>';
+	echo '<meta property="og:url" content="' . get_permalink() . '"/>';
+	//Let's also add some Twitter related meta data
+	//echo '<meta name="twitter:card" content="summary" />';
+	//This is the site Twitter @username to be used at the footer of the card
+	//echo '<meta name="twitter:site" content="@site_user_name" />';
+	//This the Twitter @username which is the creator / author of the article
+	//echo '<meta name="twitter:creator" content="@username_author" />';
+
+	// Customize the below with the name of your site
+	echo '<meta property="og:site_name" content="'.STM_SITE_NAME.'. '.STM_SITE_DESCRIPTION.'"/>';
+	if(!has_post_thumbnail( $post->ID )) { //the post does not have featured image, use a default image
+		//Create a default image on your server or an image in your media library, and insert it's URL here
+		$default_image=STM_URL."/wp-content/uploads/2019/07/EDUCAÇÃO-1.png";
+		echo '<meta property="og:image" content="' . $default_image . '"/>';
+	}
+	else{
+		$thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+		echo '<meta property="og:image" content="' . esc_attr( $thumbnail_src[0] ) . '"/>';
+	}
+
+	echo "
+	";
+}
+add_action( 'wp_head', 'facebook_open_graph', 5 );*/
+
+/**
+ * WCAG 2.0 Attributes for Dropdown Menus
+ *
+ * Adjustments to menu attributes tot support WCAG 2.0 recommendations
+ * for flyout and dropdown menus.
+ *
+ * @ref https://www.w3.org/WAI/tutorials/menus/flyout/
+ */
+/*function wcag_nav_menu_link_attributes( $atts, $item, $args ) {
+
+	// Add [aria-haspopup] and [aria-expanded] to menu items that have children
+	$item_has_children = in_array( 'menu-item-has-children', $item->classes );
+	if ( $item_has_children ) {
+		$atts['aria-haspopup'] = "true";
+		$atts['aria-expanded'] = "false";
+	}
+
+	return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'wcag_nav_menu_link_attributes', 10, 4 );
+*/
+
+
+define('STM_URL', get_home_url());
+define('STM_THEME_URL', get_bloginfo('template_url') . '/');
+define('STM_SITE_NAME', get_bloginfo('name'));
+define('STM_SITE_DESCRIPTION', get_bloginfo('description'));
+define('__ROOT__', dirname(dirname(__FILE__)).'/sme-portal-institucional');
+
+if ($_GET && $_GET['lang'] == 'en') {
+	require_once('includes/en.php');
+} else {
+	require_once('includes/pt.php');
+}
+
+// Inicialização das Classes
+require_once 'classes/init.php';
+
+require_once('classes/wp_bootstrap_navwalker.php');
+
+// Carrega contador de visualizações de noticias
+require 'includes/cont_visualizacao.php';
+
+///////////////////////////////////////////////////////////////////////////////
+/////////////////////habilita carregar SVG no wordpress////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+function cc_mime_types($mimes) {
+       $mimes['svg'] = 'image/svg+xml';
+       return $mimes;
+}
+add_filter('upload_mimes', 'cc_mime_types');
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+////////Habilita Opções Gerais ACF////////
+if( function_exists('acf_add_options_page') ) {
+
+    acf_add_options_page(array(
+        'page_title' 	=> 'Configurações Gerais',
+        'menu_title'	=> 'Opções Gerais',
+        'menu_slug' 	=> 'conf-geral',
+        'position' 		=> '3',
+        'capability'	=> 'manage_categories',
+		'update_button' => __('Atualizar', 'acf'),
+        //'redirect'		=> false
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title' 	=> 'Alerta da Página Inicial',
+        'menu_title'	=> 'Alerta da Página Inicial',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'manage_categories',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Alerta da Página Inicial atualizado com sucesso", 'acf'),
+    ));
+
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Período Eleitoral',
+        'menu_title'	=> 'Período Eleitoral',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'manage_categories',
+		'post_id' => 'periodo-eleitoral',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Período Eleitoral atualizado com sucesso", 'acf'),
+    ));
+	
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações da Busca Manual',
+        'menu_title'	=> 'Busca Manual',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'manage_categories',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Configurações da Busca atualizado com sucesso", 'acf'),
+    ));
+	
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Configurações de tutoriais',
+        'menu_title'	=> 'Inclusão de tutoriais',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'manage_categories',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Tutoriais atualizado com sucesso", 'acf'),
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title' 	=> 'Informações Rodapé e Topo',
+        'menu_title'	=> 'Rodapé e Topo',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'manage_categories',
+		'post_id' => 'conf-rodape',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Informações do Rodapé e Topo atualizados com sucesso", 'acf'),
+    ));
+
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Itens das laterais',
+        'menu_title'	=> 'Lateral',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'publish_pages',
+		'post_id' => 'conf-lateral',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Laterais atualizado com sucesso", 'acf'),
+    ));
+
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Redes Sociais',
+        'menu_title'	=> 'Social',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'manage_categories',
+		'post_id' => 'conf-redes',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Redes Sociais atualizado com sucesso", 'acf'),
+    ));
+
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Redirecionamentos',
+        'menu_title'	=> 'Redirecionamentos',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'manage_categories',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Redirecionamentos atualizado com sucesso", 'acf'),
+    ));
+
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Certificações',
+        'menu_title'	=> 'Certificações',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'manage_categories',
+		'post_id' => 'certificacoes',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Certificações atualizado com sucesso", 'acf'),
+    ));
+
+	acf_add_options_sub_page(array(
+        'page_title' 	=> 'Placeholders',
+        'menu_title'	=> 'Placeholders',
+        'parent_slug'	=> 'conf-geral',
+        'capability'	=> 'manage_categories',
+		'post_id' => 'placeholders',
+		'update_button' => __('Atualizar', 'acf'),
+		'updated_message' => __("Imagens atualizadas com sucesso", 'acf'),
+    ));
+}
+///////////////////////////////////////////////////////////////////
+
+////////Ordena Relação de posts do ACF por data////////
+function my_relationship_query( $args, $field, $post_id ) {
+	
+    // only show children of the current post being edited
+    //$args['post_parent'] = $post_id;
+	$args['orderby'] = 'date';
+	$args['order'] = 'DESC';
+	
+	// return
+    return $args;
+    
+}
+// filter for every field
+add_filter('acf/fields/relationship/query', 'my_relationship_query', 10, 3);
+
+
+
+
+
+
+
+
+//força posicionamento dos campos ACF
+function prefix_reset_metabox_positions(){
+  delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_post' );
+  delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_page' );
+  delete_user_meta( wp_get_current_user()->ID, 'meta-box-order_custom_post_type' );
+}
+add_action( 'admin_init', 'prefix_reset_metabox_positions' );
+
+
+
+
+
+/*function remove_editor() {
+    if (isset($_GET['post'])) {
+        $id = $_GET['post'];
+        $template = get_post_meta($id, '_wp_page_template', true);
+        switch ($template) {
+            case 'pagina-modelo-1.php':
+            remove_post_type_support('page', 'editor');
+            break;
+            default :
+            // Don't remove any other template.
+            break;
+        }
+    }
+	if (isset($_GET['post'])) {
+        $id = $_GET['post'];
+        $template = get_post_meta($id, '_wp_page_template', true);
+        switch ($template) {
+            case 'pagina-modelo-2.php':
+            remove_post_type_support('page', 'editor');
+            break;
+            default :
+            // Don't remove any other template.
+            break;
+        }
+    }
+}
+add_action('init', 'remove_editor');*/
+
+//habilita revisões para o ACF
+add_filter( 'rest_prepare_revision', function($response, $post){
+	$data = $response->get_data();
+	$data['acf'] = get_fields( $post->ID );
+
+	return rest_ensure_response( $data );
+}, 10, 2);
+
+//habilita atualizações para o ACF
+function my_acf_save_post( $post_id ) {
+
+  // bail out early if we don't need to update the date
+  if( is_admin() || $post_id == 'new' ) {
+
+     return;
+
+   }
+
+   global $wpdb;
+
+   $datetime = date("Y-m-d H:i:s");
+
+   $query = "UPDATE $wpdb->posts
+	     SET
+              post_modified = '$datetime'
+             WHERE
+              ID = '$post_id'";
+
+    $wpdb->query( $query );
+
+}
+
+// run after ACF saves the $_POST['acf'] data
+add_action('acf/save_post', 'my_acf_save_post', 20);
+
+//coloca data atual no campo data no ACF
+function my_acf_default_date($field){
+	$field['default_value'] = date('dmY');
+	return $field;
+}
+add_filter('acf/load_field/name=data_da_atualizacao_organograma','my_acf_default_date');
+
+add_filter( 'request', 'my_request_filter' );
+function my_request_filter( $query_vars ) {
+    if( isset( $_GET['s'] ) && empty( $_GET['s'] ) ) {
+        $query_vars['s'] = " ";
+        global $no_search_results;
+        $no_search_results = TRUE;
+    }
+    return $query_vars;
+}
+
+function template_chooser($template){    
+  global $wp_query;  
+  global $no_search_results;
+  $post_type = get_query_var('post_type');
+  if( $wp_query->is_search && $post_type == 'concurso' )   
+  {
+    return locate_template('search_concurso.php');  //  redirect to archive-search.php
+  }
+  return $template;   
+}
+add_filter('template_include', 'template_chooser');
+
+// Adiciona o title como parametro no wp_query
+add_filter( 'posts_where', 'title_like_posts_where', 10, 2 );
+function title_like_posts_where( $where, $wp_query ) {
+    global $wpdb;
+    if ( $post_title_like = $wp_query->get( 'post_title_like' ) ) {
+        $where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . esc_sql( $wpdb->esc_like( $post_title_like ) ) . '%\'';
+    }
+    return $where;
+}
+
+
+add_action('pre_user_query','wpse_27518_pre_user_query');
+function wpse_27518_pre_user_query($user_search) {
+    global $wpdb,$current_screen;
+
+    if ( 'users' != $current_screen->id ) 
+        return;
+
+    $vars = $user_search->query_vars;
+
+    if('setor_novo' == $vars['orderby']) 
+    {
+        $user_search->query_from .= " INNER JOIN {$wpdb->usermeta} m1 ON {$wpdb->users}.ID=m1.user_id AND (m1.meta_key='setor_novo')"; 
+        $user_search->query_orderby = ' ORDER BY UPPER(m1.meta_value) '. $vars['order'];
+    } 
+    
+}
+
+// Remover o campor "Additional Capabilities" do editor do usuarios
+add_filter( 'ure_show_additional_capabilities_section', '__return_false' );
+
+function get_first_image( $post_id ) {
+
+    $post = get_post($post_id );
+	$content = $post->post_content;
+	$regex = '/src="([^"]*)"/';
+	preg_match_all( $regex, $content, $matches );																			
+
+	$re = '/-\d+[Xx]\d+\./';
+	$str = $matches[1][0];
+	$subst = '.';
+
+	$result = preg_replace($re, $subst, $str, 1);
+	
+	$idImage = attachment_url_to_postid( $result );
+
+	if($idImage != 0){
+		return $idImage;
+	} else {
+		return false;
+	}
+
+}
+
+function get_thumb( $post_id, $size = null ){
+
+	$result = array(); 
+
+	if(!$size || $size == ''){
+		$size = 'default-image';
+	}
+
+	$imgSelect = get_the_post_thumbnail_url($post_id, $size);	
+	$firstImage = get_first_image($post_id);
+
+	if($imgSelect){
+
+		$thumbnail_id = get_post_thumbnail_id( $post_id );
+		$alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true); 
+
+		if(!$alt){
+			$alt = get_the_title($post_id);
+		}
+
+		$result[0] = $imgSelect;
+		$result[1] = $alt;
+
+	} elseif($firstImage){
+		
+		$imgOne = wp_get_attachment_image_src($firstImage, $size);
+		$alt = get_post_meta($firstImage, '_wp_attachment_image_alt', true);
+		
+		$imgSlide = $imgOne[0];
+		if(!$alt){
+			$alt = get_the_title($post_id);
+		}
+
+		$result[0] = $imgSlide;
+		$result[1] = $alt;
+
+	} else {
+		$imgSlide = esc_url( get_field( 'imagem_placeholder', 'placeholders' )['url'] ?? '' );
+		if(!$alt){
+			$alt = get_the_title($post_id);
+		}
+
+		$result[0] = $imgSlide;
+		$result[1] = $alt;
+	}
+
+	return $result;
+}
+
+// Unifica o array multidimensional em array unico
+function array_flatten($array) { 
+	if (!is_array($array)) { 
+	  return FALSE; 
+	} 
+	$result = array(); 
+	foreach ($array as $key => $value) { 
+	  if (is_array($value)) { 
+		$result = array_merge($result, array_flatten($value)); 
+	  } 
+	  else { 
+		$result[$key] = $value; 
+	  } 
+	} 
+	return $result; 
+}
+
+// Filtra as paginas que grupo pertence
+function wp37_limit_posts_to_author($query) {
+
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	// 	filtra as paginas pelo grupo pertencente
+	if( ($_GET['filter'] == 'grupo' && $user->roles[0] == 'contributor' && $_GET['post_type'] == 'page') 
+		|| ($_GET['filter'] == 'grupo' && $user->roles[0] == 'dre' && $_GET['post_type'] == 'page') 
+		|| ($_GET['filter'] == 'grupo' && $user->roles[0] == 'publicador' && $_GET['post_type'] == 'page') 
+		|| ($_GET['filter'] == 'grupo' && $user->roles[0] == 'conselho' && $_GET['post_type'] == 'page') )  {
+		
+		$variable = get_user_meta($user->ID, 'grupo', true);
+		$variable = array_flatten($variable);
+        $variable = array_unique($variable);
+		
+		$pages = array();
+
+		if($variable && $variable != ''){
+            foreach($variable as $grupo){
+				$pages[] = get_post_meta($grupo, 'selecionar_paginas', true);
+				$contVerify = get_post_meta($grupo, 'contatos_sme', true);
+				if($contVerify){
+					$pages[] = $contVerify;
+				}
+			}
+        }
+
+		$pages = array_flatten($pages);
+        $pages = array_unique($pages);
+		
+		//print_r($variable);
+		$query->set('post__in', $pages);
+	} 
+
+	// 	filtra as paginas por grupos
+	if( $_GET['grupo_id'] != '')  {
+		
+		$grupo = $_GET['grupo_id'];
+
+		if($grupo && $grupo != ''){   
+			if($_GET['post_type'] == 'contato'){
+				$pages = get_post_meta($grupo, 'contatos_sme', true);
+			} elseif($_GET['post_type'] == 'educacao-faq'){
+				$pages = get_post_meta($grupo, 'faqs_sme', true);
+			} else {
+				$pages = get_post_meta($grupo, 'selecionar_paginas', true);
+			}
+			
+        }	
+
+		$pages = array_flatten($pages);
+        $pages = array_unique($pages);
+		
+		//print_r($variable);
+		$query->set('post__in', $pages);
+	}	
+	
+	return $query;
+	
+}
+add_filter('pre_get_posts', 'wp37_limit_posts_to_author');
+
+// Adiciona o filtro Minhas Paginas
+function wp38_add_movies_filter($views){
+	
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'dre' || $user->roles[0] == 'publicador' || $user->roles[0] == 'conselho'){
+
+		if( $_GET['filter'] == 'grupo' ){
+
+			$views['grupos'] = "<a href='" . admin_url('edit.php?post_type=page&filter=grupo') . "' class='current'>Minhas Páginas</a>";
+		return $views;
+
+		} else {
+			$views['grupos'] = "<a href='" . admin_url('edit.php?post_type=page&filter=grupo') . "'>Minhas Páginas</a>";
+		return $views;
+		}
+	}
+
+	return $views;
+}
+ 
+add_filter('views_edit-page', 'wp38_add_movies_filter');
+
+// Adiciona o filtro Minhas Noticias
+function my_posts_filter($views){
+
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'dre' || $user->roles[0] == 'publicador' || $user->roles[0] == 'conselho'){
+
+		if( $_GET['filter'] == 'grupo' ){
+
+			$views['grupos'] = "<a href='" . admin_url('edit.php?list=noticias&filter=grupo') . "' class='current'>Minhas Notícias</a>";
+		return $views;
+
+		} else {
+			$views['grupos'] = "<a href='" . admin_url('edit.php?list=noticias&filter=grupo') . "'>Minhas Notícias</a>";
+		return $views;
+		}
+	}
+
+	return $views;
+}
+
+add_filter('views_edit-post', 'my_posts_filter');
+
+// Altera a URL de Paginas para colaboladores
+add_action('admin_menu', 'add_custom_link_into_appearnace_menu');
+function add_custom_link_into_appearnace_menu() {
+	global $submenu;
+	
+    // pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+	
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'dre' || $user->roles[0] == 'publicador' || $user->roles[0] == 'conselho'){		
+		$submenu['edit.php?post_type=page'][5][2] = 'edit.php?post_type=page&filter=grupo';
+		$submenu['edit.php?post_type=contato'][5][2] = 'edit.php?post_type=contato&filter=grupo';
+		$submenu['edit.php?post_type=educacao-faq'][5][2] = 'edit.php?post_type=educacao-faq&filter=grupo';
+	}
+}
+
+// Adiciona o filtro Meus Contatos
+function contatos_filter($views){
+	
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'dre' || $user->roles[0] == 'publicador' || $user->roles[0] == 'conselho'){
+
+		if( $_GET['filter'] == 'grupo' ){
+
+			$views['grupos'] = "<a href='" . admin_url('edit.php?post_type=contato&filter=grupo') . "' class='current'>Meus Contatos</a>";
+		return $views;
+
+		} else {
+			$views['grupos'] = "<a href='" . admin_url('edit.php?post_type=contato&filter=grupo') . "'>Meus Contatos</a>";
+		return $views;
+		}
+	}
+
+	return $views;
+}
+
+add_filter('views_edit-contato', 'contatos_filter');
+
+// Adiciona o filtro Minhas Perguntas
+function faqs_filter($views){
+	
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	if($user->roles[0] == 'contributor' || $user->roles[0] == 'dre' || $user->roles[0] == 'publicador' || $user->roles[0] == 'conselho'){
+
+		if( $_GET['filter'] == 'grupo' ){
+
+			$views['grupos'] = "<a href='" . admin_url('edit.php?post_type=educacao-faq&filter=grupo') . "' class='current'>Minhas Perguntas</a>";
+		return $views;
+
+		} else {
+			$views['grupos'] = "<a href='" . admin_url('edit.php?post_type=educacao-faq&filter=grupo') . "'>Minhas Perguntas</a>";
+		return $views;
+		}
+	}
+
+	return $views;
+}
+
+add_filter('views_edit-educacao-faq', 'faqs_filter');
+
+// Incluir CSS no admin
+function admin_style() {
+	wp_enqueue_style('admin-styles', get_template_directory_uri().'/css/admin.css');
+}
+add_action('admin_enqueue_scripts', 'admin_style');
+
+//remover opções de cores do perfil de usuários
+function admin_color_scheme() {
+	global $_wp_admin_css_colors;
+	$_wp_admin_css_colors = 0;
+}
+add_action('admin_head', 'admin_color_scheme');
+
+//remove avisos de atualizações do wordpress, temas e plugins
+add_filter( 'pre_site_transient_update_core','remove_core_updates' );
+add_filter( 'pre_site_transient_update_plugins','remove_core_updates' );
+add_filter( 'pre_site_transient_update_themes','remove_core_updates' );
+
+function remove_core_updates(){
+    global $wp_version;
+    return(object) array(
+        'last_checked' => time(),
+        'version_checked' => $wp_version
+    );
+}
+
+// Filtrar usuarios por grupo
+function filter_users_by_grupo_id( $query ) {
+    global $pagenow;
+
+    
+	if ( is_admin() && 
+         'users.php' == $pagenow && 
+         isset( $_GET[ 'grupo_id' ] ) && 
+         !empty( $_GET[ 'grupo_id' ] ) 
+       ) {
+        $section = $_GET[ 'grupo_id' ];
+        $meta_query = array(
+            array(
+				'key' => 'grupo', // name of custom field
+				'value' => '"' . $section . '"', // matches exaclty "123", not just 123. This prevents a match for "1234"
+				'compare' => 'LIKE'
+			)
+        );
+		
+        $query->set( 'meta_key', 'grupo' );
+        $query->set( 'meta_query', $meta_query );
+		
+    }
+}
+add_filter( 'pre_get_users', 'filter_users_by_grupo_id' );
+
+
+// Aumenta o tamanho do seletor de paginas
+function custom_acf_css() {
+	global $typenow;
+    if( 'editores_portal' == $typenow || $_GET['page'] == 'acf-options-periodo-eleitoral'){
+		echo '<style>
+			.acf-relationship .list {
+				height: 500px;
+			}
+		</style>';
+	}
+
+}
+add_action('admin_head', 'custom_acf_css');
+
+function clean($string) {
+	$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.										 
+	return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+}
+
+// Inclui o JS para alterar o tipo de campo no alt das imagens
+function custom_admin_js() {
+    $url = get_bloginfo('template_directory') . '/js/wp-admin.js';
+    echo '"<script type="text/javascript" src="'. $url . '"></script>"';
+}
+add_action('admin_footer', 'custom_admin_js');
+
+// Altera o texto da label
+add_filter(  'gettext',  'dirty_translate'  );
+add_filter(  'ngettext',  'dirty_translate'  );
+function dirty_translate( $translated ) {
+     $words = array(
+            // 'word to translate' => 'translation'
+            'Texto alternativo' => 'Descrição para acessibilidade',
+			'Selecione a taxonomia' => 'Selecione a categoria'
+     );
+$translated = str_ireplace(  array_keys($words),  $words,  $translated );
+return $translated;
+}
+
+function wcag_nav_menu_link_attributes( $atts, $item, $depth ) {
+
+    // Add [aria-haspopup] and [aria-expanded] to menu items that have children
+    $item_has_children = in_array( 'menu-item-has-children', $item->classes );
+    if ( $item_has_children ) {
+        $atts['role'] = "button";
+        $atts['aria-expanded'] = "false";
+    }
+
+    return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'wcag_nav_menu_link_attributes', 10, 4 );
+
+// Envia Noticias/Concursos para revisao caso seja Contribuidor
+add_filter( 'wp_insert_post_data', 're_aprove', 50, 2 );
+function re_aprove( $data, $postarr ) {
+	
+	$user = wp_get_current_user();
+	$type = get_post_type($postarr["ID"]);
+	$cptAgendas = array(
+		'agenda-dre-bt',
+		'agenda-dre-cl',
+		'agenda-dre-cs',
+		'agenda-dre-fb',
+		'agenda-dre-gn',
+		'agenda-dre-ip',
+		'agenda-dre-it',
+		'agenda-dre-jt',
+		'agenda-dre-pe',
+		'agenda-dre-pi',
+		'agenda-dre-sa',
+		'agenda-dre-sma',
+		'agenda-dre-smi',
+	);
+
+	if ( in_array( 'contributor', (array) $user->roles ) || in_array( 'dre', (array) $user->roles ) ) {
+		if ( 'publish' === $data['post_status'] && !in_array( $postarr['post_type'], $cptAgendas) ) {
+            $data['post_status'] = 'pending';
+        }
+	}
+    
+    return $data;
+}
+
+// Define a categoria padrao para usuarios DRE
+function default_category_save($post_ID) {
+	$user = wp_get_current_user();
+	
+
+	if ($user->roles[0] == 'dre' || $user->roles[0] == 'publicador' || $user->roles[0] == 'conselho'){
+		$grupos = get_user_meta($user->ID,'grupo',true);	
+		$categorias = array();
+		
+		if($grupos && $grupos !=''){
+			if($grupos && $grupos != ''){
+				foreach($grupos as $grupo){
+					$categorias[] = get_post_meta($grupo, 'noticias', true);
+				}
+			}
+
+			$categorias = array_flatten($categorias);
+			$categorias = array_unique($categorias);
+						
+			$result = array_unique($categorias);
+			$result = array_filter($result);
+
+		}
+		if($result != ''){
+			wp_set_post_categories( $post_ID, $result );
+		}		 
+	}
+}
+add_action( 'save_post', 'default_category_save' );
+
+// Desabilitar funcoes de usuarios
+remove_role( 'subscriber' ); // Assinante
+remove_role( 'author' ); // Autor
+
+// Renomear tipo de usuario Contribuidor para Colaborador
+add_action( 'wp_roles_init', static function ( \WP_Roles $roles ) {
+    $roles->roles['contributor']['name'] = 'Colaborador';
+    $roles->role_names['contributor'] = 'Colaborador';
+} );
+
+// redirecionar urls
+
+function str_replace_assoc(array $replace, $subject) {
+	return str_replace(array_keys($replace), array_values($replace), $subject);   
+}
+
+function convert_chars_url($string){
+	
+	$replace = array(
+		'a%CC%80' => '(.*)', // à
+		'a%CC%81' => '(.*)', // á
+		'a%CC%82' => '(.*)', // â
+		'a%CC%83' => '(.*)', // ã
+		'à' => '(.*)', // à
+		'á' => '(.*)', // á
+		'â' => '(.*)', // â
+		'ã' => '(.*)', // ã
+		'e%CC%80' => '(.*)', // è
+		'e%CC%81' => '(.*)', // é
+		'e%CC%82' => '(.*)', // ê
+		'è' => '(.*)', // è
+		'é' => '(.*)', // é
+		'ê' => '(.*)', // ê
+		'%C3%A9' => '(.*)',
+		'i%CC%80' => '(.*)', // ì
+		'i%CC%81' => '(.*)', // í
+		'i%CC%82' => '(.*)', // î
+		'ì' => '(.*)', // ì
+		'í' => '(.*)', // í
+		'î' => '(.*)', // î
+		'o%CC%80' => '(.*)', // ò
+		'o%CC%81' => '(.*)', // ó
+		'o%CC%82' => '(.*)', // ô
+		'o%CC%83' => '(.*)', // õ
+		'ò' => '(.*)', // ò
+		'ó' => '(.*)', // ó
+		'ô' => '(.*)', // ô
+		'õ' => '(.*)', // õ
+		'u%CC%80' => '(.*)', // ù
+		'u%CC%81' => '(.*)', // ú
+		'u%CC%82' => '(.*)', // û
+		'ù' => '(.*)', // ù
+		'ú' => '(.*)', // ú
+		'û' => '(.*)', // û
+		'ç' => '(.*)', // ç
+	);
+	$retorno = str_replace_assoc($replace,$string);
+	return $retorno;
+}
+
+function redirects_admin() {
+	$links = '';
+	$alllinks = get_field('redirecionar','option');
+
+	foreach($alllinks as $link){
+		$origem = $link['origem'];
+		$origem = str_replace('https://hom-educacao.sme.prefeitura.sp.gov.br', '', $origem);
+		$origem = convert_chars_url($origem);
+
+		if (strpos($origem, '/uploads/') == false) {
+			$lastChar = substr($origem, -1);
+			if($lastChar == '/'){
+				$origem = substr($origem, 0, -1);				
+				$origem = $origem . '(\/|)$';
+			} else {
+				$origem = $origem . '(\/|)$';
+			}
+		}
+
+		$origem = str_replace(' ', '', $origem);
+
+		$destino = $link['destino'];
+		$links .= 'RedirectMatch 301 ' . $origem . ' ' . $destino . PHP_EOL;
+	}
+	
+	$path = ABSPATH;
+    $htaccess_content = file_get_contents( $path . '.htaccess' );
+    $filtered_htaccess_content = trim( preg_replace( '/\# REDIRECTS[\s\S]+?# END REDIRECTS/si',
+	 '# REDIRECTS' . PHP_EOL 
+	 . $links . 
+	 PHP_EOL . '# END REDIRECTS', 
+	 $htaccess_content ) );
+    
+    //print_r($filtered_htaccess_content);
+    $fp = fopen( $path . '.htaccess','w+');
+    if($fp)
+    {
+        fwrite($fp, $filtered_htaccess_content);
+        fclose($fp);
+    }
+}
+add_action('acf/save_post', 'redirects_admin');
+
+// Ordenar Objeto de Posts por data - ACF
+add_filter('acf/fields/post_object/query', 'my_acf_fields_post_object_query', 10, 3);
+function my_acf_fields_post_object_query( $args, $field, $post_id ) {
+
+    // modify the order
+    $args['orderby'] = 'date';
+    $args['order'] = 'DESC';
+
+    return $args;
+}
+
+// Definir imagem destacada padrao
+
+function fpw_post_info( $id, $post ) {
+
+	$firstImage = get_first_image($post->ID);
+
+    if( has_post_thumbnail( $post->ID ) ){
+
+		$idThumb = get_post_thumbnail_id($post->ID);
+		set_post_thumbnail( $post->ID, $idThumb );
+
+	} elseif($firstImage){
+
+		set_post_thumbnail( $post->ID, $firstImage );
+
+	} else {
+
+		$placeholder_id = get_field( 'imagem_placeholder', 'placeholders' )['ID'] ?? 23755;
+
+		delete_post_meta( $post->ID, '_thumbnail_id' );
+		set_post_thumbnail( $post->ID, $placeholder_id );
+		
+	}
+}
+add_action( 'publish_post', 'fpw_post_info', 10, 2 );
+
+// Gerar string aleatoria
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+// Listar apenas pagina atual e as subpaginas
+add_filter('acf/fields/relationship/query/name=menu_lateral_principal', 'change_posts_order', 10, 3);
+add_filter('acf/fields/relationship/query/name=outros_pagina', 'change_posts_order', 10, 3);
+function change_posts_order( $args, $field, $post_id ){
+
+	$pages = array();
+	$pages[] = $post_id;
+
+	$getpages = get_pages(array( 'child_of' => $post_id) );
+
+	foreach($getpages as $page){
+		$pages[] = $page->ID;
+	}
+
+	$args['post__in'] = $pages;
+
+    return $args;
+}
+
+// Alterar paleta de cores do admin para 'Amanhecer'
+add_filter( 'get_user_option_admin_color', 'update_user_option_admin_color', 5 );
+
+function update_user_option_admin_color( $color_scheme ) {
+    $color_scheme = 'sunrise';
+
+    return $color_scheme;
+}
+
+// Desabilitar colunas do Yoast no listagem de noticias e paginas
+add_filter( 'manage_edit-post_columns', 'yoast_seo_admin_remove_columns', 10, 1 );
+add_filter( 'manage_edit-page_columns', 'yoast_seo_admin_remove_columns', 10, 1 );
+
+function yoast_seo_admin_remove_columns( $columns ) {
+  unset($columns['wpseo-score-readability']);
+  unset($columns['wpseo-title']);
+  unset($columns['wpseo-metadesc']);
+  unset($columns['wpseo-focuskw']);
+  unset($columns['wpseo-links']);
+  unset($columns['wpseo-linked']);
+  return $columns;
+}
+
+// Move Yoast Meta Box to bottom
+function yoasttobottom() {
+	return 'low';
+}
+
+add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
+
+
+/**
+ * Relacionamento Reciproco / Grupos e Paginas
+ * Entre dois campos de relacionamento que pertencem a diferentes tipos de postagem
+ */
+// Defina as chaves de campo para os dois campos de relacionamento
+$key_a = 'field_5fecb928c7571'; // Grupos
+$key_b = 'field_616875a8b6c80'; // Paginas
+
+// Adicione o filtro ao primeiro campo de relacionamento
+// A chave deve corresponder a $ key_a acima
+add_filter(
+    'acf/update_value/key=field_5fecb928c7571',
+    function ($value, $post_id, $field) use ($key_a, $key_b) {
+        return acf_reciprocal_relationship($value, $post_id, $field, $key_a, $key_b);
+    },
+    10, 5
+);
+
+// Adicione o filtro ao segundo campo de relacionamento
+// A chave deve corresponder a $ key_b acima
+add_filter(
+    'acf/update_value/key=field_616875a8b6c80',
+    function ($value, $post_id, $field) use ($key_a, $key_b) {
+        return acf_reciprocal_relationship($value, $post_id, $field, $key_a, $key_b);
+    },
+    10, 5
+);
+
+
+/**
+ * Quando um campo de relacionamento é definido, um relacionamento recíproco
+ * também é definido no tipo de post de destino.
+ *
+ * @param [type] $value
+ * @param [type] $post_id
+ * @param [type] $field
+ * @param [type] $key_a
+ * @param [type] $key_b
+ * @return void
+ */
+function acf_reciprocal_relationship($value, $post_id, $field, $key_a, $key_b)
+{
+    // descobrir em que lado estamos trabalhando e configurar as variáveis
+    // $key_a representa o campo para as postagens atuais
+    // e $key_b representa o campo em postagens relacionadas
+    if ($key_a !== $field['key']) {
+        $temp = $key_a;
+        $key_a = $key_b;
+        $key_b = $temp;
+    }
+    
+    // obter os dois campos
+    // esta funcao do ACF obtem od valores dos campos
+    $field_a = acf_get_field($key_a);
+    $field_b = acf_get_field($key_b);
+    
+    // defina os nomes dos campos para verificar em cada postagem
+    $name_a = $field_a['name'];
+    $name_b = $field_b['name'];
+    
+    // obtem o valor do campo da postagem atual
+	// e verifica se ela precisa ser atualizada
+    
+	$old_values = get_post_meta($post_id, $name_a, true);
+    // verificar se o valor contem um array
+    if (!is_array($old_values)) {
+        if (empty($old_values)) {
+            $old_values = array();
+        } else {
+            $old_values = array($old_values);
+        }
+    }
+    // define novos valores para $value
+    $new_values = $value;
+    // verificar se o valor contem um array
+    if (!is_array($new_values)) {
+        if (empty($new_values)) {
+            $new_values = array();
+        } else {
+            $new_values = array($new_values);
+        }
+    }
+    
+    
+    $add = $new_values;
+    $delete = array_diff($old_values, $new_values);
+    
+    // reordene os arrays para evitar possiveis erros de indice invalido
+    $add = array_values($add);
+    $delete = array_values($delete);
+    
+    if (!count($add) && !count($delete)) {
+        // se nao tiver diferenca
+        // nao ha nada pra fazer
+        return $value;
+    }
+    
+    // deleta o primeiro
+    // passa por todos os posts que precisam ter a relacao removida
+    for ($i=0; $i<count($delete); $i++) {
+        $related_values = get_post_meta($delete[$i], $name_b, true);
+        if (!is_array($related_values)) {
+            if (empty($related_values)) {
+                $related_values = array();
+            } else {
+                $related_values = array($related_values);
+            }
+        }
+        
+        $related_values = array_diff($related_values, array($post_id));
+        // insere o novo valor
+        update_post_meta($delete[$i], $name_b, $related_values);
+        // insere a chave do acf
+        update_post_meta($delete[$i], '_'.$name_b, $key_b);
+    }
+    
+    
+    for ($i=0; $i<count($add); $i++) {
+        $related_values = get_post_meta($add[$i], $name_b, true);
+        if (!is_array($related_values)) {
+            if (empty($related_values)) {
+                $related_values = array();
+            } else {
+                $related_values = array($related_values);
+            }
+        }
+        if (!in_array($post_id, $related_values)) {
+            // add new relationship if it does not exist
+            $related_values[] = $post_id;
+        }
+        // atualiza os valores
+        update_post_meta($add[$i], $name_b, $related_values);
+        // insere a chave do acf
+        update_post_meta($add[$i], '_'.$name_b, $key_b);
+    }
+    
+    return $value;
+}
+
+/**
+ * Relacionamento Reciproco / Grupos e Contatos
+ * Entre dois campos de relacionamento que pertencem a diferentes tipos de postagem
+ */
+// Defina as chaves de campo para os dois campos de relacionamento
+$key_a = 'field_609148440d52c'; // Grupos
+$key_b = 'field_6256db1575dcb'; // Contatos
+
+// Adicione o filtro ao primeiro campo de relacionamento
+// A chave deve corresponder a $ key_a acima
+add_filter(
+    'acf/update_value/key=field_609148440d52c',
+    function ($value, $post_id, $field) use ($key_a, $key_b) {
+        return acf_reciprocal_contacts($value, $post_id, $field, $key_a, $key_b);
+    },
+    10, 5
+);
+
+// Adicione o filtro ao segundo campo de relacionamento
+// A chave deve corresponder a $ key_b acima
+add_filter(
+    'acf/update_value/key=field_6256db1575dcb',
+    function ($value, $post_id, $field) use ($key_a, $key_b) {
+        return acf_reciprocal_contacts($value, $post_id, $field, $key_a, $key_b);
+    },
+    10, 5
+);
+
+/**
+ * Relacionamento Reciproco / Grupos e FAQs
+ * Entre dois campos de relacionamento que pertencem a diferentes tipos de postagem
+ */
+// Defina as chaves de campo para os dois campos de relacionamento
+$key_a = 'field_650c837ca6be0'; // Grupos
+$key_b = 'field_650c60e73f8d1'; // FAQs
+
+// Adicione o filtro ao primeiro campo de relacionamento
+// A chave deve corresponder a $ key_a acima
+add_filter(
+    'acf/update_value/key=field_650c837ca6be0',
+    function ($value, $post_id, $field) use ($key_a, $key_b) {
+        return acf_reciprocal_contacts($value, $post_id, $field, $key_a, $key_b);
+    },
+    10, 5
+);
+
+// Adicione o filtro ao segundo campo de relacionamento
+// A chave deve corresponder a $ key_b acima
+add_filter(
+    'acf/update_value/key=field_650c60e73f8d1',
+    function ($value, $post_id, $field) use ($key_a, $key_b) {
+        return acf_reciprocal_contacts($value, $post_id, $field, $key_a, $key_b);
+    },
+    10, 5
+);
+
+
+/**
+ * Quando um campo de relacionamento é definido, um relacionamento recíproco
+ * também é definido no tipo de post de destino.
+ *
+ * @param [type] $value
+ * @param [type] $post_id
+ * @param [type] $field
+ * @param [type] $key_a
+ * @param [type] $key_b
+ * @return void
+ */
+function acf_reciprocal_contacts($value, $post_id, $field, $key_a, $key_b)
+{
+    // descobrir em que lado estamos trabalhando e configurar as variáveis
+    // $key_a representa o campo para as postagens atuais
+    // e $key_b representa o campo em postagens relacionadas
+    if ($key_a !== $field['key']) {
+        $temp = $key_a;
+        $key_a = $key_b;
+        $key_b = $temp;
+    }
+    
+    // obter os dois campos
+    // esta funcao do ACF obtem od valores dos campos
+    $field_a = acf_get_field($key_a);
+    $field_b = acf_get_field($key_b);
+    
+    // defina os nomes dos campos para verificar em cada postagem
+    $name_a = $field_a['name'];
+    $name_b = $field_b['name'];
+    
+    // obtem o valor do campo da postagem atual
+	// e verifica se ela precisa ser atualizada
+    
+	$old_values = get_post_meta($post_id, $name_a, true);
+    // verificar se o valor contem um array
+    if (!is_array($old_values)) {
+        if (empty($old_values)) {
+            $old_values = array();
+        } else {
+            $old_values = array($old_values);
+        }
+    }
+    // define novos valores para $value
+    $new_values = $value;
+    // verificar se o valor contem um array
+    if (!is_array($new_values)) {
+        if (empty($new_values)) {
+            $new_values = array();
+        } else {
+            $new_values = array($new_values);
+        }
+    }
+    
+    
+    $add = $new_values;
+    $delete = array_diff($old_values, $new_values);
+    
+    // reordene os arrays para evitar possiveis erros de indice invalido
+    $add = array_values($add);
+    $delete = array_values($delete);
+    
+    if (!count($add) && !count($delete)) {
+        // se nao tiver diferenca
+        // nao ha nada pra fazer
+        return $value;
+    }
+    
+    // deleta o primeiro
+    // passa por todos os posts que precisam ter a relacao removida
+    for ($i=0; $i<count($delete); $i++) {
+        $related_values = get_post_meta($delete[$i], $name_b, true);
+        if (!is_array($related_values)) {
+            if (empty($related_values)) {
+                $related_values = array();
+            } else {
+                $related_values = array($related_values);
+            }
+        }
+        
+        $related_values = array_diff($related_values, array($post_id));
+        // insere o novo valor
+        update_post_meta($delete[$i], $name_b, $related_values);
+        // insere a chave do acf
+        update_post_meta($delete[$i], '_'.$name_b, $key_b);
+    }
+    
+    
+    for ($i=0; $i<count($add); $i++) {
+        $related_values = get_post_meta($add[$i], $name_b, true);
+        if (!is_array($related_values)) {
+            if (empty($related_values)) {
+                $related_values = array();
+            } else {
+                $related_values = array($related_values);
+            }
+        }
+        if (!in_array($post_id, $related_values)) {
+            // add new relationship if it does not exist
+            $related_values[] = $post_id;
+        }
+        // atualiza os valores
+        update_post_meta($add[$i], $name_b, $related_values);
+        // insere a chave do acf
+        update_post_meta($add[$i], '_'.$name_b, $key_b);
+    }
+    
+    return $value;
+}
+
+/* Add Dashicons na site sem estar logado */
+add_action( 'wp_enqueue_scripts', 'load_dashicons_front_end' );
+function load_dashicons_front_end() {
+   wp_enqueue_style( 'dashicons' );
+}
+
+// Desabilitar coluna Descricao para Comprimissos dentro da Agenda
+add_filter('manage_edit-compromisso_columns', function ( $columns ) 
+{
+    if( isset( $columns['description'] ) )
+        unset( $columns['description'] );   
+
+    return $columns;
+} );
+
+// Desabilitar campo Descricao para Comprimissos dentro da Agenda
+
+function hide_description_row() {
+    echo "<style> .term-description-wrap { display:none; } </style>";
+}
+
+add_action( "compromisso_edit_form", 'hide_description_row');
+add_action( "compromisso_add_form", 'hide_description_row');
+add_action( "compromissobt_edit_form", 'hide_description_row');
+add_action( "compromissobt_add_form", 'hide_description_row');
+add_action( "compromissocs_edit_form", 'hide_description_row');
+add_action( "compromissocs_add_form", 'hide_description_row');
+add_action( "compromissofb_edit_form", 'hide_description_row');
+add_action( "compromissofb_add_form", 'hide_description_row');
+
+// Inserir as opções no campo Compromisso no cadastro da Agenda
+add_filter( 'acf/load_field/key=field_618d77f0f3fe0', function( $field ) {
+  
+	// Get all taxonomy terms
+	$compromissos = get_terms( array(
+	  'taxonomy' => 'compromisso',
+	  'hide_empty' => false
+	) );
+	
+	// Add each term to the choices array.
+	// Example: $field['choices']['review'] = Review
+	$field['choices']['outros'] = 'Outros';
+	foreach ( $compromissos as $type ) {
+	  $field['choices'][$type->term_id] = $type->name;
+	}
+  
+	return $field;
+} );
+
+// Inserir as opções no campo Endereço no cadastro da Agenda
+add_filter( 'acf/load_field/key=field_6193e1800f0a1', function( $field ) {
+  
+	// Get all taxonomy terms
+	$compromissos = get_terms( array(
+	  'taxonomy' => 'endereco',
+	  'hide_empty' => false
+	) );
+	
+	// Add each term to the choices array.
+	// Example: $field['choices']['review'] = Review
+	$field['choices']['outros'] = 'Outros';
+	foreach ( $compromissos as $type ) {
+	  $field['choices'][$type->term_id] = $type->name;
+	}
+  
+	return $field;
+} );
+
+/// Incluir JS de preenchimento e Ajax no Admin
+function enqueue_scripts_back_end(){
+	wp_enqueue_script( 'ajax-script', get_template_directory_uri() . '/js/my_query.js', array('jquery'));
+	
+	wp_localize_script( 'ajax-script', 'ajax_object',
+            array( 'ajax_url' => admin_url( 'admin-ajax.php' )) );
+	
+}
+add_action('admin_enqueue_scripts','enqueue_scripts_back_end');
+
+// Recupera os valores dentro de Compromisso
+add_action( 'wp_ajax_my_action', 'my_action' );
+function my_action() {
+	
+
+	global $wpdb;
+	
+	$compromisso = intval( $_POST['compromisso'] );
+	
+	$pauta_assunto = get_field('pauta_assunto', 'term_' . $compromisso); 
+	$participantes_evento = get_field('participantes_evento', 'term_' . $compromisso);
+	$endereco_do_evento = get_field('endereco_do_evento', 'term_' . $compromisso);
+	
+	echo json_encode(array(
+		'pauta_assunto' => $pauta_assunto,
+		'participantes_evento' => $participantes_evento,
+		'endereco_do_evento' => $endereco_do_evento
+	));
+	
+	wp_die();
+	
+}
+
+// Inserir as opções no campo Compromisso no cadastro da Agenda
+add_filter( 'acf/load_field/key=field_64f61da9fd408', function( $field ) {
+
+	if($_GET['post_type']){
+		$post_type = $_GET['post_type'];
+	} else {
+		$post_type = get_post_type( $post->ID );
+	}
+	$dre = '';
+
+	switch ($post_type) {
+		case 'agenda-dre-bt':
+			$dre = 'bt';
+			break;
+		case 'agenda-dre-cs':
+			$dre = 'cs';
+			break;
+		case 'agenda-dre-fb':
+			$dre = 'fb';
+			break;
+	} 
+  
+	// Get all taxonomy terms
+	$compromissosbt = get_terms( array(
+	  'taxonomy' => 'compromisso' . $dre,
+	  'hide_empty' => false
+	) );
+	
+	// Add each term to the choices array.
+	// Example: $field['choices']['review'] = Review
+	$field['choices']['outros'] = 'Outros';
+	foreach ( $compromissosbt as $type ) {
+	  $field['choices'][$type->term_id] = $type->name;
+	}
+  
+	return $field;
+} );
+
+// Inserir as opções no campo Endereço no cadastro da Agenda
+add_filter( 'acf/load_field/key=field_64f62099e1e9e', function( $field ) {
+  
+	if($_GET['post_type']){
+		$post_type = $_GET['post_type'];
+	} else {
+		$post_type = get_post_type( $post->ID );
+	}
+	
+	$dre = '';
+
+	switch ($post_type) {
+		case 'agenda-dre-bt':
+			$dre = 'bt';
+			break;
+		case 'agenda-dre-cs':
+			$dre = 'cs';
+			break;
+		case 'agenda-dre-fb':
+			$dre = 'fb';
+			break;
+	} 
+
+	// Get all taxonomy terms
+	$compromissos = get_terms( array(
+	  'taxonomy' => 'endereco' . $dre,
+	  'hide_empty' => false
+	) );
+	
+	// Add each term to the choices array.
+	// Example: $field['choices']['review'] = Review
+	$field['choices']['outros'] = 'Outros';
+	foreach ( $compromissos as $type ) {
+	  $field['choices'][$type->term_id] = $type->name;
+	}
+  
+	return $field;
+} );
+
+// Ordenar Nova Agenda por data por padrão
+add_filter( 'parse_query', 'sort_posts_by_meta_value' );
+ 
+function sort_posts_by_meta_value($query) {
+    global $pagenow;
+    if (is_admin() && $pagenow == 'edit.php' &&
+        isset($_GET['post_type']) && $_GET['post_type']=='agendanew' &&
+        !isset($_GET['orderby']) )  {
+        $query->query_vars['orderby'] = 'meta_value_num date';
+        $query->query_vars['meta_key'] = 'data_do_evento';
+    }
+
+	return $query;
+}
+
+// Ordenar Nova Agenda por data ao clicar em ordenacao
+add_filter( 'parse_query', 'sort_agenda_by_date' );
+ 
+function sort_agenda_by_date($query) {
+    global $pagenow;
+    if (is_admin() && $pagenow == 'edit.php' &&
+        isset($_GET['post_type']) && $_GET['post_type']=='agendanew' &&
+        isset($_GET['orderby'])  && $_GET['orderby'] == 'data_evento')  {
+        $query->query_vars['orderby'] = 'meta_value_num date';
+        $query->query_vars['meta_key'] = 'data_do_evento';
+    }
+
+	return $query;
+}
+
+// Filtrar Nova Agenda por mes / ano
+add_filter( 'parse_query', 'filter_agenda_by_date' );
+ 
+function filter_agenda_by_date($query) {
+    global $pagenow;
+    if (is_admin() && $pagenow == 'edit.php' &&
+        isset($_GET['post_type']) && $_GET['post_type']=='agendanew' &&
+        isset($_GET['search_year']) )  {
+			
+			$mesBusca = $_GET['search_month'];
+			$anoBusca = $_GET['search_year'];
+
+			$start = $anoBusca . '-' . $mesBusca . '-01';
+			$end = $anoBusca . '-' . $mesBusca . '-31';
+
+			$query->query_vars['orderby'] = 'meta_value_num date';
+			$query->query_vars['meta_query'] = array(
+				'relation' => 'AND',
+				array(
+					'key' => 'data_do_evento',
+					'value' => $start,
+					'compare' => '>=',
+					'type' => 'DATE'
+				),
+
+				array(
+					'key' => 'data_do_evento',
+					'value' => $end,
+					'compare' => '<=',
+					'type' => 'DATE'
+				),
+			);
+    }
+
+	return $query;
+}
+
+// Inclusao do filtro por mes / ano
+add_action('restrict_manage_posts','filtering_month',10);
+function filtering_month($post_type){
+    
+	if('agendanew' !== $post_type){
+      return; //filter your post
+    }
+        
+    //Lista de Meses.
+    $meses = array(
+		'01' => 'Janeiro',
+		'02' => 'Fevereiro',
+		'03' => 'Março',
+		'04' => 'Abril',
+		'05' => 'Maio',
+		'06' => 'Junho',
+		'07' => 'Julho',
+		'08' => 'Agosto',
+		'09' => 'Setembro',
+		'10' => 'Outubro',
+		'11' => 'Novembro',
+		'12' => 'Dezembro',
+	);
+
+	// Mes Atual
+	$month = date('m');
+
+   //build a custom dropdown list of values to filter by
+    echo '<select id="my-loc" name="search_month">';    
+    foreach($meses as $key => $location){
+      $select = ($month == $key) ? ' selected="selected"':'';
+      echo '<option value="'.$key.'"'.$select.'>' . $location . ' </option>';
+    }
+    echo '</select>';
+
+
+	// Ano Atual
+	$year = date('Y');
+	$previousyear = $year -1;
+	$nextyear = $year +1;
+
+	//build a custom dropdown list of values to filter by
+    echo '<select id="my-loc" name="search_year">';        
+    echo '<option value="'.$previousyear.'">' . $previousyear . ' </option>';
+	echo '<option value="'.$year.'" selected="selected">' . $year . ' </option>';
+	echo '<option value="'.$nextyear.'">' . $nextyear . ' </option>'; 
+    echo '</select>';
+}
+
+function remove_date_categ_drop(){
+	$screen = get_current_screen();
+
+	if ( 'editores_portal' == $screen->post_type || 'setor' == $screen->post_type || 'agendanew' == $screen->post_type || 'agenda' == $screen->post_type){
+		add_filter('months_dropdown_results', '__return_empty_array');	
+	}
+
+	if ( 'editores_portal' == $screen->post_type || 'setor' == $screen->post_type || 'agenda' == $screen->post_type){		
+	?>
+		<style>
+			.alignleft.actions{
+				display: none;
+			}
+
+			.alignleft.actions.bulkactions{
+				display: block;
+			}
+		</style>
+	<?php
+	}
+
+	if ( 'concurso' == $screen->post_type || 'contato' == $screen->post_type || 'agendanew' == $screen->post_type || 'agenda-dre-bt' == $screen->post_type || 'agenda-dre-cs' == $screen->post_type  || 'agenda-dre-fb' == $screen->post_type){		
+		?>
+			<style>
+				.postform{
+					display: none;
+				}
+			</style>
+		<?php
+		}
+
+
+}
+add_action('admin_head', 'remove_date_categ_drop');
+
+// Adicionar busca em Atributos de Paginas > Ascendente 
+function custom_scripts_wpse_215576() {
+    //Chosen CSS file
+    wp_enqueue_style('chose-style', get_template_directory_uri().'/css/chosen.css');
+    //Chosen JS file
+    wp_enqueue_script( 'chosen-script', get_template_directory_uri() . '/js/chosen.jquery.min.js', array(), '1.4.2', true );
+}
+
+// Incluir Meta Key nas buscas
+add_action('pre_get_posts', 'my_search_query'); // add the special search fonction on each get_posts query (this includes WP_Query())
+function my_search_query($query) {
+    if ($query->is_search() and $query->query_vars and $query->query_vars['s'] and $query->query_vars['s_meta_keys']) { // if we are searching using the 's' argument and added a 's_meta_keys' argument
+        global $wpdb;
+        $search = $query->query_vars['s']; // get the search string
+        $ids = array(); // initiate array of martching post ids per searched keyword
+        foreach (explode(' ',$search) as $term) { // explode keywords and look for matching results for each
+            $term = trim($term); // remove unnecessary spaces
+            if (!empty($term)) { // check the the keyword is not empty
+                $query_posts = $wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE post_status='publish' AND ((post_title LIKE '%%%s%%') OR (post_content LIKE '%%%s%%'))", $term, $term); // search in title and content like the normal function does
+                $ids_posts = [];
+                $results = $wpdb->get_results($query_posts);
+                if ($wpdb->last_error)
+                    die($wpdb->last_error);
+                foreach ($results as $result)
+                    $ids_posts[] = $result->ID; // gather matching post ids
+                $query_meta = [];
+                foreach($query->query_vars['s_meta_keys'] as $meta_key) // now construct a search query the search in each desired meta key
+					//$where = str_replace("meta_key = 'fx_flex_layout_$", "meta_key LIKE 'fx_flex_layout_%", $where);
+					//$where = str_replace("meta_key = 'fx_coluna_1_1_$", "meta_key LIKE 'fx_coluna_1_1_%", $where);
+					//$meta_key = str_replace('fx_flex_layout_$_fx_coluna_1_1_$_fx_editor_1_1', 'fx_flex_layout_%_fx_coluna_1_1_%_fx_editor_1_1', $meta_key);
+					$query_meta[] = $wpdb->prepare("meta_key='%s' AND meta_value LIKE '%%%s%%'", $meta_key, $term);
+                $query_metas = $wpdb->prepare("SELECT * FROM {$wpdb->postmeta} WHERE ((".implode(') OR (',$query_meta)."))");
+                $ids_metas = [];
+                $results = $wpdb->get_results($query_metas);
+                if ($wpdb->last_error)
+                    die($wpdb->last_error);
+                foreach ($results as $result)
+                    $ids_metas[] = $result->post_id; // gather matching post ids
+                $merged = array_merge($ids_posts,$ids_metas); // merge the title, content and meta ids resulting from both queries
+                $unique = array_unique($merged); // remove duplicates
+                if (!$unique)
+                    $unique = array(0); // if no result, add a "0" id otherwise all posts wil lbe returned
+                $ids[] = $unique; // add array of matching ids into the main array
+            }
+        }
+        if (count($ids)>1)
+            $intersected = call_user_func_array('array_intersect',$ids); // if several keywords keep only ids that are found in all keywords' matching arrays
+        else
+            $intersected = $ids[0]; // otherwise keep the single matching ids array
+        $unique = array_unique($intersected); // remove duplicates
+        if (!$unique)
+            $unique = array(0); // if no result, add a "0" id otherwise all posts wil lbe returned
+        unset($query->query_vars['s']); // unset normal search query
+        $query->set('post__in',$unique); // add a filter by post id instead
+    }
+}
+
+// Alterar placeholder cadastro/edicao Agenda do Secretario
+function wpb_change_title_text( $title ){
+	$screen = get_current_screen(); 
+	$cpt_titles = array(
+		'agendanew',
+		'agenda-dre-bt',
+		'agenda-dre-cs',
+		'agenda-dre-fb',
+		'agenda-dre-gn',
+		'agenda-dre-ip',
+		'agenda-dre-it',
+		'agenda-dre-jt',
+		'agenda-dre-pe',
+		'agenda-dre-pi',
+		'agenda-dre-sa',
+		'agenda-dre-sma',
+		'agenda-dre-smi',
+	);
+
+	if  ( in_array($screen->post_type, $cpt_titles) ) {
+		 $title = 'Digite a data dos compromissos ou nome do evento';
+	}
+	
+	return $title;
+}
+ 
+add_filter( 'enter_title_here', 'wpb_change_title_text' );
+
+// Incluir div envolta do embed de video automatico do WordPress
+add_filter( 'embed_oembed_html', 'tdd_oembed_filter', 10, 4 ) ; 
+function tdd_oembed_filter($html, $url, $attr, $post_ID) {
+    $return = '<div class="video-container">'.$html.'</div>';
+    return $return;
+}
+
+// Incluir Pagina Exportar Usuarios no menu Usuarios
+add_action('admin_menu', 'wpdocs_register_my_custom_submenu_page');
+ 
+function wpdocs_register_my_custom_submenu_page() {
+    add_submenu_page(
+        'users.php',
+        'Exportar Usuarios',
+        'Exportar Usuarios',
+        'manage_options',
+        'export-users',
+        'wpdocs_my_custom_submenu_page_callback' );
+}
+ 
+function wpdocs_my_custom_submenu_page_callback() {
+    echo '<div class="wrap"><div id="icon-tools" class="icon32"></div>';
+        echo '<h2>Exportar Usuarios</h2><br>';
+		$blogusers = get_users( array( 'fields' => array( 'id', 'user_login', 'user_email' ) ) );
+		$usuarios = array();
+		
+		foreach($blogusers as $user){
+			$user_meta = get_userdata($user->id);
+			$user_roles = $user_meta->roles;
+			$setor = get_field('setor', 'user_'. $user->id );
+			$grupos = get_field('grupo', 'user_'. $user->id );
+			$grupoTitle = '';
+			$i = 0;
+			if($grupos && $grupos != '' && $grupos[0] != ''){
+				foreach($grupos as $grupo){
+					if($i == 0){
+						$grupoTitle .= get_the_title($grupo);
+					} else {
+						$grupoTitle .= ', ' . get_the_title($grupo);
+					}
+					$i++;
+				}				
+			}
+
+			$usuarios[] = array(
+				'id' => $user->id,
+				'login' => $user->user_login,
+				'email' => $user->user_email,
+				'funcao' => $user_roles[0],
+				'grupos' => $grupoTitle,
+				'setor' => $setor
+			);
+
+		}
+
+		//echo "<pre>";
+		//print_r($usuarios);
+		//echo "</pre>";
+	?>
+
+		<form action="<?= get_template_directory_uri(); ?>/export-users.php">
+			<select name="funcao" id="">
+				<option value="all">Todos</option>
+				<option value="administrator">Administrador</option>
+				<option value="editor">Editor</option>
+				<option value="contributor">Colaborador</option>
+			</select>
+			<input type="submit" value="Exportar" class="button action">
+		</form>
+
+	<?php
+    echo '</div>';
+}
+
+// Paginas em rascunho e pendendentes no seletor de subpaginas
+add_filter( 'page_attributes_dropdown_pages_args', 'so_3538267_enable_drafts_parents' );
+add_filter( 'quick_edit_dropdown_pages_args', 'so_3538267_enable_drafts_parents' );
+
+function so_3538267_enable_drafts_parents( $args )
+{
+    $args['post_status'] = 'draft,publish,pending,private';
+    return $args;
+}
+
+// Inclui o JS para alterar o tipo de campo no alt das imagens
+function custom_subpage_js() {
+	$url = get_bloginfo('template_directory') . '/js/subpages.js';	
+    echo '"<script type="text/javascript" src="'. $url . '"></script>"';
+	
+    echo '<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>';    
+	$pagina = $_GET['post'];
+	$pages = get_pages('child_of='.$pagina.'&sort_column=title&post_status=draft,publish,pending,private');
+	$paginas = '';
+	foreach($pages as $page){
+		$paginas .= '<input type="checkbox" class="checkboxAll" name="type" value="' . $page->ID . '" /> ' . $page->post_title . '<br>';
+	}
+	?>
+		<script>
+			jQuery(document).ready(function($) {				
+
+				function ajaxSubmit(pages) {
+
+					var data = {
+						action: 'subpages_private',
+						page: pages
+					};
+
+					jQuery.ajax({
+						type: "POST",
+						url: "/wp-admin/admin-ajax.php",
+						data: data,
+						success: function(data){
+							Swal.fire('Páginas alteradas com sucesso!', '', 'success');
+						},
+						error: function (request, status, error) {
+							//alert(request.responseText);
+						}
+					});
+
+					return false;
+				}
+
+				
+
+				jQuery("#visibility-radio-private").click(function(){
+					
+					Swal.fire({
+						title: 'Atenção',
+						icon: 'question',
+						html: '<h3>Esta página possui subpaginas, deseja transformar-las em Privadas?</h3>' +
+							  '<div class="pages-modal">' +							  
+							  '<?= $paginas; ?>' +
+							  '</div>',
+						showDenyButton: true,
+						showCloseButton: true,
+						confirmButtonText: 'Salvar',
+						denyButtonText: 'Não alterar',
+					}).then((result) => {
+						/* Read more about isConfirmed, isDenied below */
+						if (result.isConfirmed) {
+							var yourArray = []
+
+							jQuery("input:checkbox[name=type]:checked").each(function(){
+								yourArray.push($(this).val());
+							});
+
+							ajaxSubmit(yourArray);							
+							
+						} else if (result.isDenied) {
+							Swal.fire('Ação cancelada', '', 'error')
+						}
+					})
+					//ajaxSubmit(); 
+				});
+			});
+		</script>
+	<?php
+}
+
+// Alerta subpagina
+add_action( 'admin_init', 'alert_subpage' );
+ 
+function alert_subpage() {
+    global $pagenow;
+    if ( 'post.php' === $pagenow && isset($_GET['post']) && 'page' === get_post_type( $_GET['post'] ) ){
+		$pagina = $_GET['post'];
+		
+		$pages = get_pages('child_of='.$pagina.'&sort_column=menu_order&post_status=draft,publish,pending,private');
+		
+		//echo "<pre>";
+		//print_r($pages);
+		//echo "</pre>";
+
+		if($pages){
+			add_action('admin_footer', 'custom_subpage_js');
+		}
+
+    }
+}
+
+function subpages_private(){
+	$paginas = $_POST['page'];
+	
+	foreach($paginas as $pagina){
+		$post_data = array(
+			'ID' => $pagina,
+			'post_status' => 'private'
+		);	
+		wp_update_post( $post_data );
+	}
+	
+	print_r($data);
+	
+	wp_die();
+}
+add_action('wp_ajax_subpages_private', 'subpages_private');
+add_action('wp_ajax_nopriv_subpages_private', 'subpages_private');
+
+// Ocultar categorias de Contato
+add_action('admin_menu','hide_submenu_contact');
+function hide_submenu_contact() {
+	global $submenu;	
+
+	// This needs to be set to the URL for the admin menu section (aka "Menu Page")
+	$menu_page = 'edit.php?post_type=contato';
+	unset($submenu[$menu_page][15]);
+	
+}
+
+add_filter( 'profile_update', function( $user_id, $old_user_data ) {
+	//if( true !== $update ) return $meta; // if not an update (b/c it is a create) do nothing
+  	
+	if(is_admin()) { // check if we are in admin not front end
+
+		$setor = get_field('setor_old', 'user_'.$user_id);
+		$campos = get_field('campos', 'user_'.$user_id);
+		$current_user = wp_get_current_user();
+		$date = date('d/m/Y H:i:s');
+
+		if( $setor != $_POST['acf']['field_628fca507d189'] && $setor != '' ) {			
+			update_user_meta( $user_id, 'campos', "De: " . get_the_title($setor) . ' Para: ' . get_the_title($_POST['acf']['field_628fca507d189']) . " Por: " . $current_user->user_login . ' Em: ' . $date . "\n" . $campos);	
+		} else {
+			//update_user_meta( $user_id, 'campos', 'Manteve: ' . $setor);	
+		}
+	}
+	return $meta;
+}, 99, 2 );
+
+function custom_menu_order($menu_ord) {
+    if (!$menu_ord) return true;
+    return array(
+	 'index.php',	 
+	 'tutorial_slug',
+	 'acf-options-alerta-da-pagina-inicial',
+	 'edit.php',
+	 'upload.php',
+	 'edit.php?post_type=agenda',
+	 'edit.php?post_type=agendanew',
+	 'edit.php?post_type=contato',
+	 'edit.php?post_type=curriculo-da-cidade',
+	 'edit.php?post_type=concurso',
+	 'edit.php?post_type=programa-projeto',
+     'edit.php?post_type=editores_portal',
+     'edit.php?post_type=setor',
+ );
+}
+add_filter('custom_menu_order', 'custom_menu_order');
+add_filter('menu_order', 'custom_menu_order');
+
+function media_admin_notice(){
+    global $pagenow;
+    if ( $pagenow == 'upload.php' ) { ?>
+			<style>
+				.alert-info{
+					display: block;
+				}
+			</style>
+	<?php			
+	}
+}
+add_action('admin_notices', 'media_admin_notice');
+
+/** Acervo embed
+*  example : https://hom-acervodigital.sme.prefeitura.sp.gov.br/?avanc=1&categ=1&s=&categoria_acervo=57
+*/
+
+// Pega as informacoes da midia via API
+function get_media_api($id){
+	$url = 'https://acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/media/' . $id;
+	$headers = [];
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	
+	$response = curl_exec($ch);                
+	
+	$jsonArrayResponse = json_decode($response);
+
+	return $jsonArrayResponse;
+}
+
+// Pega as informacoes de categoria via API
+function get_categ_api($id){
+	$url = 'https://acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/categoria_acervo/' . $id;
+	$headers = [];
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	
+	$response = curl_exec($ch);                
+	
+	$jsonArrayResponse = json_decode($response);
+
+	return $jsonArrayResponse;
+}
+
+add_action(
+    'init',
+    function () {
+        wp_embed_register_handler(
+            'acervo',
+            '#https://acervodigital\.sme\.prefeitura\.sp\.gov\.br/\?(.*)$#i',
+            'embed_handler_acervo'
+        );
+    }
+);
+
+function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
+    
+	// Versao com Iframe (sem uso no momento)
+	/*
+	$embed = sprintf(
+        '<iframe src="%s&incorporar=1" width="500" frameborder="0" height="1000" class="w-100 block__acervo"></iframe>',
+        esc_attr( $matches[0] )
+    );*/
+
+	// URL Atual da pagina
+	$pagina = ! empty( $_GET['pagina'] ) ? (int) $_GET['pagina'] : 1; 
+	
+	// URL padrao da API
+	$url = 'https://acervodigital.sme.prefeitura.sp.gov.br/wp-json/wp/v2/acervo/?per_page=99&page=' . $pagina;
+
+	// Recebe a URL e divide os valores de GET em variaveis
+	$parts = parse_url($matches[0]);
+	parse_str($parts['query'], $query);
+
+	// Debbug -> Visualizar todas os valores de GET recebido
+	//print_r($query);
+
+	// Se tiver os valores de Busca incluir na URL da API
+	if($query['s'] != ''){
+		$busca = $query['s'];
+		$busca = str_replace(' ', '+', $busca);		
+		$url = $url . '&search=' . $busca;
+	}
+
+	// Se tiver os valores de Categoria (Prod) incluir na URL da API
+	if($query['categ_acervo'] != ''){
+		if(is_numeric($query['categ_acervo'])){
+			$url = $url . '&categoria_acervo=' . $query['categ_acervo'];
+		} else {
+			$url = $url . '&filter[categoria_acervo]=' . $query['categ_acervo'];
+		}		
+	}
+
+	// Se tiver os valores de Categoria (Homolog) incluir na URL da API
+	if($query['categoria_acervo'] != ''){
+		$url = $url . '&categoria_acervo=' . $query['categoria_acervo'];
+	}
+
+	// Se tiver os valores de Modalidade incluir na URL da API
+	if($query['modalidadeb'] != ''){
+		$modalidades = implode(",", $query['modalidadeb']);
+		
+		if(is_numeric($query['modalidadeb'][0])){
+			$url = $url . '&modalidade=' . $modalidades;
+		} else {
+			$url = $url . '&filter[modalidade]=' . $modalidades;
+		}
+	}
+
+	// Se tiver os valores de Componente incluir na URL da API
+	if($query['componenteb'] != ''){
+		$componentes = implode(",", $query['componenteb']);		
+
+		if(is_numeric($query['componenteb'][0])){
+			$url = $url . '&componente=' . $componentes;
+		} else {
+			$url = $url . '&filter[componente]=' . $componentes;
+		}
+	}
+
+	// Se tiver os valores de Ano incluir na URL da API
+	if($query['anob'] != ''){
+		$anos = implode(",", $query['anob']);
+		$url = $url . '&ano_da_publicacao_acervo_digital=' . $anos;
+	}
+	
+	// Se tiver os valores de Setor incluir na URL da API
+	if($query['setorb'] != ''){
+		$setores = implode(",", $query['setorb']);		
+
+		if(is_numeric($query['setorb'][0])){
+			$url = $url . '&setor=' . $setores;
+		} else {
+			$url = $url . '&filter[setor]=' . $setores;
+		}
+	}
+
+	// Se tiver os valores de Autor incluir na URL da API
+	if($query['autor'] != ''){		
+		if(is_numeric($query['autor'])){
+			$url = $url . '&autor=' . $query['autor'];
+		} else {
+			$url = $url . '&filter[autor]=' . $query['autor'];
+		}
+	}
+
+	// Se tiver os valores de Idioma incluir na URL da API
+	if($query['idiomab'] != ''){
+		$idiomas = implode(",", $query['idiomab']);		
+
+		if(is_numeric($query['idiomab'][0])){
+			$url = $url . '&idioma=' . $idiomas;
+		} else {
+			$url = $url . '&filter[idioma]=' . $idiomas;
+		}
+	}
+
+	// Se tiver os valores de Palavra Chave incluir na URL da API
+	if($query['palavrab'] != ''){		
+		if(is_numeric($query['palavrab'] )){
+			$url = $url . '&palavra=' . $query['palavrab'];
+		} else {
+			$url = $url . '&filter[palavra]=' . $query['palavrab'];
+		}
+	}
+	
+	// Consulta Via API no Acervo
+	$headers = [];
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+		function ($curl, $header) use (&$headers) {
+			$len = strlen($header);
+			$header = explode(':', $header, 2);
+			if (count($header) < 2) // ignore invalid headers
+				return $len;
+
+			$headers[strtolower(trim($header[0]))][] = trim($header[1]);
+
+			return $len;
+		}
+	);
+	$response = curl_exec($ch);                
+	
+	$jsonArrayResponse = json_decode($response);
+
+	//echo "<pre>";
+	//print_r($jsonArrayResponse);
+	//echo "</pre>";
+
+	$embed = '';
+	$embed .= '<div class="row m-0">';
+
+	foreach($jsonArrayResponse as $acervo){
+		if($acervo->arquivos_particionados){
+			$qtdArquivos = count($acervo->arquivos_particionados);
+		} else {
+			$qtdArquivos = 1;
+		}
+		
+		
+		if($acervo->substituir_capa_acervo_digital != ''){
+			$imagem = get_media_api($acervo->substituir_capa_acervo_digital);
+		} else {
+			$imagem = get_media_api($acervo->arquivo_acervo_digital);
+			if($imagem->id == ''){			
+				$imagem = get_media_api($acervo->arquivos_particionados_0_arquivo);
+			}
+		}
+		
+		$imagemShow = $imagem->media_details->sizes->full->source_url;
+		$secondImage = $imagem->guid->rendered;
+		$secondImage = str_replace('.pdf', '-pdf.jpg', $secondImage);
+		
+		if(!$imagemShow){
+			$file_headers = @get_headers($secondImage);
+			if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+				$imagemShow = 'https://hom-acervodigital.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/08/acervo-doc.jpg';
+			} else {
+				$imagemShow = $secondImage;
+			}        
+		}
+		
+		$formato = explode("/", $imagem->mime_type);
+		if($formato[1] == 'VND.OPENXMLFORMATS-OFFICEDOCUMENT.SPREADSHEETML.SHEET' || $formato[1] == 'vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+			$formato[1] = 'XLS';
+		}
+
+		if($formato[1] == 'vnd.openxmlformats-officedocument.wordprocessingml.document'){
+			$formato[1] = 'DOC';
+		}
+		
+		if(!$formato[1]){
+			$formato[1] = 'INDEFINIDO';
+		}
+
+		
+
+		if($acervo->categoria_acervo != ''){
+			$categName = array();
+			foreach($acervo->categoria_acervo as $categoria){
+				$categName[] = get_categ_api($categoria)->name;
+			}			
+		}
+
+		if($qtdArquivos > 1){
+			$menuBtn = '';
+			
+			$menuBtn = '<div class="dropdown show">';
+				$menuBtn .= '<a class="btn dropdown-toggle px-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Baixar</a><div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
+					for ($i = 0; $i < $qtdArquivos; $i++) {
+						$chave = 'arquivos_particionados_' . $i . '_arquivo';
+						$arquivo = get_media_api($acervo->$chave);
+						$numArquivo = $i + 1;
+						$menuBtn .= '<a href="' . $arquivo->source_url . '" class="no-external">Baixar Arquivo ' . $numArquivo . '</a>';
+					}
+				$menuBtn .= '</div>';
+
+			$menuBtn .= '</div>';
+		} else {
+			$menuBtn = '<a href="' . $imagem->source_url . '" class="p3-4 no-external">Baixar</a>';
+		}
+
+		
+		// Monta o HTML para ser retornado na pagina
+		$embed .= '<div class="col-md-3 col-sm-6 p-3 acervo-display">
+			<div class="row m-0">
+				<div class="col-sm-12 view-tag flag">
+					<div class="img-mask shadow-sm">
+						<img src="' . $imagemShow . '">
+						<span class="flag-pdf-full">' . $formato[1] . '</span>
+					</div>					
+				</div>
+				<div class="col-sm-12 mt-3 mb-3 p-0">
+					<h3 class="azul-claro-acervo"><a class="no-external" target="_blank" href="' . $acervo->link . '">' . $acervo->title->rendered . '</a></h3>
+					
+					<div class="links-flag">
+						<div class="cat-flag mb-2">' . implode(' / ', $categName) . '</div>
+						<div class="btn-acervo d-flex justify-content-between">							
+							<a href="' . $acervo->link . '" class="btn btn-outline-primary no-external">Ver detalhes</a>
+							' . $menuBtn . ' 													
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>';
+	}	
+
+	$embed .= '</div>';	
+	
+	$embed .= '<div class="container">';
+		$embed .= '<div class="row">';
+			$embed .= '<div class="col-12">';
+				
+				
+				$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+				$actual_link = str_replace('/?', '/', $actual_link);
+				$new_url = preg_replace('/&?pagina=[^&]*/', '', $actual_link);             
+				$totalPages = $headers['x-wp-totalpages'][0];
+				$param = '?pagina=';
+				$pageOne = '?pagina=1';
+				if($_GET['filter']){
+					$param = '&pagina=';
+					$pageOne = '&pagina=1';
+				}
+				
+				//$pagina = $_GET['pagina'];
+
+				if($totalPages > 1):
+					$embed .= '<div class="pagination-prog">';
+						$embed .= '<div class="wp-pagenavi">';
+							$embed .= '<div style="text-align: center;display: flex;align-items: center;justify-content: center; margin-top: 10px;">';                             
+								// Primeira Pagina
+								$embed .= '<a class="pagination paginationA " href="' . $new_url . $pageOne . '"><i class="fa fa-chevron-left" aria-hidden="true"></i></a><!--Ir para o primeiro-->';
+								
+								// 3 Antes da pagina atual
+								if($pagina >= 4){
+									$embed .= '<a class="pagination paginationB" href="' . $new_url . $param . ($pagina - 3) . '">' . ($pagina - 3) . '</a>';
+								}
+								if($pagina >= 3){
+									$embed .= '<a class="pagination paginationB" href="' . $new_url . $param . ($pagina - 2) . '">' . ($pagina - 2) . '</a>';
+								}
+								if($pagina >= 2){
+									$embed .= '<a class="pagination paginationB" href="' . $new_url . $param . ($pagina - 1) . '">' . ($pagina - 1) . '</a>';
+								}
+
+								// Atual
+								$embed .= '<a class="pagination paginationA active" href="' . $new_url . $param . $pagina . '">' . $pagina . '</a>';
+
+								// 3 apos a atual
+								if($totalPages > $pagina + 1){
+									$embed .= '<a class="pagination paginationC" href="' . $new_url . $param . ($pagina + 1) . '">' . ($pagina + 1) . '</a>';
+								}
+
+								if($totalPages > $pagina + 2){
+									$embed .= '<a class="pagination paginationC" href="' . $new_url . $param . ($pagina + 2) . '">' . ($pagina + 2) . '</a>';
+								}
+								if($totalPages > $pagina + 3){
+									$embed .= '<a class="pagination paginationC" href="' . $new_url . $param . ($pagina + 3) . '">' . ($pagina + 3) . '</a>';
+								}
+
+								// Total Paginas
+								if($totalPages > 1 && $pagina != $totalPages){
+									$embed .= '<a class="pagination paginationD" href="' . $new_url . $param . $totalPages . '">' . $totalPages . '</a>';
+								}
+
+								// Ultima Pagina
+								$embed .= '<a class="pagination paginationD" href="' . $new_url . $param . $totalPages . '"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>';	
+								
+									
+							$embed .= '</div>';
+						$embed .= '</div>';
+					$embed .= '</div>';
+				endif;
+
+			$embed .= '</div>';
+		$embed .= '</div>';
+	$embed .= '</div>';
+
+	
+
+    return apply_filters( 'embed_acervo', $embed, $matches, $attr, $url, $rawattr );
+}
+
+
+/*Remove page template*/
+function remove_page_template( $page_templates) {
+    unset( $page_templates['pagina-mapa-dres.php'] );
+    return $page_templates;
+}
+add_filter( 'theme_page_templates', 'remove_page_template', 20, 3 );
+
+// Adicionar o menu Agenda DREs
+add_action( 'admin_menu', 'menu_agenda_dres' );
+function menu_agenda_dres() {
+	$menu_slug = 'agenda-das-dres';	
+
+	$current_user = get_current_user_id();
+	$grupos = get_field('grupo', 'user_'. $current_user );
+	$AgendaDre = array();
+
+	if($grupos && $grupos != '')
+		foreach($grupos as $grupo){
+			$agenda = get_field('agendas', $grupo );
+			if($agenda != ''){
+				array_push( $AgendaDre, get_field('agendas', $grupo ) );
+			}
+		}
+
+	$arraySingle = call_user_func_array('array_merge', $AgendaDre);
+	$arraySingle = array_unique($arraySingle);
+
+	if ( current_user_can( 'manage_options' ) || ( $arraySingle[0] != '' && count($arraySingle) > 1 ) ) {
+		add_menu_page( 'Agenda das DREs', 'Agenda das DREs', 'read', $menu_slug, false, 'dashicons-calendar-alt', 19 );
+	} elseif( $arraySingle[0] != '' ){
+		add_menu_page( 'Agenda', 'Agenda', 'read', $menu_slug, false, 'dashicons-calendar-alt', 19 );
+	}
+
+}
+
+// Adicionar DREs no submenu da Agenda das DREs
+function add_external_link_admin_submenu() {
+    global $submenu;    
+
+	$current_user = get_current_user_id();
+	$grupos = get_field('grupo', 'user_'. $current_user );
+	$AgendaDre = array();
+
+	if($grupos && $grupos != '')
+		foreach($grupos as $grupo){
+			$agenda = get_field('agendas', $grupo );
+			if($agenda != ''){
+				array_push( $AgendaDre, get_field('agendas', $grupo ) );
+			}
+		}
+
+	$arraySingle = call_user_func_array('array_merge', $AgendaDre);
+	$arraySingle = array_unique($arraySingle);
+
+	if (in_array("dre-bt", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_bt = admin_url( 'edit.php' ).'?post_type=agenda-dre-bt';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Butantã', 'edit_concursos', $permalink_bt );
+	}
+
+	if (in_array("dre-cl", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_cs = admin_url( 'edit.php' ).'?post_type=agenda-dre-cl';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Campo Limpo', 'edit_concursos', $permalink_cs );
+	}
+
+	if (in_array("dre-cs", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_cs = admin_url( 'edit.php' ).'?post_type=agenda-dre-cs';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Capela do Socorro', 'edit_concursos', $permalink_cs );
+	}
+
+	if (in_array("dre-fb", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_fb = admin_url( 'edit.php' ).'?post_type=agenda-dre-fb';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Freg/Brasilândia', 'edit_concursos', $permalink_fb );
+	}
+
+	if (in_array("dre-gn", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_fb = admin_url( 'edit.php' ).'?post_type=agenda-dre-gn';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Guaianases', 'edit_concursos', $permalink_fb );
+	}
+
+	if (in_array("dre-ip", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_ip = admin_url( 'edit.php' ).'?post_type=agenda-dre-ip';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Ipiranga', 'edit_concursos', $permalink_ip );
+	}
+
+	if (in_array("dre-it", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_it = admin_url( 'edit.php' ).'?post_type=agenda-dre-it';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Itaquera', 'edit_concursos', $permalink_it );
+	}
+
+	if (in_array("dre-jt", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_jt = admin_url( 'edit.php' ).'?post_type=agenda-dre-jt';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Jaçanã/Tremembé', 'edit_concursos', $permalink_jt );
+	}
+
+	if (in_array("dre-pe", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_pe = admin_url( 'edit.php' ).'?post_type=agenda-dre-pe';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Penha', 'edit_concursos', $permalink_pe );
+	}
+
+	if (in_array("dre-pi", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_pi = admin_url( 'edit.php' ).'?post_type=agenda-dre-pi';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Pirituba', 'edit_concursos', $permalink_pi );
+	}
+
+	if (in_array("dre-sa", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_sa = admin_url( 'edit.php' ).'?post_type=agenda-dre-sa';
+    	$submenu['agenda-das-dres'][] = array( 'DRE Santo Amaro', 'edit_concursos', $permalink_sa );
+	}
+
+	if (in_array("dre-sma", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_sa = admin_url( 'edit.php' ).'?post_type=agenda-dre-sma';
+    	$submenu['agenda-das-dres'][] = array( 'DRE São Mateus', 'edit_concursos', $permalink_sa );
+	}
+
+	if (in_array("dre-smi", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_sa = admin_url( 'edit.php' ).'?post_type=agenda-dre-smi';
+    	$submenu['agenda-das-dres'][] = array( 'DRE São Miguel', 'edit_concursos', $permalink_sa );
+	}
+
+}
+add_action('admin_menu', 'add_external_link_admin_submenu');
+
+// Ocultar o link direto da DRE no admin
+add_action( 'admin_init', 'wpse_136058_remove_menu_pages' );
+
+function wpse_136058_remove_menu_pages() {
+    remove_menu_page('edit.php?post_type=agenda-dre-bt'); // DRE Butanta
+	remove_menu_page('edit.php?post_type=agenda-dre-cl'); // DRE Campo Limpo
+	remove_menu_page('edit.php?post_type=agenda-dre-cs'); // DRE Capela do Socorro
+	remove_menu_page('edit.php?post_type=agenda-dre-fb'); // DRE Freg/Brasilandia
+	remove_menu_page('edit.php?post_type=agenda-dre-gn'); // DRE Guaianases
+	remove_menu_page('edit.php?post_type=agenda-dre-ip'); // DRE Ipiranga
+	remove_menu_page('edit.php?post_type=agenda-dre-it'); // DRE Itaquera
+	remove_menu_page('edit.php?post_type=agenda-dre-jt'); // DRE Jacana/Tremembe
+	remove_menu_page('edit.php?post_type=agenda-dre-pe'); // DRE Penha
+	remove_menu_page('edit.php?post_type=agenda-dre-pi'); // DRE Pirituba
+	remove_menu_page('edit.php?post_type=agenda-dre-sa'); // DRE Santo Amaro
+	remove_menu_page('edit.php?post_type=agenda-dre-sma'); // DRE São Mateus
+	remove_menu_page('edit.php?post_type=agenda-dre-smi'); // DRE São Miguel
+}
+
+// Adicionar o menu Agenda dos Conselhos
+add_action( 'admin_menu', 'menu_agenda_conselhos' );
+function menu_agenda_conselhos() {
+	$menu_slug = 'agenda-dos-conselhos';	
+
+	$current_user = get_current_user_id();
+	$grupos = get_field('grupo', 'user_'. $current_user );
+	$AgendaDre = array();
+
+	if($grupos && $grupos != '')
+		foreach($grupos as $grupo){
+			$agenda = get_field('agendas_conselhos', $grupo );
+			if($agenda != ''){
+				array_push( $AgendaDre, get_field('agendas_conselhos', $grupo ) );
+			}
+		}
+
+	$arraySingle = call_user_func_array('array_merge', $AgendaDre);
+	$arraySingle = array_unique($arraySingle);
+
+	if ( current_user_can( 'manage_options' ) || ( $arraySingle[0] != '' && count($arraySingle) > 1 ) ) {
+		add_menu_page( 'Agenda Conselhos', 'Agenda Conselhos', 'read', $menu_slug, false, 'dashicons-calendar-alt', 19 );
+	} elseif( $arraySingle[0] != '' ){
+		add_menu_page( 'Agenda Conselhos', 'Agenda Conselhos', 'read', $menu_slug, false, 'dashicons-calendar-alt', 19 );
+	}
+
+}
+
+// Adicionar Conselho no submenu da Agenda dos Conselhos
+function add_agenda_conselhos_submenu() {
+    global $submenu;    
+
+	$current_user = get_current_user_id();
+	$grupos = get_field('grupo', 'user_'. $current_user );
+	$AgendaDre = array();
+
+	if($grupos && $grupos != '')
+		foreach($grupos as $grupo){
+			$agenda = get_field('agendas_conselhos', $grupo );
+			if($agenda != ''){
+				array_push( $AgendaDre, get_field('agendas_conselhos', $grupo ) );
+			}
+		}
+
+	$arraySingle = call_user_func_array('array_merge', $AgendaDre);
+	$arraySingle = array_unique($arraySingle);
+
+	if (in_array("cae", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_cae = admin_url( 'edit.php' ).'?post_type=agendaconselhocae';
+    	$submenu['agenda-dos-conselhos'][] = array( 'CAE', 'edit_concursos', $permalink_cae );
+	}
+
+	if (in_array("cme", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_cme = admin_url( 'edit.php' ).'?post_type=agendaconselhocme';
+    	$submenu['agenda-dos-conselhos'][] = array( 'CME', 'edit_concursos', $permalink_cme );
+	}
+
+	if (in_array("cacs", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_cacs = admin_url( 'edit.php' ).'?post_type=agendaconselhocacs';
+    	$submenu['agenda-dos-conselhos'][] = array( 'CACS', 'edit_concursos', $permalink_cacs );
+	}
+
+	if (in_array("crece", $arraySingle) || current_user_can( 'manage_options' )) { 
+		$permalink_crece = admin_url( 'edit.php' ).'?post_type=agendaconselhocrece';
+    	$submenu['agenda-dos-conselhos'][] = array( 'CRECE', 'edit_concursos', $permalink_crece );
+	}	
+
+}
+add_action('admin_menu', 'add_agenda_conselhos_submenu');
+
+// Ocultar o link direto do Conselho no admin
+add_action( 'admin_init', 'remove_conselhos_menu_pages' );
+
+function remove_conselhos_menu_pages() {
+    remove_menu_page('edit.php?post_type=agendaconselhocae'); // CAE
+	remove_menu_page('edit.php?post_type=agendaconselhocme'); // CME
+	remove_menu_page('edit.php?post_type=agendaconselhocacs'); // CACS
+	remove_menu_page('edit.php?post_type=agendaconselhocrece'); // CRECE
+}
+
+// Filtra as eventos que grupo pertence
+function wp38_limit_posts_to_author($query) {
+
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+		
+	// 	filtra os noticias pelo grupo pertencente
+	if( $_GET['filter'] == 'grupo' && $_GET['list'] == 'noticias' && ($user->roles[0] == 'dre' || $user->roles[0] == 'publicador' || $user->roles[0] == 'conselho') ){
+
+		global $wpdb;
+		
+		// pega as categorias permitidas para edicao do grupo
+        $noticias = get_user_meta($user->ID,'grupo',true);
+		$noticias2 = array();
+		
+		if($noticias && $noticias !=''){
+			if($noticias && $noticias != ''){
+				foreach($noticias as $noticia){
+					$noticias2[] = get_post_meta($noticia, 'noticias', true);
+				}
+			}
+	
+			$noticias2 = array_flatten($noticias2);
+			$noticias2 = array_unique($noticias2);			
+						
+			$result = array_unique($noticias2);
+			$result = array_filter($result);
+			
+			if($result){
+				$query->set('cat', $result);
+			} else {
+				$query->set('post_type', 'empty');
+			}
+			
+		} else {
+			$query->set('post_type', 'empty');
+		}
+		
+	}
+	
+	return $query;
+	
+}
+add_filter('pre_get_posts', 'wp38_limit_posts_to_author');
+
+// Altera a URL de Eventos e Unidades para colaboladores
+add_action('admin_menu', 'alter_link_news');
+function alter_link_news() {
+	global $submenu;
+	
+    // pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+	
+	if($user->roles[0] == 'dre' || $user->roles[0] == 'publicador' || $user->roles[0] == 'conselho'){		
+		$submenu['edit.php'][5][2] = 'edit.php?list=noticias&filter=grupo';
+		$submenu['edit.php?post_type=page'][5][2] = 'edit.php?post_type=page&filter=grupo';
+		$submenu['edit.php?post_type=contato'][5][2] = 'edit.php?post_type=contato&filter=grupo';
+	}
+}
+
+add_filter( 'list_terms_exclusions', 'nsf_exclude_cats', 20 );
+function nsf_exclude_cats( $exclusions ) {
+
+    global $typenow;
+    global $result; // array from another function, with all the cat_ID's to be excluded
+
+	$user = wp_get_current_user();
+    	
+	
+    if ( (current_user_can( 'dre' ) || current_user_can( 'publicador' ) || current_user_can( 'conselho' ) ) && is_admin() && $typenow != 'attachment' && !str_contains($typenow, 'agenda-dre') && $typenow != 'educacao-faq') {
+		$noticias = get_user_meta($user->ID,'grupo',true);
+		$noticias2 = array();
+		
+		if($noticias && $noticias !=''){
+			if($noticias && $noticias != ''){
+				foreach($noticias as $noticia){
+					$noticias2[] = get_post_meta($noticia, 'noticias', true);
+				}
+			}
+	
+			$noticias2 = array_flatten($noticias2);
+			$noticias2 = array_unique($noticias2);
+						
+			$result = array_unique($noticias2);
+			$result = array_filter($result);
+
+		}
+
+        if(!empty($result)){
+            $exclusions .= ' AND t.term_id IN (';
+            foreach($result as $exclude) {
+                $exclusions .= $exclude.',';
+            }
+            $exclusions = substr($exclusions, 0, -1); // Removing the last comma
+            $exclusions .= ')';
+        }
+    }
+
+
+	if ( (current_user_can( 'dre' ) || current_user_can( 'publicador' ) || current_user_can( 'contributor' ) || current_user_can( 'conselho' )) && is_admin() && $typenow == 'educacao-faq') {
+		$categs_faq = get_user_meta($user->ID,'grupo',true);
+		$categ_faqs2 = array();
+		
+		if($categs_faq && $categs_faq !=''){
+			if($categs_faq && $categs_faq != ''){
+				foreach($categs_faq as $categ_faq){
+					$categ_faqs2[] = get_post_meta($categ_faq, 'categ_faq', true);
+				}
+			}
+	
+			$categ_faqs2 = array_flatten($categ_faqs2);
+			$categ_faqs2 = array_unique($categ_faqs2);
+						
+			$result = array_unique($categ_faqs2);
+			$result = array_filter($result);
+			//print_r($result);
+		}
+
+        if(!empty($result)){
+            $exclusions .= ' AND t.term_id IN (';
+            foreach($result as $exclude) {
+                $exclusions .= $exclude.',';
+            }
+            $exclusions = substr($exclusions, 0, -1); // Removing the last comma
+            $exclusions .= ')';
+        }
+    }
+
+    return $exclusions;
+}
+
+add_filter('acf/fields/relationship/query/key=field_63640d0347c62', 'filter_by_user_group', 10, 3);
+function filter_by_user_group( $args, $field, $post_id ) {
+
+	$user = wp_get_current_user();
+
+	if ( in_array( 'dre', (array) $user->roles ) ) {
+		
+		$grupos = get_user_meta($user->ID,'grupo',true);
+		$categorias = array();
+		
+		if($grupos && $grupos !=''){
+			//if($grupos && $grupos != ''){
+				foreach($grupos as $grupo){
+					$categorias[] = get_post_meta($grupo, 'noticias', true);
+				}
+			//}
+	
+			$categorias = array_flatten($categorias);
+			$categorias = array_unique($categorias);
+						
+			$result = array_unique($categorias);
+			$result = array_filter($result);
+
+		}
+		$args['cat'] = $result;
+	}
+
+    return $args;
+}
+
+function wp_admin_post_type () {
+    global $post, $parent_file, $typenow, $current_screen, $pagenow;
+
+    $post_type = NULL;
+
+    if($post && (property_exists($post, 'post_type') || method_exists($post, 'post_type')))
+        $post_type = $post->post_type;
+
+    if(empty($post_type) && !empty($current_screen) && (property_exists($current_screen, 'post_type') || method_exists($current_screen, 'post_type')) && !empty($current_screen->post_type))
+        $post_type = $current_screen->post_type;
+
+    if(empty($post_type) && !empty($typenow))
+        $post_type = $typenow;
+
+    if(empty($post_type) && function_exists('get_current_screen'))
+        $post_type = get_current_screen();
+
+    if(empty($post_type) && isset($_REQUEST['post']) && !empty($_REQUEST['post']) && function_exists('get_post_type') && $get_post_type = get_post_type((int)$_REQUEST['post']))
+        $post_type = $get_post_type;
+
+    if(empty($post_type) && isset($_REQUEST['post_type']) && !empty($_REQUEST['post_type']))
+        $post_type = sanitize_key($_REQUEST['post_type']);
+
+    if(empty($post_type) && 'edit.php' == $pagenow)
+        $post_type = 'post';
+
+    return $post_type;
+}
+
+function editar_concursos(){
+
+	global $typenow;
+	$post_type = wp_admin_post_type();
+	
+	$user = wp_get_current_user();
+
+	if(!current_user_can('administrator')){
+		$grupos = get_user_meta($user->ID,'grupo',true);
+		$concursos = array();
+
+		if($grupos && $grupos !=''){
+			foreach($grupos as $grupo){
+				$concursos[] = get_post_meta($grupo, 'concursos', true);
+				$concursos = array_flatten($concursos);
+				$concursos = array_unique($concursos);
+							
+				$result = array_unique($concursos);
+				$result = array_filter($result);
+			}
+		}
+
+		if(!in_array('1', $result)){
+			remove_menu_page('edit.php?post_type=concurso'); // Concursos
+			
+    		if ($typenow == 'concurso' || $post_type == 'concurso') {
+				$admin_url = get_admin_url();
+				wp_redirect($admin_url);
+				exit();
+				
+			}
+		}
+		
+	}
+}
+add_action( 'admin_init', 'editar_concursos' );
+
+function editar_agenda(){
+	
+	if(!current_user_can('administrator') || !current_user_can('editor')){
+		global $typenow;
+		$post_type = wp_admin_post_type();
+
+		$user = wp_get_current_user();
+		$agenda = get_field('editar_agenda', 'user_' . $user->ID);
+
+		if(!$agenda || $agenda == 0){			
+			remove_menu_page('edit.php?post_type=agendanew'); // Agenda do Secretario
+				
+			if ($typenow == 'agendanew' || $post_type == 'agendanew') {
+				$admin_url = get_admin_url();
+				wp_redirect($admin_url);
+				exit();					
+			}
+		}
+	}
+}
+add_action( 'admin_init', 'editar_agenda' );
+
+function data_periodo_agenda($dataIni, $dataFin){
+	$dataIni = implode('-', array_reverse(explode('/', $dataIni)));
+	$dataFin = implode('-', array_reverse(explode('/', $dataFin)));
+
+	$inicial = new \DateTime( $dataIni );
+	$final = new \DateTime( $dataFin );
+	$final = $final->modify( '+1 day' ); 
+
+	$intervalo = new \DateInterval('P1D');
+	$periodo = new \DatePeriod($inicial, $intervalo ,$final);
+
+	return $periodo;
+}
+
+// Incluir um seletor na listagem de paginas no admin baseado nos modelos de paginas disponivel no tema
+add_action( 'restrict_manage_posts', 'wp_page_model_filter_manage_posts' );
+function wp_page_model_filter_manage_posts(){
+    $type = 'post';
+    if (isset($_GET['post_type'])) {
+        $type = $_GET['post_type'];
+    }
+
+    //adicionar o filtro somente em paginas
+    if ('page' == $type){
+        //pegar os valores para serem exibidos
+        //formato 'label' => 'valor'
+		$templates = wp_get_theme()->get_page_templates();
+        $current_v = isset($_GET['modelo_pagina'])? $_GET['modelo_pagina']:'';
+        ?>
+        <select name="modelo_pagina">
+        <option value=""><?php _e('Todos os modelos ', 'wose45436'); ?></option>
+		<option value="default">Modelo Padrão</option>
+        <?php
+            
+            foreach ($templates as $label => $value) {
+                printf
+                    (
+                        '<option value="%s"%s>%s</option>',
+                        $label,
+                        $label == $current_v? ' selected="selected"':'',
+                        $value
+                    );
+                }
+        ?>
+        </select>
+        <?php
+    }
+}
+
+// Quando o filtro de modelos for acionado será incluido na query para exibir a lista baseado no modelo
+function wp_page_model_filter($query) {
+	if ( $query->is_main_query() ) {
+		global $pagenow;
+		$type = 'post';
+		if (isset($_GET['post_type'])) {
+			$type = $_GET['post_type'];
+		}
+		if ( 'page' == $type && is_admin() && $pagenow == 'edit.php' && isset($_GET['modelo_pagina']) && $_GET['modelo_pagina'] != '') {
+			$query->set( 'meta_key', '_wp_page_template' );
+			$query->set( 'meta_value', $_GET['modelo_pagina'] );
+		}
+	}
+}
+add_action( 'pre_get_posts', 'wp_page_model_filter' );
+
+// Incluir uma acao em massa personalizado (Limpar o conteudo) na listagem de paginas
+add_filter('bulk_actions-edit-page', function($bulk_actions) {
+	$bulk_actions['clear_content'] = __('Limpar o conteúdo', 'txtdomain');
+	return $bulk_actions;
+});
+
+// Se a acao for chamada fazer a limpeza do post_content (conteudo da pagina)
+add_filter('handle_bulk_actions-edit-page', function($redirect_url, $action, $post_ids) {
+	if ($action == 'clear_content') {
+		foreach ($post_ids as $post_id) {
+			wp_update_post([
+				'ID' => $post_id,
+				'post_content' => '',
+			]);
+		}
+		$redirect_url = add_query_arg('clear_content', count($post_ids), $redirect_url);
+	}
+	return $redirect_url;
+}, 10, 3);
+
+// Apos executar a acao exibir a mensagem de sucesso
+add_action('admin_notices', function() {
+	if (!empty($_REQUEST['clear_content'])) {
+		//$num_changed = (int) $_REQUEST['clear_content']; // Numero de paginas atualizadas
+		echo '<div id="message" class="updated notice is-dismissable"><p>O conteúdo das páginas selecionadas foram removidos.</p></div>';
+	}
+});
+
+/**
+ * Remover 'Todos', 'Publicados', 'Futuro', 'Destaque', 'Rascunho', 'Pendente', 'Lixeira' 
+ * nas listagem de páginas e noticias para usuarios DRE
+ */
+add_filter( 'views_edit-page', 'remove_sub_sub_menu' );
+add_filter( 'views_edit-post', 'remove_sub_sub_menu' );
+add_filter( 'views_edit-contato', 'remove_sub_sub_menu' );
+function remove_sub_sub_menu($views){
+	$user = wp_get_current_user();
+    if( $user->roles[0] != 'dre' )
+        return $views;
+
+    $remove_views = [ 'all','publish','future','sticky','draft','pending','trash', 'private' ];
+
+    foreach( (array) $remove_views as $view )
+    {
+        if( isset( $views[$view] ) )
+            unset( $views[$view] );
+    }
+    return $views;
+}
+
+add_filter('acf/fields/relationship/query/key=field_616875a8b6c80', 'filter_page_by_user_group', 10, 3);
+add_filter('acf/fields/relationship/query/key=field_6256db1575dcb', 'filter_page_by_user_group', 10, 3);
+add_filter('acf/fields/relationship/query/key=field_650c60e73f8d1', 'filter_page_by_user_group', 10, 3);
+add_filter('acf/fields/relationship/query/key=field_650dab4c74ff2', 'filter_page_by_user_group', 10, 3);
+function filter_page_by_user_group( $args, $field, $post_id ) {
+
+	$user = wp_get_current_user();
+
+	if($user->roles[0] != 'administrator'){
+		$grupos = get_user_meta($user->ID,'grupo',true);		
+    	$args['post__in'] = $grupos;
+	}
+
+
+    return $args;
+}
+
+// Filtra as paginas que grupo pertence
+
+function limit_contact_posts($query) {
+
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+
+	// 	filtra as paginas pelo grupo pertencente
+	if( $_GET['post_type'] == 'contato' && $user->roles[0] != 'administrator' && $_GET['filter'] == 'grupo' ) {
+
+		$variable = get_user_meta($user->ID, 'grupo', true);
+		$variable = array_flatten($variable);
+        $variable = array_unique($variable);
+
+		$contatos = array();
+
+		if($variable && $variable != ''){
+            foreach($variable as $grupo){
+				//$contatos[] = get_post_meta($grupo, 'selecionar_paginas', true);
+				$contatos[] = get_post_meta($grupo, 'contatos_sme', true);
+			}
+        }
+
+		$contatos = array_flatten($contatos);
+        $contatos = array_unique($contatos);
+
+		//print_r($variable);
+		$query->set('post__in', $contatos);
+	}
+
+	if( $_GET['post_type'] == 'educacao-faq' && $user->roles[0] != 'administrator' && $_GET['filter'] == 'grupo' ) {
+
+		$variable = get_user_meta($user->ID, 'grupo', true);
+		$variable = array_flatten($variable);
+        $variable = array_unique($variable);
+
+		$categ_faqs = array();
+
+		if($variable && $variable != ''){
+            foreach($variable as $grupo){
+				//$categ_faqs[] = get_post_meta($grupo, 'selecionar_paginas', true);
+				$categ_faqs[] = get_post_meta($grupo, 'categ_faq', true);
+			}
+        }
+
+		$categ_faqs = array_flatten($categ_faqs);
+        $categ_faqs = array_unique($categ_faqs);
+
+		$tax_query = array(
+			array(
+				'taxonomy' => 'categorias-faqs',
+				'field' => 'term_id',
+				'terms' => $categ_faqs,
+			),
+		);
+		$query->set( 'tax_query', $tax_query );
+		
+	} 
+
+
+	return $query;
+
+}
+add_filter('pre_get_posts', 'limit_contact_posts');
+
+// Adiciona o filtro Meus Eventos
+function wp38990_add_movies_filter($views){
+	// pega as informacoes do usuario logado
+	$user = wp_get_current_user();
+	// Recebe o post type - dre selecionada
+	$post_type = $_GET['post_type'];
+	$dre = '';
+
+	switch ($post_type) {
+		case 'agenda-dre-bt':
+			$dre = 'bt';
+			break;
+		case 'agenda-dre-cs':
+			$dre = 'cs';
+			break;
+		case 'agenda-dre-fb':
+			$dre = 'fb';
+			break;
+	} 
+	
+	$views['compromissos'] = "<a href='" . admin_url('edit-tags.php?taxonomy=compromisso' . $dre . '&post_type=agenda-dre-' . $dre) . "' class='page-title-action btn-agenda-dre'>Compromissos</a>";
+	$views['enderecos'] = "<a href='" . admin_url('edit-tags.php?taxonomy=endereco' . $dre . '&post_type=agenda-dre-' . $dre) . "' class='page-title-action btn-agenda-dre'>Endereços</a>";
+	return $views;
+}
+ 
+add_filter('views_edit-agenda-dre-bt', 'wp38990_add_movies_filter');
+add_filter('views_edit-agenda-dre-cs', 'wp38990_add_movies_filter');
+add_filter('views_edit-agenda-dre-fb', 'wp38990_add_movies_filter');
+
+// Remover a funcao de usuario Yoast 'SEO Manager'
+if ( get_role('wpseo_manager') ) {
+    remove_role( 'wpseo_manager' );
+}
+
+// Remover a funcao de usuario Yoast 'SEO Editor'
+if ( get_role('wpseo_editor') ) {
+    remove_role( 'wpseo_editor' );
+}
+
+// Definir Colaborador como opcao padrao ao adicionar um novo usuario
+add_filter('pre_option_default_role', function($default_role){
+    return 'contributor';
+    return $default_role;
+});
+
+// Altera o texto de mensagem se erro
+add_filter(  'gettext',  'error_translate'  );
+add_filter(  'ngettext',  'error_translate'  );
+function error_translate( $translated ) {
+    $words = array(
+        // 'termo para traducao' => 'traducao'
+        'Nomes de usuário podem conter apenas letras minúsculas (a-z) e números.' => 'Erro: Este nome de usuário é inválido porque usa caracteres não permitidos. Digite um nome de usuário válido.'
+    );
+	$translated = str_ireplace(  array_keys($words),  $words,  $translated );
+	return $translated;
+}
+
+add_filter('acf/fields/taxonomy/query/key=field_650c97e21aa2f', 'my_acf_fields_taxonomy_query', 10, 3);
+function my_acf_fields_taxonomy_query( $args, $field, $post_id ) {
+
+    
+    //$args['exclude'] = 'all';
+	$args['include'] = array(1092, 1094);
+
+    return $args;
+}
+
+function acf_load_color_field_choices( $field ) {
+    $user = wp_get_current_user();
+	
+	// Reset choices
+	$field['choices'] = array();
+	
+	// usuarios que ficam foram da regra
+	$allowed_roles = array( 'editor', 'administrator' );
+	if ( array_intersect( $allowed_roles, $user->roles ) ) {
+		
+        $terms = get_terms( array(
+			'taxonomy'   => 'categorias-faqs',
+			'hide_empty' => false,
+		) );
+
+		if( is_array($terms) ) {			
+			foreach( $terms as $categoria ) {				
+				$field['choices'][ $categoria->term_id ] = $categoria->name;				
+			}			
+		}
+
+    } else {
+
+		$catfaqs = array();
+		// pega o grupo que o usuario pertence
+		$grupos = get_field('grupo', 'user_' . $user->ID);
+
+		if($grupos && $grupos != ''){
+            foreach($grupos as $permitido){                
+                $catfaqs[] = get_field('categ_faq', $permitido);
+            }
+        }
+
+		$catfaqs = array_flatten($catfaqs);
+        $catfaqs = array_unique($catfaqs);
+
+		
+			
+		// Loop through the array and add to field 'choices'
+		if( is_array($catfaqs) ) {
+			
+			foreach( $catfaqs as $categoria ) {
+				
+				$field['choices'][ $categoria ] = get_term( $categoria )->name;
+				
+			}
+			
+		}
+	}
+
+    // Return the field
+    return $field;
+    
+}
+
+add_filter('acf/load_field/key=field_650c97e21aa2f', 'acf_load_color_field_choices');
+
+function show_grupos_page($idCorrente){
+	
+	$paginas = get_posts(array(
+		'post_type' => 'editores_portal',
+		'orderby' => 'title',
+		'order'   => 'ASC',
+		'post_status'    => 'publish',
+		'meta_query' => array(
+			array(
+				'key' => 'selecionar_paginas', // name of custom field
+				'value' => '"'. $idCorrente . '"', // matches exaclty "123", not just 123. This prevents a match for "1234"
+				'compare' => 'LIKE'
+			)
+		)
+	));
+
+	return $paginas;
+}
+
+// Função para pré-definir valores no campo Grupos ao criar pagina
+function acf_load_campo_relacao($field) {
+    // Verifique se é o campo de relação desejado
+    if ($field['key'] === 'field_616875a8b6c80' && !current_user_can('administrator')) {
+		$user = wp_get_current_user();
+		// Array de IDs dos grupos que o usuario pertence
+		$grupos = get_field('grupo', 'user_' . $user->ID);
+
+		if($grupos){		
+			// Atribuir os valores pré-definidos ao campo
+			$field['default_value'] = $grupos;
+		}
+        
+    }
+
+    // Retorne o campo modificado
+    return $field;
+}
+
+// Gancho para executar a função ao carregar o campo de relação
+add_filter('acf/load_field/key=field_616875a8b6c80', 'acf_load_campo_relacao');
+
+// Incluir postmeta nos resultados de busca do painel administrativo 
+// Product Backlog #108140
+function theme_search_join_and_where( $join, $query ) {
+    global $pagenow, $wpdb;
+
+    if ( is_admin() && $pagenow == 'edit.php' && $query->is_main_query() && ! empty( $_GET['post_type'] ) && $_GET['post_type'] == 'page' && ! empty( $_GET['s'] ) ) {
+        $join .= " LEFT JOIN $wpdb->postmeta ON $wpdb->posts.ID = $wpdb->postmeta.post_id ";
+    }
+
+    return $join;
+}
+add_filter( 'posts_join', 'theme_search_join_and_where', 10, 2 );
+
+function theme_search_where( $where, $query ) {
+    global $pagenow, $wpdb;
+
+    if ( is_admin() && $pagenow == 'edit.php' && $query->is_main_query() && ! empty( $_GET['post_type'] ) && $_GET['post_type'] == 'page' && ! empty( $_GET['s'] ) ) {
+        $where = preg_replace(
+            "/\(\s*" . $wpdb->posts . ".post_title\s+LIKE\s*(\'[^\']+\')\s*\)/",
+            "(" . $wpdb->posts . ".post_title LIKE $1) OR (" . $wpdb->posts . ".post_content LIKE $1) OR (" . $wpdb->postmeta . ".meta_value LIKE $1)", $where );
+    }
+
+    return $where;
+}
+add_filter( 'posts_where', 'theme_search_where', 10, 2 );
+
+function sample_admin_notice__success() {
+    $screen = get_current_screen();
+    // Array com os CPTs desejados
+    $allowed_post_types = array( 'agendanew', 'agenda-dre-bt', 'agenda-dre-cl', 'agenda-dre-cs', 'agenda-dre-fb', 'agenda-dre-bt', 'agenda-dre-gn', 'agenda-dre-ip', 'agenda-dre-it', 'agenda-dre-bt', 'agenda-dre-jt', 'agenda-dre-pe', 'agenda-dre-pi', 'agenda-dre-sa', 'agenda-dre-sma', 'agenda-dre-smi' );
+
+    // Verifique se o tipo de post atual está na lista de tipos de post permitidos
+    if ($screen && $screen->post_type && in_array($screen->post_type, $allowed_post_types) && ($screen->base === 'post' && ($screen->action === 'add' || $screen->action === 'edit' || $screen->action === '')) ) {
+        ?>
+        <div class="notice notice-success is-dismissible">
+            <p><?php _e( 'Digite a data dos compromissos ou nome do evento!', 'sample-text-domain' ); ?></p>
+        </div>
+        <?php
+    }
+}
+add_action( 'admin_notices', 'sample_admin_notice__success' );
+
+// Incluir botao anterior e próximo no paginacao
+add_filter('paginate_links_output', 'modificar_paginate_links', 10, 2);
+
+function modificar_paginate_links($output, $args) {
+    global $wp_query;
+
+    // Obtém a página atual e o total de páginas
+    $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+    $total_pages = isset($args['total']) ? $args['total'] : $wp_query->max_num_pages;
+
+    // Adiciona o botão "Anterior" manualmente
+    if ($paged > 1) {
+        $prev_link = get_pagenum_link($paged - 1);
+        $output = '<a href="' . $prev_link . '" class="prev page-numbers">«</a>' . $output;
+    } else {
+        $output = '<span class="prev page-numbers disabled">«</span>' . $output;
+    }
+
+    // Adiciona o botão "Próximo" manualmente
+    if ($paged < $total_pages) {
+        $next_link = get_pagenum_link($paged + 1);
+        $output .= '<a href="' . $next_link . '" class="next page-numbers">»</a>';
+    } else {
+        $output .= '<span class="next page-numbers disabled">»</span>';
+    }
+
+    return $output;
+}
+
+// 1. Registrar o Custom Post Type virtual (mantenha como está)
+add_action('init', function() {
+    register_post_type('virtual_sorteio', [
+        'public' => true,
+        'show_ui' => false,
+        'exclude_from_search' => true,
+        'publicly_queryable' => true,
+        'capability_type' => 'post',
+    ]);
+});
+
+// 2. Regras de rewrite atualizadas
+add_action('init', function() {
+    // Aceita ambas as formas: /sorteio/123 e /sorteio/123-slug-do-post
+    add_rewrite_rule(
+        '^sorteio/([0-9]+)(?:-([^/]+))?/?$',
+        'index.php?post_type=virtual_sorteio&external_sorteio_id=$matches[1]',
+        'top'
+    );
+
+	add_rewrite_rule(
+        '^cortesias/([0-9]+)(?:-([^/]+))?/?$',
+        'index.php?post_type=virtual_sorteio&external_sorteio_id=$matches[1]',
+        'top'
+    );
+
+    add_rewrite_tag('%external_sorteio_id%', '([0-9]+)');
+});
+
+// 3. Handler principal com redirecionamento para URL canônica
+add_filter('template_include', function($template) {
+    global $wp_query;
+
+    if (is_admin() || !$wp_query->is_main_query()) {
+        return $template;
+    }
+
+    $sorteio_id = get_query_var('external_sorteio_id');
+    if ($sorteio_id) {
+        $sorteio_data = fetch_sorteio_from_api(absint($sorteio_id));
+		$post_type = isset( $sorteio_data['post_type'] ) ? $sorteio_data['post_type'] : 'sorteio';
+        
+        // Se encontrou o sorteio na API
+        if ($sorteio_data && !isset($sorteio_data['error'])) {
+            $current_url = $_SERVER['REQUEST_URI'];
+            $canonical_url = "/{$post_type}/{$sorteio_id}-" . sanitize_title($sorteio_data['title']) . "/";
+            
+            // Se a URL atual não for a canônica, redireciona 301
+            if ($current_url !== $canonical_url) {
+                wp_redirect($canonical_url, 301);
+                exit;
+            }
+            
+            // Configura o WP_Query
+            $wp_query->sorteio_data = $sorteio_data;
+            $wp_query->is_single = true;
+            $wp_query->is_404 = false;
+
+			if ( $post_type === 'cortesias' ) {
+				return locate_template('single-cortesia-externo.php') ?: $template;
+			}
+            
+            return locate_template('single-sorteio-externo.php') ?: $template;
+        }
+        
+        // Se houve erro, mostra o template normalmente
+        $wp_query->sorteio_data = $sorteio_data;
+        return locate_template('single-sorteio-externo.php') ?: $template;
+    }
+
+    return $template;
+});
+
+// 4. Modificação na função de fetch para garantir o slug
+function fetch_sorteio_from_api($sorteio_id) {
+    $api_url = getenv('SORTEIOS_API') . '/' . $sorteio_id . '?fields=id,title,content,slug,meta,thumbnail';
+    
+    $response = wp_remote_get($api_url, [
+        'timeout' => 30,
+        'sslverify' => false
+    ]);
+    
+    // --- INÍCIO DO TRATAMENTO DE ERROS (MANTENHA ESTE BLOCO) ---
+    if (is_wp_error($response)) {
+        return [
+            'error' => true,
+            'message' => 'Erro de conexão com a API',
+            'details' => $response->get_error_message()
+        ];
+    }
+    
+    $status_code = wp_remote_retrieve_response_code($response);
+    if (200 !== $status_code) {
+        return [
+            'error' => true,
+            'message' => 'Sorteio não encontrado',
+            'details' => 'Status code: ' . $status_code
+        ];
+    }
+    
+    $data = json_decode(wp_remote_retrieve_body($response), true);
+    if (empty($data)) {
+        return [
+            'error' => true,
+            'message' => 'Dados inválidos',
+            'details' => 'A API retornou dados vazios'
+        ];
+    }
+    // --- FIM DO TRATAMENTO DE ERROS ---   
+    
+    return $data;
+}
+
+// 5. Atualize o filtro de redirect_canonical
+add_filter('redirect_canonical', function($redirect_url, $requested_url) {
+    // Permite ambas as formas de URL
+    if (preg_match('!^/sorteio/([0-9]+)(?:-([^/]+))?/?$!', $requested_url)) {
+        return false;
+    }
+    return $redirect_url;
+}, 10, 2);
+
+// Adicione no functions.php para evitar múltiplos redirecionamentos
+add_filter('wp_redirect_status', function($status, $location) {
+    return 301; // Sempre usa 301 (permanente)
+}, 10, 2);
+
+add_action('wp_head', function() {
+    global $wp_query;
+    if (isset($wp_query->sorteio_data)) {
+        echo '<link rel="canonical" href="' . esc_url(home_url("/sorteio/{$wp_query->sorteio_data['id']}-" . sanitize_title($wp_query->sorteio_data['title']) . "/")) . '" />';
+    }
+});
+
+
+// Registrar o endpoint AJAX
+add_action('wp_ajax_processar_inscricao', 'processar_inscricao');
+add_action('wp_ajax_nopriv_processar_inscricao', 'processar_inscricao');
+
+function processar_inscricao() {
+    // 1. Verificar o nonce (segurança contra CSRF)
+    if (!isset($_POST['inscricao_nonce']) || !wp_verify_nonce($_POST['inscricao_nonce'], 'processar_inscricao_action')) {
+        wp_send_json_error('Nonce inválido. Ação não autorizada.', 403);
+        wp_die();
+    }
+
+    // 2. Sanitizar e validar todos os campos
+    $dados = [
+		'nomeComp'            => sanitize_text_field($_POST['nomeComp']),
+		'emailInsti'          => sanitize_email($_POST['emailInsti']),
+		'cpf'                 => preg_replace('/[^0-9]/', '', $_POST['cpf']), // Remove caracteres não numéricos
+		'emailSec'            => !empty($_POST['emailSec']) ? sanitize_email($_POST['emailSec']) : '',
+		'celular'             => preg_replace('/[^0-9]/', '', $_POST['celular'] ?? ''),
+		'dre'                 => sanitize_text_field($_POST['dre'] ?? ''),
+		'telCom'              => preg_replace('/[^0-9]/', '', $_POST['telCom'] ?? ''),
+		'uniSetor'            => sanitize_text_field($_POST['uniSetor'] ?? ''),
+		'ciente'              => $_POST['ciente'] ? 1 : 0, // Booleano para inteiro
+		'remanescentes'       => $_POST['remanescentes'] ? 1 : 0,
+		'programa_estagio'    => sanitize_text_field($_POST['programa_estagio'] ?? ''),
+		'external_sorteio_id' => absint($_POST['external_sorteio_id']), // Garante número inteiro positivo
+		'datas'               => $_POST['datas'] ?? []
+	];
+	
+
+    // 3. Validação de campos obrigatórios (exemplo atualizado)
+	if (empty($dados['nomeComp']) || empty($dados['emailInsti']) || empty($dados['cpf'])) {
+		wp_send_json_error([
+			'message' => 'Preencha todos os campos obrigatórios.',
+			'code' => 400,
+			'fields' => ['nomeComp', 'emailInsti', 'cpf'] // Agora compatível
+		]);
+	}
+
+	// Validações adicionais (exemplo para CPF)
+	if (strlen($dados['cpf']) != 11) {
+		wp_send_json_error(['message' => 'CPF inválido'], 400);
+	}
+
+	error_log('Dados sendo enviados para o Site B: ' . print_r($dados, true));
+
+	// Após receber a resposta:
+	error_log('Resposta do Site B: ' . print_r([
+		'code' => $response_code,
+		'body' => $resposta_site_b,
+		'headers' => wp_remote_retrieve_headers($response)
+	], true));
+
+    // 4. Enviar para o Site B via API (exemplo)
+    $response = wp_remote_post(getenv('INSCRI_API'), [
+        'headers' => [
+            'Content-Type'  => 'application/json',
+            //'X-Auth-Token' => 'SUA_CHAVE_SECRETA_AQUI' // 🔒 Chave armazenada no server
+        ],
+        'body' => json_encode($dados),
+		'timeout' => 30 // Aumente o timeout se necessário
+    ]);
+
+    // 5. Tratar resposta do Site B (exemplo atualizado)
+	$response_code = wp_remote_retrieve_response_code($response);
+	$resposta_site_b = json_decode(wp_remote_retrieve_body($response), true);
+
+	if (is_wp_error($response)) {
+		wp_send_json_error([
+			'message' => 'Falha na conexão com o servidor remoto.',
+			'code' => $response_code,
+			'error_details' => $response->get_error_message()
+		]);
+	}
+
+	if ($response_code != 200 || !$resposta_site_b['success']) {
+		wp_send_json_error([
+			'message' => $resposta_site_b['message'] ?? 'Erro no processamento remoto',
+			'code' => $response_code,
+			'response_completa' => $resposta_site_b // Para debug
+		]);
+	}
+
+	wp_send_json_success('Inscrição realizada com sucesso!');
+
+    wp_die(); // Termina a execução do AJAX
+}
+
+add_action('wp_ajax_verificar_cpf', 'verificar_cpf');
+add_action('wp_ajax_nopriv_verificar_cpf', 'verificar_cpf');
+function verificar_cpf() {
+    $dados = [		
+		'cpf' => preg_replace('/[^0-9]/', '', $_POST['cpf']), // Remove caracteres não numéricos
+		'post_id' => (int) $_POST['post_id']
+	];
+
+	$response = wp_remote_post(getenv('VALIDAR_API'), [
+        'headers' => [
+            'Content-Type'  => 'application/json',
+        ],
+        'body' => json_encode($dados),
+		'timeout' => 30 // Aumente o timeout se necessário
+    ]);
+
+	$response_code = wp_remote_retrieve_response_code($response);
+	$resposta_site_b = json_decode(wp_remote_retrieve_body($response), true);
+
+	if (is_wp_error($response)) {
+		wp_send_json_error([
+			'message' => 'Falha na conexão com o servidor remoto.',
+			'code' => $response_code,
+			'error_details' => $response->get_error_message()
+		]);
+	}
+
+	if ($response_code != 200 || !$resposta_site_b['success']) {
+		wp_send_json_success([
+			'message' => $resposta_site_b['message'] ?? 'Erro no processamento remoto',
+			'code' => $response_code,
+			'response_completa' => $resposta_site_b, // Para debug
+			'dados' => $dados
+		]);
+	}
+
+	wp_send_json_success($resposta_site_b);
+
+	wp_die(); // Termina a execução do AJAX
+}
+
+add_action('wp_ajax_enviar_email_cancelar', 'enviar_email_cancelar');
+add_action('wp_ajax_nopriv_enviar_email_cancelar', 'enviar_email_cancelar'); // Se precisar para usuários não logados
+
+function enviar_email_cancelar() {
+    $dados = [
+        'cpf'     => preg_replace('/[^0-9]/', '', $_POST['cpf']),
+        'post_id' => (int) $_POST['post_id']
+    ];
+
+    $response = wp_remote_post(getenv('CANCELAR_API'), [
+        'headers' => [
+            'Content-Type' => 'application/json',
+        ],
+        'body'    => json_encode($dados),
+        'timeout' => 30
+    ]);
+
+    if (is_wp_error($response)) {
+        wp_send_json_error([
+            'message'       => 'Falha na conexão com o servidor remoto.',
+            'error_details' => $response->get_error_message()
+        ]);
+    }
+
+    $response_code = wp_remote_retrieve_response_code($response);
+    $resposta_site_b = json_decode(wp_remote_retrieve_body($response), true);
+
+    if ($response_code !== 200 || empty($resposta_site_b)) {
+        wp_send_json_error([
+            'message' => 'Erro ao processar no servidor remoto.',
+            'code'    => $response_code,
+            'raw'     => wp_remote_retrieve_body($response)
+        ]);
+    }
+
+    // Se o Site A retornou sucesso
+    if (!empty($resposta_site_b['success']) && $resposta_site_b['success'] === true) {
+        wp_send_json_success([
+            'message' => $resposta_site_b['message'] ?? 'Cancelamento solicitado com sucesso.',
+            'dados'   => $dados
+        ]);
+    } else {
+        wp_send_json_error([
+            'message' => $resposta_site_b['message'] ?? 'Erro no cancelamento.',
+            'dados'   => $dados
+        ]);
+    }
+
+    wp_die();
+}
+
+function adicionar_sweetalert() {
+    //if (is_singular('virtual_sorteio')) { // Só carrega nesse post type
+        wp_enqueue_script(
+            'sweetalert2', 
+            'https://cdn.jsdelivr.net/npm/sweetalert2@11', 
+            array(), // Sem dependências
+            '11.0.0', // Versão
+            true // Carrega no footer
+        );
+
+		// Opcional: Adicionar CSS do SweetAlert2
+        wp_enqueue_style(
+            'sweetalert2-css',
+            'https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css'
+        );
+    //}
+}
+add_action('wp_enqueue_scripts', 'adicionar_sweetalert');
+
+function registrar_taxonomia_editorias() {
+    $labels = array(
+        'name'              => 'Cores das Editorias',
+        'singular_name'     => 'Cor da Editoria',
+        'search_items'      => 'Buscar Editorias',
+        'all_items'         => 'Todas as Editorias',
+        'edit_item'         => 'Editar Editoria',
+        'update_item'       => 'Atualizar Editoria',
+        'add_new_item'      => 'Adicionar nova Editoria',
+        'new_item_name'     => 'Nova Editoria',
+        'menu_name'         => 'Cores das Editorias',
+    );
+
+    $args = array(
+        'hierarchical'      => false, // pode ser false ou true
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'show_in_rest'      => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'editoria'),
+    );
+
+    register_taxonomy('editoria', 'post', $args);
+}
+add_action('init', 'registrar_taxonomia_editorias');
+
+function remover_metabox_padrao_editorias() {
+    remove_meta_box('tagsdiv-editoria', 'post', 'side'); // para taxonomia não hierárquica
+}
+add_action('admin_menu', 'remover_metabox_padrao_editorias');
+
+function adicionar_metabox_editoria_unica() {
+    add_meta_box(
+        'editoria_unica_box',
+        'Cores das editorias',
+        'render_metabox_editoria_unica',
+        'post',
+        'side',
+        'default'
+    );
+}
+add_action('add_meta_boxes', 'adicionar_metabox_editoria_unica');
+
+function render_metabox_editoria_unica($post) {
+    $terms = get_terms([
+        'taxonomy'   => 'editoria',
+        'hide_empty' => false,
+    ]);
+
+    $post_terms = wp_get_post_terms($post->ID, 'editoria', ['fields' => 'ids']);
+    $selected = isset($post_terms[0]) ? $post_terms[0] : 0;
+
+	echo '<p>Selecione para quem a notícia será destinada. Essa escolha define a cor do título da notícia que será exibida no portal.</p>';
+
+    foreach ($terms as $term) {
+        $cor = get_field('cor', 'editoria_' . $term->term_id);
+        $bolinha = $cor ? '<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background-color:' . esc_attr($cor) . ';margin-left:6px;"></span>' : '';
+
+        printf(
+            '<p><label><input type="radio" name="editoria_unica" value="%d" %s> %s%s</label></p>',
+            esc_attr($term->term_id),
+            checked($selected, $term->term_id, false),
+            esc_html($term->name),
+            $bolinha
+        );
+    }
+}
+
+function validar_editoria_radio_obrigatoria() {
+    global $pagenow, $typenow;
+
+    // Executa somente para posts do tipo 'post'
+    if (!is_admin() || !in_array($pagenow, ['post.php', 'post-new.php']) || $typenow !== 'post') return;
+    ?>
+    <script>
+    jQuery(document).ready(function($) {
+        $('#publish').on('click', function(e) {
+            const selecionada = $('input[name="editoria_unica"]:checked').val();
+            if (!selecionada) {
+                e.preventDefault();
+                alert('Não é possível publicar a notícia sem selecionar ao menos uma editoria.');
+            }
+        });
+    });
+    </script>
+    <?php
+}
+add_action('admin_footer-post.php', 'validar_editoria_radio_obrigatoria');
+add_action('admin_footer-post-new.php', 'validar_editoria_radio_obrigatoria');
+
+
+function salvar_editoria_unica($post_id) {
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    if (isset($_POST['editoria_unica'])) {
+        $term_id = intval($_POST['editoria_unica']);
+        wp_set_post_terms($post_id, array($term_id), 'editoria', false);
+    } else {
+        // Se nenhum selecionado, remove todos
+        wp_set_post_terms($post_id, array(), 'editoria', false);
+    }
+}
+add_action('save_post', 'salvar_editoria_unica');
+
+
+
+// Adiciona a nova coluna na listagem de editorias
+function adicionar_coluna_cor_nas_editorias($columns) {
+    $columns['cor'] = 'Cor';
+    return $columns;
+}
+add_filter('manage_edit-editoria_columns', 'adicionar_coluna_cor_nas_editorias');
+
+// Personaliza as colunas da taxonomia "editoria"
+function personalizar_colunas_editorias($columns) {
+    // Remove a coluna 'slug'
+    unset($columns['slug']);
+
+    // Armazena a nova estrutura reorganizada
+    $novas_colunas = [];
+
+    foreach ($columns as $key => $value) {
+        $novas_colunas[$key] = $value;
+
+        // Após 'description', adiciona a nova coluna 'cor'
+        if ($key === 'description') {
+            $novas_colunas['cor'] = 'Cor';
+        }
+    }
+
+    return $novas_colunas;
+}
+add_filter('manage_edit-editoria_columns', 'personalizar_colunas_editorias');
+
+// Preenche a coluna com o valor do campo ACF
+function preencher_coluna_cor_nas_editorias($content, $column_name, $term_id) {
+    if ($column_name === 'cor') {
+        $cor = get_field('cor', 'editoria_' . $term_id);
+        if ($cor) {
+            $content = '<div style="display:flex; align-items:center; gap:6px;">
+                <div style="width: 20px; height: 20px; border-radius: 50%; background-color:' . esc_attr($cor) . ';"></div>
+                <span>' . esc_html($cor) . '</span>
+            </div>';
+        } else {
+            $content = '<em>–</em>';
+        }
+    }
+    return $content;
+}
+add_filter('manage_editoria_custom_column', 'preencher_coluna_cor_nas_editorias', 10, 3);
+
+/**
+ * Formata uma data no padrão brasileiro por extenso
+ * 
+ * @param string $data_original Data no formato dd/mm/yyyy
+ * @param bool $capitalizar Se true, capitaliza o primeiro caractere (padrão: true)
+ * @return string Data formatada ou string vazia em caso de erro
+ */
+function formatar_data_por_extenso($data_original, $capitalizar = true, $tipo = 1) {
+    
+	$data = null;
+
+	if ($tipo == 2){
+		$data = DateTime::createFromFormat('Ymd', $data_original);
+	} else {
+		$data = DateTime::createFromFormat('d/m/Y', $data_original);
+	}
+    
+    if ($data === false) {
+        return '';
+    }
+
+    // Tenta usar IntlDateFormatter (mais moderno)
+    if (class_exists('IntlDateFormatter')) {
+        try {
+            $formatter = new IntlDateFormatter(
+                'pt_BR',
+                IntlDateFormatter::FULL,
+                IntlDateFormatter::NONE,
+                null,
+                null,
+                "EEEE, 'dia' d 'de' MMMM 'de' yyyy"
+            );
+            $data_formatada = $formatter->format($data);
+            
+            if ($capitalizar) {
+                $data_formatada = mb_convert_case($data_formatada, MB_CASE_TITLE, "UTF-8");
+            }
+            
+            return $data_formatada;
+        } catch (Exception $e) {
+            // Continua para o método alternativo se falhar
+        }
+    }
+
+    // Método alternativo para quando Intl não está disponível
+    $dias_semana = array(
+        'Sunday'    => 'Domingo',
+        'Monday'    => 'Segunda-feira',
+        'Tuesday'   => 'Terça-feira',
+        'Wednesday' => 'Quarta-feira',
+        'Thursday'  => 'Quinta-feira',
+        'Friday'    => 'Sexta-feira',
+        'Saturday'  => 'Sábado'
+    );
+
+    $meses = array(
+        'January'   => 'janeiro',
+        'February'  => 'fevereiro',
+        'March'     => 'março',
+        'April'     => 'abril',
+        'May'       => 'maio',
+        'June'      => 'junho',
+        'July'      => 'julho',
+        'August'    => 'agosto',
+        'September' => 'setembro',
+        'October'   => 'outubro',
+        'November'  => 'novembro',
+        'December'  => 'dezembro'
+    );
+
+    $dia_semana_ingles = $data->format('l');
+    $mes_ingles = $data->format('F');
+    
+    $data_formatada = sprintf(
+        '%s, %d de %s de %Y',
+        $dias_semana[$dia_semana_ingles],
+        $data->format('d'),
+        $meses[$mes_ingles],
+        $data->format('Y')
+    );
+
+    if ($capitalizar) {
+        $data_formatada = mb_convert_case($data_formatada, MB_CASE_TITLE, "UTF-8");
+    }
+
+    return $data_formatada;
+}
+
+/**
+ * Adiciona no campo relacional de seleção de notícias o nome e a cor da editoria do post.
+ */
+add_filter( 'acf/fields/relationship/result/name=fx_cl1_bloco_noticias_selecione_noticias', 'adicionar_cor_editoria_seletor_noticias', 10, 2 );
+function adicionar_cor_editoria_seletor_noticias( $text, $post ) {
+
+    $editoria = get_the_terms( $post->ID, 'editoria' );
+
+    if ( isset( $editoria[0]->name ) ) {
+        $cor = get_field( 'cor', $editoria[0] );
+
+        return $text . " - <i class='fa fa-circle' aria-hidden='true' style='color: {$cor}'> ". $editoria[0]->name . ' </i>';
+    }
+
+    return $text;
+}
+
+// Registrar o endpoint AJAX para inscrições de eventos do tipo Gratuidade e cortesias
+add_action('wp_ajax_processar_inscricao_cortesia', 'processar_inscricao_cortesia');
+add_action('wp_ajax_nopriv_processar_inscricao_cortesia', 'processar_inscricao_cortesia');
+
+function processar_inscricao_cortesia() {
+
+    // Verificar o nonce (segurança contra CSRF)
+    if (!isset($_POST['inscricao_nonce']) || !wp_verify_nonce($_POST['inscricao_nonce'], 'processar_inscricao_action')) {
+        wp_send_json_error('Nonce inválido. Ação não autorizada.', 403);
+        wp_die();
+    }
+
+    $dados = [
+		'nome_completo'         => sanitize_text_field($_POST['nomeComp']),
+		'email_institucional'   => sanitize_email($_POST['emailInsti']),
+		'cpf'                 	=> preg_replace('/[^0-9]/', '', $_POST['cpf']), // Remove caracteres não numéricos
+		'email_secundario'      => !empty($_POST['emailSec']) ? sanitize_email($_POST['emailSec']) : '',
+		'celular'             	=> preg_replace('/[^0-9]/', '', $_POST['celular'] ?? ''),
+		'dre'                 	=> sanitize_text_field($_POST['dre'] ?? ''),
+		'telefone_comercial'    => preg_replace('/[^0-9]/', '', $_POST['telCom'] ?? ''),
+		'unidade_setor'         => sanitize_text_field($_POST['uniSetor'] ?? ''),
+		'ciente'              	=> $_POST['ciente'] ? 1 : 0, // Booleano para inteiro
+		'remanescentes'       	=> $_POST['remanescentes'] ? 1 : 0,
+		'programa_estagio'    	=> absint($_POST['programa_estagio']),
+		'post_id' 				=> absint($_POST['external_cortesia_id']), // Garante número inteiro positivo
+		'acf_id'               	=> $_POST['data'] ?? [],
+		'qtd'					=> absint( $_POST['qtd'] ) ?? 1,
+	];
+	
+	if (empty($dados['nome_completo']) || empty($dados['email_institucional']) || empty($dados['cpf'])) {
+		wp_send_json_error([
+			'message' => 'Preencha todos os campos obrigatórios.',
+			'code' => 400,
+			'fields' => ['nome_completo', 'email_institucional', 'cpf']
+		]);
+	}
+
+	if (strlen($dados['cpf']) != 11) {
+		wp_send_json_error(['message' => 'CPF inválido'], 400);
+	}
+
+	error_log('Dados sendo enviados para o Site B: ' . print_r($dados, true));
+
+	// Após receber a resposta:
+	error_log('Resposta do Site B: ' . print_r([
+		'code' => $response_code,
+		'body' => $resposta_site_b,
+		'headers' => wp_remote_retrieve_headers($response)
+	], true));
+
+	$api_key = getenv( 'INTRANET_API_TOKEN' );
+	$body = json_encode($dados);
+
+    $response = wp_remote_post(getenv('CORTESIAS_API') . '/resgatar', [
+        'headers' => [
+            'Content-Type'  => 'application/json',
+            'X-API-KEY'   => $api_key,
+        ],
+        'body' => $body,
+		'timeout' => 30 // Aumente o timeout se necessário
+    ]);
+
+    // Tratar resposta do Site B (exemplo atualizado)
+	$response_code = wp_remote_retrieve_response_code($response);
+	$resposta_site_b = json_decode(wp_remote_retrieve_body($response), true);
+
+	if (is_wp_error($response)) {
+		wp_send_json_error([
+			'message' => 'Falha na conexão com o servidor remoto.',
+			'code' => $response_code,
+			'error_details' => $response->get_error_message()
+		]);
+	}
+
+	if ($response_code != 200 || !$resposta_site_b['sucesso']) {
+		wp_send_json_error([
+			'message' => $resposta_site_b['message'] ?? 'Erro no processamento remoto',
+			'code' => $response_code,
+			'response_completa' => $resposta_site_b // Para debug
+		]);
+	}
+
+	wp_send_json_success('Inscrição realizada com sucesso!');
+
+    wp_die(); // Termina a execução do AJAX
+}

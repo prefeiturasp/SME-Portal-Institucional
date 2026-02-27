@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+    educacao:
+        restart: always
+        env_file:
+            - ../env_educacao
+        container_name: educacao
+        ports:
+            - '80:80'
+        volumes:
+            - '../nfs/educacao-dev/uploads:/var/www/html/wp-content/uploads'
+            - '../nfs/educacao-dev/plugins:/var/www/html/wp-content/plugins'
+            - '../nfs/educacao-dev/wflogs:/var/www/html/wp-content/wflogs'
+            - '../nfs/educacao-dev/videos:/var/www/html/wp-content/videos'
+            - '../nfs/educacao-dev/upgrade:/var/www/html/wp-content/upgrade'
+            - '../nfs/educacao-dev/locationmatch:/etc/apache2/locationmatch/location_match.modsecurity'
+        image: wordpress/educacao
+        build: 
+            dockerfile: ./Dockerfile
+            context: . 

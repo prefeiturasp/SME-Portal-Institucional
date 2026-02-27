@@ -1,0 +1,51 @@
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+
+# add a trailing slash to /wp-admin
+RewriteRule ^([_0-9a-zA-Z-]+/)?wp-admin$ $1wp-admin/ [R=301,L]
+
+RewriteCond %{REQUEST_URI} ^/redirect/(http.+)$ [NC]
+
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) $2 [L]
+RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ $2 [L]
+RewriteRule . index.php [L]
+
+#php_value upload_max_filesize 64M
+#php_value post_max_size 104857600
+#php_value max_execution_time 300
+#php_value max_input_time 300
+
+<IfModule mod_security.c>
+SecFilterEngine Off
+SecFilterScanPOST Off
+</IfModule>
+
+# Bloquear acesso ao arquivo xmlrpc.php
+<Files xmlrpc.php>
+order deny,allow
+deny from all
+</Files>
+
+redirect 301 /default.aspx http://hom-educacao.sme.prefeitura.sp.gov.br/
+redirect 301 /Main http://hom-educacao.sme.prefeitura.sp.gov.br/
+redirect 301 /wp-content/uploads/2021/02/Rev_Magist_10_EDUCOM-web.pdf https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2021/03/Rev_Magist_10_EDUCOM-web.pdf
+
+#php_value memory_limit 3256M
+#php_value max_input_vars 5000
+#php_value suhosin.get.max_vars 5000
+#php_value suhosin.post.max_vars 5000
+#php_value suhosin.request.max_vars 5000
+
+# REDIRECTS
+RedirectMatch 301 /wp-content/uploads/2021/07/pdf-teste.pdf https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/06/Conversa-com-as-famílias-Educação-Especial.pdf
+RedirectMatch 301 /wp-content/uploads/2021/07/pdf-teste-2.pdf https://hom-educacao.sme.prefeitura.sp.gov.br/wp-content/uploads/2020/06/Conversa-com-as-famílias-Educação-Especial.pdf
+RedirectMatch 301 /noticia-teste-1(\/|)$ https://hom-educacao.sme.prefeitura.sp.gov.br/noticia-teste-2/
+RedirectMatch 301 /wp-content/uploads/2022/01/Revista-Magist(.*)rio_12_EM_web.pdf https://hom-acervodigital.sme.prefeitura.sp.gov.br/acervo/revista-magisterio-n-12-o-novo-ensino-medio/
+RedirectMatch 301 /centros-educacionais-unificados-ceus(\/|)$ https://hom-educacao.sme.prefeitura.sp.gov.br/centroseducacionaisunificados/
+
+# END REDIRECTS
