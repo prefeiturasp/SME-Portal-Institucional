@@ -122,7 +122,7 @@ $qtd_ingressos_inscrito = isset( $sorteio_data['meta']['quantidade_ingressos_ins
                                 $o_que = $sorteio_data['title'];
                                 $dataEvento = $sorteio_data['meta']['data_evento_form'];
                                 $hora_evento = $sorteio_data['meta']['hora_evento'];
-                                $genero = $sorteio_data['genero'];
+                                $genero = $sorteio_data['genero']; // Tipo de evento
                                 $duracao = $sorteio_data['meta']['duracao'];
                                 $class_indicativa = $sorteio_data['meta']['class_indicativa'];
                                 $local = $sorteio_data['local'];
@@ -158,7 +158,7 @@ $qtd_ingressos_inscrito = isset( $sorteio_data['meta']['quantidade_ingressos_ins
                                 }
 
                                 if($genero){
-                                    echo '<strong>Gênero: </strong> ' . $genero . '</br>';
+                                    echo '<strong>Tipo de Evento: </strong> ' . $genero . '</br>';
                                 }
                                 if($duracao){
                                     echo '<strong>Duração: </strong> ' . $duracao . '</br>';

@@ -126,7 +126,7 @@ $sorteio_data = $wp_query->sorteio_data;
                                 $o_que = $sorteio_data['title'];
                                 $dataEvento = $sorteio_data['meta']['data_evento_form'];
                                 $hora_evento = $sorteio_data['meta']['hora_evento'];
-                                $genero = $sorteio_data['genero'];
+                                $genero = $sorteio_data['genero']; // Tipo de evento
                                 $duracao = $sorteio_data['meta']['duracao'];
                                 $class_indicativa = $sorteio_data['meta']['class_indicativa'];
                                 $local = $sorteio_data['local'];
@@ -162,7 +162,7 @@ $sorteio_data = $wp_query->sorteio_data;
                                 }
 
                                 if($genero){
-                                    echo '<strong>Gênero: </strong> ' . $genero . '</br>';
+                                    echo '<strong>Tipo de Evento: </strong> ' . $genero . '</br>';
                                 }
                                 if($duracao){
                                     echo '<strong>Duração: </strong> ' . $duracao . '</br>';
