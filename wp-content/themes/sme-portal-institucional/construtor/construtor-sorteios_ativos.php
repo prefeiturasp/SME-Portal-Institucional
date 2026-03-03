@@ -170,12 +170,12 @@
                     foreach ($events as $event) {
                         
                         ?>
-                            <div class="col-md-4 mb-4">
+                            <div class="col-md-6 mb-4">
 
                                 <div class="item-sorteio">
                                     <div class="row m-0">
 
-                                        <div class="col-12 p-0">
+                                        <div class="col-4 p-0">
                                             <?php if (!empty($event['thumbnail'])): ?>
                                                 <div class="event-thumbnail">
                                                     <img src="<?php echo esc_url($event['thumbnail']); ?>" alt="<?php echo esc_attr($event['title']); ?>" class="img-fluid">
@@ -184,16 +184,33 @@
                                                 <div class="event-thumbnail">
                                                     <img class="img-fluid" src="<?php echo esc_url( get_field( 'imagem_placeholder', 'placeholders' )['url'] ?? '' ); ?>" width="100%">
                                                 </div>
-                                            <?php endif; ?>
-
-                                            <?php if ( isset( $event['post_type'] ) && !empty( $event['post_type'] ) ) : ?>
-                                                <span class="post-type-tag position-absolute">
-                                                    <?php echo esc_html( mb_strtoupper( $event['post_type'] ) ); ?>
-                                                </span>
-                                            <?php endif; ?>
+                                            <?php endif; ?>                                            
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-8">                                       
+
+                                            <div class="row">
+                                                <div class="col-12 col-md-9">
+                                                    <h3><a href="<?= get_home_url(); ?>/sorteio/<?= esc_html($event['id']); ?>"><?php echo esc_html($event['title']); ?></a></h3>
+                                                </div>
+                                                
+                                                <div class="col-12 col-md-3">
+                                                    <?php
+                                                        $total_like1 = $event['likes'];
+                                                        if($total_like1 == 1){
+                                                            $text_total = 'like';
+                                                        } else {
+                                                            $text_total = 'likes';
+                                                        }
+                                        
+                                                        echo '<div class="post_like">';
+                                                            echo '<p class="text-center pp_like ' . $likes . '"><img src=' . get_template_directory_uri() . '/img/icone-likes.svg alt="like"><br>' . $total_like1 . ' ' . $text_total . '</p>';
+                                                        echo '</div>';
+                                                    ?>
+                                                </div>
+                                            </div>
+
+
                                             <p class="data">
                                                 <?php
                                                     
@@ -202,25 +219,25 @@
                                                     }
                                                 ?>
                                             </p>
-                                        </div>
 
-                                        <div class="col-12 col-md-9 mb-2">
-                                            <h3><a href="<?= get_home_url(); ?>/sorteio/<?= esc_html($event['id']); ?>"><?php echo esc_html($event['title']); ?></a></h3>
-                                        </div>
-                                        
-                                        <div class="col-12 col-md-3 mb-2">
-                                            <?php
-                                                $total_like1 = $event['likes'];
-                                                if($total_like1 == 1){
-                                                    $text_total = 'like';
-                                                } else {
-                                                    $text_total = 'likes';
-                                                }
-                                
-                                                echo '<div class="post_like">';
-                                                    echo '<p class="text-center pp_like ' . $likes . '">' . $total_like1 . ' ' . $text_total . '<br><i class="fa fa-heart" aria-hidden="true"></i></p>';
-                                                echo '</div>';
+                                            <div class="infos-evento">
+                                                <?php
+                                                    if( isset( $event['local_nome'] ) && !empty( $event['local_nome'] ) ){
+                                                        echo 'Local: ' . esc_html( $event['local_nome'] );	
+                                                    }
+                                                ?>
+                                            </div>
+
+                                            <?php if ( isset( $event['post_type'] ) && !empty( $event['post_type'] ) ) : 
+                                                    if($event['post_type'] == 'cortesias'){
+                                                        $class_tag = 'cortesia-tag';
+                                                    }
                                             ?>
+                                                <span class="post-type-tag <?= $class_tag ?? '' ?>">
+                                                    <?php echo esc_html( mb_strtoupper( $event['post_type'] ) ); ?>
+                                                </span>
+                                            <?php endif; ?>
+
                                         </div>
 
                                     </div>
