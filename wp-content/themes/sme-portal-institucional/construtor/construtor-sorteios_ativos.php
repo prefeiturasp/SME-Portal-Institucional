@@ -172,7 +172,7 @@
                         ?>
                             <div class="col-md-6 mb-4">
 
-                                <div class="item-sorteio">
+                                <div class="item-sorteio item-ativos">
                                     <div class="row m-0">
 
                                         <div class="col-4 p-0">
@@ -190,11 +190,69 @@
                                         <div class="col-8">                                       
 
                                             <div class="row">
-                                                <div class="col-12 col-md-9">
-                                                    <h3><a href="<?= get_home_url(); ?>/sorteio/<?= esc_html($event['id']); ?>"><?php echo esc_html($event['title']); ?></a></h3>
+                                                <div class="col-12 col-md-10">
+                                                    <h3><a href="<?= get_home_url(); ?>/sorteio/<?= esc_html($event['id']); ?>" class="no-external"><?php echo esc_html($event['title']); ?></a></h3>
+
+                                                    <div class="infos-evento">
+                                                        <p class="data">
+                                                            <?php                                                                
+                                                                if( isset( $event['subtitulo'] ) && !empty( $event['subtitulo'] ) ){
+                                                                    echo esc_html( $event['subtitulo'] );	
+                                                                }
+                                                            ?>
+                                                        </p>
+                                                        <?php
+                                                            if( isset( $event['local_nome'] ) && !empty( $event['local_nome'] ) ){
+                                                                echo '<p><strong>Local:</strong> ' . esc_html( $event['local_nome'] ) . '</p>';	
+                                                            }
+
+                                                            if( isset( $event['meta']['tipo_evento'] ) && !empty( $event['meta']['tipo_evento'] ) ){
+                                                            $tipo_evento = esc_html( $event['meta']['tipo_evento'] );
+                                                            if($tipo_evento == 'premio'){
+                                                                echo '<p><strong>Prêmio:</strong> Consulte detalhes</p>';
+                                                            } elseif ($tipo_evento == 'data') {
+                                                                $datas_disponiveis = $event['datas_disponiveis'] ?? [];
+                                                                if(!empty($datas_disponiveis)){
+                                                                        $total = count($datas_disponiveis);
+                                                                        if($total > 1){
+                                                                            $format = 'd/m';
+                                                                            $label = 'Datas';
+                                                                        } else {
+                                                                            $format = 'd/m/Y';
+                                                                            $label = 'Data';
+                                                                        }
+                                                                        echo '<div class="all-dates">';
+                                                                            echo '<p><strong>' . $label . ':</strong> </p>';
+                                                                            echo '<div class="datas-grid">';
+                                                                                foreach ($datas_disponiveis as $data) {
+                                                                                    $dt = new DateTime($data);
+                                                                                    echo '<div class="data-item">' . $dt->format($format) . '</div>';
+                                                                                }
+                                                                            echo '</div>';
+                                                                        echo '</div>';
+                                                                }
+                                                            } elseif ($tipo_evento == 'periodo') {
+                                                                echo '<p><strong>Periodo:</strong> ' . esc_html( $event['meta']['evento_periodo_descricao'] ) . '</p>';
+                                                            }
+                                                            }
+                                                        ?>
+                                                    </div>
+
+                                                    <?php if ( isset( $event['post_type'] ) && !empty( $event['post_type'] ) ) : 
+                                                            if($event['post_type'] == 'cortesias'){
+                                                                $class_tag = 'cortesia-tag';
+                                                            } else {
+                                                                $class_tag = '';
+                                                            }
+                                                    ?>
+                                                        <span class="post-type-tag <?= $class_tag ?? '' ?>">
+                                                            <?= esc_html( $event['post_type'] ); ?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                
                                                 </div>
                                                 
-                                                <div class="col-12 col-md-3">
+                                                <div class="col-12 col-md-2">
                                                     <?php
                                                         $total_like1 = $event['likes'];
                                                         if($total_like1 == 1){
@@ -209,34 +267,6 @@
                                                     ?>
                                                 </div>
                                             </div>
-
-
-                                            <p class="data">
-                                                <?php
-                                                    
-                                                    if( isset( $event['subtitulo'] ) && !empty( $event['subtitulo'] ) ){
-                                                        echo esc_html( $event['subtitulo'] );	
-                                                    }
-                                                ?>
-                                            </p>
-
-                                            <div class="infos-evento">
-                                                <?php
-                                                    if( isset( $event['local_nome'] ) && !empty( $event['local_nome'] ) ){
-                                                        echo 'Local: ' . esc_html( $event['local_nome'] );	
-                                                    }
-                                                ?>
-                                            </div>
-
-                                            <?php if ( isset( $event['post_type'] ) && !empty( $event['post_type'] ) ) : 
-                                                    if($event['post_type'] == 'cortesias'){
-                                                        $class_tag = 'cortesia-tag';
-                                                    }
-                                            ?>
-                                                <span class="post-type-tag <?= $class_tag ?? '' ?>">
-                                                    <?php echo esc_html( mb_strtoupper( $event['post_type'] ) ); ?>
-                                                </span>
-                                            <?php endif; ?>
 
                                         </div>
 
