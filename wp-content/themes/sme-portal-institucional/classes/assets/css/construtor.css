@@ -742,6 +742,122 @@ form.form-faqs label {
     right: -20px;
 }
 
+.item-sorteio.item-ativos{
+    box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.07);
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.item-sorteio.item-ativos img{
+    border-radius: 0;
+}
+
+.item-sorteio.item-ativos .event-thumbnail img{
+    border-radius: 10px;
+}
+
+.item-sorteio.item-ativos h3{
+    font-size: 22px;
+    font-weight: 600;
+    color: #14447C
+}
+
+.item-sorteio.item-ativos h3 a {
+    color: #14447C;
+    text-decoration: none;
+}
+
+.item-sorteio.item-ativos h3 a:hover {
+    text-decoration: underline;
+}
+
+.item-sorteio.item-ativos .pp_like{
+    color: #666666;
+    font-size: 10px;
+    line-height: 18px;
+    font-family: "Raleway", sans-serif;
+}
+
+.item-sorteio.item-ativos .data,
+.item-sorteio.item-ativos .infos-evento {
+    font-family: "Raleway", sans-serif;
+    color: #3E3232;
+}
+
+.item-sorteio.item-ativos .infos-evento {
+    border-left: 1px solid #B8B8B8;
+    padding-left: 10px;
+}
+
+.item-sorteio.item-ativos p{
+    font-size: 13px;
+    line-height: 18px;
+    margin-bottom: 5px;
+}
+
+.item-sorteio.item-ativos p.data {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.5px;
+    margin-bottom: 1rem;
+}
+
+.item-sorteio.item-ativos p strong{
+    font-weight: 600;
+}
+
+.item-sorteio.item-ativos .post-type-tag {
+    background: rgba(8, 99, 151, 0.8);
+    border-radius: 10px;
+    width: 158px;
+    display: block;
+    height: 30px;
+    font-size: 12px;
+    padding: 7px 11px;
+    line-height: 120%;
+    font-weight: 800;
+    text-transform: capitalize;
+}
+
+.item-sorteio.item-ativos .post-type-tag.cortesia-tag{
+    background: rgba(255, 110, 20, 0.9);
+}
+
+.all-dates {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.all-dates p {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.datas-grid {
+    flex: 1;
+}
+
+.datas-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 10px;
+}
+
+.data-item {
+    padding: 0 5px;
+    text-align: center;
+    border-left: 1px solid #B8B8B8;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+/* Remove borda da última coluna */
+.data-item:nth-child(4n + 1) {
+    border-left: none;
+}
+
 @media only screen and (max-width: 600px) {
 
     .sorteios .arrow-left, .sorteios .arrow-right{
@@ -759,6 +875,8 @@ form.form-faqs label {
         right: 3px;
     }
 }
+
+/* Fim do sorteio */
 
 .filtro-sorteios{
     background: #FFFFFF;
