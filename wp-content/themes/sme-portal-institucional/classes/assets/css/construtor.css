@@ -657,12 +657,10 @@ form.form-faqs label {
     background-color: rgba(105, 161, 217, 0.80);
     color: #fff;
     font-weight: 700;
-    display: none;
 }
 
 .noticias-recentes .badge-pill {
     background-color: #14457C;
-    display: none;
 }
 
 .pp_like {
