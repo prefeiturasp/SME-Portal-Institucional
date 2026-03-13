@@ -757,7 +757,7 @@ form.form-faqs label {
 }
 
 .item-sorteio.item-ativos h3{
-    font-size: 22px;
+    font-size: 1.2rem;
     font-weight: 600;
     color: #14447C
 }
@@ -787,6 +787,7 @@ form.form-faqs label {
 .item-sorteio.item-ativos .infos-evento {
     border-left: 1px solid #B8B8B8;
     padding-left: 10px;
+    margin-bottom: 5px;
 }
 
 .item-sorteio.item-ativos p{
@@ -797,10 +798,11 @@ form.form-faqs label {
 
 .item-sorteio.item-ativos p.data {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 22px;
     letter-spacing: -0.5px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.7rem;
+    margin-top: 0;
 }
 
 .item-sorteio.item-ativos p strong{
