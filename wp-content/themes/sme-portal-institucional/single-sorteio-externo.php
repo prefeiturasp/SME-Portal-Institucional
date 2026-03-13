@@ -147,7 +147,7 @@ $sorteio_data = $wp_query->sorteio_data;
                                     echo '<strong>O que é: </strong> ' . $o_que . '</br>';
                                 }
                                 if($tipo_evento === 'data' && $dataEvento){
-                                    echo '<strong>Data: </strong> ' . $dataEvento;
+                                    echo '<strong>Data: </strong> <div class="datas-eventos">' . $dataEvento . '</div>';
                                 }
                                 if($hora_evento){
                                     echo ' - ' . $hora_evento;
