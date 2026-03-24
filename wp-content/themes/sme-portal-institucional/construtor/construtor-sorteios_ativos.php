@@ -175,25 +175,20 @@
                                 <div class="item-sorteio item-ativos">
                                     <div class="row h-100 m-0">
 
-                                        <div class="col-4 p-0">
-                                            <?php if (!empty($event['thumbnail'])): ?>
-                                                <div class="event-thumbnail">
-                                                    <img src="<?php echo esc_url($event['thumbnail']); ?>" alt="<?php echo esc_attr($event['title']); ?>" class="img-fluid">
-                                                </div>
-                                            <?php else: ?>
-                                                <div class="event-thumbnail">
-                                                    <img class="img-fluid" src="<?php echo esc_url( get_field( 'imagem_placeholder', 'placeholders' )['url'] ?? '' ); ?>" width="100%">
-                                                </div>
-                                            <?php endif; ?>                                            
-                                        </div>
+                                        <a href="<?php echo esc_url( get_home_url() . '/sorteio/' . $event['id'] ); ?>" class="col-12 col-md-6 p-0 image-wrapper">
+                                            <div class="event-thumbnail">
+                                                <div class="bg" style="background-image: url('<?php echo esc_url( $event['thumbnail'] ); ?>');"></div>
+                                                <img src="<?php echo esc_url($event['thumbnail']); ?>" alt="<?php echo esc_attr($event['title']); ?>" class="img-fluid">
+                                            </div>
+                                        </a>
 
-                                        <div class="col-8">                                       
+                                        <div class="col-12 col-md-6 mt-md-0 pl-md-2 mt-2 pl-0">                                       
 
                                             <div class="row h-100">
-                                                <div class="col-12 col-md-10 d-flex flex-column">
+                                                <div class="col-12 col-md-10 d-flex flex-column pr-0">
                                                     <h3><a href="<?= get_home_url(); ?>/sorteio/<?= esc_html($event['id']); ?>" class="no-external"><?php echo esc_html($event['title']); ?></a></h3>
 
-                                                    <div class="infos-evento">
+                                                    <div class="infos-evento my-2">
                                                         <p class="data">
                                                             <?php                                                                
                                                                 if( isset( $event['subtitulo'] ) && !empty( $event['subtitulo'] ) ){
@@ -201,40 +196,46 @@
                                                                 }
                                                             ?>
                                                         </p>
-                                                        <?php
-                                                            if( isset( $event['local_nome'] ) && !empty( $event['local_nome'] ) ){
-                                                                echo '<p><strong>Local:</strong> ' . esc_html( $event['local_nome'] ) . '</p>';	
-                                                            }
 
-                                                            if( isset( $event['meta']['tipo_evento'] ) && !empty( $event['meta']['tipo_evento'] ) ){
+                                                        <?php if ( isset( $event['local_nome'] ) && !empty( $event['local_nome'] ) ) : ?>
+                                                            <p class="local"><strong>Local: </strong><?php echo esc_html( $event['local_nome'] ); ?></p>
+                                                        <?php endif; ?>
+
+                                                        <?php 
+                                                        if( isset( $event['meta']['tipo_evento'] ) && !empty( $event['meta']['tipo_evento'] ) ) {
                                                             $tipo_evento = esc_html( $event['meta']['tipo_evento'] );
-                                                            if($tipo_evento == 'premio'){
+
+                                                            if ( $tipo_evento == 'premio' ) {
                                                                 echo '<p><strong>Prêmio:</strong> Consulte detalhes</p>';
-                                                            } elseif ($tipo_evento == 'data') {
+                                                            } elseif ( $tipo_evento == 'data' ) {
                                                                 $datas_disponiveis = $event['datas_disponiveis'] ?? [];
-                                                                if(!empty($datas_disponiveis)){
-                                                                        $total = count($datas_disponiveis);
-                                                                        if($total > 1){
-                                                                            $format = 'd/m';
-                                                                            $label = 'Datas';
-                                                                        } else {
-                                                                            $format = 'd/m/Y';
-                                                                            $label = 'Data';
-                                                                        }
-                                                                        echo '<div class="all-dates">';
-                                                                            echo '<p><strong>' . $label . ':</strong> </p>';
-                                                                            echo '<div class="datas-grid">';
-                                                                                foreach ($datas_disponiveis as $data) {
-                                                                                    $dt = new DateTime($data);
-                                                                                    echo '<div class="data-item">' . $dt->format($format) . '</div>';
-                                                                                }
-                                                                            echo '</div>';
-                                                                        echo '</div>';
+                                                                if( !empty( $datas_disponiveis ) ) {
+
+                                                                    $total = count($datas_disponiveis);
+                                                                    $lista_datas = [];
+
+                                                                    foreach ( array_chunk( $datas_disponiveis, 3 )[0] as $data ) {
+                                                                        $dt = new DateTime($data);
+                                                                        $data = ( $total > 1 ) ? $dt->format( 'd/m' ) : $dt->format( 'd/m/Y' );
+
+                                                                        $hora = $dt->format( 'H' );
+                                                                        $minuto = $dt->format( 'i' );
+                                                                        $hora_fomatada = $minuto == '00' ? "{$hora}h" : "{$hora}h{$minuto}";
+
+                                                                        $data_formatada = "{$data} {$hora_fomatada}";
+                                                                        $lista_datas[] = $data_formatada;
+                                                                    }
+                                                                        
+                                                                    echo '<p class="datas-disponiveis"><strong>' . _n( 'Data', 'Datas', $total ) . ':</strong> ' . implode( ' | ', $lista_datas ) . '</p>';
+
+                                                                    if ( $total >= 3 ) {
+                                                                        echo '<a href="' . get_home_url(); ?>/sorteio/<?= esc_html($event['id']) . '" class="no-external">Ver todas as datas e horários</a>';
+                                                                    }
                                                                 }
                                                             } elseif ($tipo_evento == 'periodo') {
                                                                 echo '<p><strong>Periodo:</strong> ' . esc_html( $event['meta']['evento_periodo_descricao'] ) . '</p>';
                                                             }
-                                                            }
+                                                        }
                                                         ?>
                                                     </div>
 
