@@ -281,7 +281,7 @@ $qtd_ingressos_inscrito = isset( $sorteio_data['meta']['quantidade_ingressos_ins
 
                                             <div class="form-group col" id="grupo-email-institucional">
                                                 <label for="emailInsti">E-mail Institucional <span>*</span></label>
-                                                <input type="text" name="emailInsti" class="form-control" id="emailInsti" placeholder="Insira seu e-mail institucional">
+                                                <input type="email" name="emailInsti" class="form-control" id="emailInsti" placeholder="Insira seu e-mail institucional">
                                             </div>           
                                             
                                             <div class="form-group col">
@@ -293,7 +293,7 @@ $qtd_ingressos_inscrito = isset( $sorteio_data['meta']['quantidade_ingressos_ins
                                         <div class="form-row">
                                             <div class="form-group col">
                                                 <label for="emailSec">E-mail Secundário <span>*</span></label>
-                                                <input type="text"  name="emailSec" class="form-control" id="emailSec" placeholder="email@provedor.com.br">
+                                                <input type="email"  name="emailSec" class="form-control" id="emailSec" placeholder="email@provedor.com.br">
                                             </div>
 
                                             
