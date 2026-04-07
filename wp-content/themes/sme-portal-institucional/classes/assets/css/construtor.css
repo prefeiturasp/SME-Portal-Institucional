@@ -1219,3 +1219,97 @@ form.form-faqs label {
     display: flex;
     width: 100%;
 }
+
+/* Novo filtro de Sorteios e Cortesias */
+
+#filtro-eventos {
+    font-family: "Raleway", sans-serif;
+}
+
+#filtro-eventos .title-form h2 {
+    color: #FFA513;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#filtro-eventos #nav-tab {
+    border: none;
+}
+
+#filtro-eventos #nav-tab .nav-link {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-right: 15px;
+    text-align: left;
+    padding-bottom: 1.2rem;
+    padding-top: 1.2rem;
+    border-radius: 20px;
+    border: none;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.07);
+}
+
+#filtro-eventos #nav-tab .nav-link.active {
+    border: 1.5px solid #14447C;
+}
+
+#filtro-eventos #nav-tab .nav-link img {
+    background-color: #E8EDF2;
+    border-radius: 12px;
+    margin-right: 12px;
+}
+
+#filtro-eventos #nav-tabContent {
+    position: relative;
+}
+
+#filtro-eventos #nav-tabContent .expandir-filtros {
+    position: absolute;
+    left: 50%;
+    bottom: -20px;
+    transform: translateX(-50%);
+    border-radius: 12px;
+    background-color: #D9D9D9;
+    color: #3E3232;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form {
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.07);
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    padding: 28px;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form input,
+#filtro-eventos #nav-tabContent .select2-container--default .select2-selection--single {
+    border-radius: 6px;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form input,
+#filtro-eventos #nav-tabContent .select2-container--default .select2-selection--single .select2-selection__rendered,
+#filtro-eventos #nav-tabContent .select2-container--default .select2-selection--single .select2-selection__placeholder {
+    font-size: 14px;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form input::placeholder,
+#filtro-eventos #nav-tabContent .select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #00000040;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form label {
+    font-weight: 600;
+    color: #6F6C90;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form .form-buttons a,
+#filtro-eventos #nav-tabContent .tab-pane form .form-buttons button {
+    border-radius: 8px;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form .form-buttons a {
+    border: 1px solid #D9D9D9;
+    color: #000000E0;
+}
