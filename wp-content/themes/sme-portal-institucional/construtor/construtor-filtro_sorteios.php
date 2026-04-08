@@ -31,7 +31,7 @@
     }
 
     if ( is_wp_error( $tipo_evento_response ) ) {
-        error_log('Erro ao buscar os tipos de evento: ' . $response->get_error_message());
+        //error_log('Erro ao buscar os tipos de evento: ' . $response->get_error_message());
         $tipos_evento = [];
     } else {
         // Decodifica o JSON da resposta
