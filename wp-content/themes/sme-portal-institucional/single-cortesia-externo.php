@@ -31,6 +31,7 @@ $listaSorteados = $sorteio_data['sorteados'];
 $datasDisponiveis = $sorteio_data['datas_dispo'];
 $tipo_evento = $sorteio_data['meta']['tipo_evento'];
 $periodo_evento = $sorteio_data['meta']['evento_periodo_descricao'];
+$premios = $sorteio_data['premios'];
 
 // echo '<pre>';
 // print_r($sorteio_data);
