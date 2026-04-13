@@ -190,195 +190,222 @@ $premios = $sorteio_data['premios'];
                                     }
                                 ?>
 
-                                <div class="form-inscricao">
-                                    <div class="form-title">
-                                        <h3>Preencha o formulário abaixo com seus dados:</h3>                                        
-                                    </div>
+                                <div class="col-12 mt-5 p-0 order-3" id="form-wrapper">
+                                    <div class="form-inscricao">
+                                        <div class="form-title">
+                                            <h3>Preencha o formulário abaixo com seus dados:</h3>                                        
+                                        </div>
 
-                                    <form action="#" method="post" id="form-inscri" class="form-inscri">	
+                                        <form action="#" method="post" id="form-inscri" class="form-inscri">	
 
-                                        <input type="hidden" name="external_sorteio_id" id="external_sorteio_id" value="<?= esc_attr(get_query_var('external_sorteio_id')); ?>">
-                                        <?php wp_nonce_field('processar_inscricao_action', 'inscricao_nonce'); ?>
+                                            <input type="hidden" name="external_sorteio_id" id="external_sorteio_id" value="<?= esc_attr(get_query_var('external_sorteio_id')); ?>">
+                                            <?php wp_nonce_field('processar_inscricao_action', 'inscricao_nonce'); ?>
 
-                                        <div class="form-row">
-                                            
-                                            <div class="form-group col">
-                                                <label for="nomeComp">Nome completo <span>*</span></label>
-                                                <input type="text" class="form-control" name="nomeComp" id="nomeComp" placeholder="Insira seu nome completo">
+                                            <div class="form-row">
                                                 
-                                            </div>							
-                                        </div>
-
-                                        <div class="form-row">
-
-                                            <div class="form-group col" id="grupo-email-institucional">
-                                                <label for="emailInsti">E-mail Institucional <span>*</span></label>
-                                                <input type="email" name="emailInsti" class="form-control" id="emailInsti" placeholder="Insira seu e-mail institucional">
-                                            </div>           
-                                            
-                                            <div class="form-group col">
-                                                <label for="cpf">CPF <span>*</span></label>
-                                                <input type="text" name="cpf" class="form-control" id="cpf" placeholder="000.000.000-00">    
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row">
-                                            <div class="form-group col">
-                                                <label for="emailSec">E-mail Secundário <span>*</span></label>
-                                                <input type="email"  name="emailSec" class="form-control" id="emailSec" placeholder="email@provedor.com.br">
-                                            </div>
-
-                                            
-                                            <div class="form-group col">
-                                                <label for="celular">Telefone Celular <span>*</span></label>
-                                                <input type="text" name="celular" class="form-control" id="celular" placeholder="(00) 0000-0000">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row">
-                                            <?php                                
-                                                $dres = array(
-                                                    "SME",
-                                                    "DRE Butantã",
-                                                    "DRE Campo Limpo",
-                                                    "DRE Capela do Socorro",
-                                                    "DRE Freguesia/Brasilândia",
-                                                    "DRE Guaianases",
-                                                    "DRE Ipiranga",
-                                                    "DRE Itaquera",
-                                                    "DRE Jaçanã/Tremembé",
-                                                    "DRE Penha",
-                                                    "DRE Pirituba",
-                                                    "DRE Santo Amaro",
-                                                    "DRE São Mateus",
-                                                    "DRE São Miguel",
-                                                    "Outros"
-                                                );
-                                            ?>
-                                            <div class="form-group col">
-                                                <label for="dre">DRE/SME <span>*</span></label>
-
-                                                <select class="form-control" name="dre" name="dre" id="dre">
-                                                    <option value="">-- Selecione --</option>
-                                                    <?php foreach ($dres as $opcao) : ?>
-                                                        <option value="<?= esc_attr($opcao); ?>">
-                                                            <?= esc_html($opcao); ?>
-                                                        </option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group col">
-                                                <label for="telCom">Telefone Comercial</label>
-                                                <input type="text" name="telCom" class="form-control" id="telCom" placeholder="(00) 0000-0000">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row">                            
-                                            <div class="form-group col-12" id="grupo-programa">
-
-                                                <label class="d-block mb-2">Atua em qual programa de estágio? <span>*</span></label>
-
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="programa1" name="programa_estagio" class="custom-control-input" value="1">
-                                                    <label class="custom-control-label" for="programa1">Aprender sem limite</label>
+                                                <div class="form-group col-12 col-md-9">
+                                                    <label for="nomeComp">Nome completo <span>*</span></label>
+                                                    <input type="text" class="form-control" name="nomeComp" id="nomeComp" placeholder="Insira seu nome completo">
                                                 </div>
-
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="programa2" name="programa_estagio" class="custom-control-input" value="2">
-                                                    <label class="custom-control-label" for="programa2">Parceiros da aprendizagem</label>
-                                                </div>
-
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="programa3" name="programa_estagio" class="custom-control-input" value="3">
-                                                    <label class="custom-control-label" for="programa3">Diversos</label>
+                                                <div class="form-group col-12 col-md-3">
+                                                    <label for="cpf">CPF <span>*</span></label>
+                                                    <input type="text" name="cpf" class="form-control" id="cpf" placeholder="000.000.000-00">    
                                                 </div>
 
                                             </div>
 
-                                            <div class="form-group col-12">
-                                                <label for="uniSetor">Unidade Escolar ou Setor <span>*</span></label>
-                                                <input type="text" name="uniSetor" class="form-control" id="uniSetor" placeholder="Nome da Unidade Escolar ou Setor">
-                                            </div>
-                                            <?php if($datasDisponiveis): ?>
-                                                <div class="form-group col" id="grupo-datas">
-                                                    <?php if ( $tipo_evento === 'premio' ) : ?>
-                                                        <label for="datas-disponiveis">Selecione os prêmios que deseja participar do sorteio: <span>*</span></label>
-                                                    <?php else : ?>
-										                <label for="datas-disponiveis">Selecione a(s) data(s) que deseja participar: <span>*</span></label>
-                                                    <?php endif; ?>
+                                            <div class="form-row">
+
+                                                <div class="form-group col-12 col-md-5" id="grupo-email-institucional">
+                                                    <label for="emailInsti">E-mail Institucional <span>*</span></label>
+                                                    <input type="email" name="emailInsti" class="form-control" id="emailInsti" placeholder="Insira seu e-mail institucional">
+                                                </div>           
+                                                <div class="form-group col-12 col-md-4">
+                                                    <label for="emailSec">E-mail Secundário <span>*</span></label>
+                                                    <input type="email"  name="emailSec" class="form-control" id="emailSec" placeholder="email@provedor.com.br">
+                                                </div>
+                                                <div class="form-group col-12 col-md-3">
+                                                    <label for="celular">Telefone Celular <span>*</span></label>
+                                                    <input type="text" name="celular" class="form-control" id="celular" placeholder="(00) 0000-0000">
+                                                </div>
                                                 
-                                                    <?php foreach ( $datasDisponiveis as $selecao => $data ) : ?>                                                       
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    name="datas[]"
-                                                                    value="<?= $selecao; ?>"
-                                                                    id="data-<?= $selecao; ?>"
-                                                                >
-                                                                <?php
-                                                                    $dataOriginal = $selecao;                                                                    
-                                                                    $dataObj = DateTime::createFromFormat('Y-m-d H:i:s', $dataOriginal);
-                                                                    $dataFormatada = $dataObj->format('d/m/Y H\hi');
-                                                                    $dataFormatada = str_replace('h00', 'h', $dataFormatada);
-                                                                ?>
+                                            </div>
 
-                                                                <label class="form-check-label" for="data-<?= $selecao; ?>">
-                                                                    <?php if($tipo_evento == 'premio'): ?>
-                                                                        <?= $data; ?>
-                                                                    <?php else: ?>
-                                                                        <?= $dataFormatada; ?>
-                                                                    <?php endif; ?>
-                                                                </label>
-                                                            </div>                                                        
-                                                    <?php endforeach; ?>                                                
+                                            <div class="form-row">
+                                                <?php                                
+                                                    $dres = array(
+                                                        "SME",
+                                                        "DRE Butantã",
+                                                        "DRE Campo Limpo",
+                                                        "DRE Capela do Socorro",
+                                                        "DRE Freguesia/Brasilândia",
+                                                        "DRE Guaianases",
+                                                        "DRE Ipiranga",
+                                                        "DRE Itaquera",
+                                                        "DRE Jaçanã/Tremembé",
+                                                        "DRE Penha",
+                                                        "DRE Pirituba",
+                                                        "DRE Santo Amaro",
+                                                        "DRE São Mateus",
+                                                        "DRE São Miguel",
+                                                        "Outros"
+                                                    );
+                                                ?>
+
+                                                <div class="form-group col-12 col-md-3">
+                                                    <label for="telCom">Telefone Comercial</label>
+                                                    <input type="text" name="telCom" class="form-control" id="telCom" placeholder="(00) 0000-0000">
+                                                </div>
+                                                <div class="form-group col-12 col-md-3">
+                                                    <label for="dre">DRE/SME <span>*</span></label>
+
+                                                    <select class="form-control" name="dre" name="dre" id="dre">
+                                                        <option value="">-- Selecione --</option>
+                                                        <?php foreach ($dres as $opcao) : ?>
+                                                            <option value="<?= esc_attr($opcao); ?>">
+                                                                <?= esc_html($opcao); ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-12 col-md-6">
+                                                    <label for="uniSetor">Unidade Escolar ou Setor <span>*</span></label>
+                                                    <input type="text" name="uniSetor" class="form-control" id="uniSetor" placeholder="Nome da Unidade Escolar ou Setor">
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-row">                            
+                                                <div class="form-group col-12" id="grupo-programa">
+
+                                                    <label class="d-block mb-2">Atua em qual programa de estágio? <span>*</span></label>
+
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="programa1" name="programa_estagio" class="custom-control-input" value="1">
+                                                        <label class="custom-control-label" for="programa1">Aprender sem limite</label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="programa2" name="programa_estagio" class="custom-control-input" value="2">
+                                                        <label class="custom-control-label" for="programa2">Parceiros da aprendizagem</label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="programa3" name="programa_estagio" class="custom-control-input" value="3">
+                                                        <label class="custom-control-label" for="programa3">Diversos</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <?php if($datasDisponiveis): ?>
+                                                    <div class="form-group col" id="grupo-datas">
+                                                        <?php if ( $tipo_evento === 'premio' ) : ?>
+                                                            <label for="datas-disponiveis">Selecione os prêmios que deseja participar do sorteio: <span>*</span></label>
+                                                        <?php else : ?>
+                                                            <label for="datas-disponiveis">Selecione a(s) data(s) que deseja participar: <span>*</span></label>
+                                                        <?php endif; ?>
+
+                                                        <?php
+                                                        if ( $tipo_evento === 'data' ) {
+
+                                                            $agora = current_time( 'mysql' );
+
+                                                            $datasDisponiveis = array_filter(
+                                                                $datasDisponiveis,
+                                                                function ( $valor, $data ) use ( $agora ) {
+                                                                    return $data >= $agora;
+                                                                },
+                                                                ARRAY_FILTER_USE_BOTH
+                                                            );
+                                                        }
+                                                        ?>
+                                                    
+                                                        <div class="datas-select my-3">
+                                                            <?php foreach ( $datasDisponiveis as $selecao => $data ) : ?>                                                       
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        name="datas[]"
+                                                                        value="<?= $selecao; ?>"
+                                                                        id="data-<?= $selecao; ?>"
+                                                                    >
+                                                                    <?php
+                                                                        $dias_semana = [
+                                                                            'Sunday' => 'domingo',
+                                                                            'Monday' => 'segunda-feira',
+                                                                            'Tuesday' => 'terça-feira',
+                                                                            'Wednesday' => 'quarta-feira',
+                                                                            'Thursday' => 'quinta-feira',
+                                                                            'Friday' => 'sexta-feira',
+                                                                            'Saturday' => 'sábado',
+                                                                        ];
+
+                                                                        $dataOriginal = $selecao;                                                                    
+                                                                        $dataObj = DateTime::createFromFormat('Y-m-d H:i:s', $dataOriginal);
+                                                                        $dataFormatada = $dataObj ? $dataObj->format('d/m à\s H\hi') : '';
+                                                                        $dia_semana = $dataObj ? $dias_semana[$dataObj->format('l')] : '';
+                                                                        $dataFormatada = str_replace('h00', 'h', $dataFormatada);
+                                                                        $dataFormatada .= ", {$dia_semana}";
+                                                                    ?>
+
+                                                                    <label class="form-check-label" for="data-<?= $selecao; ?>">
+                                                                        <?php if($tipo_evento == 'premio'): ?>
+                                                                            <?= $data; ?>
+                                                                        <?php else: ?>
+                                                                            <?= $dataFormatada; ?>
+                                                                        <?php endif; ?>
+                                                                    </label>
+                                                                </div>                                                        
+                                                            <?php endforeach; ?>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+
+                                            </div>
+
+                                            <?php if ( isset( $sorteio_data['meta']['tipo_evento'] ) && $sorteio_data['meta']['tipo_evento'] === 'periodo' ) : ?>
+                                                <div class="form-row px-1 pt-2 pb-4">
+                                                    <span class="texto-apoio">Participe do sorteio informando os dados acima e, caso seja sorteado(a), poderá utilizar seu ingresso durante o período destacado na descrição do evento.</span>
                                                 </div>
                                             <?php endif; ?>
+                                            
+                                            <div class="form-row">
+                                                <div class="form-group col">
 
-                                        </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="ciente" value="1" id="ciente">
+                                                        <label class="form-check-label d-block termos" for="ciente">
+                                                            Declaro estar ciente de que, em caso de contemplação, poderei ser contatado(a) por e-mail para confirmar minha participação ou a retirada do benefício, dentro do prazo estabelecido pelo parceiro. A não confirmação dentro do prazo poderá resultar na perda do direito ao benefício.
+                                                        </label>
+                                                    </div>
 
-                                        <?php if ( isset( $sorteio_data['meta']['tipo_evento'] ) && $sorteio_data['meta']['tipo_evento'] === 'periodo' ) : ?>
-                                            <div class="form-row px-1 pt-2 pb-4">
-                                                <em>Participe do sorteio informando os dados acima e, caso seja sorteado(a), poderá utilizar seu ingresso durante o período destacado na descrição do evento.</em>
+                                                    <?php /*
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="remanescentes" value="1" id="remanescentes">
+                                                        <label class="form-check-label" for="remanescentes">
+                                                            Tenho disponibilidade para concorrer a eventuais ingressos remanescentes de outros sorteios que ocorrem essa semana para os quais não fiz a inscrição.
+                                                        </label>
+                                                    </div>
+                                                    */ ?>
+
+                                                </div>							
                                             </div>
-                                        <?php endif; ?>
-                                        
-                                        <div class="form-row">
-                                            <div class="form-group col">
 
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="ciente" value="1" id="ciente">
-                                                    <label class="form-check-label d-block" for="ciente">
-                                                        Declaro estar ciente de que, em caso de contemplação, poderei ser contatado(a) por e-mail para confirmar minha participação ou a retirada do benefício, dentro do prazo estabelecido pelo parceiro. A não confirmação dentro do prazo poderá resultar na perda do direito ao benefício.
-                                                    </label>
-                                                </div>
-
-                                                <?php /*
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="remanescentes" value="1" id="remanescentes">
-                                                    <label class="form-check-label" for="remanescentes">
-                                                        Tenho disponibilidade para concorrer a eventuais ingressos remanescentes de outros sorteios que ocorrem essa semana para os quais não fiz a inscrição.
-                                                    </label>
-                                                </div>
-                                                */ ?>
-
-                                            </div>							
-                                        </div>
-
-                                        <div class="buttons-group text-right">
-                                            <a href="javascript:history.back()" class="btn btn-outline-primary">Voltar</a> 
-                                            <input type="submit" value="Enviar" class="btn btn-primary" id="botaoEnviar">
-                                        </div>
-                                        
-                                        <div class="form-loading-overlay" id="formLoadingOverlay">
-                                            <div class="form-loading-content">
-                                                <img src="<?php echo get_template_directory_uri(); ?>/classes/assets/img/load-32_256.gif" alt="Carregando">
+                                            <div class="buttons-group text-right">
+                                                <a href="javascript:history.back()" class="btn btn-outline mr-4">Voltar</a> 
+                                                <input type="submit" value="Enviar" class="btn btn-principal" id="botaoEnviar">
                                             </div>
-                                        </div>
+                                            
+                                            <div class="form-loading-overlay" id="formLoadingOverlay">
+                                                <div class="form-loading-content">
+                                                    <img src="<?php echo get_template_directory_uri(); ?>/classes/assets/img/load-32_256.gif" alt="Carregando" class="w-50">
+                                                </div>
+                                            </div>
 
-                                    </form>
+                                        </form>
 
+                                    </div>
                                 </div>
 
                             <?php else: 
@@ -858,7 +885,7 @@ $premios = $sorteio_data['premios'];
                 todosPreenchidos = false;
                 camposComErro.push('Programa de estágio');
                 if (exibirMensagens && grupoPrograma.find('.mensagem-erro').length === 0) {
-                    labelPrograma.after('<br><span class="mensagem-erro">Selecione uma opção.</span>');
+                    labelPrograma.after('<span class="mensagem-erro">Selecione uma opção.</span><br>');
                     grupoPrograma.find('.mensagem-erro').show();
                 } else {
                     grupoPrograma.find('.mensagem-erro').show();
@@ -1075,6 +1102,7 @@ $premios = $sorteio_data['premios'];
                     title: 'Preenchimento obrigatório!',
                     html: `<p>Por favor, preencha os seguintes campos obrigatórios:</p><ul style="text-align:left">${camposComErro.map(c => `<li>${c}</li>`).join('')}</ul>`,
                     confirmButtonText: 'Ok',
+                    confirmButtonColor: '#14447C'
                 });
                 return;
             }

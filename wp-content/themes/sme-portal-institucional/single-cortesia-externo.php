@@ -185,264 +185,275 @@ $premios = $sorteio_data['premios'];
                                     }
                                 ?>
 
-                                <div class="form-inscricao">
-                                    <div class="form-title">
-                                        <h3>Preencha o formulário abaixo com seus dados:</h3>                                        
-                                    </div>
+                                <div class="col-12 mt-5 p-0 order-3" id="form-wrapper">
+                                    <div class="form-inscricao">
+                                        <div class="form-title">
+                                            <h3>Preencha o formulário abaixo com seus dados:</h3>                                        
+                                        </div>
 
-                                    <form action="#" method="post" id="form-inscri" class="form-inscri">	
+                                        <form action="#" method="post" id="form-inscri" class="form-inscri">	
 
-                                        <input type="hidden" name="external_cortesia_id" id="external_cortesia_id" value="<?= esc_attr(get_query_var('external_sorteio_id')); ?>">
-                                        <?php wp_nonce_field('processar_inscricao_action', 'inscricao_nonce'); ?>
+                                            <input type="hidden" name="external_cortesia_id" id="external_cortesia_id" value="<?= esc_attr(get_query_var('external_sorteio_id')); ?>">
+                                            <?php wp_nonce_field('processar_inscricao_action', 'inscricao_nonce'); ?>
 
-                                        <div class="form-row">
-                                            
-                                            <div class="form-group col">
-                                                <label for="nomeComp">Nome completo <span>*</span></label>
-                                                <input type="text" class="form-control" name="nomeComp" id="nomeComp" placeholder="Insira seu nome completo">
+                                            <div class="form-row">
                                                 
-                                            </div>							
-                                        </div>
-
-                                        <div class="form-row">
-
-                                            <div class="form-group col" id="grupo-email-institucional">
-                                                <label for="emailInsti">E-mail Institucional <span>*</span></label>
-                                                <input type="email" name="emailInsti" class="form-control" id="emailInsti" placeholder="Insira seu e-mail institucional">
-                                            </div>           
-                                            
-                                            <div class="form-group col">
-                                                <label for="cpf">CPF <span>*</span></label>
-                                                <input type="text" name="cpf" class="form-control" id="cpf" placeholder="000.000.000-00">    
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row">
-                                            <div class="form-group col">
-                                                <label for="emailSec">E-mail Secundário <span>*</span></label>
-                                                <input type="email"  name="emailSec" class="form-control" id="emailSec" placeholder="email@provedor.com.br">
-                                            </div>
-
-                                            
-                                            <div class="form-group col">
-                                                <label for="celular">Telefone Celular <span>*</span></label>
-                                                <input type="text" name="celular" class="form-control" id="celular" placeholder="(00) 0000-0000">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row">
-                                            <?php                                
-                                                $dres = array(
-                                                    "SME",
-                                                    "DRE Butantã",
-                                                    "DRE Campo Limpo",
-                                                    "DRE Capela do Socorro",
-                                                    "DRE Freguesia/Brasilândia",
-                                                    "DRE Guaianases",
-                                                    "DRE Ipiranga",
-                                                    "DRE Itaquera",
-                                                    "DRE Jaçanã/Tremembé",
-                                                    "DRE Penha",
-                                                    "DRE Pirituba",
-                                                    "DRE Santo Amaro",
-                                                    "DRE São Mateus",
-                                                    "DRE São Miguel",
-                                                    "Outros"
-                                                );
-                                            ?>
-                                            <div class="form-group col">
-                                                <label for="dre">DRE/SME <span>*</span></label>
-
-                                                <select class="form-control" name="dre" name="dre" id="dre">
-                                                    <option value="">-- Selecione --</option>
-                                                    <?php foreach ($dres as $opcao) : ?>
-                                                        <option value="<?= esc_attr($opcao); ?>">
-                                                            <?= esc_html($opcao); ?>
-                                                        </option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group col">
-                                                <label for="telCom">Telefone Comercial</label>
-                                                <input type="text" name="telCom" class="form-control" id="telCom" placeholder="(00) 0000-0000">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row">                            
-                                            <div class="form-group col-12" id="grupo-programa">
-
-                                                <label class="d-block mb-2">Atua em qual programa de estágio? <span>*</span></label>
-
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="programa1" name="programa_estagio" class="custom-control-input" value="1">
-                                                    <label class="custom-control-label" for="programa1">Aprender sem limite</label>
+                                                <div class="form-group col-12 col-md-9">
+                                                    <label for="nomeComp">Nome completo <span>*</span></label>
+                                                    <input type="text" class="form-control" name="nomeComp" id="nomeComp" placeholder="Insira seu nome completo">  
                                                 </div>
-
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="programa2" name="programa_estagio" class="custom-control-input" value="2">
-                                                    <label class="custom-control-label" for="programa2">Parceiros da aprendizagem</label>
-                                                </div>
-
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="programa3" name="programa_estagio" class="custom-control-input" value="3">
-                                                    <label class="custom-control-label" for="programa3">Diversos</label>
+                                                <div class="form-group col-12 col-md-3">
+                                                    <label for="cpf">CPF <span>*</span></label>
+                                                    <input type="text" name="cpf" class="form-control" id="cpf" placeholder="000.000.000-00">    
                                                 </div>
 
                                             </div>
 
-                                            <div class="form-group col-12">
-                                                <label for="uniSetor">Unidade Escolar ou Setor <span>*</span></label>
-                                                <input type="text" name="uniSetor" class="form-control" id="uniSetor" placeholder="Nome da Unidade Escolar ou Setor">
-                                            </div>
+                                            <div class="form-row">
 
-                                            <?php if ( $tipo_evento === 'data' ) : ?>
-                                                <div class="form-row px-1 pt-2 pb-4">
-                                                    <?php if ( intval( $qtd_ingressos_inscrito ) === 1 ) : ?>
-                                                        <em>Preencha os dados acima para realizar sua solicitação, conforme as regras e disponibilidade.</em>
-                                                    <?php else : ?>
-                                                        <em>
-                                                            Escolha a data em que deseja participar do evento e informe quantos ingressos você precisa.
-                                                            O limite é de <?php echo esc_html( $qtd_ingressos_inscrito . ' ' . _n( 'ingresso', 'ingressos', (int) $qtd_ingressos_inscrito ) ); ?> por inscrito.
-                                                        </em>
-                                                    <?php endif; ?>
+                                                <div class="form-group col-12 col-md-5" id="grupo-email-institucional">
+                                                    <label for="emailInsti">E-mail Institucional <span>*</span></label>
+                                                    <input type="email" name="emailInsti" class="form-control" id="emailInsti" placeholder="Insira seu e-mail institucional">
+                                                </div> 
+                                                <div class="form-group col-12 col-md-4">
+                                                    <label for="emailSec">E-mail Secundário <span>*</span></label>
+                                                    <input type="email"  name="emailSec" class="form-control" id="emailSec" placeholder="email@provedor.com.br">
                                                 </div>
-                                            <?php endif; ?>
-
-                                            <?php if ( $tipo_evento === 'periodo' ) : ?>
-                                                <div class="form-row px-1 pt-2 pb-4">
-                                                    <?php if ( intval( $qtd_ingressos_inscrito ) === 1 ) : ?>
-                                                        <em>Preencha os dados acima para realizar sua solicitação, conforme as regras e disponibilidade.</em>
-                                                    <?php else : ?>
-                                                        <em>
-                                                            Solicite seus ingressos informando os dados acima e a quantidade desejada.
-                                                            A utilização deverá ocorrer dentro do período indicado na descrição do evento.
-                                                            O limite é de <?php echo esc_html( $qtd_ingressos_inscrito . ' ' . _n( 'ingresso', 'ingressos', (int) $qtd_ingressos_inscrito ) ); ?> por inscrito, conforme disponibilidade.
-                                                        </em>
-                                                    <?php endif; ?>
-                                                </div>
-                                            <?php endif; ?>
-
-                                            <?php if ( $tipo_evento === 'premio' ) : ?>
-                                                <div class="form-row px-1 pt-2 pb-4">
-                                                    <?php if ( intval( $qtd_ingressos_inscrito ) === 1 ) : ?>
-                                                        <em>Preencha os dados acima para realizar sua solicitação, conforme as regras e disponibilidade.</em>
-                                                    <?php else : ?>
-                                                        <em>
-                                                            Selecione o prêmio e informe a quantidade que deseja.
-                                                            O limite é de <?php echo esc_html( $qtd_ingressos_inscrito . ' ' . _n( 'unidade', 'unidades', (int) $qtd_ingressos_inscrito ) ); ?> por inscrito.
-                                                        </em>
-                                                    <?php endif; ?>
-                                                </div>
-                                            <?php endif; ?>
-
-                                            <?php if ( $tipo_evento === 'periodo' ) : ?>
-                                                <input type="hidden" name="data" value="<?php echo esc_html( $datasDisponiveis[0]['id'] ?? '' ); ?>">
-                                            <?php endif; ?>
-
-                                            <?php if ($datasDisponiveis && $tipo_evento != 'periodo' ) : ?>
-                                                <div class="form-group col-12" id="grupo-datas">
-                                                    <?php if ( $tipo_evento === 'premio' ) : ?>
-                                                        <label for="datas-disponiveis">Selecione o prêmio que deseja: <span>*</span></label>
-                                                    <?php else : ?>
-										                <label for="datas-disponiveis">Selecione a data que deseja participar: <span>*</span></label>
-                                                    <?php endif; ?>
+                                                <div class="form-group col-12 col-md-3">
+                                                    <label for="celular">Telefone Celular <span>*</span></label>
+                                                    <input type="text" name="celular" class="form-control" id="celular" placeholder="(00) 0000-0000">
+                                                </div>            
                                                 
-                                                    <?php foreach ( $datasDisponiveis as $data ) : ?>                                                       
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="radio"
-                                                                    name="data"
-                                                                    value="<?php echo esc_attr( $data['id'] ); ?>"
-                                                                    id="data-<?php echo esc_html( $data['id'] ); ?>"
+                                            </div>
+
+                                            <div class="form-row">
+                                                <?php                                
+                                                    $dres = array(
+                                                        "SME",
+                                                        "DRE Butantã",
+                                                        "DRE Campo Limpo",
+                                                        "DRE Capela do Socorro",
+                                                        "DRE Freguesia/Brasilândia",
+                                                        "DRE Guaianases",
+                                                        "DRE Ipiranga",
+                                                        "DRE Itaquera",
+                                                        "DRE Jaçanã/Tremembé",
+                                                        "DRE Penha",
+                                                        "DRE Pirituba",
+                                                        "DRE Santo Amaro",
+                                                        "DRE São Mateus",
+                                                        "DRE São Miguel",
+                                                        "Outros"
+                                                    );
+                                                ?>
+
+                                                <div class="form-group col-12 col-md-3">
+                                                    <label for="telCom">Telefone Comercial</label>
+                                                    <input type="text" name="telCom" class="form-control" id="telCom" placeholder="(00) 0000-0000">
+                                                </div>
+                                                <div class="form-group col-12 col-md-3">
+                                                    <label for="dre">DRE/SME <span>*</span></label>
+
+                                                    <select class="form-control" name="dre" name="dre" id="dre">
+                                                        <option value="">-- Selecione --</option>
+                                                        <?php foreach ($dres as $opcao) : ?>
+                                                            <option value="<?= esc_attr($opcao); ?>">
+                                                                <?= esc_html($opcao); ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-12 col-md-6">
+                                                    <label for="uniSetor">Unidade Escolar ou Setor <span>*</span></label>
+                                                    <input type="text" name="uniSetor" class="form-control" id="uniSetor" placeholder="Nome da Unidade Escolar ou Setor">
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-row">                            
+                                                <div class="form-group col-12" id="grupo-programa">
+
+                                                    <label class="d-block mb-2">Atua em qual programa de estágio? <span>*</span></label>
+
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="programa1" name="programa_estagio" class="custom-control-input" value="1">
+                                                        <label class="custom-control-label" for="programa1">Aprender sem limite</label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="programa2" name="programa_estagio" class="custom-control-input" value="2">
+                                                        <label class="custom-control-label" for="programa2">Parceiros da aprendizagem</label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="programa3" name="programa_estagio" class="custom-control-input" value="3">
+                                                        <label class="custom-control-label" for="programa3">Diversos</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <?php if ( $tipo_evento === 'data' ) : ?>
+                                                    <div class="form-row px-1 pt-2 pb-4">
+                                                        <?php if ( intval( $qtd_ingressos_inscrito ) === 1 ) : ?>
+                                                            <span class="texto-apoio">Preencha os dados acima para realizar sua solicitação, conforme as regras e disponibilidade.</span>
+                                                        <?php else : ?>
+                                                            <span class="texto-apoio">
+                                                                Escolha a data em que deseja participar do evento e informe quantos ingressos você precisa.
+                                                                O limite é de <?php echo esc_html( $qtd_ingressos_inscrito . ' ' . _n( 'ingresso', 'ingressos', (int) $qtd_ingressos_inscrito ) ); ?> por inscrito.
+                                                            </span>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                <?php endif; ?>
+
+                                                <?php if ( $tipo_evento === 'periodo' ) : ?>
+                                                    <div class="form-row px-1 pt-2 pb-4">
+                                                        <?php if ( intval( $qtd_ingressos_inscrito ) === 1 ) : ?>
+                                                            <span class="texto-apoio">Preencha os dados acima para realizar sua solicitação, conforme as regras e disponibilidade.</span>
+                                                        <?php else : ?>
+                                                            <span class="texto-apoio">
+                                                                Solicite seus ingressos informando os dados acima e a quantidade desejada.
+                                                                A utilização deverá ocorrer dentro do período indicado na descrição do evento.
+                                                                O limite é de <?php echo esc_html( $qtd_ingressos_inscrito . ' ' . _n( 'ingresso', 'ingressos', (int) $qtd_ingressos_inscrito ) ); ?> por inscrito, conforme disponibilidade.
+                                                            </span>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                <?php endif; ?>
+
+                                                <?php if ( $tipo_evento === 'premio' ) : ?>
+                                                    <div class="form-row px-1 pt-2 pb-4">
+                                                        <?php if ( intval( $qtd_ingressos_inscrito ) === 1 ) : ?>
+                                                            <span class="texto-apoio">Preencha os dados acima para realizar sua solicitação, conforme as regras e disponibilidade.</span>
+                                                        <?php else : ?>
+                                                            <span class="texto-apoio">
+                                                                Selecione o prêmio e informe a quantidade que deseja.
+                                                                O limite é de <?php echo esc_html( $qtd_ingressos_inscrito . ' ' . _n( 'unidade', 'unidades', (int) $qtd_ingressos_inscrito ) ); ?> por inscrito.
+                                                            </span>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                <?php endif; ?>
+
+                                                <?php if ( $tipo_evento === 'periodo' ) : ?>
+                                                    <input type="hidden" name="data" value="<?php echo esc_html( $datasDisponiveis[0]['id'] ?? '' ); ?>">
+                                                <?php endif; ?>
+
+                                                <?php if ($datasDisponiveis && $tipo_evento != 'periodo' ) : ?>
+                                                    <div class="form-group col-12" id="grupo-datas">
+                                                        <?php if ( $tipo_evento === 'premio' ) : ?>
+                                                            <label for="datas-disponiveis">Selecione o prêmio que deseja: <span>*</span></label>
+                                                        <?php else : ?>
+                                                            <label for="datas-disponiveis">Selecione a data que deseja participar: <span>*</span></label>
+                                                        <?php endif; ?>
+
+                                                        <div class="datas-select my-3">
+                                                            <?php foreach ( $datasDisponiveis as $data ) : ?>                                                       
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="radio"
+                                                                        name="data"
+                                                                        value="<?php echo esc_attr( $data['id'] ); ?>"
+                                                                        id="data-<?php echo esc_html( $data['id'] ); ?>"
+                                                                    >
+                                                                    <?php
+                                                                        $dias_semana = [
+                                                                            'Sunday' => 'domingo',
+                                                                            'Monday' => 'segunda-feira',
+                                                                            'Tuesday' => 'terça-feira',
+                                                                            'Wednesday' => 'quarta-feira',
+                                                                            'Thursday' => 'quinta-feira',
+                                                                            'Friday' => 'sexta-feira',
+                                                                            'Saturday' => 'sábado',
+                                                                        ];
+                                                                                                                                        
+                                                                        $dataObj = DateTime::createFromFormat('Y-m-d H:i:s', $data['data_evento']);
+                                                                        $dataFormatada = $dataObj ? $dataObj->format('d/m à\s H\hi') : '';
+                                                                        $dia_semana = $dataObj ? $dias_semana[$dataObj->format('l')] : '';
+                                                                        $dataFormatada = str_replace('h00', 'h', $dataFormatada);
+                                                                        $dataFormatada .= ", {$dia_semana}";
+                                                                    ?>
+
+                                                                    <label class="form-check-label" for="data-<?php echo esc_html( $data['id'] ); ?>">
+                                                                        <?php if($tipo_evento == 'premio'): ?>
+                                                                            <?php echo esc_html( $data['premio'] ); ?>
+                                                                        <?php else: ?>
+                                                                            <?php echo esc_html( $dataFormatada ); ?>
+                                                                        <?php endif; ?>
+                                                                    </label>
+                                                                </div>                                                        
+                                                            <?php endforeach; ?>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+
+                                            <?php if ( intval( $qtd_ingressos_inscrito ) > 1 ) : ?>
+
+                                                <?php if ( $tipo_evento != 'premio' ) : ?>
+                                                    <div class="form-row">
+                                                        <div class="form-group col">
+                                                            <label for="disciplina">Quantidade de ingressos: <span>*</span></label>
+                                                            <input
+                                                                type="number"
+                                                                name="qtd"
+                                                                class="form-control"
+                                                                id="qtd"
+                                                                placeholder="Informe quantos ingressos você precisa"
+                                                                min="1"
+                                                                max="<?php echo esc_html( $qtd_ingressos_inscrito ); ?>"
                                                                 >
-                                                                <?php                                                                    
-                                                                    $dataObj = DateTime::createFromFormat('Y-m-d H:i:s', $data['data_evento']);
-                                                                    $dataFormatada = $dataObj->format('d/m/Y H\hi');
-                                                                    $dataFormatada = str_replace('h00', 'h', $dataFormatada);
-                                                                ?>
+                                                        </div>							
+                                                    </div>
+                                                <?php else : ?>
 
-                                                                <label class="form-check-label" for="data-<?php echo esc_html( $data['id'] ); ?>">
-                                                                    <?php if($tipo_evento == 'premio'): ?>
-                                                                        <?php echo esc_html( $data['premio'] ); ?>
-                                                                    <?php else: ?>
-                                                                        <?php echo esc_html( $dataFormatada ); ?>
-                                                                    <?php endif; ?>
-                                                                </label>
-                                                            </div>                                                        
-                                                    <?php endforeach; ?>                                                
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col">
+                                                            <label for="disciplina">Quantidade: <span>*</span></label>
+                                                            <input
+                                                                type="number"
+                                                                name="qtd"
+                                                                class="form-control"
+                                                                id="qtd"
+                                                                placeholder="Informe a quantidade que você precisa"
+                                                                min="1"
+                                                                max="<?php echo esc_html( $qtd_ingressos_inscrito ); ?>"
+                                                                >
+                                                        </div>							
+                                                    </div>
+                                                <?php endif; ?>
 
-                                        <?php if ( intval( $qtd_ingressos_inscrito ) > 1 ) : ?>
-
-                                            <?php if ( $tipo_evento != 'premio' ) : ?>
-                                                <div class="form-row">
-                                                    <div class="form-group col">
-                                                        <label for="disciplina">Quantidade de ingressos: <span>*</span></label>
-                                                        <input
-                                                            type="number"
-                                                            name="qtd"
-                                                            class="form-control"
-                                                            id="qtd"
-                                                            placeholder="Informe quantos ingressos você precisa"
-                                                            min="1"
-                                                            max="<?php echo esc_html( $qtd_ingressos_inscrito ); ?>"
-                                                            >
-                                                    </div>							
-                                                </div>
-                                            <?php else : ?>
-
-                                                <div class="form-row">
-                                                    <div class="form-group col">
-                                                        <label for="disciplina">Quantidade: <span>*</span></label>
-                                                        <input
-                                                            type="number"
-                                                            name="qtd"
-                                                            class="form-control"
-                                                            id="qtd"
-                                                            placeholder="Informe a quantidade que você precisa"
-                                                            min="1"
-                                                            max="<?php echo esc_html( $qtd_ingressos_inscrito ); ?>"
-                                                            >
-                                                    </div>							
-                                                </div>
                                             <?php endif; ?>
 
-                                        <?php endif; ?>
+                                            <?php if ( intval( $qtd_ingressos_inscrito ) === 1 ) : ?>
+                                                <input type="hidden" name="qtd" id="qtd" value="1">
+                                            <?php endif; ?>
+                                            
+                                            <div class="form-row mt-2">
+                                                <div class="form-group col">
 
-                                        <?php if ( intval( $qtd_ingressos_inscrito ) === 1 ) : ?>
-                                            <input type="hidden" name="qtd" id="qtd" value="1">
-                                        <?php endif; ?>
-                                        
-                                        <div class="form-row mt-2">
-                                            <div class="form-group col">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="ciente" value="1" id="ciente">
+                                                        <label class="form-check-label d-block termos" for="ciente">
+                                                            Declaro estar ciente de que, após a solicitação da cortesia, poderei ser contatado(a) por e-mail para confirmar minha participação ou a retirada do benefício, dentro do prazo estabelecido pelo parceiro. A não confirmação dentro do prazo poderá resultar na perda do direito ao benefício.
+                                                        </label>
+                                                    </div>
 
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="ciente" value="1" id="ciente">
-                                                    <label class="form-check-label d-block" for="ciente">
-                                                        Declaro estar ciente de que, após a solicitação da cortesia, poderei ser contatado(a) por e-mail para confirmar minha participação ou a retirada do benefício, dentro do prazo estabelecido pelo parceiro. A não confirmação dentro do prazo poderá resultar na perda do direito ao benefício.
-                                                    </label>
-                                                </div>
-
-                                            </div>							
-                                        </div>
-
-                                        <div class="buttons-group text-right">
-                                            <a href="javascript:history.back()" class="btn btn-outline-primary">Voltar</a> 
-                                            <input type="submit" value="Enviar" class="btn btn-primary" id="botaoEnviar">
-                                        </div>
-                                        
-                                        <div class="form-loading-overlay" id="formLoadingOverlay">
-                                            <div class="form-loading-content">
-                                                <img src="<?php echo get_template_directory_uri(); ?>/classes/assets/img/load-32_256.gif" alt="Carregando">
+                                                </div>							
                                             </div>
-                                        </div>
 
-                                    </form>
+                                            <div class="buttons-group text-right">
+                                                <a href="javascript:history.back()" class="btn btn-outline mr-4">Voltar</a> 
+                                                <input type="submit" value="Enviar" class="btn btn-principal" id="botaoEnviar">
+                                            </div>
+                                            
+                                            <div class="form-loading-overlay" id="formLoadingOverlay">
+                                                <div class="form-loading-content">
+                                                    <img src="<?php echo get_template_directory_uri(); ?>/classes/assets/img/load-32_256.gif" alt="Carregando" class="w-50">
+                                                </div>
+                                            </div>
 
+                                        </form>
+
+                                    </div>
                                 </div>
 
                             <?php else: 
@@ -972,7 +983,7 @@ $premios = $sorteio_data['premios'];
                 todosPreenchidos = false;
                 camposComErro.push('Programa de estágio');
                 if (exibirMensagens && grupoPrograma.find('.mensagem-erro').length === 0) {
-                    labelPrograma.after('<br><span class="mensagem-erro">Selecione uma opção.</span>');
+                    labelPrograma.after('<span class="mensagem-erro">Selecione uma opção.</span><br>');
                     grupoPrograma.find('.mensagem-erro').show();
                 } else {
                     grupoPrograma.find('.mensagem-erro').show();
@@ -1176,6 +1187,7 @@ $premios = $sorteio_data['premios'];
                     title: 'Preenchimento obrigatório!',
                     html: `<p>Por favor, preencha os seguintes campos obrigatórios:</p><ul style="text-align:left">${camposComErro.map(c => `<li>${c}</li>`).join('')}</ul>`,
                     confirmButtonText: 'Ok',
+                    confirmButtonColor: '#14447C'
                 });
                 return;
             }
