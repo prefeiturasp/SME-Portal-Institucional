@@ -5,6 +5,11 @@
 
 wp_enqueue_script('datatables');
 wp_enqueue_style('datatables');
+wp_register_style('slick', STM_THEME_URL . 'classes/assets/css/slick.css', null, null, 'all');
+wp_enqueue_style('slick');
+
+wp_register_style('slick-theme', STM_THEME_URL . 'classes/assets/css/slick-theme.css', null, null, 'all');
+wp_enqueue_style('slick-theme');
 
 global $wp_query;
 get_header();
@@ -565,36 +570,41 @@ $premios = $sorteio_data['premios'];
                             ?>
                         </div>
                     </div>
+                    
+                </div>                
+            </article>
 
+        </div>
+
+        <div class="py-5 posts-recentes">
+            <div class="container">
+                <div class="row">
                     <div class="col-12">
-                        <div class="recados-destaques noticias-recentes">
-                            <div class="recados-title d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="recentes-title d-flex justify-content-between align-items-center">
                                 <?php $link = get_field('pag_sorteios', 'conf-lateral'); ?>
-                                <h3>MAIS RECENTES</h3>
-                                <?php
-                                    if($link){
-                                        echo '<a href="' . get_permalink($link) . '">Ver todos</a>';
-                                    }
-                                ?>
+                                <h3>Eventos Recentes</h3>
+                                <div class="recentes-nav">
+                                    <?php
+                                        if($link){
+                                            echo '<a href="' . get_permalink($link) . '">Ver todos</a>';
+                                        }
+                                    ?>
+                                    <button class="recentes-nav-prev btn"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                                    <button class="recentes-nav-next btn"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                </div>
                             </div>
                             
                             <?php
                                 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-                                $qtd = 5;                            
+                                $qtd = 12;                            
                                 
                                 $current_date = date('Ymd');
-                                $args = [
-                                    'meta_query' => json_encode([
-                                        [
-                                            'key' => 'enc_inscri',
-                                            'value' => $current_date,
-                                            'compare' => '>=',
-                                            'type' => 'DATE'
-                                        ]
-                                    ]),
+                                $args = [                                    
                                     'per_page' => $qtd,
                                     'post__not_in' => $sorteio_data['id'],
                                     'page' => $paged,
+                                    'ignore_sticky_posts' => 1,
                                     'fields' => 'id,title,content,excerpt,date,slug,meta,thumbnail' // Solicite todos os campos 
                                 ];
                                 
@@ -623,131 +633,160 @@ $premios = $sorteio_data['premios'];
                                         //echo "<pre>";
                                         //print_r($events);        
                                         //echo "</pre>";
-                                        
+                                        echo '<div class="recent-posts-slider">';
                                             foreach ($events as $event) : ?>
-                                                <div class="recado">
-                                                    <div class="row">
+                                                <div class="carrosel-sorteio">
+                                                    <div class="item-sorteio item-ativos">
+                                                        <div class="row h-100 m-0">
 
-                                                        <div class="col-3 pr-0">
-                                                            <?php if (!empty($event['thumbnail'])): ?>
+                                                            <a href="<?php echo esc_url( get_home_url() . '/sorteio/' . $event['id'] ); ?>" class="col-12 col-md-6 p-0 image-wrapper">
                                                                 <div class="event-thumbnail">
+                                                                    <div class="bg" style="background-image: url('<?php echo esc_url( $event['thumbnail'] ); ?>');"></div>
                                                                     <img src="<?php echo esc_url($event['thumbnail']); ?>" alt="<?php echo esc_attr($event['title']); ?>" class="img-fluid">
+                                                                    <?php if ( $event['status'] == 'encerrados' ) : ?>
+                                                                        <div class="overlay-encerrado"></div>
+                                                                    <?php endif; ?>
                                                                 </div>
-                                                            <?php else: ?>
-                                                                <div class="event-thumbnail">
-                                                                    <img class="img-fluid" src="<?php echo esc_url( get_field( 'imagem_placeholder', 'placeholders' )['url'] ?? '' ); ?>" width="100%">
-                                                                </div>
-                                                            <?php endif; ?>
-                                                        </div>
+                                                            </a>
 
-                                                        <div class="col-9">
+                                                            <div class="col-12 col-md-6 mt-md-0 pl-md-2 mt-2 pl-0">                                       
+
+                                                                <div class="row h-100">
+                                                                    <div class="col-12 col-md-10 d-flex flex-column pr-0">
+                                                                        <h3><a href="<?= get_home_url(); ?>/sorteio/<?= esc_html($event['id']); ?>" class="no-external"><?php echo esc_html($event['title']); ?></a></h3>
+
+                                                                        <div class="infos-evento my-2">
+                                                                            <p class="data">
+                                                                                <?php                                                                
+                                                                                    if( isset( $event['subtitulo'] ) && !empty( $event['subtitulo'] ) ){
+                                                                                        echo esc_html( $event['subtitulo'] );	
+                                                                                    }
+                                                                                ?>
+                                                                            </p>
+
+                                                                            <?php if ( isset( $event['local_nome'] ) && !empty( $event['local_nome'] ) ) : ?>
+                                                                                <p class="local"><strong>Local: </strong><?php echo esc_html( $event['local_nome'] ); ?></p>
+                                                                            <?php endif; ?>
+
+                                                                            <?php 
+                                                                            if( isset( $event['meta']['tipo_evento'] ) && !empty( $event['meta']['tipo_evento'] ) ) {
+                                                                                $tipo_evento = esc_html( $event['meta']['tipo_evento'] );
+
+                                                                                if ( $tipo_evento == 'premio' ) {
+                                                                                    echo '<p><strong>Prêmio:</strong> Consulte detalhes</p>';
+                                                                                } elseif ( $tipo_evento == 'data' ) {
+                                                                                    $datas_disponiveis = $event['datas_disponiveis'] ?? [];
+                                                                                    if( !empty( $datas_disponiveis ) ) {
+
+                                                                                        $total = count($datas_disponiveis);
+                                                                                        $lista_datas = [];
+
+                                                                                        foreach ( array_chunk( $datas_disponiveis, 3 )[0] as $data ) {
+                                                                                            $dt = new DateTime($data);
+                                                                                            $data = ( $total > 1 ) ? $dt->format( 'd/m' ) : $dt->format( 'd/m/Y' );
+
+                                                                                            $hora = $dt->format( 'H' );
+                                                                                            $minuto = $dt->format( 'i' );
+                                                                                            $hora_fomatada = $minuto == '00' ? "{$hora}h" : "{$hora}h{$minuto}";
+
+                                                                                            $data_formatada = "{$data} {$hora_fomatada}";
+                                                                                            $lista_datas[] = $data_formatada;
+                                                                                        }
+                                                                                            
+                                                                                        echo '<p class="datas-disponiveis"><strong>' . _n( 'Data', 'Datas', $total ) . ':</strong> ' . implode( ' | ', $lista_datas ) . '</p>';
+
+                                                                                        if ( $total >= 3 ) {
+                                                                                            echo '<a href="' . get_home_url(); ?>/sorteio/<?= esc_html($event['id']) . '" class="no-external">Ver todas as datas e horários</a>';
+                                                                                        }
+                                                                                    }
+                                                                                } elseif ($tipo_evento == 'periodo') {
+                                                                                    echo '<p><strong>Periodo:</strong> ' . esc_html( $event['meta']['evento_periodo_descricao'] ) . '</p>';
+                                                                                }
+                                                                            }
+                                                                            ?>
+                                                                        </div>
+
+                                                                        <?php if ( isset( $event['post_type'] ) && !empty( $event['post_type'] ) ) : 
+                                                                                if($event['post_type'] == 'cortesias'){
+                                                                                    $class_tag = 'cortesia-tag';
+                                                                                } else {
+                                                                                    $class_tag = '';
+                                                                                }
+                                                                        ?>
+                                                                            <span class="post-type-tag mt-auto <?= $class_tag ?? '' ?>">
+                                                                                <?= esc_html( $event['post_type'] ); ?>
+                                                                            </span>
+                                                                        <?php endif; ?>
+                                                                    
+                                                                    </div>
+                                                                    
+                                                                    <div class="col-12 col-md-2 pl-0">
+                                                                        <?php
+                                                                            $total_like1 = $event['likes'];
+                                                                            if($total_like1 == 1){
+                                                                                $text_total = 'like';
+                                                                            } else {
+                                                                                $text_total = 'likes';
+                                                                            }
                                                             
-                                                            <p class="data">
-                                                                <?php 
-                                                                    $dataOriginal = $event['date'];
-                                                                    // Criar um objeto DateTime
-                                                                    $dateTime = new DateTime($dataOriginal);
+                                                                            echo '<div class="post_like">';
+                                                                                echo '<p class="text-center pp_like ' . $likes . '"><img src=' . get_template_directory_uri() . '/img/icone-likes.svg alt="like" class="mx-auto my-0">' . $total_like1 . ' ' . $text_total . '</p>';
+                                                                            echo '</div>';
+                                                                        ?>
+                                                                    </div>
+                                                                </div>
 
-                                                                    // Nomes dos dias da semana em português
-                                                                    $diasSemana = [
-                                                                        'Domingo',
-                                                                        'Segunda-feira',
-                                                                        'Terça-feira',
-                                                                        'Quarta-feira',
-                                                                        'Quinta-feira',
-                                                                        'Sexta-feira',
-                                                                        'Sábado'
-                                                                    ];
-
-                                                                    // Nomes dos meses abreviados em português
-                                                                    $mesesAbreviados = [
-                                                                        'jan',
-                                                                        'fev',
-                                                                        'mar',
-                                                                        'abr',
-                                                                        'mai',
-                                                                        'jun',
-                                                                        'jul',
-                                                                        'ago',
-                                                                        'set',
-                                                                        'out',
-                                                                        'nov',
-                                                                        'dez'
-                                                                    ];
-
-                                                                    // Extrair os componentes da data
-                                                                    $diaSemana = $diasSemana[(int)$dateTime->format('w')];
-                                                                    $mesAbreviado = $mesesAbreviados[(int)$dateTime->format('n') - 1];
-                                                                    $diaMes = $dateTime->format('d');
-                                                                    $hora = $dateTime->format('H');
-                                                                    $minuto = $dateTime->format('i');
-
-                                                                    // Formatar a data no novo formato
-                                                                    $dataFormatada = sprintf(
-                                                                        "%s, %s %s às %sh%smin",
-                                                                        $diaSemana,
-                                                                        $mesAbreviado,
-                                                                        $diaMes,
-                                                                        $hora,
-                                                                        $minuto
-                                                                    );
-
-                                                                    echo $dataFormatada;
-                                                                
-                                                                    if( $event['categories'] && $event['post_type'] == 'sorteio' ){
-                                                                        echo ' - em ' . $event['categories'];
-                                                                    }
-
-                                                                    if( $event['post_type'] == 'cortesias' ){
-                                                                        echo ' - em Gratuidade e Cortesias';
-                                                                    }
-                                                                ?>
-                                                            </p>
-                                                            <span class="badge badge-pill badge-primary">
-                                                                <?php echo esc_html( ucfirst( $event['post_type'] ) ); ?>
-                                                            </span>
-                                                            <h2><a href="<?= get_home_url(); ?>/sorteio/<?= esc_html($event['id']); ?>"><?php echo esc_html($event['title']); ?></a></h2>
-                                                            <div class="d-flex justify-content-between">
-                                                                <div class="likes">
-                                                                    <?php
-                                                                        $total_like1 = $event['likes'];
-                                                                        if($total_like1 == 1){
-                                                                            $text_total = 'like';
-                                                                        } else {
-                                                                            $text_total = 'likes';
-                                                                        }
-                                                        
-                                                                        echo '<div class="post_like">';
-                                                                            echo '<p class="text-center pp_like ' . $likes . '"><i class="fa fa-heart" aria-hidden="true"></i> ' . $total_like1 . ' ' . $text_total . '</p>';
-                                                                        echo '</div>';
-                                                                    ?>                                                            
-                                                                </div>											
                                                             </div>
-                                                            
-                                                        </div>
 
+                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                         <?php
                                             endforeach;
-                                       
+                                        echo '</div>';
                                     }
                                 }
 
                             ?>
                         </div>
                     </div>
-                </div>                
-            </article>
-
-            
-
+                </div>
+            </div>
         </div>
 
     <?php endif; ?>
 </main>
-
+<?php
+// SLick Carousel - JS
+wp_register_script('slick',  STM_THEME_URL . 'classes/assets/js/slick.js', array ('jquery'), false, false);
+wp_enqueue_script('slick');
+?>
 <script>
+    
+
+    var $s = jQuery.noConflict();
+    $s(document).ready(function(){
+        $s('.recent-posts-slider').slick({
+			slidesToShow: 1,
+			rows: 2,
+			slidesPerRow: 2,
+			arrows: true,
+			adaptiveHeight: false,
+			prevArrow: $s('.recentes-nav-prev'),
+    		nextArrow: $s('.recentes-nav-next'),
+			responsive: [
+				{
+					breakpoint: 768,
+					settings: {
+						rows: 1,
+						slidesPerRow: 1
+					}
+				}
+			]
+		});
+    });
+
     jQuery(document).ready(function ($) {
 
         // Máscaras dos inputs
