@@ -1032,7 +1032,6 @@ wp_enqueue_script('slick');
 
             if (emailInst === '') {
                 todosPreenchidos = false;
-                camposComErro.push('E-mail Institucional');
                 if (exibirMensagens && grupoEmailInst.find('.mensagem-erro').length === 0) {
                     labelEmailInst.after('<br><span class="mensagem-erro">Preencha o e-mail institucional.</span>');
                     grupoEmailInst.find('.mensagem-erro').show();
