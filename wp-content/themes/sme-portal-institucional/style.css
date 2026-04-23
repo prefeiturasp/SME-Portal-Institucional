@@ -2335,7 +2335,7 @@ table.datatables td{
     text-decoration: underline;
 }
 
-.informacoes-evento .fa{
+.informacoes-evento table .fa{
     color: #FFA513;
     font-size: 30px;
     margin-right: 15px;

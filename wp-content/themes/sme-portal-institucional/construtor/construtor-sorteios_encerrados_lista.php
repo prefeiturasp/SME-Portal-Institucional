@@ -195,14 +195,17 @@ if (is_wp_error($response)) {
                                             if ( isset( $event['post_type'] ) && !empty( $event['post_type'] ) ) :
                                                 $class_tag = '';
                                                 $label_tag = 'Sorteio';
+                                                $label_icon = 'fa fa-cube';
 
                                                 if( $event['post_type'] == 'cortesias' ) {
                                                     $class_tag = 'cortesia-tag';
-                                                    $label_tag = 'Cortesia';
+                                                    $label_tag = 'Ordem de Inscrição';
+                                                    $label_icon = 'fa fa-bolt';
                                                 }
                                                 ?>
                                                 <span class="post-type-tag <?php echo esc_html( $class_tag ); ?> mt-auto">
-                                                    <?php echo esc_html( $event['post_type'] ); ?>
+                                                    <i class="<?php echo esc_html( $label_icon ); ?>" aria-hidden="true"></i>
+                                                    <?php echo esc_html( $label_tag ); ?>
                                                 </span>
                                             <?php endif; ?>
                                         </div>

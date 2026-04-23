@@ -657,7 +657,7 @@ $premios = $sorteio_data['premios'];
 
                                 echo '</table>';
                         
-                                echo '<span class="post-type-tag cortesia-tag">Cortesia</span>';
+                                echo '<span class="post-type-tag cortesia-tag"><i class="fa fa-bolt" aria-hidden="true"></i> Ordem de Inscrição</span>';
                             ?>
                         </div>
                     </div>
@@ -798,14 +798,19 @@ $premios = $sorteio_data['premios'];
                                                                         </div>
 
                                                                         <?php if ( isset( $event['post_type'] ) && !empty( $event['post_type'] ) ) : 
-                                                                                if($event['post_type'] == 'cortesias'){
-                                                                                    $class_tag = 'cortesia-tag';
-                                                                                } else {
-                                                                                    $class_tag = '';
-                                                                                }
-                                                                        ?>
+                                                                            if($event['post_type'] == 'cortesias'){
+                                                                                $class_tag = 'cortesia-tag';
+                                                                                $label_tag = 'Ordem de Inscrição';
+                                                                                $label_icon = 'fa fa-bolt';
+                                                                            } else {
+                                                                                $class_tag = '';
+                                                                                $label_tag = 'Sorteio';
+                                                                                $label_icon = 'fa fa-cube';
+                                                                            }
+                                                                            ?>
                                                                             <span class="post-type-tag mt-auto <?= $class_tag ?? '' ?>">
-                                                                                <?= esc_html( $event['post_type'] ); ?>
+                                                                                <i class="<?php echo esc_html( $label_icon ); ?>" aria-hidden="true"></i>
+                                                                                <?= esc_html( $label_tag ); ?>
                                                                             </span>
                                                                         <?php endif; ?>
                                                                     
