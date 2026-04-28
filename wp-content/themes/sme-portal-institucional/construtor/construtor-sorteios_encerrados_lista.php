@@ -156,69 +156,87 @@ if (is_wp_error($response)) {
             echo '<div class="row">';
                 
             foreach ($events as $event) {
-                
                 ?>
-                    <div class="col-md-4 mb-4">
+                <div class="col-12 col-md-6 mb-4">
 
-                        <div class="item-sorteio">
-                            <div class="row m-0">
+                    <div class="item-sorteio item-ativos">
+                        <div class="row h-100 m-0">
 
-                                <div class="col-12 p-0">
-                                    <?php if (!empty($event['thumbnail'])): ?>
-                                        <div class="event-thumbnail">
-                                            <img src="<?php echo esc_url($event['thumbnail']); ?>" alt="<?php echo esc_attr($event['title']); ?>" class="img-fluid">
-                                        </div>
-                                    <?php else: ?>
-                                        <div class="event-thumbnail">
-                                            <img class="img-fluid" src="<?php echo esc_url( get_field( 'imagem_placeholder', 'placeholders' )['url'] ?? '' ); ?>" width="100%">
-                                        </div>
-                                    <?php endif; ?>
-                                    <?php if ( isset( $event['post_type'] ) && !empty( $event['post_type'] ) ) : ?>
-                                        <span class="post-type-tag position-absolute">
-                                            <?php echo esc_html( mb_strtoupper( $event['post_type'] ) ); ?>
-                                        </span>
-                                    <?php endif; ?>
+                            <a href="<?php echo esc_url( get_home_url() . '/sorteio/' . $event['id'] ); ?>" class="col-12 col-md-6 p-0 image-wrapper no-external">
+                                <div class="event-thumbnail">
+                                    <div class="bg" style="background-image: url('<?php echo esc_url( $event['thumbnail'] ); ?>');"></div>
+                                    <img src="<?php echo esc_url($event['thumbnail']); ?>" alt="<?php echo esc_attr($event['title']); ?>" class="img-fluid">
                                 </div>
 
-                                <div class="col-12">
-                                    <p class="data">
+                                <div class="overlay-encerrado"></div>
+                            </a>
+
+                            <div class="col-12 col-md-6 mt-md-0 pl-md-2 mt-2 pl-0">
+                                <div class="row h-100">
+                                    <div class="col-12 col-md-10 d-flex flex-column">
+                                        <h3><a href="<?= get_home_url(); ?>/sorteio/<?= esc_html($event['id']); ?>" class="no-external"><?php echo esc_html($event['title']); ?></a></h3>
+
+                                        <div class="infos-evento my-2">
+                                            <p class="data">
+                                                <?php
+                                                    if( isset( $event['subtitulo'] ) && !empty(  $event['subtitulo'] ) ){
+                                                        echo esc_html( $event['subtitulo'] );	
+                                                    }
+                                                ?>
+                                            </p>
+
+                                            <?php if ( isset( $event['local_nome'] ) && !empty( $event['local_nome'] ) ) : ?>
+                                                <p class="local"><strong>Local: </strong><?php echo esc_html( $event['local_nome'] ); ?></p>
+                                            <?php endif; ?>
+                                        </div>
+
+                                        <div class="mt-auto d-flex">
+                                            <?php
+                                            if ( isset( $event['post_type'] ) && !empty( $event['post_type'] ) ) :
+                                                $class_tag = '';
+                                                $label_tag = 'Sorteio';
+                                                $label_icon = 'fa fa-cube';
+
+                                                if( $event['post_type'] == 'cortesias' ) {
+                                                    $class_tag = 'cortesia-tag';
+                                                    $label_tag = 'Ordem de Inscrição';
+                                                    $label_icon = 'fa fa-bolt';
+                                                }
+                                                ?>
+                                                <span class="post-type-tag <?php echo esc_html( $class_tag ); ?> mt-auto">
+                                                    <i class="<?php echo esc_html( $label_icon ); ?>" aria-hidden="true"></i>
+                                                    <?php echo esc_html( $label_tag ); ?>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-2 mt-2 p-0">
                                         <?php
-                                            if( isset( $event['subtitulo'] ) && !empty(  $event['subtitulo'] ) ){
-                                                echo esc_html( $event['subtitulo'] );	
-                                            }
-                                        ?>
-                                    </p>
-                                </div>
-
-                                <div class="col-12 col-md-9 mb-2">
-                                    <h3><a href="<?= get_home_url(); ?>/sorteio/<?= esc_html($event['id']); ?>">ENCERRADO - <?php echo esc_html($event['title']); ?></a></h3>
-                                </div>
-                                
-                                <div class="col-12 col-md-3 mb-2">
-                                    <?php
                                         $total_like1 = $event['likes'];
                                         if($total_like1 == 1){
-                                            $text_total = 'like';
+                                            $text_total = 'Like';
                                         } else {
-                                            $text_total = 'likes';
+                                            $text_total = 'Likes';
                                         }
-                        
-                                        echo '<div class="post_like">';
-                                            echo '<p class="text-center pp_like ' . $likes . '">' . $total_like1 . ' ' . $text_total . '</span><br><i class="fa fa-heart" aria-hidden="true"></i><span></p>';
-                                        echo '</div>';
-                                    ?>
-                                </div>
-
-                            </div>
+                                        ?>
                             
+                                        <div class="post_like">
+                                            <p class="pp_like d-flex flex-column justify-content-center align-items-center">
+                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/img/icone-likes.svg' ); ?>" alt="like" class="w-30">
+                                                <?php echo esc_html( "{$total_like1} {$text_total}" ); ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        
                     </div>
+                </div>
                 <?php
             }
 
             echo '</div>';
-        
         echo '</div>';
         
         // Paginação
