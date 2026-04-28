@@ -614,7 +614,7 @@ form.form-faqs label {
     text-decoration: underline;
 }
 
-/**** Sorteios Ativos ****/
+/* Novos cards da página de listagem de eventos */
 
 .item-sorteio {
     display: flex;
@@ -624,143 +624,332 @@ form.form-faqs label {
     font-family: 'Open Sans', sans-serif;
     color: #000000;
     border-radius: 10px;
-    box-shadow: 0px 4px 4px 0px #00000040;
     padding-bottom: 10px;
 }
 
-.item-sorteio img{
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+.item-sorteio.item-ativos{
+    box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.07);
+    padding-top: 10px;
+    padding-left: 10px;
 }
 
-.item-sorteio .data{
-    color: #42474A;
-    font-size: 14px;
-    margin-top: 1rem;
+.item-sorteio.item-ativos .sorteio-conteudo{
+    min-height: 180px;
 }
 
-.item-sorteio h3{
-    font-size: 20px;
+.item-sorteio.item-ativos img{
+    border-radius: 0;
 }
 
-.item-sorteio h3 a{
-    color: #003B73;
+/* .item-sorteio.item-ativos .event-thumbnail {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #000;
+    border-radius: 12px;
+} */
+
+.item-sorteio.item-ativos .event-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.item-sorteio.item-ativos .event-thumbnail .bg,
+.slide-item .slide-image .bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px);
+    transform: scale(1.1);
+    border-radius: 12px;
+}
+
+.item-sorteio.item-ativos .event-thumbnail img{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.item-sorteio.item-ativos h3{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #14447C
+}
+
+.item-sorteio.item-ativos h3 a {
+    color: #14447C;
+    text-decoration: none;
+}
+
+.item-sorteio.item-ativos h3 a:hover {
     text-decoration: underline;
 }
 
-.post-type-tag {
-    top: 40px;
-    left: 0px;
-    padding: 8px 12px;
-    font-size: 14px;
-    z-index: 2;
-    background-color: rgba(105, 161, 217, 0.80);
-    color: #fff;
-    font-weight: 700;
+.item-sorteio .pp_like span,
+.item-sorteio.item-ativos .pp_like{
+    color: #666666;
+    font-size: 10px;
+    line-height: 18px;
+    font-family: "Raleway", sans-serif;
 }
 
-.noticias-recentes .badge-pill {
-    background-color: #14457C;
+.item-sorteio.item-ativos .data,
+.item-sorteio.item-ativos .infos-evento {
+    font-family: "Raleway", sans-serif;
+    color: #3E3232;
 }
 
-.pp_like {
-    font-size: 14px;
-    color: #42474A;
+.item-sorteio.item-ativos .infos-evento {
+    border-left: 1px solid #B8B8B8;
+    padding-left: 10px;
+    margin-bottom: 5px;
 }
 
+.item-sorteio.item-ativos .infos-evento .all-dates a {
+    font-size: 12px;
+    text-decoration: none;
+}
 
-.sorteios {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
+.item-sorteio.item-ativos p{
+    font-size: 13px;
+    line-height: 18px;
+    margin-bottom: 5px;
+}
+
+.item-sorteio.item-ativos p.data {
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 18px;
+    margin-bottom: 10px;
+}
+
+.item-sorteio.item-ativos p.datas-disponiveis {
+    white-space: nowrap;
     overflow: hidden;
-    white-space: normal;
+    text-overflow: ellipsis;
 }
 
-.sorteios.slick-initialized{
-    overflow: initial;
+.item-sorteio.item-ativos p strong{
+    font-weight: 600;
 }
 
-.sorteios > div{
-    margin: 0 15px;
+.item-sorteio.item-ativos .infos-evento a{
+    font-size: 12px;
+    text-decoration: underline;
+    font-weight: 500;
+    margin-bottom: 5px;
 }
 
-.sorteios .slick-slide {
-    margin: 0 15px;
-    padding-bottom: 10px;
-}
-
-.title-ativi {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    padding: 0 15px;
-}
-
-.title-ativi h2 {
-    color: #14457C;
-    text-transform: uppercase;
-}
-
-.title-ativi hr {
-    flex-grow: 1;
-    border-bottom: 1px solid #14457C;
-    margin-top: 21px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-.title-ativi a {
-    color: #14457C;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.sorteios .arrow-left, .sorteios .arrow-right {
-    font-size: 18px;
-    line-height: 28px;
-    position: absolute;
-    top: 50%;
+.post-type-tag {
+    background: rgba(8, 99, 151, 0.8);
+    color: #FFF;
+    border-radius: 10px;
+    width: 158px;
     display: block;
-    width: 25px;
-    height: 25px;
-    padding: 0;
-    -webkit-transform: translate(0, -50%);
-    -ms-transform: translate(0, -50%);
-    transform: translate(0, -50%);
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: #14457C;
-    color: #FFFFFF;
+    height: 30px;
+    font-size: 12px;
+    padding: 7px 11px;
+    line-height: 120%;
+    font-weight: 800;
+}
+
+.post-type-tag.cortesia-tag{
+    background: rgba(255, 110, 20, 0.9);
+}
+
+.post-type-tag.inscricao-tag {
+    background: #01C74BCC;
+}
+
+.all-dates {
+    display: flex;
+    align-items: flex-start;
+}
+
+.all-dates p {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.datas-grid {
+    flex: 1;
+}
+
+.datas-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 10px;
+}
+
+.data-item {
+    padding: 0 5px;
     text-align: center;
-    border-radius: 50%;
-    box-sizing: border-box;
+    border-left: 1px solid #B8B8B8;
+    font-size: 13px;
+    line-height: 18px;
 }
 
-.sorteios .arrow-left{
-    left: -20px;
+/* Remove borda da última coluna */
+.data-item:nth-child(4n + 1) {
+    border-left: none;
 }
 
-.sorteios .arrow-right{
-    right: -20px;
+@media (max-width: 768px){
+
+    .item-sorteio.item-ativos {
+        min-width: 100%;
+        padding-right: 10px;
+    }
+
+    .custom-prev,
+    .custom-next{
+        top: 25%;
+        bottom: auto;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        background: rgba(255,255,255,0.9);
+    }
+
+    .custom-prev{
+        left:20px;
+    }
+
+    .custom-next{
+        right:20px;
+    }
+
+    .main-content-slider .swiper-pagination {
+        position: absolute !important;
+        top: 40% !important;
+    }
+}
+/* Fim do sorteio */
+
+
+.item-sorteio.item-ativos{
+    box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.07);
+    padding-top: 10px;
+    padding-left: 10px;
 }
 
-@media only screen and (max-width: 600px) {
+.item-sorteio.item-ativos img{
+    border-radius: 0;
+}
 
-    .sorteios .arrow-left, .sorteios .arrow-right{
-        font-size: 14px;
-        line-height: 24px;
-        width: 22px;
-        height: 22px;
-    }
+.item-sorteio.item-ativos .event-thumbnail img{
+    border-radius: 10px;
+}
 
-    .sorteios .arrow-left{
-        left: 3px;
-    }
-    
-    .sorteios .arrow-right{
-        right: 3px;
-    }
+.item-sorteio.item-ativos h3{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #14447C
+}
+
+.item-sorteio.item-ativos h3 a {
+    color: #14447C;
+    text-decoration: none;
+}
+
+.item-sorteio.item-ativos h3 a:hover {
+    text-decoration: underline;
+}
+
+.item-sorteio.item-ativos .pp_like{
+    color: #666666;
+    font-size: 10px;
+    line-height: 18px;
+    font-family: "Raleway", sans-serif;
+}
+
+.item-sorteio.item-ativos .data,
+.item-sorteio.item-ativos .infos-evento {
+    font-family: "Raleway", sans-serif;
+    color: #3E3232;
+}
+
+.item-sorteio.item-ativos .infos-evento {
+    border-left: 1px solid #B8B8B8;
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+
+.item-sorteio.item-ativos p{
+    font-size: 13px;
+    line-height: 18px;
+    margin-bottom: 5px;
+}
+
+.item-sorteio.item-ativos p.data {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.7rem;
+    margin-top: 0;
+}
+
+.item-sorteio.item-ativos p strong{
+    font-weight: 600;
+}
+
+.item-sorteio.item-ativos .post-type-tag {
+    background: rgba(8, 99, 151, 0.8);
+    border-radius: 10px;
+    width: 158px;
+    display: block;
+    height: 30px;
+    font-size: 12px;
+    padding: 7px 11px;
+    line-height: 120%;
+    font-weight: 800;
+    text-transform: capitalize;
+}
+
+.item-sorteio.item-ativos .post-type-tag.cortesia-tag{
+    background: rgba(255, 110, 20, 0.9);
+}
+
+.all-dates {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.all-dates p {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.datas-grid {
+    flex: 1;
+}
+
+.datas-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 10px;
+}
+
+.data-item {
+    padding: 0 5px;
+    text-align: center;
+    border-left: 1px solid #B8B8B8;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+/* Remove borda da última coluna */
+.data-item:nth-child(4n + 1) {
+    border-left: none;
 }
 
 .filtro-sorteios{
@@ -1022,4 +1211,98 @@ form.form-faqs label {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
+}
+
+/* Novo filtro de Sorteios e Cortesias */
+
+#filtro-eventos {
+    font-family: "Raleway", sans-serif;
+}
+
+#filtro-eventos .title-form h2 {
+    color: #FFA513;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#filtro-eventos #nav-tab {
+    border: none;
+}
+
+#filtro-eventos #nav-tab .nav-link {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-right: 15px;
+    text-align: left;
+    padding-bottom: 1.2rem;
+    padding-top: 1.2rem;
+    border-radius: 20px;
+    border: none;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.07);
+}
+
+#filtro-eventos #nav-tab .nav-link.active {
+    border: 1.5px solid #14447C;
+}
+
+#filtro-eventos #nav-tab .nav-link img {
+    background-color: #E8EDF2;
+    border-radius: 12px;
+    margin-right: 12px;
+}
+
+#filtro-eventos #nav-tabContent {
+    position: relative;
+}
+
+#filtro-eventos #nav-tabContent .expandir-filtros {
+    position: absolute;
+    left: 50%;
+    bottom: -20px;
+    transform: translateX(-50%);
+    border-radius: 12px;
+    background-color: #D9D9D9;
+    color: #3E3232;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form {
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.07);
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    padding: 28px;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form input,
+#filtro-eventos #nav-tabContent .select2-container--default .select2-selection--single {
+    border-radius: 6px;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form input,
+#filtro-eventos #nav-tabContent .select2-container--default .select2-selection--single .select2-selection__rendered,
+#filtro-eventos #nav-tabContent .select2-container--default .select2-selection--single .select2-selection__placeholder {
+    font-size: 14px;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form input::placeholder,
+#filtro-eventos #nav-tabContent .select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #00000040;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form label {
+    font-weight: 600;
+    color: #6F6C90;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form .form-buttons a,
+#filtro-eventos #nav-tabContent .tab-pane form .form-buttons button {
+    border-radius: 8px;
+}
+
+#filtro-eventos #nav-tabContent .tab-pane form .form-buttons a {
+    border: 1px solid #D9D9D9;
+    color: #000000E0;
 }
