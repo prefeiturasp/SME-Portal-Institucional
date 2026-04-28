@@ -1196,6 +1196,149 @@ form.form-faqs label {
   display: block;
 }
 
+/* Carrossel de eventos (Sorteios e Cortesias) */
+
+.carro-eventos .card-content {
+    flex: 1;
+}
+
+.carro-eventos .evento-item {
+    box-shadow: 0px 0px 12px 0px #00000012;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+}
+
+.carro-eventos .evento-item .img-column .image-wrapper {
+    position: relative;
+    display: block;
+}
+
+.image-wrapper img {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.image-wrapper .overlay-encerrado {
+    position: absolute;
+    overflow: hidden;
+    inset: 0;
+}
+
+.image-wrapper .overlay-encerrado::before {
+    font-family: 'Open Sans', sans-serif;
+    content: "Encerrado";
+    position: absolute;
+    top: 15px;
+    left: -42px;
+    width: 145px;
+    text-align: center;
+    letter-spacing: 0.80px;
+    transform: rotate(-45deg);
+    background: rgba(247, 22, 6, 0.9);
+    color: #fff;
+    font-weight: 800;
+    font-size: 12px;
+    padding: 6px 0;
+    z-index: 2;
+}
+
+.carro-eventos .evento-item .titulo a {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 20px;
+    color: #14447C;
+    text-decoration: none;
+}
+
+.carro-eventos .evento-item .subtitulo p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.25px;
+    line-height: 18px;
+    color: #3E3232;
+}
+
+.carro-eventos .evento-item .subtitulo p.local {
+    font-size: 12px;
+}
+
+.carro-eventos .evento-item .post-type-tag.inscricao-tag {
+    width: 80%;
+}
+
+.carro-eventos .title-ativi {
+    display: flex;
+    justify-content: space-between;
+}
+
+.carro-eventos .title-ativi h2 {
+    font-family: 'Raleway', sans-serif;
+    text-transform: none;
+    font-weight: 600;
+    color: #3E3232;
+}
+
+.carro-eventos .title-ativi h2::before {
+    content: "";
+    display: inline-block;
+    margin-right: 6px;
+    margin-bottom: 2px;
+    width: 4px;
+    height: 10px;
+    border-radius: 12px;
+    background-color: #F81539;
+}
+
+.carro-eventos .title-ativi .controls-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.carro-eventos .title-ativi .controls-wrapper a {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #3E3232;
+}
+
+.carro-eventos .title-ativi .slider-controls .arrows {
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.carro-eventos .title-ativi .slider-controls .slick-arrow{
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 12px;
+    background-color: #f5f5f5;
+    color: #000000;
+    font-size: 1.2rem;
+}
+
+.carro-eventos .slick-slide {
+    padding: 10px;
+}
+
+.carro-eventos .slick-track {
+    display: flex !important;
+}
+
+.carro-eventos .slick-slide {
+    height: auto !important;
+    display: flex !important;
+}
+
+.carro-eventos .slick-slide > div {
+    display: flex;
+    width: 100%;
+}
+
 .datas-eventos span {
     padding: 4px 10px;
     border-right: 1px solid #ddd;
