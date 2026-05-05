@@ -115,32 +115,7 @@ $premios = $sorteio_data['premios'];
                         
                             <div class="sorteio-subtitulo">
                                 <p><?= $sorteio_data['subtitulo']; ?></p>                               
-                            </div>
-
-                            <p class="data">
-                                <?php
-                                    if($sorteio_data['data_publicacao']){
-                                        echo 'Publicado em: ' . $sorteio_data['data_publicacao'];
-                                    }
-
-                                    if($sorteio_data['data_atualizacao']){
-                                        echo ' - Atualizado em: ' . $sorteio_data['data_atualizacao'];
-                                    }
-
-                                    if($sorteio_data['categorias']){
-                                        echo ' - em ';
-                                        foreach($sorteio_data['categorias'] as $categoria){
-                                            if($i == 0){
-                                                echo $categoria;
-                                            } else {
-                                                echo ', ' . $categoria;
-                                            }
-                                            $i++;
-                                        }
-                                    }
-                                ?>
-                            </p>
-                            
+                            </div>                            
                             
                             <?php if (!empty($sorteio_data['thumbnail'])): ?>
                                 <div class="event-thumbnail image-wrapper mb-4">
