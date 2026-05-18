@@ -440,7 +440,7 @@ $premios = $sorteio_data['premios'];
                                     if($genero){
                                         echo '<tr>';
                                             echo '<td class="align-top"><i class="fa fa-ticket" aria-hidden="true"></i></td>';
-                                            echo '<td><strong>Tipo de Evento: ' . $genero . '</strong></td>';
+                                            echo '<td><strong>Tipo de Evento: </strong>' . $genero . '</td>';
                                         echo '</tr>';
                                         echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
                                     }
@@ -448,14 +448,14 @@ $premios = $sorteio_data['premios'];
                                     if($tipo_evento === 'data' && $dataEvento){
                                         $qtd = $sorteio_data['meta']['evento_datas'];
                                         if($qtd > 1){
-                                            $label = 'Datas: <br>';
+                                            $label = '<strong>Datas: </strong><br>';
                                         } else {
-                                            $label = 'Data: <br>';
+                                            $label = '<strong>Data: </strong><br>';
                                         }
                                         echo '<tr>';                                            
                                                 echo '<td class="align-top"><i class="fa fa-calendar-o" aria-hidden="true"></i></td>';
                                            
-                                                echo '<td><strong>' . $label . $dataEvento . '</strong></td>';
+                                                echo '<td>' . $label . $dataEvento . '</td>';
                                         echo '</tr>';                        
                                         echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
                                     }
@@ -463,7 +463,7 @@ $premios = $sorteio_data['premios'];
                                     if($tipo_evento === 'periodo' && $periodo_evento){
                                         echo '<tr>';
                                             echo '<td class="align-top"><i class="fa fa-calendar-o" aria-hidden="true"></i></td>';
-                                            echo '<td><strong>Período: ' . $periodo_evento . '</strong></td>';
+                                            echo '<td><strong>Período: </strong>' . $periodo_evento . '</td>';
                                         echo '</tr>';
                                         echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
                                     }
@@ -471,13 +471,13 @@ $premios = $sorteio_data['premios'];
                                     if($tipo_evento === 'premio' && !(empty($premios))){
                                         echo '<tr>';
                                             echo '<td class="align-top"><i class="fa fa-gift" aria-hidden="true"></i></td>';
-                                            echo '<td><strong>Premiação:';
+                                            echo '<td><strong>Premiação: </strong>';
                                                 echo '<ul>';
                                                 foreach($premios as $premio){
                                                     echo '<li>' . $premio . '</li>';
                                                 }
                                                 echo '</ul>';
-                                            echo '</strong></td>';
+                                            echo '</td>';
                                         echo '</tr>';
                                         echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
                                     }
@@ -485,7 +485,7 @@ $premios = $sorteio_data['premios'];
                                     if($duracao){
                                         echo '<tr>';
                                             echo '<td class="align-top"><i class="fa fa-clock-o" aria-hidden="true"></i></td>';
-                                            echo '<td><strong>Duração: ' . $duracao . '</strong></td>';
+                                            echo '<td><strong>Duração: </strong>' . $duracao . '</td>';
                                         echo '</tr>';
                                         echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
                                     }
@@ -493,7 +493,7 @@ $premios = $sorteio_data['premios'];
                                     if($class_indicativa){
                                         echo '<tr>';
                                             echo '<td class="align-top"><i class="fa fa-users" aria-hidden="true"></i></td>';
-                                            echo '<td><strong>Classificação Indicativa: ' . $class_indicativa . '</strong></td>';
+                                            echo '<td><strong>Classificação Indicativa: </strong>' . $class_indicativa . '</td>';
                                         echo '</tr>';
                                         echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
                                     }
@@ -501,7 +501,7 @@ $premios = $sorteio_data['premios'];
                                     if($local){
                                         echo '<tr>';
                                             echo '<td class="align-top"><i class="fa fa-building-o" aria-hidden="true"></i></td>';
-                                            echo '<td><strong>Local: ' . $local . '</strong></td>';
+                                            echo '<td><strong>Local: </strong>' . $local . '</td>';
                                         echo '</tr>';
                                         echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
                                     }
@@ -509,7 +509,7 @@ $premios = $sorteio_data['premios'];
                                     if($endereco){
                                         echo '<tr>';
                                             echo '<td class="align-top"><i class="fa fa-map-marker" aria-hidden="true"></i></td>';
-                                            echo '<td><strong>Endereço: ' . $endereco . '</strong></td>';
+                                            echo '<td><strong>Endereço: </strong>' . $endereco . '</td>';
                                         echo '</tr>';
                                         echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
                                     }
@@ -518,12 +518,12 @@ $premios = $sorteio_data['premios'];
                                         if ($tituloLink) {
                                             echo '<tr>';
                                                 echo '<td class="align-top"><i class="fa fa-link" aria-hidden="true"></i></td>';
-                                                echo '<td><strong>Link para mais informações: <a href="' . $link . '" target="_blank">' . $tituloLink . '</a></strong></td>';
+                                                echo '<td><strong>Link para mais informações: </strong><a href="' . $link . '" target="_blank">' . $tituloLink . '</a></td>';
                                             echo '</tr>';
                                         } else {
                                             echo '<tr>';
                                                 echo '<td class="align-top"><i class="fa fa-link" aria-hidden="true"></i></td>';
-                                                echo '<td><strong>Link para mais informações: <a href="' . $link . '" target="_blank">Saiba Mais</a></strong></td>';
+                                                echo '<td><strong>Link para mais informações: </strong><a href="' . $link . '" target="_blank">Saiba Mais</a></td>';
                                             echo '</tr>';
                                         }
                                     }
@@ -533,7 +533,7 @@ $premios = $sorteio_data['premios'];
                                     if($dateTime && $dataEncerra){
                                         echo '<tr>';
                                             echo '<td class="align-top"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></td>';
-                                            echo '<td><strong>Inscrições até: ' . $dateTime->format('d/m/Y') . '</strong></td>';
+                                            echo '<td><strong>Inscrições até: </strong>' . $dateTime->format('d/m/Y') . '</td>';
                                         echo '</tr>';
                                         echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
                                     }
