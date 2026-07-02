@@ -197,10 +197,19 @@ $premios = $sorteio_data['premios'];
                                             <div class="form-row">
 
                                                 <div class="form-group col-12 col-md-5" id="grupo-email-institucional">
-                                                    <label for="emailInsti">E-mail Institucional <span>*</span></label>
+                                                    <label for="emailInsti">
+                                                        E-mail Institucional <span>*</span>
+                                                        <i
+                                                            class="fa fa-info-circle text-info"
+                                                            aria-hidden="true"
+                                                            data-toggle="tooltip"
+                                                            title='&#9888; Certifique-se de que o e-mail informado foi digitado corretamente, pois ele será utilizado para enviar as próximas orientações do evento, caso você seja contemplado(a).'
+                                                            >
+                                                        </i>
+                                                    </label>
                                                     <input type="email" name="emailInsti" class="form-control" id="emailInsti" placeholder="Insira seu e-mail institucional">
                                                 </div>           
-                                                <div class="form-group col-12 col-md-4">
+                                                <div class="form-group col-12 col-md-4" id="grupo-email-secundario">
                                                     <label for="emailSec">E-mail Secundário <span>*</span></label>
                                                     <input type="email"  name="emailSec" class="form-control" id="emailSec" placeholder="email@provedor.com.br">
                                                 </div>
@@ -744,6 +753,10 @@ wp_enqueue_script('slick');
 ?>
 <script>
     
+    // Pega a listagem de dominios de e-mail que devem ser verificados.
+    var validacaoConfig = {
+        'listaDominiosEmail': <?php echo wp_json_encode( $sorteio_data['dominios_validacao'] ); ?>
+    }
 
     var $s = jQuery.noConflict();
     $s(document).ready(function(){
@@ -805,13 +818,30 @@ wp_enqueue_script('slick');
             if ($(campo).is('input[type="checkbox"]')) {
                 $(campo).closest('.form-check').find('.mensagem-erro').hide();
             } else {
-                $(campo).next('.mensagem-erro').hide();
+                $(campo).next('.mensagem-erro').remove();
             }
         }
 
         function validarCPF(cpf) {
             const cpfLimpo = cpf.replace(/\D/g, '');
             return /^\d{11}$/.test(cpfLimpo);
+        }
+
+        // Função para validar o email digitado nos campos do formulário de inscrição
+        function possuiDominioEmailSuspeito(email) {
+
+            if (!email || !email.includes('@')) {
+                return false;
+            }
+        
+            const dominio = email
+                .split('@')
+                .pop()
+                .toLowerCase()
+                .trim();
+
+            return validacaoConfig.listaDominiosEmail.map(item => item.toLowerCase()).includes(dominio);
+        
         }
 
         function validarCampos(exibirMensagens = false) {
@@ -833,6 +863,43 @@ wp_enqueue_script('slick');
                         todosPreenchidos = false;
                         camposComErro.push(`${label} (inválido)`);
                         if (exibirMensagens) adicionarMensagemErro($campo, 'CPF inválido. O CPF deve ter 11 dígitos.');
+                    } else {
+                        removerMensagemErro($campo);
+                    }
+                    return;
+                }
+
+                // Validação específica para o campo de e-mail secundário
+                if (campo === '#emailSec') {
+                    const emailInstitucional = $.trim($('#emailInsti').val());
+                    const emailSecundario = $.trim($campo.val());
+
+                    if (emailSecundario === '') {
+
+                        removerMensagemErro($campo);
+                        todosPreenchidos = false;
+                        camposComErro.push(label);
+                        if (exibirMensagens) adicionarMensagemErro($campo, 'Este campo é de preenchimento obrigatório.');
+
+                    } else if (possuiDominioEmailSuspeito(emailSecundario)) {
+
+                        removerMensagemErro($campo);
+                        todosPreenchidos = false;
+                        camposComErro.push(`${label} (verificar)`);
+                    
+                        if (exibirMensagens) {
+                            adicionarMensagemErro(
+                                $campo,
+                                'O domínio informado parece estar incorreto. Verifique o e-mail digitado.'
+                            );
+                        }
+
+                    } else if (emailSecundario === emailInstitucional) {
+                        
+                        removerMensagemErro($campo);
+                        todosPreenchidos = false;
+                        camposComErro.push(`${label} (inválido)`);
+                        if (exibirMensagens) adicionarMensagemErro($campo, 'O e-mail secundário deve ser diferente do e-mail institucional.');
                     } else {
                         removerMensagemErro($campo);
                     }
@@ -921,7 +988,7 @@ wp_enqueue_script('slick');
             if (emailInst === '') {
                 todosPreenchidos = false;
                 if (exibirMensagens && grupoEmailInst.find('.mensagem-erro').length === 0) {
-                    labelEmailInst.after('<br><span class="mensagem-erro">Preencha o e-mail institucional.</span>');
+                    grupoEmailInst.append('<span class="mensagem-erro">Preencha o e-mail institucional.</span>');
                     grupoEmailInst.find('.mensagem-erro').show();
                 } else {
                     grupoEmailInst.find('.mensagem-erro').show();
@@ -930,7 +997,7 @@ wp_enqueue_script('slick');
                 todosPreenchidos = false;
                 camposComErro.push('E-mail Institucional');
                 if (exibirMensagens && grupoEmailInst.find('.mensagem-erro').length === 0) {
-                    labelEmailInst.after('<br><span class="mensagem-erro">É obrigatório a utilização do e-mail institucional</span>');
+                    grupoEmailInst.append('<span class="mensagem-erro">É obrigatório a utilização do e-mail institucional</span>');
                     grupoEmailInst.find('.mensagem-erro').show();
                 } else {
                     grupoEmailInst.find('.mensagem-erro').html('É obrigatório a utilização do e-mail institucional').show();
@@ -1125,67 +1192,103 @@ wp_enqueue_script('slick');
                 return;
             }
 
-            const botaoEnviar = $('#botaoEnviar');
-            const form = $(this)[0];
-            const formOverlay = $('#formLoadingOverlay');
+            const emailPrincipal = $('#emailInsti').val();
+            const emailSecundario = $('#emailSec').val();
 
-            botaoEnviar.prop('disabled', true);
-            formOverlay.show();
+            Swal.fire({
+                html: `
+                    <div class="text-left">
+                        <h2 class="mb-4"><i class="fa fa-exclamation-circle text-warning" aria-hidden="true"></i> Confirme seus e-mails</h2>
+                        <span>Antes de concluir sua inscrição, confira se os e-mails informados estão corretos:</span>
 
-            fetch('/wp-admin/admin-ajax.php?action=processar_inscricao', {
-                method: 'POST',
-                body: new URLSearchParams(new FormData(form))
-            })
-            .then(async response => {
-                const data = await response.json();
+                        <div class="my-3">
+                            <div><strong>E-mail principal:</strong> <strong class="new-text-primary">${emailPrincipal}</strong></div>
+                            <div><strong>E-mail secundário:</strong> <strong class="new-text-primary">${emailSecundario}</strong></div>
+                        </div>
 
-                if (!response.ok) {
-                    throw new Error(data.data?.message || 'Erro no servidor');
+                        <span>Toda comunicação sobre o evento, caso você seja contemplado(a), será enviada para esses e-mails.</span>
+
+                        <p class="mt-4">Deseja continuar?</p>
+                        <hr>
+                    </div>
+                `,
+                width: 600,
+                showCancelButton: true,
+                confirmButtonText: 'Sim',
+                cancelButtonText: 'Não',
+                confirmButtonColor: '#14447C',
+                reverseButtons: true
+
+            }).then((result) => {
+
+                if (!result.isConfirmed) {
+                    return;
                 }
 
-                if (data.success) {
-                    form.reset();
-                    $('.is-invalid').removeClass('is-invalid');
-                    $('.mensagem-erro').remove();
+                const botaoEnviar = $('#botaoEnviar');
+                const form = $(this)[0];
+                const formOverlay = $('#formLoadingOverlay');
+
+                botaoEnviar.prop('disabled', true);
+                formOverlay.show();
+
+                fetch('/wp-admin/admin-ajax.php?action=processar_inscricao', {
+                    method: 'POST',
+                    body: new URLSearchParams(new FormData(form))
+                })
+                .then(async response => {
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.data?.message || 'Erro no servidor');
+                    }
+
+                    if (data.success) {
+                        form.reset();
+                        $('.is-invalid').removeClass('is-invalid');
+                        $('.mensagem-erro').remove();
+                        formOverlay.hide();
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Inscrição realizada com sucesso!',
+                            html: '<p>Agora é só aguardar e torcer. Boa sorte!</p><p>Caso deseje cancelar sua inscrição, acesse novamente a mesma notícia do sorteio, informe o <strong>CPF</strong> no formulário de inscrição e siga as instruções exibidas.</p>',
+                            confirmButtonText: 'Fechar',
+                        });
+                    } else if (data.data?.code === 409) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'CPF já cadastrado para o sorteio!',
+                            text: 'Este CPF já está cadastrado para concorrer. Agora é só aguardar e torcer. Boa sorte!',
+                            confirmButtonText: 'Fechar',
+                        });
+                    } else if (data.data?.code === 410) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Atenção',
+                            text: 'Você está impedido de se inscrever para este sorteio, devido à sua ausência em um evento anterior. Você poderá participar de novos sorteios a partir de ' + data.data.response_completa?.data_permissao + '.',
+                            confirmButtonText: 'Fechar',
+                        });
+                    } else {
+                        throw new Error(data.data?.message || 'Erro desconhecido');
+                    }
+                    console.log(data);
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro na inscrição',
+                        text: error.message,
+                        confirmButtonText: 'Fechar'
+                    });
+                })
+                .finally(() => {
+                    botaoEnviar.prop('disabled', false);
                     formOverlay.hide();
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Inscrição realizada com sucesso!',
-                        html: '<p>Agora é só aguardar e torcer. Boa sorte!</p><p>Caso deseje cancelar sua inscrição, acesse novamente a mesma notícia do sorteio, informe o <strong>CPF</strong> no formulário de inscrição e siga as instruções exibidas.</p>',
-                        confirmButtonText: 'Fechar',
-                    });
-                } else if (data.data?.code === 409) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'CPF já cadastrado para o sorteio!',
-                        text: 'Este CPF já está cadastrado para concorrer. Agora é só aguardar e torcer. Boa sorte!',
-                        confirmButtonText: 'Fechar',
-                    });
-                } else if (data.data?.code === 410) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Atenção',
-                        text: 'Você está impedido de se inscrever para este sorteio, devido à sua ausência em um evento anterior. Você poderá participar de novos sorteios a partir de ' + data.data.response_completa?.data_permissao + '.',
-                        confirmButtonText: 'Fechar',
-                    });
-                } else {
-                    throw new Error(data.data?.message || 'Erro desconhecido');
-                }
-                console.log(data);
-            })
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro na inscrição',
-                    text: error.message,
-                    confirmButtonText: 'Fechar'
                 });
-            })
-            .finally(() => {
-                botaoEnviar.prop('disabled', false);
-                formOverlay.hide();
+
             });
+
         });
     });
 

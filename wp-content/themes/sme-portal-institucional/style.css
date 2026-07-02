@@ -2675,3 +2675,7 @@ table.datatables td{
         display: none;
     }
 }
+
+.new-text-primary {
+    color: #14447C;
+}
