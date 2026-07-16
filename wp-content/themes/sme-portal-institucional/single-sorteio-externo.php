@@ -86,7 +86,7 @@ $premios = $sorteio_data['premios'];
             <article class="sorteio-externo content-sorteio" data-tipo-evento="<?php echo esc_html( $sorteio_data['meta']['tipo_evento'] ); ?>">
                 <div class="row">
 
-                    <div class="col-12 col-md-8">
+                    <div class="col-12 col-lg-8">
                         <div class="infos-topo-noticia">
 
                             <div class="row">
@@ -115,32 +115,7 @@ $premios = $sorteio_data['premios'];
                         
                             <div class="sorteio-subtitulo">
                                 <p><?= $sorteio_data['subtitulo']; ?></p>                               
-                            </div>
-
-                            <p class="data">
-                                <?php
-                                    if($sorteio_data['data_publicacao']){
-                                        echo 'Publicado em: ' . $sorteio_data['data_publicacao'];
-                                    }
-
-                                    if($sorteio_data['data_atualizacao']){
-                                        echo ' - Atualizado em: ' . $sorteio_data['data_atualizacao'];
-                                    }
-
-                                    if($sorteio_data['categorias']){
-                                        echo ' - em ';
-                                        foreach($sorteio_data['categorias'] as $categoria){
-                                            if($i == 0){
-                                                echo $categoria;
-                                            } else {
-                                                echo ', ' . $categoria;
-                                            }
-                                            $i++;
-                                        }
-                                    }
-                                ?>
-                            </p>
-                            
+                            </div>                            
                             
                             <?php if (!empty($sorteio_data['thumbnail'])): ?>
                                 <div class="event-thumbnail image-wrapper mb-4">
@@ -150,6 +125,127 @@ $premios = $sorteio_data['premios'];
                                     <?php endif; ?>
                                 </div>
                             <?php endif; ?>
+                        </div>
+
+                        <div class="d-lg-none">                       
+                            <div class="informacoes-evento">
+                                <?php
+
+                                    echo '<table>';
+                                        echo '<tr>';
+                                            echo '<td class="align-top"><i class="fa fa-question" aria-hidden="true"></i></td>';
+                                            echo '<td><strong>' . esc_html($sorteio_data['title']) . '</strong></td>';
+                                        echo '</tr>';
+
+                                        echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
+
+                                        if($genero){
+                                            echo '<tr>';
+                                                echo '<td class="align-top"><i class="fa fa-ticket" aria-hidden="true"></i></td>';
+                                                echo '<td><strong>Tipo de Evento: </strong>' . $genero . '</td>';
+                                            echo '</tr>';
+                                            echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
+                                        }
+
+                                        if($tipo_evento === 'data' && $dataEvento){
+                                            $qtd = $sorteio_data['meta']['evento_datas'];
+                                            if($qtd > 1){
+                                                $label = '<strong>Datas: </strong><br>';
+                                            } else {
+                                                $label = '<strong>Data: </strong><br>';
+                                            }
+                                            echo '<tr>';                                            
+                                                    echo '<td class="align-top"><i class="fa fa-calendar-o" aria-hidden="true"></i></td>';
+                                            
+                                                    echo '<td>' . $label . $dataEvento . '</td>';
+                                            echo '</tr>';                        
+                                            echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
+                                        }
+
+                                        if($tipo_evento === 'periodo' && $periodo_evento){
+                                            echo '<tr>';
+                                                echo '<td class="align-top"><i class="fa fa-calendar-o" aria-hidden="true"></i></td>';
+                                                echo '<td><strong>Período: </strong>' . $periodo_evento . '</td>';
+                                            echo '</tr>';
+                                            echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
+                                        }
+
+                                        if($tipo_evento === 'premio' && !(empty($premios))){
+                                            echo '<tr>';
+                                                echo '<td class="align-top"><i class="fa fa-gift" aria-hidden="true"></i></td>';
+                                                echo '<td><strong>Premiação: </strong>';
+                                                    echo '<ul>';
+                                                    foreach($premios as $premio){
+                                                        echo '<li>' . $premio . '</li>';
+                                                    }
+                                                    echo '</ul>';
+                                                echo '</td>';
+                                            echo '</tr>';
+                                            echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
+                                        }
+
+                                        if($duracao){
+                                            echo '<tr>';
+                                                echo '<td class="align-top"><i class="fa fa-clock-o" aria-hidden="true"></i></td>';
+                                                echo '<td><strong>Duração: </strong>' . $duracao . '</td>';
+                                            echo '</tr>';
+                                            echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
+                                        }
+
+                                        if($class_indicativa){
+                                            echo '<tr>';
+                                                echo '<td class="align-top"><i class="fa fa-users" aria-hidden="true"></i></td>';
+                                                echo '<td><strong>Classificação Indicativa: </strong>' . $class_indicativa . '</td>';
+                                            echo '</tr>';
+                                            echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
+                                        }
+
+                                        if($local){
+                                            echo '<tr>';
+                                                echo '<td class="align-top"><i class="fa fa-building-o" aria-hidden="true"></i></td>';
+                                                echo '<td><strong>Local: </strong>' . $local . '</td>';
+                                            echo '</tr>';
+                                            echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
+                                        }
+
+                                        if($endereco){
+                                            echo '<tr>';
+                                                echo '<td class="align-top"><i class="fa fa-map-marker" aria-hidden="true"></i></td>';
+                                                echo '<td><strong>Endereço: </strong>' . $endereco . '</td>';
+                                            echo '</tr>';
+                                            echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
+                                        }
+
+                                        if($link){
+                                            if ($tituloLink) {
+                                                echo '<tr>';
+                                                    echo '<td class="align-top"><i class="fa fa-link" aria-hidden="true"></i></td>';
+                                                    echo '<td><strong>Link para mais informações: </strong><a href="' . $link . '" target="_blank">' . $tituloLink . '</a></td>';
+                                                echo '</tr>';
+                                            } else {
+                                                echo '<tr>';
+                                                    echo '<td class="align-top"><i class="fa fa-link" aria-hidden="true"></i></td>';
+                                                    echo '<td><strong>Link para mais informações: </strong><a href="' . $link . '" target="_blank">Saiba Mais</a></td>';
+                                                echo '</tr>';
+                                            }
+                                        }
+
+                                        $dateTime = \DateTime::createFromFormat('Ymd', $dataEncerra);
+
+                                        if($dateTime && $dataEncerra){
+                                            echo '<tr>';
+                                                echo '<td class="align-top"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></td>';
+                                                echo '<td><strong>Inscrições até: </strong>' . $dateTime->format('d/m/Y') . '</td>';
+                                            echo '</tr>';
+                                            echo '<tr><td colspan="2"><span class="divisor"></span></td></tr>';
+                                        }
+                                            
+
+                                    echo '</table>';
+                            
+                                    echo '<span class="post-type-tag"><i class="fa fa-cube" aria-hidden="true"></i> Sorteio</span>';
+                                ?>
+                            </div>
                         </div>
 
                         <div class="entry-content infos-noticia">
@@ -459,7 +555,7 @@ $premios = $sorteio_data['premios'];
 
                     </div>
 
-                    <div class="col-12 col-md-4">                       
+                    <div class="d-none d-lg-block col-12 col-lg-4">                       
                         <div class="informacoes-evento">
                             <?php
 
@@ -505,7 +601,7 @@ $premios = $sorteio_data['premios'];
                                     if($tipo_evento === 'premio' && !(empty($premios))){
                                         echo '<tr>';
                                             echo '<td class="align-top"><i class="fa fa-gift" aria-hidden="true"></i></td>';
-                                            echo '<td><strong>Premiação:</strong>';
+                                            echo '<td><strong>Premiação: </strong>';
                                                 echo '<ul>';
                                                 foreach($premios as $premio){
                                                     echo '<li>' . $premio . '</li>';
