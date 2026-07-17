@@ -547,6 +547,10 @@ class Construtor extends Util
 															elseif( get_row_layout() == 'filtro_sorteios' ):
 																get_template_part( 'construtor/construtor', 'filtro_sorteios' );
 
+															// Carrossel de banners
+															elseif( get_row_layout() == 'fx_carrossel_banners_1_1' ):
+																get_template_part( 'construtor/construtor', 'carrossel_banners_1_1' );
+
 															// Integracao Pagina
 															elseif( get_row_layout() == 'integrar_pagina' ):
 
