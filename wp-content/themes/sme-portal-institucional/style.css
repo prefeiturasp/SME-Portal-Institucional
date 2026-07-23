@@ -2679,3 +2679,71 @@ table.datatables td{
 .new-text-primary {
     color: #14447C;
 }
+
+/* Ajustes do cabeçalho (Versão mobile) */
+
+.cabecalho-acessibilidade{
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(-8px);
+    transition:
+        max-height .25s ease,
+        opacity .2s ease,
+        transform .25s ease;
+}
+
+.cabecalho-acessibilidade.is-visible,
+.cabecalho-acessibilidade:focus-within{
+    max-height:120px;
+    opacity:1;
+    transform:translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cabecalho-acessibilidade {
+        transition: none;
+    }
+}
+
+@media (max-width: 767px) {   
+    .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-container form {
+        width: fit-content;
+    }
+
+    .logo-container form button {
+        font-size: 1rem;
+    }
+
+    .logo-container .logo-topo {
+        margin: 0;
+    }
+
+    .logo-container .logo-topo img {
+        max-width: 60%;
+    }
+
+    .logo-principal .title-home {
+        font-size: 24px !important;
+        padding-top: 1rem;
+    }
+
+    .cabecalho-cinza-claro .menu-outros li a {
+        font-size: 10px;
+    }
+
+    .cabecalho-acessibilidade .list-inline-mob .list-inline-item {
+        margin-bottom: 8px;
+    }
+
+    .row {
+        margin-right: -10px;
+        margin-left: -10px;
+    }
+}
