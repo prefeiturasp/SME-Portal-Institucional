@@ -1,4 +1,4 @@
-<div class="container my-4">
+<div class="container my-0 my-md-4">
     <?php if ( have_rows( 'banners' ) ) : ?>
         <div class="banner-slider">
             <?php
