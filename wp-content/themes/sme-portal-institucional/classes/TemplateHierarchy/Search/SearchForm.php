@@ -37,7 +37,7 @@ class SearchForm
 	public static function searchFormHeader(){
 		?>
         <section class="container">
-        <section class="row">
+        <section class="row mx-0">
             <section class="col-12 d-flex flex-row-reverse mt-3 header-search">
                 <form action="<?php echo home_url( '/' ); ?>" method="get" class="navbar-form navbar-left">
                     <fieldset>
