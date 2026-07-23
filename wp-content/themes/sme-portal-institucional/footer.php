@@ -137,18 +137,14 @@
         token: "aa1f4871439ba18dabef482aae5fd934"
     });
 
-	document.onkeyup = PresTab;
- 
-	function PresTab(e)	{
-		var keycode = (window.event) ? event.keyCode : e.keyCode;
-		
+	jQuery('.btn-acessibilidade-mobile').on('click', function () {
 
-		if (keycode == 9){
-			jQuery('.cabecalho-acessibilidade').show();	
-			jQuery(" a[accesskey='1']").focus();
-			document.onkeyup = null;
-		}
-	}
+		const $barra = jQuery('.cabecalho-acessibilidade');
+		const aberta = $barra.toggleClass('is-visible').hasClass('is-visible');
+
+		jQuery(this).attr('aria-expanded', aberta);
+
+	});
 
 	jQuery('.container-a-icones-home').click(function(){
 		jQuery(this).toggleClass('active');
