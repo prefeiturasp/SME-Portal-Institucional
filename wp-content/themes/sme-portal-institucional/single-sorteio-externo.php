@@ -872,6 +872,17 @@ $premios = $sorteio_data['premios'];
 wp_register_script('slick',  STM_THEME_URL . 'classes/assets/js/slick.js', array ('jquery'), false, false);
 wp_enqueue_script('slick');
 ?>
+
+<?php if ( wp_is_mobile() ) : ?>
+    <script>
+		jQuery(function ($) {
+			$('html, body').animate({
+            	scrollTop: $('.sorteio-externo').offset().top - 10
+        	}, 400);
+		});
+	</script>
+<?php endif; ?>
+
 <script>
     
     // Pega a listagem de dominios de e-mail que devem ser verificados.
