@@ -56,7 +56,9 @@
 					}
 
 					// Sort array of posts by date
-					usort($posts, 'sort_objects_by_date');
+					usort($posts, function ($a, $b) {
+						return strcmp($b->post_date, $a->post_date);
+					});
 
 					//echo "<pre>";
 					//print_r($posts);

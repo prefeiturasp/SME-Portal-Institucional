@@ -372,8 +372,21 @@ class Construtor extends Util
 							<?php
 							//banner
 							if(get_field('fx_flex_habilitar_banner') != null){
-								$imagem_banner = get_field('fx_flex_banner');//Pega todos os valores da imagem no array
-								echo '<div class="bn_fx_banner"><img src="'.$imagem_banner['url'].'" width="100%" alt="'.$imagem_banner['alt'].'"></div>';
+								$imagem_banner = get_field('fx_flex_banner');
+								$banner_url = '';
+								$banner_alt = '';
+								if (is_array($imagem_banner)) {
+									$banner_url = $imagem_banner['url'] ?? '';
+									$banner_alt = $imagem_banner['alt'] ?? '';
+								} elseif (is_numeric($imagem_banner)) {
+									$banner_url = wp_get_attachment_image_url((int) $imagem_banner, 'full');
+									$banner_alt = get_post_meta((int) $imagem_banner, '_wp_attachment_image_alt', true);
+								} elseif (is_string($imagem_banner)) {
+									$banner_url = $imagem_banner;
+								}
+								if ($banner_url) {
+									echo '<div class="bn_fx_banner"><img src="'.esc_url($banner_url).'" width="100%" alt="'.esc_attr($banner_alt).'"></div>';
+								}
 							}
 							
 							if( have_rows('fx_flex_layout') ):

@@ -70,11 +70,10 @@
                                 //$embed .= '<div class="row">';
 
                                 foreach($jsonArrayResponse as $acervo){
-                                    if($acervo->arquivos_particionados){
-                                        $qtdArquivos = count($acervo->arquivos_particionados);
-                                    } else {
-                                        $qtdArquivos = 1;
-                                    }
+                                    $arquivosParticionados = $acervo->arquivos_particionados ?? null;
+                                    $qtdArquivos = is_countable($arquivosParticionados)
+                                        ? max(1, count($arquivosParticionados))
+                                        : (is_numeric($arquivosParticionados) ? max(1, (int) $arquivosParticionados) : 1);
                                     
                                     
                                     $get_format = '';

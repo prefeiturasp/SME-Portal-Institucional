@@ -8,7 +8,7 @@
         wp_enqueue_style('slick-theme');
 
         $qtd = get_sub_field('qtd');
-        $colunas = get_sub_field('colunas');
+        $colunas = max(1, (int) get_sub_field('colunas'));
         $titulo = get_sub_field('titulo');
         $link = get_sub_field('link_ver_todos');
         $calc = (1360 / $colunas) - 30;
