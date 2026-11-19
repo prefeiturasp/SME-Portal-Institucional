@@ -9,6 +9,11 @@ if (is_wp_error($response)) {
 
 $data = json_decode(wp_remote_retrieve_body($response));
 
+if (!is_array($data)) {
+    echo 'Erro ao carregar os destaques.';
+    return;
+}
+
 //echo "<pre>";
 //print_r($data);
 //echo "</pre>";

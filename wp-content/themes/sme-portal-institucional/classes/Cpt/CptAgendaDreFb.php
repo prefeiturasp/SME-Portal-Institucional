@@ -52,10 +52,7 @@ class CptAgendaDreFb extends Cpt
 			case 'qtd_evento':
 				$qtd_evento = get_field('eventos_do_dia', $post->ID);
 				//print_r($qtd_evento);
-				$qtd = count($qtd_evento);
-				if( !isset($_GET['orderby']) || $_GET['orderby'] == 'data_evento'){
-					$qtd = count($qtd_evento);
-				}
+				$qtd = is_countable($qtd_evento) ? count($qtd_evento) : 0;
 				if($qtd == 1){
 					echo $qtd . ' evento';
 				} elseif($qtd > 1) {

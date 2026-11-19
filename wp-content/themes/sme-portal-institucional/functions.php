@@ -1155,7 +1155,7 @@ add_action('admin_enqueue_scripts', 'admin_style');
 //remover opções de cores do perfil de usuários
 function admin_color_scheme() {
 	global $_wp_admin_css_colors;
-	$_wp_admin_css_colors = 0;
+	$_wp_admin_css_colors = array();
 }
 add_action('admin_head', 'admin_color_scheme');
 
@@ -2557,6 +2557,14 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 	$parts = parse_url($matches[0]);
 	parse_str($parts['query'], $query);
 
+    foreach (['modalidadeb', 'componenteb', 'anob', 'setorb', 'idiomab'] as $filtro) {
+        $valores = $query[$filtro] ?? [];
+        $valores = is_array($valores) ? $valores : [$valores];
+        $query[$filtro] = array_values(array_filter($valores, static function ($valor) {
+            return is_scalar($valor) && (string) $valor !== '';
+        }));
+    }
+
 	// Debbug -> Visualizar todas os valores de GET recebido
 	//print_r($query);
 
@@ -2582,7 +2590,7 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 	}
 
 	// Se tiver os valores de Modalidade incluir na URL da API
-	if($query['modalidadeb'] != ''){
+	if(!empty($query['modalidadeb'])){
 		$modalidades = implode(",", $query['modalidadeb']);
 		
 		if(is_numeric($query['modalidadeb'][0])){
@@ -2593,7 +2601,7 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 	}
 
 	// Se tiver os valores de Componente incluir na URL da API
-	if($query['componenteb'] != ''){
+	if(!empty($query['componenteb'])){
 		$componentes = implode(",", $query['componenteb']);		
 
 		if(is_numeric($query['componenteb'][0])){
@@ -2604,13 +2612,13 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 	}
 
 	// Se tiver os valores de Ano incluir na URL da API
-	if($query['anob'] != ''){
+	if(!empty($query['anob'])){
 		$anos = implode(",", $query['anob']);
 		$url = $url . '&ano_da_publicacao_acervo_digital=' . $anos;
 	}
 	
 	// Se tiver os valores de Setor incluir na URL da API
-	if($query['setorb'] != ''){
+	if(!empty($query['setorb'])){
 		$setores = implode(",", $query['setorb']);		
 
 		if(is_numeric($query['setorb'][0])){
@@ -2630,7 +2638,7 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 	}
 
 	// Se tiver os valores de Idioma incluir na URL da API
-	if($query['idiomab'] != ''){
+	if(!empty($query['idiomab'])){
 		$idiomas = implode(",", $query['idiomab']);		
 
 		if(is_numeric($query['idiomab'][0])){
@@ -2678,11 +2686,10 @@ function embed_handler_acervo( $matches, $attr, $url, $rawattr ) {
 	$embed .= '<div class="row m-0">';
 
 	foreach($jsonArrayResponse as $acervo){
-		if($acervo->arquivos_particionados){
-			$qtdArquivos = count($acervo->arquivos_particionados);
-		} else {
-			$qtdArquivos = 1;
-		}
+		$arquivosParticionados = $acervo->arquivos_particionados ?? null;
+		$qtdArquivos = is_countable($arquivosParticionados)
+			? max(1, count($arquivosParticionados))
+			: (is_numeric($arquivosParticionados) ? max(1, (int) $arquivosParticionados) : 1);
 		
 		
 		if($acervo->substituir_capa_acervo_digital != ''){
@@ -3272,6 +3279,7 @@ function editar_concursos(){
 	if(!current_user_can('administrator')){
 		$grupos = get_user_meta($user->ID,'grupo',true);
 		$concursos = array();
+		$result = array();
 
 		if($grupos && $grupos !=''){
 			foreach($grupos as $grupo){
