@@ -58,6 +58,7 @@ function wpse_user_can_edit( $user_id, $page_id ) {
 
     // pega o grupo que o usuario pertence
     $variable = get_field('grupo', 'user_' . $user_id);
+    $todasPaginas = array();
 
     // verifica se esta liberado para editar todas paginas
     if($variable && $variable != ''){
@@ -71,7 +72,7 @@ function wpse_user_can_edit( $user_id, $page_id ) {
     // Post type que sao liberados sem filtro individual
     $dres = array('agenda-dre-bt', 'agenda-dre-cs', 'agenda-dre-fb', 'agendaconselhocae', 'agendaconselhocme', 'agendaconselhocacs', 'agendaconselhocrece');
 
-    if(in_array($_GET['post_type'], $dres)){
+    if(in_array($_GET['post_type'] ?? '', $dres)){
         return true;
     }
 

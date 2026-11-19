@@ -12,7 +12,7 @@ if($eleitoral && !current_user_can('administrator')){
     if($url == ''){
         $url = get_home_url();
     }
-    if(in_array($current_id, $pages)){
+    if(is_array($pages) && in_array($current_id, $pages)){
         wp_redirect($url);
     }    
 }
